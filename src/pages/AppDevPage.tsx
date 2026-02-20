@@ -49,10 +49,10 @@ export default function AppDevPage() {
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "hsl(210, 50%, 90%)" }}
+        style={{ background: "hsl(248, 50%, 91%)" }}
       >
         <div className="absolute right-0 top-0 h-full w-1/2 flex items-center justify-center pointer-events-none select-none">
-          <img src={objApp} alt="" className="w-[380px] max-w-[50vw] object-contain animate-float" style={{ filter: "drop-shadow(0 32px 64px rgba(100,60,220,0.20))" }} />
+          <img src={objApp} alt="" className="w-[380px] max-w-[50vw] object-contain" style={{ filter: "drop-shadow(0 32px 64px rgba(100,60,220,0.24))" }} />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
