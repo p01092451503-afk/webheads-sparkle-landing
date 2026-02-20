@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Phone, Mail, MessageSquare, Send, CheckCircle } from "lucide-react";
+import { Mail, Send, CheckCircle } from "lucide-react";
 
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -29,7 +29,6 @@ export default function ContactSection() {
           {/* Contact Info */}
           <div className="lg:col-span-2 space-y-6">
             {[
-              { icon: Phone, title: "전화 상담", value: "02-540-4337", sub: "평일 09:00 ~ 18:00" },
               { icon: Mail, title: "이메일 문의", value: "34bus@webheads.co.kr", sub: "24시간 접수 가능" },
             ].map((item) => (
               <div key={item.title} className="flex items-start gap-4 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
@@ -43,8 +42,23 @@ export default function ContactSection() {
                 </div>
               </div>
             ))}
-          </div>
 
+            {/* 전화번호 나란히 배치 */}
+            <div className="grid grid-cols-2 gap-3 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+              <div>
+                <div className="text-white/40 text-xs font-medium mb-1.5">신규 도입 문의</div>
+                <a href="tel:023364338" className="text-white font-bold text-base hover:text-brand-cyan transition-colors">
+                  02.336.4338
+                </a>
+              </div>
+              <div>
+                <div className="text-white/40 text-xs font-medium mb-1.5">장애 및 유지보수 문의</div>
+                <a href="tel:025404337" className="text-white font-bold text-base hover:text-brand-cyan transition-colors">
+                  02.540.4337
+                </a>
+              </div>
+            </div>
+          </div>
           {/* Form */}
           <div className="lg:col-span-3">
             {submitted ? (
