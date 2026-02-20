@@ -1,5 +1,5 @@
-import heroMaintenance from "@/assets/hero-maintenance-toss.png";
 import ContactSection from "@/components/ContactSection";
+import MaintenanceHeroVisual from "@/components/visuals/MaintenanceHeroVisual";
 import SEO from "@/components/SEO";
 import {
   Wrench, Clock, Shield, PhoneCall, RefreshCw, BarChart3,
@@ -215,15 +215,9 @@ export default function MaintenancePage() {
           </div>
         </div>
 
-        {/* 우측 오브제 이미지 */}
-        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block">
-          <img
-            src={heroMaintenance}
-            alt=""
-            fetchPriority="high"
-            className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain"
-            style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }}
-          />
+        {/* 우측 3D 비주얼 */}
+        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center">
+          <MaintenanceHeroVisual />
         </div>
       </section>
 
