@@ -45,16 +45,16 @@ export default function Header() {
           </Link>
 
           {/* Desktop: 서비스 메뉴 수평 나열 */}
-          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1">
+          <nav className="hidden lg:flex items-center justify-center gap-1.5 flex-1">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
               return (
                 <Link
                   key={s.path}
                   to={s.path}
-                  className={`whitespace-nowrap px-3 py-1.5 rounded-lg text-base font-medium transition-all duration-150 ${
+                  className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${
                     isActive
-                      ? "bg-primary text-primary-foreground"
+                      ? "bg-primary text-primary-foreground shadow-sm"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
