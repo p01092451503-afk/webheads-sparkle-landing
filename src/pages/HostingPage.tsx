@@ -156,7 +156,7 @@ export default function HostingPage() {
           <div className="max-w-xl">
             <span
               className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-              style={{ background: "hsl(214, 90%, 52%, 0.1)", color: "hsl(214, 90%, 52%)" }}
+              style={{ background: "#fff", color: "hsl(214, 80%, 42%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}
             >
               이러닝 호스팅
             </span>

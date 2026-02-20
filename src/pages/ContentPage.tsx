@@ -42,7 +42,7 @@ export default function ContentPage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsl(25, 90%, 55%, 0.1)", color: "hsl(25, 90%, 45%)" }}>콘텐츠 개발</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(25, 80%, 40%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>콘텐츠 개발</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               기획부터 완성까지<br />
               <span style={{ color: "hsl(25, 90%, 50%)" }}>이러닝 콘텐츠 원스톱 제작</span>
