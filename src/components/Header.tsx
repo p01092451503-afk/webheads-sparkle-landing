@@ -37,13 +37,15 @@ export default function Header() {
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex items-center gap-6 h-16">
           {/* Logo */}
-          <Link
-            to="/"
+          <a
+            href="https://webheads.co.kr"
+            target="_blank"
+            rel="noopener noreferrer"
             className="shrink-0 font-black text-xl tracking-tight text-foreground"
             style={{ fontFamily: "'Pretendard', 'Noto Sans KR', sans-serif" }}
           >
             웹헤즈
-          </Link>
+          </a>
 
           {/* Desktop: 서비스 메뉴 수평 나열 */}
           <nav className="hidden lg:flex items-center justify-center gap-1.5 flex-1">
