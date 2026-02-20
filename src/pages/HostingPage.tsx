@@ -5,12 +5,60 @@ import ContactSection from "@/components/ContactSection";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
 const features = [
-  { icon: Globe, title: "글로벌 CDN 가속", desc: "전 세계 CDN 네트워크를 통해 어디서든 빠르고 안정적인 콘텐츠 전송이 가능합니다." },
-  { icon: Server, title: "AWS 클라우드 호스팅", desc: "Amazon Web Services 기반의 확장 가능한 클라우드 인프라로 트래픽 급증에도 유연하게 대응합니다." },
-  { icon: Shield, title: "IDC 서버 운영", desc: "국내 최고 수준의 IDC 데이터센터에서 안정적인 물리 서버를 운영합니다." },
-  { icon: Clock, title: "24/7 실시간 모니터링", desc: "365일 중단 없는 모니터링으로 장애 발생 시 즉각 대응합니다." },
-  { icon: Zap, title: "자동 스케일링", desc: "학기 시작 등 트래픽 폭증 구간에서도 자동으로 서버 리소스를 확장합니다." },
-  { icon: BarChart3, title: "상세 이용 통계", desc: "학습자 접속 현황, 트래픽, 콘텐츠 재생률을 실시간 대시보드로 확인합니다." },
+  {
+    icon: Globe,
+    title: "글로벌 CDN 가속",
+    desc: "국내외 50개 이상의 엣지 서버를 통해 사용자와 가장 가까운 노드에서 콘텐츠를 제공합니다. 영상 버퍼링 없이 HD·4K 이러닝 콘텐츠를 실시간으로 스트리밍할 수 있어 학습 이탈률을 크게 줄입니다.",
+    tags: ["50+ 엣지 노드", "HD 스트리밍", "레이턴시 최소화"],
+  },
+  {
+    icon: Server,
+    title: "AWS 클라우드 호스팅",
+    desc: "Amazon Web Services(EC2·S3·CloudFront·RDS)를 기반으로 학습자 수에 따라 서버 용량이 자동 조정됩니다. Multi-AZ 구성으로 가용성을 극대화하며, 온디맨드 과금으로 불필요한 인프라 비용을 절감합니다.",
+    tags: ["Multi-AZ", "온디맨드 과금", "S3 스토리지"],
+  },
+  {
+    icon: Shield,
+    title: "IDC 서버 운영",
+    desc: "국내 최고 수준의 Tier-3 IDC 데이터센터에서 전용 물리 서버를 운영합니다. 이중 전원·이중 통신 회선을 통해 단일 장애점(SPOF)을 제거하고, 내부망 처리로 보안 규정 준수가 필요한 금융·공공기관에 최적화된 환경을 제공합니다.",
+    tags: ["Tier-3 IDC", "전용 물리 서버", "이중 회선"],
+  },
+  {
+    icon: Clock,
+    title: "24/7 실시간 모니터링",
+    desc: "365일 24시간 NOC(Network Operations Center) 전담팀이 서버·네트워크·애플리케이션 상태를 모니터링합니다. 임계치 초과 알림 발생 시 평균 5분 이내 초동 조치를 시작하여 서비스 중단을 최소화합니다.",
+    tags: ["NOC 전담팀", "5분 내 초동 대응", "장애 자동 알림"],
+  },
+  {
+    icon: Zap,
+    title: "자동 스케일링",
+    desc: "학기 시작·시험 기간 등 트래픽이 급증하는 구간에서도 AWS Auto Scaling과 Load Balancer가 실시간으로 인스턴스를 확장합니다. 피크 트래픽 이후에는 자동 축소되어 비용 효율을 유지합니다.",
+    tags: ["Auto Scaling", "Load Balancing", "비용 최적화"],
+  },
+  {
+    icon: BarChart3,
+    title: "상세 이용 통계",
+    desc: "학습자 접속 현황, 트래픽 추이, 콘텐츠 재생률·완료율을 실시간 대시보드로 확인합니다. 월별·일별 통계 리포트를 자동 생성하고 담당자에게 이메일로 발송하여 운영 효율을 높입니다.",
+    tags: ["실시간 대시보드", "월간 리포트", "완료율 분석"],
+  },
+  {
+    icon: Shield,
+    title: "DDoS 방어 & 보안",
+    desc: "웹방화벽(WAF)과 DDoS 차단 솔루션을 기본 탑재하여 악성 트래픽을 자동 차단합니다. SSL/TLS 인증서를 무료로 제공하고, 주기적인 취약점 점검으로 학습 데이터와 개인정보를 안전하게 보호합니다.",
+    tags: ["WAF 탑재", "DDoS 차단", "SSL 무료 제공"],
+  },
+  {
+    icon: Zap,
+    title: "전용 백업 & 복구",
+    desc: "콘텐츠·DB·설정 파일을 매일 자동 백업하고 최대 30일치 스냅샷을 보관합니다. 장애 발생 시 원하는 시점으로 즉시 복구(Point-in-Time Recovery)가 가능하여 데이터 손실 위험을 최소화합니다.",
+    tags: ["일일 자동 백업", "30일 스냅샷", "즉시 복구"],
+  },
+  {
+    icon: Globe,
+    title: "전담 기술 지원",
+    desc: "초기 서버 구성부터 LMS 연동, 도메인 설정, SSL 적용까지 웹헤즈 전담 엔지니어가 직접 지원합니다. 서비스 오픈 후에도 정기 점검·운영 컨설팅을 통해 최적의 성능을 유지해 드립니다.",
+    tags: ["전담 엔지니어", "LMS 연동 지원", "정기 점검"],
+  },
 ];
 
 const plans = [
@@ -63,12 +111,19 @@ export default function HostingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
-              <div key={f.title} className="service-card p-7">
+              <div key={f.title} className="service-card p-7 flex flex-col">
                 <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <f.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {f.tags.map((tag) => (
+                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
