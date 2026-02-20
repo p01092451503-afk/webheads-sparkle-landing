@@ -221,8 +221,8 @@ export default function MaintenancePage() {
             src={heroMaintenance}
             alt=""
             fetchPriority="high"
-            className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain"
-            style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }}
+            className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain animate-float"
+            style={{ mixBlendMode: "multiply", filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.18)) drop-shadow(0 10px 20px rgba(0,0,0,0.12))", maskImage: "radial-gradient(ellipse 75% 78% at 50% 50%, black 45%, transparent 78%)", WebkitMaskImage: "radial-gradient(ellipse 75% 78% at 50% 50%, black 45%, transparent 78%)" }}
           />
         </div>
       </section>
