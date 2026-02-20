@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Mail, Loader2 } from "lucide-react";
+import { Send, Mail, Loader2, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const services = [
@@ -122,12 +122,12 @@ export default function ContactSection() {
                 </p>
                 <a
                   href="mailto:34bus@webheads.co.kr"
-                  className="font-bold text-sm transition-colors"
+                  className="font-bold text-[1.17rem] leading-snug transition-colors"
                   style={{ color: "hsl(220, 60%, 8%)" }}
                 >
                   34bus@webheads.co.kr
                 </a>
-                <p className="text-xs mt-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-[0.845rem] mt-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
                   24시간 접수 가능
                 </p>
               </div>
@@ -135,21 +135,29 @@ export default function ContactSection() {
 
             {/* Business hours */}
             <div
-              className="rounded-2xl bg-white p-6"
+              className="rounded-2xl bg-white p-6 flex items-start gap-4"
               style={{ border: "1px solid hsl(214, 20%, 88%)" }}
             >
-              <p className="text-xs font-semibold mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>
-                운영 시간
-              </p>
-              <p className="text-sm font-medium" style={{ color: "hsl(220, 60%, 8%)" }}>
-                평일 10:00 – 18:00
-              </p>
-              <p className="text-xs mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
-                점심시간 12:00–13:00 · 주 5일 근무
-              </p>
-              <p className="text-xs" style={{ color: "hsl(220, 20%, 50%)" }}>
-                토/일/공휴일 휴무
-              </p>
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                style={{ background: "hsl(214, 90%, 52%)" }}
+              >
+                <Clock className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>
+                  운영 시간
+                </p>
+                <p className="text-[0.845rem] font-medium" style={{ color: "hsl(220, 60%, 8%)" }}>
+                  평일 10:00 – 18:00
+                </p>
+                <p className="text-[0.715rem] mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
+                  점심시간 12:00–13:00 · 주 5일 근무
+                </p>
+                <p className="text-[0.715rem]" style={{ color: "hsl(220, 20%, 50%)" }}>
+                  토/일/공휴일 휴무
+                </p>
+              </div>
             </div>
           </div>
 
