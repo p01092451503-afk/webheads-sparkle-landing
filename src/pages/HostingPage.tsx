@@ -150,6 +150,8 @@ export default function HostingPage() {
             src={heroHosting}
             alt=""
             fetchPriority="high"
+            loading="eager"
+            decoding="sync"
             className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain"
             style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }}
           />
