@@ -1,21 +1,12 @@
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 
-const services = [
-  { label: "이러닝 호스팅", path: "/hosting" },
-  { label: "AI 챗봇 개발", path: "/chatbot" },
-  { label: "APP 개발", path: "/app-dev" },
-  { label: "콘텐츠 개발", path: "/content" },
-  { label: "DRM 솔루션", path: "/drm" },
-  { label: "채널톡 / SMS", path: "/channel" },
-  { label: "PG 결제 연동", path: "/pg" },
-];
 
 export default function Footer() {
   return (
     <footer style={{ background: "hsl(0, 0%, 100%)", borderTop: "1px solid hsl(214, 20%, 88%)" }}>
       <div className="container mx-auto px-6 max-w-5xl py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12">
 
           {/* Brand + Company Info */}
           <div className="flex flex-col gap-6">
@@ -87,31 +78,6 @@ export default function Footer() {
                 </a>
               </div>
             </div>
-          </div>
-
-          {/* Services */}
-          <div>
-            <p
-              className="text-xs font-semibold tracking-widest uppercase mb-5"
-              style={{ color: "hsl(220, 20%, 50%)" }}
-            >
-              부가서비스
-            </p>
-            <ul className="flex flex-col gap-3">
-              {services.map((s) => (
-                <li key={s.path}>
-                  <Link
-                    to={s.path}
-                    className="text-sm font-medium transition-colors"
-                    style={{ color: "hsl(220, 20%, 50%)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
-                  >
-                    {s.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Quick Links */}
