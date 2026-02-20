@@ -29,7 +29,7 @@ const contentTypes = [
 const stats = [
   { value: "500+", label: "제작 강좌", sub: "검증된 레퍼런스" },
   { value: "4K", label: "촬영 해상도", sub: "방송 수준 품질" },
-  { value: "다양한", label: "콘텐츠 유형", sub: "목적별 최적 포맷" },
+  { value: "9가지+", label: "콘텐츠 유형", sub: "목적별 최적 포맷" },
   { value: "3단계", label: "품질 검수", sub: "교수설계·미디어·기술" },
 ];
 

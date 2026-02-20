@@ -122,12 +122,12 @@ export default function ContactSection() {
                 </p>
                 <a
                   href="mailto:34bus@webheads.co.kr"
-                  className="font-bold text-[1.16rem] leading-snug transition-colors"
+                  className="font-bold text-[1.17rem] leading-snug transition-colors"
                   style={{ color: "hsl(220, 60%, 8%)" }}
                 >
                   34bus@webheads.co.kr
                 </a>
-                <p className="text-xs mt-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-[0.845rem] mt-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
                   24시간 접수 가능
                 </p>
               </div>
@@ -148,13 +148,13 @@ export default function ContactSection() {
                 <p className="text-xs font-semibold mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>
                   운영 시간
                 </p>
-                <p className="text-[1.12rem] font-bold leading-snug" style={{ color: "hsl(220, 60%, 8%)" }}>
+                <p className="text-[1.17rem] font-bold leading-snug" style={{ color: "hsl(220, 60%, 8%)" }}>
                   평일 10:00 – 18:00
                 </p>
-                <p className="text-[0.686rem] mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-[0.715rem] mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
                   점심시간 12:00–13:00 · 주 5일 근무
                 </p>
-                <p className="text-[0.686rem]" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-[0.715rem]" style={{ color: "hsl(220, 20%, 50%)" }}>
                   토/일/공휴일 휴무
                 </p>
               </div>
