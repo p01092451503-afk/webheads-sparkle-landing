@@ -1,4 +1,4 @@
-import heroApp from "@/assets/hero-app.jpg";
+import heroApp from "@/assets/hero-app-toss.png";
 import ContactSection from "@/components/ContactSection";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck } from "lucide-react";
 
@@ -31,19 +31,31 @@ export default function AppDevPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="hero-section min-h-[70vh] flex items-center pt-20">
-        <img src={heroApp} alt="" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />
-        <div className="container mx-auto px-4 py-20 relative">
-          <div className="max-w-2xl">
-            <span className="feature-badge mb-5" style={{ background: "hsl(238 80% 60% / 0.15)", color: "hsl(245 80% 75%)", borderColor: "hsl(238 80% 60% / 0.3)" }}>APP 개발</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
+      <section
+        className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
+        style={{ background: "linear-gradient(135deg, hsl(245, 60%, 98%) 0%, hsl(260, 40%, 96%) 100%)" }}
+      >
+        <div
+          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
+          style={{
+            maskImage: ["linear-gradient(to right, transparent 0%, black 10%, black 72%, transparent 94%)","linear-gradient(to bottom, black 68%, transparent 92%)","linear-gradient(to top, black 68%, transparent 92%)"].join(", "),
+            WebkitMaskImage: ["linear-gradient(to right, transparent 0%, black 10%, black 72%, transparent 94%)","linear-gradient(to bottom, black 68%, transparent 92%)","linear-gradient(to top, black 68%, transparent 92%)"].join(", "),
+            maskComposite: "intersect", WebkitMaskComposite: "source-in",
+          }}
+        >
+          <img src={heroApp} alt="" fetchPriority="high" className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain" style={{ mixBlendMode: "multiply" }} />
+        </div>
+        <div className="container mx-auto px-6 py-24 relative z-10">
+          <div className="max-w-xl">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsl(245, 80%, 60%, 0.1)", color: "hsl(245, 80%, 50%)" }}>APP 개발</span>
+            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               이러닝에 특화된<br />
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, hsl(238,80%,70%), hsl(280,70%,75%))" }}>모바일 앱 개발</span>
+              <span style={{ color: "hsl(245, 80%, 55%)" }}>모바일 앱 개발</span>
             </h1>
-            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">iOS, Android, 하이브리드 앱 개발까지 이러닝에 최적화된 모바일 학습 환경을 구축하세요.</p>
-            <div className="flex gap-3">
-              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">개발 상담 신청</a>
-              <a href="#types" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">앱 유형 보기</a>
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>iOS, Android, 하이브리드 앱 개발까지 이러닝에 최적화된 모바일 학습 환경을 구축하세요.</p>
+            <div className="flex gap-3 flex-wrap">
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>개발 상담 신청</a>
+              <a href="#types" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "#fff" }}>앱 유형 보기</a>
             </div>
           </div>
         </div>
