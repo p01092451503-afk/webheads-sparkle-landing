@@ -42,7 +42,7 @@ export default function DrmPage() {
             maskComposite: "intersect", WebkitMaskComposite: "source-in",
           }}
         >
-          <img src={heroDrm} alt="" fetchPriority="high" className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain" style={{ mixBlendMode: "normal" }} />
+          <img src={heroDrm} alt="" fetchPriority="high" className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain" style={{ mixBlendMode: "multiply" }} />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
