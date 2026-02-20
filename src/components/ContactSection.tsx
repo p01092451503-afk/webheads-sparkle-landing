@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Send, Mail } from "lucide-react";
+import { Send, Mail, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const services = [
   "이러닝 호스팅",
@@ -21,10 +22,29 @@ export default function ContactSection() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke(
+        "send-contact-email",
+        { body: form }
+      );
+
+      if (fnError) throw new Error(fnError.message);
+      if (data?.error) throw new Error(data.error);
+
+      setSubmitted(true);
+    } catch (err: any) {
+      setError(err.message || "이메일 발송 중 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -284,13 +304,28 @@ export default function ContactSection() {
                     }}
                   />
                 </div>
+                {error && (
+                  <p className="text-sm text-red-500 text-center rounded-xl py-2 px-4" style={{ background: "hsl(0, 100%, 97%)" }}>
+                    {error}
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity hover:opacity-85 mt-2"
+                  disabled={loading}
+                  className="w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-opacity hover:opacity-85 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}
                 >
-                  <Send className="w-4 h-4" />
-                  무료 상담 신청하기
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      전송 중...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      무료 상담 신청하기
+                    </>
+                  )}
                 </button>
               </form>
             )}
