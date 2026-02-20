@@ -1,4 +1,4 @@
-import heroHosting from "@/assets/hero-hosting-toss.jpg";
+import heroHosting from "@/assets/hero-hosting-toss-nobg.png";
 import ContactSection from "@/components/ContactSection";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
