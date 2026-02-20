@@ -104,8 +104,6 @@ const plans = [
       { main: "하이브리드앱 개발", sub: "별도 비용 추가" },
     ],
     recommend: "중형 학원, 개인사업자, 중소기업, 협회에 추천드려요",
-    badge: "가장 많이 선택!",
-    badgeAccent: true,
   },
   {
     name: "Premium",
@@ -289,17 +287,11 @@ export default function HostingPage() {
                 className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${
                   plan.highlight
                     ? "bg-background border-2 border-primary shadow-xl scale-[1.02]"
-                    : plan.badgeAccent
-                    ? "bg-background border-2 shadow-lg scale-[1.01]"
                     : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"
                 }`}
-                style={plan.badgeAccent ? { borderColor: "hsl(25, 95%, 53%)" } : undefined}
               >
                 {plan.badge && (
-                  <div
-                    className="text-sm font-bold text-center py-2.5 tracking-wide text-white"
-                    style={{ background: plan.badgeAccent ? "hsl(25, 95%, 53%)" : "hsl(214, 90%, 52%)" }}
-                  >
+                  <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">
                     {plan.badge}
                   </div>
                 )}
