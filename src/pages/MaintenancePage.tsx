@@ -1,4 +1,4 @@
-import heroMaintenance from "@/assets/hero-maintenance-toss.png";
+
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
 import {
@@ -213,17 +213,6 @@ export default function MaintenancePage() {
               </a>
             </div>
           </div>
-        </div>
-
-        {/* 우측 오브제 이미지 */}
-        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block">
-          <img
-            src={heroMaintenance}
-            alt=""
-            fetchPriority="high"
-            className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[65%] object-contain animate-float"
-            style={{ filter: "drop-shadow(0 30px 60px rgba(30,60,140,0.20)) drop-shadow(0 8px 20px rgba(30,60,140,0.12))" }}
-          />
         </div>
       </section>
 
