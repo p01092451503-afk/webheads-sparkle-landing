@@ -1,4 +1,3 @@
-import { CheckCircle2 } from "lucide-react";
 import heroHosting from "@/assets/hero-hosting.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
@@ -61,15 +60,35 @@ const features = [
 ];
 
 const plans = [
-  { name: "Basic", price: "문의", desc: "소규모 기관 · 스타트업", features: ["CDN 포함", "SSD 스토리지 50GB", "월 트래픽 500GB", "이메일 지원"] },
-  { name: "Standard", price: "문의", desc: "중소기업 · 교육기관", features: ["CDN + AWS", "SSD 스토리지 200GB", "월 트래픽 2TB", "전화 + 이메일 지원", "이중화 구성"], highlight: true },
-  { name: "Enterprise", price: "문의", desc: "대기업 · 대규모 플랫폼", features: ["CDN + AWS + IDC", "스토리지 무제한", "트래픽 무제한", "전담 기술 지원", "SLA 99.9% 보장", "보안 감사 지원"] },
+  {
+    name: "Basic",
+    desc: "소규모 기관 · 스타트업",
+    features: ["CDN 포함", "SSD 스토리지 50GB", "월 트래픽 500GB", "이메일 지원"],
+  },
+  {
+    name: "Standard",
+    desc: "중소기업 · 교육기관",
+    features: ["CDN + AWS", "SSD 스토리지 200GB", "월 트래픽 2TB", "전화 + 이메일 지원", "이중화 구성"],
+    highlight: true,
+  },
+  {
+    name: "Enterprise",
+    desc: "대기업 · 대규모 플랫폼",
+    features: ["CDN + AWS + IDC", "스토리지 무제한", "트래픽 무제한", "전담 기술 지원", "SLA 99.9% 보장", "보안 감사 지원"],
+  },
+];
+
+const stats = [
+  { value: "99.9%", label: "서버 가동률", sub: "SLA 보장" },
+  { value: "50+", label: "CDN 엣지 노드", sub: "전 세계 가속" },
+  { value: "5분", label: "초동 대응 시간", sub: "NOC 전담팀" },
+  { value: "24/7", label: "기술 지원", sub: "365일 무중단" },
 ];
 
 export default function HostingPage() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
+    <div className="min-h-screen bg-white">
+      {/* Hero — 기존 유지 */}
       <section className="hero-section min-h-[70vh] flex items-center pt-20">
         <img
           src={heroHosting}
@@ -100,29 +119,52 @@ export default function HostingPage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-24 bg-muted/20 bg-grid-pattern">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
-            <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
-              이러닝 호스팅 <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 기능</span>
-            </h2>
-            <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
-              CDN부터 IDC까지 이러닝에 최적화된 인프라로 안정적인 학습 환경을 구축합니다.
-            </p>
+      {/* Stats — Toss 스타일 숫자 강조 */}
+      <section className="py-24 bg-background border-b border-border">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center first:pl-0 last:pr-0">
+                <span className="block font-black leading-none mb-2 text-5xl md:text-6xl text-foreground tracking-tight">
+                  {s.value}
+                </span>
+                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
+                <span className="block text-xs text-muted-foreground">{s.sub}</span>
+              </div>
+            ))}
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        </div>
+      </section>
+
+      {/* Features — Toss 스타일 큰 타이틀 + 카드 그리드 */}
+      <section className="py-28 bg-background">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">주요 기능</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">
+              이러닝에 최적화된<br />
+              인프라를 경험하세요
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((f) => (
-              <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
-                  <f.icon className="w-6 h-6 text-white" />
+              <div
+                key={f.title}
+                className="group rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3"
+              >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
+                  <f.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
-                <div className="flex flex-wrap gap-2">
+                <h3 className="font-bold text-foreground text-base tracking-tight">
+                  {f.title}
+                </h3>
+                <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
+                <div className="flex flex-wrap gap-1.5 mt-1">
                   {f.tags.map((tag) => (
-                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/8 text-primary font-medium border border-primary/15">
+                    <span
+                      key={tag}
+                      className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -133,44 +175,55 @@ export default function HostingPage() {
         </div>
       </section>
 
-      {/* Plans */}
-      <section id="plans" className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-14">
-            <span className="feature-badge mb-4">요금제</span>
-            <h2 className="text-3xl lg:text-4xl font-bold mt-4 mb-3">
-              맞춤형 <span className="text-transparent bg-clip-text bg-primary-gradient">요금제 선택</span>
+      {/* Plans — Toss 스타일 플랜 카드 */}
+      <section id="plans" className="py-28 bg-secondary">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">요금제</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">
+              규모에 맞는 플랜을<br />
+              선택하세요
             </h2>
-            <p className="text-muted-foreground">규모와 예산에 맞는 최적의 플랜을 제안드립니다.</p>
+            <p className="text-muted-foreground mt-4 text-base">모든 플랜은 별도 문의를 통해 최적 견적을 제공드립니다.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`rounded-2xl p-7 border ${plan.highlight
-                  ? "bg-navy-900 border-primary shadow-primary"
-                  : "bg-card border-border hover:border-primary/30 transition-colors"
+                className={`relative rounded-3xl p-8 flex flex-col gap-5 transition-all duration-200 ${
+                  plan.highlight
+                    ? "bg-foreground text-primary-foreground shadow-2xl scale-[1.02]"
+                    : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"
                 }`}
               >
                 {plan.highlight && (
-                  <div className="feature-badge mb-4 text-xs">추천</div>
+                  <span className="absolute top-6 right-6 text-xs font-bold px-3 py-1 rounded-full bg-white/10 text-white/80">
+                    추천
+                  </span>
                 )}
-                <h3 className={`text-2xl font-black mb-1 ${plan.highlight ? "text-white" : ""}`}>{plan.name}</h3>
-                <p className={`text-sm mb-4 ${plan.highlight ? "text-white/50" : "text-muted-foreground"}`}>{plan.desc}</p>
-                <div className={`text-3xl font-bold mb-6 ${plan.highlight ? "text-brand-cyan" : "text-primary"}`}>{plan.price}</div>
-                <ul className="space-y-3 mb-8">
+                <div>
+                  <p className={`text-xs font-semibold uppercase tracking-widest mb-2 ${plan.highlight ? "text-white/40" : "text-muted-foreground"}`}>
+                    {plan.desc}
+                  </p>
+                  <h3 className={`font-black leading-none text-4xl tracking-tight ${plan.highlight ? "text-white" : "text-foreground"}`}>
+                    {plan.name}
+                  </h3>
+                </div>
+                <div className={`h-px ${plan.highlight ? "bg-white/10" : "bg-border"}`} />
+                <ul className="flex flex-col gap-3 flex-1">
                   {plan.features.map((f) => (
-                    <li key={f} className={`flex items-center gap-2 text-sm ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>
-                      <CheckCircle2 className={`w-4 h-4 shrink-0 ${plan.highlight ? "text-brand-cyan" : "text-primary"}`} />
+                    <li key={f} className={`flex items-center gap-2.5 text-sm ${plan.highlight ? "text-white/70" : "text-muted-foreground"}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${plan.highlight ? "bg-white/50" : "bg-primary"}`} />
                       {f}
                     </li>
                   ))}
                 </ul>
                 <a
                   href="#contact"
-                  className={`block text-center py-3 rounded-xl font-semibold text-sm ${plan.highlight
-                    ? "btn-primary"
-                    : "border border-primary text-primary hover:bg-primary/5 transition-colors"
+                  className={`block text-center py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 ${
+                    plan.highlight
+                      ? "bg-background text-foreground hover:bg-secondary"
+                      : "bg-foreground text-primary-foreground hover:opacity-85"
                   }`}
                 >
                   견적 문의
@@ -181,22 +234,24 @@ export default function HostingPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-20 bg-navy-gradient">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { value: "99.9%", label: "서버 가동률", sub: "SLA 보장" },
-              { value: "50+", label: "CDN 엣지 노드", sub: "전 세계 가속" },
-              { value: "5분", label: "초동 대응 시간", sub: "NOC 전담팀" },
-              { value: "24/7", label: "기술 지원", sub: "365일 무중단" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="text-4xl font-black text-brand-cyan mb-2">{stat.value}</div>
-                <div className="text-white font-semibold mb-1">{stat.label}</div>
-                <div className="text-white/40 text-sm">{stat.sub}</div>
-              </div>
-            ))}
+      {/* CTA Banner — Toss 스타일 대형 CTA */}
+      <section className="py-28 bg-background">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="rounded-3xl bg-foreground p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+              <h2 className="font-black text-primary-foreground leading-tight mb-3 text-3xl lg:text-4xl tracking-tight">
+                지금 바로 시작하세요
+              </h2>
+              <p className="text-white/40 text-base leading-relaxed max-w-md">
+                웹헤즈 전담 엔지니어가 기관에 맞는 최적의 호스팅 환경을 직접 구성해 드립니다.
+              </p>
+            </div>
+            <a
+              href="#contact"
+              className="shrink-0 px-8 py-4 rounded-2xl bg-background text-foreground font-bold text-sm hover:bg-secondary transition-colors whitespace-nowrap"
+            >
+              무료 상담 신청 →
+            </a>
           </div>
         </div>
       </section>
@@ -205,3 +260,4 @@ export default function HostingPage() {
     </div>
   );
 }
+
