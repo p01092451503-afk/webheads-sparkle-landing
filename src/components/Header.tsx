@@ -10,6 +10,7 @@ const services = [
   { label: "DRM", path: "/drm" },
   { label: "채널톡/SMS", path: "/channel" },
   { label: "PG", path: "/pg" },
+  { label: "유지보수", path: "/maintenance" },
 ];
 
 export default function Header() {
