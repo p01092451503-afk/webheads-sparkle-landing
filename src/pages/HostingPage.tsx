@@ -140,7 +140,13 @@ export default function HostingPage() {
         style={{ background: "linear-gradient(135deg, hsl(214, 60%, 98%) 0%, hsl(220, 40%, 96%) 100%)" }}
       >
         {/* 우측 비주얼 이미지 */}
-        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block">
+        <div
+          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
+          style={{
+            maskImage: "radial-gradient(ellipse 80% 80% at 60% 50%, black 40%, transparent 80%)",
+            WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 60% 50%, black 40%, transparent 80%)",
+          }}
+        >
           <img
             src={heroHosting}
             alt=""
