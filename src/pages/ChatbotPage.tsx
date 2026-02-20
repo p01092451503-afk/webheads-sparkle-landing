@@ -53,10 +53,8 @@ export default function ChatbotPage() {
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
         style={{ background: "hsl(210, 50%, 90%)" }}
       >
-        <div
-          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
-        >
-          <img src={heroChatbot} alt="" fetchPriority="high" className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain" style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }} />
+        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block">
+          <img src={heroChatbot} alt="" fetchPriority="high" className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain animate-float" style={{ mixBlendMode: "multiply", filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.18)) drop-shadow(0 10px 20px rgba(0,0,0,0.12))", maskImage: "radial-gradient(ellipse 75% 78% at 50% 50%, black 45%, transparent 78%)", WebkitMaskImage: "radial-gradient(ellipse 75% 78% at 50% 50%, black 45%, transparent 78%)" }} />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
