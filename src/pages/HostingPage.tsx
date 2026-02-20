@@ -1,4 +1,4 @@
-import heroHosting from "@/assets/hero-hosting.jpg";
+import heroHosting from "@/assets/hero-hosting-toss.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
@@ -134,30 +134,58 @@ const stats = [
 export default function HostingPage() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero — 기존 유지 */}
-      <section className="hero-section min-h-[70vh] flex items-center pt-20">
-        <img
-          src={heroHosting}
-          alt=""
-          fetchPriority="high"
-          className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
-        />
-        <div className="container mx-auto px-4 py-20 relative">
-          <div className="max-w-2xl">
-            <span className="feature-badge mb-5">이러닝 호스팅</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
-              이러닝에 최적화된<br />
-              <span className="text-transparent bg-clip-text bg-primary-gradient">클라우드 호스팅</span>
+      {/* Hero — Toss 스타일 */}
+      <section
+        className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
+        style={{ background: "linear-gradient(135deg, hsl(214, 60%, 98%) 0%, hsl(220, 40%, 96%) 100%)" }}
+      >
+        {/* 우측 비주얼 이미지 */}
+        <div className="absolute right-0 top-0 h-full w-1/2 pointer-events-none select-none hidden lg:block">
+          <img
+            src={heroHosting}
+            alt=""
+            fetchPriority="high"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-[90%] object-contain drop-shadow-2xl"
+          />
+        </div>
+
+        <div className="container mx-auto px-6 py-24 relative z-10">
+          <div className="max-w-xl">
+            <span
+              className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+              style={{ background: "hsl(214, 90%, 52%, 0.1)", color: "hsl(214, 90%, 52%)" }}
+            >
+              이러닝 호스팅
+            </span>
+            <h1
+              className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight"
+              style={{ color: "hsl(220, 60%, 8%)" }}
+            >
+              이러닝에 최적화된
+              <br />
+              <span style={{ color: "hsl(214, 90%, 52%)" }}>클라우드 호스팅</span>
             </h1>
-            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>
               CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로
               학습자에게 끊김 없는 학습 환경을 제공하세요.
             </p>
-            <div className="flex gap-3">
-              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">
+            <div className="flex gap-3 flex-wrap">
+              <a
+                href="#contact"
+                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85"
+                style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}
+              >
                 무료 상담 신청
               </a>
-              <a href="#plans" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">
+              <a
+                href="#plans"
+                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border"
+                style={{
+                  borderColor: "hsl(214, 20%, 85%)",
+                  color: "hsl(220, 60%, 8%)",
+                  background: "#fff",
+                }}
+              >
                 요금제 보기
               </a>
             </div>
