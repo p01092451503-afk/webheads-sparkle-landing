@@ -1,3 +1,4 @@
+import heroMaintenance from "@/assets/hero-maintenance-toss.png";
 import ContactSection from "@/components/ContactSection";
 import {
   Wrench, Clock, Shield, PhoneCall, RefreshCw, BarChart3,
@@ -197,28 +198,15 @@ export default function MaintenancePage() {
           </div>
         </div>
 
-        {/* 우측 장식 요소 */}
-        <div className="absolute right-0 top-0 h-full w-[45%] pointer-events-none select-none hidden lg:flex items-center justify-center">
-          <div className="relative w-72 h-72">
-            <div className="absolute inset-0 rounded-full opacity-20" style={{ background: "hsl(220, 80%, 50%)" }} />
-            <div className="absolute inset-8 rounded-full opacity-15" style={{ background: "hsl(220, 80%, 50%)" }} />
-            <div className="absolute inset-16 rounded-full flex items-center justify-center" style={{ background: "hsl(220, 60%, 8%)" }}>
-              <Wrench className="w-16 h-16 text-white" />
-            </div>
-            {/* 순환 아이콘들 */}
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center">
-              <CheckCircle className="w-6 h-6 text-green-500" />
-            </div>
-            <div className="absolute top-1/2 -right-4 -translate-y-1/2 w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center">
-              <Shield className="w-6 h-6 text-blue-500" />
-            </div>
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center">
-              <Zap className="w-6 h-6 text-yellow-500" />
-            </div>
-            <div className="absolute top-1/2 -left-4 -translate-y-1/2 w-12 h-12 rounded-2xl bg-white shadow-lg flex items-center justify-center">
-              <Clock className="w-6 h-6 text-purple-500" />
-            </div>
-          </div>
+        {/* 우측 오브제 이미지 */}
+        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block">
+          <img
+            src={heroMaintenance}
+            alt=""
+            fetchPriority="high"
+            className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain"
+            style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }}
+          />
         </div>
       </section>
 
