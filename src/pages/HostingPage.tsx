@@ -143,8 +143,18 @@ export default function HostingPage() {
         <div
           className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
           style={{
-            maskImage: "radial-gradient(ellipse 80% 80% at 60% 50%, black 40%, transparent 80%)",
-            WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 60% 50%, black 40%, transparent 80%)",
+            maskImage: [
+              "linear-gradient(to right, black 40%, transparent 88%)",
+              "linear-gradient(to bottom, black 55%, transparent 88%)",
+              "linear-gradient(to top, black 55%, transparent 88%)",
+            ].join(", "),
+            WebkitMaskImage: [
+              "linear-gradient(to right, black 40%, transparent 88%)",
+              "linear-gradient(to bottom, black 55%, transparent 88%)",
+              "linear-gradient(to top, black 55%, transparent 88%)",
+            ].join(", "),
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
           }}
         >
           <img
