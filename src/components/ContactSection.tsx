@@ -64,11 +64,11 @@ export default function ContactSection() {
             className="leading-tight text-4xl lg:text-5xl tracking-tight"
             style={{ fontWeight: 900, color: "hsl(220, 60%, 8%)" }}
           >
-            전문 컨설턴트와{" "}
+          전문 컨설턴트와{" "}
             <span style={{ color: "hsl(214, 90%, 52%)" }}>무료 상담</span>하세요
           </h2>
           <p className="mt-4 text-base" style={{ color: "hsl(220, 20%, 50%)" }}>
-            도입 문의부터 맞춤 견적까지, 웹헤즈 전문가가 친절하게 안내드립니다.
+            빠르고 신속하게 답변드립니다
           </p>
         </div>
 
