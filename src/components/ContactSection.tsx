@@ -27,36 +27,35 @@ export default function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 max-w-5xl mx-auto">
           {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-6">
-            {[
-              { icon: Mail, title: "이메일 문의", value: "34bus@webheads.co.kr", sub: "24시간 접수 가능" },
-            ].map((item) => (
-              <div key={item.title} className="flex items-start gap-4 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-                <div className="w-10 h-10 rounded-lg bg-primary-gradient flex items-center justify-center shrink-0">
-                  <item.icon className="w-5 h-5 text-white" />
+          <div className="lg:col-span-2 space-y-5">
+            {/* 전화번호 크게 표시 */}
+            <div className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+              <div className="flex items-stretch">
+                <div className="flex-1 pr-6">
+                  <div className="text-white/50 text-sm mb-2">신규 도입 문의</div>
+                  <a href="tel:023364338" className="text-white font-bold text-2xl hover:text-brand-cyan transition-colors block">
+                    02.336.4338
+                  </a>
                 </div>
-                <div>
-                  <div className="text-white/40 text-xs font-medium mb-1">{item.title}</div>
-                  <div className="text-white font-semibold text-sm">{item.value}</div>
-                  <div className="text-white/40 text-xs mt-0.5">{item.sub}</div>
+                <div className="w-px bg-white/20" />
+                <div className="flex-1 pl-6">
+                  <div className="text-white/50 text-sm mb-2">장애 및 유지보수 문의</div>
+                  <a href="tel:025404337" className="text-white font-bold text-2xl hover:text-brand-cyan transition-colors block">
+                    02.540.4337
+                  </a>
                 </div>
               </div>
-            ))}
+            </div>
 
-            {/* 전화번호 나란히 배치 */}
-            <div className="flex gap-8 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-              <div>
-                <div className="text-white/40 text-xs font-medium mb-1.5">신규 도입 문의</div>
-                <a href="tel:023364338" className="text-white font-bold text-base hover:text-brand-cyan transition-colors">
-                  02.336.4338
-                </a>
+            {/* 이메일 */}
+            <div className="flex items-start gap-4 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+              <div className="w-10 h-10 rounded-lg bg-primary-gradient flex items-center justify-center shrink-0">
+                <Mail className="w-5 h-5 text-white" />
               </div>
-              <div className="w-px bg-white/10" />
               <div>
-                <div className="text-white/40 text-xs font-medium mb-1.5">장애 및 유지보수 문의</div>
-                <a href="tel:025404337" className="text-white font-bold text-base hover:text-brand-cyan transition-colors">
-                  02.540.4337
-                </a>
+                <div className="text-white/40 text-xs font-medium mb-1">이메일 문의</div>
+                <div className="text-white font-semibold text-sm">34bus@webheads.co.kr</div>
+                <div className="text-white/40 text-xs mt-0.5">24시간 접수 가능</div>
               </div>
             </div>
           </div>
