@@ -191,7 +191,7 @@ export default function MaintenancePage() {
               style={{ color: "hsl(220, 60%, 8%)" }}
             >
               안정적인 운영을 위한<br />
-              <span style={{ color: "hsl(220, 80%, 50%)" }}>전문 유지보수 서비스</span>
+              <span style={{ color: "hsl(220, 80%, 50%)" }}>유지보수 서비스</span>
             </h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>
               LMS를 포함한 웹헤즈 모든 솔루션의 장애 대응, 보안 패치, 성능 최적화, 기능 개선을 전담 엔지니어가 책임지고 관리합니다.
