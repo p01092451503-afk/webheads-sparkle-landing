@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting" },
@@ -17,29 +17,45 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-2 mb-5">
               <div className="w-8 h-8 rounded-lg bg-primary-gradient flex items-center justify-center">
                 <span className="text-white font-bold text-sm">W</span>
               </div>
               <span className="font-bold text-xl">WEBHEADS</span>
             </div>
-            <p className="text-white/50 text-sm leading-relaxed max-w-xs">
-              웹헤즈는 LMS(이러닝솔루션) 전문 공급사로,<br />
-              이러닝 호스팅부터 AI 챗봇, APP 개발,<br />
-              콘텐츠 제작까지 원스톱으로 지원합니다.
-            </p>
-            <div className="mt-6 space-y-2">
-              <a href="tel:0212345678" className="flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors">
-                <Phone className="w-4 h-4 text-brand-cyan" />
-                02-XXXX-XXXX
-              </a>
-              <a href="mailto:info@webheads.co.kr" className="flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors">
-                <Mail className="w-4 h-4 text-brand-cyan" />
-                info@webheads.co.kr
-              </a>
-              <div className="flex items-start gap-2 text-white/50 text-sm">
-                <MapPin className="w-4 h-4 text-brand-cyan mt-0.5 shrink-0" />
-                서울특별시 OO구 OO로 OO
+
+            {/* Company Info */}
+            <div className="mb-5">
+              <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Company</p>
+              <div className="space-y-1.5 text-white/55 text-sm">
+                <p>대표 <span className="text-white/80 font-medium">박진열</span> &nbsp;|&nbsp; 사업자등록번호 204-86-20072</p>
+                <p>03971 서울특별시 마포구 월드컵로 114, 3층</p>
+                <p>개인정보관리책임자 강성일 &nbsp;|&nbsp; elise75@webheads.co.kr</p>
+              </div>
+            </div>
+
+            {/* Business Hours */}
+            <div className="mb-6">
+              <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Time</p>
+              <div className="space-y-1 text-white/55 text-sm">
+                <p>평일 10:00 – 18:00 <span className="text-white/35">(점심시간 12:00–13:00)</span></p>
+                <p>주 5일 근무 <span className="text-white/35">(토/일/ 공휴일 휴무)</span></p>
+              </div>
+            </div>
+
+            {/* Phone Numbers */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-white/40 text-xs mb-1.5">신규 도입 문의</p>
+                <a href="tel:023364338" className="text-white font-bold text-lg hover:text-brand-cyan transition-colors">
+                  02.336.4338
+                </a>
+              </div>
+              <div>
+                <p className="text-white/40 text-xs mb-1.5">장애 및 유지보수 문의</p>
+                <a href="tel:025404337" className="text-white font-bold text-lg hover:text-brand-cyan transition-colors">
+                  02.540.4337
+                </a>
               </div>
             </div>
           </div>
