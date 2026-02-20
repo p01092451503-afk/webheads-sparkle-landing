@@ -234,30 +234,7 @@ export default function HostingPage() {
         </div>
       </section>
 
-      {/* CTA Banner — Toss 스타일 대형 CTA */}
-      <section className="py-28 bg-background">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="rounded-3xl bg-foreground p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <h2 className="font-black text-primary-foreground leading-tight mb-3 text-3xl lg:text-4xl tracking-tight">
-                지금 바로 시작하세요
-              </h2>
-              <p className="text-white/40 text-base leading-relaxed max-w-md">
-                웹헤즈 전담 엔지니어가 기관에 맞는 최적의 호스팅 환경을 직접 구성해 드립니다.
-              </p>
-            </div>
-            <a
-              href="#contact"
-              className="shrink-0 px-8 py-4 rounded-2xl bg-background text-foreground font-bold text-sm hover:bg-secondary transition-colors whitespace-nowrap"
-            >
-              무료 상담 신청 →
-            </a>
-          </div>
-        </div>
-      </section>
-
       <ContactSection />
     </div>
   );
 }
-

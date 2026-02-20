@@ -118,19 +118,6 @@ export default function DrmPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-28 bg-background">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="rounded-3xl bg-foreground p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <h2 className="font-black text-primary-foreground leading-tight mb-3 text-3xl lg:text-4xl tracking-tight">콘텐츠를 안전하게 보호하세요</h2>
-              <p className="text-white/40 text-base leading-relaxed max-w-md">웹헤즈 DRM 전문팀이 기관 환경에 맞는 최적의 보안 솔루션을 제안해 드립니다.</p>
-            </div>
-            <a href="#contact" className="shrink-0 px-8 py-4 rounded-2xl bg-background text-foreground font-bold text-sm hover:bg-secondary transition-colors whitespace-nowrap">DRM 도입 문의 →</a>
-          </div>
-        </div>
-      </section>
-
       <ContactSection />
     </div>
   );
