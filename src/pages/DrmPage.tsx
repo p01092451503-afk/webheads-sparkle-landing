@@ -1,4 +1,4 @@
-import heroDrm from "@/assets/hero-drm.jpg";
+import heroDrm from "@/assets/hero-drm-toss.png";
 import ContactSection from "@/components/ContactSection";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
 
@@ -30,19 +30,31 @@ export default function DrmPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="hero-section min-h-[70vh] flex items-center pt-20">
-        <img src={heroDrm} alt="" fetchPriority="high" className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none" />
-        <div className="container mx-auto px-4 py-20 relative">
-          <div className="max-w-2xl">
-            <span className="feature-badge mb-5" style={{ background: "hsl(152 80% 40% / 0.15)", color: "hsl(152 80% 60%)", borderColor: "hsl(152 80% 40% / 0.3)" }}>DRM 솔루션</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
+      <section
+        className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
+        style={{ background: "linear-gradient(135deg, hsl(152, 60%, 98%) 0%, hsl(170, 40%, 96%) 100%)" }}
+      >
+        <div
+          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
+          style={{
+            maskImage: ["linear-gradient(to right, transparent 0%, black 10%, black 72%, transparent 94%)","linear-gradient(to bottom, black 68%, transparent 92%)","linear-gradient(to top, black 68%, transparent 92%)"].join(", "),
+            WebkitMaskImage: ["linear-gradient(to right, transparent 0%, black 10%, black 72%, transparent 94%)","linear-gradient(to bottom, black 68%, transparent 92%)","linear-gradient(to top, black 68%, transparent 92%)"].join(", "),
+            maskComposite: "intersect", WebkitMaskComposite: "source-in",
+          }}
+        >
+          <img src={heroDrm} alt="" fetchPriority="high" className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain" style={{ mixBlendMode: "multiply" }} />
+        </div>
+        <div className="container mx-auto px-6 py-24 relative z-10">
+          <div className="max-w-xl">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsl(152, 80%, 40%, 0.1)", color: "hsl(152, 80%, 35%)" }}>DRM 솔루션</span>
+            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               이러닝 콘텐츠를<br />
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, hsl(152,80%,55%), hsl(192,90%,60%))" }}>완벽하게 보호합니다</span>
+              <span style={{ color: "hsl(152, 80%, 38%)" }}>완벽하게 보호합니다</span>
             </h1>
-            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">카테노이드, 존플레이어 DRM 솔루션으로 불법 복제와 무단 배포를 원천 차단하고 소중한 교육 콘텐츠를 안전하게 지키세요.</p>
-            <div className="flex gap-3">
-              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">DRM 도입 문의</a>
-              <a href="#solutions" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">솔루션 비교</a>
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>카테노이드, 존플레이어 DRM 솔루션으로 불법 복제와 무단 배포를 원천 차단하고 소중한 교육 콘텐츠를 안전하게 지키세요.</p>
+            <div className="flex gap-3 flex-wrap">
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>DRM 도입 문의</a>
+              <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "#fff" }}>솔루션 비교</a>
             </div>
           </div>
         </div>
