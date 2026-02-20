@@ -33,7 +33,7 @@ export default function ContentPage() {
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(25, 60%, 98%) 0%, hsl(15, 40%, 96%) 100%)" }}
+        style={{ background: "hsl(210, 50%, 90%)" }}
       >
         <div
           className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
@@ -43,7 +43,7 @@ export default function ContentPage() {
             maskComposite: "intersect", WebkitMaskComposite: "source-in",
           }}
         >
-          <img src={heroContent} alt="" fetchPriority="high" className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain" style={{ mixBlendMode: "multiply" }} />
+          <img src={heroContent} alt="" fetchPriority="high" className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain" style={{ mixBlendMode: "normal" }} />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">

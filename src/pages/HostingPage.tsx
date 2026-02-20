@@ -1,4 +1,4 @@
-import heroHosting from "@/assets/hero-hosting-toss-nobg.png";
+import heroHosting from "@/assets/hero-hosting-toss.png";
 import ContactSection from "@/components/ContactSection";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
@@ -137,7 +137,7 @@ export default function HostingPage() {
       {/* Hero — Toss 스타일 */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(214, 60%, 98%) 0%, hsl(220, 40%, 96%) 100%)" }}
+        style={{ background: "hsl(210, 50%, 90%)" }}
       >
         {/* 우측 비주얼 이미지 */}
         <div
@@ -162,7 +162,7 @@ export default function HostingPage() {
             alt=""
             fetchPriority="high"
             className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain"
-            style={{ mixBlendMode: "multiply" }}
+            style={{ mixBlendMode: "normal" }}
           />
         </div>
 
