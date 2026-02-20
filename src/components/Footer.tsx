@@ -107,7 +107,7 @@ export default function Footer() {
         <div className="section-divider mt-10 mb-6" />
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-white/30 text-xs">
-          <p>© 2024 WEBHEADS Co., Ltd. All rights reserved.</p>
+          <p>© 2010 WEBHEADS Co., Ltd. All rights reserved.</p>
           <p>사업자등록번호 : XXX-XX-XXXXX | 대표 : OOO</p>
         </div>
       </div>
