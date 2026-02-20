@@ -62,19 +62,65 @@ const features = [
 const plans = [
   {
     name: "Basic",
-    desc: "소규모 기관 · 스타트업",
-    features: ["CDN 포함", "SSD 스토리지 50GB", "월 트래픽 500GB", "이메일 지원"],
+    price: "500,000",
+    unit: "원",
+    priceNote: "월 이용료 (VAT별도)",
+    features: [
+      { main: "동영상 전송량 500GB /월", sub: "전송량 초과시 1GB당 500원" },
+      { main: "동영상 저장공간 총 100GB", sub: "저장용량 초과시 1GB당 1,000원" },
+      { main: "회원수 무제한", sub: "" },
+      { main: "디자인 무료 템플릿 제공", sub: "" },
+      { main: "SSL 보안인증서 설치", sub: "" },
+      { main: "하이브리드앱 개발", sub: "월 +30만원" },
+    ],
+    recommend: "개인강사, 개인사업가, 소형 학원에 추천드려요",
   },
   {
-    name: "Standard",
-    desc: "중소기업 · 교육기관",
-    features: ["CDN + AWS", "SSD 스토리지 200GB", "월 트래픽 2TB", "전화 + 이메일 지원", "이중화 구성"],
+    name: "Plus",
+    price: "700,000",
+    unit: "원",
+    priceNote: "월 이용료 (VAT별도)",
+    features: [
+      { main: "동영상 전송량 1,500GB /월", sub: "전송량 초과시 1GB당 400원" },
+      { main: "동영상 저장공간 총 200GB", sub: "저장용량 초과시 1GB당 800원" },
+      { main: "회원수 무제한", sub: "" },
+      { main: "디자인 무료 템플릿 제공", sub: "" },
+      { main: "SSL 보안인증서 설치", sub: "" },
+      { main: "하이브리드앱 개발", sub: "월 +30만원" },
+    ],
+    recommend: "중형 학원, 개인사업자, 중소기업, 협회에 추천드려요",
+  },
+  {
+    name: "Premium",
+    price: "1,000,000",
+    unit: "원",
+    priceNote: "월 이용료 (VAT별도)",
+    features: [
+      { main: "동영상 전송량 2,000GB /월", sub: "전송량 초과시 1GB당 300원" },
+      { main: "동영상 저장공간 총 250GB", sub: "저장용량 초과시 1GB당 500원" },
+      { main: "회원수 무제한", sub: "" },
+      { main: "디자인 무료 템플릿 제공", sub: "" },
+      { main: "SSL 보안인증서 설치", sub: "" },
+      { main: "하이브리드앱 개발", sub: "월 +30만원" },
+    ],
+    recommend: "대형 학원, 중소 기업, 평생교육원, 기타 교육기관에 추천드려요",
     highlight: true,
+    badge: "인기 요금제!",
   },
   {
     name: "Enterprise",
-    desc: "대기업 · 대규모 플랫폼",
-    features: ["CDN + AWS + IDC", "스토리지 무제한", "트래픽 무제한", "전담 기술 지원", "SLA 99.9% 보장", "보안 감사 지원"],
+    price: "별도문의",
+    unit: "",
+    priceNote: "",
+    features: [
+      { main: "동영상 전송량 별도문의", sub: "전송량 초과시 1GB당 300원" },
+      { main: "동영상 저장공간 별도문의", sub: "저장용량 초과시 1GB당 400원" },
+      { main: "회원수 무제한", sub: "" },
+      { main: "디자인 무료 템플릿 제공", sub: "" },
+      { main: "SSL 보안인증서 설치", sub: "" },
+      { main: "하이브리드앱 개발", sub: "월 +30만원" },
+    ],
+    recommend: "대형 학원, 중소 기업, 평생교육원, 기타 교육기관에 추천드려요",
   },
 ];
 
@@ -175,7 +221,7 @@ export default function HostingPage() {
         </div>
       </section>
 
-      {/* Plans — Toss 스타일 플랜 카드 */}
+      {/* Plans */}
       <section id="plans" className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -184,50 +230,58 @@ export default function HostingPage() {
               규모에 맞는 플랜을<br />
               선택하세요
             </h2>
-            <p className="text-muted-foreground mt-4 text-base">모든 플랜은 별도 문의를 통해 최적 견적을 제공드립니다.</p>
+            <p className="text-muted-foreground mt-4 text-base">모든 요금은 VAT 별도입니다. 초과 사용량은 플랜별 단가로 과금됩니다.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
             {plans.map((plan) => (
               <div
                 key={plan.name}
-                className={`relative rounded-3xl p-8 flex flex-col gap-5 transition-all duration-200 ${
+                className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${
                   plan.highlight
-                    ? "bg-foreground text-primary-foreground shadow-2xl scale-[1.02]"
+                    ? "bg-background border-2 border-primary shadow-xl"
                     : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"
                 }`}
               >
-                {plan.highlight && (
-                  <span className="absolute top-6 right-6 text-xs font-bold px-3 py-1 rounded-full bg-white/10 text-white/80">
-                    추천
-                  </span>
+                {plan.badge && (
+                  <div className="bg-primary text-primary-foreground text-xs font-bold text-center py-2 tracking-wide">
+                    {plan.badge}
+                  </div>
                 )}
-                <div>
-                  <p className={`text-xs font-semibold uppercase tracking-widest mb-2 ${plan.highlight ? "text-white/40" : "text-muted-foreground"}`}>
-                    {plan.desc}
-                  </p>
-                  <h3 className={`font-black leading-none text-4xl tracking-tight ${plan.highlight ? "text-white" : "text-foreground"}`}>
-                    {plan.name}
-                  </h3>
+                <div className="p-6 flex flex-col gap-4 flex-1">
+                  {/* Name */}
+                  <div>
+                    <h3 className={`font-black text-2xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>
+                      {plan.name}
+                    </h3>
+                    <div className={`h-px mt-3 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} />
+                  </div>
+                  {/* Price */}
+                  <div>
+                    <div className="flex items-end gap-1">
+                      <span className={`font-black leading-none tracking-tight ${plan.price === "별도문의" ? "text-2xl" : "text-3xl"} ${plan.highlight ? "text-primary" : "text-foreground"}`}>
+                        {plan.price}
+                      </span>
+                      {plan.unit && <span className="text-sm font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
+                    </div>
+                    {plan.priceNote && <p className="text-xs text-muted-foreground mt-1">{plan.priceNote}</p>}
+                  </div>
+                  {/* Features */}
+                  <ul className="flex flex-col gap-3 flex-1">
+                    {plan.features.map((f) => (
+                      <li key={f.main} className="flex items-start gap-2">
+                        <span className={`w-4 h-4 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-xs ${plan.highlight ? "text-primary" : "text-primary"}`}>✓</span>
+                        <div>
+                          <p className="text-sm font-medium text-foreground leading-tight">{f.main}</p>
+                          {f.sub && <p className="text-xs text-muted-foreground mt-0.5">{f.sub}</p>}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  {/* Recommend box */}
+                  <div className="rounded-xl p-3 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}>
+                    <p className="text-xs text-white/60 leading-relaxed text-center">{plan.recommend}</p>
+                  </div>
                 </div>
-                <div className={`h-px ${plan.highlight ? "bg-white/10" : "bg-border"}`} />
-                <ul className="flex flex-col gap-3 flex-1">
-                  {plan.features.map((f) => (
-                    <li key={f} className={`flex items-center gap-2.5 text-sm ${plan.highlight ? "text-white/70" : "text-muted-foreground"}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${plan.highlight ? "bg-white/50" : "bg-primary"}`} />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  className={`block text-center py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 ${
-                    plan.highlight
-                      ? "bg-background text-foreground hover:bg-secondary"
-                      : "bg-foreground text-primary-foreground hover:opacity-85"
-                  }`}
-                >
-                  견적 문의
-                </a>
               </div>
             ))}
           </div>
