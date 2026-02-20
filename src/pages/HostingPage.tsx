@@ -104,7 +104,7 @@ const plans = [
       { main: "하이브리드앱 개발", sub: "별도 비용 추가" },
     ],
     recommend: "중형 학원, 개인사업자, 중소기업, 협회에 추천드려요",
-    badge: "최다 사용",
+    badge: "가장 많이 선택!",
     badgeAccent: true,
   },
   {
