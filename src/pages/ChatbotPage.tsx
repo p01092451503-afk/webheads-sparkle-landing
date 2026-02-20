@@ -2,22 +2,90 @@ import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import heroChatbot from "@/assets/hero-chatbot.jpg";
 import ContactSection from "@/components/ContactSection";
-import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, CheckCircle2, Zap } from "lucide-react";
+import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
 
 const features = [
-  { icon: Brain, title: "LLM 기반 자연어 이해", desc: "GPT, Claude 등 최신 대형 언어 모델을 활용하여 복잡한 질문에도 정확하게 응답합니다." },
-  { icon: MessageSquare, title: "LMS 연동 맞춤 응답", desc: "수강 현황, 과제, 성적 등 LMS 데이터와 연동하여 학습자별 개인화된 답변을 제공합니다." },
-  { icon: Zap, title: "FAQ 자동 학습", desc: "기존 FAQ 데이터를 업로드하면 자동으로 학습하여 즉시 운영 가능한 챗봇을 구성합니다." },
-  { icon: Globe, title: "다국어 지원", desc: "한국어, 영어, 중국어 등 다양한 언어를 지원하여 글로벌 이러닝 플랫폼 운영이 가능합니다." },
-  { icon: Link2, title: "카카오톡 / 웹 채팅 연동", desc: "카카오톡 채널, 웹사이트 채팅 위젯 등 다양한 채널에 챗봇을 배포합니다." },
-  { icon: BarChart3, title: "운영 현황 대시보드", desc: "질문 유형, 해결률, 사용자 만족도 등 챗봇 운영 현황을 실시간으로 모니터링합니다." },
+  {
+    icon: Brain,
+    title: "LLM 기반 자연어 이해",
+    desc: "GPT-4o, Claude 3.5 등 최신 대형 언어 모델(LLM)을 활용하여 문맥을 이해하는 정확한 응답을 생성합니다. RAG(검색 증강 생성) 기술을 접목해 기관 고유 지식을 실시간으로 참조합니다.",
+    tags: ["GPT-4o", "Claude 3.5", "RAG", "Prompt Engineering"],
+  },
+  {
+    icon: MessageSquare,
+    title: "LMS 연동 맞춤 응답",
+    desc: "REST API를 통해 LMS 데이터베이스와 실시간 연동하여 수강 현황, 과제 기한, 성적, 출석 정보를 바탕으로 학습자 개인화된 컨텍스트 응답을 제공합니다.",
+    tags: ["REST API", "실시간 연동", "개인화", "수강 데이터"],
+  },
+  {
+    icon: Zap,
+    title: "FAQ 자동 학습 & 지식베이스 구축",
+    desc: "기존 FAQ, 운영 매뉴얼, 강의계획서 등 비정형 문서를 업로드하면 벡터 임베딩 기반으로 자동 색인하여 정확도 높은 지식베이스를 즉시 구성합니다.",
+    tags: ["벡터 임베딩", "문서 파싱", "지식베이스", "자동 색인"],
+  },
+  {
+    icon: Globe,
+    title: "다국어 처리 & 번역",
+    desc: "한국어, 영어, 중국어, 일본어 등 10개 이상의 언어를 자동 감지하고 해당 언어로 응답합니다. 글로벌 이러닝 플랫폼 운영 및 외국인 학습자 지원에 최적화되어 있습니다.",
+    tags: ["한/영/중/일", "자동 언어 감지", "10개 이상 지원", "글로벌"],
+  },
+  {
+    icon: Link2,
+    title: "멀티채널 배포",
+    desc: "카카오톡 채널, 웹사이트 채팅 위젯, 모바일 앱 내 SDK 형태로 단일 챗봇을 다채널에 동시 배포합니다. 채널별 대화 맥락을 유지하는 세션 관리 기능을 제공합니다.",
+    tags: ["카카오톡", "웹 위젯", "모바일 SDK", "세션 관리"],
+  },
+  {
+    icon: BarChart3,
+    title: "운영 현황 대시보드",
+    desc: "질문 유형 분류, 해결률, 에스컬레이션 비율, 사용자 만족도(CSAT), 평균 응답 시간 등 KPI를 실시간 대시보드로 시각화하여 챗봇 성능 최적화에 활용합니다.",
+    tags: ["실시간 모니터링", "CSAT", "KPI", "시각화"],
+  },
+  {
+    icon: ShieldCheck,
+    title: "보안 & 개인정보 보호",
+    desc: "학습자 개인정보를 암호화 전송(TLS 1.3)하고, 대화 로그는 사용자 동의 기반으로 수집합니다. 개인정보보호법 및 GDPR 가이드라인을 준수하는 안전한 챗봇 환경을 제공합니다.",
+    tags: ["TLS 1.3", "암호화", "GDPR", "개인정보보호법"],
+  },
+  {
+    icon: RefreshCw,
+    title: "지속 학습 & 모델 고도화",
+    desc: "실제 대화 데이터를 기반으로 주기적 파인튜닝(Fine-tuning)을 수행하여 시간이 지날수록 응답 정확도가 향상됩니다. 오답 피드백 루프를 통해 지속적인 품질 개선이 이루어집니다.",
+    tags: ["Fine-tuning", "RLHF", "피드백 루프", "자동 고도화"],
+  },
+  {
+    icon: Users,
+    title: "상담원 에스컬레이션 & 협업",
+    desc: "챗봇이 처리하기 어려운 복잡한 문의는 실시간으로 상담원에게 전환(Human Handoff)하며, 이전 대화 맥락을 그대로 인계하여 중복 질문 없이 매끄러운 상담이 이어집니다.",
+    tags: ["Human Handoff", "실시간 전환", "맥락 인계", "협업"],
+  },
 ];
 
 const process = [
-  { step: "01", title: "요구사항 분석", desc: "기관 특성과 학습자 패턴을 분석하여 최적의 챗봇 구성을 설계합니다." },
-  { step: "02", title: "데이터 수집 & 학습", desc: "FAQ, 강의 자료, 규정 등 기관 데이터를 기반으로 AI 모델을 학습시킵니다." },
-  { step: "03", title: "개발 & 테스트", desc: "챗봇 개발 후 다양한 시나리오를 테스트하여 품질을 검증합니다." },
-  { step: "04", title: "배포 & 운영 지원", desc: "LMS 및 기타 채널에 배포하고, 지속적인 성능 개선을 지원합니다." },
+  {
+    step: "01",
+    title: "요구사항 분석 & 설계",
+    desc: "기관 특성, 학습자 문의 패턴, 연동 시스템을 심층 분석하여 챗봇 아키텍처와 대화 시나리오를 설계합니다. 인텐트(Intent) 목록과 엔티티(Entity) 정의를 포함한 상세 기획서를 제공합니다.",
+    detail: "인텐트 설계 · 엔티티 정의 · 아키텍처 설계",
+  },
+  {
+    step: "02",
+    title: "데이터 수집 & AI 학습",
+    desc: "FAQ, 강의 자료, 내부 규정 등 기관 보유 문서를 수집·정제하고 벡터 임베딩으로 변환합니다. LLM 파인튜닝 및 RAG 파이프라인 구축을 통해 기관 특화 AI 모델을 완성합니다.",
+    detail: "문서 파싱 · 벡터 DB 구축 · RAG 파이프라인",
+  },
+  {
+    step: "03",
+    title: "개발 & 품질 검증",
+    desc: "챗봇 엔진 개발 및 LMS·채널 연동 작업을 완료한 후, 100개 이상의 엣지케이스 시나리오를 테스트합니다. 정확도, 응답 속도, 폴백(Fallback) 처리 등 품질 지표를 기준 이상으로 검증합니다.",
+    detail: "시나리오 테스트 · 성능 측정 · Fallback 검증",
+  },
+  {
+    step: "04",
+    title: "배포 & 지속 운영 지원",
+    desc: "LMS, 카카오톡, 웹사이트 등 전 채널에 배포 후 운영 현황 대시보드를 세팅합니다. 월별 성능 리포트 제공과 정기 파인튜닝을 통해 챗봇 품질을 지속적으로 개선합니다.",
+    detail: "멀티채널 배포 · 월별 리포트 · 정기 개선",
+  },
 ];
 
 export default function ChatbotPage() {
@@ -68,12 +136,19 @@ export default function ChatbotPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
-              <div key={f.title} className="service-card p-7">
-                <div className="w-11 h-11 rounded-xl bg-cyan-50 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-cyan-600" />
+              <div key={f.title} className="service-card p-7 flex flex-col">
+                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <f.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{f.desc}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {f.tags.map((tag) => (
+                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/8 text-primary font-medium border border-primary/15">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -89,10 +164,13 @@ export default function ChatbotPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {process.map((p, i) => (
-              <div key={p.step} className="relative text-center p-6 rounded-2xl border border-border bg-card">
-                <div className="text-5xl font-black text-primary/8 mb-3">{p.step}</div>
+              <div key={p.step} className="relative p-6 rounded-2xl border border-border bg-card flex flex-col">
+                <div className="text-5xl font-black text-primary/10 mb-3">{p.step}</div>
                 <h3 className="font-bold text-base mb-2">{p.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{p.desc}</p>
+                <div className="pt-3 border-t border-border">
+                  <p className="text-xs text-primary font-medium">{p.detail}</p>
+                </div>
                 {i < process.length - 1 && (
                   <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-primary/30">
                     <ArrowLeft className="w-5 h-5 rotate-180" />
