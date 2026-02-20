@@ -83,10 +83,9 @@ export default function AppDevHeroVisual() {
           filter: "drop-shadow(0 12px 20px rgba(80,50,200,0.3))",
           width: 72, height: 72, borderRadius: 18,
           background: "linear-gradient(135deg, #a78bfa, #7c3aed)",
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2,
+          display: "flex", alignItems: "center", justifyContent: "center",
         }}>
-          <span style={{ fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -1, lineHeight: 1 }}>i</span>
-          <span style={{ fontSize: 11, fontWeight: 800, color: "rgba(255,255,255,0.9)", letterSpacing: 1 }}>iOS</span>
+          <span style={{ fontSize: 16, fontWeight: 800, color: "#fff", letterSpacing: 0.5 }}>iOS</span>
         </div>
 
         {/* ── Floating: Android icon ── */}
@@ -96,10 +95,9 @@ export default function AppDevHeroVisual() {
           filter: "drop-shadow(0 12px 20px rgba(60,180,80,0.3))",
           width: 72, height: 72, borderRadius: 18,
           background: "linear-gradient(135deg, #4ade80, #16a34a)",
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2,
+          display: "flex", alignItems: "center", justifyContent: "center",
         }}>
-          <span style={{ fontSize: 20, fontWeight: 900, color: "#fff", letterSpacing: -0.5, lineHeight: 1 }}>AOS</span>
-          <span style={{ fontSize: 9, fontWeight: 600, color: "rgba(255,255,255,0.75)", letterSpacing: 0.5 }}>Android</span>
+          <span style={{ fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: 0.5 }}>Android</span>
         </div>
 
         {/* ── Floating: React Native badge ── */}
