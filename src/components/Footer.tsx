@@ -104,11 +104,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="section-divider mt-10 mb-6" />
-
-        <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-white/30 text-xs">
+        <div className="flex justify-center items-center mt-10 mb-6 pt-6 border-t border-white/10 text-white/30 text-xs">
           <p>© 2010 WEBHEADS Co., Ltd. All rights reserved.</p>
-          <p>사업자등록번호 : XXX-XX-XXXXX | 대표 : OOO</p>
         </div>
       </div>
     </footer>
