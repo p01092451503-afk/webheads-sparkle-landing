@@ -17,11 +17,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 mb-5">
-              <div className="w-8 h-8 rounded-lg bg-primary-gradient flex items-center justify-center">
+            <div className="flex items-center gap-2.5 mb-5">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #4facfe 0%, #2563eb 100%)" }}>
                 <span className="text-white font-bold text-sm">W</span>
               </div>
-              <span className="font-bold text-xl">WEBHEADS</span>
+              <span className="font-bold text-xl tracking-wide">WEBHEADS</span>
             </div>
 
             {/* Company Info */}
