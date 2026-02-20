@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { X, ChevronDown } from "lucide-react";
+import logoWebheads from "@/assets/logo-webheads.png";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting", desc: "CDN / AWS / IDC" },
@@ -41,9 +42,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #4facfe 0%, #2563eb 100%)" }}>
-              <span className="text-white font-bold text-sm">W</span>
-            </div>
+            <img src={logoWebheads} alt="WEBHEADS" className="h-8 w-auto" />
             <span className="font-bold text-lg text-white tracking-wide">WEBHEADS</span>
           </Link>
 
