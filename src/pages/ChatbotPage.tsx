@@ -54,7 +54,7 @@ export default function ChatbotPage() {
         style={{ background: "hsl(210, 50%, 90%)" }}
       >
         <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block">
-          <img src={heroChatbot} alt="" fetchPriority="high" className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[65%] object-contain animate-float" style={{ mixBlendMode: "multiply", filter: "drop-shadow(0 40px 80px rgba(30,60,120,0.25)) drop-shadow(0 12px 28px rgba(30,60,120,0.15))" }} />
+          <img src={heroChatbot} alt="" fetchPriority="high" className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[65%] object-contain animate-float" style={{ filter: "drop-shadow(0 30px 60px rgba(30,60,140,0.20)) drop-shadow(0 8px 20px rgba(30,60,140,0.12))" }} />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">

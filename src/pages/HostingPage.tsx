@@ -163,7 +163,7 @@ export default function HostingPage() {
             alt=""
             fetchPriority="high"
             className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[65%] object-contain animate-float"
-            style={{ mixBlendMode: "multiply", filter: "drop-shadow(0 40px 80px rgba(30,60,120,0.25)) drop-shadow(0 12px 28px rgba(30,60,120,0.15))" }}
+            style={{ filter: "drop-shadow(0 30px 60px rgba(30,60,140,0.20)) drop-shadow(0 8px 20px rgba(30,60,140,0.12))" }}
           />
         </div>
 
