@@ -282,7 +282,7 @@ export default function MaintenancePage() {
               규모에 맞는 플랜을<br />
               선택하세요
             </h2>
-            <p className="text-muted-foreground mt-4 text-base">모든 요금은 VAT 별도입니다. 커스텀 견적은 문의 주세요.</p>
+            
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {plans.map((plan) => (
