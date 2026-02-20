@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
@@ -35,7 +35,7 @@ const App = () => (
         <ScrollToTop />
         <Layout>
           <Routes>
-            <Route path="/" element={<Index />} />
+            <Route path="/" element={<Navigate to="/hosting" replace />} />
             <Route path="/hosting" element={<HostingPage />} />
             <Route path="/chatbot" element={<ChatbotPage />} />
             <Route path="/app-dev" element={<AppDevPage />} />
