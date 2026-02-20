@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
-import heroChatbot from "@/assets/hero-chatbot-toss.png";
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
+import ChatbotHeroVisual from "@/components/visuals/ChatbotHeroVisual";
 import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
 
 const features = [
@@ -54,9 +54,9 @@ export default function ChatbotPage() {
         style={{ background: "hsl(210, 50%, 90%)" }}
       >
         <div
-          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
+          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center"
         >
-          <img src={heroChatbot} alt="" fetchPriority="high" className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain" style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }} />
+          <ChatbotHeroVisual />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">

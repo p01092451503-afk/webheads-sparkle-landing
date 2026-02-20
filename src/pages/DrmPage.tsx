@@ -1,6 +1,6 @@
-import heroDrm from "@/assets/hero-drm-toss.png";
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
+import DrmHeroVisual from "@/components/visuals/DrmHeroVisual";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
 
 const features = [
@@ -52,9 +52,9 @@ export default function DrmPage() {
         style={{ background: "hsl(210, 50%, 90%)" }}
       >
         <div
-          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
+          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center"
         >
-          <img src={heroDrm} alt="" fetchPriority="high" className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain" style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }} />
+          <DrmHeroVisual />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
