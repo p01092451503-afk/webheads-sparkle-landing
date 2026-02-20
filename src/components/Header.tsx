@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { X, ChevronDown } from "lucide-react";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting", desc: "CDN / AWS / IDC" },
@@ -38,26 +38,15 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-xl bg-primary-gradient flex items-center justify-center">
-              <span className="text-white font-bold text-sm">W</span>
-            </div>
-            <div>
-              <span className="text-white font-bold text-xl tracking-tight">WEBHEADS</span>
-              <span className="block text-[10px] text-brand-cyan font-medium tracking-widest -mt-0.5">LMS & 이러닝 솔루션</span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation - 부가서비스 드롭다운만 표시 */}
-          <nav className="hidden lg:flex items-center gap-1">
+        <div className="flex items-center justify-center h-16 lg:h-20">
+          {/* Desktop Navigation - 부가서비스 드롭다운만 중앙 표시 */}
+          <nav className="hidden lg:flex items-center">
             <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-              <button className="px-4 py-2 text-white/70 hover:text-white text-sm font-medium transition-colors flex items-center gap-1">
-                부가서비스 <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+              <button className="px-8 py-3 text-white hover:text-brand-cyan text-lg font-semibold transition-colors flex items-center gap-2">
+                부가서비스 <ChevronDown className={`w-5 h-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
               </button>
               {servicesOpen && (
-                <div className="absolute top-full left-0 mt-1 w-72 bg-navy-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden animate-scale-in">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-navy-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden animate-scale-in">
                   {services.map((s) => (
                     <Link
                       key={s.path}
@@ -77,10 +66,10 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-white p-2 text-lg font-semibold flex items-center gap-2"
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            부가서비스 {isOpen ? <X className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
           </button>
         </div>
       </div>
