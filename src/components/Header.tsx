@@ -3,13 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
 const services = [
-  { label: "이러닝 호스팅", path: "/hosting" },
-  { label: "AI 챗봇 개발", path: "/chatbot" },
-  { label: "APP 개발", path: "/app-dev" },
+  { label: "이러닝호스팅", path: "/hosting" },
+  { label: "AI챗봇", path: "/chatbot" },
+  { label: "어플리케이션", path: "/app-dev" },
   { label: "콘텐츠 개발", path: "/content" },
-  { label: "DRM 솔루션", path: "/drm" },
-  { label: "채널톡 / SMS", path: "/channel" },
-  { label: "PG 결제 연동", path: "/pg" },
+  { label: "DRM", path: "/drm" },
+  { label: "채널톡/SMS", path: "/channel" },
+  { label: "PG", path: "/pg" },
 ];
 
 export default function Header() {
@@ -45,7 +45,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop: 서비스 메뉴 수평 나열 */}
-          <nav className="hidden lg:flex items-center gap-1 flex-1">
+          <nav className="hidden lg:flex items-center justify-center gap-1 flex-1">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
               return (
