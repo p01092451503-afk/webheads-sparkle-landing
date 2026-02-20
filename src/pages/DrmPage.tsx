@@ -1,6 +1,7 @@
 
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
+import objDrm from "@/assets/obj-drm.png";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
 
 const features = [
@@ -51,6 +52,9 @@ export default function DrmPage() {
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
         style={{ background: "hsl(210, 50%, 90%)" }}
       >
+        <div className="absolute right-0 top-0 h-full w-1/2 flex items-center justify-center pointer-events-none select-none">
+          <img src={objDrm} alt="" className="w-[380px] max-w-[50vw] object-contain animate-float" style={{ filter: "drop-shadow(0 32px 64px rgba(0,180,80,0.22))" }} />
+        </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(152, 70%, 30%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>DRM</span>
