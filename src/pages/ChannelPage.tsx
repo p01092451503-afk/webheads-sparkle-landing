@@ -117,19 +117,6 @@ export default function ChannelPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-28 bg-background">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="rounded-3xl bg-foreground p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <h2 className="font-black text-primary-foreground leading-tight mb-3 text-3xl lg:text-4xl tracking-tight">학습자 소통을 자동화하세요</h2>
-              <p className="text-white/40 text-base leading-relaxed max-w-md">웹헤즈 채널팀이 LMS와 연동된 최적의 커뮤니케이션 시나리오를 설계해 드립니다.</p>
-            </div>
-            <a href="#contact" className="shrink-0 px-8 py-4 rounded-2xl bg-background text-foreground font-bold text-sm hover:bg-secondary transition-colors whitespace-nowrap">도입 상담 신청 →</a>
-          </div>
-        </div>
-      </section>
-
       <ContactSection />
     </div>
   );

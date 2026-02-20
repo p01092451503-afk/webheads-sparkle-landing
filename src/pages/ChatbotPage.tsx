@@ -116,19 +116,6 @@ export default function ChatbotPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-28 bg-background">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="rounded-3xl bg-foreground p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <h2 className="font-black text-primary-foreground leading-tight mb-3 text-3xl lg:text-4xl tracking-tight">지금 무료 데모를 신청하세요</h2>
-              <p className="text-white/40 text-base leading-relaxed max-w-md">웹헤즈 AI 전문팀이 기관 맞춤 챗봇 시연과 도입 컨설팅을 제공해 드립니다.</p>
-            </div>
-            <a href="#contact" className="shrink-0 px-8 py-4 rounded-2xl bg-background text-foreground font-bold text-sm hover:bg-secondary transition-colors whitespace-nowrap">무료 데모 신청 →</a>
-          </div>
-        </div>
-      </section>
-
       <ContactSection />
     </div>
   );
