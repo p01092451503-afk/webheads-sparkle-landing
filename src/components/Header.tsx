@@ -4,13 +4,13 @@ import { Menu, X } from "lucide-react";
 
 const services = [
   { label: "이러닝호스팅", path: "/hosting" },
+  { label: "유지보수", path: "/maintenance" },
   { label: "AI챗봇", path: "/chatbot" },
   { label: "어플리케이션", path: "/app-dev" },
   { label: "콘텐츠", path: "/content" },
   { label: "DRM", path: "/drm" },
   { label: "채널톡/SMS", path: "/channel" },
   { label: "PG", path: "/pg" },
-  { label: "유지보수", path: "/maintenance" },
 ];
 
 export default function Header() {
