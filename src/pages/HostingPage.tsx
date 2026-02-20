@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import heroHosting from "@/assets/hero-hosting.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
@@ -68,28 +69,32 @@ const plans = [
 
 export default function HostingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       {/* Hero */}
-      <section className="hero-section min-h-[60vh] flex items-center pt-20">
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-8 transition-colors">
+      <section className="hero-section min-h-[70vh] flex items-center pt-20">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: `url(${heroHosting})` }}
+        />
+        <div className="container mx-auto px-4 py-20 relative">
+          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
           </Link>
           <div className="max-w-2xl">
             <span className="feature-badge mb-5">이러닝 호스팅</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-5 leading-tight">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
               이러닝에 최적화된<br />
-              <span className="text-primary">클라우드 호스팅</span>
+              <span className="text-transparent bg-clip-text bg-primary-gradient">클라우드 호스팅</span>
             </h1>
-            <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
+            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">
               CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로
               학습자에게 끊김 없는 학습 환경을 제공하세요.
             </p>
-            <div className="flex gap-3 flex-wrap">
+            <div className="flex gap-3">
               <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">
                 무료 상담 신청
               </a>
-              <a href="#plans" className="px-7 py-3.5 rounded-xl font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">
+              <a href="#plans" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">
                 요금제 보기
               </a>
             </div>
@@ -98,11 +103,11 @@ export default function HostingPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-24 bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold text-gray-900 mt-4">이러닝 호스팅 핵심 기능</h2>
+            <h2 className="text-3xl font-bold mt-4">이러닝 호스팅 핵심 기능</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
@@ -110,8 +115,8 @@ export default function HostingPage() {
                 <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                   <f.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="font-bold text-lg mb-2 text-gray-900">{f.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
+                <h3 className="font-bold text-lg mb-2">{f.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {f.tags.map((tag) => (
                     <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import heroChatbot from "@/assets/hero-chatbot.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
 
@@ -89,24 +90,38 @@ const process = [
 
 export default function ChatbotPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="hero-section min-h-[60vh] flex items-center pt-20">
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-8 transition-colors">
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="hero-section min-h-[70vh] flex items-center pt-20">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25"
+          style={{ backgroundImage: `url(${heroChatbot})` }}
+        />
+        <div className="container mx-auto px-4 py-20 relative">
+          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
           </Link>
           <div className="max-w-2xl">
-            <span className="feature-badge mb-5">AI 챗봇 개발</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-5 leading-tight">
+            <span className="feature-badge mb-5" style={{ background: "hsl(192 90% 55% / 0.1)", color: "hsl(192 90% 65%)", borderColor: "hsl(192 90% 55% / 0.3)" }}>
+              AI 챗봇 개발
+            </span>
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
               이러닝 전문<br />
-              <span className="text-primary">AI 챗봇 솔루션</span>
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, hsl(192,90%,55%), hsl(210,95%,70%))" }}>
+                AI 챗봇 솔루션
+              </span>
             </h1>
-            <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
-              학습자의 질문에 24시간 즉시 응답하는 AI 챗봇으로 교육 운영 비용을 절감하고 학습자 만족도를 높이세요.
+            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">
+              학습자의 질문에 24시간 즉시 응답하는 AI 챗봇으로 교육 운영 비용을 절감하고
+              학습자 만족도를 획기적으로 높이세요.
             </p>
-            <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">무료 데모 신청</a>
-              <a href="#process" className="px-7 py-3.5 rounded-xl font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">구축 과정 보기</a>
+            <div className="flex gap-3">
+              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">
+                무료 데모 신청
+              </a>
+              <a href="#process" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">
+                구축 과정 보기
+              </a>
             </div>
           </div>
         </div>

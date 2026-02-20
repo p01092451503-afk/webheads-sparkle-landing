@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import heroDrm from "@/assets/hero-drm.jpg";
 import ContactSection from "@/components/ContactSection";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, CheckCircle2, Lock, KeyRound, BarChart3 } from "lucide-react";
 
@@ -92,24 +93,38 @@ const solutions = [
 
 export default function DrmPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <section className="hero-section min-h-[60vh] flex items-center pt-20">
-        <div className="container mx-auto px-4 py-20 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-8 transition-colors">
+    <div className="min-h-screen">
+      {/* Hero */}
+      <section className="hero-section min-h-[70vh] flex items-center pt-20">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-20"
+          style={{ backgroundImage: `url(${heroDrm})` }}
+        />
+        <div className="container mx-auto px-4 py-20 relative">
+          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
           </Link>
           <div className="max-w-2xl">
-            <span className="feature-badge mb-5">DRM 솔루션</span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-5 leading-tight">
+            <span className="feature-badge mb-5" style={{ background: "hsl(152 80% 40% / 0.15)", color: "hsl(152 80% 60%)", borderColor: "hsl(152 80% 40% / 0.3)" }}>
+              DRM 솔루션
+            </span>
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
               이러닝 콘텐츠를<br />
-              <span className="text-primary">완벽하게 보호합니다</span>
+              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, hsl(152,80%,55%), hsl(192,90%,60%))" }}>
+                완벽하게 보호합니다
+              </span>
             </h1>
-            <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
-              카테노이드, 존플레이어 DRM 솔루션으로 불법 복제와 무단 배포를 원천 차단하고 소중한 교육 콘텐츠를 안전하게 지키세요.
+            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">
+              카테노이드, 존플레이어 DRM 솔루션으로 불법 복제와 무단 배포를 원천 차단하고
+              소중한 교육 콘텐츠를 안전하게 지키세요.
             </p>
-            <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">DRM 도입 문의</a>
-              <a href="#solutions" className="px-7 py-3.5 rounded-xl font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">솔루션 비교</a>
+            <div className="flex gap-3">
+              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">
+                DRM 도입 문의
+              </a>
+              <a href="#solutions" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">
+                솔루션 비교
+              </a>
             </div>
           </div>
         </div>
