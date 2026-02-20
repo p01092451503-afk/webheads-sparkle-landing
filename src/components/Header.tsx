@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { X, ChevronDown } from "lucide-react";
+import { ChevronDown, X } from "lucide-react";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting", desc: "CDN / AWS / IDC" },
@@ -32,30 +32,33 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-navy-900 shadow-lg"
-          : "bg-navy-900/95 backdrop-blur-md"
-      }`}
+        scrolled ? "bg-white shadow-sm" : "bg-white/95 backdrop-blur-md"
+      } border-b border-gray-100`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-center h-16 lg:h-20">
-          {/* Desktop Navigation - 부가서비스 드롭다운만 중앙 표시 */}
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center">
-            <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-              <button className="px-8 py-3 text-white hover:text-brand-cyan text-lg font-semibold transition-colors flex items-center gap-2">
-                부가서비스 <ChevronDown className={`w-5 h-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
+            <div
+              className="relative"
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <button className="px-8 py-3 text-gray-800 hover:text-primary text-lg font-bold transition-colors flex items-center gap-2">
+                부가서비스
+                <ChevronDown className={`w-5 h-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
               </button>
               {servicesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-navy-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden animate-scale-in">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-white border border-gray-100 rounded-2xl shadow-xl overflow-hidden">
                   {services.map((s) => (
                     <Link
                       key={s.path}
                       to={s.path}
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-white/5 transition-colors group"
+                      className="flex items-start gap-3 px-5 py-3.5 hover:bg-blue-50 transition-colors group"
                     >
                       <div>
-                        <div className="text-white text-sm font-medium group-hover:text-brand-cyan transition-colors">{s.label}</div>
-                        <div className="text-white/40 text-xs mt-0.5">{s.desc}</div>
+                        <div className="text-gray-800 text-sm font-semibold group-hover:text-primary transition-colors">{s.label}</div>
+                        <div className="text-gray-400 text-xs mt-0.5">{s.desc}</div>
                       </div>
                     </Link>
                   ))}
@@ -64,9 +67,9 @@ export default function Header() {
             </div>
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile */}
           <button
-            className="lg:hidden text-white p-2 text-lg font-semibold flex items-center gap-2"
+            className="lg:hidden text-gray-800 text-lg font-bold flex items-center gap-2 py-3"
             onClick={() => setIsOpen(!isOpen)}
           >
             부가서비스 {isOpen ? <X className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
@@ -76,17 +79,16 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-navy-800 border-t border-white/10 animate-fade-in">
+        <div className="lg:hidden bg-white border-t border-gray-100">
           <div className="container mx-auto px-4 py-4 space-y-1">
-            <div className="px-3 py-1.5 text-xs text-white/30 font-semibold tracking-wider uppercase">부가서비스</div>
             {services.map((s) => (
               <Link
                 key={s.path}
                 to={s.path}
-                className="block px-3 py-2.5 text-white/70 hover:text-white text-sm rounded-lg hover:bg-white/5"
+                className="flex items-center justify-between px-4 py-3 text-gray-700 hover:text-primary text-sm font-medium rounded-xl hover:bg-blue-50 transition-colors"
               >
-                {s.label}
-                <span className="text-white/30 text-xs ml-2">{s.desc}</span>
+                <span>{s.label}</span>
+                <span className="text-gray-400 text-xs">{s.desc}</span>
               </Link>
             ))}
           </div>
