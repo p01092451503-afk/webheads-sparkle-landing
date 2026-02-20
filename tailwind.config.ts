@@ -57,35 +57,79 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        navy: {
+          900: "hsl(220, 60%, 8%)",
+          800: "hsl(220, 55%, 12%)",
+          700: "hsl(220, 50%, 16%)",
+          600: "hsl(222, 45%, 20%)",
+          500: "hsl(220, 40%, 28%)",
+        },
+        brand: {
+          blue: "hsl(214, 90%, 52%)",
+          "blue-light": "hsl(210, 95%, 62%)",
+          cyan: "hsl(192, 90%, 55%)",
+          "cyan-light": "hsl(190, 95%, 65%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "calc(var(--radius) + 8px)",
+        "2xl": "calc(var(--radius) + 16px)",
+      },
+      backgroundImage: {
+        "hero-gradient": "var(--hero-gradient)",
+        "primary-gradient": "var(--primary-gradient)",
+        "navy-gradient": "var(--navy-gradient)",
+        "card-gradient": "var(--card-gradient)",
+      },
+      boxShadow: {
+        card: "var(--shadow-card)",
+        primary: "var(--shadow-primary)",
+        hover: "var(--shadow-hover)",
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(24px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.95)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
+        "slide-right": {
+          from: { opacity: "0", transform: "translateX(-20px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-8px)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-up": "fade-up 0.6s ease-out forwards",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "scale-in": "scale-in 0.5s ease-out forwards",
+        "slide-right": "slide-right 0.5s ease-out forwards",
+        float: "float 3s ease-in-out infinite",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
