@@ -316,11 +316,11 @@ export default function HostingPage() {
                   {/* Features */}
                   <ul className="flex flex-col gap-3.5 flex-1">
                     {plan.features.map((f) => (
-                      <li key={f.main} className="flex items-start gap-2.5">
-                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span>
+                      <li key={f.main} className="flex items-start gap-2">
+                        <span className="w-4 h-4 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-xs text-primary">✓</span>
                         <div>
-                          <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
-                          {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
+                          <p className="text-sm font-medium text-foreground leading-tight">{f.main}</p>
+                          {f.sub && <p className="text-xs text-muted-foreground mt-0.5">{f.sub}</p>}
                         </div>
                       </li>
                     ))}
