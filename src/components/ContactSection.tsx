@@ -30,17 +30,17 @@ export default function ContactSection() {
           <div className="lg:col-span-2 space-y-5">
             {/* 전화번호 크게 표시 */}
             <div className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-              <div className="flex items-stretch">
-                <div className="flex-1 pr-6">
+              <div className="flex items-stretch gap-0">
+                <div className="pr-6">
                   <div className="text-white/50 text-sm mb-2">신규 도입 문의</div>
-                  <a href="tel:023364338" className="text-white font-bold text-2xl hover:text-brand-cyan transition-colors block">
+                  <a href="tel:023364338" className="text-white font-bold text-2xl hover:text-brand-cyan transition-colors block whitespace-nowrap">
                     02.336.4338
                   </a>
                 </div>
-                <div className="w-px bg-white/20" />
-                <div className="flex-1 pl-6">
+                <div className="w-px bg-white/20 shrink-0" />
+                <div className="pl-6">
                   <div className="text-white/50 text-sm mb-2">장애 및 유지보수 문의</div>
-                  <a href="tel:025404337" className="text-white font-bold text-2xl hover:text-brand-cyan transition-colors block">
+                  <a href="tel:025404337" className="text-white font-bold text-2xl hover:text-brand-cyan transition-colors block whitespace-nowrap">
                     02.540.4337
                   </a>
                 </div>
