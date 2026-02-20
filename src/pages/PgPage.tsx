@@ -1,8 +1,7 @@
 import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones } from "lucide-react";
-
+import heroPg from "@/assets/hero-pg-toss.png";
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
-import objPg from "@/assets/obj-pg.png";
 
 const features = [
   { icon: CreditCard, title: "토스페이먼츠(Toss Payments) 연동", desc: "토스페이먼츠 REST API v2를 통해 신용카드, 계좌이체, 가상계좌, 휴대폰 결제, 토스페이, 네이버페이, 카카오페이 등 국내 주요 결제 수단을 일원화된 인터페이스로 연동합니다. 결제 위젯(SDK) 방식으로 빠른 화면 구현이 가능하며 PCI-DSS 인증 보안 환경을 기본 제공합니다.", tags: ["REST API v2", "결제 위젯", "PCI-DSS", "간편결제"] },
@@ -63,10 +62,12 @@ export default function PgPage() {
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "hsl(162, 45%, 87%)" }}
+        style={{ background: "hsl(210, 50%, 90%)" }}
       >
-        <div className="absolute right-0 top-0 h-full w-1/2 flex items-center justify-center pointer-events-none select-none">
-          <img src={objPg} alt="" className="w-[380px] max-w-[50vw] object-contain" style={{ filter: "drop-shadow(0 32px 64px rgba(0,130,80,0.22))" }} />
+        <div
+          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
+        >
+          <img src={heroPg} alt="" fetchPriority="high" className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain" style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }} />
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
