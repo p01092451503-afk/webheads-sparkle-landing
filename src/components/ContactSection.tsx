@@ -117,17 +117,17 @@ export default function ContactSection() {
                 <Mail className="w-5 h-5 text-white" />
               </div>
               <div>
-                <p className="text-xs font-semibold mb-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-sm font-semibold mb-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
                   이메일 문의
                 </p>
                 <a
                   href="mailto:34bus@webheads.co.kr"
-                  className="font-bold text-[1.17rem] leading-snug transition-colors"
+                  className="font-bold text-[1.45rem] leading-snug transition-colors"
                   style={{ color: "hsl(220, 60%, 8%)" }}
                 >
                   34bus@webheads.co.kr
                 </a>
-                <p className="text-[0.845rem] mt-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-sm mt-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
                   24시간 접수 가능
                 </p>
               </div>
