@@ -19,7 +19,6 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-5">
-              <img src={logoWebheads} alt="WEBHEADS" className="h-8 w-auto" />
               <span className="font-bold text-xl tracking-wide">WEBHEADS</span>
             </div>
 
