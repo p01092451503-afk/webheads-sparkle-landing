@@ -77,41 +77,29 @@ export default function AppDevHeroVisual() {
         </div>
 
         {/* ── Floating: iOS icon ── */}
-        <div style={{ position: "absolute", left: "8%", top: "10%", animation: "app-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(80,50,200,0.3))" }}>
-          <svg width="70" height="70" viewBox="0 0 70 70">
-            <defs><linearGradient id="iosGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs>
-            <rect width="70" height="70" rx="18" fill="url(#iosGrad)"/>
-            {/* Apple logo shape */}
-            <g transform="translate(35,35)">
-              {/* Apple body */}
-              <path d="M0,-14 C6,-14 11,-9 11,-3 C11,5 6,12 0,14 C-6,12 -11,5 -11,-3 C-11,-9 -6,-14 0,-14 Z" fill="rgba(255,255,255,0.95)"/>
-              {/* Bite */}
-              <circle cx="5.5" cy="-11" r="5" fill="url(#iosGrad)"/>
-              {/* Stem */}
-              <path d="M3,-14 Q6,-18 4,-20" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="2" strokeLinecap="round"/>
-            </g>
-            {/* iOS label */}
-            <text x="35" y="63" textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.7)" fontWeight="700" fontFamily="sans-serif">iOS</text>
-          </svg>
+        <div style={{
+          position: "absolute", left: "8%", top: "10%",
+          animation: "app-float-a 3.8s ease-in-out infinite",
+          filter: "drop-shadow(0 12px 20px rgba(80,50,200,0.3))",
+          width: 72, height: 72, borderRadius: 18,
+          background: "linear-gradient(135deg, #a78bfa, #7c3aed)",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2,
+        }}>
+          <span style={{ fontSize: 26, fontWeight: 900, color: "#fff", letterSpacing: -1, lineHeight: 1 }}>i</span>
+          <span style={{ fontSize: 11, fontWeight: 800, color: "rgba(255,255,255,0.9)", letterSpacing: 1 }}>iOS</span>
         </div>
 
         {/* ── Floating: Android icon ── */}
-        <div style={{ position: "absolute", right: "6%", top: "8%", animation: "app-float-e 4.2s ease-in-out infinite", animationDelay: "0.8s", filter: "drop-shadow(0 12px 20px rgba(60,180,80,0.3))" }}>
-          <svg width="60" height="62" viewBox="0 0 60 62">
-            <defs><linearGradient id="aosGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#4ade80"/><stop offset="100%" stopColor="#16a34a"/></linearGradient></defs>
-            <rect width="60" height="62" rx="16" fill="url(#aosGrad)"/>
-            {/* Android robot */}
-            <circle cx="30" cy="22" r="10" fill="rgba(255,255,255,0.9)"/>
-            <circle cx="26" cy="20" r="1.5" fill="#16a34a"/>
-            <circle cx="34" cy="20" r="1.5" fill="#16a34a"/>
-            <line x1="23" y1="14" x2="20" y2="10" stroke="rgba(255,255,255,0.9)" strokeWidth="2" strokeLinecap="round"/>
-            <line x1="37" y1="14" x2="40" y2="10" stroke="rgba(255,255,255,0.9)" strokeWidth="2" strokeLinecap="round"/>
-            <rect x="18" y="30" width="24" height="18" rx="4" fill="rgba(255,255,255,0.85)"/>
-            <rect x="14" y="31" width="5" height="12" rx="2.5" fill="rgba(255,255,255,0.7)"/>
-            <rect x="41" y="31" width="5" height="12" rx="2.5" fill="rgba(255,255,255,0.7)"/>
-            <rect x="24" y="50" width="5" height="8" rx="2.5" fill="rgba(255,255,255,0.7)"/>
-            <rect x="31" y="50" width="5" height="8" rx="2.5" fill="rgba(255,255,255,0.7)"/>
-          </svg>
+        <div style={{
+          position: "absolute", right: "6%", top: "8%",
+          animation: "app-float-e 4.2s ease-in-out infinite", animationDelay: "0.8s",
+          filter: "drop-shadow(0 12px 20px rgba(60,180,80,0.3))",
+          width: 72, height: 72, borderRadius: 18,
+          background: "linear-gradient(135deg, #4ade80, #16a34a)",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2,
+        }}>
+          <span style={{ fontSize: 20, fontWeight: 900, color: "#fff", letterSpacing: -0.5, lineHeight: 1 }}>AOS</span>
+          <span style={{ fontSize: 9, fontWeight: 600, color: "rgba(255,255,255,0.75)", letterSpacing: 0.5 }}>Android</span>
         </div>
 
         {/* ── Floating: React Native badge ── */}
