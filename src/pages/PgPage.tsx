@@ -94,9 +94,11 @@ export default function PgPage() {
     <div className="min-h-screen">
       {/* Hero */}
       <section className="hero-section min-h-[70vh] flex items-center pt-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url(${heroPg})` }}
+        <img
+          src={heroPg}
+          alt=""
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
         />
         <div className="container mx-auto px-4 py-20 relative">
           <div className="max-w-2xl">

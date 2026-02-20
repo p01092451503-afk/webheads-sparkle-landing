@@ -92,9 +92,11 @@ export default function ChatbotPage() {
     <div className="min-h-screen">
       {/* Hero */}
       <section className="hero-section min-h-[70vh] flex items-center pt-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-25"
-          style={{ backgroundImage: `url(${heroChatbot})` }}
+        <img
+          src={heroChatbot}
+          alt=""
+          fetchPriority="high"
+          className="absolute inset-0 w-full h-full object-cover opacity-25 pointer-events-none"
         />
         <div className="container mx-auto px-4 py-20 relative">
           <div className="max-w-2xl">
