@@ -33,11 +33,8 @@ export default function Footer() {
               <p className="text-sm leading-relaxed" style={{ color: "hsl(220, 20%, 50%)" }}>
                 03971 서울특별시 마포구 월드컵로 114, 3층
               </p>
-              <p className="text-sm" style={{ color: "hsl(220, 20%, 50%)" }}>
-                개인정보관리책임자 강성일
-              </p>
-              <p className="text-sm" style={{ color: "hsl(220, 20%, 50%)" }}>
-                elise75@webheads.co.kr
+              <p className="text-xs" style={{ color: "hsl(220, 20%, 50%)" }}>
+                개인정보관리책임자 강성일 · elise75@webheads.co.kr
               </p>
             </div>
 
