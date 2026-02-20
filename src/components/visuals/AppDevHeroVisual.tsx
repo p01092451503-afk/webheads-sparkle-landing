@@ -78,10 +78,20 @@ export default function AppDevHeroVisual() {
 
         {/* ── Floating: iOS icon ── */}
         <div style={{ position: "absolute", left: "8%", top: "10%", animation: "app-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(80,50,200,0.3))" }}>
-          <svg width="62" height="62" viewBox="0 0 62 62">
+          <svg width="70" height="70" viewBox="0 0 70 70">
             <defs><linearGradient id="iosGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs>
-            <rect width="62" height="62" rx="16" fill="url(#iosGrad)"/>
-            <text x="31" y="42" textAnchor="middle" fontSize="28" fill="white"></text>
+            <rect width="70" height="70" rx="18" fill="url(#iosGrad)"/>
+            {/* Apple logo shape */}
+            <g transform="translate(35,35)">
+              {/* Apple body */}
+              <path d="M0,-14 C6,-14 11,-9 11,-3 C11,5 6,12 0,14 C-6,12 -11,5 -11,-3 C-11,-9 -6,-14 0,-14 Z" fill="rgba(255,255,255,0.95)"/>
+              {/* Bite */}
+              <circle cx="5.5" cy="-11" r="5" fill="url(#iosGrad)"/>
+              {/* Stem */}
+              <path d="M3,-14 Q6,-18 4,-20" fill="none" stroke="rgba(255,255,255,0.95)" strokeWidth="2" strokeLinecap="round"/>
+            </g>
+            {/* iOS label */}
+            <text x="35" y="63" textAnchor="middle" fontSize="9" fill="rgba(255,255,255,0.7)" fontWeight="700" fontFamily="sans-serif">iOS</text>
           </svg>
         </div>
 
