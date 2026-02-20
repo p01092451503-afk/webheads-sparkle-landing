@@ -38,7 +38,15 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center h-16 lg:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #4facfe 0%, #2563eb 100%)" }}>
+              <span className="text-white font-bold text-sm">W</span>
+            </div>
+            <span className="font-bold text-lg text-white tracking-wide">WEBHEADS</span>
+          </Link>
+
           {/* Desktop Navigation - 부가서비스 드롭다운만 중앙 표시 */}
           <nav className="hidden lg:flex items-center">
             <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
