@@ -1,5 +1,6 @@
 import heroMaintenance from "@/assets/hero-maintenance-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 import {
   Wrench, Clock, Shield, PhoneCall, RefreshCw, BarChart3,
   Zap, AlertTriangle, Settings, CheckCircle, HeadphonesIcon,
@@ -156,6 +157,22 @@ const stats = [
 export default function MaintenancePage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="유지보수"
+        description="LMS 및 웹헤즈 솔루션 전문 유지보수 서비스. 24/7 장애 대응, 보안 패치, 성능 최적화, 기능 개선까지 전담 엔지니어가 책임지고 관리합니다."
+        keywords="이러닝 유지보수, LMS 유지보수, 서버 유지보수, 24/7 장애 대응, 이러닝 운영 관리"
+        path="/maintenance"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 유지보수",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "LMS 및 이러닝 솔루션 전문 유지보수. 24/7 장애 대응, 보안 패치, 성능 최적화.",
+          "areaServed": "KR",
+          "serviceType": "IT 유지보수",
+          "url": "https://webheads-sparkle-landing.lovable.app/maintenance"
+        }}
+      />
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"

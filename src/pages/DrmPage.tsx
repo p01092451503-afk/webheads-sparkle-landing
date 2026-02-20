@@ -1,5 +1,6 @@
 import heroDrm from "@/assets/hero-drm-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
 
 const features = [
@@ -29,6 +30,22 @@ const stats = [
 export default function DrmPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="DRM 솔루션"
+        description="Widevine, FairPlay, PlayReady 멀티 DRM으로 이러닝 동영상을 완벽하게 보호합니다. 화면 캡처 방지, 개인 식별 워터마크, 카테노이드·존플레이어 DRM 연동."
+        keywords="DRM, 이러닝 DRM, 동영상 보안, Widevine, FairPlay, 카테노이드, 존플레이어, 화면 캡처 방지"
+        path="/drm"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 DRM 솔루션",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "이러닝 동영상 DRM 보안 솔루션. 카테노이드·존플레이어 연동, 화면 캡처 방지.",
+          "areaServed": "KR",
+          "serviceType": "DRM 보안",
+          "url": "https://webheads-sparkle-landing.lovable.app/drm"
+        }}
+      />
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"

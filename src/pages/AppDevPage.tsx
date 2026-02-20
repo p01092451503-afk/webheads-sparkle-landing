@@ -1,5 +1,6 @@
 import heroApp from "@/assets/hero-app-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2 } from "lucide-react";
 
 const lmsFeatures = [
@@ -28,6 +29,22 @@ const stats = [
 export default function AppDevPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="어플리케이션 개발"
+        description="웹헤즈 LMS와 완벽 연동되는 iOS·Android 앱 개발. Swift, Kotlin 네이티브 및 React Native, Flutter 크로스플랫폼 개발로 모바일 학습 환경을 구축합니다."
+        keywords="이러닝 앱 개발, LMS 앱 개발, iOS 앱, Android 앱, React Native, Flutter, 모바일 학습 앱"
+        path="/app-dev"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 앱 개발",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "LMS 완벽 연동 iOS·Android 앱 개발 서비스",
+          "areaServed": "KR",
+          "serviceType": "모바일 앱 개발",
+          "url": "https://webheads-sparkle-landing.lovable.app/app-dev"
+        }}
+      />
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"

@@ -1,6 +1,7 @@
 import { ArrowLeft } from "lucide-react";
 import heroChatbot from "@/assets/hero-chatbot-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
 
 const features = [
@@ -31,6 +32,22 @@ const stats = [
 export default function ChatbotPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="AI 챗봇"
+        description="GPT-4o, Claude 3.5 기반 LMS 연동 AI 챗봇. 학습자 문의 자동 응대, FAQ 자동 학습, 다국어 지원으로 24시간 학습 지원 환경을 구축합니다."
+        keywords="AI 챗봇, LMS 챗봇, 이러닝 챗봇, GPT 챗봇, 학습 챗봇, 이러닝 상담봇"
+        path="/chatbot"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 AI 챗봇",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "GPT-4o, Claude 3.5 기반 LMS 연동 AI 챗봇 서비스",
+          "areaServed": "KR",
+          "serviceType": "AI 챗봇 개발",
+          "url": "https://webheads-sparkle-landing.lovable.app/chatbot"
+        }}
+      />
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"

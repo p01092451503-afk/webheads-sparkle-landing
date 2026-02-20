@@ -1,5 +1,6 @@
 import heroHosting from "@/assets/hero-hosting-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
 const features = [
@@ -120,6 +121,22 @@ const stats = [
 export default function HostingPage() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="이러닝 호스팅"
+        description="CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스. 99.9% SLA 가동률, 24/7 NOC 모니터링, 자동 스케일링으로 끊김 없는 학습 환경을 제공합니다."
+        keywords="이러닝 호스팅, LMS 호스팅, CDN, AWS 호스팅, IDC 서버, 이러닝 서버, 온라인 강의 호스팅"
+        path="/hosting"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 이러닝 호스팅",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스",
+          "areaServed": "KR",
+          "serviceType": "이러닝 호스팅",
+          "url": "https://webheads-sparkle-landing.lovable.app/hosting"
+        }}
+      />
       {/* Hero — Toss 스타일 */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
