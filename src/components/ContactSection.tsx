@@ -64,8 +64,8 @@ export default function ContactSection() {
             className="leading-tight text-4xl lg:text-5xl tracking-tight"
             style={{ fontWeight: 900, color: "hsl(220, 60%, 8%)" }}
           >
-          전문 컨설턴트와{" "}
-            <span style={{ color: "hsl(214, 90%, 52%)" }}>무료 상담</span>하세요
+          궁금한 점이 있으시면{" "}
+            <span style={{ color: "hsl(214, 90%, 52%)" }}>편하게 문의</span>하세요
           </h2>
           <p className="mt-4 text-base" style={{ color: "hsl(220, 20%, 50%)" }}>
             빠르고 신속하게 답변드립니다
