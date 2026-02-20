@@ -148,7 +148,7 @@ export default function ContactSection() {
                 <p className="text-xs font-semibold mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>
                   운영 시간
                 </p>
-                <p className="text-[0.845rem] font-medium" style={{ color: "hsl(220, 60%, 8%)" }}>
+                <p className="text-[1.17rem] font-bold leading-snug" style={{ color: "hsl(220, 60%, 8%)" }}>
                   평일 10:00 – 18:00
                 </p>
                 <p className="text-[0.715rem] mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
