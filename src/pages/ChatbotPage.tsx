@@ -98,9 +98,6 @@ export default function ChatbotPage() {
           style={{ backgroundImage: `url(${heroChatbot})` }}
         />
         <div className="container mx-auto px-4 py-20 relative">
-          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
-          </Link>
           <div className="max-w-2xl">
             <span className="feature-badge mb-5" style={{ background: "hsl(192 90% 55% / 0.1)", color: "hsl(192 90% 65%)", borderColor: "hsl(192 90% 55% / 0.3)" }}>
               AI 챗봇 개발

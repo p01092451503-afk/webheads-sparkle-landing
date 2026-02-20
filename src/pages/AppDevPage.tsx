@@ -111,9 +111,6 @@ export default function AppDevPage() {
           style={{ backgroundImage: `url(${heroApp})` }}
         />
         <div className="container mx-auto px-4 py-20 relative">
-          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
-          </Link>
           <div className="max-w-2xl">
             <span className="feature-badge mb-5" style={{ background: "hsl(238 80% 60% / 0.15)", color: "hsl(245 80% 75%)", borderColor: "hsl(238 80% 60% / 0.3)" }}>
               APP 개발
