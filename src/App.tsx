@@ -12,6 +12,7 @@ import AppDevPage from "./pages/AppDevPage";
 import ContentPage from "./pages/ContentPage";
 import DrmPage from "./pages/DrmPage";
 import ChannelPage from "./pages/ChannelPage";
+import PgPage from "./pages/PgPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/content" element={<ContentPage />} />
             <Route path="/drm" element={<DrmPage />} />
             <Route path="/channel" element={<ChannelPage />} />
+            <Route path="/pg" element={<PgPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
