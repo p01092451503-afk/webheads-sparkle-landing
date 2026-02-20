@@ -114,7 +114,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "웹헤즈 상담 <onboarding@resend.dev>",
+        from: "웹헤즈 상담 <noreply@webheads.co.kr>",
         to: ["34bus@webheads.co.kr"],
         subject: `[웹헤즈 무료상담] ${company} · ${name} 님의 상담 신청`,
         html: htmlBody,
