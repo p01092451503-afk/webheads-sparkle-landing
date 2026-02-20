@@ -9,6 +9,7 @@ const services = [
   { label: "콘텐츠 개발", path: "/content" },
   { label: "DRM 솔루션", path: "/drm" },
   { label: "채널톡 / SMS", path: "/channel" },
+  { label: "PG 결제 연동", path: "/pg" },
 ];
 
 export default function Footer() {
