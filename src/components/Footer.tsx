@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
+import logoWebheads from "@/assets/logo-webheads.png";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting" },
@@ -18,9 +19,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #4facfe 0%, #2563eb 100%)" }}>
-                <span className="text-white font-bold text-sm">W</span>
-              </div>
+              <img src={logoWebheads} alt="WEBHEADS" className="h-8 w-auto" />
               <span className="font-bold text-xl tracking-wide">WEBHEADS</span>
             </div>
 
