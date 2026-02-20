@@ -3,13 +3,14 @@ import { Send, Mail, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 const services = [
-  "이러닝 호스팅",
-  "AI 챗봇 개발",
-  "APP 개발",
-  "콘텐츠 개발",
-  "DRM 솔루션",
-  "채널톡 / SMS",
-  "PG 결제 연동",
+  "이러닝호스팅",
+  "유지보수",
+  "AI챗봇",
+  "어플리케이션",
+  "DRM",
+  "채널톡/SMS",
+  "PG",
+  "콘텐츠",
 ];
 
 export default function ContactSection() {
