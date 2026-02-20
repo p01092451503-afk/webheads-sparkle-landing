@@ -116,11 +116,6 @@ export default function AppDevPage() {
               </div>
             ))}
           </div>
-          <div className="mt-10 rounded-2xl p-8 text-center" style={{ background: "hsl(220, 60%, 8%)" }}>
-            <p className="text-white/60 text-sm mb-2">원하는 앱이 없으신가요?</p>
-            <p className="text-white font-bold text-lg mb-6">어떤 아이디어든 구체화하고 개발해드립니다. 먼저 문의해 주세요.</p>
-            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-white text-foreground hover:bg-secondary transition-colors">개발 문의하기</a>
-          </div>
         </div>
       </section>
 
