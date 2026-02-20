@@ -1,5 +1,6 @@
 import heroContent from "@/assets/hero-content-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 import { Film, PenTool, Layers, Package, Monitor, Users, Mic, Palette, ClipboardCheck } from "lucide-react";
 
 const features = [
@@ -30,6 +31,22 @@ const stats = [
 export default function ContentPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="콘텐츠 개발"
+        description="4K 동영상 강의, 인터랙티브 콘텐츠, 2D/3D 애니메이션, SCORM/xAPI 패키징까지 이러닝 콘텐츠 전문 제작 서비스. 모든 디바이스 지원."
+        keywords="이러닝 콘텐츠 제작, 동영상 강의, SCORM, xAPI, 인터랙티브 콘텐츠, 이러닝 영상 제작"
+        path="/content"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 콘텐츠 개발",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "이러닝 동영상 강의, 인터랙티브 콘텐츠, SCORM/xAPI 패키징 전문 제작",
+          "areaServed": "KR",
+          "serviceType": "이러닝 콘텐츠 제작",
+          "url": "https://webheads-sparkle-landing.lovable.app/content"
+        }}
+      />
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"

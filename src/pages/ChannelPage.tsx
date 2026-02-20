@@ -1,5 +1,6 @@
 import heroChannel from "@/assets/hero-channel-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2 } from "lucide-react";
 
 const features = [
@@ -35,6 +36,22 @@ const stats = [
 export default function ChannelPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="채널톡/SMS"
+        description="채널톡 LMS 연동, SMS/LMS 대량 발송, 학습 독려 자동화 메시지로 학습자 참여율을 높입니다. 카카오 알림톡, CRM 세그먼트 연동 지원."
+        keywords="채널톡, SMS 발송, 이러닝 알림, 학습 독려, LMS 채널톡, 카카오 알림톡, 대량 문자 발송"
+        path="/channel"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 채널톡/SMS",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "채널톡 LMS 연동 및 SMS 대량 발송, 학습 독려 자동화 서비스",
+          "areaServed": "KR",
+          "serviceType": "채널톡/SMS 연동",
+          "url": "https://webheads-sparkle-landing.lovable.app/channel"
+        }}
+      />
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"

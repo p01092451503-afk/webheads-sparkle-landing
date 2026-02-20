@@ -1,6 +1,7 @@
 import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones } from "lucide-react";
 import heroPg from "@/assets/hero-pg-toss.png";
 import ContactSection from "@/components/ContactSection";
+import SEO from "@/components/SEO";
 
 const features = [
   { icon: CreditCard, title: "토스페이먼츠(Toss Payments) 연동", desc: "토스페이먼츠 REST API v2를 통해 신용카드, 계좌이체, 가상계좌, 휴대폰 결제, 토스페이, 네이버페이, 카카오페이 등 국내 주요 결제 수단을 일원화된 인터페이스로 연동합니다. 결제 위젯(SDK) 방식으로 빠른 화면 구현이 가능하며 PCI-DSS 인증 보안 환경을 기본 제공합니다.", tags: ["REST API v2", "결제 위젯", "PCI-DSS", "간편결제"] },
@@ -42,6 +43,22 @@ const stats = [
 export default function PgPage() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="PG 결제 연동"
+        description="토스페이먼츠, KG이니시스, 모빌리언스, 결제선생, 해외 PG까지 이러닝 플랫폼에 최적화된 결제 연동 서비스. 정기결제, 분납, 에스크로 지원."
+        keywords="PG 결제, 이러닝 결제, 토스페이먼츠, KG이니시스, 온라인 결제 연동, 정기결제, 학원 결제"
+        path="/pg"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "웹헤즈 PG 결제 연동",
+          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "description": "이러닝 플랫폼 PG 결제 연동. 토스페이먼츠, KG이니시스, 해외 PG 지원.",
+          "areaServed": "KR",
+          "serviceType": "PG 결제 연동",
+          "url": "https://webheads-sparkle-landing.lovable.app/pg"
+        }}
+      />
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
