@@ -29,9 +29,8 @@ export default function ContactSection() {
           {/* Contact Info */}
           <div className="lg:col-span-2 space-y-6">
             {[
-              { icon: Phone, title: "전화 상담", value: "02-XXXX-XXXX", sub: "평일 09:00 ~ 18:00" },
-              { icon: Mail, title: "이메일 문의", value: "info@webheads.co.kr", sub: "24시간 접수 가능" },
-              { icon: MessageSquare, title: "카카오톡 채널", value: "@웹헤즈", sub: "실시간 채팅 상담" },
+              { icon: Phone, title: "전화 상담", value: "02-540-4337", sub: "평일 09:00 ~ 18:00" },
+              { icon: Mail, title: "이메일 문의", value: "34bus@webheads.co.kr", sub: "24시간 접수 가능" },
             ].map((item) => (
               <div key={item.title} className="flex items-start gap-4 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
                 <div className="w-10 h-10 rounded-lg bg-primary-gradient flex items-center justify-center shrink-0">
