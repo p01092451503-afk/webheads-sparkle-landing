@@ -55,7 +55,7 @@ export default function AppDevPage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(245, 70%, 45%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>APP 개발</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(245, 70%, 45%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>어플리케이션</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               LMS 완벽 연동부터<br />
               <span style={{ color: "hsl(245, 80%, 55%)" }}>다양한 목적의 앱 개발</span>

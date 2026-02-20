@@ -58,7 +58,7 @@ export default function DrmPage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(152, 70%, 30%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>DRM 솔루션</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(152, 70%, 30%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>DRM</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               이러닝 콘텐츠를<br />
               <span style={{ color: "hsl(152, 80%, 38%)" }}>완벽하게 보호합니다</span>
