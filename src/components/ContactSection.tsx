@@ -68,7 +68,7 @@ export default function ContactSection() {
             <span style={{ color: "hsl(214, 90%, 52%)" }}>편하게 문의</span>하세요
           </h2>
           <p className="mt-4 text-base" style={{ color: "hsl(220, 20%, 50%)" }}>
-            빠르고 신속하게 답변드립니다
+            친절하고 빠르게 답변드립니다
           </p>
         </div>
 
