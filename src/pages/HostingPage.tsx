@@ -62,6 +62,20 @@ const features = [
 
 const plans = [
   {
+    name: "Light",
+    price: "300,000",
+    unit: "원",
+    priceNote: "월 이용료 (VAT별도)",
+    features: [
+      { main: "CDN 미사용 경량 호스팅", sub: "YouTube·Vimeo 링크 임베드 방식" },
+      { main: "회원수 무제한", sub: "" },
+      { main: "디자인 무료 템플릿 제공", sub: "" },
+      { main: "SSL 보안인증서 설치", sub: "" },
+      { main: "하이브리드앱 개발", sub: "월 +30만원" },
+    ],
+    recommend: "소규모 창업자, 1인 강사, 영상 외부 호스팅 이용 고객에 추천드려요",
+  },
+  {
     name: "Basic",
     price: "500,000",
     unit: "원",
@@ -266,7 +280,7 @@ export default function HostingPage() {
             </h2>
             <p className="text-muted-foreground mt-4 text-base">모든 요금은 VAT 별도입니다. 초과 사용량은 플랜별 단가로 과금됩니다.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
             {plans.map((plan) => (
               <div
                 key={plan.name}
