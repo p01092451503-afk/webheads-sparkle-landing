@@ -50,7 +50,23 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center h-16 lg:h-20">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center select-none"
+            style={{
+              fontFamily: "'Pretendard', 'Noto Sans KR', sans-serif",
+              fontWeight: 800,
+              fontSize: "1.35rem",
+              letterSpacing: "-0.04em",
+              color: "#ffffff",
+              lineHeight: 1,
+            }}
+          >
+            웹헤즈
+          </Link>
+
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center">
             <div className="relative" ref={dropdownRef}>
@@ -82,7 +98,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-white p-2 text-lg font-semibold flex items-center gap-2"
+            className="lg:hidden text-white p-2 text-base font-semibold flex items-center gap-1.5"
             onClick={() => setIsOpen(!isOpen)}
           >
             부가서비스 {isOpen ? <X className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
