@@ -107,22 +107,8 @@ const plans = [
     highlight: true,
     badge: "인기 요금제!",
   },
-  {
-    name: "Enterprise",
-    price: "별도문의",
-    unit: "",
-    priceNote: "",
-    features: [
-      { main: "동영상 전송량 별도문의", sub: "전송량 초과시 1GB당 300원" },
-      { main: "동영상 저장공간 별도문의", sub: "저장용량 초과시 1GB당 400원" },
-      { main: "회원수 무제한", sub: "" },
-      { main: "디자인 무료 템플릿 제공", sub: "" },
-      { main: "SSL 보안인증서 설치", sub: "" },
-      { main: "하이브리드앱 개발", sub: "월 +30만원" },
-    ],
-    recommend: "대형 학원, 중소 기업, 평생교육원, 기타 교육기관에 추천드려요",
-  },
 ];
+
 
 const stats = [
   { value: "99.9%", label: "서버 가동률", sub: "SLA 보장" },
@@ -263,54 +249,54 @@ export default function HostingPage() {
             </h2>
             <p className="text-muted-foreground mt-4 text-base">모든 요금은 VAT 별도입니다. 초과 사용량은 플랜별 단가로 과금됩니다.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             {plans.map((plan) => (
               <div
                 key={plan.name}
                 className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${
                   plan.highlight
-                    ? "bg-background border-2 border-primary shadow-xl"
+                    ? "bg-background border-2 border-primary shadow-xl scale-[1.02]"
                     : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"
                 }`}
               >
                 {plan.badge && (
-                  <div className="bg-primary text-primary-foreground text-xs font-bold text-center py-2 tracking-wide">
+                  <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">
                     {plan.badge}
                   </div>
                 )}
-                <div className="p-6 flex flex-col gap-4 flex-1">
+                <div className="p-8 flex flex-col gap-5 flex-1">
                   {/* Name */}
                   <div>
-                    <h3 className={`font-black text-2xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>
+                    <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>
                       {plan.name}
                     </h3>
-                    <div className={`h-px mt-3 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} />
+                    <div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} />
                   </div>
                   {/* Price */}
                   <div>
                     <div className="flex items-end gap-1">
-                      <span className={`font-black leading-none tracking-tight ${plan.price === "별도문의" ? "text-2xl" : "text-3xl"} ${plan.highlight ? "text-primary" : "text-foreground"}`}>
+                      <span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>
                         {plan.price}
                       </span>
-                      {plan.unit && <span className="text-sm font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
+                      {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
                     </div>
-                    {plan.priceNote && <p className="text-xs text-muted-foreground mt-1">{plan.priceNote}</p>}
+                    {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
                   </div>
                   {/* Features */}
-                  <ul className="flex flex-col gap-3 flex-1">
+                  <ul className="flex flex-col gap-3.5 flex-1">
                     {plan.features.map((f) => (
-                      <li key={f.main} className="flex items-start gap-2">
-                        <span className={`w-4 h-4 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-xs ${plan.highlight ? "text-primary" : "text-primary"}`}>✓</span>
+                      <li key={f.main} className="flex items-start gap-2.5">
+                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span>
                         <div>
-                          <p className="text-sm font-medium text-foreground leading-tight">{f.main}</p>
-                          {f.sub && <p className="text-xs text-muted-foreground mt-0.5">{f.sub}</p>}
+                          <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
+                          {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
                         </div>
                       </li>
                     ))}
                   </ul>
                   {/* Recommend box */}
-                  <div className="rounded-xl p-3 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}>
-                    <p className="text-xs text-white/60 leading-relaxed text-center">{plan.recommend}</p>
+                  <div className="rounded-xl p-4 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}>
+                    <p className="text-sm text-white/60 leading-relaxed text-center">{plan.recommend}</p>
                   </div>
                 </div>
               </div>
