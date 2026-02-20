@@ -110,9 +110,6 @@ export default function ChannelPage() {
           style={{ backgroundImage: `url(${heroChannel})` }}
         />
         <div className="container mx-auto px-4 py-20 relative">
-          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
-            <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
-          </Link>
           <div className="max-w-2xl">
             <span className="feature-badge mb-5" style={{ background: "hsl(40 90% 55% / 0.15)", color: "hsl(40 90% 70%)", borderColor: "hsl(40 90% 55% / 0.3)" }}>
               채널톡 / SMS
