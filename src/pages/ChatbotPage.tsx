@@ -1,7 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import heroChatbot from "@/assets/hero-chatbot-toss.png";
 import ContactSection from "@/components/ContactSection";
-import LmsBanner from "@/components/LmsBanner";
 import SEO from "@/components/SEO";
 import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
 
@@ -70,9 +69,6 @@ export default function ChatbotPage() {
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>무료 데모 신청</a>
               <a href="#process" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "#fff" }}>구축 과정 보기</a>
-            </div>
-            <div className="mt-4">
-              <LmsBanner />
             </div>
           </div>
         </div>

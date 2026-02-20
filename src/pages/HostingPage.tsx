@@ -1,6 +1,5 @@
 import heroHosting from "@/assets/hero-hosting-toss.png";
 import ContactSection from "@/components/ContactSection";
-import LmsBanner from "@/components/LmsBanner";
 import SEO from "@/components/SEO";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
@@ -211,9 +210,6 @@ export default function HostingPage() {
               >
                 요금제 보기
               </a>
-            </div>
-            <div className="mt-4">
-              <LmsBanner />
             </div>
           </div>
         </div>
