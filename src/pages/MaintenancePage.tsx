@@ -1,7 +1,8 @@
 import ContactSection from "@/components/ContactSection";
 import {
   Wrench, Clock, Shield, PhoneCall, RefreshCw, BarChart3,
-  FileText, Zap, AlertTriangle, Settings, CheckCircle, HeadphonesIcon,
+  Zap, AlertTriangle, Settings, CheckCircle, HeadphonesIcon,
+  Paintbrush, Code2, LayoutDashboard, Puzzle, MonitorSmartphone, Layers,
 } from "lucide-react";
 
 const features = [
@@ -30,12 +31,6 @@ const features = [
     tags: ["DB 튜닝", "캐시 최적화", "월간 리포트"],
   },
   {
-    icon: FileText,
-    title: "콘텐츠 & 데이터 백업",
-    desc: "동영상, 문서, 학습 데이터, DB를 매일 자동 백업합니다. 최대 30일치 스냅샷을 보관하여 어떤 시점으로도 즉시 복구할 수 있습니다.",
-    tags: ["일일 자동 백업", "30일 스냅샷", "즉시 복구"],
-  },
-  {
     icon: Settings,
     title: "기능 개선 & 커스터마이징",
     desc: "운영 중 필요한 소규모 기능 추가, UI 수정, 관리자 설정 변경 등을 신속하게 처리합니다. 요청 후 평균 1~3 영업일 내 반영합니다.",
@@ -58,6 +53,45 @@ const features = [
     title: "사용자 문의 처리 대행",
     desc: "학습자·관리자의 시스템 관련 문의를 1차로 접수·분류하고 기술 이슈는 직접 처리, 운영 이슈는 담당자에게 전달합니다.",
     tags: ["1차 접수 대행", "이슈 분류", "빠른 에스컬레이션"],
+  },
+];
+
+const devFeatures = [
+  {
+    icon: Code2,
+    title: "신규 기능 개발",
+    desc: "기존 LMS에 없는 기능을 새롭게 개발하여 추가합니다. 출석 관리, 퀴즈 엔진, 수강권 시스템, 결제 연동 등 다양한 기능을 맞춤 개발합니다.",
+    tags: ["맞춤 기능 개발", "API 연동", "LMS 확장"],
+  },
+  {
+    icon: Paintbrush,
+    title: "UI/UX 디자인 개선",
+    desc: "노후화된 화면을 최신 트렌드에 맞게 리뉴얼합니다. 학습자 경험을 중심으로 직관적인 화면 구조와 세련된 시각 디자인을 적용합니다.",
+    tags: ["화면 리뉴얼", "UX 개선", "반응형 디자인"],
+  },
+  {
+    icon: LayoutDashboard,
+    title: "관리자 화면 고도화",
+    desc: "관리자가 필요로 하는 통계 대시보드, 대량 회원 관리, 콘텐츠 일괄 처리 등 운영 효율을 높이는 관리 기능을 추가로 개발합니다.",
+    tags: ["대시보드", "대량 처리", "운영 자동화"],
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "모바일 최적화",
+    desc: "PC 중심으로 개발된 LMS를 모바일·태블릿 환경에서도 완벽하게 동작하도록 반응형으로 개선합니다. 터치 UX와 앱과 동일한 경험을 제공합니다.",
+    tags: ["반응형 웹", "모바일 UX", "크로스 디바이스"],
+  },
+  {
+    icon: Puzzle,
+    title: "외부 서비스 연동",
+    desc: "카카오톡 알림톡, PG 결제, HR·ERP 시스템, SSO, 외부 API 등 다양한 서드파티 서비스와 LMS를 연동하여 업무 흐름을 자동화합니다.",
+    tags: ["카카오 알림톡", "PG 결제", "SSO 연동"],
+  },
+  {
+    icon: Layers,
+    title: "기존 콘텐츠 마이그레이션",
+    desc: "타사 LMS나 구형 시스템에서 웹헤즈 LMS로 학습 데이터, 회원 정보, 동영상 콘텐츠를 안전하게 이전합니다. 데이터 손실 없이 무중단 전환을 지원합니다.",
+    tags: ["데이터 이전", "무중단 전환", "콘텐츠 마이그레이션"],
   },
 ];
 
