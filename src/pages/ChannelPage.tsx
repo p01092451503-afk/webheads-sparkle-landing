@@ -47,7 +47,7 @@ export default function ChannelPage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsl(40, 90%, 55%, 0.1)", color: "hsl(40, 90%, 40%)" }}>채널톡 / SMS</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(40, 80%, 35%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>채널톡 / SMS</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               학습자와의 소통을<br />
               <span style={{ color: "hsl(40, 90%, 42%)" }}>자동화로 효율화</span>
