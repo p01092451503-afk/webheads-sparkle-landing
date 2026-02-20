@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import {
-  Server, Bot, Smartphone, Film, ShieldCheck, MessageCircle, ArrowRight, CheckCircle2
+  Server, Bot, Smartphone, Film, ShieldCheck, MessageCircle, ArrowRight, CheckCircle2, CreditCard
 } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
 
@@ -70,6 +70,17 @@ const services = [
     color: "from-yellow-400 to-orange-500",
     bg: "bg-yellow-50",
     iconColor: "text-yellow-600",
+  },
+  {
+    icon: CreditCard,
+    title: "PG 결제 연동",
+    subtitle: "토스 / 이니시스 / 해외결제",
+    desc: "토스페이먼츠, KG이니시스, 모빌리언스, 결제선생 및 Stripe·PayPal 해외 결제까지 다양한 PG사를 통합 연동합니다.",
+    features: ["토스페이먼츠 / 이니시스", "모빌리언스 / 결제선생", "해외 결제 (Stripe·PayPal)", "정기결제·구독 자동화"],
+    path: "/pg",
+    color: "from-emerald-400 to-teal-600",
+    bg: "bg-emerald-50",
+    iconColor: "text-emerald-600",
   },
 ];
 
