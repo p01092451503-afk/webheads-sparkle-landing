@@ -81,14 +81,14 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="text-right">
             <p
               className="text-xs font-semibold tracking-widest uppercase mb-5"
               style={{ color: "hsl(220, 20%, 50%)" }}
             >
               바로가기
             </p>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-3 items-end">
               <li>
                 <a
                   href="https://webheads.co.kr"
@@ -100,17 +100,6 @@ export default function Footer() {
                   onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
                 >
                   웹헤즈 홈페이지 <ExternalLink className="w-3 h-3" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-sm font-medium transition-colors"
-                  style={{ color: "hsl(220, 20%, 50%)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
-                >
-                  도입 문의
                 </a>
               </li>
               <li>
