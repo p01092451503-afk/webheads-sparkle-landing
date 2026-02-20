@@ -148,13 +148,13 @@ export default function ContactSection() {
                 <p className="text-xs font-semibold mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>
                   운영 시간
                 </p>
-                <p className="text-[0.936rem] font-bold leading-snug" style={{ color: "hsl(220, 60%, 8%)" }}>
+                <p className="text-[1.12rem] font-bold leading-snug" style={{ color: "hsl(220, 60%, 8%)" }}>
                   평일 10:00 – 18:00
                 </p>
-                <p className="text-[0.572rem] mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-[0.686rem] mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
                   점심시간 12:00–13:00 · 주 5일 근무
                 </p>
-                <p className="text-[0.572rem]" style={{ color: "hsl(220, 20%, 50%)" }}>
+                <p className="text-[0.686rem]" style={{ color: "hsl(220, 20%, 50%)" }}>
                   토/일/공휴일 휴무
                 </p>
               </div>
