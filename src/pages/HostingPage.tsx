@@ -1,6 +1,6 @@
-import heroHosting from "@/assets/hero-hosting-toss.png";
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
+import HostingHeroVisual from "@/components/visuals/HostingHeroVisual";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
 const features = [
@@ -137,22 +137,14 @@ export default function HostingPage() {
           "url": "https://webheads-sparkle-landing.lovable.app/hosting"
         }}
       />
-      {/* Hero — Toss 스타일 */}
+      {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
         style={{ background: "hsl(210, 50%, 90%)" }}
       >
-        {/* 우측 비주얼 이미지 */}
-        <div
-          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
-        >
-          <img
-            src={heroHosting}
-            alt=""
-            fetchPriority="high"
-            className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain"
-            style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }}
-          />
+        {/* 우측 비주얼 */}
+        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center">
+          <HostingHeroVisual />
         </div>
 
         <div className="container mx-auto px-6 py-24 relative z-10">
