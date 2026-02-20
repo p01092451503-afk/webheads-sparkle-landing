@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ExternalLink } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting", desc: "CDN / AWS / IDC" },
@@ -9,6 +9,7 @@ const services = [
   { label: "콘텐츠 개발", path: "/content", desc: "이러닝 콘텐츠 제작" },
   { label: "DRM 솔루션", path: "/drm", desc: "카테노이드 / 존플레이어" },
   { label: "채널톡 / SMS", path: "/channel", desc: "고객 커뮤니케이션" },
+  { label: "PG 결제 연동", path: "/pg", desc: "토스 / 이니시스 / 해외결제" },
 ];
 
 export default function Header() {
@@ -49,18 +50,8 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - 부가서비스 드롭다운만 표시 */}
           <nav className="hidden lg:flex items-center gap-1">
-            <a
-              href="https://www.webheads.co.kr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 text-white/70 hover:text-white text-sm font-medium transition-colors flex items-center gap-1"
-            >
-              LMS 소개 <ExternalLink className="w-3 h-3" />
-            </a>
-
-            {/* Services Dropdown */}
             <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
               <button className="px-4 py-2 text-white/70 hover:text-white text-sm font-medium transition-colors flex items-center gap-1">
                 부가서비스 <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
@@ -82,27 +73,7 @@ export default function Header() {
                 </div>
               )}
             </div>
-
-            <Link to="/#contact" className="px-4 py-2 text-white/70 hover:text-white text-sm font-medium transition-colors">
-              도입 문의
-            </Link>
           </nav>
-
-          {/* CTA Button */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href="tel:0212345678"
-              className="text-white/60 text-sm hover:text-white transition-colors"
-            >
-              02-XXXX-XXXX
-            </a>
-            <Link
-              to="/#contact"
-              className="btn-primary px-5 py-2.5 text-sm rounded-lg"
-            >
-              무료 상담 신청
-            </Link>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -118,14 +89,6 @@ export default function Header() {
       {isOpen && (
         <div className="lg:hidden bg-navy-800 border-t border-white/10 animate-fade-in">
           <div className="container mx-auto px-4 py-4 space-y-1">
-            <a
-              href="https://www.webheads.co.kr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2.5 text-white/70 hover:text-white text-sm rounded-lg hover:bg-white/5"
-            >
-              LMS 소개 <ExternalLink className="w-3 h-3" />
-            </a>
             <div className="px-3 py-1.5 text-xs text-white/30 font-semibold tracking-wider uppercase">부가서비스</div>
             {services.map((s) => (
               <Link
@@ -137,14 +100,6 @@ export default function Header() {
                 <span className="text-white/30 text-xs ml-2">{s.desc}</span>
               </Link>
             ))}
-            <div className="pt-3 pb-2">
-              <Link
-                to="/#contact"
-                className="btn-primary block text-center px-5 py-3 text-sm rounded-lg"
-              >
-                무료 상담 신청
-              </Link>
-            </div>
           </div>
         </div>
       )}
