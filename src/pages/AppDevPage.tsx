@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import heroApp from "@/assets/hero-app.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, CheckCircle2, Wifi, Settings2, ShieldCheck } from "lucide-react";
 
@@ -103,38 +102,24 @@ const appTypes = [
 
 export default function AppDevPage() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="hero-section min-h-[70vh] flex items-center pt-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url(${heroApp})` }}
-        />
-        <div className="container mx-auto px-4 py-20 relative">
-          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
+    <div className="min-h-screen bg-white">
+      <section className="hero-section min-h-[60vh] flex items-center pt-20">
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
           </Link>
           <div className="max-w-2xl">
-            <span className="feature-badge mb-5" style={{ background: "hsl(238 80% 60% / 0.15)", color: "hsl(245 80% 75%)", borderColor: "hsl(238 80% 60% / 0.3)" }}>
-              APP 개발
-            </span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
+            <span className="feature-badge mb-5">APP 개발</span>
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-5 leading-tight">
               이러닝에 특화된<br />
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, hsl(238,80%,70%), hsl(280,70%,75%))" }}>
-                모바일 앱 개발
-              </span>
+              <span className="text-primary">모바일 앱 개발</span>
             </h1>
-            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">
-              iOS, Android, 하이브리드 앱 개발까지
-              이러닝에 최적화된 모바일 학습 환경을 구축하세요.
+            <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
+              iOS, Android, 하이브리드 앱 개발까지 이러닝에 최적화된 모바일 학습 환경을 구축하세요.
             </p>
-            <div className="flex gap-3">
-              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">
-                개발 상담 신청
-              </a>
-              <a href="#types" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">
-                앱 유형 보기
-              </a>
+            <div className="flex gap-3 flex-wrap">
+              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">개발 상담 신청</a>
+              <a href="#types" className="px-7 py-3.5 rounded-xl font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">앱 유형 보기</a>
             </div>
           </div>
         </div>

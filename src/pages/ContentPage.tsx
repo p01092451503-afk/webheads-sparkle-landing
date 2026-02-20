@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import heroContent from "@/assets/hero-content.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Film, PenTool, Layers, Package, Monitor, Users, Mic, Palette, ClipboardCheck } from "lucide-react";
 
@@ -69,38 +68,24 @@ const contentTypes = [
 
 export default function ContentPage() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="hero-section min-h-[70vh] flex items-center pt-20">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url(${heroContent})` }}
-        />
-        <div className="container mx-auto px-4 py-20 relative">
-          <Link to="/" className="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors">
+    <div className="min-h-screen bg-white">
+      <section className="hero-section min-h-[60vh] flex items-center pt-20">
+        <div className="container mx-auto px-4 py-20 relative z-10">
+          <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-800 text-sm mb-8 transition-colors">
             <ArrowLeft className="w-4 h-4" /> 부가서비스 전체보기
           </Link>
           <div className="max-w-2xl">
-            <span className="feature-badge mb-5" style={{ background: "hsl(25 90% 55% / 0.15)", color: "hsl(25 90% 70%)", borderColor: "hsl(25 90% 55% / 0.3)" }}>
-              콘텐츠 개발
-            </span>
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mt-4 mb-5 leading-tight">
+            <span className="feature-badge mb-5">콘텐츠 개발</span>
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mt-4 mb-5 leading-tight">
               기획부터 완성까지<br />
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, hsl(25,90%,65%), hsl(350,80%,70%))" }}>
-                이러닝 콘텐츠 원스톱 제작
-              </span>
+              <span className="text-primary">이러닝 콘텐츠 원스톱 제작</span>
             </h1>
-            <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">
-              기획, 스크립트, 촬영, 편집, 품질검수까지
-              이러닝 콘텐츠 제작의 전 과정을 웹헤즈가 책임집니다.
+            <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
+              기획, 스크립트, 촬영, 편집, 품질검수까지 이러닝 콘텐츠 제작의 전 과정을 웹헤즈가 책임집니다.
             </p>
-            <div className="flex gap-3">
-              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">
-                제작 상담 신청
-              </a>
-              <a href="#types" className="px-7 py-3.5 rounded-xl font-semibold border border-white/20 text-white hover:bg-white/10 transition-colors">
-                콘텐츠 유형 보기
-              </a>
+            <div className="flex gap-3 flex-wrap">
+              <a href="#contact" className="btn-primary px-7 py-3.5 rounded-xl font-semibold">제작 상담 신청</a>
+              <a href="#types" className="px-7 py-3.5 rounded-xl font-semibold border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors">콘텐츠 유형 보기</a>
             </div>
           </div>
         </div>
