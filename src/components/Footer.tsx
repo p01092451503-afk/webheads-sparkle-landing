@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
-import logoWebheads from "@/assets/logo-webheads.png";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting" },
@@ -14,45 +13,73 @@ const services = [
 
 export default function Footer() {
   return (
-    <footer className="bg-navy-900 text-white border-t border-white/10">
-      <div className="container mx-auto px-4 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-5">
-              <span className="font-bold text-xl tracking-wide">WEBHEADS</span>
+    <footer style={{ background: "hsl(0, 0%, 100%)", borderTop: "1px solid hsl(214, 20%, 88%)" }}>
+      <div className="container mx-auto px-6 max-w-5xl py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+          {/* Brand + Company Info */}
+          <div className="flex flex-col gap-6">
+            <span
+              style={{
+                fontFamily: "'Pretendard', 'Noto Sans KR', sans-serif",
+                fontWeight: 800,
+                fontSize: "1.25rem",
+                letterSpacing: "-0.04em",
+                lineHeight: 1,
+                color: "hsl(220, 60%, 8%)",
+              }}
+            >
+              웹헤즈
+            </span>
+
+            <div className="flex flex-col gap-1">
+              <p
+                className="text-xs font-semibold tracking-widest uppercase mb-2"
+                style={{ color: "hsl(220, 20%, 50%)" }}
+              >
+                Company
+              </p>
+              <p className="text-sm leading-relaxed" style={{ color: "hsl(220, 20%, 50%)" }}>
+                03971 서울특별시 마포구 월드컵로 114, 3층
+              </p>
+              <p className="text-sm" style={{ color: "hsl(220, 20%, 50%)" }}>
+                개인정보관리책임자 강성일 · elise75@webheads.co.kr
+              </p>
             </div>
 
-            {/* Company Info */}
-            <div className="mb-5">
-              <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Company</p>
-              <div className="space-y-1.5 text-white/55 text-sm">
-                <p>대표 <span className="text-white/80 font-medium">박진열</span> &nbsp;|&nbsp; 사업자등록번호 204-86-20072</p>
-                <p>03971 서울특별시 마포구 월드컵로 114, 3층</p>
-                <p>개인정보관리책임자 강성일 &nbsp;|&nbsp; elise75@webheads.co.kr</p>
-              </div>
+            <div className="flex flex-col gap-1">
+              <p
+                className="text-xs font-semibold tracking-widest uppercase mb-2"
+                style={{ color: "hsl(220, 20%, 50%)" }}
+              >
+                Time
+              </p>
+              <p className="text-sm" style={{ color: "hsl(220, 20%, 50%)" }}>
+                평일 10:00 – 18:00 (점심시간 12:00–13:00)
+              </p>
+              <p className="text-sm" style={{ color: "hsl(220, 20%, 50%)" }}>
+                주 5일 근무 (토/일/ 공휴일 휴무)
+              </p>
             </div>
 
-            {/* Business Hours */}
-            <div className="mb-6">
-              <p className="text-white/40 text-xs font-semibold uppercase tracking-widest mb-3">Time</p>
-              <div className="space-y-1 text-white/55 text-sm">
-                <p>평일 10:00 – 18:00 <span className="text-white/35">(점심시간 12:00–13:00)</span></p>
-                <p>주 5일 근무 <span className="text-white/35">(토/일/ 공휴일 휴무)</span></p>
-              </div>
-            </div>
-
-            {/* Phone Numbers */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="flex gap-8">
               <div>
-                <p className="text-white/40 text-xs mb-1.5">신규 도입 문의</p>
-                <a href="tel:023364338" className="text-white font-bold text-lg hover:text-brand-cyan transition-colors">
+                <p className="text-xs mb-1" style={{ color: "hsl(220, 20%, 50%)" }}>신규 도입 문의</p>
+                <a
+                  href="tel:0233364338"
+                  className="text-lg tracking-tight transition-colors"
+                  style={{ fontWeight: 900, color: "hsl(220, 60%, 8%)" }}
+                >
                   02.336.4338
                 </a>
               </div>
               <div>
-                <p className="text-white/40 text-xs mb-1.5">장애 및 유지보수 문의</p>
-                <a href="tel:025404337" className="text-white font-bold text-lg hover:text-brand-cyan transition-colors">
+                <p className="text-xs mb-1" style={{ color: "hsl(220, 20%, 50%)" }}>장애 및 유지보수 문의</p>
+                <a
+                  href="tel:0254044337"
+                  className="text-lg tracking-tight transition-colors"
+                  style={{ fontWeight: 900, color: "hsl(220, 60%, 8%)" }}
+                >
                   02.540.4337
                 </a>
               </div>
@@ -61,13 +88,21 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm tracking-wider uppercase">부가서비스</h4>
-            <ul className="space-y-2">
+            <p
+              className="text-xs font-semibold tracking-widest uppercase mb-5"
+              style={{ color: "hsl(220, 20%, 50%)" }}
+            >
+              부가서비스
+            </p>
+            <ul className="flex flex-col gap-3">
               {services.map((s) => (
                 <li key={s.path}>
                   <Link
                     to={s.path}
-                    className="text-white/50 hover:text-brand-cyan text-sm transition-colors"
+                    className="text-sm font-medium transition-colors"
+                    style={{ color: "hsl(220, 20%, 50%)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
                   >
                     {s.label}
                   </Link>
@@ -76,36 +111,61 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Links */}
+          {/* Quick Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4 text-sm tracking-wider uppercase">바로가기</h4>
-            <ul className="space-y-2">
+            <p
+              className="text-xs font-semibold tracking-widest uppercase mb-5"
+              style={{ color: "hsl(220, 20%, 50%)" }}
+            >
+              바로가기
+            </p>
+            <ul className="flex flex-col gap-3">
               <li>
                 <a
-                  href="https://www.webheads.co.kr"
+                  href="https://webheads.co.kr"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white/50 hover:text-brand-cyan text-sm transition-colors flex items-center gap-1"
+                  className="text-sm font-medium flex items-center gap-1.5 transition-colors"
+                  style={{ color: "hsl(220, 20%, 50%)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
                 >
                   웹헤즈 홈페이지 <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
               <li>
-                <Link to="/#contact" className="text-white/50 hover:text-brand-cyan text-sm transition-colors">
+                <a
+                  href="#contact"
+                  className="text-sm font-medium transition-colors"
+                  style={{ color: "hsl(220, 20%, 50%)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
+                >
                   도입 문의
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/#contact" className="text-white/50 hover:text-brand-cyan text-sm transition-colors">
+                <a
+                  href="#contact"
+                  className="text-sm font-medium transition-colors"
+                  style={{ color: "hsl(220, 20%, 50%)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
+                >
                   무료 상담 신청
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="flex justify-center items-center mt-10 mb-6 pt-6 border-t border-white/10 text-white/30 text-xs">
-          <p>© 2010 WEBHEADS Co., Ltd. All rights reserved.</p>
+      {/* Bottom bar */}
+      <div style={{ borderTop: "1px solid hsl(214, 20%, 88%)" }}>
+        <div className="container mx-auto px-6 max-w-5xl py-5 flex items-center justify-center">
+          <p className="text-xs" style={{ color: "hsl(220, 20%, 50%)" }}>
+            © 2010 WEBHEADS Co., Ltd. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
