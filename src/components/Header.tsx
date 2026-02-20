@@ -6,7 +6,7 @@ const services = [
   { label: "이러닝호스팅", path: "/hosting" },
   { label: "AI챗봇", path: "/chatbot" },
   { label: "어플리케이션", path: "/app-dev" },
-  { label: "콘텐츠 개발", path: "/content" },
+  { label: "콘텐츠", path: "/content" },
   { label: "DRM", path: "/drm" },
   { label: "채널톡/SMS", path: "/channel" },
   { label: "PG", path: "/pg" },
