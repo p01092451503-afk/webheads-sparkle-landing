@@ -145,7 +145,8 @@ export default function HostingPage() {
             src={heroHosting}
             alt=""
             fetchPriority="high"
-            className="absolute right-0 top-1/2 -translate-y-1/2 w-[90%] object-contain drop-shadow-2xl"
+            className="absolute right-0 top-1/2 -translate-y-1/2 w-[90%] object-contain"
+            style={{ mixBlendMode: "multiply" }}
           />
         </div>
 
