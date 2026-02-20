@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { X, ChevronDown } from "lucide-react";
-import logoWebheads from "@/assets/logo-webheads.png";
 
 const services = [
   { label: "이러닝 호스팅", path: "/hosting", desc: "CDN / AWS / IDC" },
@@ -18,6 +17,7 @@ export default function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -29,6 +29,17 @@ export default function Header() {
     setIsOpen(false);
     setServicesOpen(false);
   }, [location]);
+
+  // 외부 클릭 시 드롭다운 닫기
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setServicesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header
@@ -42,20 +53,24 @@ export default function Header() {
         <div className="flex items-center justify-center h-16 lg:h-20">
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center">
-            <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
-              <button className="px-8 py-3 text-white hover:text-brand-cyan text-lg font-semibold transition-colors flex items-center gap-2">
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setServicesOpen((prev) => !prev)}
+                className="px-8 py-3 text-white hover:text-brand-cyan text-lg font-semibold transition-colors flex items-center gap-2"
+              >
                 부가서비스 <ChevronDown className={`w-5 h-5 transition-transform ${servicesOpen ? "rotate-180" : ""}`} />
               </button>
               {servicesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-navy-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden animate-scale-in">
+                <div className="absolute top-full left-0 w-72 bg-navy-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden animate-scale-in" style={{ zIndex: 100 }}>
                   {services.map((s) => (
                     <Link
                       key={s.path}
                       to={s.path}
-                      className="flex items-start gap-3 px-4 py-3 hover:bg-white/5 transition-colors group"
+                      onClick={() => setServicesOpen(false)}
+                      className="flex items-start gap-3 px-5 py-4 hover:bg-white/5 transition-colors group border-b border-white/5 last:border-0"
                     >
                       <div>
-                        <div className="text-white text-sm font-medium group-hover:text-brand-cyan transition-colors">{s.label}</div>
+                        <div className="text-white font-semibold group-hover:text-brand-cyan transition-colors">{s.label}</div>
                         <div className="text-white/40 text-xs mt-0.5">{s.desc}</div>
                       </div>
                     </Link>
@@ -96,3 +111,4 @@ export default function Header() {
     </header>
   );
 }
+
