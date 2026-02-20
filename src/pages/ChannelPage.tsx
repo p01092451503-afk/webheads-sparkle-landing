@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import heroChannel from "@/assets/hero-channel.jpg";
 import ContactSection from "@/components/ContactSection";
 import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2 } from "lucide-react";
@@ -137,23 +135,28 @@ export default function ChannelPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24 bg-muted/20 bg-grid-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold mt-4">채널톡 / SMS 핵심 기능</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              채널톡 / SMS <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 기능</span>
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+              LMS 연동 기반 자동화 메시지 발송으로 학습자 커뮤니케이션 효율을 극대화합니다.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-yellow-50 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-yellow-600" />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                  <f.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {f.tags.map((tag) => (
-                    <span key={tag} className="px-2 py-0.5 rounded-md text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">
+                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/8 text-primary font-medium border border-primary/15">
                       {tag}
                     </span>
                   ))}
@@ -169,15 +172,17 @@ export default function ChannelPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">활용 사례</span>
-            <h2 className="text-3xl font-bold mt-4">이런 상황에 활용하세요</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              이런 상황에 <span className="text-transparent bg-clip-text bg-primary-gradient">활용하세요</span>
+            </h2>
             <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
               학습 여정의 모든 단계에서 자동화된 커뮤니케이션으로 학습자 경험을 향상시킵니다.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {useCases.map((uc, i) => (
-              <div key={uc.title} className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 text-primary font-bold text-sm">
+              <div key={uc.title} className="flex items-start gap-4 p-5 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-white font-bold text-sm" style={{ background: "var(--primary-gradient)" }}>
                   {String(i + 1).padStart(2, "0")}
                 </div>
                 <div>

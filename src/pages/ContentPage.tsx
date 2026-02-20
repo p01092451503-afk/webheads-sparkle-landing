@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import heroContent from "@/assets/hero-content.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Film, PenTool, Layers, Package, Monitor, Users, Mic, Palette, ClipboardCheck } from "lucide-react";
@@ -104,17 +102,22 @@ export default function ContentPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24 bg-muted/20 bg-grid-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
-            <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold mt-4">콘텐츠 개발 핵심 역량</h2>
+            <span className="feature-badge mb-4">주요 역량</span>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              콘텐츠 개발 <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 역량</span>
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+              기획부터 SCORM 패키징까지 이러닝 콘텐츠 제작의 모든 과정을 원스톱으로 지원합니다.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                  <f.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
@@ -136,7 +139,9 @@ export default function ContentPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">콘텐츠 유형</span>
-            <h2 className="text-3xl font-bold mt-4">다양한 분야의 콘텐츠 제작 경험</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              다양한 분야의 <span className="text-transparent bg-clip-text bg-primary-gradient">콘텐츠 제작 경험</span>
+            </h2>
             <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
               기업 교육부터 법정 의무교육, 대학 강의까지 수백 개 이상의 제작 레퍼런스를 보유하고 있습니다.
             </p>
@@ -154,10 +159,30 @@ export default function ContentPage() {
               { value: "15년+", label: "콘텐츠 제작 경력", sub: "검증된 전문성" },
               { value: "100%", label: "SCORM 호환", sub: "모든 LMS 탑재 가능" },
             ].map((stat) => (
-              <div key={stat.label} className="p-8 rounded-2xl border border-border bg-card">
-                <div className="text-4xl font-black text-primary mb-2">{stat.value}</div>
+              <div key={stat.label} className="p-8 rounded-2xl border border-border bg-card hover:border-primary/30 transition-colors">
+                <div className="text-4xl font-black text-transparent bg-clip-text bg-primary-gradient mb-2">{stat.value}</div>
                 <div className="font-semibold mb-1">{stat.label}</div>
                 <div className="text-muted-foreground text-sm">{stat.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-20 bg-navy-gradient">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: "500+", label: "제작 강좌", sub: "검증된 레퍼런스" },
+              { value: "4K", label: "촬영 해상도", sub: "방송 수준 품질" },
+              { value: "SCORM", label: "국제 표준", sub: "모든 LMS 호환" },
+              { value: "3단계", label: "품질 검수", sub: "교수설계·미디어·기술" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-4xl font-black text-brand-cyan mb-2">{stat.value}</div>
+                <div className="text-white font-semibold mb-1">{stat.label}</div>
+                <div className="text-white/40 text-sm">{stat.sub}</div>
               </div>
             ))}
           </div>

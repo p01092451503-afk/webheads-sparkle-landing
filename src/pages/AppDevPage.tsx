@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import heroApp from "@/assets/hero-app.jpg";
 import ContactSection from "@/components/ContactSection";
-import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, CheckCircle2, Wifi, Settings2, ShieldCheck } from "lucide-react";
+import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck } from "lucide-react";
 
 const features = [
   {
@@ -138,17 +137,22 @@ export default function AppDevPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24 bg-muted/20 bg-grid-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold mt-4">APP 개발 핵심 기능</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              APP 개발 <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 기능</span>
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+              네이티브·크로스플랫폼 개발부터 LMS 완전 연동, DRM 보안까지 이러닝 전문 앱을 구현합니다.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                  <f.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
@@ -170,7 +174,9 @@ export default function AppDevPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">앱 유형</span>
-            <h2 className="text-3xl font-bold mt-4">기관 유형별 맞춤 앱</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              기관 유형별 <span className="text-transparent bg-clip-text bg-primary-gradient">맞춤 앱</span>
+            </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {appTypes.map((a) => (
@@ -178,7 +184,7 @@ export default function AppDevPage() {
                 key={a.type}
                 className={`rounded-2xl p-7 border flex flex-col ${a.highlight
                   ? "bg-navy-900 border-primary shadow-primary"
-                  : "bg-card border-border"
+                  : "bg-card border-border hover:border-primary/30 transition-colors"
                 }`}
               >
                 {a.highlight && <div className="feature-badge mb-4 text-xs inline-block w-fit">인기</div>}
@@ -201,6 +207,26 @@ export default function AppDevPage() {
                 >
                   개발 문의
                 </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-20 bg-navy-gradient">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: "iOS+AOS", label: "동시 개발", sub: "단일 팀으로 처리" },
+              { value: "90%+", label: "네이티브 성능", sub: "크로스플랫폼 대비" },
+              { value: "30+", label: "학습 지표 분석", sub: "AI 기반 인사이트" },
+              { value: "4주", label: "평균 개발 기간", sub: "MVP 기준" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-4xl font-black text-brand-cyan mb-2">{stat.value}</div>
+                <div className="text-white font-semibold mb-1">{stat.label}</div>
+                <div className="text-white/40 text-sm">{stat.sub}</div>
               </div>
             ))}
           </div>

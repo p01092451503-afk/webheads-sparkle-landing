@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft, CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones } from "lucide-react";
+import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones } from "lucide-react";
 import heroPg from "@/assets/hero-pg.jpg";
 import ContactSection from "@/components/ContactSection";
 
@@ -137,13 +136,15 @@ export default function PgPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
             <span className="feature-badge mb-4">지원 결제 수단</span>
-            <h2 className="text-2xl font-bold mt-4">국내 + 해외 결제 수단 통합 지원</h2>
+            <h2 className="text-2xl lg:text-3xl font-bold mt-4">
+              국내 + 해외 <span className="text-transparent bg-clip-text bg-primary-gradient">결제 수단 통합 지원</span>
+            </h2>
           </div>
           <div className="flex flex-wrap gap-2.5 justify-center max-w-3xl mx-auto">
             {paymentMethods.map((method) => (
               <span
                 key={method}
-                className="px-3.5 py-1.5 rounded-full border border-border bg-card text-sm font-medium text-foreground"
+                className="px-3.5 py-1.5 rounded-full border border-border bg-card text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors"
               >
                 {method}
               </span>
@@ -153,11 +154,13 @@ export default function PgPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24 bg-muted/20 bg-grid-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold mt-4">PG 결제 연동 핵심 기능</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              PG 결제 연동 <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 기능</span>
+            </h2>
             <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
               단순 결제 연동을 넘어 정기결제, 해외결제, 통계·정산까지 이러닝 비즈니스에 최적화된 결제 인프라를 구축합니다.
             </p>
@@ -165,8 +168,8 @@ export default function PgPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-emerald-600" />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                  <f.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
@@ -174,7 +177,7 @@ export default function PgPage() {
                   {f.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200"
+                      className="text-xs px-2.5 py-1 rounded-full bg-primary/8 text-primary font-medium border border-primary/15"
                     >
                       {tag}
                     </span>
@@ -191,19 +194,21 @@ export default function PgPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">연동 PG사</span>
-            <h2 className="text-3xl font-bold mt-4">국내외 주요 PG사 연동</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              국내외 주요 <span className="text-transparent bg-clip-text bg-primary-gradient">PG사 연동</span>
+            </h2>
             <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
               고객사의 비즈니스 모델과 타겟 시장에 맞는 최적의 PG사를 선택하여 연동합니다.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
             {pgPartners.map((p, i) => (
-              <div key={p.name} className="flex flex-col gap-2 p-5 rounded-xl border border-border bg-card">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 text-primary font-bold text-sm">
+              <div key={p.name} className="flex flex-col gap-2 p-5 rounded-xl border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-white font-bold text-sm" style={{ background: "var(--primary-gradient)" }}>
                   {String(i + 1).padStart(2, "0")}
                 </div>
                 <div>
-                  <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground mb-1">{p.category}</span>
+                  <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/8 text-primary border border-primary/15 mb-1">{p.category}</span>
                   <h4 className="font-bold text-sm">{p.name}</h4>
                   <p className="text-muted-foreground text-xs mt-0.5">{p.desc}</p>
                 </div>
@@ -218,13 +223,10 @@ export default function PgPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <span
-                className="feature-badge mb-4"
-                style={{ background: "hsl(160 80% 45% / 0.1)", color: "hsl(160 80% 55%)", borderColor: "hsl(160 80% 45% / 0.25)" }}
-              >
-                🌍 해외 결제 특화
-              </span>
-              <h2 className="text-3xl font-bold mt-4">글로벌 이러닝 사업 확장을 위한 해외 결제</h2>
+              <span className="feature-badge mb-4">🌍 해외 결제 특화</span>
+              <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+                글로벌 이러닝 사업 확장을 위한 <span className="text-transparent bg-clip-text bg-primary-gradient">해외 결제</span>
+              </h2>
               <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
                 해외 학습자를 대상으로 서비스를 운영하거나 글로벌 시장으로 확장하는 이러닝 플랫폼을 위해
                 국제 결제 인프라를 완벽하게 구축합니다.
@@ -248,9 +250,9 @@ export default function PgPage() {
                   desc: "3D Secure 2.0(3DS2), PCI-DSS Level 1 컴플라이언스를 준수하여 해외 결제 사기(chargeback) 위험을 최소화합니다.",
                 },
               ].map((item) => (
-                <div key={item.title} className="p-6 rounded-2xl border border-border bg-card">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center mb-4">
-                    <item.icon className="w-5 h-5 text-emerald-600" />
+                <div key={item.title} className="service-card p-6">
+                  <div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                    <item.icon className="w-5 h-5 text-white" />
                   </div>
                   <h3 className="font-bold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
@@ -264,7 +266,7 @@ export default function PgPage() {
       {/* Stats */}
       <section className="py-20 bg-navy-gradient">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { value: "8+", label: "연동 PG사", sub: "국내외 주요 PG사" },
               { value: "16+", label: "결제 수단", sub: "다양한 결제 방법 지원" },

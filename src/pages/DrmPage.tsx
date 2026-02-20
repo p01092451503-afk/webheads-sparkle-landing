@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import heroDrm from "@/assets/hero-drm.jpg";
 import ContactSection from "@/components/ContactSection";
-import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, CheckCircle2, Lock, KeyRound, BarChart3 } from "lucide-react";
+import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
 
 const features = [
   {
@@ -128,17 +127,22 @@ export default function DrmPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24 bg-muted/20 bg-grid-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold mt-4">DRM 솔루션 핵심 기능</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              DRM 솔루션 <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 기능</span>
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+              멀티 DRM 암호화부터 화면 캡처 방지, 워터마크까지 콘텐츠 보안의 모든 것을 제공합니다.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                  <f.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
@@ -160,7 +164,9 @@ export default function DrmPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">솔루션 비교</span>
-            <h2 className="text-3xl font-bold mt-4">공급 솔루션 안내</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              공급 <span className="text-transparent bg-clip-text bg-primary-gradient">솔루션 안내</span>
+            </h2>
             <p className="text-muted-foreground mt-3">기관 환경에 맞는 최적의 DRM 솔루션을 추천해 드립니다.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
@@ -169,7 +175,7 @@ export default function DrmPage() {
                 key={sol.name}
                 className={`rounded-2xl p-8 border flex flex-col ${sol.highlight
                   ? "bg-navy-900 border-primary shadow-primary"
-                  : "bg-card border-border"
+                  : "bg-card border-border hover:border-primary/30 transition-colors"
                 }`}
               >
                 {sol.highlight && <div className="feature-badge mb-3 text-xs inline-block w-fit">추천</div>}
@@ -180,7 +186,7 @@ export default function DrmPage() {
                 <ul className="space-y-2.5 flex-1">
                   {sol.features.map((feat) => (
                     <li key={feat} className={`flex items-center gap-2 text-sm ${sol.highlight ? "text-white/80" : "text-muted-foreground"}`}>
-                      <CheckCircle2 className={`w-4 h-4 shrink-0 ${sol.highlight ? "text-brand-cyan" : "text-emerald-500"}`} />
+                      <CheckCircle2 className={`w-4 h-4 shrink-0 ${sol.highlight ? "text-brand-cyan" : "text-primary"}`} />
                       {feat}
                     </li>
                   ))}
@@ -189,11 +195,31 @@ export default function DrmPage() {
                   href="#contact"
                   className={`block text-center mt-8 py-3 rounded-xl font-semibold text-sm ${sol.highlight
                     ? "btn-primary"
-                    : "border border-emerald-500 text-emerald-600 hover:bg-emerald-50 transition-colors"
+                    : "border border-primary text-primary hover:bg-primary/5 transition-colors"
                   }`}
                 >
                   도입 문의
                 </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-20 bg-navy-gradient">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: "100%", label: "불법 캡처 차단", sub: "전 플랫폼 대응" },
+              { value: "멀티", label: "DRM 표준 지원", sub: "Widevine·FairPlay·PlayReady" },
+              { value: "EME", label: "웹 표준 적용", sub: "플러그인 불필요" },
+              { value: "즉시", label: "유출자 추적", sub: "워터마크 기반" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-4xl font-black text-brand-cyan mb-2">{stat.value}</div>
+                <div className="text-white font-semibold mb-1">{stat.label}</div>
+                <div className="text-white/40 text-sm">{stat.sub}</div>
               </div>
             ))}
           </div>

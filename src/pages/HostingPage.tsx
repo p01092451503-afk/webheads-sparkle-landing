@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import heroHosting from "@/assets/hero-hosting.jpg";
 import ContactSection from "@/components/ContactSection";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
@@ -100,23 +99,28 @@ export default function HostingPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24 bg-muted/20 bg-grid-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold mt-4">이러닝 호스팅 핵심 기능</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              이러닝 호스팅 <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 기능</span>
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+              CDN부터 IDC까지 이러닝에 최적화된 인프라로 안정적인 학습 환경을 구축합니다.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                  <f.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {f.tags.map((tag) => (
-                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">
+                    <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/8 text-primary font-medium border border-primary/15">
                       {tag}
                     </span>
                   ))}
@@ -132,7 +136,9 @@ export default function HostingPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">요금제</span>
-            <h2 className="text-3xl font-bold mt-4 mb-3">맞춤형 요금제 선택</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4 mb-3">
+              맞춤형 <span className="text-transparent bg-clip-text bg-primary-gradient">요금제 선택</span>
+            </h2>
             <p className="text-muted-foreground">규모와 예산에 맞는 최적의 플랜을 제안드립니다.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -141,7 +147,7 @@ export default function HostingPage() {
                 key={plan.name}
                 className={`rounded-2xl p-7 border ${plan.highlight
                   ? "bg-navy-900 border-primary shadow-primary"
-                  : "bg-card border-border"
+                  : "bg-card border-border hover:border-primary/30 transition-colors"
                 }`}
               >
                 {plan.highlight && (
@@ -167,6 +173,26 @@ export default function HostingPage() {
                 >
                   견적 문의
                 </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-20 bg-navy-gradient">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { value: "99.9%", label: "서버 가동률", sub: "SLA 보장" },
+              { value: "50+", label: "CDN 엣지 노드", sub: "전 세계 가속" },
+              { value: "5분", label: "초동 대응 시간", sub: "NOC 전담팀" },
+              { value: "24/7", label: "기술 지원", sub: "365일 무중단" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-4xl font-black text-brand-cyan mb-2">{stat.value}</div>
+                <div className="text-white font-semibold mb-1">{stat.label}</div>
+                <div className="text-white/40 text-sm">{stat.sub}</div>
               </div>
             ))}
           </div>

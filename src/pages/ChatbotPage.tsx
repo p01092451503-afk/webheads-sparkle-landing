@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import heroChatbot from "@/assets/hero-chatbot.jpg";
 import ContactSection from "@/components/ContactSection";
@@ -125,17 +124,22 @@ export default function ChatbotPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24 bg-muted/20">
+      <section className="py-24 bg-muted/20 bg-grid-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">주요 기능</span>
-            <h2 className="text-3xl font-bold mt-4">AI 챗봇 핵심 기능</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              AI 챗봇 <span className="text-transparent bg-clip-text bg-primary-gradient">핵심 기능</span>
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-lg mx-auto">
+              최신 LLM 기술과 LMS 완전 연동으로 이러닝에 최적화된 AI 챗봇을 구현합니다.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((f) => (
               <div key={f.title} className="service-card p-7 flex flex-col">
-                <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <f.icon className="w-6 h-6 text-primary" />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-5" style={{ background: "var(--primary-gradient)", boxShadow: "0 4px 16px -4px hsl(214 90% 52% / 0.35)" }}>
+                  <f.icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{f.desc}</p>
@@ -157,13 +161,15 @@ export default function ChatbotPage() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <span className="feature-badge mb-4">구축 과정</span>
-            <h2 className="text-3xl font-bold mt-4">체계적인 4단계 구축 프로세스</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mt-4">
+              체계적인 <span className="text-transparent bg-clip-text bg-primary-gradient">4단계 구축 프로세스</span>
+            </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {process.map((p, i) => (
-              <div key={p.step} className="relative p-6 rounded-2xl border border-border bg-card flex flex-col">
-                <div className="text-5xl font-black text-primary/10 mb-3">{p.step}</div>
-                <h3 className="font-bold text-base mb-2">{p.title}</h3>
+              <div key={p.step} className="relative p-6 rounded-2xl border border-border bg-card flex flex-col group hover:border-primary/40 transition-colors">
+                <div className="text-5xl font-black mb-3 text-transparent bg-clip-text bg-primary-gradient opacity-30">{p.step}</div>
+                <h3 className="font-bold text-base mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{p.desc}</p>
                 <div className="pt-3 border-t border-border">
                   <p className="text-xs text-primary font-medium">{p.detail}</p>
