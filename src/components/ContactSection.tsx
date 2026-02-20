@@ -44,13 +44,14 @@ export default function ContactSection() {
             ))}
 
             {/* 전화번호 나란히 배치 */}
-            <div className="grid grid-cols-2 gap-1 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+            <div className="flex gap-8 p-5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
               <div>
                 <div className="text-white/40 text-xs font-medium mb-1.5">신규 도입 문의</div>
                 <a href="tel:023364338" className="text-white font-bold text-base hover:text-brand-cyan transition-colors">
                   02.336.4338
                 </a>
               </div>
+              <div className="w-px bg-white/10" />
               <div>
                 <div className="text-white/40 text-xs font-medium mb-1.5">장애 및 유지보수 문의</div>
                 <a href="tel:025404337" className="text-white font-bold text-base hover:text-brand-cyan transition-colors">
