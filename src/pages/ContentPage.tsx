@@ -1,5 +1,6 @@
 import heroContent from "@/assets/hero-content-toss.png";
 import ContactSection from "@/components/ContactSection";
+import LmsBanner from "@/components/LmsBanner";
 import SEO from "@/components/SEO";
 import { Film, PenTool, Layers, Monitor, Users, Mic, Palette, ClipboardCheck, Gamepad2, BookOpen, Building2, Stethoscope, GraduationCap, Globe } from "lucide-react";
 
@@ -73,6 +74,9 @@ export default function ContentPage() {
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>제작 상담 신청</a>
               <a href="#types" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "#fff" }}>콘텐츠 유형 보기</a>
+            </div>
+            <div className="mt-4">
+              <LmsBanner />
             </div>
           </div>
         </div>

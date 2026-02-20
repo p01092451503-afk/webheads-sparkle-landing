@@ -1,5 +1,6 @@
 import heroMaintenance from "@/assets/hero-maintenance-toss.png";
 import ContactSection from "@/components/ContactSection";
+import LmsBanner from "@/components/LmsBanner";
 import SEO from "@/components/SEO";
 import {
   Wrench, Clock, Shield, PhoneCall, RefreshCw, BarChart3,
@@ -211,6 +212,9 @@ export default function MaintenancePage() {
               >
                 요금제 보기
               </a>
+            </div>
+            <div className="mt-4">
+              <LmsBanner />
             </div>
           </div>
         </div>

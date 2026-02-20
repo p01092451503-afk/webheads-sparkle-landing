@@ -1,5 +1,6 @@
 import heroDrm from "@/assets/hero-drm-toss.png";
 import ContactSection from "@/components/ContactSection";
+import LmsBanner from "@/components/LmsBanner";
 import SEO from "@/components/SEO";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
 
@@ -67,6 +68,9 @@ export default function DrmPage() {
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>DRM 도입 문의</a>
               <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "#fff" }}>솔루션 비교</a>
+            </div>
+            <div className="mt-4">
+              <LmsBanner />
             </div>
           </div>
         </div>
