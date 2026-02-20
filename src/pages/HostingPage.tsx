@@ -142,27 +142,13 @@ export default function HostingPage() {
         {/* 우측 비주얼 이미지 */}
         <div
           className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
-          style={{
-            maskImage: [
-              "linear-gradient(to right, transparent 0%, black 10%, black 72%, transparent 94%)",
-              "linear-gradient(to bottom, black 68%, transparent 92%)",
-              "linear-gradient(to top, black 68%, transparent 92%)",
-            ].join(", "),
-            WebkitMaskImage: [
-              "linear-gradient(to right, transparent 0%, black 10%, black 72%, transparent 94%)",
-              "linear-gradient(to bottom, black 68%, transparent 92%)",
-              "linear-gradient(to top, black 68%, transparent 92%)",
-            ].join(", "),
-            maskComposite: "intersect",
-            WebkitMaskComposite: "source-in",
-          }}
         >
           <img
             src={heroHosting}
             alt=""
             fetchPriority="high"
-            className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain"
-            style={{ mixBlendMode: "multiply" }}
+            className="absolute left-[5%] top-1/2 -translate-y-1/2 w-[60%] object-contain"
+            style={{ mixBlendMode: "multiply", maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 55%, transparent 85%)" }}
           />
         </div>
 
