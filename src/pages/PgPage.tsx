@@ -45,7 +45,7 @@ export default function PgPage() {
       {/* Hero */}
       <section
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(160, 60%, 98%) 0%, hsl(180, 40%, 96%) 100%)" }}
+        style={{ background: "linear-gradient(135deg, hsl(152, 60%, 98%) 0%, hsl(168, 40%, 95%) 100%)" }}
       >
         <div
           className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:block"
@@ -59,10 +59,10 @@ export default function PgPage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsl(160, 80%, 45%, 0.1)", color: "hsl(160, 80%, 35%)" }}>PG 결제 연동</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsl(152, 80%, 40%, 0.1)", color: "hsl(152, 80%, 35%)" }}>PG 결제 연동</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               국내외 다양한 PG사와의<br />
-              <span style={{ color: "hsl(160, 80%, 38%)" }}>완벽한 결제 연동</span>
+              <span style={{ color: "hsl(152, 80%, 38%)" }}>완벽한 결제 연동</span>
             </h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>토스페이먼츠, KG이니시스, 모빌리언스, 결제선생부터 Stripe·PayPal 해외 결제까지. 이러닝 플랫폼에 필요한 모든 결제 수단을 단일 API로 통합 연동합니다.</p>
             <div className="flex gap-3 flex-wrap">
