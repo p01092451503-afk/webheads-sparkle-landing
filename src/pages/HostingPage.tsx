@@ -162,7 +162,7 @@ export default function HostingPage() {
             alt=""
             fetchPriority="high"
             className="absolute left-[-10%] top-1/2 -translate-y-1/2 w-[100%] object-contain"
-            style={{ mixBlendMode: "normal" }}
+            style={{ mixBlendMode: "multiply" }}
           />
         </div>
 
