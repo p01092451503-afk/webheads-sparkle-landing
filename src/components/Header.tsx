@@ -39,14 +39,8 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5">
-            <img src={logoWebheads} alt="WEBHEADS" className="h-8 w-auto" />
-            <span className="font-bold text-lg text-white tracking-wide">WEBHEADS</span>
-          </Link>
-
-          {/* Desktop Navigation - 부가서비스 드롭다운만 중앙 표시 */}
+        <div className="flex items-center justify-center h-16 lg:h-20">
+          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center">
             <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => setServicesOpen(false)}>
               <button className="px-8 py-3 text-white hover:text-brand-cyan text-lg font-semibold transition-colors flex items-center gap-2">
