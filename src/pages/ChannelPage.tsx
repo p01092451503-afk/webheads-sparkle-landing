@@ -1,6 +1,7 @@
 
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
+import objChannel from "@/assets/obj-channel.png";
 import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2 } from "lucide-react";
 
 const features = [
@@ -57,6 +58,9 @@ export default function ChannelPage() {
         className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
         style={{ background: "hsl(210, 50%, 90%)" }}
       >
+        <div className="absolute right-0 top-0 h-full w-1/2 flex items-center justify-center pointer-events-none select-none">
+          <img src={objChannel} alt="" className="w-[400px] max-w-[50vw] object-contain animate-float" style={{ filter: "drop-shadow(0 32px 64px rgba(180,130,0,0.18))" }} />
+        </div>
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(40, 80%, 35%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>채널톡/SMS</span>
