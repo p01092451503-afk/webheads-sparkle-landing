@@ -5,9 +5,9 @@ import SEO from "@/components/SEO";
 import PgHeroVisual from "@/components/visuals/PgHeroVisual";
 
 const testimonials = [
-  { name: "장현석", role: "개발 팀장", org: "에듀윌", rating: 5, date: "2024.09", period: "이용 2년차", content: "토스페이먼츠 연동이 일주일도 안 걸렸어요. 정기결제 자동화까지 같이 붙여주셔서 매달 수동으로 하던 작업이 없어졌습니다. 개발팀 입장에서 정말 편해요." },
-  { name: "문서영", role: "재무 담당", org: "국제사이버대학교", rating: 5, date: "2025.01", period: "이용 1년차", content: "정산 리포트가 자동으로 나오니까 세금계산서 발행이나 부가세 신고할 때 엑셀 작업을 안 해도 돼요. 수수료 비교 분석도 한눈에 보여서 유용합니다." },
-  { name: "신동욱", role: "사업부장", org: "패스트캠퍼스", rating: 4, date: "2024.11", period: "이용 1년차", content: "해외 수강생이 결제하기가 어려웠는데 Stripe 붙이고 나서 글로벌 매출이 눈에 띄게 늘었어요. 환율 자동 적용도 되고, 다국통화 지원이 핵심이었습니다." },
+  { name: "장현석", role: "개발 팀장", org: "에듀윌", rating: 5, date: "2024.09", period: "이용 6년차", content: "토스페이먼츠 연동이 일주일도 안 걸렸어요. 정기결제 자동화까지 같이 붙여주셔서 매달 수동으로 하던 작업이 없어졌습니다. 개발팀 입장에서 정말 편해요." },
+  { name: "문서영", role: "재무 담당", org: "국제사이버대학교", rating: 3, date: "2025.01", period: "이용 2년차", content: "정산 리포트가 자동으로 나오니까 세금계산서 발행이나 부가세 신고할 때 엑셀 작업을 안 해도 돼요. 수수료 비교 분석도 한눈에 보여서 유용합니다." },
+  { name: "신동욱", role: "사업부장", org: "패스트캠퍼스", rating: 4, date: "2024.11", period: "이용 4년차", content: "해외 수강생이 결제하기가 어려웠는데 Stripe 붙이고 나서 글로벌 매출이 눈에 띄게 늘었어요. 환율 자동 적용도 되고, 다국통화 지원이 핵심이었습니다." },
 ];
 
 const features = [

@@ -5,9 +5,9 @@ import HostingHeroVisual from "@/components/visuals/HostingHeroVisual";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
 
 const testimonials = [
-  { name: "김태호", role: "IT 인프라 팀장", org: "한국열린사이버대학교", rating: 5, date: "2024.09", period: "이용 2년차", content: "학기 초에 동시접속 3천 명 넘게 들어올 때가 있는데, 그때도 끊기거나 느려지는 거 없이 잘 버텨줘요. 예전엔 서버 증설 요청하느라 스트레스받았는데 이제 신경 안 씁니다." },
-  { name: "이수연", role: "운영 매니저", org: "한국능력개발교육원", rating: 5, date: "2025.01", period: "이용 1년차", content: "전에 쓰던 호스팅은 한 달에 두세 번은 접속 안 되는 일이 있었거든요. 여기로 바꾸고 나서는 그런 적이 한 번도 없어서 민원 전화도 확 줄었어요." },
-  { name: "박정민", role: "대표", org: "글로벌에듀", rating: 4, date: "2024.11", period: "이용 3년차", content: "해외에서 수강하는 분들이 영상 로딩이 빨라졌다고 하시더라고요. 문제 생겼을 때 카톡으로 바로 연락되는 것도 좋고, 대응이 빨라서 믿고 맡기고 있습니다." },
+  { name: "김태호", role: "IT 인프라 팀장", org: "한국열린사이버대학교", rating: 5, date: "2024.09", period: "이용 7년차", content: "학기 초에 동시접속 3천 명 넘게 들어올 때가 있는데, 그때도 끊기거나 느려지는 거 없이 잘 버텨줘요. 예전엔 서버 증설 요청하느라 스트레스받았는데 이제 신경 안 씁니다." },
+  { name: "이수연", role: "운영 매니저", org: "한국능력개발교육원", rating: 4, date: "2025.01", period: "이용 3년차", content: "전에 쓰던 호스팅은 한 달에 두세 번은 접속 안 되는 일이 있었거든요. 여기로 바꾸고 나서는 그런 적이 한 번도 없어서 민원 전화도 확 줄었어요." },
+  { name: "박정민", role: "대표", org: "글로벌에듀", rating: 3, date: "2024.11", period: "이용 2년차", content: "해외에서 수강하는 분들이 영상 로딩이 빨라졌다고 하시더라고요. 문제 생겼을 때 카톡으로 바로 연락되는 것도 좋고, 대응이 빨라서 믿고 맡기고 있습니다." },
 ];
 
 const features = [

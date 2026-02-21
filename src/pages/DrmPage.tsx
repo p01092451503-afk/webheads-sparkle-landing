@@ -5,9 +5,9 @@ import DrmHeroVisual from "@/components/visuals/DrmHeroVisual";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
 
 const testimonials = [
-  { name: "임현우", role: "콘텐츠 보안 담당", org: "메가스터디교육", rating: 5, date: "2024.08", period: "이용 2년차", content: "DRM 걸기 전에는 유출 영상이 계속 나돌았는데, 적용하고 나서는 진짜 하나도 안 나와요. 워터마크로 누가 유출했는지 바로 특정도 되고요." },
-  { name: "조은비", role: "운영 디렉터", org: "세종사이버대학교", rating: 5, date: "2024.11", period: "이용 1년차", content: "학습자분들이 예전에는 플러그인 설치하라고 하면 불만이 많았는데, 지금은 그냥 브라우저에서 바로 재생돼서 민원이 거의 없어졌어요. LMS 연동도 깔끔합니다." },
-  { name: "서준호", role: "보안 팀장", org: "한국금융연수원", rating: 4, date: "2025.01", period: "이용 1년차", content: "금융권이라 보안 감사가 까다로운데, DRM 적용 현황 자료를 대시보드에서 바로 뽑을 수 있어서 감사 대응이 한결 수월해졌습니다." },
+  { name: "임현우", role: "콘텐츠 보안 담당", org: "메가스터디교육", rating: 5, date: "2024.08", period: "이용 6년차", content: "DRM 걸기 전에는 유출 영상이 계속 나돌았는데, 적용하고 나서는 진짜 하나도 안 나와요. 워터마크로 누가 유출했는지 바로 특정도 되고요." },
+  { name: "조은비", role: "운영 디렉터", org: "세종사이버대학교", rating: 3, date: "2024.11", period: "이용 2년차", content: "학습자분들이 예전에는 플러그인 설치하라고 하면 불만이 많았는데, 지금은 그냥 브라우저에서 바로 재생돼서 민원이 거의 없어졌어요. LMS 연동도 깔끔합니다." },
+  { name: "서준호", role: "보안 팀장", org: "한국금융연수원", rating: 4, date: "2025.01", period: "이용 4년차", content: "금융권이라 보안 감사가 까다로운데, DRM 적용 현황 자료를 대시보드에서 바로 뽑을 수 있어서 감사 대응이 한결 수월해졌습니다." },
 ];
 
 const features = [
