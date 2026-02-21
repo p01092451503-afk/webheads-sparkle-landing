@@ -178,7 +178,7 @@ export default function HostingPage() {
           </div>
         </div>
 
-        <div className="container mx-auto px-6 py-16 relative z-10 lg:pl-[10%]">
+        <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span
               className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
