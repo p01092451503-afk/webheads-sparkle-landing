@@ -44,11 +44,15 @@
     "formMessage": "咨询内容",
     "formMessagePlaceholder": "请填写您的咨询内容。",
     "formSubmit": "申请免费咨询",
+    "formSubmitDemo": "申请演示",
     "formSending": "发送中...",
     "formError": "发送失败，请重试。",
-    "successTitle": "咨询已提交成功",
+    "successTitle": "申请已提交成功",
     "successDesc": "我们的工作人员将尽快与您联系。\n工作日 10:00–18:00 为服务时间。",
     "successRetry": "再次咨询",
+    "tabConsultation": "咨询申请",
+    "tabDemo": "演示申请",
+    "formMessagePlaceholderDemo": "请详细描述您希望演示的服务或功能。",
     "services": ["在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"]
   },
   "testimonial": {

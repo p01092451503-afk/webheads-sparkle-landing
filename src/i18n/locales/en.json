@@ -44,11 +44,15 @@
     "formMessage": "Message",
     "formMessagePlaceholder": "Please describe your inquiry.",
     "formSubmit": "Request Free Consultation",
+    "formSubmitDemo": "Request Demo",
     "formSending": "Sending...",
     "formError": "An error occurred while sending. Please try again.",
-    "successTitle": "Your inquiry has been submitted",
+    "successTitle": "Your request has been submitted",
     "successDesc": "A representative will contact you shortly.\nWe operate on weekdays 10:00–18:00.",
     "successRetry": "Send another inquiry",
+    "tabConsultation": "Consultation",
+    "tabDemo": "Demo Request",
+    "formMessagePlaceholderDemo": "Please describe the service or features you'd like to demo.",
     "services": ["e-Learning Hosting", "Maintenance", "AI Chatbot", "Applications", "DRM", "Channel/SMS", "PG", "Content"]
   },
   "testimonial": {
