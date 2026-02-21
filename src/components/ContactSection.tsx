@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 type InquiryType = "consultation" | "demo";
 
-export default function ContactSection() {
+export default function ContactSection({ showDemo = false }: { showDemo?: boolean }) {
   const { t } = useTranslation();
   const services = t("contact.services", { returnObjects: true }) as string[];
 
@@ -336,38 +336,39 @@ export default function ContactSection() {
                     "0 4px 24px hsl(220 60% 8% / 0.06), 0 1px 3px hsl(220 60% 8% / 0.04)",
                 }}
               >
-                {/* Inquiry Type Tabs */}
-                <div
-                  className="flex rounded-xl p-1 gap-1"
-                  style={{ background: "hsl(var(--muted))" }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setInquiryType("consultation")}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-200"
-                    style={{
-                      background: inquiryType === "consultation" ? "hsl(0 0% 100%)" : "transparent",
-                      color: inquiryType === "consultation" ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
-                      boxShadow: inquiryType === "consultation" ? "0 2px 8px hsl(220 60% 8% / 0.08)" : "none",
-                    }}
+                {showDemo && (
+                  <div
+                    className="flex rounded-xl p-1 gap-1"
+                    style={{ background: "hsl(var(--muted))" }}
                   >
-                    <Send className="w-4 h-4" />
-                    {t("contact.tabConsultation")}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setInquiryType("demo")}
-                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-200"
-                    style={{
-                      background: inquiryType === "demo" ? "hsl(0 0% 100%)" : "transparent",
-                      color: inquiryType === "demo" ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
-                      boxShadow: inquiryType === "demo" ? "0 2px 8px hsl(220 60% 8% / 0.08)" : "none",
-                    }}
-                  >
-                    <Monitor className="w-4 h-4" />
-                    {t("contact.tabDemo")}
-                  </button>
-                </div>
+                    <button
+                      type="button"
+                      onClick={() => setInquiryType("consultation")}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-200"
+                      style={{
+                        background: inquiryType === "consultation" ? "hsl(0 0% 100%)" : "transparent",
+                        color: inquiryType === "consultation" ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
+                        boxShadow: inquiryType === "consultation" ? "0 2px 8px hsl(220 60% 8% / 0.08)" : "none",
+                      }}
+                    >
+                      <Send className="w-4 h-4" />
+                      {t("contact.tabConsultation")}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setInquiryType("demo")}
+                      className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-200"
+                      style={{
+                        background: inquiryType === "demo" ? "hsl(0 0% 100%)" : "transparent",
+                        color: inquiryType === "demo" ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
+                        boxShadow: inquiryType === "demo" ? "0 2px 8px hsl(220 60% 8% / 0.08)" : "none",
+                      }}
+                    >
+                      <Monitor className="w-4 h-4" />
+                      {t("contact.tabDemo")}
+                    </button>
+                  </div>
+                )}
                 {/* Row 1 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-2">
