@@ -1,6 +1,6 @@
 {
   "header": {
-    "services": ["e-Learning Hosting", "Maintenance", "AI Chatbot", "Applications", "DRM", "Channel/SMS", "PG", "Content"],
+    "services": ["Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
     "cta": "Free Consultation",
     "logo": "Webheads"
   },
