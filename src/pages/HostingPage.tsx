@@ -173,7 +173,7 @@ export default function HostingPage() {
 
         {/* 비주얼 — 전체 배경으로 깔리면서 텍스트와 어우러짐 */}
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
-          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(22%)" }}>
+          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}>
             <HostingHeroVisual />
           </div>
         </div>
