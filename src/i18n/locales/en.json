@@ -71,7 +71,7 @@
     "stats": [
       { "value": "99.9%", "label": "Server Uptime", "sub": "SLA Guaranteed" },
       { "value": "50+", "label": "CDN Edge Nodes", "sub": "Global Acceleration" },
-      { "value": "30 min", "label": "Initial Response", "sub": "Dedicated NOC Team" },
+      { "value": "10 min", "label": "Initial Response", "sub": "Dedicated NOC Team" },
       { "value": "24/7", "label": "Tech Support", "sub": "365 Days Non-stop" }
     ],
     "featuresSection": { "sub": "KEY FEATURES", "title": "Experience Infrastructure\nOptimized for e-Learning" },
@@ -115,7 +115,7 @@
       { "q": "Are there extra charges if traffic suddenly increases?", "a": "AWS-based hosting auto-scales, and excess transfer is billed at per-plan rates. Share your expected traffic and we'll recommend the optimal plan." },
       { "q": "Can I migrate from my current hosting?", "a": "Yes. We support zero-downtime migration from other providers with thorough testing before DNS switchover." },
       { "q": "How is the SSL certificate provided?", "a": "Free Let's Encrypt SSL with auto-renewal is included by default. Paid enterprise SSL (EV SSL, etc.) installation is also supported." },
-      { "q": "What's the incident response process?", "a": "Our NOC team monitors 24/7 and initiates response within 30 minutes on average. A root cause analysis report is shared after recovery." },
+      { "q": "What's the incident response process?", "a": "Our NOC team monitors 24/7 and initiates response within 10 minutes on average. A root cause analysis report is shared after recovery." },
       { "q": "What if I run out of video storage?", "a": "Unlimited expansion is available at per-GB rates beyond the plan's base storage. For high-volume content, we offer dedicated storage plans." }
     ],
     "testimonials": [
@@ -128,14 +128,14 @@
     "seo": { "title": "Maintenance", "description": "Professional maintenance service for LMS and Webheads solutions. 24/7 incident response, security patches, performance optimization, and feature improvements by dedicated engineers.", "keywords": "e-learning maintenance, LMS maintenance, server maintenance, 24/7 incident response, e-learning operations" },
     "hero": { "badge": "Maintenance", "title": "For Stable Operations", "titleHighlight": "Maintenance Service", "desc": "From incident response and security patches to performance optimization and feature improvements — our dedicated engineers manage it all.", "cta1": "Request Consultation", "cta2": "View Plans" },
     "stats": [
-      { "value": "30 min", "label": "Avg. Initial Response", "sub": "After detection" },
+      { "value": "10 min", "label": "Avg. Initial Response", "sub": "After detection" },
       { "value": "99.9%", "label": "SLA Uptime", "sub": "Premium tier" },
       { "value": "30 days", "label": "Backup Retention", "sub": "Snapshot storage" },
       { "value": "24/7", "label": "Monitoring", "sub": "365 days non-stop" }
     ],
     "featuresSection": { "sub": "KEY SERVICES", "title": "We Take Full Responsibility\nfor Your Operations", "desc": "From incident response to performance optimization and security management — comprehensive maintenance for your e-learning platform." },
     "features": [
-      { "title": "24/7 Incident Response", "desc": "Immediate response to service incidents 24/7/365. Our NOC team monitors and initiates action within 30 minutes on average.", "tags": ["24/7 Monitoring", "30-min Response", "NOC Team"] },
+      { "title": "24/7 Incident Response", "desc": "Immediate response to service incidents 24/7/365. Our NOC team monitors and initiates action within 10 minutes on average.", "tags": ["24/7 Monitoring", "10-min Response", "NOC Team"] },
       { "title": "Regular Updates & Patches", "desc": "Periodic LMS feature updates, security patches, and OS/library version management with documented change history.", "tags": ["Security Patches", "Version Control", "Change History"] },
       { "title": "Security Vulnerability Scanning", "desc": "Regular vulnerability scans and penetration testing to protect learner data. OWASP Top 10 compliant security checks.", "tags": ["Vulnerability Scans", "OWASP Standards", "Data Protection"] },
       { "title": "Performance Optimization", "desc": "Database query tuning, cache optimization, and server resource analysis to continuously improve LMS response times.", "tags": ["DB Tuning", "Cache Optimization", "Monthly Reports"] },
@@ -159,7 +159,7 @@
       { "title": "Initial Diagnosis", "desc": "Comprehensive inspection of server, code, and DB environments with a status report.", "tag": "1-2 weeks" },
       { "title": "Environment Setup", "desc": "Install monitoring tools, connect alert channels, and establish backup policies.", "tag": "1 week" },
       { "title": "Continuous Monitoring", "desc": "24/7 NOC team monitors server status in real-time and detects anomalies.", "tag": "Ongoing" },
-      { "title": "Incident Response", "desc": "30-minute initial response on detection, followed by RCA report after recovery.", "tag": "Within 30 min" },
+      { "title": "Incident Response", "desc": "10-minute initial response on detection, followed by RCA report after recovery.", "tag": "Within 10 min" },
       { "title": "Regular Reports", "desc": "Monthly performance, security, and work summary reports with improvement proposals.", "tag": "Monthly" }
     ],
     "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale" },
@@ -575,7 +575,7 @@
       { "title": "Design", "desc": "Create custom UI mockups reflecting your brand identity, and engineer responsive layouts with polished interactions that deliver a consistent experience across PC, tablet, and mobile.", "tag": "UI·UX" },
       { "title": "Development", "desc": "Run agile 2-week sprints to build core LMS modules, integrate external APIs (PG, DRM, Channel Talk), design databases, and perform performance optimization — all executed systematically.", "tag": "Build" },
       { "title": "QA", "desc": "A rigorous 4-phase QA process covering functional testing, cross-browser compatibility, load testing (concurrent user simulation), and security vulnerability scans to ensure stability before launch.", "tag": "Testing" },
-      { "title": "Maintenance", "desc": "Post-launch 24/7/365 real-time server monitoring, instant incident response (avg. recovery under 30 min), monthly performance reports, and continuous feature updates and security patches.", "tag": "Ongoing" }
+      { "title": "Maintenance", "desc": "Post-launch 24/7/365 real-time server monitoring, instant incident response (avg. recovery under 10 min), monthly performance reports, and continuous feature updates and security patches.", "tag": "Ongoing" }
     ],
     "faqs": [
       { "q": "What's the difference between Cloud (AI) and On-premise (NEO)?", "a": "Cloud (AI) offers quick launch (3 days) with flexible pricing. On-premise (NEO) provides strong security, ERP/CRM integration, and full customization. Choose based on your scale and security requirements." },
