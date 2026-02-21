@@ -43,7 +43,8 @@ export default function HostingPage() {
         description={t("hosting.seo.description")} 
         keywords={t("hosting.seo.keywords")} 
         path="/hosting" 
-        jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 이러닝 호스팅", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": "이러닝 호스팅", "url": "https://webheads-sparkle-landing.lovable.app/hosting" }} 
+        jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("hosting.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": t("hosting.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/hosting" }} 
+        faqJsonLd={faqs}
       />
 
       {/* Hero */}

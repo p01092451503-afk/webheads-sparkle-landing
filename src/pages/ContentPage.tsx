@@ -21,7 +21,7 @@ export default function ContentPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("content.seo.title")} description={t("content.seo.description")} keywords={t("content.seo.keywords")} path="/content" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 콘텐츠 개발", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": t("content.seo.description"), "areaServed": "KR", "serviceType": "이러닝 콘텐츠 제작", "url": "https://webheads-sparkle-landing.lovable.app/content" }} />
+      <SEO title={t("content.seo.title")} description={t("content.seo.description")} keywords={t("content.seo.keywords")} path="/content" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("content.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("content.seo.description"), "areaServed": "KR", "serviceType": t("content.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/content" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}>

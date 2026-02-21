@@ -20,7 +20,7 @@ export default function DrmPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 DRM 솔루션", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": "DRM 보안", "url": "https://webheads-sparkle-landing.lovable.app/drm" }} />
+      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/drm" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}>

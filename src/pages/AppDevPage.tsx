@@ -23,7 +23,7 @@ export default function AppDevPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("appdev.seo.title")} description={t("appdev.seo.description")} keywords={t("appdev.seo.keywords")} path="/app-dev" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 앱 개발", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": t("appdev.seo.description"), "areaServed": "KR", "serviceType": "모바일 앱 개발", "url": "https://webheads-sparkle-landing.lovable.app/app-dev" }} />
+      <SEO title={t("appdev.seo.title")} description={t("appdev.seo.description")} keywords={t("appdev.seo.keywords")} path="/app-dev" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("appdev.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("appdev.seo.description"), "areaServed": "KR", "serviceType": t("appdev.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/app-dev" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}>
