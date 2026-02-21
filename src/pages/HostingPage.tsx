@@ -146,19 +146,48 @@ export default function HostingPage() {
       />
       {/* Hero */}
       <section
-        className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "hsl(210, 50%, 90%)" }}
+        className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden"
+        style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}
       >
-        {/* 우측 비주얼 */}
-        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center">
-          <HostingHeroVisual />
+        {/* 배경에 은은한 원형 그라디언트로 일체감 */}
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            width: "120%",
+            height: "120%",
+            top: "-10%",
+            left: "-10%",
+            background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(214, 80%, 70%, 0.18) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          className="absolute pointer-events-none"
+          style={{
+            width: "80%",
+            height: "80%",
+            bottom: "-10%",
+            left: "-5%",
+            background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsla(152, 60%, 60%, 0.1) 0%, transparent 70%)",
+          }}
+        />
+
+        {/* 비주얼 — 전체 배경으로 깔리면서 텍스트와 어우러짐 */}
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
+          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(12%)" }}>
+            <HostingHeroVisual />
+          </div>
         </div>
 
         <div className="container mx-auto px-6 py-24 relative z-10">
           <div className="max-w-xl">
             <span
               className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-              style={{ background: "#fff", color: "hsl(214, 80%, 42%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}
+              style={{
+                background: "hsla(0, 0%, 100%, 0.85)",
+                backdropFilter: "blur(8px)",
+                color: "hsl(214, 80%, 42%)",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+              }}
             >
               이러닝 호스팅
             </span>
@@ -170,7 +199,13 @@ export default function HostingPage() {
               <br />
               <span style={{ color: "hsl(214, 90%, 52%)" }}>클라우드 호스팅</span>
             </h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>
+            <p
+              className="text-lg leading-relaxed mb-8 max-w-md"
+              style={{
+                color: "hsl(220, 20%, 40%)",
+                textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)",
+              }}
+            >
               CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로
               학습자에게 끊김 없는 학습 환경을 제공하세요.
             </p>
@@ -188,7 +223,8 @@ export default function HostingPage() {
                 style={{
                   borderColor: "hsl(214, 20%, 85%)",
                   color: "hsl(220, 60%, 8%)",
-                  background: "#fff",
+                  background: "hsla(0, 0%, 100%, 0.8)",
+                  backdropFilter: "blur(8px)",
                 }}
               >
                 요금제 보기
