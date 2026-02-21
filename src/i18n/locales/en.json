@@ -551,7 +551,10 @@
       { "q": "Can we migrate from our existing LMS?", "a": "Yes. We support zero-downtime migration including data transfer, with a dedicated engineer overseeing the entire process." },
       { "q": "Do you support multiple languages?", "a": "Yes, we support 11 languages including English, Chinese, and Japanese. Additional languages can be added upon request." },
       { "q": "How long does implementation take?", "a": "Cloud (AI) takes as little as 3 days. On-premise (NEO) typically takes 4-12 weeks depending on project scope." },
-      { "q": "Is a mobile app available?", "a": "Yes, we offer iOS and Android hybrid apps fully integrated with the LMS, supporting push notifications and offline learning." }
+      { "q": "Is a mobile app available?", "a": "Yes, we offer iOS and Android hybrid apps fully integrated with the LMS, supporting push notifications and offline learning." },
+      { "q": "How much does it cost?", "a": "Cloud (AI) is subscription-based with low upfront costs. On-premise (NEO) pricing varies by project scope. Contact us for a free custom quote." },
+      { "q": "Are learning analytics available?", "a": "Yes, track progress, completion rates, assessment results, and access patterns in real-time dashboards with auto-generated monthly reports. AI analytics can even predict learner drop-off." },
+      { "q": "Is there a limit on concurrent users?", "a": "Cloud (AI) uses Auto Scaling to handle thousands of concurrent users automatically. On-premise (NEO) scales flexibly based on server specs. Both remain stable during peak periods like semester starts and exams." }
     ],
     "testimonials": [
       { "name": "Hyunwoo Jung", "role": "Training Team Lead", "org": "Corp A Education Center", "rating": 5, "date": "2024.11", "period": "5th year user", "content": "We started with Cloud and transitioned to On-premise — the migration was seamless. You can feel the 16 years of expertise in their stable service." },
