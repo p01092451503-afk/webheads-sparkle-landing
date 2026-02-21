@@ -9,11 +9,13 @@ import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, BarChart3, Brain, Subtitles, MessageSquare,
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
-  DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet
+  DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
+  ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const featureIcons = [Cloud, Zap, Palette, Languages, Lock, Link2, Wrench, BarChart3, Brain];
+const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone];
+const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
 const aiFeatureIcons = [Brain, Subtitles, MessageSquare];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
@@ -23,7 +25,7 @@ export default function LmsPage() {
   const { t } = useTranslation();
 
   const cloudFeatures = (t("lms.cloudFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || Cloud }));
-  const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || Server }));
+  const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: neoFeatureIcons[i] || Server }));
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
   const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
   const kdtFeatures = (t("lms.kdtFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: kdtFeatureIcons[i] || GraduationCap }));
