@@ -57,25 +57,27 @@ export default function ChatbotPage() {
       />
       {/* Hero */}
       <section
-        className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "hsl(210, 50%, 90%)" }}
+        className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden"
+        style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}
       >
-        <div
-          className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center"
-        >
-          <ChatbotHeroVisual />
+        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(192, 80%, 70%, 0.18) 0%, transparent 70%)" }} />
+        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsla(152, 60%, 60%, 0.1) 0%, transparent 70%)" }} />
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
+          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(22%)" }}>
+            <ChatbotHeroVisual />
+          </div>
         </div>
-        <div className="container mx-auto px-6 py-24 relative z-10">
+        <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(192, 80%, 35%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>AI챗봇</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(192, 80%, 35%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>AI챗봇</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               이러닝 전문<br />
               <span style={{ color: "hsl(192, 90%, 42%)" }}>AI 챗봇 솔루션</span>
             </h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>학습자의 질문에 24시간 즉시 응답하는 AI 챗봇으로 교육 운영 비용을 절감하고 학습자 만족도를 획기적으로 높이세요.</p>
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>학습자의 질문에 24시간 즉시 응답하는 AI 챗봇으로 교육 운영 비용을 절감하고 학습자 만족도를 획기적으로 높이세요.</p>
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>무료 데모 신청</a>
-              <a href="#process" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "#fff" }}>구축 과정 보기</a>
+              <a href="#process" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>구축 과정 보기</a>
             </div>
           </div>
         </div>
