@@ -1,15 +1,16 @@
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import MaintenanceHeroVisual from "@/components/visuals/MaintenanceHeroVisual";
-import MaintenanceFAQ from "@/components/maintenance/MaintenanceFAQ";
-import MaintenanceProcess from "@/components/maintenance/MaintenanceProcess";
-
-import MaintenanceDevFeatures from "@/components/maintenance/MaintenanceDevFeatures";
-import MaintenanceMidCTA from "@/components/maintenance/MaintenanceMidCTA";
+import ServiceFAQ from "@/components/shared/ServiceFAQ";
+import ServiceProcess from "@/components/shared/ServiceProcess";
+import ServiceExtraFeatures from "@/components/shared/ServiceExtraFeatures";
+import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import SEO from "@/components/SEO";
 import {
   Clock, Shield, PhoneCall, RefreshCw, BarChart3,
   AlertTriangle, Settings, HeadphonesIcon,
+  FileSearch, Monitor, FileText,
+  Code2, Paintbrush, LayoutDashboard, MonitorSmartphone, Puzzle, Layers,
 } from "lucide-react";
 
 const testimonials = [
@@ -30,33 +31,9 @@ const features = [
 ];
 
 const plans = [
-  {
-    name: "Basic", price: "300,000", unit: "원", priceNote: "월 이용료 (VAT별도)",
-    features: [
-      { main: "월 2회 정기 점검", sub: "" }, { main: "장애 대응 (영업시간 내)", sub: "평일 09:00–18:00" },
-      { main: "보안 패치 적용", sub: "" }, { main: "월간 현황 리포트", sub: "" }, { main: "이메일 기술 지원", sub: "" },
-    ],
-    recommend: "소규모 이러닝 서비스, 개인 강사, 소형 학원에 추천드려요",
-  },
-  {
-    name: "Standard", price: "600,000", unit: "원", priceNote: "월 이용료 (VAT별도)", highlight: true, badge: "가장 많이 선택!",
-    features: [
-      { main: "월 4회 정기 점검", sub: "" }, { main: "장애 대응 24/7", sub: "공휴일 포함 연중무휴" },
-      { main: "보안 패치 & 성능 최적화", sub: "" }, { main: "월간 성능·보안 리포트", sub: "" },
-      { main: "이메일·카카오톡 기술 지원", sub: "" }, { main: "소규모 기능 개선", sub: "월 2건 이내" },
-    ],
-    recommend: "중형 이러닝 플랫폼, 중소기업, 협회, 평생교육원에 추천드려요",
-  },
-  {
-    name: "Premium", price: "1,200,000", unit: "원", priceNote: "월 이용료 (VAT별도)",
-    features: [
-      { main: "월 8회 정기 점검", sub: "" }, { main: "장애 대응 24/7 전담팀", sub: "SLA 99.9% 보장" },
-      { main: "보안·성능·DB 종합 최적화", sub: "" }, { main: "주간 + 월간 종합 리포트", sub: "" },
-      { main: "전화·이메일·카카오 전담 채널", sub: "" }, { main: "기능 개선 무제한", sub: "우선 처리" },
-      { main: "연간 보안 감사", sub: "1회 포함" },
-    ],
-    recommend: "대형 교육기관, 공공기관, 금융·엔터프라이즈 고객에 추천드려요",
-  },
+  { name: "Basic", price: "300,000", unit: "원", priceNote: "월 이용료 (VAT별도)", features: [{ main: "월 2회 정기 점검", sub: "" }, { main: "장애 대응 (영업시간 내)", sub: "평일 09:00–18:00" }, { main: "보안 패치 적용", sub: "" }, { main: "월간 현황 리포트", sub: "" }, { main: "이메일 기술 지원", sub: "" }], recommend: "소규모 이러닝 서비스, 개인 강사, 소형 학원에 추천드려요" },
+  { name: "Standard", price: "600,000", unit: "원", priceNote: "월 이용료 (VAT별도)", highlight: true, badge: "가장 많이 선택!", features: [{ main: "월 4회 정기 점검", sub: "" }, { main: "장애 대응 24/7", sub: "공휴일 포함 연중무휴" }, { main: "보안 패치 & 성능 최적화", sub: "" }, { main: "월간 성능·보안 리포트", sub: "" }, { main: "이메일·카카오톡 기술 지원", sub: "" }, { main: "소규모 기능 개선", sub: "월 2건 이내" }], recommend: "중형 이러닝 플랫폼, 중소기업, 협회, 평생교육원에 추천드려요" },
+  { name: "Premium", price: "1,200,000", unit: "원", priceNote: "월 이용료 (VAT별도)", features: [{ main: "월 8회 정기 점검", sub: "" }, { main: "장애 대응 24/7 전담팀", sub: "SLA 99.9% 보장" }, { main: "보안·성능·DB 종합 최적화", sub: "" }, { main: "주간 + 월간 종합 리포트", sub: "" }, { main: "전화·이메일·카카오 전담 채널", sub: "" }, { main: "기능 개선 무제한", sub: "우선 처리" }, { main: "연간 보안 감사", sub: "1회 포함" }], recommend: "대형 교육기관, 공공기관, 금융·엔터프라이즈 고객에 추천드려요" },
 ];
 
 const stats = [
@@ -64,6 +41,32 @@ const stats = [
   { value: "99.9%", label: "SLA 가동률", sub: "Premium 기준" },
   { value: "30일", label: "백업 보관 기간", sub: "스냅샷 보관" },
   { value: "24/7", label: "모니터링", sub: "365일 무중단" },
+];
+
+const processSteps = [
+  { icon: FileSearch, title: "초기 진단", desc: "서버·코드·DB 환경을 전수 점검하고 현황 보고서를 작성합니다.", tag: "1~2주" },
+  { icon: Settings, title: "환경 세팅", desc: "모니터링 도구 설치, 알림 채널 연동, 백업 정책을 수립합니다.", tag: "1주" },
+  { icon: Monitor, title: "상시 모니터링", desc: "24/7 NOC 팀이 서버 상태를 실시간 감시하고 이상 징후를 탐지합니다.", tag: "상시" },
+  { icon: AlertTriangle, title: "장애 대응", desc: "장애 감지 시 5분 내 초동 조치, 복구 후 RCA 보고서를 공유합니다.", tag: "5분 내" },
+  { icon: FileText, title: "정기 리포트", desc: "월간 성능·보안·작업 내역 리포트를 제공하고 개선안을 제안합니다.", tag: "월 1회" },
+];
+
+const devFeatures = [
+  { icon: Code2, title: "신규 기능 개발", desc: "기존 LMS에 없는 기능을 새롭게 개발하여 추가합니다. 출석 관리, 퀴즈 엔진, 수강권 시스템, 결제 연동 등 다양한 기능을 맞춤 개발합니다.", tags: ["맞춤 기능 개발", "API 연동", "LMS 확장"] },
+  { icon: Paintbrush, title: "UI/UX 디자인 개선", desc: "노후화된 화면을 최신 트렌드에 맞게 리뉴얼합니다. 학습자 경험을 중심으로 직관적인 화면 구조와 세련된 시각 디자인을 적용합니다.", tags: ["화면 리뉴얼", "UX 개선", "반응형 디자인"] },
+  { icon: LayoutDashboard, title: "관리자 화면 고도화", desc: "관리자가 필요로 하는 통계 대시보드, 대량 회원 관리, 콘텐츠 일괄 처리 등 운영 효율을 높이는 관리 기능을 추가로 개발합니다.", tags: ["대시보드", "대량 처리", "운영 자동화"] },
+  { icon: MonitorSmartphone, title: "모바일 최적화", desc: "PC 중심으로 개발된 LMS를 모바일·태블릿 환경에서도 완벽하게 동작하도록 반응형으로 개선합니다.", tags: ["반응형 웹", "모바일 UX", "크로스 디바이스"] },
+  { icon: Puzzle, title: "외부 서비스 연동", desc: "카카오톡 알림톡, PG 결제, HR·ERP 시스템, SSO, 외부 API 등 다양한 서드파티 서비스와 LMS를 연동합니다.", tags: ["카카오 알림톡", "PG 결제", "SSO 연동"] },
+  { icon: Layers, title: "기존 콘텐츠 마이그레이션", desc: "타사 LMS나 구형 시스템에서 학습 데이터, 회원 정보, 동영상 콘텐츠를 안전하게 이전합니다. 무중단 전환을 지원합니다.", tags: ["데이터 이전", "무중단 전환", "콘텐츠 마이그레이션"] },
+];
+
+const faqs = [
+  { q: "유지보수 계약 중에 추가 개발 요청도 가능한가요?", a: "네, 가능합니다. Standard 이상 플랜에서는 월 일정 건수의 소규모 기능 개선이 포함되어 있으며, 대규모 개발이 필요한 경우 별도 견적을 안내드립니다." },
+  { q: "장애가 발생하면 어떤 프로세스로 대응하나요?", a: "NOC 팀이 24/7 모니터링하다가 장애를 감지하면 즉시 담당 엔지니어에게 알림이 전달됩니다. 평균 5분 이내 초동 조치를 시작하며, 복구 후에는 RCA 보고서를 공유합니다." },
+  { q: "현재 다른 업체에서 운영 중인데, 전환이 가능한가요?", a: "가능합니다. 기존 서버 환경과 소스코드를 분석한 후 무중단 전환 계획을 수립합니다. 인수인계 기간 동안 기존 업체와 병행 운영하여 서비스 중단 없이 안전하게 이관합니다." },
+  { q: "월간 리포트에는 어떤 내용이 포함되나요?", a: "서버 가동률, 트래픽 분석, 장애 발생·처리 이력, 보안 점검 결과, 성능 지표, 작업 내역 요약이 포함됩니다. Premium 플랜은 주간 리포트도 추가 제공됩니다." },
+  { q: "계약 기간과 해지 조건은 어떻게 되나요?", a: "최소 계약 기간은 3개월이며, 이후 월 단위로 연장됩니다. 해지는 1개월 전 서면 통보로 가능하며, 해지 시 모든 관리 문서와 접근 권한을 인수인계합니다." },
+  { q: "보안 패치는 얼마나 자주 적용되나요?", a: "긴급 보안 패치는 발표 후 24시간 이내 적용하며, 일반 패치는 월 1~2회 정기 점검 시 일괄 적용합니다." },
 ];
 
 export default function MaintenancePage() {
@@ -163,14 +166,9 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      {/* Mid CTA */}
-      <MaintenanceMidCTA />
-
-      {/* 추가 개발 서비스 */}
-      <MaintenanceDevFeatures />
-
-      {/* 프로세스 */}
-      <MaintenanceProcess />
+      <ServiceMidCTA heading="우리 서비스에 맞는 유지보수가 궁금하신가요?" description="현재 운영 환경을 분석하고, 최적의 유지보수 방안을 무료로 제안드립니다." />
+      <ServiceExtraFeatures features={devFeatures} subheading="추가 개발" heading={"유지보수를 넘어\n기능 개발까지"} description="단순 관리를 넘어, LMS의 성장을 함께 설계하고 개발합니다." />
+      <ServiceProcess steps={processSteps} subheading="프로세스" heading={"체계적인 유지보수\n진행 프로세스"} description="계약부터 정기 리포트까지, 투명하고 체계적으로 진행됩니다." />
 
       {/* Plans */}
       <section id="plans" className="py-28 bg-background">
@@ -235,9 +233,7 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <MaintenanceFAQ />
-
+      <ServiceFAQ faqs={faqs} serviceName="유지보수 서비스" />
       <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
