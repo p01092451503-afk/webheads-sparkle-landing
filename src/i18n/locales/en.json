@@ -506,12 +506,12 @@
     "stats": [{ "value": "500+", "label": "Clients" }, { "value": "15+", "label": "Years Experience" }, { "value": "99.9%", "label": "Uptime" }, { "value": "24/7", "label": "Tech Support" }]
   },
   "lms": {
-    "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 400+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
+    "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 300+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Monetize Your Knowledge", "titleHighlight": "Faster & Smarter", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions" },
-    "statsTitle": "400+ companies are already transforming their learning",
+    "statsTitle": "300+ companies are already transforming their learning",
     "stats": [
       { "value": "16yr", "label": "LMS Expertise", "sub": "Industry Leader" },
-      { "value": "400+", "label": "Companies", "sub": "Cumulative Clients" },
+      { "value": "300+", "label": "Companies", "sub": "Cumulative Clients" },
       { "value": "84.2%", "label": "5yr+ Retention", "sub": "Renewal Rate" },
       { "value": "TCB", "label": "Tech Excellence", "sub": "IBK Certified" }
     ],
