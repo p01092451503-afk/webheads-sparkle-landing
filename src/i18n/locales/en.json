@@ -57,6 +57,124 @@
     "desc": " — find answers to common questions.",
     "descDefault": "Find answers to common questions."
   },
+  "hosting": {
+    "seo": { "title": "e-Learning Hosting", "description": "Professional e-learning hosting with CDN, AWS, and IDC support. 99.9% SLA uptime, 24/7 NOC monitoring, and auto-scaling for seamless learning.", "keywords": "e-learning hosting, LMS hosting, CDN, AWS hosting, IDC server, online course hosting" },
+    "hero": { "badge": "e-Learning Hosting", "title": "Cloud Hosting", "titleHighlight": "Optimized for e-Learning", "desc": "Provide a seamless learning environment with our professional e-learning hosting service supporting CDN, AWS, and IDC.", "cta1": "Request Consultation", "cta2": "View Plans" },
+    "stats": [
+      { "value": "99.9%", "label": "Server Uptime", "sub": "SLA Guaranteed" },
+      { "value": "50+", "label": "CDN Edge Nodes", "sub": "Global Acceleration" },
+      { "value": "5 min", "label": "Initial Response", "sub": "Dedicated NOC Team" },
+      { "value": "24/7", "label": "Tech Support", "sub": "365 Days Non-stop" }
+    ],
+    "featuresSection": { "sub": "KEY FEATURES", "title": "Experience Infrastructure\nOptimized for e-Learning" },
+    "features": [
+      { "title": "Global CDN Acceleration", "desc": "Deliver content from the nearest node via 50+ edge servers worldwide. Stream HD/4K e-learning content in real-time without buffering.", "tags": ["50+ Edge Nodes", "HD Streaming", "Min Latency"] },
+      { "title": "AWS Cloud Hosting", "desc": "Auto-scale server capacity based on learner count using Amazon Web Services (EC2, S3, CloudFront, RDS). Multi-AZ for maximum availability.", "tags": ["Multi-AZ", "On-demand Billing", "S3 Storage"] },
+      { "title": "IDC Server Operations", "desc": "Operate dedicated physical servers in Korea's top Tier-3 IDC data centers with dual power and dual network lines.", "tags": ["Tier-3 IDC", "Dedicated Servers", "Dual Lines"] },
+      { "title": "24/7 Real-time Monitoring", "desc": "NOC team monitors server, network, and application status 24/7/365. Average 5-minute initial response on threshold alerts.", "tags": ["NOC Team", "5-min Response", "Auto Alerts"] },
+      { "title": "Auto Scaling", "desc": "AWS Auto Scaling and Load Balancer expand instances in real-time during peak traffic like semester starts and exam periods.", "tags": ["Auto Scaling", "Load Balancing", "Cost Optimization"] },
+      { "title": "Detailed Usage Stats", "desc": "View learner access, traffic trends, content play/completion rates in a real-time dashboard with automated monthly reports.", "tags": ["Real-time Dashboard", "Monthly Reports", "Completion Analysis"] },
+      { "title": "DDoS Defense & Security", "desc": "Built-in WAF and DDoS protection automatically block malicious traffic. Free SSL/TLS certificates with regular vulnerability scans.", "tags": ["WAF Built-in", "DDoS Protection", "Free SSL"] },
+      { "title": "Dedicated Backup & Recovery", "desc": "Daily auto-backup of content, DB, and configs with up to 30-day snapshots. Point-in-Time Recovery available.", "tags": ["Daily Auto Backup", "30-day Snapshots", "Instant Recovery"] },
+      { "title": "Dedicated Tech Support", "desc": "From initial server setup to LMS integration, domain config, and SSL — our dedicated engineers handle it all.", "tags": ["Dedicated Engineer", "LMS Integration", "Regular Checkups"] }
+    ],
+    "midCTA": { "heading": "Wondering which hosting fits your organization?", "description": "We'll analyze your traffic and security requirements to propose the optimal hosting environment — free of charge." },
+    "extraSection": { "sub": "ADD-ON SERVICES", "heading": "Beyond Hosting,\nWe Design Your Entire Infrastructure", "desc": "Enterprise-grade services including DB replication, large-scale storage, and VPN integration." },
+    "extraFeatures": [
+      { "title": "DB Replication & Failover", "desc": "Master-Slave database replication with automatic failover for maximum data reliability.", "tags": ["Master-Slave", "Auto Failover", "Data Reliability"] },
+      { "title": "Large-scale Storage Expansion", "desc": "Elastically expand S3 and NAS storage as your video and document content grows.", "tags": ["S3 Storage", "NAS", "Unlimited Expansion"] },
+      { "title": "VPN & Dedicated Network", "desc": "Site-to-Site VPN and dedicated lines for enterprise and public sector internal network integration.", "tags": ["Site-to-Site VPN", "Dedicated Lines", "Internal Network"] },
+      { "title": "Zero-downtime Server Migration", "desc": "Safely migrate servers from other hosting providers to Webheads without service interruption.", "tags": ["Zero-downtime", "Data Migration", "DNS Switchover"] },
+      { "title": "Dedicated Infra Consulting", "desc": "Consulting on traffic pattern analysis, cost optimization, and architecture improvements.", "tags": ["Cost Optimization", "Architecture Design", "Traffic Analysis"] },
+      { "title": "Real-time Performance Dashboard", "desc": "Monitor CPU, memory, network, and disk usage in real-time with a dedicated dashboard.", "tags": ["Real-time Monitoring", "Alert Settings", "Resource Analysis"] }
+    ],
+    "processSection": { "sub": "PROCESS", "heading": "Systematic Hosting\nOnboarding Process", "desc": "From requirements analysis to service launch, our dedicated engineers are with you every step." },
+    "processSteps": [
+      { "title": "Requirements Analysis", "desc": "Analyze traffic volume, content capacity, and security requirements to design the optimal infrastructure architecture.", "tag": "1-2 days" },
+      { "title": "Server Setup & Configuration", "desc": "Configure AWS/IDC environment, domain and SSL setup, LMS installation, and initial data migration.", "tag": "3-5 days" },
+      { "title": "Testing & Optimization", "desc": "Load testing, security checks, and performance tuning to ensure a stable service environment.", "tag": "2-3 days" },
+      { "title": "Service Launch", "desc": "DNS switchover and 72-hour intensive monitoring after launch to confirm stabilization.", "tag": "Launch day" },
+      { "title": "Operations & Reporting", "desc": "24/7 monitoring with monthly performance and traffic reports for continuous optimization.", "tag": "Ongoing" }
+    ],
+    "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale", "desc": "All prices exclude VAT. Excess usage is billed at per-plan rates." },
+    "plans": [
+      { "name": "Basic", "price": "500,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "Video Transfer 500GB/mo", "sub": "Excess: 500 KRW/GB" }, { "main": "Video Storage 100GB total", "sub": "Excess: 1,000 KRW/GB" }, { "main": "Unlimited Members", "sub": "" }, { "main": "Free Design Templates", "sub": "" }, { "main": "SSL Certificate Included", "sub": "" }, { "main": "Hybrid App Development", "sub": "+300,000 KRW/mo" }], "recommend": "Recommended for individual instructors, small businesses, and small academies" },
+      { "name": "Plus", "price": "700,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "Video Transfer 1,500GB/mo", "sub": "Excess: 400 KRW/GB" }, { "main": "Video Storage 200GB total", "sub": "Excess: 800 KRW/GB" }, { "main": "Unlimited Members", "sub": "" }, { "main": "Free Design Templates", "sub": "" }, { "main": "SSL Certificate Included", "sub": "" }, { "main": "Hybrid App Development", "sub": "+300,000 KRW/mo" }], "recommend": "Recommended for mid-size academies, SMBs, and associations" },
+      { "name": "Premium", "price": "1,000,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "Video Transfer 2,000GB/mo", "sub": "Excess: 300 KRW/GB" }, { "main": "Video Storage 250GB total", "sub": "Excess: 500 KRW/GB" }, { "main": "Unlimited Members", "sub": "" }, { "main": "Free Design Templates", "sub": "" }, { "main": "SSL Certificate Included", "sub": "" }, { "main": "Hybrid App Development", "sub": "+300,000 KRW/mo" }], "recommend": "Recommended for large academies, SMEs, continuing education centers", "highlight": true, "badge": "Most Popular!" }
+    ],
+    "plansCustom": { "title": "Need a custom quote?", "desc": "For high-traffic or special security requirements, we provide tailored infrastructure proposals.", "cta": "Request Custom Quote" },
+    "faqs": [
+      { "q": "Are there extra charges if traffic suddenly increases?", "a": "AWS-based hosting auto-scales, and excess transfer is billed at per-plan rates. Share your expected traffic and we'll recommend the optimal plan." },
+      { "q": "Can I migrate from my current hosting?", "a": "Yes. We support zero-downtime migration from other providers with thorough testing before DNS switchover." },
+      { "q": "How is the SSL certificate provided?", "a": "Free Let's Encrypt SSL with auto-renewal is included by default. Paid enterprise SSL (EV SSL, etc.) installation is also supported." },
+      { "q": "What's the incident response process?", "a": "Our NOC team monitors 24/7 and initiates response within 5 minutes on average. A root cause analysis report is shared after recovery." },
+      { "q": "What if I run out of video storage?", "a": "Unlimited expansion is available at per-GB rates beyond the plan's base storage. For high-volume content, we offer dedicated storage plans." }
+    ],
+    "testimonials": [
+      { "name": "T. Kim", "role": "IT Infrastructure Lead", "org": "A Cyber University", "rating": 5, "date": "2024.09", "period": "7th year", "content": "We sometimes get 3,000+ concurrent users at semester start, and there's never any lag or downtime. No more stressing about server scaling." },
+      { "name": "S. Lee", "role": "Operations Manager", "org": "B Vocational Training", "rating": 4, "date": "2025.01", "period": "3rd year", "content": "Our old hosting went down 2-3 times a month. Since switching, it hasn't happened once. Support calls dropped dramatically." },
+      { "name": "J. Park", "role": "CEO", "org": "C EdTech", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "International learners say video loading is much faster now. Quick response via KakaoTalk when issues arise — very reliable." }
+    ]
+  },
+  "maintenance": {
+    "seo": { "title": "Maintenance", "description": "Professional maintenance service for LMS and Webheads solutions. 24/7 incident response, security patches, performance optimization, and feature improvements by dedicated engineers.", "keywords": "e-learning maintenance, LMS maintenance, server maintenance, 24/7 incident response, e-learning operations" },
+    "hero": { "badge": "Maintenance", "title": "For Stable Operations", "titleHighlight": "Maintenance Service", "desc": "From incident response and security patches to performance optimization and feature improvements — our dedicated engineers manage it all.", "cta1": "Request Consultation", "cta2": "View Plans" },
+    "stats": [
+      { "value": "5 min", "label": "Avg. Initial Response", "sub": "After detection" },
+      { "value": "99.9%", "label": "SLA Uptime", "sub": "Premium tier" },
+      { "value": "30 days", "label": "Backup Retention", "sub": "Snapshot storage" },
+      { "value": "24/7", "label": "Monitoring", "sub": "365 days non-stop" }
+    ],
+    "featuresSection": { "sub": "KEY SERVICES", "title": "We Take Full Responsibility\nfor Your Operations", "desc": "From incident response to performance optimization and security management — comprehensive maintenance for your e-learning platform." },
+    "features": [
+      { "title": "24/7 Incident Response", "desc": "Immediate response to service incidents 24/7/365. Our NOC team monitors and initiates action within 5 minutes on average.", "tags": ["24/7 Monitoring", "5-min Response", "NOC Team"] },
+      { "title": "Regular Updates & Patches", "desc": "Periodic LMS feature updates, security patches, and OS/library version management with documented change history.", "tags": ["Security Patches", "Version Control", "Change History"] },
+      { "title": "Security Vulnerability Scanning", "desc": "Regular vulnerability scans and penetration testing to protect learner data. OWASP Top 10 compliant security checks.", "tags": ["Vulnerability Scans", "OWASP Standards", "Data Protection"] },
+      { "title": "Performance Optimization", "desc": "Database query tuning, cache optimization, and server resource analysis to continuously improve LMS response times.", "tags": ["DB Tuning", "Cache Optimization", "Monthly Reports"] },
+      { "title": "Feature Improvements & Customization", "desc": "Quick turnaround on small feature additions, UI modifications, and admin setting changes. Average 1-3 business days.", "tags": ["Feature Additions", "UI Modifications", "Fast Processing"] },
+      { "title": "Dedicated Technical Support", "desc": "Direct access to dedicated engineers via email, KakaoTalk, and phone through a contract-exclusive support channel.", "tags": ["Dedicated Engineer", "Multi-channel", "Contract Exclusive"] },
+      { "title": "Root Cause Analysis & Reporting", "desc": "Post-incident RCA reports with prevention measures. Transparent communication builds trust.", "tags": ["RCA Reports", "Prevention", "Transparent Communication"] },
+      { "title": "User Inquiry Handling", "desc": "First-line intake and classification of learner/admin inquiries. Technical issues resolved directly, operational issues escalated.", "tags": ["First-line Intake", "Issue Classification", "Fast Escalation"] }
+    ],
+    "midCTA": { "heading": "Wondering what maintenance plan fits your service?", "description": "We'll analyze your current environment and propose the optimal maintenance plan — free of charge." },
+    "extraSection": { "sub": "ADDITIONAL DEVELOPMENT", "heading": "Beyond Maintenance,\nWe Build New Features Too", "desc": "More than just management — we design and develop growth alongside your LMS." },
+    "devFeatures": [
+      { "title": "New Feature Development", "desc": "Build features not in your current LMS — attendance management, quiz engines, subscription systems, payment integration, and more.", "tags": ["Custom Development", "API Integration", "LMS Extension"] },
+      { "title": "UI/UX Design Improvements", "desc": "Modernize outdated interfaces with intuitive layouts and polished visual design focused on learner experience.", "tags": ["UI Renewal", "UX Improvement", "Responsive Design"] },
+      { "title": "Admin Dashboard Enhancement", "desc": "Add statistics dashboards, bulk member management, batch content processing, and more for operational efficiency.", "tags": ["Dashboard", "Bulk Processing", "Ops Automation"] },
+      { "title": "Mobile Optimization", "desc": "Make PC-focused LMS work perfectly on mobile and tablet with responsive improvements.", "tags": ["Responsive Web", "Mobile UX", "Cross-device"] },
+      { "title": "External Service Integration", "desc": "Integrate KakaoTalk alerts, PG payments, HR/ERP systems, SSO, and other third-party APIs with your LMS.", "tags": ["KakaoTalk Alerts", "PG Payment", "SSO Integration"] },
+      { "title": "Content Migration", "desc": "Safely migrate learning data, member info, and video content from other LMS or legacy systems with zero downtime.", "tags": ["Data Migration", "Zero Downtime", "Content Migration"] }
+    ],
+    "processSection": { "sub": "PROCESS", "heading": "Systematic Maintenance\nProcess", "desc": "From contract to regular reports — transparent and structured every step of the way." },
+    "processSteps": [
+      { "title": "Initial Diagnosis", "desc": "Comprehensive inspection of server, code, and DB environments with a status report.", "tag": "1-2 weeks" },
+      { "title": "Environment Setup", "desc": "Install monitoring tools, connect alert channels, and establish backup policies.", "tag": "1 week" },
+      { "title": "Continuous Monitoring", "desc": "24/7 NOC team monitors server status in real-time and detects anomalies.", "tag": "Ongoing" },
+      { "title": "Incident Response", "desc": "5-minute initial response on detection, followed by RCA report after recovery.", "tag": "Within 5 min" },
+      { "title": "Regular Reports", "desc": "Monthly performance, security, and work summary reports with improvement proposals.", "tag": "Monthly" }
+    ],
+    "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale" },
+    "plans": [
+      { "name": "Basic", "price": "300,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "Bi-monthly Regular Checkups", "sub": "" }, { "main": "Incident Response (Business Hours)", "sub": "Weekdays 09:00-18:00" }, { "main": "Security Patch Application", "sub": "" }, { "main": "Monthly Status Report", "sub": "" }, { "main": "Email Tech Support", "sub": "" }], "recommend": "Recommended for small e-learning services, individual instructors, and small academies" },
+      { "name": "Standard", "price": "600,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "highlight": true, "badge": "Most Popular!", "features": [{ "main": "Weekly Regular Checkups", "sub": "" }, { "main": "24/7 Incident Response", "sub": "Including holidays" }, { "main": "Security Patches & Performance Optimization", "sub": "" }, { "main": "Monthly Performance & Security Report", "sub": "" }, { "main": "Email & KakaoTalk Tech Support", "sub": "" }, { "main": "Minor Feature Improvements", "sub": "Up to 2 per month" }], "recommend": "Recommended for mid-size e-learning platforms, SMBs, associations, and continuing education" },
+      { "name": "Premium", "price": "1,200,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "8x Monthly Regular Checkups", "sub": "" }, { "main": "24/7 Dedicated Incident Team", "sub": "SLA 99.9% Guaranteed" }, { "main": "Comprehensive Security, Performance & DB Optimization", "sub": "" }, { "main": "Weekly + Monthly Comprehensive Reports", "sub": "" }, { "main": "Phone, Email & KakaoTalk Dedicated Channel", "sub": "" }, { "main": "Unlimited Feature Improvements", "sub": "Priority Processing" }, { "main": "Annual Security Audit", "sub": "1 included" }], "recommend": "Recommended for large educational institutions, public sector, finance, and enterprise clients" }
+    ],
+    "plansCustom": { "title": "Need a custom quote?", "desc": "For complex environments or special requirements, we provide tailored maintenance proposals.", "cta": "Request Custom Quote" },
+    "faqs": [
+      { "q": "Can I request additional development during a maintenance contract?", "a": "Yes. Standard and above plans include a monthly quota of minor feature improvements. For larger projects, we provide a separate quote." },
+      { "q": "What's the incident response process?", "a": "Our NOC team monitors 24/7. When an incident is detected, the assigned engineer is immediately notified. Average 5-minute initial response, with an RCA report shared after recovery." },
+      { "q": "Can I switch from another provider?", "a": "Yes. We analyze your existing server environment and source code, then create a zero-downtime transition plan." },
+      { "q": "What's included in the monthly report?", "a": "Server uptime, traffic analysis, incident history, security scan results, performance metrics, and work summary." },
+      { "q": "What are the contract terms and cancellation conditions?", "a": "Minimum 3-month contract, then month-to-month. Cancellation requires 1 month written notice." },
+      { "q": "How often are security patches applied?", "a": "Critical security patches within 24 hours of release. Regular patches applied during monthly checkups." }
+    ],
+    "testimonials": [
+      { "name": "Y. Choi", "role": "CTO", "org": "D EdTech", "rating": 4, "date": "2025.02", "period": "5th year", "content": "Had a server issue at 3 AM and got a call within 5 minutes. Everything was back to normal in under 30 minutes." },
+      { "name": "S. Han", "role": "Education Ops Team", "org": "E Cyber University", "rating": 5, "date": "2024.10", "period": "9th year", "content": "We don't have in-house developers, so we can't handle security updates or server management ourselves. Having it all taken care of lets us focus on operations." },
+      { "name": "W. Jung", "role": "IT Manager", "org": "F Education Association", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "The monthly reports are so well-organized that I can use them directly for executive presentations." }
+    ]
+  },
   "chatbot": {
     "seo": { "title": "AI Chatbot", "description": "GPT-4o and Claude 3.5 powered AI chatbot integrated with LMS. 24/7 automated learner support with FAQ auto-learning and multi-language capabilities.", "keywords": "AI chatbot, LMS chatbot, e-learning chatbot, GPT chatbot, learning chatbot" },
     "hero": { "badge": "AI Chatbot", "title": "e-Learning Specialized", "titleHighlight": "AI Chatbot Solution", "desc": "Reduce operational costs and dramatically improve learner satisfaction with an AI chatbot that responds to learner questions 24/7.", "cta1": "Request Free Demo", "cta2": "View Process" },
