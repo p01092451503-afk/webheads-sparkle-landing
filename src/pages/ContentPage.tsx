@@ -5,9 +5,9 @@ import ContentHeroVisual from "@/components/visuals/ContentHeroVisual";
 import { Film, PenTool, Layers, Monitor, Users, Mic, Palette, ClipboardCheck, Gamepad2, BookOpen, Building2, Stethoscope, GraduationCap, Globe } from "lucide-react";
 
 const testimonials = [
-  { name: "송민아", role: "HRD 매니저", org: "현대오토에버", rating: 4, date: "2024.10", period: "이용 4년차", content: "영상 퀄리티가 확실히 다릅니다. 직원들이 '이거 외부 교육 영상이냐'고 물어볼 정도예요. 회사 CI 맞춰서 톤앤매너도 통일해주셔서 내부 교육 브랜딩이 잘 잡혔어요." },
-  { name: "윤재혁", role: "교수설계자", org: "국가평생교육진흥원", rating: 5, date: "2024.12", period: "이용 7년차", content: "인터랙티브 콘텐츠 넣고 나서 학습자 반응이 확 달라졌어요. 특히 시나리오 분기형이 효과가 좋은데, 단순히 영상 보는 것보다 집중도가 훨씬 높다는 피드백이 많습니다." },
-  { name: "강다은", role: "교육팀", org: "서울아산병원", rating: 3, date: "2025.02", period: "이용 2년차", content: "의료 술기 같은 건 글로 설명하기 어려운데, 3D 애니메이션으로 만들어주시니까 신규 간호사분들이 이해가 빠르다고 해요. 검수 과정도 꼼꼼하게 챙겨주십니다." },
+  { name: "송민아", role: "HRD 매니저", org: "P 대기업", rating: 4, date: "2024.10", period: "이용 4년차", content: "영상 퀄리티가 확실히 다릅니다. 직원들이 '이거 외부 교육 영상이냐'고 물어볼 정도예요. 회사 CI 맞춰서 톤앤매너도 통일해주셔서 내부 교육 브랜딩이 잘 잡혔어요." },
+  { name: "윤재혁", role: "교수설계자", org: "Q 공공교육기관", rating: 5, date: "2024.12", period: "이용 7년차", content: "인터랙티브 콘텐츠 넣고 나서 학습자 반응이 확 달라졌어요. 특히 시나리오 분기형이 효과가 좋은데, 단순히 영상 보는 것보다 집중도가 훨씬 높다는 피드백이 많습니다." },
+  { name: "강다은", role: "교육팀", org: "R 의료기관", rating: 3, date: "2025.02", period: "이용 2년차", content: "의료 술기 같은 건 글로 설명하기 어려운데, 3D 애니메이션으로 만들어주시니까 신규 간호사분들이 이해가 빠르다고 해요. 검수 과정도 꼼꼼하게 챙겨주십니다." },
 ];
 
 const features = [
