@@ -125,7 +125,7 @@ export default function LmsPage() {
       </section>
 
       {/* Device Friendly */}
-      <section className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 40%, 96%) 0%, hsl(222, 35%, 92%) 100%)" }}>
+      <section className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4 text-primary">{t("lms.deviceSection.sub")}</p>
