@@ -23,7 +23,7 @@ export default function ChatbotPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("chatbot.seo.title")} description={t("chatbot.seo.description")} keywords={t("chatbot.seo.keywords")} path="/chatbot" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 AI 챗봇", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": t("chatbot.seo.description"), "areaServed": "KR", "serviceType": "AI 챗봇 개발", "url": "https://webheads-sparkle-landing.lovable.app/chatbot" }} />
+      <SEO title={t("chatbot.seo.title")} description={t("chatbot.seo.description")} keywords={t("chatbot.seo.keywords")} path="/chatbot" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("chatbot.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("chatbot.seo.description"), "areaServed": "KR", "serviceType": t("chatbot.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/chatbot" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}>

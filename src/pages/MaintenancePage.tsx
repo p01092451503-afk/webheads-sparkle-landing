@@ -51,13 +51,14 @@ export default function MaintenancePage() {
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "웹헤즈 유지보수",
-          "provider": { "@type": "Organization", "name": "웹헤즈" },
+          "name": `${t("maintenance.seo.title")} - Webheads`,
+          "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" },
           "description": t("maintenance.seo.description"),
           "areaServed": "KR",
-          "serviceType": "IT 유지보수",
+          "serviceType": t("maintenance.seo.title"),
           "url": "https://webheads-sparkle-landing.lovable.app/maintenance"
         }}
+        faqJsonLd={faqs}
       />
 
       {/* Hero */}
