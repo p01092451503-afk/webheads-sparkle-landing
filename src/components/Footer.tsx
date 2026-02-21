@@ -39,7 +39,7 @@ export default function Footer() {
           </div>
           <div className="text-right">
             <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "hsl(220, 20%, 50%)" }}>{t("footer.links")}</p>
-            <ul className="flex flex-col gap-2.5 items-end">
+            <ul className="flex flex-col gap-1.5 items-end">
               <li>
                 <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex items-center gap-1.5 transition-colors" style={{ color: "hsl(220, 20%, 50%)" }} onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")} onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}>
                   {t("footer.homepage")} <ExternalLink className="w-3 h-3" />
@@ -49,7 +49,7 @@ export default function Footer() {
                 <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>Services</p>
               </li>
               {serviceLabels.map((label, i) => (
-                <li key={servicePaths[i]}>
+                <li key={servicePaths[i]} className="leading-none">
                   <Link
                     to={servicePaths[i]}
                     className="text-sm font-medium transition-colors"
