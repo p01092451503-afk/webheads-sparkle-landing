@@ -9,13 +9,14 @@ import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, BarChart3, Brain, Subtitles, MessageSquare,
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
-  DollarSign, Users, Bell
+  DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Cloud, Zap, Palette, Languages, Lock, Link2, Wrench, BarChart3, Brain];
 const aiFeatureIcons = [Brain, Subtitles, MessageSquare];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
+const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
 
 export default function LmsPage() {
@@ -25,6 +26,7 @@ export default function LmsPage() {
   const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || Server }));
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
   const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
+  const kdtFeatures = (t("lms.kdtFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: kdtFeatureIcons[i] || GraduationCap }));
   const stats = t("lms.stats", { returnObjects: true }) as any[];
   const partners = t("lms.partners", { returnObjects: true }) as string[];
   const faqs = t("lms.faqs", { returnObjects: true }) as any[];
@@ -218,6 +220,35 @@ export default function LmsPage() {
                 {t("lms.neo.cta")}
               </a>
             </div>
+           </div>
+          {/* KDT Government-funded */}
+          <div className="mt-6 rounded-3xl p-8 bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md transition-all duration-200">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
+                <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
+              </div>
+              <div>
+                <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.kdt.name")}</h3>
+                <p className="text-xs text-muted-foreground">{t("lms.kdt.subtitle")}</p>
+              </div>
+            </div>
+            <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{t("lms.kdt.desc")}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {kdtFeatures.map((f: any) => (
+                <div key={f.title} className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
+                    <f.icon className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
+                    <p className="text-xs text-muted-foreground">{f.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-foreground text-primary-foreground hover:opacity-85">
+              {t("lms.kdt.cta")}
+            </a>
           </div>
         </div>
       </section>
