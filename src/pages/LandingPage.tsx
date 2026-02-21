@@ -5,7 +5,6 @@ import {
 } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
 import SEO from "@/components/SEO";
-import LandingHeroVisual from "@/components/visuals/LandingHeroVisual";
 
 const services = [
   {
@@ -110,14 +109,11 @@ export default function LandingPage() {
       />
 
       {/* ── Hero ── */}
-      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden" style={{ background: "hsl(210, 50%, 90%)" }}>
-        {/* Hero Visual */}
-        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center">
-          <LandingHeroVisual />
-        </div>
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-16 overflow-hidden" style={{ background: "hsl(0, 0%, 100%)" }}>
+        {/* Subtle gradient orb */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, hsl(214, 90%, 95%) 0%, transparent 70%)" }} />
 
-        <div className="container mx-auto px-6 relative z-10 max-w-4xl">
-          <div className="max-w-xl">
+        <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
           <p
             className="text-sm font-semibold tracking-widest uppercase mb-6 text-primary"
             style={{ opacity: 0, animation: "fade-up 0.7s ease-out 0.1s forwards" }}
@@ -156,7 +152,6 @@ export default function LandingPage() {
             >
               무료 상담 신청
             </a>
-          </div>
           </div>
         </div>
       </section>
