@@ -1,6 +1,6 @@
 {
   "header": {
-    "services": ["在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"],
+    "services": ["LMS介绍", "在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"],
     "cta": "免费咨询",
     "logo": "Webheads"
   },
@@ -496,5 +496,67 @@
       { "title": "支付集成", "subtitle": "Toss / Inicis / 海外支付", "desc": "集成Toss Payments、KG Inicis、Mobilians、PayTeacher及Stripe·PayPal海外支付等多种PG。", "features": ["Toss Payments / Inicis", "Mobilians / PayTeacher", "海外支付 (Stripe·PayPal)", "订阅自动化"] }
     ],
     "stats": [{ "value": "500+", "label": "客户" }, { "value": "15年+", "label": "运营经验" }, { "value": "99.9%", "label": "服务器可用率" }, { "value": "24/7", "label": "技术支持" }]
+  },
+  "lms": {
+    "seo": { "title": "Webheads LMS", "description": "将制作、管理、运营等所有在线教育流程统一到一个平台的在线学习解决方案。400+企业信赖的LMS。", "keywords": "LMS, 在线学习, Webheads, 在线教育, 学习管理系统" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "将您的知识变现", "titleHighlight": "更快更智能", "desc": "Webheads LMS将制作、管理、运营等所有在线教育流程统一到一个平台。", "cta1": "咨询导入", "cta2": "方案对比" },
+    "statsTitle": "已有400+企业体验学习变革",
+    "stats": [
+      { "value": "16年", "label": "LMS专业企业", "sub": "行业最长" },
+      { "value": "400+", "label": "导入企业", "sub": "累计客户" },
+      { "value": "84.2%", "label": "5年以上使用率", "sub": "续约率" },
+      { "value": "TCB", "label": "技术优秀企业", "sub": "IBK认证" }
+    ],
+    "partnersTitle": "主要客户",
+    "partners": ["Yanadu", "月薪族富翁", "韩国能源财团", "Transcosmos", "韩国鉴定评价师协会", "保健福祉部", "仁川国际机场公社", "KAIST"],
+    "deviceSection": { "sub": "响应式设计", "title": "学习者和管理者\n都舒适的使用体验", "desc": "在PC、平板、手机等所有设备上提供优化的响应式设计。", "pc": "在桌面环境中提供丰富的管理功能和仪表板。", "tablet": "为平板优化的触控界面，提供舒适的学习体验。", "mobile": "与移动应用相同的使用体验，随时随地学习。" },
+    "solutionsSection": { "sub": "方案对比", "title": "根据目的\n选择构建方式", "desc": "云端型(AI)和本地部署型(NEO)，选择适合您业务目的的最佳LMS。" },
+    "cloud": { "name": "Webheads AI", "subtitle": "云端型 · 仅3天即可上线", "desc": "以灵活的价格方案快速开设教育网站的云端型LMS。", "cta": "咨询AI方案" },
+    "cloudFeatures": [
+      { "title": "灵活定价", "desc": "为各种业务规模量身定制的灵活价格方案" },
+      { "title": "快速上线", "desc": "3天内以最全功能构建教育网站" },
+      { "title": "时尚模板", "desc": "无需专家即可灵活管理的设计模板" },
+      { "title": "多语言支持", "desc": "支持英语、中文、日语等11种语言页面生成" }
+    ],
+    "neo": { "name": "Webheads NEO", "subtitle": "本地部署型 · 强大安全与定制", "desc": "提供优化安全系统和完全定制解决方案的本地部署型LMS。", "cta": "咨询NEO方案" },
+    "neoFeatures": [
+      { "title": "优化安全", "desc": "通过Catenoid、ZonePlayer等保障内容安全和技术稳定性" },
+      { "title": "ERP·CRM集成", "desc": "为有效创造价值的数据流程集成" },
+      { "title": "定制方案", "desc": "根据服务增长和资源灵活定制" },
+      { "title": "24小时运维", "desc": "365天24小时监控提供最佳访问环境" }
+    ],
+    "allInOneSection": { "sub": "一体化管理", "title": "管理太复杂？\nWebheads一体化集成管理！" },
+    "allInOne": [
+      { "title": "搜索引擎优化", "desc": "无需营销人员，通过广告脚本和元标签即可进行SEO优化。" },
+      { "title": "多种视频播放器", "desc": "支持CDN、YouTube、Zoom等多种形式的视频播放器。" },
+      { "title": "教材·学生管理", "desc": "从教材管理到学生维护，一站式处理。" }
+    ],
+    "midCTA": { "heading": "想找到最适合您的在线学习解决方案吗？", "description": "我们将根据您的业务目标和规模免费推荐最佳LMS。", "ctaText": "免费咨询" },
+    "aiSection": { "sub": "AI功能", "title": "让运营更简单智能！\n差异化AI功能", "desc": "利用AI技术构建更智能的数字在线学习环境。" },
+    "aiFeatures": [
+      { "title": "AI模拟考试·学习者分析", "desc": "课程推荐、突击测验等繁琐工作交给AI，提供智能在线学习。" },
+      { "title": "多语言字幕自动生成", "desc": "AI自动生成多语言字幕，让所有人都能轻松学习。" },
+      { "title": "AI导师·聊天机器人", "desc": "AI导师和聊天机器人实时回答学习者问题，提高学习效率。" }
+    ],
+    "processSection": { "sub": "导入流程", "heading": "从策划到构建\n一站式咨询", "desc": "通过充分咨询，设计符合您业务和学习目标的解决方案。" },
+    "processSteps": [
+      { "title": "策划", "desc": "通过充分咨询，设计符合业务和学习目标的解决方案方向。", "tag": "分析" },
+      { "title": "设计", "desc": "定制化界面设计，在所有设备上提供优化的响应式设计。", "tag": "UI·UX" },
+      { "title": "开发", "desc": "分阶段系统化开发，快速实现高质量技术。", "tag": "构建" },
+      { "title": "验收", "desc": "上线前彻底验收，保障稳定的服务启动。", "tag": "QA" },
+      { "title": "运维", "desc": "上线后持续系统运营和快速用户支持。", "tag": "持续" }
+    ],
+    "faqs": [
+      { "q": "云端型(AI)和本地部署型(NEO)有什么区别？", "a": "云端型(AI)的优势是快速上线(3天)和灵活定价，本地部署型(NEO)提供强大安全、ERP/CRM集成和完全定制。" },
+      { "q": "可以从现有LMS迁移吗？", "a": "可以。包括数据迁移在内，支持零停机安全迁移。专职工程师全程支持。" },
+      { "q": "支持多语言吗？", "a": "是的，支持英语、中文、日语等11种语言。可按需添加更多语言。" },
+      { "q": "构建需要多长时间？", "a": "云端型(AI)最快3天，本地部署型(NEO)根据项目规模需4-12周。" },
+      { "q": "提供移动应用吗？", "a": "是的，提供iOS·Android混合应用，与LMS完全集成，支持推送通知和离线学习。" }
+    ],
+    "testimonials": [
+      { "name": "郑贤宇", "role": "培训组长", "org": "A企业教育中心", "rating": 5, "date": "2024.11", "period": "使用5年", "content": "从云端型开始后转为本地部署，迁移过程很顺利，能感受到16年积累的稳定服务。" },
+      { "name": "金叙妍", "role": "运营经理", "org": "B在线教育", "rating": 5, "date": "2025.01", "period": "使用3年", "content": "3天就上线了网站，AI功能大大减少了运营负担，多语言字幕自动生成深受海外学习者欢迎。" },
+      { "name": "李俊赫", "role": "CTO", "org": "C教育科技", "rating": 4, "date": "2024.09", "period": "使用7年", "content": "ERP集成和定制自由度高，完全融入了我们的系统。24小时故障响应也很可靠。" }
+    ]
   }
 }
