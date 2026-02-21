@@ -556,7 +556,10 @@
     "aiFeatures": [
       { "title": "AI Mock Tests & Analytics", "desc": "Leave course curation, pop quizzes, and learner analysis to AI for smarter e-learning." },
       { "title": "Auto Multi-language Subtitles", "desc": "AI automatically generates multi-language subtitles so anyone can learn easily." },
-      { "title": "AI Tutor & Chatbot", "desc": "AI tutors and chatbots respond to learner questions in real-time for better efficiency." }
+      { "title": "AI Tutor & Chatbot", "desc": "AI tutors and chatbots respond to learner questions in real-time for better efficiency." },
+      { "title": "AI Content Summarization", "desc": "AI auto-summarizes long lecture videos and materials into key takeaways for efficient review." },
+      { "title": "AI Grade Prediction & Retention", "desc": "Analyzes learning patterns to predict grades and detects at-risk learners early for proactive intervention." },
+      { "title": "AI Voice Search", "desc": "Converts in-video speech to text, letting learners jump to the exact moment a keyword is mentioned." }
     ],
     "processSection": { "sub": "Process", "heading": "One-Stop Consulting\nfrom Planning to Launch", "desc": "We design solutions tailored to your business and learning goals through thorough consultation." },
     "processSteps": [

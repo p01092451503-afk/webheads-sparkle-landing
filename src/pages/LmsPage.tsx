@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 
 const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone];
 const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
-const aiFeatureIcons = [Brain, Subtitles, MessageSquare];
+const aiFeatureIcons = [Brain, Subtitles, MessageSquare, FileCheck, BarChart3, Search];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
