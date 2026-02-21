@@ -13,7 +13,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 max-w-5xl py-16">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_auto_auto] gap-12">
           <div className="flex flex-col gap-6">
-            <span style={{ fontFamily: "'Pretendard', 'Noto Sans KR', sans-serif", fontWeight: 800, fontSize: "1.25rem", letterSpacing: "-0.04em", lineHeight: 1, color: "hsl(220, 60%, 8%)" }}>
+            <span style={{ fontFamily: "'Iceland', 'Toss Product Sans', 'Pretendard', sans-serif", fontWeight: 800, fontSize: "1.625rem", letterSpacing: "-0.04em", lineHeight: 1, color: "hsl(220, 60%, 8%)" }}>
               {t("header.logo")}
             </span>
             <div className="flex flex-col gap-1">
