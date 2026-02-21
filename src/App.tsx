@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
-import Index from "./pages/Index";
+import LandingPage from "./pages/LandingPage";
 import HostingPage from "./pages/HostingPage";
 import ChatbotPage from "./pages/ChatbotPage";
 import AppDevPage from "./pages/AppDevPage";
@@ -36,7 +36,7 @@ const App = () => (
         <ScrollToTop />
         <Layout>
           <Routes>
-            <Route path="/" element={<Navigate to="/hosting" replace />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/hosting" element={<HostingPage />} />
             <Route path="/chatbot" element={<ChatbotPage />} />
             <Route path="/app-dev" element={<AppDevPage />} />
