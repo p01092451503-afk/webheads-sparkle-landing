@@ -16,6 +16,26 @@ export default function Footer() {
             <span style={{ fontFamily: "'Pretendard', 'Noto Sans KR', sans-serif", fontWeight: 800, fontSize: "1.25rem", letterSpacing: "-0.04em", lineHeight: 1, color: "hsl(220, 60%, 8%)" }}>
               {t("header.logo")}
             </span>
+
+            {/* Services */}
+            <div>
+              <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(220, 60%, 8%)" }}>Services</p>
+              <div className="flex flex-wrap gap-x-6 gap-y-1.5">
+                {serviceLabels.map((label, i) => (
+                  <Link
+                    key={servicePaths[i]}
+                    to={servicePaths[i]}
+                    className="text-sm font-medium transition-colors"
+                    style={{ color: "hsl(220, 20%, 50%)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
             <div className="flex flex-col gap-1">
               <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "hsl(220, 20%, 50%)" }}>{t("footer.company")}</p>
               <p className="text-sm leading-relaxed" style={{ color: "hsl(220, 20%, 50%)" }}>{t("footer.address")}</p>
@@ -37,30 +57,14 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div className="text-right">
+          <div>
             <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "hsl(220, 60%, 8%)" }}>{t("footer.links")}</p>
-            <ul className="flex flex-col gap-1.5 items-end">
+            <ul className="flex flex-col gap-1.5">
               <li>
                 <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex items-center gap-1.5 transition-colors" style={{ color: "hsl(220, 20%, 50%)" }} onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")} onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}>
                   {t("footer.homepage")} <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
-              <li className="mt-3">
-                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(220, 60%, 8%)" }}>Services</p>
-              </li>
-              {serviceLabels.map((label, i) => (
-                <li key={servicePaths[i]} className="leading-none">
-                  <Link
-                    to={servicePaths[i]}
-                    className="text-sm font-medium transition-colors"
-                    style={{ color: "hsl(220, 20%, 50%)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
             </ul>
           </div>
         </div>
