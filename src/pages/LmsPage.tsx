@@ -8,13 +8,14 @@ import LmsHeroVisual from "@/components/visuals/LmsHeroVisual";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, BarChart3, Brain, Subtitles, MessageSquare,
-  ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones
+  ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
+  DollarSign, Users, Bell
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Cloud, Zap, Palette, Languages, Lock, Link2, Wrench, BarChart3, Brain];
 const aiFeatureIcons = [Brain, Subtitles, MessageSquare];
-const allInOneIcons = [Search, Monitor, Headphones];
+const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
 
 export default function LmsPage() {

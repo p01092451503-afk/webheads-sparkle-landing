@@ -527,9 +527,12 @@
     ],
     "allInOneSection": { "sub": "All-in-One", "title": "Tired of Complex Management?\nWebheads All-in-One!" },
     "allInOne": [
-      { "title": "SEO Optimization", "desc": "Optimize for search engines with ad scripts and meta tags — no marketing team needed." },
-      { "title": "Multiple Video Players", "desc": "Support for CDN, YouTube, Zoom, and various other video players." },
-      { "title": "Materials & Student Mgmt", "desc": "From teaching materials to student retention — all managed in one place." }
+      { "title": "SEO Optimization", "desc": "Insert Google/Naver ad scripts, configure meta tags (Title, Description, OG), and auto-generate sitemaps — all without a marketing team. Drive higher search rankings and conversion rates on your own." },
+      { "title": "Multiple Video Players", "desc": "Stream via built-in CDN or embed YouTube, Vimeo, Zoom recordings, and HLS/DASH protocols. Adaptive bitrate (ABR) streaming ensures buffer-free playback regardless of network conditions." },
+      { "title": "Materials & Student Mgmt", "desc": "Manage textbook inventory, track shipments, consolidate attendance/progress/grade histories, and auto-issue completion certificates — all from a single admin dashboard." },
+      { "title": "Revenue & Settlement", "desc": "View real-time tuition payment logs, process refunds, and generate per-instructor or per-course settlement reports. Monthly/quarterly revenue trend dashboards and auto-issued tax invoices drastically reduce financial overhead." },
+      { "title": "Community & Forums", "desc": "Built-in Q&A boards, announcements, resource libraries, and learner discussion forums with comments, likes, and file attachments boost interaction and increase platform engagement time." },
+      { "title": "Automated Notifications", "desc": "Auto-send enrollment confirmations, assignment reminders, completion notices, and payment alerts via email, SMS, or KakaoTalk throughout the entire learning lifecycle — no ops staff required." }
     ],
     "midCTA": { "heading": "Looking for the perfect e-learning solution?", "description": "We'll recommend the optimal LMS based on your business goals and scale — for free.", "ctaText": "Free Consultation" },
     "aiSection": { "sub": "AI Features", "title": "Smart & Easy Operations\nwith AI", "desc": "Leverage AI technology for a smarter digital e-learning environment." },
