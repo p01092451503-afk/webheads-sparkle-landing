@@ -199,7 +199,7 @@ export default function ContactSection() {
                     <input
                       type="text"
                       required
-                      placeholder="(주)OO기업"
+                      placeholder={t("contact.formCompanyPlaceholder")}
                       value={form.company}
                       onChange={(e) => setForm({ ...form, company: e.target.value })}
                       className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
@@ -217,7 +217,7 @@ export default function ContactSection() {
                     <input
                       type="text"
                       required
-                      placeholder="홍길동"
+                      placeholder={t("contact.formNamePlaceholder")}
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
@@ -237,7 +237,7 @@ export default function ContactSection() {
                     <input
                       type="tel"
                       required
-                      placeholder="010-XXXX-XXXX"
+                      placeholder={t("contact.formPhonePlaceholder")}
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
@@ -254,7 +254,7 @@ export default function ContactSection() {
                     </label>
                     <input
                       type="email"
-                      placeholder="email@company.com"
+                      placeholder={t("contact.formEmailPlaceholder")}
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all"
