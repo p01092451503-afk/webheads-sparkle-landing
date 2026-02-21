@@ -182,7 +182,7 @@ export default function MaintenancePage() {
       />
       {/* Hero */}
       <section
-        className="relative min-h-[90vh] flex items-center pt-28 pb-20 overflow-hidden"
+        className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden"
         style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}
       >
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(220, 80%, 70%, 0.18) 0%, transparent 70%)" }} />
