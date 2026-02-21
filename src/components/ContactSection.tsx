@@ -1,19 +1,12 @@
 import { useState } from "react";
 import { Send, Mail, Loader2, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-
-const services = [
-  "이러닝호스팅",
-  "유지보수",
-  "AI챗봇",
-  "어플리케이션",
-  "DRM",
-  "채널톡/SMS",
-  "PG",
-  "콘텐츠",
-];
+import { useTranslation } from "react-i18next";
 
 export default function ContactSection() {
+  const { t } = useTranslation();
+  const services = t("contact.services", { returnObjects: true }) as string[];
+
   const [form, setForm] = useState({
     company: "",
     name: "",
@@ -42,7 +35,7 @@ export default function ContactSection() {
 
       setSubmitted(true);
     } catch (err: any) {
-      setError(err.message || "이메일 발송 중 오류가 발생했습니다. 다시 시도해주세요.");
+      setError(err.message || t("contact.formError"));
     } finally {
       setLoading(false);
     }
@@ -58,17 +51,18 @@ export default function ContactSection() {
         {/* Header */}
         <div className="mb-16">
           <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: "hsl(214, 90%, 52%)" }}>
-            CONTACT US
+            {t("contact.sub")}
           </p>
           <h2
             className="leading-tight text-4xl lg:text-5xl tracking-tight"
             style={{ fontWeight: 900, color: "hsl(220, 60%, 8%)" }}
           >
-          궁금한 점을{" "}
-            <span style={{ color: "hsl(214, 90%, 52%)" }}>편하게 문의</span>하세요
+            {t("contact.title")}{" "}
+            <span style={{ color: "hsl(214, 90%, 52%)" }}>{t("contact.titleHighlight")}</span>
+            {t("contact.titleEnd")}
           </h2>
           <p className="mt-4 text-base" style={{ color: "hsl(220, 20%, 50%)" }}>
-            친절하고 빠르게 답변드립니다
+            {t("contact.desc")}
           </p>
         </div>
 
@@ -80,7 +74,7 @@ export default function ContactSection() {
               <div className="flex items-stretch gap-0 divide-x" style={{ borderColor: "hsl(214, 20%, 88%)" }}>
                 <div className="flex-1 pr-5">
                   <p className="text-xs font-semibold mb-2" style={{ color: "hsl(220, 20%, 50%)" }}>
-                    신규 도입 문의
+                    {t("contact.newInquiry")}
                   </p>
                   <a
                     href="tel:0233364338"
@@ -92,7 +86,7 @@ export default function ContactSection() {
                 </div>
                 <div className="flex-1 pl-5">
                   <p className="text-xs font-semibold mb-2" style={{ color: "hsl(220, 20%, 50%)" }}>
-                    장애 및 유지보수 문의
+                    {t("contact.maintenanceInquiry")}
                   </p>
                   <a
                     href="tel:0254044337"
@@ -118,7 +112,7 @@ export default function ContactSection() {
               </div>
               <div>
                 <p className="text-xs font-semibold mb-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
-                  이메일 문의
+                  {t("contact.emailInquiry")}
                 </p>
                 <a
                   href="mailto:34bus@webheads.co.kr"
@@ -128,7 +122,7 @@ export default function ContactSection() {
                   34bus@webheads.co.kr
                 </a>
                 <p className="text-[0.845rem] mt-0.5" style={{ color: "hsl(220, 20%, 50%)" }}>
-                  24시간 접수 가능
+                  {t("contact.emailAvailable")}
                 </p>
               </div>
             </div>
@@ -146,16 +140,16 @@ export default function ContactSection() {
               </div>
               <div>
                 <p className="text-xs font-semibold mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>
-                  운영 시간
+                  {t("contact.businessHours")}
                 </p>
                 <p className="text-[1.17rem] font-bold leading-snug" style={{ color: "hsl(220, 60%, 8%)" }}>
-                  평일 10:00 – 18:00
+                  {t("contact.businessHoursValue")}
                 </p>
                 <p className="text-[0.715rem] mt-1" style={{ color: "hsl(220, 20%, 50%)" }}>
-                  점심시간 12:00–13:00 · 주 5일 근무
+                  {t("contact.lunchBreak")}
                 </p>
                 <p className="text-[0.715rem]" style={{ color: "hsl(220, 20%, 50%)" }}>
-                  토/일/공휴일 휴무
+                  {t("contact.holiday")}
                 </p>
               </div>
             </div>
@@ -178,19 +172,17 @@ export default function ContactSection() {
                   className="text-2xl tracking-tight"
                   style={{ fontWeight: 900, color: "hsl(220, 60%, 8%)" }}
                 >
-                  상담 신청이 완료되었습니다
+                  {t("contact.successTitle")}
                 </h3>
-                <p className="text-sm leading-relaxed max-w-xs" style={{ color: "hsl(220, 20%, 50%)" }}>
-                  빠른 시일 내에 담당자가 연락드리겠습니다.
-                  <br />
-                  평일 10:00–18:00 운영 기준으로 응대합니다.
+                <p className="text-sm leading-relaxed max-w-xs whitespace-pre-line" style={{ color: "hsl(220, 20%, 50%)" }}>
+                  {t("contact.successDesc")}
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="mt-4 px-6 py-3 rounded-2xl font-semibold text-sm transition-colors"
                   style={{ background: "hsl(214, 30%, 94%)", color: "hsl(220, 60%, 8%)" }}
                 >
-                  다시 문의하기
+                  {t("contact.successRetry")}
                 </button>
               </div>
             ) : (
@@ -202,7 +194,7 @@ export default function ContactSection() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold" style={{ color: "hsl(220, 60%, 8%)" }}>
-                      회사명 <span style={{ color: "hsl(214, 90%, 52%)" }}>*</span>
+                      {t("contact.formCompany")} <span style={{ color: "hsl(214, 90%, 52%)" }}>*</span>
                     </label>
                     <input
                       type="text"
@@ -220,7 +212,7 @@ export default function ContactSection() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold" style={{ color: "hsl(220, 60%, 8%)" }}>
-                      담당자명 <span style={{ color: "hsl(214, 90%, 52%)" }}>*</span>
+                      {t("contact.formName")} <span style={{ color: "hsl(214, 90%, 52%)" }}>*</span>
                     </label>
                     <input
                       type="text"
@@ -240,7 +232,7 @@ export default function ContactSection() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold" style={{ color: "hsl(220, 60%, 8%)" }}>
-                      연락처 <span style={{ color: "hsl(214, 90%, 52%)" }}>*</span>
+                      {t("contact.formPhone")} <span style={{ color: "hsl(214, 90%, 52%)" }}>*</span>
                     </label>
                     <input
                       type="tel"
@@ -258,7 +250,7 @@ export default function ContactSection() {
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <label className="text-xs font-semibold" style={{ color: "hsl(220, 60%, 8%)" }}>
-                      이메일
+                      {t("contact.formEmail")}
                     </label>
                     <input
                       type="email"
@@ -276,7 +268,7 @@ export default function ContactSection() {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold" style={{ color: "hsl(220, 60%, 8%)" }}>
-                    관심 서비스
+                    {t("contact.formService")}
                   </label>
                   <select
                     value={form.service}
@@ -288,7 +280,7 @@ export default function ContactSection() {
                       color: "hsl(220, 60%, 8%)",
                     }}
                   >
-                    <option value="">서비스를 선택하세요</option>
+                    <option value="">{t("contact.formServicePlaceholder")}</option>
                     {services.map((s) => (
                       <option key={s} value={s}>
                         {s}
@@ -298,11 +290,11 @@ export default function ContactSection() {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs font-semibold" style={{ color: "hsl(220, 60%, 8%)" }}>
-                    문의 내용
+                    {t("contact.formMessage")}
                   </label>
                   <textarea
                     rows={4}
-                    placeholder="문의하실 내용을 자유롭게 작성해주세요."
+                    placeholder={t("contact.formMessagePlaceholder")}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full rounded-xl px-4 py-3 text-sm outline-none transition-all resize-none"
@@ -327,12 +319,12 @@ export default function ContactSection() {
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      전송 중...
+                      {t("contact.formSending")}
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      무료 상담 신청하기
+                      {t("contact.formSubmit")}
                     </>
                   )}
                 </button>

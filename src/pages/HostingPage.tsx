@@ -7,67 +7,44 @@ import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceExtraFeatures from "@/components/shared/ServiceExtraFeatures";
 import { Server, Zap, Shield, BarChart3, Globe, Clock, FileSearch, Settings, Monitor, CheckCircle, FileText, Database, HardDrive, Headphones, RefreshCw, Lock } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-const testimonials = [
-  { name: "김태호", role: "IT 인프라 팀장", org: "A 사이버대학교", rating: 5, date: "2024.09", period: "이용 7년차", content: "학기 초에 동시접속 3천 명 넘게 들어올 때가 있는데, 그때도 끊기거나 느려지는 거 없이 잘 버텨줘요. 예전엔 서버 증설 요청하느라 스트레스받았는데 이제 신경 안 씁니다." },
-  { name: "이수연", role: "운영 매니저", org: "B 직업훈련기관", rating: 4, date: "2025.01", period: "이용 3년차", content: "전에 쓰던 호스팅은 한 달에 두세 번은 접속 안 되는 일이 있었거든요. 여기로 바꾸고 나서는 그런 적이 한 번도 없어서 민원 전화도 확 줄었어요." },
-  { name: "박정민", role: "대표", org: "C 에듀테크", rating: 3, date: "2024.11", period: "이용 2년차", content: "해외에서 수강하는 분들이 영상 로딩이 빨라졌다고 하시더라고요. 문제 생겼을 때 카톡으로 바로 연락되는 것도 좋고, 대응이 빨라서 믿고 맡기고 있습니다." },
-];
-
-const features = [
-  { icon: Globe, title: "글로벌 CDN 가속", desc: "국내외 50개 이상의 엣지 서버를 통해 사용자와 가장 가까운 노드에서 콘텐츠를 제공합니다. 영상 버퍼링 없이 HD·4K 이러닝 콘텐츠를 실시간으로 스트리밍할 수 있어 학습 이탈률을 크게 줄입니다.", tags: ["50+ 엣지 노드", "HD 스트리밍", "레이턴시 최소화"] },
-  { icon: Server, title: "AWS 클라우드 호스팅", desc: "Amazon Web Services(EC2·S3·CloudFront·RDS)를 기반으로 학습자 수에 따라 서버 용량이 자동 조정됩니다. Multi-AZ 구성으로 가용성을 극대화하며, 온디맨드 과금으로 불필요한 인프라 비용을 절감합니다.", tags: ["Multi-AZ", "온디맨드 과금", "S3 스토리지"] },
-  { icon: Shield, title: "IDC 서버 운영", desc: "국내 최고 수준의 Tier-3 IDC 데이터센터에서 전용 물리 서버를 운영합니다. 이중 전원·이중 통신 회선을 통해 단일 장애점(SPOF)을 제거하고, 내부망 처리로 보안 규정 준수가 필요한 금융·공공기관에 최적화된 환경을 제공합니다.", tags: ["Tier-3 IDC", "전용 물리 서버", "이중 회선"] },
-  { icon: Clock, title: "24/7 실시간 모니터링", desc: "365일 24시간 NOC 전담팀이 서버·네트워크·애플리케이션 상태를 모니터링합니다. 임계치 초과 알림 발생 시 평균 5분 이내 초동 조치를 시작하여 서비스 중단을 최소화합니다.", tags: ["NOC 전담팀", "5분 내 초동 대응", "장애 자동 알림"] },
-  { icon: Zap, title: "자동 스케일링", desc: "학기 시작·시험 기간 등 트래픽이 급증하는 구간에서도 AWS Auto Scaling과 Load Balancer가 실시간으로 인스턴스를 확장합니다. 피크 트래픽 이후에는 자동 축소되어 비용 효율을 유지합니다.", tags: ["Auto Scaling", "Load Balancing", "비용 최적화"] },
-  { icon: BarChart3, title: "상세 이용 통계", desc: "학습자 접속 현황, 트래픽 추이, 콘텐츠 재생률·완료율을 실시간 대시보드로 확인합니다. 월별·일별 통계 리포트를 자동 생성하고 담당자에게 이메일로 발송하여 운영 효율을 높입니다.", tags: ["실시간 대시보드", "월간 리포트", "완료율 분석"] },
-  { icon: Shield, title: "DDoS 방어 & 보안", desc: "웹방화벽(WAF)과 DDoS 차단 솔루션을 기본 탑재하여 악성 트래픽을 자동 차단합니다. SSL/TLS 인증서를 무료로 제공하고, 주기적인 취약점 점검으로 학습 데이터와 개인정보를 안전하게 보호합니다.", tags: ["WAF 탑재", "DDoS 차단", "SSL 무료 제공"] },
-  { icon: Zap, title: "전용 백업 & 복구", desc: "콘텐츠·DB·설정 파일을 매일 자동 백업하고 최대 30일치 스냅샷을 보관합니다. 장애 발생 시 원하는 시점으로 즉시 복구(Point-in-Time Recovery)가 가능하여 데이터 손실 위험을 최소화합니다.", tags: ["일일 자동 백업", "30일 스냅샷", "즉시 복구"] },
-  { icon: Globe, title: "전담 기술 지원", desc: "초기 서버 구성부터 LMS 연동, 도메인 설정, SSL 적용까지 웹헤즈 전담 엔지니어가 직접 지원합니다. 서비스 오픈 후에도 정기 점검·운영 컨설팅을 통해 최적의 성능을 유지해 드립니다.", tags: ["전담 엔지니어", "LMS 연동 지원", "정기 점검"] },
-];
-
-const plans = [
-  { name: "Basic", price: "500,000", unit: "원", priceNote: "월 이용료 (VAT별도)", features: [{ main: "동영상 전송량 500GB /월", sub: "전송량 초과시 1GB당 500원" }, { main: "동영상 저장공간 총 100GB", sub: "저장용량 초과시 1GB당 1,000원" }, { main: "회원수 무제한", sub: "" }, { main: "디자인 무료 템플릿 제공", sub: "" }, { main: "SSL 보안인증서 설치", sub: "" }, { main: "하이브리드앱 개발", sub: "월 +30만원" }], recommend: "개인강사, 개인사업가, 소형 학원에 추천드려요" },
-  { name: "Plus", price: "700,000", unit: "원", priceNote: "월 이용료 (VAT별도)", features: [{ main: "동영상 전송량 1,500GB /월", sub: "전송량 초과시 1GB당 400원" }, { main: "동영상 저장공간 총 200GB", sub: "저장용량 초과시 1GB당 800원" }, { main: "회원수 무제한", sub: "" }, { main: "디자인 무료 템플릿 제공", sub: "" }, { main: "SSL 보안인증서 설치", sub: "" }, { main: "하이브리드앱 개발", sub: "월 +30만원" }], recommend: "중형 학원, 개인사업자, 중소기업, 협회에 추천드려요" },
-  { name: "Premium", price: "1,000,000", unit: "원", priceNote: "월 이용료 (VAT별도)", features: [{ main: "동영상 전송량 2,000GB /월", sub: "전송량 초과시 1GB당 300원" }, { main: "동영상 저장공간 총 250GB", sub: "저장용량 초과시 1GB당 500원" }, { main: "회원수 무제한", sub: "" }, { main: "디자인 무료 템플릿 제공", sub: "" }, { main: "SSL 보안인증서 설치", sub: "" }, { main: "하이브리드앱 개발", sub: "월 +30만원" }], recommend: "대형 학원, 중소 기업, 평생교육원, 기타 교육기관에 추천드려요", highlight: true, badge: "인기 요금제!" },
-];
-
-const stats = [
-  { value: "99.9%", label: "서버 가동률", sub: "SLA 보장" },
-  { value: "50+", label: "CDN 엣지 노드", sub: "전 세계 가속" },
-  { value: "5분", label: "초동 대응 시간", sub: "NOC 전담팀" },
-  { value: "24/7", label: "기술 지원", sub: "365일 무중단" },
-];
-
-const processSteps = [
-  { icon: FileSearch, title: "요구사항 분석", desc: "트래픽 규모, 콘텐츠 용량, 보안 요건 등을 분석하여 최적의 인프라 아키텍처를 설계합니다.", tag: "1~2일" },
-  { icon: Settings, title: "서버 구성 & 세팅", desc: "AWS/IDC 환경 구성, 도메인·SSL 설정, LMS 설치 및 초기 데이터 마이그레이션을 진행합니다.", tag: "3~5일" },
-  { icon: Monitor, title: "테스트 & 최적화", desc: "부하 테스트, 보안 점검, 성능 튜닝을 거쳐 안정적인 서비스 환경을 확보합니다.", tag: "2~3일" },
-  { icon: CheckCircle, title: "서비스 오픈", desc: "DNS 전환 및 서비스 오픈 후 72시간 집중 모니터링으로 안정화를 확인합니다.", tag: "오픈일" },
-  { icon: FileText, title: "운영 & 리포트", desc: "24/7 모니터링과 월간 성능·트래픽 리포트를 제공하며 지속적으로 최적화합니다.", tag: "상시" },
-];
-
-const extraFeatures = [
-  { icon: Database, title: "DB 이중화 & 리플리케이션", desc: "Master-Slave 구성으로 데이터베이스를 이중화하여 장애 시 자동 전환(Failover)을 지원합니다.", tags: ["Master-Slave", "자동 Failover", "데이터 안정성"] },
-  { icon: HardDrive, title: "대용량 스토리지 확장", desc: "동영상·문서 콘텐츠 증가에 따라 S3·NAS 스토리지를 탄력적으로 확장합니다.", tags: ["S3 스토리지", "NAS", "무제한 확장"] },
-  { icon: Lock, title: "VPN & 전용 네트워크", desc: "기업·공공기관의 내부망 연동을 위한 Site-to-Site VPN 및 전용 회선을 구성합니다.", tags: ["Site-to-Site VPN", "전용 회선", "내부망 연동"] },
-  { icon: RefreshCw, title: "무중단 서버 마이그레이션", desc: "타사 호스팅에서 웹헤즈로 서비스 중단 없이 안전하게 서버를 이전합니다.", tags: ["무중단 전환", "데이터 이전", "DNS 전환"] },
-  { icon: Headphones, title: "전담 인프라 컨설팅", desc: "트래픽 패턴 분석, 비용 최적화, 아키텍처 개선 등 인프라 전반에 대한 컨설팅을 제공합니다.", tags: ["비용 최적화", "아키텍처 설계", "트래픽 분석"] },
-  { icon: BarChart3, title: "실시간 성능 대시보드", desc: "CPU·메모리·네트워크·디스크 사용량을 실시간으로 모니터링하는 전용 대시보드를 제공합니다.", tags: ["실시간 모니터링", "알림 설정", "리소스 분석"] },
-];
-
-const faqs = [
-  { q: "트래픽이 갑자기 늘어나면 추가 비용이 발생하나요?", a: "AWS 기반 호스팅은 Auto Scaling으로 자동 대응하며, 초과 전송량은 플랜별 단가로 과금됩니다. 예상 트래픽을 사전에 안내해 주시면 최적의 플랜을 추천드립니다." },
-  { q: "기존 호스팅에서 이전이 가능한가요?", a: "가능합니다. 타사 호스팅에서 웹헤즈로 무중단 마이그레이션을 지원합니다. DNS 전환 전 충분한 테스트를 거쳐 서비스 중단 없이 안전하게 이전합니다." },
-  { q: "SSL 인증서는 어떻게 제공되나요?", a: "Let's Encrypt 무료 SSL 인증서를 기본 제공하며, 자동 갱신됩니다. 기업용 유료 인증서(EV SSL 등)가 필요한 경우 별도 설치도 지원합니다." },
-  { q: "서버 장애 시 대응 프로세스는 어떻게 되나요?", a: "NOC 팀이 24/7 모니터링하며 장애 감지 시 평균 5분 내 초동 조치를 시작합니다. 복구 후 장애 원인 분석 보고서를 공유합니다." },
-  { q: "동영상 저장공간이 부족하면 어떻게 하나요?", a: "플랜별 기본 저장공간 초과 시 GB당 추가 요금으로 무제한 확장이 가능합니다. 대용량 콘텐츠가 많은 경우 별도 스토리지 플랜을 안내드립니다." },
-];
+const featureIcons = [Globe, Server, Shield, Clock, Zap, BarChart3, Shield, Zap, Globe];
+const extraFeatureIcons = [Database, HardDrive, Lock, RefreshCw, Headphones, BarChart3];
+const processIcons = [FileSearch, Settings, Monitor, CheckCircle, FileText];
 
 export default function HostingPage() {
+  const { t } = useTranslation();
+
+  const features = (t("hosting.features", { returnObjects: true }) as any[]).map((item, index) => ({
+    ...item,
+    icon: featureIcons[index] || Globe
+  }));
+
+  const extraFeatures = (t("hosting.extraFeatures", { returnObjects: true }) as any[]).map((item, index) => ({
+    ...item,
+    icon: extraFeatureIcons[index] || Database
+  }));
+
+  const processSteps = (t("hosting.processSteps", { returnObjects: true }) as any[]).map((item, index) => ({
+    ...item,
+    icon: processIcons[index] || FileSearch
+  }));
+
+  const plans = t("hosting.plans", { returnObjects: true }) as any[];
+  const stats = t("hosting.stats", { returnObjects: true }) as any[];
+  const faqs = t("hosting.faqs", { returnObjects: true }) as any[];
+  const testimonials = t("hosting.testimonials", { returnObjects: true }) as any[];
+
   return (
     <div className="min-h-screen bg-white">
-      <SEO title="이러닝 호스팅" description="CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스. 99.9% SLA 가동률, 24/7 NOC 모니터링, 자동 스케일링으로 끊김 없는 학습 환경을 제공합니다." keywords="이러닝 호스팅, LMS 호스팅, CDN, AWS 호스팅, IDC 서버, 이러닝 서버, 온라인 강의 호스팅" path="/hosting" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 이러닝 호스팅", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스", "areaServed": "KR", "serviceType": "이러닝 호스팅", "url": "https://webheads-sparkle-landing.lovable.app/hosting" }} />
+      <SEO 
+        title={t("hosting.seo.title")} 
+        description={t("hosting.seo.description")} 
+        keywords={t("hosting.seo.keywords")} 
+        path="/hosting" 
+        jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 이러닝 호스팅", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": "이러닝 호스팅", "url": "https://webheads-sparkle-landing.lovable.app/hosting" }} 
+      />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}>
@@ -78,12 +55,12 @@ export default function HostingPage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(214, 80%, 42%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>이러닝 호스팅</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>이러닝에 최적화된<br /><span style={{ color: "hsl(214, 90%, 52%)" }}>클라우드 호스팅</span></h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로 학습자에게 끊김 없는 학습 환경을 제공하세요.</p>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(214, 80%, 42%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>{t("hosting.hero.badge")}</span>
+            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>{t("hosting.hero.title")}<br /><span style={{ color: "hsl(214, 90%, 52%)" }}>{t("hosting.hero.titleHighlight")}</span></h1>
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>{t("hosting.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>무료 상담 신청</a>
-              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>요금제 보기</a>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>{t("hosting.hero.cta1")}</a>
+              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>{t("hosting.hero.cta2")}</a>
             </div>
           </div>
         </div>
@@ -93,7 +70,7 @@ export default function HostingPage() {
       <section className="py-24 bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
-            {stats.map((s) => (<div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center first:pl-0 last:pr-0"><span className="block font-black leading-none mb-2 text-5xl md:text-6xl text-foreground tracking-tight">{s.value}</span><span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span><span className="block text-xs text-muted-foreground">{s.sub}</span></div>))}
+            {stats.map((s: any) => (<div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center first:pl-0 last:pr-0"><span className="block font-black leading-none mb-2 text-5xl md:text-6xl text-foreground tracking-tight">{s.value}</span><span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span><span className="block text-xs text-muted-foreground">{s.sub}</span></div>))}
           </div>
         </div>
       </section>
@@ -102,34 +79,34 @@ export default function HostingPage() {
       <section className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">주요 기능</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">이러닝에 최적화된<br />인프라를 경험하세요</h2>
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("hosting.featuresSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("hosting.featuresSection.title")}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((f) => (<div key={f.title} className="group rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
+            {features.map((f: any) => (<div key={f.title} className="group rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
           </div>
         </div>
       </section>
 
-      <ServiceMidCTA heading="우리 기관에 맞는 호스팅이 궁금하신가요?" description="트래픽 규모와 보안 요건을 분석하여 최적의 호스팅 환경을 무료로 제안드립니다." />
-      <ServiceExtraFeatures features={extraFeatures} subheading="부가 서비스" heading={"호스팅을 넘어\n인프라 전체를 설계합니다"} description="DB 이중화, 대용량 스토리지, VPN 연동 등 엔터프라이즈급 인프라 서비스를 제공합니다." />
-      <ServiceProcess steps={processSteps} subheading="도입 과정" heading={"체계적인 호스팅\n도입 프로세스"} description="요구사항 분석부터 서비스 오픈까지, 전담 엔지니어가 함께합니다." />
+      <ServiceMidCTA heading={t("hosting.midCTA.heading")} description={t("hosting.midCTA.description")} />
+      <ServiceExtraFeatures features={extraFeatures} subheading={t("hosting.extraSection.sub")} heading={t("hosting.extraSection.heading")} description={t("hosting.extraSection.desc")} />
+      <ServiceProcess steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">요금제</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">규모에 맞는 플랜을<br />선택하세요</h2>
-            <p className="text-muted-foreground mt-4 text-base">모든 요금은 VAT 별도입니다. 초과 사용량은 플랜별 단가로 과금됩니다.</p>
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("hosting.plansSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("hosting.plansSection.title")}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{t("hosting.plansSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            {plans.map((plan) => (<div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 border-primary shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`}>{plan.badge && <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">{plan.badge}</div>}<div className="p-8 flex flex-col gap-5 flex-1"><div><h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3><div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} /></div><div><div className="flex items-end gap-1"><span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>{plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}</div>{plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}</div><ul className="flex flex-col gap-3.5 flex-1">{plan.features.map((f) => (<li key={f.main} className="flex items-start gap-2.5"><span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span><div><p className="text-base font-medium text-foreground leading-tight">{f.main}</p>{f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}</div></li>))}</ul><div className="rounded-xl p-4 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}><p className="text-sm text-white/60 leading-relaxed text-center">{plan.recommend}</p></div></div></div>))}
+            {plans.map((plan: any) => (<div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 border-primary shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`}>{plan.badge && <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">{plan.badge}</div>}<div className="p-8 flex flex-col gap-5 flex-1"><div><h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3><div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} /></div><div><div className="flex items-end gap-1"><span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>{plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}</div>{plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}</div><ul className="flex flex-col gap-3.5 flex-1">{plan.features.map((f: any) => (<li key={f.main} className="flex items-start gap-2.5"><span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span><div><p className="text-base font-medium text-foreground leading-tight">{f.main}</p>{f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}</div></li>))}</ul><div className="rounded-xl p-4 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}><p className="text-sm text-white/60 leading-relaxed text-center">{plan.recommend}</p></div></div></div>))}
           </div>
           <div className="mt-12 text-center rounded-2xl border border-border bg-background/50 p-8">
-            <p className="text-foreground font-semibold text-lg mb-2">위 요금제에 딱 맞지 않으시나요?</p>
-            <p className="text-muted-foreground text-sm mb-6">트래픽 규모에 맞는 맞춤 견적을 무료로 제안드립니다.</p>
-            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">맞춤 견적 요청하기</a>
+            <p className="text-foreground font-semibold text-lg mb-2">{t("hosting.plansCustom.title")}</p>
+            <p className="text-muted-foreground text-sm mb-6">{t("hosting.plansCustom.desc")}</p>
+            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("hosting.plansCustom.cta")}</a>
           </div>
         </div>
       </section>
