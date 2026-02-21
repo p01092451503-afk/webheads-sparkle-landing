@@ -120,16 +120,16 @@ export default function ContactSection() {
                 className="flex items-stretch gap-0 divide-x"
                 style={{ borderColor: "hsl(var(--border))" }}
               >
-                <div className="flex-1 pr-6">
+                <div className="flex-1 pr-4 sm:pr-6 min-w-0">
                   <p
-                    className="text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
+                    className="text-[0.65rem] sm:text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
                     style={{ color: "hsl(var(--muted-foreground))" }}
                   >
                     {t("contact.newInquiry")}
                   </p>
                   <a
                     href="tel:0233364338"
-                    className="block text-[1.45rem] tracking-tight transition-colors"
+                    className="block text-lg sm:text-[1.45rem] tracking-tight transition-colors"
                     style={{
                       fontWeight: 900,
                       color: "hsl(var(--foreground))",
@@ -140,16 +140,16 @@ export default function ContactSection() {
                     02.336.4338
                   </a>
                 </div>
-                <div className="flex-1 pl-6">
+                <div className="flex-1 pl-4 sm:pl-6 min-w-0">
                   <p
-                    className="text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
+                    className="text-[0.65rem] sm:text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
                     style={{ color: "hsl(var(--muted-foreground))" }}
                   >
                     {t("contact.maintenanceInquiry")}
                   </p>
                   <a
                     href="tel:0254044337"
-                    className="block text-[1.45rem] tracking-tight transition-colors"
+                    className="block text-lg sm:text-[1.45rem] tracking-tight transition-colors"
                     style={{
                       fontWeight: 900,
                       color: "hsl(var(--foreground))",
