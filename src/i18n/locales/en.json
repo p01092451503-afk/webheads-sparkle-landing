@@ -1,7 +1,7 @@
 {
   "header": {
     "services": ["LMS", "Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
-    "cta": "Free Consultation",
+    "cta": "Contact Us",
     "logo": "WEBHEADS"
   },
   "footer": {
