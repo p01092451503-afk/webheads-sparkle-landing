@@ -38,7 +38,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="text-right">
-            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "hsl(220, 20%, 40%)" }}>{t("footer.links")}</p>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "hsl(220, 60%, 8%)" }}>{t("footer.links")}</p>
             <ul className="flex flex-col gap-1.5 items-end">
               <li>
                 <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex items-center gap-1.5 transition-colors" style={{ color: "hsl(220, 20%, 50%)" }} onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")} onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}>
@@ -46,7 +46,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="mt-3">
-                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(220, 20%, 40%)" }}>Services</p>
+                <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(220, 60%, 8%)" }}>Services</p>
               </li>
               {serviceLabels.map((label, i) => (
                 <li key={servicePaths[i]} className="leading-none">
