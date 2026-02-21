@@ -101,66 +101,61 @@ export default function ContactSection() {
           <div className="lg:col-span-2 flex flex-col gap-4">
             {/* Phone numbers */}
             <div
-              className="rounded-2xl p-6 backdrop-blur-sm"
+              className="rounded-2xl p-7 transition-all duration-300 group"
               style={{
-                background: "hsl(0 0% 100% / 0.85)",
+                background: "hsl(0 0% 100%)",
                 border: "1px solid hsl(var(--border))",
-                boxShadow: "0 1px 3px hsl(220 60% 8% / 0.04)",
+                boxShadow: "0 2px 8px hsl(220 60% 8% / 0.04)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 24px hsl(214 90% 52% / 0.1)";
+                e.currentTarget.style.borderColor = "hsl(214, 80%, 85%)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 2px 8px hsl(220 60% 8% / 0.04)";
+                e.currentTarget.style.borderColor = "hsl(var(--border))";
               }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div
-                  className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ background: "hsl(var(--primary) / 0.1)" }}
-                >
-                  <Phone
-                    className="w-4 h-4"
-                    style={{ color: "hsl(var(--primary))" }}
-                  />
-                </div>
-                <p
-                  className="text-xs font-bold tracking-wide uppercase"
-                  style={{ color: "hsl(var(--muted-foreground))" }}
-                >
-                  {t("contact.newInquiry")}
-                </p>
-              </div>
               <div
                 className="flex items-stretch gap-0 divide-x"
                 style={{ borderColor: "hsl(var(--border))" }}
               >
-                <div className="flex-1 pr-5">
+                <div className="flex-1 pr-6">
                   <p
-                    className="text-[0.7rem] font-medium mb-1"
+                    className="text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
                     style={{ color: "hsl(var(--muted-foreground))" }}
                   >
                     {t("contact.newInquiry")}
                   </p>
                   <a
                     href="tel:0233364338"
-                    className="block text-xl tracking-tight transition-colors hover:opacity-70"
+                    className="block text-[1.45rem] tracking-tight transition-colors"
                     style={{
-                      fontWeight: 800,
+                      fontWeight: 900,
                       color: "hsl(var(--foreground))",
                     }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = "hsl(214, 90%, 52%)"}
+                    onMouseLeave={(e) => e.currentTarget.style.color = "hsl(var(--foreground))"}
                   >
                     02.336.4338
                   </a>
                 </div>
-                <div className="flex-1 pl-5">
+                <div className="flex-1 pl-6">
                   <p
-                    className="text-[0.7rem] font-medium mb-1"
+                    className="text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
                     style={{ color: "hsl(var(--muted-foreground))" }}
                   >
                     {t("contact.maintenanceInquiry")}
                   </p>
                   <a
                     href="tel:0254044337"
-                    className="block text-xl tracking-tight transition-colors hover:opacity-70"
+                    className="block text-[1.45rem] tracking-tight transition-colors"
                     style={{
-                      fontWeight: 800,
+                      fontWeight: 900,
                       color: "hsl(var(--foreground))",
                     }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = "hsl(214, 90%, 52%)"}
+                    onMouseLeave={(e) => e.currentTarget.style.color = "hsl(var(--foreground))"}
                   >
                     02.540.4337
                   </a>
@@ -170,39 +165,51 @@ export default function ContactSection() {
 
             {/* Email */}
             <div
-              className="rounded-2xl p-6 flex items-center gap-4 backdrop-blur-sm"
+              className="rounded-2xl p-7 flex items-center gap-5 transition-all duration-300"
               style={{
-                background: "hsl(0 0% 100% / 0.85)",
+                background: "hsl(0 0% 100%)",
                 border: "1px solid hsl(var(--border))",
-                boxShadow: "0 1px 3px hsl(220 60% 8% / 0.04)",
+                boxShadow: "0 2px 8px hsl(220 60% 8% / 0.04)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 24px hsl(214 90% 52% / 0.1)";
+                e.currentTarget.style.borderColor = "hsl(214, 80%, 85%)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 2px 8px hsl(220 60% 8% / 0.04)";
+                e.currentTarget.style.borderColor = "hsl(var(--border))";
               }}
             >
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                 style={{
-                  background: "var(--primary-gradient)",
-                  boxShadow: "0 4px 12px hsl(214 90% 52% / 0.25)",
+                  background: "hsl(var(--primary) / 0.08)",
                 }}
               >
-                <Mail className="w-5 h-5 text-white" />
+                <Mail
+                  className="w-5 h-5"
+                  style={{ color: "hsl(var(--primary))" }}
+                />
               </div>
               <div>
                 <p
-                  className="text-xs font-semibold mb-0.5"
+                  className="text-[0.7rem] font-semibold mb-1 uppercase tracking-wider"
                   style={{ color: "hsl(var(--muted-foreground))" }}
                 >
                   {t("contact.emailInquiry")}
                 </p>
                 <a
                   href="mailto:34bus@webheads.co.kr"
-                  className="font-bold text-[1.1rem] leading-snug transition-colors hover:opacity-70"
+                  className="font-bold text-[1.1rem] leading-snug transition-colors"
                   style={{ color: "hsl(var(--foreground))" }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = "hsl(214, 90%, 52%)"}
+                  onMouseLeave={(e) => e.currentTarget.style.color = "hsl(var(--foreground))"}
                 >
                   34bus@webheads.co.kr
                 </a>
                 <p
-                  className="text-[0.8rem] mt-0.5"
-                  style={{ color: "hsl(var(--muted-foreground))" }}
+                  className="text-[0.78rem] mt-0.5"
+                  style={{ color: "hsl(var(--primary))" }}
                 >
                   {t("contact.emailAvailable")}
                 </p>
@@ -211,47 +218,59 @@ export default function ContactSection() {
 
             {/* Business hours */}
             <div
-              className="rounded-2xl p-6 flex items-start gap-4 backdrop-blur-sm"
+              className="rounded-2xl p-7 flex items-start gap-5 transition-all duration-300"
               style={{
-                background: "hsl(0 0% 100% / 0.85)",
+                background: "hsl(0 0% 100%)",
                 border: "1px solid hsl(var(--border))",
-                boxShadow: "0 1px 3px hsl(220 60% 8% / 0.04)",
+                boxShadow: "0 2px 8px hsl(220 60% 8% / 0.04)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = "0 8px 24px hsl(214 90% 52% / 0.1)";
+                e.currentTarget.style.borderColor = "hsl(214, 80%, 85%)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "0 2px 8px hsl(220 60% 8% / 0.04)";
+                e.currentTarget.style.borderColor = "hsl(var(--border))";
               }}
             >
               <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                 style={{
-                  background: "var(--primary-gradient)",
-                  boxShadow: "0 4px 12px hsl(214 90% 52% / 0.25)",
+                  background: "hsl(var(--primary) / 0.08)",
                 }}
               >
-                <Clock className="w-5 h-5 text-white" />
+                <Clock
+                  className="w-5 h-5"
+                  style={{ color: "hsl(var(--primary))" }}
+                />
               </div>
               <div>
                 <p
-                  className="text-xs font-semibold mb-3"
+                  className="text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
                   style={{ color: "hsl(var(--muted-foreground))" }}
                 >
                   {t("contact.businessHours")}
                 </p>
                 <p
-                  className="text-[1.1rem] font-bold leading-snug"
+                  className="text-[1.2rem] font-bold leading-snug"
                   style={{ color: "hsl(var(--foreground))" }}
                 >
                   {t("contact.businessHoursValue")}
                 </p>
-                <p
-                  className="text-[0.72rem] mt-1.5"
-                  style={{ color: "hsl(var(--muted-foreground))" }}
-                >
-                  {t("contact.lunchBreak")}
-                </p>
-                <p
-                  className="text-[0.72rem]"
-                  style={{ color: "hsl(var(--muted-foreground))" }}
-                >
-                  {t("contact.holiday")}
-                </p>
+                <div className="mt-2 flex flex-col gap-0.5">
+                  <p
+                    className="text-[0.75rem]"
+                    style={{ color: "hsl(var(--muted-foreground))" }}
+                  >
+                    {t("contact.lunchBreak")}
+                  </p>
+                  <p
+                    className="text-[0.75rem]"
+                    style={{ color: "hsl(var(--muted-foreground))" }}
+                  >
+                    {t("contact.holiday")}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
