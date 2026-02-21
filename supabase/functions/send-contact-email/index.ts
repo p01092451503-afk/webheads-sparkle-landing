@@ -13,6 +13,7 @@ interface ContactFormData {
   email: string;
   service: string;
   message: string;
+  inquiryType?: "consultation" | "demo";
 }
 
 serve(async (req) => {
@@ -22,7 +23,9 @@ serve(async (req) => {
 
   try {
     const formData: ContactFormData = await req.json();
-    const { company, name, phone, email, service, message } = formData;
+    const { company, name, phone, email, service, message, inquiryType = "consultation" } = formData;
+    const isDemo = inquiryType === "demo";
+    const typeLabel = isDemo ? "데모 신청" : "무료 상담";
 
     // Basic validation
     if (!company || !name || !phone) {
@@ -45,9 +48,9 @@ serve(async (req) => {
   <div style="max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
     <div style="background: #0d1f4e; padding: 28px 32px;">
       <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">
-        📩 웹헤즈 무료 상담 신청
+        ${isDemo ? "🖥️" : "📩"} 웹헤즈 ${typeLabel}
       </h1>
-      <p style="color: rgba(255,255,255,0.6); margin: 6px 0 0; font-size: 13px;">새로운 상담 문의가 접수되었습니다.</p>
+      <p style="color: rgba(255,255,255,0.6); margin: 6px 0 0; font-size: 13px;">새로운 ${typeLabel} 문의가 접수되었습니다.</p>
     </div>
     <div style="padding: 28px 32px;">
       <table style="width: 100%; border-collapse: collapse;">
@@ -116,7 +119,7 @@ serve(async (req) => {
       body: JSON.stringify({
         from: "웹헤즈 상담 <noreply@webheads.co.kr>",
         to: ["34bus@webheads.co.kr"],
-        subject: `[웹헤즈 무료상담] ${company} · ${name} 님의 상담 신청`,
+        subject: `[웹헤즈 ${typeLabel}] ${company} · ${name} 님의 ${typeLabel}`,
         html: htmlBody,
         reply_to: email || undefined,
       }),

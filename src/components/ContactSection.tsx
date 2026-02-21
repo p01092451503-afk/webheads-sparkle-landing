@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Send, Mail, Loader2, Clock, Phone, ChevronDown } from "lucide-react";
+import { Send, Mail, Loader2, Clock, Phone, ChevronDown, Monitor } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
+
+type InquiryType = "consultation" | "demo";
 
 export default function ContactSection() {
   const { t } = useTranslation();
   const services = t("contact.services", { returnObjects: true }) as string[];
 
+  const [inquiryType, setInquiryType] = useState<InquiryType>("consultation");
   const [form, setForm] = useState({
     company: "",
     name: "",
@@ -28,7 +31,7 @@ export default function ContactSection() {
     try {
       const { data, error: fnError } = await supabase.functions.invoke(
         "send-contact-email",
-        { body: form }
+        { body: { ...form, inquiryType } }
       );
 
       if (fnError) throw new Error(fnError.message);
@@ -333,6 +336,38 @@ export default function ContactSection() {
                     "0 4px 24px hsl(220 60% 8% / 0.06), 0 1px 3px hsl(220 60% 8% / 0.04)",
                 }}
               >
+                {/* Inquiry Type Tabs */}
+                <div
+                  className="flex rounded-xl p-1 gap-1"
+                  style={{ background: "hsl(var(--muted))" }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setInquiryType("consultation")}
+                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-200"
+                    style={{
+                      background: inquiryType === "consultation" ? "hsl(0 0% 100%)" : "transparent",
+                      color: inquiryType === "consultation" ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
+                      boxShadow: inquiryType === "consultation" ? "0 2px 8px hsl(220 60% 8% / 0.08)" : "none",
+                    }}
+                  >
+                    <Send className="w-4 h-4" />
+                    {t("contact.tabConsultation")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setInquiryType("demo")}
+                    className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-bold transition-all duration-200"
+                    style={{
+                      background: inquiryType === "demo" ? "hsl(0 0% 100%)" : "transparent",
+                      color: inquiryType === "demo" ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
+                      boxShadow: inquiryType === "demo" ? "0 2px 8px hsl(220 60% 8% / 0.08)" : "none",
+                    }}
+                  >
+                    <Monitor className="w-4 h-4" />
+                    {t("contact.tabDemo")}
+                  </button>
+                </div>
                 {/* Row 1 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-2">
@@ -472,7 +507,7 @@ export default function ContactSection() {
                   </label>
                   <textarea
                     rows={4}
-                    placeholder={t("contact.formMessagePlaceholder")}
+                    placeholder={inquiryType === "demo" ? t("contact.formMessagePlaceholderDemo") : t("contact.formMessagePlaceholder")}
                     value={form.message}
                     onChange={(e) =>
                       setForm({ ...form, message: e.target.value })
@@ -524,8 +559,8 @@ export default function ContactSection() {
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4" />
-                      {t("contact.formSubmit")}
+                      {inquiryType === "demo" ? <Monitor className="w-4 h-4" /> : <Send className="w-4 h-4" />}
+                      {inquiryType === "demo" ? t("contact.formSubmitDemo") : t("contact.formSubmit")}
                     </>
                   )}
                 </button>

@@ -44,11 +44,15 @@
     "formMessage": "お問い合わせ内容",
     "formMessagePlaceholder": "お問い合わせ内容をご自由にお書きください。",
     "formSubmit": "無料相談を申請する",
+    "formSubmitDemo": "デモを申請する",
     "formSending": "送信中...",
     "formError": "送信中にエラーが発生しました。もう一度お試しください。",
-    "successTitle": "お問い合わせが完了しました",
+    "successTitle": "お申し込みが完了しました",
     "successDesc": "担当者より折り返しご連絡いたします。\n平日 10:00–18:00 の営業時間内に対応いたします。",
     "successRetry": "再度お問い合わせ",
+    "tabConsultation": "相談申請",
+    "tabDemo": "デモ申請",
+    "formMessagePlaceholderDemo": "デモをご希望のサービスや機能を具体的にお書きください。",
     "services": ["eラーニングホスティング", "保守", "AIチャットボット", "アプリケーション", "DRM", "チャネル/SMS", "PG", "コンテンツ"]
   },
   "testimonial": {
