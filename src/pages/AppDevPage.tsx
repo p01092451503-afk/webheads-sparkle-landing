@@ -54,23 +54,27 @@ export default function AppDevPage() {
       />
       {/* Hero */}
       <section
-        className="relative min-h-[80vh] flex items-center pt-20 overflow-hidden"
-        style={{ background: "hsl(210, 50%, 90%)" }}
+        className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden"
+        style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}
       >
-        <div className="absolute right-0 top-0 h-full w-[55%] pointer-events-none select-none hidden lg:flex items-center justify-center">
-          <AppDevHeroVisual />
+        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(245, 80%, 70%, 0.18) 0%, transparent 70%)" }} />
+        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsla(152, 60%, 60%, 0.1) 0%, transparent 70%)" }} />
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
+          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(22%)" }}>
+            <AppDevHeroVisual />
+          </div>
         </div>
-        <div className="container mx-auto px-6 py-24 relative z-10">
+        <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "#fff", color: "hsl(245, 70%, 45%)", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}>어플리케이션</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(245, 70%, 45%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>어플리케이션</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
               LMS 완벽 연동부터<br />
               <span style={{ color: "hsl(245, 80%, 55%)" }}>다양한 목적의 앱 개발</span>
             </h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 45%)" }}>웹헤즈 이러닝 솔루션과 완벽하게 연동되는 학습 앱은 물론, 커머스·예약·사내 업무 등 목적에 맞는 다양한 모바일 앱을 개발합니다.</p>
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>웹헤즈 이러닝 솔루션과 완벽하게 연동되는 학습 앱은 물론, 커머스·예약·사내 업무 등 목적에 맞는 다양한 모바일 앱을 개발합니다.</p>
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>개발 상담 신청</a>
-              <a href="#other" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "#fff" }}>다양한 앱 보기</a>
+              <a href="#other" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>다양한 앱 보기</a>
             </div>
           </div>
         </div>
