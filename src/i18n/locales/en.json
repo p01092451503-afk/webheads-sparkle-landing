@@ -516,14 +516,24 @@
       { "title": "Flexible Pricing", "desc": "Pricing plans tailored to various business sizes" },
       { "title": "Quick Launch", "desc": "Build your education site with the most features in just 3 days" },
       { "title": "Trendy Templates", "desc": "Design templates that enable easy management without experts" },
-      { "title": "Multi-language", "desc": "Support for 11 languages including English, Chinese, and Japanese" }
+      { "title": "Multi-language", "desc": "Support for 11 languages including English, Chinese, and Japanese" },
+      { "title": "DRM & Watermark", "desc": "Video security and anti-piracy via Catenoid, ZonePlayer, and more" },
+      { "title": "API Integration", "desc": "RESTful APIs for seamless data integration with external systems" },
+      { "title": "Auto Updates", "desc": "Latest features and security patches applied automatically" },
+      { "title": "Learning Analytics", "desc": "Real-time dashboard for learner progress, completion rates, and performance" },
+      { "title": "Mobile Optimized", "desc": "Responsive UI across PC, tablet, and mobile for seamless learning" }
     ],
     "neo": { "name": "Webheads NEO", "subtitle": "On-premise · Strong security & customization", "desc": "An on-premise LMS with optimized security systems and fully customizable solutions.", "cta": "Inquire about NEO" },
     "neoFeatures": [
       { "title": "Optimized Security", "desc": "Content security via Catenoid, ZonePlayer, and more" },
       { "title": "ERP·CRM Integration", "desc": "Data process integration for effective value creation" },
       { "title": "Custom Solutions", "desc": "Flexible customization to match your growth and resources" },
-      { "title": "24/7 Maintenance", "desc": "Round-the-clock monitoring for optimal access environment" }
+      { "title": "24/7 Maintenance", "desc": "Round-the-clock monitoring for optimal access environment" },
+      { "title": "Dedicated Server", "desc": "Private infrastructure for stable service even under traffic spikes" },
+      { "title": "White Labeling", "desc": "Full UI/UX customization to match your brand identity" },
+      { "title": "On-premise Deploy", "desc": "Install and operate directly on your own IDC, AWS, or cloud environment" },
+      { "title": "SSO & LDAP", "desc": "Unified authentication with your corporate account system" },
+      { "title": "SLA Guarantee", "desc": "99.9% uptime guarantee with emergency response protocols" }
     ],
     "kdt": { "name": "Webheads KDT", "subtitle": "KDT · Government-funded Training LMS", "desc": "An LMS optimized for K-Digital Training (KDT) and government-subsidized courses, supporting HRD-Net integration, attendance tracking, assessments, and completion management in full compliance with government standards.", "cta": "Inquire about KDT" },
     "kdtFeatures": [
