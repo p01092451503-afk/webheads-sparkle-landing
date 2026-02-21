@@ -44,7 +44,7 @@ export default function Header() {
             })}
           </nav>
           <LanguageSwitcher />
-          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-4 py-2 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors whitespace-nowrap">
+          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-4 py-2 rounded-xl text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-colors whitespace-nowrap">
             {t("header.cta")}
           </a>
           <button className="lg:hidden ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
@@ -64,7 +64,7 @@ export default function Header() {
                 </Link>
               );
             })}
-            <a href="#contact" className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground text-center">
+            <a href="#contact" className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center">
               {t("header.cta")}
             </a>
           </div>
