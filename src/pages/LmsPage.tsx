@@ -110,7 +110,7 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Partners */}
+      {/* Partners - temporarily hidden
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-6 text-center">{t("lms.partnersTitle")}</p>
@@ -123,6 +123,7 @@ export default function LmsPage() {
           </div>
         </div>
       </section>
+      */}
 
       {/* Device Friendly */}
       <section className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%)" }}>
