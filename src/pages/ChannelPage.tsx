@@ -5,9 +5,9 @@ import ChannelHeroVisual from "@/components/visuals/ChannelHeroVisual";
 import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2 } from "lucide-react";
 
 const testimonials = [
-  { name: "백승환", role: "교육운영 매니저", org: "한국산업인력공단 위탁교육기관", rating: 4, date: "2024.12", period: "이용 3년차", content: "미이수자한테 자동으로 문자 보내게 설정해뒀더니 수료율이 눈에 띄게 올라갔어요. 예전에는 일일이 전화했었는데 이제 그럴 필요가 없습니다." },
-  { name: "권나영", role: "CS팀 리더", org: "경희사이버대학교", rating: 5, date: "2025.01", period: "이용 8년차", content: "채널톡 연동하고 나서 상담사가 학습자 수강 상태를 바로 볼 수 있게 됐어요. 질문에 답변하기 전에 이미 상황 파악이 되니까 상담 시간이 반 넘게 줄었습니다." },
-  { name: "유지호", role: "마케팅 팀장", org: "클래스유", rating: 3, date: "2024.10", period: "이용 2년차", content: "카카오 알림톡으로 바꾸니까 문자 비용이 확 줄었고, 이미지나 버튼도 넣을 수 있어서 클릭률이 SMS보다 훨씬 높아요. 운영팀에서 제일 만족하는 기능입니다." },
+  { name: "백승환", role: "교육운영 매니저", org: "J 직업훈련기관", rating: 4, date: "2024.12", period: "이용 3년차", content: "미이수자한테 자동으로 문자 보내게 설정해뒀더니 수료율이 눈에 띄게 올라갔어요. 예전에는 일일이 전화했었는데 이제 그럴 필요가 없습니다." },
+  { name: "권나영", role: "CS팀 리더", org: "K 사이버대학교", rating: 5, date: "2025.01", period: "이용 8년차", content: "채널톡 연동하고 나서 상담사가 학습자 수강 상태를 바로 볼 수 있게 됐어요. 질문에 답변하기 전에 이미 상황 파악이 되니까 상담 시간이 반 넘게 줄었습니다." },
+  { name: "유지호", role: "마케팅 팀장", org: "L 이러닝기업", rating: 3, date: "2024.10", period: "이용 2년차", content: "카카오 알림톡으로 바꾸니까 문자 비용이 확 줄었고, 이미지나 버튼도 넣을 수 있어서 클릭률이 SMS보다 훨씬 높아요. 운영팀에서 제일 만족하는 기능입니다." },
 ];
 
 const features = [
