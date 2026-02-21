@@ -75,11 +75,13 @@ export default function ChannelHeroVisual() {
         <div style={{ position: "absolute", right: "6%", top: "10%", animation: "ch-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(250,200,10,0.3))" }}>
           <svg width="62" height="62" viewBox="0 0 62 62">
             <rect width="62" height="62" rx="16" fill="#FEE500"/>
-            <ellipse cx="31" cy="29" rx="18" ry="16" fill="#3C1E1E"/>
-            <polygon points="22,43 26,32 18,32" fill="#FEE500"/>
-            <rect x="21" y="25" width="4" height="8" rx="2" fill="#FEE500"/>
-            <circle cx="31" cy="29" r="2" fill="#FEE500"/>
-            <rect x="37" y="25" width="4" height="8" rx="2" fill="#FEE500"/>
+            {/* Speech bubble */}
+            <path d="M31 13C20.5 13 12 19.5 12 27.5C12 32.8 15.5 37.4 20.8 39.8L19 47C19 47 25.5 42.5 27.5 41.2C28.6 41.4 29.8 41.5 31 41.5C41.5 41.5 50 35 50 27.5C50 19.5 41.5 13 31 13Z" fill="#3C1E1E"/>
+            {/* Eyes */}
+            <circle cx="25" cy="27" r="2.2" fill="#FEE500"/>
+            <circle cx="37" cy="27" r="2.2" fill="#FEE500"/>
+            {/* Mouth/nose dot */}
+            <ellipse cx="31" cy="30.5" rx="1.5" ry="1" fill="#FEE500"/>
           </svg>
         </div>
 
