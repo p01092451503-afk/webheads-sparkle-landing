@@ -1,24 +1,27 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 import ko from './locales/ko.json';
 import en from './locales/en.json';
 
+// Detect if user's browser language is Korean
+const browserLang = navigator.language || (navigator as any).userLanguage || '';
+const isKorean = browserLang.startsWith('ko');
+
+// Check localStorage for manual override, otherwise use detection logic
+const savedLang = localStorage.getItem('i18nextLng');
+const defaultLng = savedLang || (isKorean ? 'ko' : 'en');
+
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
       ko: { translation: ko },
       en: { translation: en },
     },
-    fallbackLng: 'ko',
+    lng: defaultLng,
+    fallbackLng: 'en',
     interpolation: { escapeValue: false },
-    detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage'],
-    },
   });
 
 export default i18n;
