@@ -25,8 +25,8 @@ const features = [
 ];
 
 const solutions = [
-  { name: "카테노이드 DRM", logo: "Catenoid", desc: "국내 1위 이러닝 동영상 DRM 솔루션으로 가장 많은 이러닝 플랫폼에서 채택된 검증된 솔루션입니다.", features: ["HLS/DASH 스트리밍 암호화", "멀티 DRM (Widevine/FairPlay/PlayReady)", "모바일 앱 SDK 지원", "오프라인 재생 보호", "CDN 연계 스트리밍", "상세 재생 통계 제공"] },
-  { name: "존플레이어 DRM", logo: "ZonePlayer", desc: "강력한 화면 캡처 방지와 워터마크 기능이 특화된 DRM 솔루션입니다.", features: ["영상 스트리밍 암호화", "실시간 화면 캡처 방지", "비가시 개인 워터마킹", "기기·동시 접속 제한", "플러그인 불필요 (EME)", "보안 위협 관리자 알림"], highlight: true },
+  { name: "카테노이드 DRM", logo: "Catenoid", desc: "콜러스(Kollus) 플레이어 기반 5단계 콘텐츠 보안 체계로 이러닝 업계 압도적 점유율을 보유한 국내 대표 DRM 솔루션입니다.", features: ["5단계 보안 (OTU 인증·중복재생 차단·Multi-DRM·Kollus DRM·녹화툴 차단)", "오디오 & 비디오 워터마킹 (국내 최초)", "전용 플레이어 + HTML5 + 모바일 SDK", "오프라인 Download & Play 지원", "AI 배속 재생 (Android/iOS)", "플레이어 스킨 커스터마이징 API"] },
+  { name: "존플레이어 DRM", logo: "ZonePlayer", desc: "Pre-Packaging 및 실시간 암호화 방식을 모두 제공하며, EBS 등 대형 서비스에 적용되어 안정성을 검증받은 DRM 솔루션입니다.", features: ["실시간 암호화 & 사용자별 개별 암호화", "보안 서버 경유 암호화 전송 (원본 보호)", "녹화툴 탐지 & 패킷캡처 차단 (zone@GUARD)", "동시 접속 방지 & 기기 제한", "가상 드라이브 기반 (Linux/Windows 서버)", "다운로드 모니터링 & 운영 화면 제공"] },
 ];
 
 const stats = [
@@ -102,7 +102,7 @@ export default function DrmPage() {
             <p className="text-muted-foreground mt-4 text-base">기관 환경에 맞는 최적의 DRM 솔루션을 추천해 드립니다.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
-            {solutions.map((sol) => (<div key={sol.name} className={`relative rounded-3xl p-8 flex flex-col gap-5 transition-all duration-200 ${sol.highlight ? "bg-foreground text-primary-foreground shadow-2xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`}>{sol.highlight && <span className="absolute top-6 right-6 text-xs font-bold px-3 py-1 rounded-full bg-white/10 text-white/80">추천</span>}<div><h3 className={`font-black leading-none text-3xl tracking-tight ${sol.highlight ? "text-white" : "text-foreground"}`}>{sol.name}</h3><p className={`text-sm mt-2 leading-relaxed ${sol.highlight ? "text-white/50" : "text-muted-foreground"}`}>{sol.desc}</p></div><div className={`h-px ${sol.highlight ? "bg-white/10" : "bg-border"}`} /><ul className="flex flex-col gap-3 flex-1">{sol.features.map((feat) => (<li key={feat} className={`flex items-center gap-2.5 text-sm ${sol.highlight ? "text-white/70" : "text-muted-foreground"}`}><span className={`w-1.5 h-1.5 rounded-full shrink-0 ${sol.highlight ? "bg-white/50" : "bg-primary"}`} />{feat}</li>))}</ul><a href="#contact" className={`block text-center py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 ${sol.highlight ? "bg-background text-foreground hover:bg-secondary" : "bg-foreground text-primary-foreground hover:opacity-85"}`}>도입 문의</a></div>))}
+            {solutions.map((sol) => (<div key={sol.name} className="relative rounded-3xl p-8 flex flex-col gap-5 transition-all duration-200 bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"><div><h3 className="font-black leading-none text-3xl tracking-tight text-foreground">{sol.name}</h3><p className="text-sm mt-2 leading-relaxed text-muted-foreground">{sol.desc}</p></div><div className="h-px bg-border" /><ul className="flex flex-col gap-3 flex-1">{sol.features.map((feat) => (<li key={feat} className="flex items-center gap-2.5 text-sm text-muted-foreground"><span className="w-1.5 h-1.5 rounded-full shrink-0 bg-primary" />{feat}</li>))}</ul><a href="#contact" className="block text-center py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-foreground text-primary-foreground hover:opacity-85">도입 문의</a></div>))}
           </div>
         </div>
       </section>
