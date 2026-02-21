@@ -3,9 +3,9 @@ import TestimonialSection from "@/components/TestimonialSection";
 import MaintenanceHeroVisual from "@/components/visuals/MaintenanceHeroVisual";
 
 const testimonials = [
-  { name: "최영진", role: "CTO", org: "D 에듀테크", content: "새벽에 서버 장애가 발생했는데 5분 만에 연락이 왔고 30분 내 복구되었습니다. 24/7 대응이 정말 든든합니다." },
-  { name: "한소희", role: "교육운영팀", org: "E 대학교", content: "보안 패치부터 성능 최적화까지 알아서 관리해주니 내부 개발 인력 없이도 안정적으로 LMS를 운영할 수 있게 되었습니다." },
-  { name: "정우성", role: "IT 담당", org: "F 협회", content: "월간 리포트를 통해 시스템 현황을 한눈에 파악할 수 있어 경영진 보고가 수월해졌습니다. 기능 개선 요청도 빠르게 반영됩니다." },
+  { name: "최영진", role: "CTO", org: "러닝커넥트", rating: 5, date: "2025.02", period: "이용 2년차", content: "새벽 3시에 서버 문제 생겼는데 5분 만에 전화 오더라고요. 30분도 안 돼서 정상화됐습니다. 저희 같은 소규모 회사는 24시간 대응이 진짜 중요한데, 여기가 딱이에요." },
+  { name: "한소희", role: "교육운영팀", org: "한양사이버대학교", rating: 5, date: "2024.10", period: "이용 3년차", content: "저희가 개발자가 없어서 보안 업데이트나 서버 관리를 직접 못 하거든요. 그런 걸 알아서 다 해주시니까 운영에만 집중할 수 있어서 정말 편합니다." },
+  { name: "정우성", role: "IT 담당", org: "한국직업능력교육협회", rating: 4, date: "2024.12", period: "이용 1년차", content: "매달 보내주시는 리포트가 깔끔해서 경영진 보고할 때 그대로 가져다 쓸 수 있어요. 개선 요청 드리면 보통 일주일 안에는 반영해주시는 편이라 만족합니다." },
 ];
 import SEO from "@/components/SEO";
 import {

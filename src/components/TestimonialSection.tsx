@@ -1,10 +1,13 @@
-import { Quote } from "lucide-react";
+import { Quote, Star } from "lucide-react";
 
 interface Testimonial {
   name: string;
   role: string;
   org: string;
   content: string;
+  rating?: number;
+  date?: string;
+  period?: string;
 }
 
 interface TestimonialSectionProps {
@@ -27,13 +30,33 @@ export default function TestimonialSection({ testimonials }: TestimonialSectionP
               key={i}
               className="rounded-2xl p-7 bg-background border border-border hover:border-primary/20 hover:shadow-sm transition-all duration-200 flex flex-col gap-4"
             >
-              <Quote className="w-8 h-8 text-primary/20" />
+              <div className="flex items-center justify-between">
+                <Quote className="w-8 h-8 text-primary/20" />
+                {t.rating && (
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                      <Star
+                        key={idx}
+                        className={`w-3.5 h-3.5 ${idx < t.rating! ? "text-amber-400 fill-amber-400" : "text-border"}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
               <p className="text-muted-foreground text-sm leading-relaxed flex-1">
                 "{t.content}"
               </p>
-              <div className="pt-4 border-t border-border">
-                <p className="font-bold text-foreground text-sm">{t.name}</p>
-                <p className="text-xs text-muted-foreground">{t.role} · {t.org}</p>
+              <div className="pt-4 border-t border-border flex items-end justify-between gap-2">
+                <div>
+                  <p className="font-bold text-foreground text-sm">{t.name}</p>
+                  <p className="text-xs text-muted-foreground">{t.role} · {t.org}</p>
+                </div>
+                {(t.date || t.period) && (
+                  <div className="text-right shrink-0">
+                    {t.period && <p className="text-[11px] text-muted-foreground/60">{t.period}</p>}
+                    {t.date && <p className="text-[11px] text-muted-foreground/60">{t.date}</p>}
+                  </div>
+                )}
               </div>
             </div>
           ))}

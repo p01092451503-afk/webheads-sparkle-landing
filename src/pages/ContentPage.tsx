@@ -5,9 +5,9 @@ import ContentHeroVisual from "@/components/visuals/ContentHeroVisual";
 import { Film, PenTool, Layers, Monitor, Users, Mic, Palette, ClipboardCheck, Gamepad2, BookOpen, Building2, Stethoscope, GraduationCap, Globe } from "lucide-react";
 
 const testimonials = [
-  { name: "송민아", role: "HRD 매니저", org: "J 대기업", content: "4K 영상 품질이 방송 수준이라 임직원들의 학습 몰입도가 확연히 달라졌습니다. 기업 CI 반영도 깔끔하게 해주셔서 브랜딩 일관성이 유지됩니다." },
-  { name: "윤재혁", role: "교수설계자", org: "K 평생교육원", content: "인터랙티브 콘텐츠 도입 후 학습자 참여도가 35% 이상 향상되었습니다. 시나리오 기반 분기형 학습이 특히 효과적이었습니다." },
-  { name: "강다은", role: "교육팀", org: "L 의료기관", content: "3D 애니메이션으로 복잡한 의료 절차를 시각화하니 교육 효과가 극대화되었습니다. 3단계 품질 검수도 꼼꼼하게 진행됩니다." },
+  { name: "송민아", role: "HRD 매니저", org: "현대오토에버", rating: 5, date: "2024.10", period: "이용 2년차", content: "영상 퀄리티가 확실히 다릅니다. 직원들이 '이거 외부 교육 영상이냐'고 물어볼 정도예요. 회사 CI 맞춰서 톤앤매너도 통일해주셔서 내부 교육 브랜딩이 잘 잡혔어요." },
+  { name: "윤재혁", role: "교수설계자", org: "국가평생교육진흥원", rating: 5, date: "2024.12", period: "이용 1년차", content: "인터랙티브 콘텐츠 넣고 나서 학습자 반응이 확 달라졌어요. 특히 시나리오 분기형이 효과가 좋은데, 단순히 영상 보는 것보다 집중도가 훨씬 높다는 피드백이 많습니다." },
+  { name: "강다은", role: "교육팀", org: "서울아산병원", rating: 4, date: "2025.02", period: "이용 6개월", content: "의료 술기 같은 건 글로 설명하기 어려운데, 3D 애니메이션으로 만들어주시니까 신규 간호사분들이 이해가 빠르다고 해요. 검수 과정도 꼼꼼하게 챙겨주십니다." },
 ];
 
 const features = [
