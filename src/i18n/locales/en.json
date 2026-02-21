@@ -53,7 +53,7 @@
     "tabConsultation": "Consultation",
     "tabDemo": "Demo Request",
     "formMessagePlaceholderDemo": "Please describe the service or features you'd like to demo.",
-    "services": ["e-Learning Hosting", "Maintenance", "AI Chatbot", "Applications", "DRM", "Channel/SMS", "PG", "Content"]
+    "services": ["LMS", "e-Learning Hosting", "Maintenance", "AI Chatbot", "Applications", "DRM", "Channel/SMS", "PG", "Content"]
   },
   "testimonial": {
     "sub": "TESTIMONIALS",
