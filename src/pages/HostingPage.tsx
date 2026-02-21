@@ -178,8 +178,9 @@ export default function HostingPage() {
           </div>
         </div>
 
-        <div className="container mx-auto px-6 py-24 relative z-10">
-          <div className="max-w-xl">
+
+        <div className="container mx-auto px-6 py-24 relative z-10 flex justify-center">
+          <div className="max-w-xl" style={{ marginLeft: "8%" }}>
             <span
               className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
               style={{
