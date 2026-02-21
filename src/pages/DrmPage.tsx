@@ -1,7 +1,14 @@
 import ContactSection from "@/components/ContactSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import DrmHeroVisual from "@/components/visuals/DrmHeroVisual";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
+
+const testimonials = [
+  { name: "임현우", role: "콘텐츠 보안 담당", org: "M 온라인 교육기업", content: "DRM 적용 전에는 유출 영상이 계속 발견되었는데, 적용 후 불법 유출이 완전히 차단되었습니다. 워터마크 추적 기능이 강력합니다." },
+  { name: "조은비", role: "운영 디렉터", org: "N 사이버대학교", content: "모든 브라우저와 기기에서 플러그인 없이 DRM이 적용되니 학습자 불편이 없어졌습니다. LMS 연동도 매끄럽게 이루어집니다." },
+  { name: "서준호", role: "보안 팀장", org: "O 금융교육원", content: "금융권 보안 규정을 완벽하게 충족하면서도 학습자 경험을 해치지 않는 점이 인상적입니다. 관리자 대시보드로 실시간 모니터링도 가능합니다." },
+];
 
 const features = [
   { icon: ShieldCheck, title: "카테노이드 DRM", desc: "국내 1위 이러닝 DRM 솔루션 카테노이드를 통해 HLS/DASH 스트리밍 콘텐츠를 AES-128 암호화로 보호합니다. Widevine, FairPlay, PlayReady 멀티 DRM을 지원하여 모든 브라우저·기기에서 일관된 보호를 제공합니다.", tags: ["AES-128", "Widevine", "FairPlay", "PlayReady"] },
@@ -142,6 +149,7 @@ export default function DrmPage() {
         </div>
       </section>
 
+      <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
   );

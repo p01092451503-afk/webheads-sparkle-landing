@@ -1,8 +1,15 @@
 import { ArrowLeft } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import ChatbotHeroVisual from "@/components/visuals/ChatbotHeroVisual";
 import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
+
+const testimonials = [
+  { name: "김지현", role: "교육운영 팀장", org: "G 사이버대학교", content: "도입 2주 만에 반복 문의의 80%를 챗봇이 자동 처리하면서 상담 인력 부담이 크게 줄었습니다. 학습자 만족도도 올라갔어요." },
+  { name: "이동훈", role: "플랫폼 매니저", org: "H 기업교육센터", content: "야간·주말에도 학습자 질문에 즉시 응답해주니 수료율이 눈에 띄게 향상되었습니다. RAG 기반 답변 정확도도 매우 높습니다." },
+  { name: "오수진", role: "CS 리더", org: "I 직업훈련기관", content: "카카오톡과 웹사이트 동시 배포가 가능해서 학습자들이 편한 채널에서 바로 질문할 수 있어 접근성이 크게 좋아졌습니다." },
+];
 
 const features = [
   { icon: Brain, title: "LLM 기반 자연어 이해", desc: "GPT-4o, Claude 3.5 등 최신 대형 언어 모델(LLM)을 활용하여 문맥을 이해하는 정확한 응답을 생성합니다. RAG(검색 증강 생성) 기술을 접목해 기관 고유 지식을 실시간으로 참조합니다.", tags: ["GPT-4o", "Claude 3.5", "RAG", "Prompt Engineering"] },
@@ -140,6 +147,7 @@ export default function ChatbotPage() {
         </div>
       </section>
 
+      <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
   );
