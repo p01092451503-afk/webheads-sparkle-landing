@@ -99,17 +99,6 @@ export default function Footer() {
                   웹헤즈 홈페이지 <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="text-sm font-medium transition-colors"
-                  style={{ color: "hsl(220, 20%, 50%)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
-                >
-                  무료 상담 신청
-                </a>
-              </li>
             </ul>
           </div>
         </div>
