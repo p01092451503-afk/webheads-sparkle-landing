@@ -246,26 +246,26 @@ export default function ContactSection() {
               </div>
               <div>
                 <p
-                  className="text-[0.7rem] font-semibold mb-2 uppercase tracking-wider"
+                  className="text-[0.7rem] font-semibold mb-1 uppercase tracking-wider"
                   style={{ color: "hsl(var(--muted-foreground))" }}
                 >
                   {t("contact.businessHours")}
                 </p>
                 <p
-                  className="text-[1.2rem] font-bold leading-snug"
+                  className="text-[1.1rem] font-bold leading-snug"
                   style={{ color: "hsl(var(--foreground))" }}
                 >
                   {t("contact.businessHoursValue")}
                 </p>
-                <div className="mt-2 flex flex-col gap-0.5">
+                <div className="mt-0.5 flex flex-col gap-0.5">
                   <p
-                    className="text-[0.75rem]"
+                    className="text-[0.78rem]"
                     style={{ color: "hsl(var(--muted-foreground))" }}
                   >
                     {t("contact.lunchBreak")}
                   </p>
                   <p
-                    className="text-[0.75rem]"
+                    className="text-[0.78rem]"
                     style={{ color: "hsl(var(--muted-foreground))" }}
                   >
                     {t("contact.holiday")}
