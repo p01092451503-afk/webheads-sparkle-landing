@@ -30,7 +30,6 @@ export default function LanguageSwitcher() {
         aria-label="Language"
       >
         <Globe className="w-3.5 h-3.5" />
-        <span>{current.flag}</span>
         <span className="hidden sm:inline">{current.code.toUpperCase()}</span>
       </button>
       {open && (
