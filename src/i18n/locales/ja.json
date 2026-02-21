@@ -1,0 +1,116 @@
+{
+  "header": {
+    "services": ["eラーニングホスティング", "保守", "AIチャットボット", "アプリケーション", "DRM", "チャネル/SMS", "PG", "コンテンツ"],
+    "cta": "無料相談",
+    "logo": "Webheads"
+  },
+  "footer": {
+    "company": "会社情報",
+    "address": "〒03971 ソウル特別市 麻浦区 ワールドカップロ114, 3F",
+    "privacy": "個人情報管理責任者 カン・ソンイル · elise75@webheads.co.kr",
+    "time": "営業時間",
+    "hours": "平日 10:00 – 18:00（昼休み 12:00–13:00）",
+    "days": "週5日勤務（土日・祝日休み）",
+    "newInquiry": "新規導入お問い合わせ",
+    "maintenanceInquiry": "障害・保守お問い合わせ",
+    "links": "クイックリンク",
+    "homepage": "Webheads ホームページ",
+    "copyright": "© 2010 WEBHEADS Co., Ltd. All rights reserved."
+  },
+  "contact": {
+    "sub": "CONTACT US",
+    "title": "お気軽に",
+    "titleHighlight": "お問い合わせ",
+    "titleEnd": "ください",
+    "desc": "迅速かつ丁寧にお答えします",
+    "newInquiry": "新規導入お問い合わせ",
+    "maintenanceInquiry": "障害・保守お問い合わせ",
+    "emailInquiry": "メールお問い合わせ",
+    "emailAvailable": "24時間受付可能",
+    "businessHours": "営業時間",
+    "businessHoursValue": "平日 10:00 – 18:00",
+    "lunchBreak": "昼休み 12:00–13:00 · 週5日勤務",
+    "holiday": "土日・祝日休み",
+    "formCompany": "会社名",
+    "formName": "担当者名",
+    "formPhone": "電話番号",
+    "formEmail": "メールアドレス",
+    "formService": "関心サービス",
+    "formServicePlaceholder": "サービスを選択してください",
+    "formMessage": "お問い合わせ内容",
+    "formMessagePlaceholder": "お問い合わせ内容をご自由にお書きください。",
+    "formSubmit": "無料相談を申請する",
+    "formSending": "送信中...",
+    "formError": "送信中にエラーが発生しました。もう一度お試しください。",
+    "successTitle": "お問い合わせが完了しました",
+    "successDesc": "担当者より折り返しご連絡いたします。\n平日 10:00–18:00 の営業時間内に対応いたします。",
+    "successRetry": "再度お問い合わせ",
+    "services": ["eラーニングホスティング", "保守", "AIチャットボット", "アプリケーション", "DRM", "チャネル/SMS", "PG", "コンテンツ"]
+  },
+  "testimonial": {
+    "sub": "お客様の声",
+    "title": "お客様から直接届く\nリアルな声"
+  },
+  "faq": {
+    "sub": "FAQ",
+    "title": "よくある質問",
+    "desc": "についてよくある質問をご確認ください。",
+    "descDefault": "よくある質問をご確認ください。"
+  },
+  "landing": {
+    "seo": { "title": "Webheads サービス", "description": "eラーニングのすべてをWebheadsと共に。ホスティング、AIチャットボット、アプリ開発、DRM、PG決済、コンテンツ制作まで一箇所で提供します。", "keywords": "eラーニング, LMS, Webheads, ホスティング, AIチャットボット, アプリ開発, DRM, PG決済, コンテンツ制作, 保守" },
+    "hero": { "sub": "Webheads サービス", "title1": "eラーニングのすべてを", "title2": "ワンストップで", "desc": "ホスティングからAIチャットボット、アプリ開発、DRM、決済連携まで。\neラーニング事業に必要なすべてのサービスを提供します。", "cta1": "サービスを見る", "cta2": "無料相談を申請" },
+    "stats": [{ "value": "500+", "label": "クライアント" }, { "value": "15年+", "label": "運営実績" }, { "value": "99.9%", "label": "稼働率" }, { "value": "24/7", "label": "技術サポート" }],
+    "servicesSub": "SERVICES",
+    "servicesTitle": "eラーニングに必要な\nすべてのサービス",
+    "services": [
+      { "title": "eラーニングホスティング", "desc": "CDN・AWS・IDCベースの安定したeラーニングインフラを提供します。\n99.9%の稼働率と24/7モニタリングで途切れない学習環境を保証します。", "highlights": ["CDN高速化", "AWSクラウド", "IDCサーバー", "24/7モニタリング"] },
+      { "title": "保守", "desc": "LMS運営に必要な技術サポートと障害対応を専任します。\n定期点検から緊急対応まで、安定したプラットフォーム運営を支援します。", "highlights": ["定期点検", "障害対応", "性能最適化", "セキュリティ更新"] },
+      { "title": "AIチャットボット", "desc": "LMSに最適化されたAIチャットボットが\n学習者の質問に24時間即座に対応します。", "highlights": ["カスタム相談", "FAQ自動応答", "LMS連携", "多言語対応"] },
+      { "title": "アプリケーション", "desc": "eラーニング特化のiOS / Androidアプリで\nいつでもどこでも学習できる環境を構築します。", "highlights": ["iOS / Android", "ハイブリッドアプリ", "PUSH通知", "オフライン学習"] },
+      { "title": "DRM", "desc": "不正コピーを根本的にブロックするDRMソリューションで\n大切なeラーニングコンテンツを安全に保護します。", "highlights": ["カテノイドDRM", "ZonePlayer", "キャプチャ防止", "ウォーターマーク"] },
+      { "title": "チャネル/SMS", "desc": "チャネルトークとSMSをLMSと連携し\n学習促進から修了案内まで自動化します。", "highlights": ["チャネルトーク連携", "SMS一括送信", "カカオアラートトーク", "自動化シナリオ"] },
+      { "title": "PG", "desc": "Toss Payments、KGイニシスから\nStripe・PayPalまで多様な決済を統合連携します。", "highlights": ["Toss Payments", "KGイニシス", "海外決済", "定期決済"] },
+      { "title": "コンテンツ", "desc": "企画から開発、検収まで\n高品質なeラーニングコンテンツをワンストップで制作します。", "highlights": ["動画講義", "インタラクティブコンテンツ", "3Dアニメーション", "SCORM"] }
+    ],
+    "viewMore": "詳しく見る",
+    "whyUsSub": "WHY WEBHEADS",
+    "whyUsTitle": "なぜWebheadsを\n選ぶべきなのか？",
+    "whyUs": [
+      { "num": "01", "title": "15年以上のeラーニング専門経験", "desc": "国内数百社のLMS構築・運営ノウハウを保有しています。" },
+      { "num": "02", "title": "ワンストップ統合サービス", "desc": "LMSから付加サービスまで単一プロバイダーで解決し、運営効率を最大化します。" },
+      { "num": "03", "title": "専任技術サポートチーム運営", "desc": "24/7モニタリングと専任技術サポートチームが常に安定した運営を保証します。" }
+    ]
+  },
+  "index": {
+    "heroBadge": "Webheads 付加サービスポータル",
+    "heroTitle1": "eラーニングのすべてを",
+    "heroTitle2": "Webheadsと共に",
+    "heroDesc": "LMSソリューションからホスティング、AIチャットボット、アプリ開発、コンテンツ制作、DRM、チャネルトーク/SMSまで、eラーニング事業に必要なすべてのサービスを一箇所で提供します。",
+    "heroCta1": "サービスを見る",
+    "heroCta2": "無料相談を申請",
+    "servicesSub": "SERVICES",
+    "servicesTitle": "Webheads",
+    "servicesTitleHighlight": "付加サービス",
+    "servicesDesc": "eラーニングプラットフォーム運営に必要なすべての技術サービスをWebheadsで解決してください。",
+    "viewMore": "詳しく見る",
+    "whyTitle": "なぜ",
+    "whyTitleHighlight": "Webheads",
+    "whyTitleEnd": "を選ぶべきなのか？",
+    "whyItems": [
+      { "title": "15年以上のeラーニング経験", "desc": "国内数百社のLMS構築・運営ノウハウを保有しています。", "num": "01" },
+      { "title": "ワンストップ統合サービス", "desc": "LMSから付加サービスまで単一プロバイダーで解決し、運営効率を最大化します。", "num": "02" },
+      { "title": "専任技術サポートチーム運営", "desc": "24/7モニタリングと専任技術サポートチームが常に安定した運営を保証します。", "num": "03" }
+    ],
+    "services": [
+      { "title": "eラーニングホスティング", "subtitle": "CDN / AWS / IDC", "desc": "eラーニングに最適化されたクラウドインフラで途切れない学習環境を提供します。", "features": ["CDN高速化", "AWSクラウド", "IDCサーバー運営", "24/7モニタリング"] },
+      { "title": "AIチャットボット開発", "subtitle": "カスタムAI相談ボット", "desc": "LMSに最適化されたAIチャットボットで学習者の質問に24時間即座に対応します。", "features": ["カスタム学習相談", "FAQ自動応答", "LMS連携", "多言語対応"] },
+      { "title": "アプリ開発", "subtitle": "iOS / Android / ハイブリッド", "desc": "eラーニング特化のモバイルアプリでいつでもどこでも学習できる環境を構築します。", "features": ["iOS / Androidアプリ", "ハイブリッドアプリ", "LMS連携", "PUSH通知"] },
+      { "title": "コンテンツ開発", "subtitle": "eラーニングコンテンツ制作", "desc": "企画から開発、検収まで高品質なeラーニングコンテンツをワンストップで制作します。", "features": ["動画講義制作", "インタラクティブコンテンツ", "3Dアニメーション", "SCORMパッケージング"] },
+      { "title": "DRMソリューション", "subtitle": "カテノイド / ZonePlayer", "desc": "不正コピーを根本的にブロックするDRMソリューションでeラーニングコンテンツを保護します。", "features": ["カテノイドDRM", "ZonePlayer DRM", "不正キャプチャ防止", "ウォーターマーク"] },
+      { "title": "チャネルトーク / SMS", "subtitle": "顧客コミュニケーションプラットフォーム", "desc": "チャネルトークとSMSで学習者とのコミュニケーションを強化し運営効率を向上します。", "features": ["チャネルトーク連携", "SMS配信", "自動化メッセージ", "CRM連携"] },
+      { "title": "PG決済連携", "subtitle": "Toss / イニシス / 海外決済", "desc": "Toss Payments、KGイニシス、モビリアンス、決済先生およびStripe・PayPal海外決済まで多様なPGを統合連携します。", "features": ["Toss Payments / イニシス", "モビリアンス / 決済先生", "海外決済 (Stripe·PayPal)", "定期決済・サブスクリプション自動化"] }
+    ],
+    "stats": [{ "value": "500+", "label": "クライアント" }, { "value": "15年+", "label": "運営実績" }, { "value": "99.9%", "label": "稼働率" }, { "value": "24/7", "label": "技術サポート" }]
+  }
+}

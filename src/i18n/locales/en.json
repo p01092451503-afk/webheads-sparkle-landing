@@ -1,0 +1,116 @@
+{
+  "header": {
+    "services": ["e-Learning Hosting", "Maintenance", "AI Chatbot", "Applications", "DRM", "Channel/SMS", "PG", "Content"],
+    "cta": "Free Consultation",
+    "logo": "Webheads"
+  },
+  "footer": {
+    "company": "Company",
+    "address": "3F, 114 World Cup-ro, Mapo-gu, Seoul 03971, Korea",
+    "privacy": "Privacy Officer: Sung-il Kang · elise75@webheads.co.kr",
+    "time": "Hours",
+    "hours": "Weekdays 10:00 – 18:00 (Lunch 12:00–13:00)",
+    "days": "Mon–Fri (Sat/Sun/Holidays closed)",
+    "newInquiry": "New Business Inquiry",
+    "maintenanceInquiry": "Support & Maintenance",
+    "links": "Quick Links",
+    "homepage": "Webheads Homepage",
+    "copyright": "© 2010 WEBHEADS Co., Ltd. All rights reserved."
+  },
+  "contact": {
+    "sub": "CONTACT US",
+    "title": "Have a question?",
+    "titleHighlight": "Contact us",
+    "titleEnd": " anytime",
+    "desc": "We respond quickly and professionally",
+    "newInquiry": "New Business Inquiry",
+    "maintenanceInquiry": "Support & Maintenance",
+    "emailInquiry": "Email Inquiry",
+    "emailAvailable": "Available 24/7",
+    "businessHours": "Business Hours",
+    "businessHoursValue": "Weekdays 10:00 – 18:00",
+    "lunchBreak": "Lunch 12:00–13:00 · Mon–Fri",
+    "holiday": "Sat/Sun/Holidays closed",
+    "formCompany": "Company",
+    "formName": "Contact Person",
+    "formPhone": "Phone",
+    "formEmail": "Email",
+    "formService": "Service of Interest",
+    "formServicePlaceholder": "Select a service",
+    "formMessage": "Message",
+    "formMessagePlaceholder": "Please describe your inquiry.",
+    "formSubmit": "Request Free Consultation",
+    "formSending": "Sending...",
+    "formError": "An error occurred while sending. Please try again.",
+    "successTitle": "Your inquiry has been submitted",
+    "successDesc": "A representative will contact you shortly.\nWe operate on weekdays 10:00–18:00.",
+    "successRetry": "Send another inquiry",
+    "services": ["e-Learning Hosting", "Maintenance", "AI Chatbot", "Applications", "DRM", "Channel/SMS", "PG", "Content"]
+  },
+  "testimonial": {
+    "sub": "TESTIMONIALS",
+    "title": "What our clients\nsay about us"
+  },
+  "faq": {
+    "sub": "FAQ",
+    "title": "Frequently Asked Questions",
+    "desc": " — find answers to common questions.",
+    "descDefault": "Find answers to common questions."
+  },
+  "landing": {
+    "seo": { "title": "Webheads Services", "description": "Everything for e-Learning with Webheads. Hosting, AI chatbot, app development, DRM, PG payment, and content creation — all in one place.", "keywords": "e-learning, LMS, Webheads, hosting, AI chatbot, app development, DRM, PG payment, content creation, maintenance" },
+    "hero": { "sub": "Webheads Services", "title1": "Everything for e-Learning", "title2": "All in One Place", "desc": "From hosting to AI chatbots, app development, DRM, and payment integration.\nAll the services you need for e-learning, in one place.", "cta1": "Explore Services", "cta2": "Free Consultation" },
+    "stats": [{ "value": "500+", "label": "Clients" }, { "value": "15+", "label": "Years Experience" }, { "value": "99.9%", "label": "Uptime" }, { "value": "24/7", "label": "Tech Support" }],
+    "servicesSub": "SERVICES",
+    "servicesTitle": "All Services\nfor e-Learning",
+    "services": [
+      { "title": "e-Learning Hosting", "desc": "Reliable e-learning infrastructure based on CDN, AWS, and IDC.\n99.9% uptime with 24/7 monitoring for uninterrupted learning.", "highlights": ["CDN Acceleration", "AWS Cloud", "IDC Servers", "24/7 Monitoring"] },
+      { "title": "Maintenance", "desc": "Dedicated technical support and incident response for LMS operations.\nFrom routine maintenance to emergency response.", "highlights": ["Regular Inspection", "Incident Response", "Performance Optimization", "Security Updates"] },
+      { "title": "AI Chatbot", "desc": "AI chatbot optimized for LMS instantly answers\nlearner questions 24/7.", "highlights": ["Custom Consultation", "Auto FAQ", "LMS Integration", "Multi-language"] },
+      { "title": "Applications", "desc": "Mobile apps specialized for e-learning,\nlearn anytime, anywhere.", "highlights": ["iOS / Android", "Hybrid Apps", "PUSH Notifications", "Offline Learning"] },
+      { "title": "DRM", "desc": "DRM solutions that completely prevent piracy\nand protect your valuable content.", "highlights": ["Catenoid DRM", "ZonePlayer", "Capture Prevention", "Watermark"] },
+      { "title": "Channel/SMS", "desc": "Integrate Channel Talk and SMS with LMS\nto automate learning reminders.", "highlights": ["Channel Talk", "Bulk SMS", "KakaoTalk Alerts", "Automation"] },
+      { "title": "PG", "desc": "Integrate Toss Payments, KG Inicis,\nStripe, PayPal, and more.", "highlights": ["Toss Payments", "KG Inicis", "Global Payments", "Subscriptions"] },
+      { "title": "Content", "desc": "End-to-end production of high-quality\ne-learning content.", "highlights": ["Video Lectures", "Interactive Content", "3D Animation", "SCORM"] }
+    ],
+    "viewMore": "Learn More",
+    "whyUsSub": "WHY WEBHEADS",
+    "whyUsTitle": "Why choose\nWebheads?",
+    "whyUs": [
+      { "num": "01", "title": "15+ Years of e-Learning Expertise", "desc": "We have built and operated LMS platforms for hundreds of enterprises in Korea." },
+      { "num": "02", "title": "One-Stop Integrated Service", "desc": "From LMS to add-on services, a single provider for maximum operational efficiency." },
+      { "num": "03", "title": "Dedicated Technical Support Team", "desc": "24/7 monitoring and a dedicated support team ensure stable operations at all times." }
+    ]
+  },
+  "index": {
+    "heroBadge": "Webheads Add-on Services Portal",
+    "heroTitle1": "Everything for e-Learning",
+    "heroTitle2": "with Webheads",
+    "heroDesc": "From LMS solutions to hosting, AI chatbots, app development, content creation, DRM, and Channel Talk/SMS — all e-learning services in one place.",
+    "heroCta1": "Explore Services",
+    "heroCta2": "Free Consultation",
+    "servicesSub": "SERVICES",
+    "servicesTitle": "Webheads",
+    "servicesTitleHighlight": "Add-on Services",
+    "servicesDesc": "All the technical services you need for e-learning platform operation, solved with Webheads.",
+    "viewMore": "Learn More",
+    "whyTitle": "Why choose",
+    "whyTitleHighlight": "Webheads",
+    "whyTitleEnd": "?",
+    "whyItems": [
+      { "title": "15+ Years of e-Learning Experience", "desc": "We have extensive LMS development and operation know-how across hundreds of enterprises.", "num": "01" },
+      { "title": "One-Stop Integrated Service", "desc": "From LMS to add-on services, maximize operational efficiency with a single provider.", "num": "02" },
+      { "title": "Dedicated Technical Support", "desc": "24/7 monitoring and dedicated support team ensure stable operations at all times.", "num": "03" }
+    ],
+    "services": [
+      { "title": "e-Learning Hosting", "subtitle": "CDN / AWS / IDC", "desc": "Cloud infrastructure optimized for e-learning with seamless learning experience.", "features": ["CDN Acceleration", "AWS Cloud", "IDC Server Operation", "24/7 Monitoring"] },
+      { "title": "AI Chatbot Development", "subtitle": "Custom AI Consultant", "desc": "AI chatbot optimized for LMS, answering learner questions 24/7.", "features": ["Custom Consultation", "Auto FAQ", "LMS Integration", "Multi-language"] },
+      { "title": "APP Development", "subtitle": "iOS / Android / Hybrid", "desc": "Mobile apps specialized for e-learning, learn anytime, anywhere.", "features": ["iOS / Android Apps", "Hybrid Apps", "LMS Integration", "PUSH Notifications"] },
+      { "title": "Content Development", "subtitle": "e-Learning Content Creation", "desc": "One-stop high-quality e-learning content from planning to delivery.", "features": ["Video Lecture Production", "Interactive Content", "3D Animation", "SCORM Packaging"] },
+      { "title": "DRM Solution", "subtitle": "Catenoid / ZonePlayer", "desc": "DRM solutions that completely prevent piracy and protect e-learning content.", "features": ["Catenoid DRM", "ZonePlayer DRM", "Capture Prevention", "Watermark"] },
+      { "title": "Channel Talk / SMS", "subtitle": "Customer Communication Platform", "desc": "Strengthen learner communication through Channel Talk and SMS.", "features": ["Channel Talk", "SMS Delivery", "Automated Messages", "CRM Integration"] },
+      { "title": "PG Payment Integration", "subtitle": "Toss / Inicis / Global", "desc": "Integrate multiple PG providers including Toss Payments, KG Inicis, Stripe, and PayPal.", "features": ["Toss Payments / Inicis", "Mobilians / PayTeacher", "Global (Stripe·PayPal)", "Subscription Automation"] }
+    ],
+    "stats": [{ "value": "500+", "label": "Clients" }, { "value": "15+", "label": "Years Experience" }, { "value": "99.9%", "label": "Uptime" }, { "value": "24/7", "label": "Tech Support" }]
+  }
+}
