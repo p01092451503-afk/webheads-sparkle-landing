@@ -35,8 +35,9 @@ export default function Header() {
           <nav className="hidden lg:flex items-center justify-center gap-1.5 flex-1">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
+              const isLms = s.path === "/lms";
               return (
-                <Link key={s.path} to={s.path} className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${isActive ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`}>
+                <Link key={s.path} to={s.path} className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${isActive ? (isLms ? "text-white shadow-sm" : "bg-primary text-primary-foreground shadow-sm") : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isActive && isLms ? { background: "hsl(222, 80%, 55%)" } : undefined}>
                   {s.label}
                 </Link>
               );
@@ -56,8 +57,9 @@ export default function Header() {
           <div className="container mx-auto px-6 py-4 flex flex-col gap-1">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
+              const isLms = s.path === "/lms";
               return (
-                <Link key={s.path} to={s.path} className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`}>
+                <Link key={s.path} to={s.path} className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive ? (isLms ? "text-white" : "bg-primary text-primary-foreground") : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isActive && isLms ? { background: "hsl(222, 80%, 55%)" } : undefined}>
                   {s.label}
                 </Link>
               );
