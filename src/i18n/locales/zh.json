@@ -53,7 +53,7 @@
     "tabConsultation": "咨询申请",
     "tabDemo": "演示申请",
     "formMessagePlaceholderDemo": "请详细描述您希望演示的服务或功能。",
-    "services": ["在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"]
+    "services": ["LMS", "在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"]
   },
   "testimonial": {
     "sub": "客户评价",

@@ -53,7 +53,7 @@
     "tabConsultation": "相談申請",
     "tabDemo": "デモ申請",
     "formMessagePlaceholderDemo": "デモをご希望のサービスや機能を具体的にお書きください。",
-    "services": ["eラーニングホスティング", "保守", "AIチャットボット", "アプリケーション", "DRM", "チャネル/SMS", "PG", "コンテンツ"]
+    "services": ["LMS", "eラーニングホスティング", "保守", "AIチャットボット", "アプリケーション", "DRM", "チャネル/SMS", "PG", "コンテンツ"]
   },
   "testimonial": {
     "sub": "お客様の声",
