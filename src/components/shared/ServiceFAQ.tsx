@@ -1,16 +1,18 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useTranslation } from "react-i18next";
 
 interface FAQ { q: string; a: string; }
 interface ServiceFAQProps { faqs: FAQ[]; serviceName?: string; }
 
 export default function ServiceFAQ({ faqs, serviceName }: ServiceFAQProps) {
+  const { t } = useTranslation();
   return (
     <section className="py-28 bg-background">
       <div className="container mx-auto px-6 max-w-3xl">
         <div className="mb-16 text-center">
-          <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">FAQ</p>
-          <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">자주 묻는 질문</h2>
-          <p className="text-muted-foreground mt-4 text-base">{serviceName ? `${serviceName}에 대해 궁금한 점을 확인하세요.` : "궁금한 점을 확인하세요."}</p>
+          <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("faq.sub")}</p>
+          <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">{t("faq.title")}</h2>
+          <p className="text-muted-foreground mt-4 text-base">{serviceName ? `${serviceName}${t("faq.desc")}` : t("faq.descDefault")}</p>
         </div>
         <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, i) => (

@@ -1,0 +1,116 @@
+{
+  "header": {
+    "services": ["이러닝호스팅", "유지보수", "AI챗봇", "어플리케이션", "DRM", "채널톡/SMS", "PG", "콘텐츠"],
+    "cta": "무료 상담",
+    "logo": "웹헤즈"
+  },
+  "footer": {
+    "company": "Company",
+    "address": "03971 서울특별시 마포구 월드컵로 114, 3층",
+    "privacy": "개인정보관리책임자 강성일 · elise75@webheads.co.kr",
+    "time": "Time",
+    "hours": "평일 10:00 – 18:00 (점심시간 12:00–13:00)",
+    "days": "주 5일 근무 (토/일/ 공휴일 휴무)",
+    "newInquiry": "신규 도입 문의",
+    "maintenanceInquiry": "장애 및 유지보수 문의",
+    "links": "바로가기",
+    "homepage": "웹헤즈 홈페이지",
+    "copyright": "© 2010 WEBHEADS Co., Ltd. All rights reserved."
+  },
+  "contact": {
+    "sub": "CONTACT US",
+    "title": "궁금한 점을",
+    "titleHighlight": "편하게 문의",
+    "titleEnd": "하세요",
+    "desc": "친절하고 빠르게 답변드립니다",
+    "newInquiry": "신규 도입 문의",
+    "maintenanceInquiry": "장애 및 유지보수 문의",
+    "emailInquiry": "이메일 문의",
+    "emailAvailable": "24시간 접수 가능",
+    "businessHours": "운영 시간",
+    "businessHoursValue": "평일 10:00 – 18:00",
+    "lunchBreak": "점심시간 12:00–13:00 · 주 5일 근무",
+    "holiday": "토/일/공휴일 휴무",
+    "formCompany": "회사명",
+    "formName": "담당자명",
+    "formPhone": "연락처",
+    "formEmail": "이메일",
+    "formService": "관심 서비스",
+    "formServicePlaceholder": "서비스를 선택하세요",
+    "formMessage": "문의 내용",
+    "formMessagePlaceholder": "문의하실 내용을 자유롭게 작성해주세요.",
+    "formSubmit": "무료 상담 신청하기",
+    "formSending": "전송 중...",
+    "formError": "이메일 발송 중 오류가 발생했습니다. 다시 시도해주세요.",
+    "successTitle": "상담 신청이 완료되었습니다",
+    "successDesc": "빠른 시일 내에 담당자가 연락드리겠습니다.\n평일 10:00–18:00 운영 기준으로 응대합니다.",
+    "successRetry": "다시 문의하기",
+    "services": ["이러닝호스팅", "유지보수", "AI챗봇", "어플리케이션", "DRM", "채널톡/SMS", "PG", "콘텐츠"]
+  },
+  "testimonial": {
+    "sub": "고객 후기",
+    "title": "고객이 직접 전하는\n생생한 후기"
+  },
+  "faq": {
+    "sub": "FAQ",
+    "title": "자주 묻는 질문",
+    "desc": "에 대해 궁금한 점을 확인하세요.",
+    "descDefault": "궁금한 점을 확인하세요."
+  },
+  "landing": {
+    "seo": { "title": "웹헤즈 부가서비스", "description": "이러닝의 모든 것을 웹헤즈와 함께. 호스팅, AI 챗봇, 앱 개발, DRM, PG, 콘텐츠 제작까지 이러닝 사업에 필요한 모든 부가서비스를 한 곳에서 제공합니다.", "keywords": "이러닝, LMS, 웹헤즈, 호스팅, AI챗봇, 앱개발, DRM, PG결제, 콘텐츠 제작, 유지보수" },
+    "hero": { "sub": "웹헤즈 부가서비스", "title1": "이러닝의 모든 것을", "title2": "한 곳에서", "desc": "호스팅부터 AI 챗봇, 앱 개발, DRM, 결제 연동까지.\n이러닝 사업에 필요한 모든 서비스를 제공합니다.", "cta1": "서비스 둘러보기", "cta2": "무료 상담 신청" },
+    "stats": [{ "value": "500+", "label": "고객사" }, { "value": "15년+", "label": "운영 경험" }, { "value": "99.9%", "label": "서버 가동률" }, { "value": "24/7", "label": "기술 지원" }],
+    "servicesSub": "SERVICES",
+    "servicesTitle": "이러닝에 필요한\n모든 서비스",
+    "services": [
+      { "title": "이러닝 호스팅", "desc": "CDN · AWS · IDC 기반의 안정적인 이러닝 인프라를 제공합니다.\n99.9% 가동률과 24/7 모니터링으로 끊김 없는 학습 환경을 보장합니다.", "highlights": ["CDN 가속화", "AWS 클라우드", "IDC 서버", "24/7 모니터링"] },
+      { "title": "유지보수", "desc": "LMS 운영에 필요한 기술 지원과 장애 대응을 전담합니다.\n정기 점검부터 긴급 대응까지, 안정적인 플랫폼 운영을 돕습니다.", "highlights": ["정기 점검", "장애 대응", "성능 최적화", "보안 업데이트"] },
+      { "title": "AI 챗봇", "desc": "LMS에 최적화된 AI 챗봇이 학습자의 질문에\n24시간 즉시 응답합니다.", "highlights": ["맞춤형 학습 상담", "FAQ 자동 응답", "LMS 연동", "다국어 지원"] },
+      { "title": "어플리케이션", "desc": "이러닝에 특화된 iOS / Android 앱으로\n언제 어디서나 학습할 수 있는 환경을 구축합니다.", "highlights": ["iOS / Android", "하이브리드 앱", "PUSH 알림", "오프라인 학습"] },
+      { "title": "DRM", "desc": "불법 복제를 원천 차단하는 DRM 솔루션으로\n소중한 이러닝 콘텐츠를 안전하게 보호합니다.", "highlights": ["카테노이드 DRM", "존플레이어", "캡처 방지", "워터마크"] },
+      { "title": "채널톡/SMS", "desc": "채널톡과 SMS를 LMS와 연동하여\n학습 독려부터 수료 안내까지 자동화합니다.", "highlights": ["채널톡 연동", "SMS 대량 발송", "카카오 알림톡", "자동화 시나리오"] },
+      { "title": "PG", "desc": "토스페이먼츠, KG이니시스부터 Stripe·PayPal까지\n다양한 결제 수단을 통합 연동합니다.", "highlights": ["토스페이먼츠", "KG이니시스", "해외 결제", "정기결제"] },
+      { "title": "콘텐츠", "desc": "기획부터 개발, 검수까지\n고품질 이러닝 콘텐츠를 원스톱으로 제작합니다.", "highlights": ["동영상 강의", "인터랙티브 콘텐츠", "3D 애니메이션", "SCORM"] }
+    ],
+    "viewMore": "자세히 보기",
+    "whyUsSub": "WHY WEBHEADS",
+    "whyUsTitle": "왜 웹헤즈를\n선택해야 할까요?",
+    "whyUs": [
+      { "num": "01", "title": "15년 이상의 이러닝 전문 경험", "desc": "국내 수백 개 기업의 LMS 구축 및 운영 노하우를 보유하고 있습니다." },
+      { "num": "02", "title": "원스톱 통합 서비스", "desc": "LMS부터 부가서비스까지 단일 공급사에서 해결하여 운영 효율을 극대화합니다." },
+      { "num": "03", "title": "전담 기술 지원팀 운영", "desc": "24/7 모니터링과 전담 기술지원팀이 항상 안정적인 운영을 보장합니다." }
+    ]
+  },
+  "index": {
+    "heroBadge": "웹헤즈 부가서비스 포털",
+    "heroTitle1": "이러닝의 모든 것을",
+    "heroTitle2": "웹헤즈와 함께",
+    "heroDesc": "LMS 솔루션부터 호스팅, AI 챗봇, APP 개발, 콘텐츠 제작, DRM, 채널톡/SMS까지 이러닝 사업에 필요한 모든 서비스를 한 곳에서 제공합니다.",
+    "heroCta1": "서비스 둘러보기",
+    "heroCta2": "무료 상담 신청",
+    "servicesSub": "SERVICES",
+    "servicesTitle": "웹헤즈",
+    "servicesTitleHighlight": "부가서비스",
+    "servicesDesc": "이러닝 플랫폼 운영에 필요한 모든 기술 서비스를 웹헤즈 하나로 해결하세요.",
+    "viewMore": "자세히 보기",
+    "whyTitle": "왜",
+    "whyTitleHighlight": "웹헤즈",
+    "whyTitleEnd": "를 선택해야 할까요?",
+    "whyItems": [
+      { "title": "15년 이상의 이러닝 경험", "desc": "국내 수백 개 기업의 LMS 구축 및 운영 노하우를 보유하고 있습니다.", "num": "01" },
+      { "title": "원스톱 통합 서비스", "desc": "LMS부터 부가서비스까지 단일 공급사에서 해결하여 운영 효율을 극대화합니다.", "num": "02" },
+      { "title": "전담 기술 지원팀 운영", "desc": "24/7 모니터링과 전담 기술지원팀이 항상 안정적인 운영을 보장합니다.", "num": "03" }
+    ],
+    "services": [
+      { "title": "이러닝 호스팅", "subtitle": "CDN / AWS / IDC", "desc": "이러닝에 최적화된 클라우드 인프라로 끊김없는 학습 환경을 제공합니다.", "features": ["CDN 가속화", "AWS 클라우드", "IDC 서버 운영", "24/7 모니터링"] },
+      { "title": "AI 챗봇 개발", "subtitle": "맞춤형 AI 상담봇", "desc": "LMS에 최적화된 AI 챗봇으로 학습자의 질문에 24시간 즉시 응답합니다.", "features": ["맞춤형 학습 상담", "FAQ 자동 응답", "LMS 연동", "다국어 지원"] },
+      { "title": "APP 개발", "subtitle": "iOS / Android / 하이브리드", "desc": "이러닝에 특화된 모바일 앱으로 언제 어디서나 학습이 가능한 환경을 구축합니다.", "features": ["iOS / Android 앱", "하이브리드 앱", "LMS 연동", "PUSH 알림"] },
+      { "title": "콘텐츠 개발", "subtitle": "이러닝 콘텐츠 제작", "desc": "기획부터 개발, 검수까지 고품질 이러닝 콘텐츠를 원스톱으로 제작합니다.", "features": ["동영상 강의 제작", "인터랙티브 콘텐츠", "3D 애니메이션", "SCORM 패키징"] },
+      { "title": "DRM 솔루션", "subtitle": "카테노이드 / 존플레이어", "desc": "불법 복제를 원천 차단하는 DRM 솔루션으로 소중한 이러닝 콘텐츠를 보호합니다.", "features": ["카테노이드 DRM", "존플레이어 DRM", "불법 캡처 방지", "워터마크"] },
+      { "title": "채널톡 / SMS", "subtitle": "고객 커뮤니케이션 플랫폼", "desc": "채널톡과 SMS를 통해 학습자와의 소통을 강화하고 운영 효율을 높입니다.", "features": ["채널톡 연동", "SMS 발송", "자동화 메시지", "CRM 연동"] },
+      { "title": "PG 결제 연동", "subtitle": "토스 / 이니시스 / 해외결제", "desc": "토스페이먼츠, KG이니시스, 모빌리언스, 결제선생 및 Stripe·PayPal 해외 결제까지 다양한 PG사를 통합 연동합니다.", "features": ["토스페이먼츠 / 이니시스", "모빌리언스 / 결제선생", "해외 결제 (Stripe·PayPal)", "정기결제·구독 자동화"] }
+    ],
+    "stats": [{ "value": "500+", "label": "고객사" }, { "value": "15년+", "label": "운영 경험" }, { "value": "99.9%", "label": "서버 가동률" }, { "value": "24/7", "label": "기술 지원" }]
+  }
+}

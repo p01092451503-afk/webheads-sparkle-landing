@@ -1,0 +1,116 @@
+{
+  "header": {
+    "services": ["在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"],
+    "cta": "免费咨询",
+    "logo": "Webheads"
+  },
+  "footer": {
+    "company": "公司信息",
+    "address": "03971 首尔特别市 麻浦区 世界杯路114, 3楼",
+    "privacy": "隐私管理负责人 姜成一 · elise75@webheads.co.kr",
+    "time": "营业时间",
+    "hours": "工作日 10:00 – 18:00（午休 12:00–13:00）",
+    "days": "周一至周五（周末及节假日休息）",
+    "newInquiry": "新业务咨询",
+    "maintenanceInquiry": "故障及运维咨询",
+    "links": "快速链接",
+    "homepage": "Webheads 官网",
+    "copyright": "© 2010 WEBHEADS Co., Ltd. All rights reserved."
+  },
+  "contact": {
+    "sub": "CONTACT US",
+    "title": "有任何疑问",
+    "titleHighlight": "随时咨询",
+    "titleEnd": "",
+    "desc": "我们将快速、专业地为您解答",
+    "newInquiry": "新业务咨询",
+    "maintenanceInquiry": "故障及运维咨询",
+    "emailInquiry": "邮件咨询",
+    "emailAvailable": "24小时受理",
+    "businessHours": "营业时间",
+    "businessHoursValue": "工作日 10:00 – 18:00",
+    "lunchBreak": "午休 12:00–13:00 · 周一至周五",
+    "holiday": "周末及节假日休息",
+    "formCompany": "公司名称",
+    "formName": "联系人",
+    "formPhone": "联系电话",
+    "formEmail": "邮箱",
+    "formService": "感兴趣的服务",
+    "formServicePlaceholder": "请选择服务",
+    "formMessage": "咨询内容",
+    "formMessagePlaceholder": "请填写您的咨询内容。",
+    "formSubmit": "申请免费咨询",
+    "formSending": "发送中...",
+    "formError": "发送失败，请重试。",
+    "successTitle": "咨询已提交成功",
+    "successDesc": "我们的工作人员将尽快与您联系。\n工作日 10:00–18:00 为服务时间。",
+    "successRetry": "再次咨询",
+    "services": ["在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"]
+  },
+  "testimonial": {
+    "sub": "客户评价",
+    "title": "来自客户的\n真实反馈"
+  },
+  "faq": {
+    "sub": "FAQ",
+    "title": "常见问题",
+    "desc": "的常见问题解答。",
+    "descDefault": "查看常见问题解答。"
+  },
+  "landing": {
+    "seo": { "title": "Webheads 服务", "description": "与Webheads一起，涵盖在线学习的一切。托管、AI聊天机器人、应用开发、DRM、支付、内容制作——一站式提供。", "keywords": "在线学习, LMS, Webheads, 托管, AI聊天机器人, 应用开发, DRM, 支付, 内容制作, 运维" },
+    "hero": { "sub": "Webheads 服务", "title1": "在线学习的一切", "title2": "一站式解决", "desc": "从托管到AI聊天机器人、应用开发、DRM、支付集成。\n为在线学习事业提供所有所需服务。", "cta1": "浏览服务", "cta2": "免费咨询" },
+    "stats": [{ "value": "500+", "label": "客户" }, { "value": "15年+", "label": "运营经验" }, { "value": "99.9%", "label": "服务器可用率" }, { "value": "24/7", "label": "技术支持" }],
+    "servicesSub": "SERVICES",
+    "servicesTitle": "在线学习所需的\n全部服务",
+    "services": [
+      { "title": "在线学习托管", "desc": "基于CDN、AWS、IDC的稳定在线学习基础设施。\n99.9%可用率和24/7监控，保障无中断学习环境。", "highlights": ["CDN加速", "AWS云", "IDC服务器", "24/7监控"] },
+      { "title": "运维", "desc": "为LMS运营提供专业技术支持和故障响应。\n从定期检查到紧急响应，保障平台稳定运行。", "highlights": ["定期检查", "故障响应", "性能优化", "安全更新"] },
+      { "title": "AI聊天机器人", "desc": "为LMS优化的AI聊天机器人\n24小时即时回答学习者问题。", "highlights": ["定制咨询", "FAQ自动回复", "LMS集成", "多语言支持"] },
+      { "title": "应用开发", "desc": "专为在线学习设计的iOS / Android应用\n随时随地学习。", "highlights": ["iOS / Android", "混合应用", "PUSH通知", "离线学习"] },
+      { "title": "DRM", "desc": "从根源阻止盗版的DRM解决方案\n安全保护珍贵的在线学习内容。", "highlights": ["Catenoid DRM", "ZonePlayer", "防截屏", "水印"] },
+      { "title": "渠道/短信", "desc": "将Channel Talk和短信与LMS集成\n自动化学习提醒到结业通知。", "highlights": ["Channel Talk集成", "批量短信", "KakaoTalk通知", "自动化场景"] },
+      { "title": "支付", "desc": "集成Toss Payments、KG Inicis\n到Stripe·PayPal等多种支付方式。", "highlights": ["Toss Payments", "KG Inicis", "海外支付", "订阅支付"] },
+      { "title": "内容", "desc": "从策划到开发、验收\n一站式制作高品质在线学习内容。", "highlights": ["视频课程", "互动内容", "3D动画", "SCORM"] }
+    ],
+    "viewMore": "了解更多",
+    "whyUsSub": "WHY WEBHEADS",
+    "whyUsTitle": "为什么选择\nWebheads？",
+    "whyUs": [
+      { "num": "01", "title": "15年以上在线学习专业经验", "desc": "拥有为数百家企业构建和运营LMS的丰富经验。" },
+      { "num": "02", "title": "一站式综合服务", "desc": "从LMS到附加服务，单一供应商解决方案，最大化运营效率。" },
+      { "num": "03", "title": "专属技术支持团队", "desc": "24/7监控和专属技术支持团队，时刻保障稳定运营。" }
+    ]
+  },
+  "index": {
+    "heroBadge": "Webheads 附加服务门户",
+    "heroTitle1": "在线学习的一切",
+    "heroTitle2": "与Webheads同行",
+    "heroDesc": "从LMS解决方案到托管、AI聊天机器人、应用开发、内容制作、DRM、Channel Talk/短信——一站式提供在线学习所需的全部服务。",
+    "heroCta1": "浏览服务",
+    "heroCta2": "免费咨询",
+    "servicesSub": "SERVICES",
+    "servicesTitle": "Webheads",
+    "servicesTitleHighlight": "附加服务",
+    "servicesDesc": "在线学习平台运营所需的所有技术服务，Webheads一站式解决。",
+    "viewMore": "了解更多",
+    "whyTitle": "为什么选择",
+    "whyTitleHighlight": "Webheads",
+    "whyTitleEnd": "？",
+    "whyItems": [
+      { "title": "15年以上在线学习经验", "desc": "拥有为数百家企业构建和运营LMS的丰富经验。", "num": "01" },
+      { "title": "一站式综合服务", "desc": "从LMS到附加服务，单一供应商解决方案，最大化运营效率。", "num": "02" },
+      { "title": "专属技术支持团队", "desc": "24/7监控和专属技术支持团队，时刻保障稳定运营。", "num": "03" }
+    ],
+    "services": [
+      { "title": "在线学习托管", "subtitle": "CDN / AWS / IDC", "desc": "为在线学习优化的云基础设施，提供无中断的学习环境。", "features": ["CDN加速", "AWS云", "IDC服务器运营", "24/7监控"] },
+      { "title": "AI聊天机器人开发", "subtitle": "定制AI咨询机器人", "desc": "为LMS优化的AI聊天机器人，24小时即时回答学习者问题。", "features": ["定制学习咨询", "FAQ自动回复", "LMS集成", "多语言支持"] },
+      { "title": "应用开发", "subtitle": "iOS / Android / 混合", "desc": "专为在线学习设计的移动应用，随时随地学习。", "features": ["iOS / Android应用", "混合应用", "LMS集成", "PUSH通知"] },
+      { "title": "内容开发", "subtitle": "在线学习内容制作", "desc": "从策划到开发、验收，一站式制作高品质在线学习内容。", "features": ["视频课程制作", "互动内容", "3D动画", "SCORM打包"] },
+      { "title": "DRM解决方案", "subtitle": "Catenoid / ZonePlayer", "desc": "从根源阻止盗版的DRM解决方案，保护在线学习内容。", "features": ["Catenoid DRM", "ZonePlayer DRM", "防截屏", "水印"] },
+      { "title": "Channel Talk / 短信", "subtitle": "客户沟通平台", "desc": "通过Channel Talk和短信加强与学习者的沟通，提高运营效率。", "features": ["Channel Talk集成", "短信发送", "自动化消息", "CRM集成"] },
+      { "title": "支付集成", "subtitle": "Toss / Inicis / 海外支付", "desc": "集成Toss Payments、KG Inicis、Mobilians、PayTeacher及Stripe·PayPal海外支付等多种PG。", "features": ["Toss Payments / Inicis", "Mobilians / PayTeacher", "海外支付 (Stripe·PayPal)", "订阅自动化"] }
+    ],
+    "stats": [{ "value": "500+", "label": "客户" }, { "value": "15年+", "label": "运营经验" }, { "value": "99.9%", "label": "服务器可用率" }, { "value": "24/7", "label": "技术支持" }]
+  }
+}
