@@ -57,6 +57,272 @@
     "desc": " — find answers to common questions.",
     "descDefault": "Find answers to common questions."
   },
+  "chatbot": {
+    "seo": { "title": "AI Chatbot", "description": "GPT-4o and Claude 3.5 powered AI chatbot integrated with LMS. 24/7 automated learner support with FAQ auto-learning and multi-language capabilities.", "keywords": "AI chatbot, LMS chatbot, e-learning chatbot, GPT chatbot, learning chatbot" },
+    "hero": { "badge": "AI Chatbot", "title": "e-Learning Specialized", "titleHighlight": "AI Chatbot Solution", "desc": "Reduce operational costs and dramatically improve learner satisfaction with an AI chatbot that responds to learner questions 24/7.", "cta1": "Request Free Demo", "cta2": "View Process" },
+    "stats": [
+      { "value": "80%", "label": "Auto-resolved Inquiries", "sub": "Reduced team workload" },
+      { "value": "24/7", "label": "Non-stop Response", "sub": "Improved satisfaction" },
+      { "value": "2 wks", "label": "Avg. Setup Time", "sub": "Fast deployment" }
+    ],
+    "featuresSection": { "sub": "KEY FEATURES", "title": "Innovate e-Learning\nwith Latest AI" },
+    "features": [
+      { "title": "LLM-based NLU", "desc": "Leverages the latest large language models (GPT-4o, Claude 3.5) to generate context-aware, accurate responses with RAG technology.", "tags": ["GPT-4o", "Claude 3.5", "RAG", "Prompt Engineering"] },
+      { "title": "LMS-integrated Responses", "desc": "Real-time integration with LMS via REST API to provide personalized responses based on enrollment, assignments, grades, and attendance.", "tags": ["REST API", "Real-time Sync", "Personalized", "Enrollment Data"] },
+      { "title": "Auto FAQ & Knowledge Base", "desc": "Upload existing FAQ docs, manuals, and syllabi to auto-index via vector embeddings for an instant, high-accuracy knowledge base.", "tags": ["Vector Embedding", "Doc Parsing", "Knowledge Base", "Auto Index"] },
+      { "title": "Multi-language Support", "desc": "Auto-detects and responds in 10+ languages including Korean, English, Chinese, and Japanese.", "tags": ["KO/EN/CN/JP", "Auto Detection", "10+ Languages", "Global"] },
+      { "title": "Multi-channel Deployment", "desc": "Deploy a single chatbot across KakaoTalk, website widget, and mobile app SDK simultaneously.", "tags": ["KakaoTalk", "Web Widget", "Mobile SDK", "Session Mgmt"] },
+      { "title": "Operations Dashboard", "desc": "Visualize KPIs like question classification, resolution rate, escalation ratio, CSAT, and avg response time in real-time.", "tags": ["Real-time Monitoring", "CSAT", "KPI", "Visualization"] },
+      { "title": "Security & Privacy", "desc": "Encrypted transmission (TLS 1.3) for learner data. Conversation logs collected with user consent, compliant with privacy laws and GDPR.", "tags": ["TLS 1.3", "Encryption", "GDPR", "Privacy Act"] },
+      { "title": "Continuous Learning", "desc": "Periodic fine-tuning based on real conversation data improves response accuracy over time.", "tags": ["Fine-tuning", "RLHF", "Feedback Loop", "Auto Improvement"] },
+      { "title": "Agent Escalation", "desc": "Complex inquiries are seamlessly transferred to human agents with full conversation context preserved.", "tags": ["Human Handoff", "Real-time Transfer", "Context Handover", "Collaboration"] }
+    ],
+    "midCTA": { "heading": "Curious about the right AI chatbot for your organization?", "description": "We'll propose a customized chatbot solution for free.", "ctaText": "Request Free Demo" },
+    "processSection": { "sub": "PROCESS", "title": "Systematic\n4-Step Process" },
+    "process": [
+      { "step": "01", "title": "Requirements Analysis & Design", "desc": "Deep analysis of organizational characteristics, learner inquiry patterns, and integration systems to design chatbot architecture.", "detail": "Intent Design · Entity Definition · Architecture" },
+      { "step": "02", "title": "Data Collection & AI Training", "desc": "Collect and refine organizational documents like FAQs and course materials, then convert to vector embeddings.", "detail": "Doc Parsing · Vector DB · RAG Pipeline" },
+      { "step": "03", "title": "Development & QA", "desc": "Develop chatbot engine and integrate with LMS/channels, then test 100+ edge case scenarios.", "detail": "Scenario Testing · Performance · Fallback" },
+      { "step": "04", "title": "Deployment & Ongoing Support", "desc": "Deploy across all channels with monthly performance reports and periodic fine-tuning.", "detail": "Multi-channel Deploy · Monthly Report · Improvements" }
+    ],
+    "faqs": [
+      { "q": "Can I use existing FAQs right after chatbot deployment?", "a": "Yes, upload your FAQ documents and they'll be auto-indexed via vector embeddings for immediate use." },
+      { "q": "How are unanswered questions handled?", "a": "The fallback scenario automatically suggests 'Connect to Agent' or 'Submit Inquiry' options." },
+      { "q": "Can it be applied to both KakaoTalk and website?", "a": "Yes, a single chatbot engine can be deployed to KakaoTalk, website, and mobile app simultaneously." },
+      { "q": "Is learner personal information protected?", "a": "Yes, with TLS 1.3 encryption, data masking, and consent-based log collection, compliant with privacy laws and GDPR." },
+      { "q": "How is chatbot response accuracy managed?", "a": "Through monthly fine-tuning and feedback loops for continuous improvement." }
+    ],
+    "testimonials": [
+      { "name": "J. Kim", "role": "Education Operations Lead", "org": "M Cyber University", "rating": 5, "date": "2024.11", "period": "3rd year", "content": "Honestly, I wasn't sure how much a chatbot could do, but within 2 weeks it was handling almost all repetitive questions." },
+      { "name": "D. Lee", "role": "Platform Manager", "org": "N Corporate Training Center", "rating": 4, "date": "2025.01", "period": "5th year", "content": "Many learners ask questions at night or on weekends. The chatbot's instant responses have noticeably improved completion rates." },
+      { "name": "S. Oh", "role": "CS Leader", "org": "O Education Company", "rating": 3, "date": "2024.09", "period": "2nd year", "content": "With chatbots on both KakaoTalk and the website, learners can ask questions wherever they're comfortable." }
+    ]
+  },
+  "appdev": {
+    "seo": { "title": "Application Development", "description": "iOS and Android app development perfectly integrated with Webheads LMS.", "keywords": "e-learning app, LMS app, iOS app, Android app, React Native, Flutter" },
+    "hero": { "badge": "Applications", "title": "From Perfect LMS Integration to", "titleHighlight": "Versatile App Development", "desc": "Build learning apps perfectly integrated with Webheads e-learning solutions, plus commerce, booking, internal tools, and more.", "cta1": "Request Consultation", "cta2": "View App Types" },
+    "stats": [
+      { "value": "iOS+AOS", "label": "Simultaneous Dev", "sub": "Single team delivery" },
+      { "value": "90%+", "label": "Native Performance", "sub": "vs. cross-platform" },
+      { "value": "Perfect", "label": "LMS Integration", "sub": "Webheads solution based" },
+      { "value": "4 wks", "label": "Avg. Dev Time", "sub": "MVP basis" }
+    ],
+    "lmsFeaturesSection": { "sub": "LMS APPS", "title": "Perfectly Integrated with\nWebheads e-Learning", "desc": "If you're already using Webheads LMS, deliver the same learning experience in your app without additional setup." },
+    "lmsFeatures": [
+      { "title": "Webheads LMS Integration", "desc": "Real-time bidirectional integration with Webheads via REST API and WebSocket.", "tags": ["REST API", "WebSocket", "Real-time Sync"] },
+      { "title": "Learning Push Notifications", "desc": "Auto-send study reminders and assignment deadlines via FCM/APNs at optimal timing per learner.", "tags": ["FCM", "APNs", "Personalized Alerts"] },
+      { "title": "Mobile DRM Video Security", "desc": "Block illegal recording and capture with Widevine (Android) and FairPlay (iOS) DRM.", "tags": ["Widevine", "FairPlay", "AES-128"] },
+      { "title": "Offline Learning Support", "desc": "Local caching enables uninterrupted learning even in unstable network environments.", "tags": ["Local Caching", "Offline Mode", "Auto Sync"] },
+      { "title": "Learning Analytics & Progress", "desc": "Visualize 30+ metrics including study time, progress rate, and quiz scores in the app dashboard.", "tags": ["30+ Metrics", "Real-time Charts", "Admin Dashboard"] },
+      { "title": "Security & SSO", "desc": "OAuth 2.0/SAML 2.0 based SSO for instant app login with a single Webheads LMS account.", "tags": ["OAuth 2.0", "SAML SSO", "Root Detection"] }
+    ],
+    "midCTA": { "heading": "Wondering what app your organization needs?", "description": "We'll propose a customized app development plan for free.", "ctaText": "Request Consultation" },
+    "otherAppsSection": { "sub": "VARIOUS APPS", "title": "Beyond e-Learning,\nWe Build All Kinds of Apps", "desc": "Custom apps for commerce, booking, internal tools, community, and more — built for iOS and Android simultaneously." },
+    "otherApps": [
+      { "title": "Commerce & Marketplace", "desc": "Full-stack commerce apps with product listing, payment, shipping tracking, and reviews.", "tags": ["PG Payment", "Settlement", "Reviews"] },
+      { "title": "Booking & Schedule Mgmt", "desc": "Booking management apps for classrooms, meeting rooms, medical appointments, and more.", "tags": ["Booking System", "Auto Alerts", "Calendar"] },
+      { "title": "Internal & Groupware", "desc": "Custom internal apps for attendance, approvals, company notices, and more.", "tags": ["Attendance", "Approvals", "ERP Integration"] },
+      { "title": "Community & Social", "desc": "From SNS-style feeds and chat to professional community apps.", "tags": ["Feed", "Real-time Chat", "Notifications"] }
+    ],
+    "devStackSection": { "sub": "TECH STACK", "title": "Built with Proven\nTechnology Stacks" },
+    "devStack": [
+      { "title": "iOS / Android Native", "desc": "Native apps with Swift (iOS) and Kotlin (Android) that fully comply with platform guidelines.", "tags": ["Swift", "Kotlin", "Native UI"] },
+      { "title": "Hybrid / Cross-platform", "desc": "Build iOS and Android simultaneously from a single codebase with React Native or Flutter.", "tags": ["React Native", "Flutter", "Cost Savings"] },
+      { "title": "App Store Deployment & Maintenance", "desc": "Full-service App Store and Google Play submission including review handling.", "tags": ["App Store", "Google Play", "CI/CD"] }
+    ],
+    "faqs": [
+      { "q": "Does developing for both iOS and Android cost double?", "a": "No. With React Native or Flutter cross-platform development, you can save 30-40% compared to separate native development." },
+      { "q": "Do you handle App Store/Google Play submission?", "a": "Yes, we handle the entire process including screenshots, metadata, review responses, and rejection fixes." },
+      { "q": "Can an existing web LMS be converted to an app?", "a": "Yes, if you're using Webheads LMS, we can quickly build an app with existing data integration via REST API. Average 4-week MVP delivery." },
+      { "q": "Is post-launch maintenance available?", "a": "Yes, we provide ongoing maintenance including app updates, bug fixes, OS update responses, and feature additions." },
+      { "q": "Does offline learning work for all content?", "a": "Offline download permissions can be configured per content item based on DRM policies. Downloaded content retains DRM encryption." }
+    ],
+    "testimonials": [
+      { "name": "M. Ko", "role": "Mobile Team", "org": "V Cyber University", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "We built both iOS and Android apps, and learners can seamlessly continue from web to app." },
+      { "name": "J. Nam", "role": "Education Planning Lead", "org": "W Corporate Training", "rating": 5, "date": "2025.01", "period": "5th year", "content": "After enabling push notifications, app return rates significantly increased." },
+      { "name": "D. Hwang", "role": "CEO", "org": "X Startup", "rating": 4, "date": "2024.08", "period": "3rd year", "content": "We got our MVP on the App Store in less than a month. They even handled App Store rejection responses." }
+    ]
+  },
+  "drm": {
+    "seo": { "title": "DRM Solution", "description": "Protect e-learning videos with Widevine, FairPlay, and PlayReady multi-DRM.", "keywords": "DRM, e-learning DRM, video security, Widevine, FairPlay, Catenoid, ZonePlayer" },
+    "hero": { "badge": "DRM", "title": "Protect Your e-Learning Content", "titleHighlight": "Completely", "desc": "Block piracy and unauthorized distribution with Catenoid and ZonePlayer DRM solutions to keep your valuable educational content safe.", "cta1": "Inquire About DRM", "cta2": "Compare Solutions" },
+    "stats": [
+      { "value": "100%", "label": "Capture Blocked", "sub": "All platforms" },
+      { "value": "Multi", "label": "DRM Standards", "sub": "Widevine·FairPlay·PlayReady" },
+      { "value": "EME", "label": "Web Standard", "sub": "No plugins needed" },
+      { "value": "Instant", "label": "Leak Tracing", "sub": "Watermark-based" }
+    ],
+    "featuresSection": { "sub": "KEY FEATURES", "title": "Complete Content\nSecurity Coverage" },
+    "features": [
+      { "title": "Catenoid DRM", "desc": "Korea's #1 e-learning DRM solution protecting HLS/DASH streaming content with AES-128 encryption. Supports Widevine, FairPlay, PlayReady multi-DRM.", "tags": ["AES-128", "Widevine", "FairPlay", "PlayReady"] },
+      { "title": "ZonePlayer DRM", "desc": "ZonePlayer-based DRM with segment-level encryption for HLS/DASH streaming content. Specialized in screen capture prevention and personal watermarks.", "tags": ["HLS/DASH", "Segment Encryption", "Capture Prevention", "Enterprise"] },
+      { "title": "Screen Capture & Recording Prevention", "desc": "Real-time detection and instant playback stop for OBS, capture tools, and screen recorders across all platforms.", "tags": ["OBS Block", "Real-time Detection", "HDMI Block", "All Platforms"] },
+      { "title": "Personal ID Watermark", "desc": "Real-time insertion of learner name, ID, IP address, and other unique identifiers as visible or invisible watermarks.", "tags": ["Invisible Watermark", "Real-time Insert", "Leak Tracing", "IP Logging"] },
+      { "title": "Multi-platform & Browser Support", "desc": "Works without plugins on all OS (Windows, macOS, Linux, iOS, Android) and browsers (Chrome, Firefox, Safari, Edge).", "tags": ["EME Standard", "No Plugins", "All OS", "All Browsers"] },
+      { "title": "Full LMS API Integration", "desc": "Integrates with Webheads LMS and third-party LMS via REST API for real-time access policy control.", "tags": ["REST API", "Moodle Integration", "Access Control", "Violation Logs"] },
+      { "title": "Device Registration & Concurrent Limits", "desc": "Set per-account device limits and automatically block playback from excess devices.", "tags": ["Device Limits", "Concurrent Block", "Account Sharing Prevention", "Session Mgmt"] },
+      { "title": "Offline Playback Protection", "desc": "DRM encryption is maintained even when content is downloaded for offline learning.", "tags": ["Offline DRM", "Playback Expiry", "Play Limits", "License Mgmt"] },
+      { "title": "Threat Detection & Monitoring", "desc": "Real-time detection of abnormal playback patterns, repeated license errors, and foreign IP access.", "tags": ["Real-time Detection", "Anomaly Detection", "Admin Dashboard", "Block History"] }
+    ],
+    "midCTA": { "heading": "Wondering which DRM solution fits your content?", "description": "We'll analyze your environment and propose the optimal DRM solution for free.", "ctaText": "Inquire About DRM" },
+    "solutionsSection": { "sub": "COMPARE SOLUTIONS", "title": "Available DRM Solutions", "desc": "We'll recommend the optimal DRM solution for your environment." },
+    "solutions": [
+      { "name": "Catenoid DRM", "desc": "Korea's leading DRM solution with Kollus player-based 5-level content security system and dominant market share in the e-learning industry.", "features": ["5-level Security (OTU Auth·Duplicate Block·Multi-DRM·Kollus DRM·Recorder Block)", "Audio & Video Watermarking (Korea's first)", "Dedicated Player + HTML5 + Mobile SDK", "Offline Download & Play Support", "AI Speed Playback (Android/iOS)", "Player Skin Customization API"], "ctaText": "Inquire" },
+      { "name": "ZonePlayer DRM", "desc": "Provides both pre-packaging and real-time encryption. Proven stability in large-scale services like EBS.", "features": ["Real-time & Per-user Encryption", "Secure Server Encrypted Transmission", "Recorder Detection & Packet Capture Block (zone@GUARD)", "Concurrent Access & Device Limits", "Virtual Drive Based (Linux/Windows Server)", "Download Monitoring & Admin Dashboard"], "ctaText": "Inquire" }
+    ],
+    "faqs": [
+      { "q": "Do learners need to install any software for DRM?", "a": "No. It works on the EME web standard, so it plays directly in the browser without any plugins." },
+      { "q": "Which is better, Catenoid or ZonePlayer?", "a": "Catenoid for large-scale traffic and CDN integration; ZonePlayer for strong capture prevention and watermarking." },
+      { "q": "Can DRM be added to an existing LMS?", "a": "Yes, via REST API integration with Webheads LMS or third-party LMS including Moodle and Blackboard." },
+      { "q": "Does DRM work on mobile apps?", "a": "Yes, we provide dedicated SDKs for iOS (FairPlay) and Android (Widevine)." },
+      { "q": "Does DRM affect video playback speed?", "a": "Imperceptibly. Hardware-accelerated decryption maintains the same quality and speed as normal playback." }
+    ],
+    "testimonials": [
+      { "name": "H. Lim", "role": "Content Security", "org": "G Online Education", "rating": 5, "date": "2024.08", "period": "6th year", "content": "Before DRM, leaked videos were everywhere. After applying it, not a single one has appeared." },
+      { "name": "E. Jo", "role": "Operations Director", "org": "H Cyber University", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "Learners used to complain about plugin installations. Now it just plays in the browser — complaints have nearly disappeared." },
+      { "name": "J. Seo", "role": "Security Lead", "org": "I Finance Institute", "rating": 4, "date": "2025.01", "period": "4th year", "content": "In finance, security audits are strict. Being able to pull DRM status reports from the dashboard makes audits much easier." }
+    ]
+  },
+  "channel": {
+    "seo": { "title": "Channel Talk / SMS", "description": "Boost learner engagement with Channel Talk LMS integration, bulk SMS/LMS delivery, and automated learning reminder messages.", "keywords": "Channel Talk, SMS, e-learning alerts, learning reminders, LMS Channel Talk, KakaoTalk" },
+    "hero": { "badge": "Channel/SMS", "title": "Automate Learner Communication", "titleHighlight": "for Maximum Efficiency", "desc": "Integrate Channel Talk and SMS with your LMS to automate everything from learning reminders to completion notifications.", "cta1": "Request Consultation", "cta2": "View Use Cases" },
+    "stats": [
+      { "value": "98%", "label": "SMS Delivery Rate", "sub": "Reliable messaging" },
+      { "value": "40%↑", "label": "Completion Rate Increase", "sub": "Reminder effect" },
+      { "value": "Instant", "label": "LMS Integration", "sub": "Fast deployment" }
+    ],
+    "featuresSection": { "sub": "KEY FEATURES", "title": "LMS-integrated\nAutomated Messaging" },
+    "features": [
+      { "title": "Channel Talk LMS Integration", "desc": "Use Channel.io Open API to map LMS learner accounts 1:1, showing enrollment status and progress in the support chat in real-time.", "tags": ["Channel.io API", "LMS Integration", "Real-time Support", "Context Sharing"] },
+      { "title": "Bulk SMS / LMS Delivery", "desc": "Send long (LMS), short (SMS), and MMS messages in bulk through KISA-certified SMS gateways.", "tags": ["SMS/LMS/MMS", "Bulk Delivery", "Opt-out Processing", "080 Free Number"] },
+      { "title": "Automated Learning Reminders", "desc": "Set conditions based on progress thresholds, remaining enrollment period, and inactive days to auto-send encouragement messages.", "tags": ["Condition-based", "Progress Integration", "Scheduling", "Templates"] },
+      { "title": "CRM Segment Integration", "desc": "Dynamically build segments based on LMS learner attributes and send targeted messages per segment.", "tags": ["Dynamic Segments", "Attribute Targeting", "REST API", "External CRM"] },
+      { "title": "Delivery Stats & Analytics", "desc": "Dashboard showing delivery count, reach rate, open rate, and URL click rate by channel.", "tags": ["Delivery Stats", "Open Rate Tracking", "URL Click Analysis", "ROI Measurement"] },
+      { "title": "Event-based Automation", "desc": "Set up message delivery scenarios triggered by LMS events like enrollment, first login, and course completion.", "tags": ["Event Triggers", "Multi-step Flow", "No-code Setup", "LMS Webhook"] },
+      { "title": "KakaoTalk Alerts", "desc": "Send KakaoTalk notification and friend messages via Kakao Business API. Save up to 70% compared to SMS.", "tags": ["KakaoTalk Alerts", "Friend Messages", "Business API", "Rich Messages"] },
+      { "title": "Privacy & Consent Management", "desc": "Collect and store opt-in consent per telecommunications law. Immediately exclude opt-out requests from delivery.", "tags": ["Consent Management", "Privacy Law", "Opt-out", "Audit Logs"] },
+      { "title": "Push & Email Integration", "desc": "Send mobile app push notifications and HTML emails within the same automation scenario alongside SMS and Channel Talk.", "tags": ["Push Notifications", "FCM/APNS", "Email Delivery", "Fallback Policy"] }
+    ],
+    "midCTA": { "heading": "Wondering about the right messaging automation for your organization?", "description": "We'll propose a learner communication automation plan for free." },
+    "useCasesSection": { "sub": "USE CASES", "title": "Use It In\nThese Scenarios", "desc": "Enhance learner experience with automated communication at every stage of the learning journey." },
+    "useCases": [
+      { "title": "Enrollment Notification", "desc": "Automatically send SMS with LMS access URL, ID/PW, and schedule when a new learner registers." },
+      { "title": "Learning Reminders", "desc": "Auto-identify learners with below-threshold progress or 3+ days inactive and send encouragement messages." },
+      { "title": "Completion Congratulations", "desc": "Automatically send congratulations message and certificate download link upon course completion." },
+      { "title": "Real-time Chat Support", "desc": "View learner enrollment status in real-time on the Channel Talk support screen." },
+      { "title": "Bulk Announcements", "desc": "Send important notices to all learners or specific groups via SMS/KakaoTalk." },
+      { "title": "Satisfaction Survey", "desc": "Automatically send satisfaction survey link via SMS after course completion." },
+      { "title": "Mandatory Training Management", "desc": "Auto-extract mandatory training targets and send step-by-step reminder SMS to non-completers." },
+      { "title": "Certificate Expiry Notice", "desc": "Auto-send renewal reminder SMS based on certificate expiration dates." },
+      { "title": "Pre-class Reminder", "desc": "Automatically send access links and preparation details before scheduled events." }
+    ],
+    "faqs": [
+      { "q": "Can Channel Talk and SMS be used simultaneously?", "a": "Yes, you can use Channel Talk for real-time support and SMS/KakaoTalk for automated delivery simultaneously." },
+      { "q": "How is SMS pricing structured?", "a": "Per-message billing: Short SMS ~15 KRW, Long LMS ~40 KRW, KakaoTalk Alert ~8 KRW. Volume discounts available." },
+      { "q": "What conditions trigger automated learning reminders?", "a": "Various conditions like progress threshold, inactive days, and remaining enrollment period can be set via no-code interface." },
+      { "q": "How is opt-out processed?", "a": "080 free opt-out number included by default. Opt-out requests immediately remove the recipient from future deliveries." },
+      { "q": "Can it integrate with my existing LMS?", "a": "Webheads LMS integrates instantly. Third-party LMS can also integrate via REST API/Webhook in 1-2 weeks." }
+    ],
+    "testimonials": [
+      { "name": "S. Baek", "role": "Education Operations Manager", "org": "J Vocational Training", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "Setting up auto-SMS for non-completers noticeably increased our completion rates." },
+      { "name": "N. Kwon", "role": "CS Team Lead", "org": "K Cyber University", "rating": 5, "date": "2025.01", "period": "8th year", "content": "After Channel Talk integration, our agents can see learner enrollment status instantly. Support time was cut by more than half." },
+      { "name": "J. Yoo", "role": "Marketing Lead", "org": "L e-Learning Company", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "Switching to KakaoTalk alerts significantly reduced messaging costs, and click-through rates are much higher than SMS." }
+    ]
+  },
+  "pg": {
+    "seo": { "title": "PG Payment Integration", "description": "Optimized payment integration for e-learning platforms with Toss Payments, KG Inicis, Mobilians, PayTeacher, and global PGs.", "keywords": "PG payment, e-learning payment, Toss Payments, KG Inicis, online payment integration" },
+    "hero": { "badge": "PG", "title": "Seamless Integration with", "titleHighlight": "Domestic & Global PGs", "desc": "From Toss Payments and KG Inicis to Stripe and PayPal. Integrate all payment methods needed for your e-learning platform.", "cta1": "Request Consultation", "cta2": "View PG Partners" },
+    "stats": [
+      { "value": "8+", "label": "Integrated PGs", "sub": "Major domestic & global" },
+      { "value": "16+", "label": "Payment Methods", "sub": "Diverse options" },
+      { "value": "140+", "label": "Supported Countries", "sub": "Global payments" },
+      { "value": "99.9%", "label": "Payment Reliability", "sub": "Stable processing" }
+    ],
+    "paymentMethodsSection": { "sub": "PAYMENT METHODS", "title": "Unified Domestic +\nGlobal Payment Support" },
+    "paymentMethods": ["Credit Card (All Korean banks)", "Debit Card", "Real-time Bank Transfer", "Virtual Account", "Mobile Payment", "KakaoPay", "NaverPay", "TossPay", "Apple Pay", "Google Pay", "Visa / Mastercard", "Amex / JCB / UnionPay", "WeChat Pay", "Alipay", "PayPal", "Escrow Payment"],
+    "featuresSection": { "sub": "KEY FEATURES", "title": "Payment Infrastructure\nOptimized for e-Learning" },
+    "features": [
+      { "title": "Toss Payments Integration", "desc": "Integrate all major domestic payment methods including credit cards, bank transfers, virtual accounts, and mobile payments via Toss Payments REST API v2.", "tags": ["REST API v2", "Payment Widget", "PCI-DSS", "Quick Pay"] },
+      { "title": "KG Inicis Integration", "desc": "Korea's #1 PG provider integration supporting all payment methods.", "tags": ["Credit Card", "Billing/Subscription", "Escrow", "Partial Refund"] },
+      { "title": "Mobilians Integration", "desc": "Integrate carrier billing via Korea's leading mobile payment PG.", "tags": ["Mobile Payment", "Carrier Billing", "SKT/KT/LGU+", "Subscription"] },
+      { "title": "PayTeacher Integration", "desc": "Education-specialized PG solution with tuition installments and parent proxy payments.", "tags": ["Education-specialized", "Installments", "Proxy Payment", "Enrollment Sync"] },
+      { "title": "Global PG Integration", "desc": "Multi-currency payments with Stripe, PayPal, Adyen, and other global PGs.", "tags": ["Stripe", "PayPal", "Multi-currency", "International Cards"] },
+      { "title": "Subscription Automation", "desc": "Auto-bill monthly or annual subscriptions linked to LMS member accounts.", "tags": ["Auto Billing", "Subscription Mgmt", "Retry Logic", "Self-service"] },
+      { "title": "Payment Stats & Settlement Reports", "desc": "Real-time dashboard for daily/monthly payments, revenue trends, refund rates, and PG fee analysis.", "tags": ["Real-time Dashboard", "Settlement Reports", "Tax Invoices", "Fee Analysis"] },
+      { "title": "Security & Privacy", "desc": "Tokenization for card data with zero server storage. TLS 1.3 encryption.", "tags": ["Tokenization", "TLS 1.3", "ISMS-P", "FSS Certified"] },
+      { "title": "Payment Error Monitoring & CS", "desc": "Real-time success/failure monitoring, fraud detection (FDS) alerts, and automated CS support.", "tags": ["FDS", "Real-time Monitoring", "Auto CS", "Refund Mgmt"] }
+    ],
+    "midCTA": { "heading": "Wondering about the right payment integration for your platform?", "description": "We'll propose an optimized PG integration plan for your business model — free of charge." },
+    "partnersSection": { "sub": "PG PARTNERS", "title": "Integrated Domestic &\nGlobal PG Partners", "desc": "We select and integrate the optimal PG provider for your business model." },
+    "pgPartners": [
+      { "name": "Toss Payments", "category": "Domestic PG", "desc": "Unified credit card & quick pay" },
+      { "name": "KG Inicis", "category": "Domestic PG", "desc": "Korea's #1 payment infrastructure" },
+      { "name": "Mobilians", "category": "Mobile Payment", "desc": "Carrier billing specialist" },
+      { "name": "PayTeacher", "category": "Education PG", "desc": "Education installment & auto-transfer" },
+      { "name": "Stripe", "category": "Global PG", "desc": "Global payments in 140+ countries" },
+      { "name": "PayPal", "category": "Global PG", "desc": "Trusted international payments" },
+      { "name": "Adyen", "category": "Global PG", "desc": "Enterprise global payments" },
+      { "name": "WeChat Pay / Alipay", "category": "China Payments", "desc": "Chinese user payment support" }
+    ],
+    "faqs": [
+      { "q": "How long does PG integration take?", "a": "Average 1-2 weeks per PG provider. LMS integration may add about 1 week." },
+      { "q": "Can multiple PGs be used simultaneously?", "a": "Yes, domestic and global PGs can be integrated simultaneously with automatic routing per payment method." },
+      { "q": "How are subscriptions configured?", "a": "Set up subscription products in the admin panel with auto-retry on failure and card expiry pre-notifications." },
+      { "q": "How is exchange rate applied for international payments?", "a": "Real-time exchange rates are automatically applied via global PGs like Stripe. Multi-currency settlement reports included." },
+      { "q": "How is payment security ensured?", "a": "Multi-layer security with PCI-DSS certification, card tokenization, TLS 1.3 encryption, and FDS (fraud detection)." }
+    ],
+    "testimonials": [
+      { "name": "H. Jang", "role": "Dev Team Lead", "org": "S e-Learning Company", "rating": 5, "date": "2024.09", "period": "6th year", "content": "Toss Payments integration took less than a week. They even set up subscription automation, eliminating our monthly manual work." },
+      { "name": "S. Moon", "role": "Finance Manager", "org": "T Cyber University", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Auto-generated settlement reports mean no more Excel work for tax invoices and VAT filing." },
+      { "name": "D. Shin", "role": "Business Director", "org": "U Global Education", "rating": 4, "date": "2024.11", "period": "4th year", "content": "International students had trouble paying until we added Stripe. Global revenue has noticeably increased." }
+    ]
+  },
+  "content": {
+    "seo": { "title": "Content Development", "description": "Professional production of video lectures, interactive content, 2D/3D animation, gamification, and more for e-learning.", "keywords": "e-learning content, video lectures, interactive content, gamification, mandatory training" },
+    "hero": { "badge": "Content", "title": "Whatever the Training Need,", "titleHighlight": "We Create the Perfect Content", "desc": "Video, interactive, gamification, animation — our experts design and produce content matched to your learning objectives.", "cta1": "Request Consultation", "cta2": "View Content Types" },
+    "stats": [
+      { "value": "500+", "label": "Courses Produced", "sub": "Proven track record" },
+      { "value": "4K", "label": "Recording Resolution", "sub": "Broadcast quality" },
+      { "value": "9+", "label": "Content Types", "sub": "Optimal format per purpose" },
+      { "value": "3-step", "label": "Quality Review", "sub": "Design · Media · Tech" }
+    ],
+    "featuresSection": { "sub": "CAPABILITIES", "title": "We Handle Every Step\nof Content Production" },
+    "features": [
+      { "title": "Video Lecture Production", "desc": "Professional studio multi-cam recording, screen capture, slide-based production and more.", "tags": ["4K Recording", "Multi-cam", "Screen Capture", "Pro Editing"] },
+      { "title": "Interactive Content", "desc": "Branching scenarios, quizzes, and simulations using H5P, Adobe Captivate, and Articulate Storyline.", "tags": ["H5P", "Storyline", "Captivate", "Simulation"] },
+      { "title": "2D / 3D Animation", "desc": "Visualize complex concepts intuitively with 2D motion graphics and 3D animation.", "tags": ["After Effects", "Blender", "Motion Graphics", "3D Visualization"] },
+      { "title": "Gamification Content", "desc": "Embed points, badges, leaderboards, and missions into content to drive continuous learner engagement.", "tags": ["Points & Badges", "Leaderboard", "Scenario Learning", "Immersive"] },
+      { "title": "Responsive Multi-device", "desc": "HTML5-based auto-optimized layouts for all devices.", "tags": ["HTML5", "Responsive", "iOS·Android", "Offline Play"] },
+      { "title": "Mandatory Training Content", "desc": "5 types of legally mandatory training, regularly updated with latest amendments.", "tags": ["5 Mandatory Trainings", "Latest Laws", "Regular Updates", "Annual License"] },
+      { "title": "AI Voice & Pro Narration", "desc": "Both AI text-to-speech (TTS) and professional voice actor recording services.", "tags": ["AI TTS", "Pro Voice Actors", "Multi-language", "SRT Subtitles"] },
+      { "title": "Custom Corporate Design", "desc": "Apply corporate CI/BI to lecture templates for brand consistency.", "tags": ["CI/BI Branding", "Custom Templates", "Branding", "Bulk Production"] },
+      { "title": "Quality Review & Accessibility", "desc": "3-step quality review by instructional design experts, WCAG 2.1 AA compliant.", "tags": ["3-step Review", "WCAG 2.1", "Accessibility", "Instructional Design"] }
+    ],
+    "midCTA": { "heading": "Not sure what content type you need?", "description": "We'll recommend the optimal content format for your training objectives — free of charge.", "ctaText": "Request Consultation" },
+    "contentTypesSection": { "sub": "CONTENT TYPES", "title": "Custom Production\nfor Any Field", "desc": "From corporate training to mandatory education, medical, finance, and university courses — we have 500+ production references." },
+    "contentTypes": [
+      { "label": "Corporate Job Training", "desc": "Customized content from beginner to advanced skill development" },
+      { "label": "Mandatory Training", "desc": "Harassment, safety, privacy, and other legally required training" },
+      { "label": "Medical & Health Education", "desc": "Clinical simulations, patient safety, infection prevention" },
+      { "label": "University & HRD", "desc": "Credit-bearing, competency-based university e-learning courses" },
+      { "label": "Gamification Learning", "desc": "Immersive scenario and mission-based learning experiences" },
+      { "label": "Language Education", "desc": "English, Chinese, Japanese, and other multilingual course production" },
+      { "label": "Leadership & Culture", "desc": "Change management, communication, leadership development content" },
+      { "label": "Finance & Insurance", "desc": "Compliance, ethics, and product training content" }
+    ],
+    "faqs": [
+      { "q": "How long does content production take?", "a": "Simple recording/editing: 2-3 weeks. Interactive/animation content: 4-6 weeks. Bulk production can be parallelized for faster delivery." },
+      { "q": "Can content be made from existing PPT materials?", "a": "Yes, existing PPT materials can be converted into slide-based lectures, screen recording lectures, or interactive content." },
+      { "q": "Is mandatory training content updated with law changes?", "a": "With an annual license, content updates for law amendments are provided at no additional cost, reflected within 30 days." },
+      { "q": "AI voice or professional voice actor — which is better?", "a": "AI TTS for bulk production/fast delivery; professional voice actors for high quality/emotional delivery. Mixing both is also possible." },
+      { "q": "Is WCAG accessibility compliance required?", "a": "Legally required for public institutions and universities. Recommended for private companies for disabled learner support. We comply with WCAG 2.1 AA by default." }
+    ],
+    "testimonials": [
+      { "name": "M. Song", "role": "HRD Manager", "org": "P Enterprise", "rating": 4, "date": "2024.10", "period": "4th year", "content": "The video quality is clearly different. Employees keep asking if these are external training videos." },
+      { "name": "J. Yoon", "role": "Instructional Designer", "org": "Q Public Education", "rating": 5, "date": "2024.12", "period": "7th year", "content": "After adding interactive content, learner engagement changed dramatically. Branching scenarios are especially effective." },
+      { "name": "D. Kang", "role": "Education Team", "org": "R Medical Institution", "rating": 3, "date": "2025.02", "period": "2nd year", "content": "Medical procedures are hard to explain in text, but 3D animation makes them much easier to understand." }
+    ]
+  },
   "landing": {
     "seo": { "title": "Webheads Services", "description": "Everything for e-Learning with Webheads. Hosting, AI chatbot, app development, DRM, PG payment, and content creation — all in one place.", "keywords": "e-learning, LMS, Webheads, hosting, AI chatbot, app development, DRM, PG payment, content creation, maintenance" },
     "hero": { "sub": "Webheads Services", "title1": "Everything for e-Learning", "title2": "All in One Place", "desc": "From hosting to AI chatbots, app development, DRM, and payment integration.\nAll the services you need for e-learning, in one place.", "cta1": "Explore Services", "cta2": "Free Consultation" },
