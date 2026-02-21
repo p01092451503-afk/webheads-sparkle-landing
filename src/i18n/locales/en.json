@@ -509,7 +509,7 @@
     ],
     "partnersTitle": "Trusted By",
     "partners": ["Yanadu", "Wolgeupjaengi", "Korea Energy Foundation", "Transcosmos", "KAPAAS", "MOHW", "Incheon Airport", "KAIST"],
-    "deviceSection": { "sub": "Responsive Design", "title": "User-Friendly for\nLearners and Admins", "desc": "Optimized responsive design across all devices — PC, tablet, and mobile.", "pc": "Rich admin dashboard and management features on desktop.", "tablet": "Touch-optimized interface for comfortable tablet learning.", "mobile": "Native-like mobile experience for learning anytime, anywhere." },
+    "deviceSection": { "sub": "Responsive Design", "title": "User-Friendly for\nLearners and Admins", "desc": "Optimized responsive design across all devices — PC, tablet, and mobile.", "pc": "Multi-panel dashboards, batch student management, and statistical reports are efficiently laid out on large screens to maximize admin productivity.", "tablet": "A UI optimized for 10–12\" touch displays provides immersive learning through gesture-based interactions — from video lectures to quizzes and note-taking.", "mobile": "Native-level responsiveness with offline caching lets you continue learning seamlessly on the subway or at a café, with push notifications for study reminders." },
     "solutionsSection": { "sub": "Solutions", "title": "Choose the Right\nDeployment for You", "desc": "Cloud (AI) or On-premise (NEO) — pick the LMS that fits your business." },
     "cloud": { "name": "Webheads AI", "subtitle": "Cloud · Launch in just 3 days", "desc": "A cloud-based LMS with flexible pricing plans that lets you launch your education site quickly.", "cta": "Inquire about AI" },
     "cloudFeatures": [
