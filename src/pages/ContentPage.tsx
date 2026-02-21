@@ -1,7 +1,14 @@
 import ContactSection from "@/components/ContactSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import ContentHeroVisual from "@/components/visuals/ContentHeroVisual";
 import { Film, PenTool, Layers, Monitor, Users, Mic, Palette, ClipboardCheck, Gamepad2, BookOpen, Building2, Stethoscope, GraduationCap, Globe } from "lucide-react";
+
+const testimonials = [
+  { name: "송민아", role: "HRD 매니저", org: "J 대기업", content: "4K 영상 품질이 방송 수준이라 임직원들의 학습 몰입도가 확연히 달라졌습니다. 기업 CI 반영도 깔끔하게 해주셔서 브랜딩 일관성이 유지됩니다." },
+  { name: "윤재혁", role: "교수설계자", org: "K 평생교육원", content: "인터랙티브 콘텐츠 도입 후 학습자 참여도가 35% 이상 향상되었습니다. 시나리오 기반 분기형 학습이 특히 효과적이었습니다." },
+  { name: "강다은", role: "교육팀", org: "L 의료기관", content: "3D 애니메이션으로 복잡한 의료 절차를 시각화하니 교육 효과가 극대화되었습니다. 3단계 품질 검수도 꼼꼼하게 진행됩니다." },
+];
 
 const features = [
   { icon: Film, title: "동영상 강의 제작", desc: "전문 스튜디오 멀티캠 촬영, 화면 녹화(캡처), 교안 기반 슬라이드 제작 등 다양한 촬영 방식을 지원합니다. 4K 해상도 촬영과 전문 조명·음향 장비로 방송 수준의 강의 영상을 제공합니다.", tags: ["4K 촬영", "멀티캠", "화면 녹화", "전문 편집"] },
@@ -139,6 +146,7 @@ export default function ContentPage() {
         </div>
       </section>
 
+      <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
   );

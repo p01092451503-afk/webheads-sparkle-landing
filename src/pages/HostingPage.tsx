@@ -1,7 +1,14 @@
 import ContactSection from "@/components/ContactSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import HostingHeroVisual from "@/components/visuals/HostingHeroVisual";
 import { Server, Zap, Shield, BarChart3, Globe, Clock } from "lucide-react";
+
+const testimonials = [
+  { name: "김태호", role: "IT 인프라 팀장", org: "A 평생교육원", content: "학기 초 동시접속 3,000명이 몰려도 버퍼링 없이 안정적으로 운영됩니다. Auto Scaling 덕분에 서버 증설 걱정이 사라졌어요." },
+  { name: "이수연", role: "운영 매니저", org: "B 직업훈련기관", content: "이전 호스팅에서는 잦은 다운타임으로 학습자 민원이 많았는데, 웹헤즈로 이전한 후 99.9% 가동률을 유지하고 있습니다." },
+  { name: "박정민", role: "대표", org: "C 온라인 학원", content: "CDN 적용 후 해외 학습자들의 영상 로딩 속도가 체감될 정도로 빨라졌습니다. 전담 엔지니어의 빠른 대응도 매우 만족스럽습니다." },
+];
 
 const features = [
   {
@@ -314,6 +321,7 @@ export default function HostingPage() {
         </div>
       </section>
 
+      <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
   );

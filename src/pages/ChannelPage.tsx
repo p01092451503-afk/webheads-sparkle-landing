@@ -1,7 +1,14 @@
 import ContactSection from "@/components/ContactSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import ChannelHeroVisual from "@/components/visuals/ChannelHeroVisual";
 import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2 } from "lucide-react";
+
+const testimonials = [
+  { name: "백승환", role: "교육운영 매니저", org: "P 직업훈련기관", content: "학습 독려 SMS 자동 발송 후 미이수자 비율이 40% 이상 감소했습니다. 조건별 발송 설정이 직관적이라 운영이 편리합니다." },
+  { name: "권나영", role: "CS팀 리더", org: "Q 사이버대학교", content: "채널톡 연동 후 상담사가 학습자 수강 현황을 바로 확인하면서 응대할 수 있어 상담 시간이 절반으로 줄었습니다." },
+  { name: "유지호", role: "마케팅 팀장", org: "R 에듀테크", content: "카카오 알림톡으로 수강 안내를 보내니 SMS 대비 비용이 70% 절감되었고, 리치 메시지 덕분에 클릭률도 크게 올라갔습니다." },
+];
 
 const features = [
   { icon: MessageCircle, title: "채널톡 LMS 연동", desc: "채널톡(Channel.io) Open API를 활용하여 LMS 학습자 계정과 1:1 매핑, 수강 현황·진도율 등 학습 컨텍스트를 상담 화면에 실시간으로 노출합니다. 상담사가 별도 시스템 전환 없이 학습 데이터를 즉시 확인하며 신속하게 응대합니다.", tags: ["Channel.io API", "LMS 연동", "실시간 상담", "컨텍스트 공유"] },
@@ -141,6 +148,7 @@ export default function ChannelPage() {
         </div>
       </section>
 
+      <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
   );

@@ -1,7 +1,14 @@
 import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import PgHeroVisual from "@/components/visuals/PgHeroVisual";
+
+const testimonials = [
+  { name: "장현석", role: "개발 팀장", org: "S 이러닝 기업", content: "토스페이먼츠 연동을 일주일 만에 완료했고, 정기결제 자동화까지 한 번에 세팅되어 운영 부담이 크게 줄었습니다." },
+  { name: "문서영", role: "재무 담당", org: "T 평생교육원", content: "정산 리포트가 자동으로 생성되니 매월 세금계산서 발행과 부가세 신고가 한결 수월해졌습니다. 수수료 분석도 유용합니다." },
+  { name: "신동욱", role: "사업부장", org: "U 글로벌 교육기관", content: "Stripe 연동으로 해외 수강생 결제가 가능해지면서 글로벌 매출이 2배 이상 성장했습니다. 다국통화 지원이 핵심이었습니다." },
+];
 
 const features = [
   { icon: CreditCard, title: "토스페이먼츠(Toss Payments) 연동", desc: "토스페이먼츠 REST API v2를 통해 신용카드, 계좌이체, 가상계좌, 휴대폰 결제, 토스페이, 네이버페이, 카카오페이 등 국내 주요 결제 수단을 일원화된 인터페이스로 연동합니다. 결제 위젯(SDK) 방식으로 빠른 화면 구현이 가능하며 PCI-DSS 인증 보안 환경을 기본 제공합니다.", tags: ["REST API v2", "결제 위젯", "PCI-DSS", "간편결제"] },
@@ -166,6 +173,7 @@ export default function PgPage() {
         </div>
       </section>
 
+      <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
   );

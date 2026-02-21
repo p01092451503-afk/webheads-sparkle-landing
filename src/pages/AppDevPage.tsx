@@ -1,7 +1,14 @@
 import ContactSection from "@/components/ContactSection";
+import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import AppDevHeroVisual from "@/components/visuals/AppDevHeroVisual";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2 } from "lucide-react";
+
+const testimonials = [
+  { name: "고민수", role: "모바일 사업팀", org: "V 사이버대학교", content: "iOS·Android 앱을 동시에 출시했는데, LMS와의 실시간 동기화가 완벽하게 이루어져서 웹과 앱 간 학습 경험 차이가 전혀 없습니다." },
+  { name: "남지윤", role: "교육기획 팀장", org: "W 기업교육센터", content: "Push 알림으로 학습 독려를 보내니 앱 재방문율이 60% 이상 올라갔습니다. 오프라인 학습 지원도 출장이 잦은 임직원들에게 호평입니다." },
+  { name: "황도윤", role: "대표", org: "X 스타트업", content: "MVP를 4주 만에 출시할 수 있었고, 이후 기능 확장도 유연하게 진행되었습니다. 앱스토어 심사 대응까지 원스톱으로 처리해주셔서 편했습니다." },
+];
 
 const lmsFeatures = [
   { icon: Tablet, title: "웹헤즈 LMS 완벽 연동", desc: "웹헤즈 이러닝 솔루션과 REST API·WebSocket으로 실시간 양방향 연동합니다. 수강 현황, 학습 이력, 성적, 출석 데이터를 밀리초 단위로 동기화하여 웹과 앱 간 완전히 일관된 학습 경험을 제공합니다.", tags: ["REST API", "WebSocket", "실시간 동기화"] },
@@ -164,6 +171,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
   );
