@@ -543,11 +543,11 @@
     ],
     "processSection": { "sub": "Process", "heading": "One-Stop Consulting\nfrom Planning to Launch", "desc": "We design solutions tailored to your business and learning goals through thorough consultation." },
     "processSteps": [
-      { "title": "Planning", "desc": "Design solution direction tailored to your business and learning goals through thorough consultation.", "tag": "Analysis" },
-      { "title": "Design", "desc": "Custom screen design and responsive layouts optimized for all devices.", "tag": "UI·UX" },
-      { "title": "Development", "desc": "Systematic step-by-step development delivering fast, high-quality technology.", "tag": "Build" },
-      { "title": "QA", "desc": "Thorough pre-launch testing ensures a stable service launch.", "tag": "Testing" },
-      { "title": "Maintenance", "desc": "Continuous system support and rapid user assistance after launch.", "tag": "Ongoing" }
+      { "title": "Planning", "desc": "Diagnose your current education system, deeply analyze requirements including learner volume, course types, and security needs, then determine the optimal solution (Cloud AI or On-premise NEO) and build a strategic roadmap.", "tag": "Analysis" },
+      { "title": "Design", "desc": "Create custom UI mockups reflecting your brand identity, and engineer responsive layouts with polished interactions that deliver a consistent experience across PC, tablet, and mobile.", "tag": "UI·UX" },
+      { "title": "Development", "desc": "Run agile 2-week sprints to build core LMS modules, integrate external APIs (PG, DRM, Channel Talk), design databases, and perform performance optimization — all executed systematically.", "tag": "Build" },
+      { "title": "QA", "desc": "A rigorous 4-phase QA process covering functional testing, cross-browser compatibility, load testing (concurrent user simulation), and security vulnerability scans to ensure stability before launch.", "tag": "Testing" },
+      { "title": "Maintenance", "desc": "Post-launch 24/7/365 real-time server monitoring, instant incident response (avg. recovery under 30 min), monthly performance reports, and continuous feature updates and security patches.", "tag": "Ongoing" }
     ],
     "faqs": [
       { "q": "What's the difference between Cloud (AI) and On-premise (NEO)?", "a": "Cloud (AI) offers quick launch (3 days) with flexible pricing. On-premise (NEO) provides strong security, ERP/CRM integration, and full customization. Choose based on your scale and security requirements." },
