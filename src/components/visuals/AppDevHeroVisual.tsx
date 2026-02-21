@@ -1,3 +1,27 @@
+import { useEffect, useState } from "react";
+
+function AnimatedNumber({ target, duration = 1800, suffix = "", pause = 2000 }: { target: number; duration?: number; suffix?: string; pause?: number }) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    const run = () => {
+      const start = performance.now();
+      const animate = (now: number) => {
+        if (cancelled) return;
+        const elapsed = now - start;
+        const p = Math.min(elapsed / duration, 1);
+        setValue(Math.round((1 - Math.pow(1 - p, 3)) * target));
+        if (p < 1) requestAnimationFrame(animate);
+        else setTimeout(() => { if (!cancelled) { setValue(0); setTimeout(() => { if (!cancelled) run(); }, 300); } }, pause);
+      };
+      requestAnimationFrame(animate);
+    };
+    run();
+    return () => { cancelled = true; };
+  }, [target, duration, pause]);
+  return <span>{value}</span>;
+}
+
 export default function AppDevHeroVisual() {
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none">
@@ -8,7 +32,7 @@ export default function AppDevHeroVisual() {
         @keyframes app-float-d { 0%,100%{transform:translateY(0px) rotate(-5deg);} 50%{transform:translateY(-9px) rotate(-5deg);} }
         @keyframes app-float-e { 0%,100%{transform:translateY(0px) rotate(12deg);} 50%{transform:translateY(-15px) rotate(12deg);} }
         @keyframes app-pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
-        @keyframes app-bar { 0%{width:20%;} 50%{width:75%;} 100%{width:20%;} }
+        @keyframes app-progress { 0%{width:0%} 40%{width:100%} 80%{width:100%} 85%{width:0%} 100%{width:0%} }
       `}</style>
 
       <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
@@ -17,15 +41,12 @@ export default function AppDevHeroVisual() {
         <div style={{
           position: "absolute", left: "50%", top: "50%",
           transform: "translate(-50%, -48%) rotateX(8deg) rotateY(-16deg) rotateZ(3deg)",
-          width: 150, height: 280,
-          borderRadius: 28,
+          width: 150, height: 280, borderRadius: 28,
           background: "linear-gradient(160deg, hsl(245,20%,96%) 0%, hsl(245,15%,88%) 100%)",
           boxShadow: "0 32px 70px rgba(80,50,200,0.32), 0 4px 16px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.9)",
           overflow: "hidden",
         }}>
-          {/* notch */}
           <div style={{ width: 56, height: 12, background: "hsl(245,15%,82%)", borderRadius: "0 0 12px 12px", margin: "0 auto" }} />
-          {/* screen */}
           <div style={{ margin: "8px 10px 0", borderRadius: 16, overflow: "hidden", background: "linear-gradient(145deg, hsl(245,80%,18%), hsl(245,90%,12%))", height: 220 }}>
             {/* App header */}
             <div style={{ padding: "10px 12px 6px", display: "flex", alignItems: "center", gap: 6 }}>
@@ -41,17 +62,17 @@ export default function AppDevHeroVisual() {
             {/* progress card */}
             <div style={{ margin: "4px 8px", background: "rgba(255,255,255,0.07)", borderRadius: 10, padding: "8px 10px" }}>
               <div style={{ fontSize: 7, color: "rgba(255,255,255,0.5)", marginBottom: 4 }}>이번 주 학습 진도</div>
-              <div style={{ fontSize: 16, color: "#fff", fontWeight: 800, lineHeight: 1 }}>68%</div>
-              <div style={{ marginTop: 6, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.1)" }}>
-                <div style={{ width: "68%", height: "100%", borderRadius: 2, background: "linear-gradient(90deg, hsl(245,80%,65%), hsl(280,70%,65%))" }} />
+              <div style={{ fontSize: 16, color: "#fff", fontWeight: 800, lineHeight: 1 }}><AnimatedNumber target={68} suffix="%" /></div>
+              <div style={{ marginTop: 6, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
+                <div style={{ height: "100%", borderRadius: 2, background: "linear-gradient(90deg, hsl(245,80%,65%), hsl(280,70%,65%))", animation: "app-progress 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite" }} />
               </div>
             </div>
             {/* course list */}
-            {[["React 기초", "92%", "#818cf8"], ["알고리즘", "45%", "#60a5fa"], ["디자인", "71%", "#f472b6"]].map(([name, pct, color], i) => (
+            {[["React 기초", 92, "#818cf8"], ["알고리즘", 45, "#60a5fa"], ["디자인", 71, "#f472b6"]].map(([name, pct, color], i) => (
               <div key={i} style={{ margin: "4px 8px", display: "flex", alignItems: "center", gap: 6 }}>
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: color }} />
+                <div style={{ width: 6, height: 6, borderRadius: "50%", background: color as string }} />
                 <span style={{ fontSize: 7, color: "rgba(255,255,255,0.6)", flex: 1 }}>{name}</span>
-                <span style={{ fontSize: 7, color, fontWeight: 700 }}>{pct}</span>
+                <span style={{ fontSize: 7, color: color as string, fontWeight: 700 }}><AnimatedNumber target={pct as number} suffix="%" duration={1600 + i * 200} /></span>
               </div>
             ))}
             {/* push notification */}
@@ -59,7 +80,7 @@ export default function AppDevHeroVisual() {
               <div style={{ fontSize: 10 }}>🔔</div>
               <div>
                 <div style={{ fontSize: 6.5, color: "#fff", fontWeight: 700 }}>학습 독려 알림</div>
-                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.4)" }}>오늘 목표 달성까지 32%!</div>
+                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.4)" }}>오늘 목표 달성까지 <AnimatedNumber target={32} suffix="%" duration={1400} />!</div>
               </div>
             </div>
             {/* bottom nav */}
@@ -72,7 +93,6 @@ export default function AppDevHeroVisual() {
               ))}
             </div>
           </div>
-          {/* home bar */}
           <div style={{ width: 48, height: 4, background: "hsl(245,15%,70%)", borderRadius: 2, margin: "8px auto 0" }} />
         </div>
 
