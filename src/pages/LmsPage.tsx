@@ -4,6 +4,7 @@ import SEO from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
+import LmsHeroVisual from "@/components/visuals/LmsHeroVisual";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, BarChart3, Brain, Subtitles, MessageSquare,
@@ -56,9 +57,11 @@ export default function LmsPage() {
       >
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(260, 80%, 70%, 0.15) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", right: "-5%", background: "radial-gradient(ellipse 50% 60% at 70% 60%, hsla(200, 80%, 60%, 0.1) 0%, transparent 70%)" }} />
-
-        <div className="container mx-auto px-6 py-24 relative z-10">
-          <div className="max-w-2xl mx-auto text-center lg:text-left lg:mx-0">
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
+          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><LmsHeroVisual /></div>
+        </div>
+        <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
+          <div className="max-w-xl">
             <span
               className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
               style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(260, 70%, 40%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
@@ -73,10 +76,10 @@ export default function LmsPage() {
               <br />
               <span style={{ color: "hsl(260, 80%, 55%)" }}>{t("lms.hero.titleHighlight")}</span>
             </h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-lg" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>
               {t("lms.hero.desc")}
             </p>
-            <div className="flex gap-3 flex-wrap justify-center lg:justify-start">
+            <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>
                 {t("lms.hero.cta1")}
               </a>
