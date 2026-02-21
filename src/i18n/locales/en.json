@@ -556,7 +556,11 @@
     "testimonials": [
       { "name": "Hyunwoo Jung", "role": "Training Team Lead", "org": "Corp A Education Center", "rating": 5, "date": "2024.11", "period": "5th year user", "content": "We started with Cloud and transitioned to On-premise — the migration was seamless. You can feel the 16 years of expertise in their stable service." },
       { "name": "Seoyeon Kim", "role": "Operations Manager", "org": "Corp B Online Education", "rating": 5, "date": "2025.01", "period": "3rd year user", "content": "We launched our site in just 3 days. The AI features significantly reduced our operational burden, especially the auto-subtitle generation." },
-      { "name": "Junhyuk Lee", "role": "CTO", "org": "Corp C EdTech", "rating": 4, "date": "2024.09", "period": "7th year user", "content": "The ERP integration and customization freedom allowed full integration with our systems. 24/7 incident response is reliable." }
+      { "name": "Junhyuk Lee", "role": "CTO", "org": "Corp C EdTech", "rating": 4, "date": "2024.09", "period": "7th year user", "content": "The ERP integration and customization freedom allowed full integration with our systems. 24/7 incident response is reliable." },
+      { "name": "Jimin Park", "role": "Education Ops Lead", "org": "D Cyber University", "rating": 5, "date": "2025.02", "period": "4th year user", "content": "I was amazed the servers stayed stable even during peak enrollment traffic. Student management is intuitive, and professors find it easy to upload content." },
+      { "name": "Minsoo Choi", "role": "CEO", "org": "E Vocational Training", "rating": 5, "date": "2024.12", "period": "9th year user", "content": "Been using it for 9 years and the features keep improving. Since adding the AI chatbot, customer inquiries dropped by half. Best value for money." },
+      { "name": "Soyun Han", "role": "Content Director", "org": "F Online Course Platform", "rating": 4, "date": "2024.10", "period": "2nd year user", "content": "Auto-generated multilingual subtitles cut our overseas launch time significantly. Some specialized terminology still needs manual polishing though." },
+      { "name": "Taeho Yoon", "role": "HR Manager", "org": "G Corp Training Center", "rating": 5, "date": "2025.01", "period": "6th year user", "content": "Employee training completion rate went from 40% to 78%. The mobile app is so well-made that many staff now study during their commute." }
     ]
   }
 }
