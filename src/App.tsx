@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
+import ScrollButtons from "./components/ScrollButtons";
 import LandingPage from "./pages/LandingPage";
 import HostingPage from "./pages/HostingPage";
 import ChatbotPage from "./pages/ChatbotPage";
@@ -25,6 +26,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
     <Header />
     <main>{children}</main>
     <Footer />
+    <ScrollButtons />
   </>
 );
 
