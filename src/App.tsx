@@ -36,7 +36,7 @@ const App = () => (
         <ScrollToTop />
         <Layout>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<Navigate to="/hosting" replace />} />
             <Route path="/hosting" element={<HostingPage />} />
             <Route path="/chatbot" element={<ChatbotPage />} />
             <Route path="/app-dev" element={<AppDevPage />} />
