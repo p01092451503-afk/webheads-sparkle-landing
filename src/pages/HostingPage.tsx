@@ -171,66 +171,63 @@ export default function HostingPage() {
           }}
         />
 
-        {/* 비주얼 — 전체 배경으로 깔리면서 텍스트와 어우러짐 */}
-        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
-          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(12%)" }}>
+        {/* 비주얼 — 중앙에서 텍스트 뒤로 깔림 */}
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.7 }}>
+          <div className="relative hidden lg:flex items-center justify-center" style={{ width: 560, height: 560 }}>
             <HostingHeroVisual />
           </div>
         </div>
 
-
-        <div className="container mx-auto px-6 py-24 relative z-10 flex justify-center">
-          <div className="max-w-xl" style={{ marginLeft: "8%" }}>
-            <span
-              className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+        <div className="container mx-auto px-6 py-24 relative z-10 flex flex-col items-center text-center">
+          <span
+            className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+            style={{
+              background: "hsla(0, 0%, 100%, 0.85)",
+              backdropFilter: "blur(8px)",
+              color: "hsl(214, 80%, 42%)",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+            }}
+          >
+            이러닝 호스팅
+          </span>
+          <h1
+            className="text-4xl lg:text-[3.5rem] font-black leading-tight mb-5 tracking-tight"
+            style={{ color: "hsl(220, 60%, 8%)" }}
+          >
+            이러닝에 최적화된
+            <br />
+            <span style={{ color: "hsl(214, 90%, 52%)" }}>클라우드 호스팅</span>
+          </h1>
+          <p
+            className="text-lg leading-relaxed mb-8 max-w-lg"
+            style={{
+              color: "hsl(220, 20%, 40%)",
+              textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)",
+            }}
+          >
+            CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로
+            학습자에게 끊김 없는 학습 환경을 제공하세요.
+          </p>
+          <div className="flex gap-3 flex-wrap justify-center">
+            <a
+              href="#contact"
+              className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85"
+              style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}
+            >
+              무료 상담 신청
+            </a>
+            <a
+              href="#plans"
+              className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border"
               style={{
-                background: "hsla(0, 0%, 100%, 0.85)",
+                borderColor: "hsl(214, 20%, 85%)",
+                color: "hsl(220, 60%, 8%)",
+                background: "hsla(0, 0%, 100%, 0.8)",
                 backdropFilter: "blur(8px)",
-                color: "hsl(214, 80%, 42%)",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
               }}
             >
-              이러닝 호스팅
-            </span>
-            <h1
-              className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight"
-              style={{ color: "hsl(220, 60%, 8%)" }}
-            >
-              이러닝에 최적화된
-              <br />
-              <span style={{ color: "hsl(214, 90%, 52%)" }}>클라우드 호스팅</span>
-            </h1>
-            <p
-              className="text-lg leading-relaxed mb-8 max-w-md"
-              style={{
-                color: "hsl(220, 20%, 40%)",
-                textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)",
-              }}
-            >
-              CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로
-              학습자에게 끊김 없는 학습 환경을 제공하세요.
-            </p>
-            <div className="flex gap-3 flex-wrap">
-              <a
-                href="#contact"
-                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85"
-                style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}
-              >
-                무료 상담 신청
-              </a>
-              <a
-                href="#plans"
-                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border"
-                style={{
-                  borderColor: "hsl(214, 20%, 85%)",
-                  color: "hsl(220, 60%, 8%)",
-                  background: "hsla(0, 0%, 100%, 0.8)",
-                  backdropFilter: "blur(8px)",
-                }}
-              >
-                요금제 보기
-              </a>
-            </div>
+              요금제 보기
+            </a>
           </div>
         </div>
       </section>
