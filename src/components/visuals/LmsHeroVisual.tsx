@@ -1,3 +1,32 @@
+import { useEffect, useState, useRef } from "react";
+
+function AnimatedNumber({ target, duration = 1800, suffix = "" }: { target: number; duration?: number; suffix?: string }) {
+  const [value, setValue] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started.current) {
+        started.current = true;
+        const start = performance.now();
+        const animate = (now: number) => {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setValue(Math.round(eased * target));
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+      }
+    }, { threshold: 0.3 });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return <div ref={ref} style={{ fontSize: 14, fontWeight: 800, color: "#fff", lineHeight: 1 }}>{value.toLocaleString()}{suffix}</div>;
+}
+
 export default function LmsHeroVisual() {
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none">
@@ -47,8 +76,15 @@ export default function LmsHeroVisual() {
               }}>{i + 1}</div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 9, color: "rgba(255,255,255,0.6)", marginBottom: 3 }}>{course.label}</div>
-                <div style={{ width: "100%", height: 4, borderRadius: 2, background: "rgba(255,255,255,0.08)" }}>
-                  <div style={{ width: `${course.progress}%`, height: "100%", borderRadius: 2, background: course.color }} />
+                <div style={{ width: "100%", height: 4, borderRadius: 2, background: "rgba(255,255,255,0.08)", overflow: "hidden" }}>
+                  <div style={{
+                    width: `${course.progress}%`,
+                    height: "100%",
+                    borderRadius: 2,
+                    background: course.color,
+                    animation: `lms-progress ${1.2 + i * 0.3}s cubic-bezier(0.22, 1, 0.36, 1) forwards`,
+                    transformOrigin: "left",
+                  }} />
                 </div>
               </div>
               <span style={{ fontSize: 10, color: course.color, fontWeight: 700, minWidth: 30, textAlign: "right" }}>{course.progress}%</span>
@@ -57,10 +93,14 @@ export default function LmsHeroVisual() {
 
           {/* Bottom stats */}
           <div style={{ padding: "10px 16px 8px", display: "flex", gap: 12 }}>
-            {[["수강생", "1,240"], ["과정", "56"], ["수료율", "89%"]].map(([k, v]) => (
-              <div key={k} style={{ flex: 1, textAlign: "center" }}>
-                <div style={{ fontSize: 14, fontWeight: 800, color: "#fff", lineHeight: 1 }}>{v}</div>
-                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.35)", marginTop: 2 }}>{k}</div>
+            {[
+              { label: "수강생", value: 1240, suffix: "" },
+              { label: "과정", value: 56, suffix: "" },
+              { label: "수료율", value: 89, suffix: "%" },
+            ].map((stat) => (
+              <div key={stat.label} style={{ flex: 1, textAlign: "center" }}>
+                <AnimatedNumber target={stat.value} suffix={stat.suffix} />
+                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.35)", marginTop: 2 }}>{stat.label}</div>
               </div>
             ))}
           </div>
