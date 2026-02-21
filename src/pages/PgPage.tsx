@@ -5,57 +5,23 @@ import SEO from "@/components/SEO";
 import PgHeroVisual from "@/components/visuals/PgHeroVisual";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
+import { useTranslation } from "react-i18next";
 
-const testimonials = [
-  { name: "장현석", role: "개발 팀장", org: "S 이러닝기업", rating: 5, date: "2024.09", period: "이용 6년차", content: "토스페이먼츠 연동이 일주일도 안 걸렸어요. 정기결제 자동화까지 같이 붙여주셔서 매달 수동으로 하던 작업이 없어졌습니다." },
-  { name: "문서영", role: "재무 담당", org: "T 사이버대학교", rating: 3, date: "2025.01", period: "이용 2년차", content: "정산 리포트가 자동으로 나오니까 세금계산서 발행이나 부가세 신고할 때 엑셀 작업을 안 해도 돼요." },
-  { name: "신동욱", role: "사업부장", org: "U 글로벌교육기관", rating: 4, date: "2024.11", period: "이용 4년차", content: "해외 수강생이 결제하기가 어려웠는데 Stripe 붙이고 나서 글로벌 매출이 눈에 띄게 늘었어요." },
-];
-
-const features = [
-  { icon: CreditCard, title: "토스페이먼츠(Toss Payments) 연동", desc: "토스페이먼츠 REST API v2를 통해 신용카드, 계좌이체, 가상계좌, 휴대폰 결제 등 국내 주요 결제 수단을 통합 연동합니다.", tags: ["REST API v2", "결제 위젯", "PCI-DSS", "간편결제"] },
-  { icon: ShieldCheck, title: "KG이니시스(KG Inicis) 연동", desc: "국내 1위 PG사인 KG이니시스와의 연동으로 전 결제 수단을 지원합니다.", tags: ["신용카드", "빌링/정기결제", "에스크로", "부분 취소"] },
-  { icon: Zap, title: "모빌리언스(Mobilians) 연동", desc: "국내 대표 휴대폰 결제 PG인 모빌리언스를 통해 통신사 소액결제를 연동합니다.", tags: ["휴대폰 소액결제", "통신사 빌링", "SKT/KT/LGU+", "정기결제"] },
-  { icon: Settings, title: "결제선생 연동", desc: "교육기관 특화 PG 솔루션인 결제선생을 연동하여 수강료 분납, 학부모 대리결제 등을 구현합니다.", tags: ["교육기관 특화", "분납 결제", "대리결제", "수강 연동"] },
-  { icon: Globe, title: "해외 결제 (글로벌 PG) 연동", desc: "Stripe, PayPal, Adyen 등 글로벌 PG와 연동하여 다국통화 결제를 지원합니다.", tags: ["Stripe", "PayPal", "다국통화", "해외 카드"] },
-  { icon: RefreshCw, title: "정기결제(구독) 자동화", desc: "수강권 월정액, 연간 구독 등 정기결제 상품을 LMS 회원 계정과 연동하여 자동 과금합니다.", tags: ["자동 과금", "구독 관리", "Retry Logic", "셀프서비스"] },
-  { icon: BarChart3, title: "결제 통계 및 정산 리포트", desc: "일별·월별 결제 현황, 매출 추이, 환불율, PG사별 수수료 분석을 실시간 대시보드로 제공합니다.", tags: ["실시간 대시보드", "정산 리포트", "세금계산서", "수수료 분석"] },
-  { icon: Lock, title: "보안 및 개인정보 보호", desc: "카드 정보를 서버에 저장하지 않는 토큰화(Tokenization) 방식을 적용합니다.", tags: ["토큰화", "TLS 1.3", "ISMS-P", "금감원 인증"] },
-  { icon: Headphones, title: "결제 오류 모니터링 및 CS 지원", desc: "실시간 결제 성공·실패 모니터링, 이상 거래 탐지(FDS) 알림을 제공합니다.", tags: ["FDS", "실시간 모니터링", "자동 CS", "환불 관리"] },
-];
-
-const pgPartners = [
-  { name: "토스페이먼츠", category: "국내 PG", desc: "신용카드·간편결제 통합" },
-  { name: "KG이니시스", category: "국내 PG", desc: "국내 1위 결제 인프라" },
-  { name: "모빌리언스", category: "휴대폰 결제", desc: "통신사 소액결제 전문" },
-  { name: "결제선생", category: "교육 특화 PG", desc: "교육기관 분납·자동이체" },
-  { name: "Stripe", category: "글로벌 PG", desc: "글로벌 140개국 결제" },
-  { name: "PayPal", category: "글로벌 PG", desc: "해외 구매자 신뢰 결제" },
-  { name: "Adyen", category: "글로벌 PG", desc: "엔터프라이즈 글로벌 결제" },
-  { name: "WeChat Pay / Alipay", category: "중화권 결제", desc: "중국 사용자 결제 지원" },
-];
-
-const paymentMethods = ["신용카드 (국내 전 카드사)", "체크카드", "실시간 계좌이체", "가상계좌 (무통장 입금)", "휴대폰 소액결제", "카카오페이", "네이버페이", "토스페이", "Apple Pay", "Google Pay", "해외 Visa / Mastercard", "Amex / JCB / UnionPay", "WeChat Pay", "Alipay", "PayPal", "에스크로 결제"];
-
-const stats = [
-  { value: "8+", label: "연동 PG사", sub: "국내외 주요 PG사" },
-  { value: "16+", label: "결제 수단", sub: "다양한 결제 방법 지원" },
-  { value: "140+", label: "지원 통화국", sub: "글로벌 결제 가능" },
-  { value: "99.9%", label: "결제 안정성", sub: "안정적인 결제 처리" },
-];
-
-const faqs = [
-  { q: "PG 연동에 얼마나 걸리나요?", a: "단일 PG사 기준 평균 1~2주 내에 연동이 완료됩니다. 기존 LMS에 연동하는 경우 추가 1주 정도 소요될 수 있습니다." },
-  { q: "여러 PG사를 동시에 사용할 수 있나요?", a: "네, 국내 PG와 해외 PG를 동시에 연동하여 결제 수단별 최적의 PG사를 자동 라우팅할 수 있습니다." },
-  { q: "정기결제(구독) 설정은 어떻게 하나요?", a: "관리자 페이지에서 정기결제 상품(월정액, 연간 구독)을 설정하고, 결제 실패 시 자동 재시도 정책과 카드 만료 사전 안내를 설정할 수 있습니다." },
-  { q: "해외 결제 시 환율은 어떻게 적용되나요?", a: "Stripe 등 글로벌 PG를 통해 실시간 환율이 자동 적용됩니다. 다국통화 정산 리포트도 제공됩니다." },
-  { q: "결제 보안은 어떻게 보장되나요?", a: "PCI-DSS 인증 환경, 카드 정보 토큰화, TLS 1.3 암호화 전송, FDS(이상거래 탐지) 등 다층 보안을 적용합니다." },
-];
+const featureIcons = [CreditCard, ShieldCheck, Zap, Settings, Globe, RefreshCw, BarChart3, Lock, Headphones];
 
 export default function PgPage() {
+  const { t } = useTranslation();
+
+  const features = (t("pg.features", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || CreditCard }));
+  const pgPartners = t("pg.pgPartners", { returnObjects: true }) as any[];
+  const paymentMethods = t("pg.paymentMethods", { returnObjects: true }) as string[];
+  const stats = t("pg.stats", { returnObjects: true }) as any[];
+  const faqs = t("pg.faqs", { returnObjects: true }) as any[];
+  const testimonials = t("pg.testimonials", { returnObjects: true }) as any[];
+
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="PG 결제 연동" description="토스페이먼츠, KG이니시스, 모빌리언스, 결제선생, 해외 PG까지 이러닝 플랫폼에 최적화된 결제 연동 서비스." keywords="PG 결제, 이러닝 결제, 토스페이먼츠, KG이니시스, 온라인 결제 연동" path="/pg" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 PG 결제 연동", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": "이러닝 플랫폼 PG 결제 연동", "areaServed": "KR", "serviceType": "PG 결제 연동", "url": "https://webheads-sparkle-landing.lovable.app/pg" }} />
+      <SEO title={t("pg.seo.title")} description={t("pg.seo.description")} keywords={t("pg.seo.keywords")} path="/pg" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": "웹헤즈 PG 결제 연동", "provider": { "@type": "Organization", "name": "웹헤즈" }, "description": t("pg.seo.description"), "areaServed": "KR", "serviceType": "PG 결제 연동", "url": "https://webheads-sparkle-landing.lovable.app/pg" }} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}>
@@ -66,12 +32,12 @@ export default function PgPage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(152, 70%, 30%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>PG</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>국내외 다양한 PG사와의<br /><span style={{ color: "hsl(152, 80%, 38%)" }}>완벽한 결제 연동</span></h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>토스페이먼츠, KG이니시스부터 Stripe·PayPal 해외 결제까지. 이러닝 플랫폼에 필요한 모든 결제 수단을 통합 연동합니다.</p>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(152, 70%, 30%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>{t("pg.hero.badge")}</span>
+            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>{t("pg.hero.title")}<br /><span style={{ color: "hsl(152, 80%, 38%)" }}>{t("pg.hero.titleHighlight")}</span></h1>
+            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>{t("pg.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>도입 상담 신청</a>
-              <a href="#partners" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>연동 PG사 보기</a>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>{t("pg.hero.cta1")}</a>
+              <a href="#partners" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>{t("pg.hero.cta2")}</a>
             </div>
           </div>
         </div>
@@ -81,13 +47,7 @@ export default function PgPage() {
       <section className="py-24 bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
-                <span className="block font-black leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span>
-                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
-                <span className="block text-xs text-muted-foreground">{s.sub}</span>
-              </div>
-            ))}
+            {stats.map((s: any) => (<div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center"><span className="block font-black leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span><span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span><span className="block text-xs text-muted-foreground">{s.sub}</span></div>))}
           </div>
         </div>
       </section>
@@ -96,13 +56,11 @@ export default function PgPage() {
       <section className="py-20 bg-secondary border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-10">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">지원 결제 수단</p>
-            <h2 className="font-black text-foreground leading-tight text-3xl lg:text-4xl tracking-tight">국내 + 해외<br />결제 수단 통합 지원</h2>
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.paymentMethodsSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-3xl lg:text-4xl tracking-tight whitespace-pre-line">{t("pg.paymentMethodsSection.title")}</h2>
           </div>
           <div className="flex flex-wrap gap-2.5">
-            {paymentMethods.map((method) => (
-              <span key={method} className="px-4 py-2 rounded-full border border-border bg-background text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors">{method}</span>
-            ))}
+            {paymentMethods.map((method: string) => (<span key={method} className="px-4 py-2 rounded-full border border-border bg-background text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors">{method}</span>))}
           </div>
         </div>
       </section>
@@ -111,48 +69,32 @@ export default function PgPage() {
       <section className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">주요 기능</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">이러닝 비즈니스에<br />최적화된 결제 인프라</h2>
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.featuresSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("pg.featuresSection.title")}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((f) => (
-              <div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div>
-                <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
-                <div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div>
-              </div>
-            ))}
+            {features.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
           </div>
         </div>
       </section>
 
-      <ServiceMidCTA heading="우리 플랫폼에 맞는 결제 연동이 궁금하신가요?" description="비즈니스 모델에 최적화된 PG 연동 방안을 무료로 제안드립니다." />
+      <ServiceMidCTA heading={t("pg.midCTA.heading")} description={t("pg.midCTA.description")} />
 
       {/* PG Partners */}
       <section id="partners" className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">연동 PG사</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">국내외 주요<br />PG사 연동</h2>
-            <p className="text-muted-foreground mt-4 text-base">고객사의 비즈니스 모델에 맞는 최적의 PG사를 선택하여 연동합니다.</p>
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.partnersSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("pg.partnersSection.title")}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{t("pg.partnersSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {pgPartners.map((p, i) => (
-              <div key={p.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 hover:shadow-sm transition-all flex flex-col gap-3">
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-foreground text-primary-foreground font-bold text-xs">{String(i + 1).padStart(2, "0")}</div>
-                <div>
-                  <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary mb-1">{p.category}</span>
-                  <h4 className="font-bold text-foreground text-sm tracking-tight">{p.name}</h4>
-                  <p className="text-muted-foreground text-xs mt-0.5">{p.desc}</p>
-                </div>
-              </div>
-            ))}
+            {pgPartners.map((p: any, i: number) => (<div key={p.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 hover:shadow-sm transition-all flex flex-col gap-3"><div className="w-9 h-9 rounded-xl flex items-center justify-center bg-foreground text-primary-foreground font-bold text-xs">{String(i + 1).padStart(2, "0")}</div><div><span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary mb-1">{p.category}</span><h4 className="font-bold text-foreground text-sm tracking-tight">{p.name}</h4><p className="text-muted-foreground text-xs mt-0.5">{p.desc}</p></div></div>))}
           </div>
         </div>
       </section>
 
-      <ServiceFAQ faqs={faqs} serviceName="PG 결제 연동" />
+      <ServiceFAQ faqs={faqs} serviceName={t("pg.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
       <ContactSection />
     </div>
