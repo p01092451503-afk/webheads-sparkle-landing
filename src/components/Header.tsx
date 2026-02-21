@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const servicePaths = ["/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
+const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);

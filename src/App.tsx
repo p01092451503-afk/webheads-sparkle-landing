@@ -15,6 +15,7 @@ import DrmPage from "./pages/DrmPage";
 import ChannelPage from "./pages/ChannelPage";
 import PgPage from "./pages/PgPage";
 import MaintenancePage from "./pages/MaintenancePage";
+import LmsPage from "./pages/LmsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,7 +37,8 @@ const App = () => (
         <ScrollToTop />
         <Layout>
           <Routes>
-            <Route path="/" element={<Navigate to="/hosting" replace />} />
+            <Route path="/" element={<Navigate to="/lms" replace />} />
+            <Route path="/lms" element={<LmsPage />} />
             <Route path="/hosting" element={<HostingPage />} />
             <Route path="/chatbot" element={<ChatbotPage />} />
             <Route path="/app-dev" element={<AppDevPage />} />

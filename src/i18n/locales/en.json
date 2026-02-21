@@ -1,6 +1,6 @@
 {
   "header": {
-    "services": ["Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
+    "services": ["LMS", "Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
     "cta": "Free Consultation",
     "logo": "Webheads"
   },
@@ -496,5 +496,67 @@
       { "title": "PG Payment Integration", "subtitle": "Toss / Inicis / Global", "desc": "Integrate multiple PG providers including Toss Payments, KG Inicis, Stripe, and PayPal.", "features": ["Toss Payments / Inicis", "Mobilians / PayTeacher", "Global (Stripe·PayPal)", "Subscription Automation"] }
     ],
     "stats": [{ "value": "500+", "label": "Clients" }, { "value": "15+", "label": "Years Experience" }, { "value": "99.9%", "label": "Uptime" }, { "value": "24/7", "label": "Tech Support" }]
+  },
+  "lms": {
+    "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 400+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Monetize Your Knowledge", "titleHighlight": "Faster & Smarter", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions" },
+    "statsTitle": "400+ companies are already transforming their learning",
+    "stats": [
+      { "value": "16yr", "label": "LMS Expertise", "sub": "Industry Leader" },
+      { "value": "400+", "label": "Companies", "sub": "Cumulative Clients" },
+      { "value": "84.2%", "label": "5yr+ Retention", "sub": "Renewal Rate" },
+      { "value": "TCB", "label": "Tech Excellence", "sub": "IBK Certified" }
+    ],
+    "partnersTitle": "Trusted By",
+    "partners": ["Yanadu", "Wolgeupjaengi", "Korea Energy Foundation", "Transcosmos", "KAPAAS", "MOHW", "Incheon Airport", "KAIST"],
+    "deviceSection": { "sub": "Responsive Design", "title": "User-Friendly for\nLearners and Admins", "desc": "Optimized responsive design across all devices — PC, tablet, and mobile.", "pc": "Rich admin dashboard and management features on desktop.", "tablet": "Touch-optimized interface for comfortable tablet learning.", "mobile": "Native-like mobile experience for learning anytime, anywhere." },
+    "solutionsSection": { "sub": "Solutions", "title": "Choose the Right\nDeployment for You", "desc": "Cloud (AI) or On-premise (NEO) — pick the LMS that fits your business." },
+    "cloud": { "name": "Webheads AI", "subtitle": "Cloud · Launch in just 3 days", "desc": "A cloud-based LMS with flexible pricing plans that lets you launch your education site quickly.", "cta": "Inquire about AI" },
+    "cloudFeatures": [
+      { "title": "Flexible Pricing", "desc": "Pricing plans tailored to various business sizes" },
+      { "title": "Quick Launch", "desc": "Build your education site with the most features in just 3 days" },
+      { "title": "Trendy Templates", "desc": "Design templates that enable easy management without experts" },
+      { "title": "Multi-language", "desc": "Support for 11 languages including English, Chinese, and Japanese" }
+    ],
+    "neo": { "name": "Webheads NEO", "subtitle": "On-premise · Strong security & customization", "desc": "An on-premise LMS with optimized security systems and fully customizable solutions.", "cta": "Inquire about NEO" },
+    "neoFeatures": [
+      { "title": "Optimized Security", "desc": "Content security via Catenoid, ZonePlayer, and more" },
+      { "title": "ERP·CRM Integration", "desc": "Data process integration for effective value creation" },
+      { "title": "Custom Solutions", "desc": "Flexible customization to match your growth and resources" },
+      { "title": "24/7 Maintenance", "desc": "Round-the-clock monitoring for optimal access environment" }
+    ],
+    "allInOneSection": { "sub": "All-in-One", "title": "Tired of Complex Management?\nWebheads All-in-One!" },
+    "allInOne": [
+      { "title": "SEO Optimization", "desc": "Optimize for search engines with ad scripts and meta tags — no marketing team needed." },
+      { "title": "Multiple Video Players", "desc": "Support for CDN, YouTube, Zoom, and various other video players." },
+      { "title": "Materials & Student Mgmt", "desc": "From teaching materials to student retention — all managed in one place." }
+    ],
+    "midCTA": { "heading": "Looking for the perfect e-learning solution?", "description": "We'll recommend the optimal LMS based on your business goals and scale — for free.", "ctaText": "Free Consultation" },
+    "aiSection": { "sub": "AI Features", "title": "Smart & Easy Operations\nwith AI", "desc": "Leverage AI technology for a smarter digital e-learning environment." },
+    "aiFeatures": [
+      { "title": "AI Mock Tests & Analytics", "desc": "Leave course curation, pop quizzes, and learner analysis to AI for smarter e-learning." },
+      { "title": "Auto Multi-language Subtitles", "desc": "AI automatically generates multi-language subtitles so anyone can learn easily." },
+      { "title": "AI Tutor & Chatbot", "desc": "AI tutors and chatbots respond to learner questions in real-time for better efficiency." }
+    ],
+    "processSection": { "sub": "Process", "heading": "One-Stop Consulting\nfrom Planning to Launch", "desc": "We design solutions tailored to your business and learning goals through thorough consultation." },
+    "processSteps": [
+      { "title": "Planning", "desc": "Design solution direction tailored to your business and learning goals through thorough consultation.", "tag": "Analysis" },
+      { "title": "Design", "desc": "Custom screen design and responsive layouts optimized for all devices.", "tag": "UI·UX" },
+      { "title": "Development", "desc": "Systematic step-by-step development delivering fast, high-quality technology.", "tag": "Build" },
+      { "title": "QA", "desc": "Thorough pre-launch testing ensures a stable service launch.", "tag": "Testing" },
+      { "title": "Maintenance", "desc": "Continuous system support and rapid user assistance after launch.", "tag": "Ongoing" }
+    ],
+    "faqs": [
+      { "q": "What's the difference between Cloud (AI) and On-premise (NEO)?", "a": "Cloud (AI) offers quick launch (3 days) with flexible pricing. On-premise (NEO) provides strong security, ERP/CRM integration, and full customization. Choose based on your scale and security requirements." },
+      { "q": "Can we migrate from our existing LMS?", "a": "Yes. We support zero-downtime migration including data transfer, with a dedicated engineer overseeing the entire process." },
+      { "q": "Do you support multiple languages?", "a": "Yes, we support 11 languages including English, Chinese, and Japanese. Additional languages can be added upon request." },
+      { "q": "How long does implementation take?", "a": "Cloud (AI) takes as little as 3 days. On-premise (NEO) typically takes 4-12 weeks depending on project scope." },
+      { "q": "Is a mobile app available?", "a": "Yes, we offer iOS and Android hybrid apps fully integrated with the LMS, supporting push notifications and offline learning." }
+    ],
+    "testimonials": [
+      { "name": "Hyunwoo Jung", "role": "Training Team Lead", "org": "Corp A Education Center", "rating": 5, "date": "2024.11", "period": "5th year user", "content": "We started with Cloud and transitioned to On-premise — the migration was seamless. You can feel the 16 years of expertise in their stable service." },
+      { "name": "Seoyeon Kim", "role": "Operations Manager", "org": "Corp B Online Education", "rating": 5, "date": "2025.01", "period": "3rd year user", "content": "We launched our site in just 3 days. The AI features significantly reduced our operational burden, especially the auto-subtitle generation." },
+      { "name": "Junhyuk Lee", "role": "CTO", "org": "Corp C EdTech", "rating": 4, "date": "2024.09", "period": "7th year user", "content": "The ERP integration and customization freedom allowed full integration with our systems. 24/7 incident response is reliable." }
+    ]
   }
 }
