@@ -44,7 +44,7 @@ export default function LmsHeroVisual() {
         @keyframes lms-float-d { 0%,100%{transform:translateY(0px) rotate(8deg);} 50%{transform:translateY(-9px) rotate(8deg);} }
         @keyframes lms-float-e { 0%,100%{transform:translateY(0px) rotate(-4deg);} 50%{transform:translateY(-16px) rotate(-4deg);} }
         @keyframes lms-pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(0.8);} }
-        @keyframes lms-progress { 0%{width:0%} 100%{width:100%} }
+        @keyframes lms-progress { 0%{width:0%} 40%{width:100%} 80%{width:100%} 85%{width:0%} 100%{width:0%} }
       `}</style>
 
       <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
@@ -89,7 +89,7 @@ export default function LmsHeroVisual() {
                     height: "100%",
                     borderRadius: 2,
                     background: course.color,
-                    animation: `lms-progress ${1.2 + i * 0.3}s cubic-bezier(0.22, 1, 0.36, 1) forwards`,
+                    animation: `lms-progress ${3.5 + i * 0.4}s cubic-bezier(0.22, 1, 0.36, 1) infinite`,
                     transformOrigin: "left",
                   }} />
                 </div>
