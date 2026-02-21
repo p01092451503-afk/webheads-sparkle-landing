@@ -11,31 +11,11 @@ export default function Footer() {
   return (
     <footer style={{ background: "hsl(0, 0%, 100%)", borderTop: "1px solid hsl(214, 20%, 88%)" }}>
       <div className="container mx-auto px-6 max-w-5xl py-16">
-        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_auto_auto] gap-12">
           <div className="flex flex-col gap-6">
             <span style={{ fontFamily: "'Pretendard', 'Noto Sans KR', sans-serif", fontWeight: 800, fontSize: "1.25rem", letterSpacing: "-0.04em", lineHeight: 1, color: "hsl(220, 60%, 8%)" }}>
               {t("header.logo")}
             </span>
-
-            {/* Services */}
-            <div>
-              <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: "hsl(220, 60%, 8%)" }}>Services</p>
-              <div className="flex flex-wrap gap-x-6 gap-y-1.5">
-                {serviceLabels.map((label, i) => (
-                  <Link
-                    key={servicePaths[i]}
-                    to={servicePaths[i]}
-                    className="text-sm font-medium transition-colors"
-                    style={{ color: "hsl(220, 20%, 50%)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
             <div className="flex flex-col gap-1">
               <p className="text-xs font-semibold tracking-widest uppercase mb-2" style={{ color: "hsl(220, 20%, 50%)" }}>{t("footer.company")}</p>
               <p className="text-sm leading-relaxed" style={{ color: "hsl(220, 20%, 50%)" }}>{t("footer.address")}</p>
@@ -65,6 +45,24 @@ export default function Footer() {
                   {t("footer.homepage")} <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
+            </ul>
+          </div>
+          <div>
+            <p className="text-xs font-bold tracking-widest uppercase mb-5" style={{ color: "hsl(220, 60%, 8%)" }}>Services</p>
+            <ul className="flex flex-col gap-1.5">
+              {serviceLabels.map((label, i) => (
+                <li key={servicePaths[i]}>
+                  <Link
+                    to={servicePaths[i]}
+                    className="text-sm font-medium transition-colors"
+                    style={{ color: "hsl(220, 20%, 50%)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
