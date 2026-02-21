@@ -317,7 +317,7 @@ export default function LmsPage() {
 
       <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
-      <ContactSection />
+      <ContactSection showDemo />
     </div>
   );
 }
