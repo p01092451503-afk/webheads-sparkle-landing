@@ -525,6 +525,13 @@
       { "title": "Custom Solutions", "desc": "Flexible customization to match your growth and resources" },
       { "title": "24/7 Maintenance", "desc": "Round-the-clock monitoring for optimal access environment" }
     ],
+    "kdt": { "name": "Webheads KDT", "subtitle": "KDT · Government-funded Training LMS", "desc": "An LMS optimized for K-Digital Training (KDT) and government-subsidized courses, supporting HRD-Net integration, attendance tracking, assessments, and completion management in full compliance with government standards.", "cta": "Inquire about KDT" },
+    "kdtFeatures": [
+      { "title": "HRD-Net Auto Sync", "desc": "Automated trainee registration and completion reporting via HRD-Net API" },
+      { "title": "Real-time Attendance", "desc": "Built-in anti-fraud system with IP verification and random identity checks" },
+      { "title": "NCS-based Assessment", "desc": "NCS competency-unit evaluation framework with auto-grading" },
+      { "title": "Training Fee Settlement", "desc": "Integrated dashboard for course billing, settlement, and reimbursement tracking" }
+    ],
     "allInOneSection": { "sub": "All-in-One", "title": "Tired of Complex Management?\nWebheads All-in-One!" },
     "allInOne": [
       { "title": "SEO Optimization", "desc": "Insert Google/Naver ad scripts, configure meta tags (Title, Description, OG), and auto-generate sitemaps — all without a marketing team. Drive higher search rankings and conversion rates on your own." },
