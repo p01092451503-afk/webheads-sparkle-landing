@@ -125,12 +125,12 @@ export default function LmsPage() {
       </section>
 
       {/* Device Friendly */}
-      <section className="py-28 bg-background">
+      <section className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 60%, 8%) 0%, hsl(222, 55%, 14%) 100%)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("lms.deviceSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.deviceSection.title")}</h2>
-            <p className="text-muted-foreground mt-4 text-base">{t("lms.deviceSection.desc")}</p>
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: "hsl(210, 95%, 62%)" }}>{t("lms.deviceSection.sub")}</p>
+            <h2 className="font-black leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line" style={{ color: "hsl(0, 0%, 100%)" }}>{t("lms.deviceSection.title")}</h2>
+            <p className="mt-4 text-base" style={{ color: "hsl(214, 30%, 65%)" }}>{t("lms.deviceSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {[
@@ -138,12 +138,12 @@ export default function LmsPage() {
               { icon: Tablet, label: "Tablet" },
               { icon: Smartphone, label: "Mobile" }
             ].map(({ icon: Icon, label }) => (
-              <div key={label} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col items-center gap-4 text-center">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-background shadow-sm">
-                  <Icon className="w-7 h-7 text-primary" />
+              <div key={label} className="rounded-2xl p-7 flex flex-col items-center gap-4 text-center transition-all duration-200 hover:scale-[1.02]" style={{ background: "hsl(220, 50%, 14%)", border: "1px solid hsl(214, 40%, 22%)" }}>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "hsl(214, 90%, 52%, 0.12)" }}>
+                  <Icon className="w-7 h-7" style={{ color: "hsl(210, 95%, 62%)" }} />
                 </div>
-                <h3 className="font-bold text-foreground text-lg">{label}</h3>
-                <p className="text-muted-foreground text-sm">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
+                <h3 className="font-bold text-lg" style={{ color: "hsl(0, 0%, 100%)" }}>{label}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: "hsl(214, 30%, 65%)" }}>{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
               </div>
             ))}
           </div>
