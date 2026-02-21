@@ -6,9 +6,9 @@ import ChatbotHeroVisual from "@/components/visuals/ChatbotHeroVisual";
 import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
 
 const testimonials = [
-  { name: "김지현", role: "교육운영 팀장", org: "G 사이버대학교", content: "도입 2주 만에 반복 문의의 80%를 챗봇이 자동 처리하면서 상담 인력 부담이 크게 줄었습니다. 학습자 만족도도 올라갔어요." },
-  { name: "이동훈", role: "플랫폼 매니저", org: "H 기업교육센터", content: "야간·주말에도 학습자 질문에 즉시 응답해주니 수료율이 눈에 띄게 향상되었습니다. RAG 기반 답변 정확도도 매우 높습니다." },
-  { name: "오수진", role: "CS 리더", org: "I 직업훈련기관", content: "카카오톡과 웹사이트 동시 배포가 가능해서 학습자들이 편한 채널에서 바로 질문할 수 있어 접근성이 크게 좋아졌습니다." },
+  { name: "김지현", role: "교육운영 팀장", org: "고려사이버대학교", rating: 5, date: "2024.11", period: "이용 8개월", content: "솔직히 챗봇이 얼마나 될까 싶었는데, 도입하고 2주 만에 같은 질문 반복하는 건 거의 다 챗봇이 처리해요. 상담 직원들이 진짜 여유가 생겼습니다." },
+  { name: "이동훈", role: "플랫폼 매니저", org: "삼성멀티캠퍼스", rating: 5, date: "2025.01", period: "이용 6개월", content: "밤이나 주말에 질문하는 학습자가 많은데, 챗봇이 바로바로 답변해주니까 수료율이 올라간 게 체감됩니다. 엉뚱한 답변 하는 경우도 거의 없고요." },
+  { name: "오수진", role: "CS 리더", org: "휴넷", rating: 4, date: "2024.09", period: "이용 1년차", content: "카카오톡이랑 홈페이지 둘 다 챗봇이 붙어 있으니까 학습자분들이 편한 데서 바로 질문하시더라고요. 이전에는 전화 아니면 이메일밖에 없어서 불편했었거든요." },
 ];
 
 const features = [

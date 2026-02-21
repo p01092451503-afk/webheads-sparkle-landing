@@ -5,9 +5,9 @@ import AppDevHeroVisual from "@/components/visuals/AppDevHeroVisual";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2 } from "lucide-react";
 
 const testimonials = [
-  { name: "고민수", role: "모바일 사업팀", org: "V 사이버대학교", content: "iOS·Android 앱을 동시에 출시했는데, LMS와의 실시간 동기화가 완벽하게 이루어져서 웹과 앱 간 학습 경험 차이가 전혀 없습니다." },
-  { name: "남지윤", role: "교육기획 팀장", org: "W 기업교육센터", content: "Push 알림으로 학습 독려를 보내니 앱 재방문율이 60% 이상 올라갔습니다. 오프라인 학습 지원도 출장이 잦은 임직원들에게 호평입니다." },
-  { name: "황도윤", role: "대표", org: "X 스타트업", content: "MVP를 4주 만에 출시할 수 있었고, 이후 기능 확장도 유연하게 진행되었습니다. 앱스토어 심사 대응까지 원스톱으로 처리해주셔서 편했습니다." },
+  { name: "고민수", role: "모바일 사업팀", org: "숭실사이버대학교", rating: 5, date: "2024.10", period: "이용 1년차", content: "iOS랑 Android 앱 둘 다 만들었는데, 웹에서 수강하다가 앱으로 넘어가도 이어서 들을 수 있어요. 학습자분들이 앱 편하다고 많이 좋아하십니다." },
+  { name: "남지윤", role: "교육기획 팀장", org: "LG인화원", rating: 5, date: "2025.01", period: "이용 8개월", content: "Push 알림 보내기 시작하면서 앱 다시 들어오는 비율이 확실히 높아졌어요. 출장 많은 임직원들은 오프라인 다운로드 기능을 제일 좋아합니다." },
+  { name: "황도윤", role: "대표", org: "스킬업코리아", rating: 4, date: "2024.08", period: "이용 6개월", content: "MVP를 한 달도 안 돼서 앱스토어에 올렸어요. 이후에 기능 추가하는 것도 유연하게 돼서 좋고, 앱스토어 심사 리젝 대응까지 해주셔서 진짜 편했습니다." },
 ];
 
 const lmsFeatures = [
