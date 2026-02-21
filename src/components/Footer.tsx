@@ -2,8 +2,12 @@ import { Link } from "react-router-dom";
 import { ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+const servicePaths = ["/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
+
 export default function Footer() {
   const { t } = useTranslation();
+  const serviceLabels = t("header.services", { returnObjects: true }) as string[];
+
   return (
     <footer style={{ background: "hsl(0, 0%, 100%)", borderTop: "1px solid hsl(214, 20%, 88%)" }}>
       <div className="container mx-auto px-6 max-w-5xl py-16">
@@ -35,12 +39,28 @@ export default function Footer() {
           </div>
           <div className="text-right">
             <p className="text-xs font-semibold tracking-widest uppercase mb-5" style={{ color: "hsl(220, 20%, 50%)" }}>{t("footer.links")}</p>
-            <ul className="flex flex-col gap-3 items-end">
+            <ul className="flex flex-col gap-2.5 items-end">
               <li>
                 <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex items-center gap-1.5 transition-colors" style={{ color: "hsl(220, 20%, 50%)" }} onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")} onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}>
                   {t("footer.homepage")} <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
+              <li className="mt-3">
+                <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "hsl(220, 20%, 50%)" }}>Services</p>
+              </li>
+              {serviceLabels.map((label, i) => (
+                <li key={servicePaths[i]}>
+                  <Link
+                    to={servicePaths[i]}
+                    className="text-sm font-medium transition-colors"
+                    style={{ color: "hsl(220, 20%, 50%)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "hsl(220, 60%, 8%)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "hsl(220, 20%, 50%)")}
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
