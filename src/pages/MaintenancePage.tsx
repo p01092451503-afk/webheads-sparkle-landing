@@ -3,7 +3,7 @@ import TestimonialSection from "@/components/TestimonialSection";
 import MaintenanceHeroVisual from "@/components/visuals/MaintenanceHeroVisual";
 import MaintenanceFAQ from "@/components/maintenance/MaintenanceFAQ";
 import MaintenanceProcess from "@/components/maintenance/MaintenanceProcess";
-import MaintenanceBeforeAfter from "@/components/maintenance/MaintenanceBeforeAfter";
+
 import MaintenanceDevFeatures from "@/components/maintenance/MaintenanceDevFeatures";
 import MaintenanceMidCTA from "@/components/maintenance/MaintenanceMidCTA";
 import SEO from "@/components/SEO";
@@ -131,8 +131,6 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      {/* Before/After */}
-      <MaintenanceBeforeAfter />
 
       {/* 주요 서비스 */}
       <section className="py-28 bg-secondary">
