@@ -12,77 +12,48 @@ import {
   FileSearch, Monitor, FileText,
   Code2, Paintbrush, LayoutDashboard, MonitorSmartphone, Puzzle, Layers,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-const testimonials = [
-  { name: "최영진", role: "CTO", org: "D 에듀테크", rating: 4, date: "2025.02", period: "이용 5년차", content: "새벽 3시에 서버 문제 생겼는데 5분 만에 전화 오더라고요. 30분도 안 돼서 정상화됐습니다. 저희 같은 소규모 회사는 24시간 대응이 진짜 중요한데, 여기가 딱이에요." },
-  { name: "한소희", role: "교육운영팀", org: "E 사이버대학교", rating: 5, date: "2024.10", period: "이용 9년차", content: "저희가 개발자가 없어서 보안 업데이트나 서버 관리를 직접 못 하거든요. 그런 걸 알아서 다 해주시니까 운영에만 집중할 수 있어서 정말 편합니다." },
-  { name: "정우성", role: "IT 담당", org: "F 교육협회", rating: 3, date: "2024.12", period: "이용 2년차", content: "매달 보내주시는 리포트가 깔끔해서 경영진 보고할 때 그대로 가져다 쓸 수 있어요. 개선 요청 드리면 보통 일주일 안에는 반영해주시는 편이라 만족합니다." },
-];
-
-const features = [
-  { icon: Clock, title: "24/7 장애 대응", desc: "서비스 장애 발생 시 24시간 365일 즉각 대응합니다. NOC 전담팀이 모니터링하며 장애 감지 후 평균 5분 이내 초동 조치를 시작합니다.", tags: ["24/7 모니터링", "5분 내 초동", "NOC 전담팀"] },
-  { icon: RefreshCw, title: "정기 업데이트 & 패치", desc: "LMS 기능 업데이트, 보안 패치, OS·라이브러리 버전 관리를 정기적으로 수행합니다. 변경 이력을 문서화하여 투명하게 공유합니다.", tags: ["보안 패치", "버전 관리", "변경 이력 관리"] },
-  { icon: Shield, title: "보안 취약점 점검", desc: "주기적인 취약점 스캔과 침투 테스트를 통해 학습자 데이터와 개인정보를 보호합니다. OWASP Top 10 기준에 따른 보안 점검을 수행합니다.", tags: ["취약점 스캔", "OWASP 기준", "개인정보 보호"] },
-  { icon: BarChart3, title: "성능 최적화", desc: "데이터베이스 쿼리 튜닝, 캐시 최적화, 서버 리소스 분석을 통해 LMS 응답 속도를 지속적으로 개선합니다. 월간 성능 리포트를 제공합니다.", tags: ["DB 튜닝", "캐시 최적화", "월간 리포트"] },
-  { icon: Settings, title: "기능 개선 & 커스터마이징", desc: "운영 중 필요한 소규모 기능 추가, UI 수정, 관리자 설정 변경 등을 신속하게 처리합니다. 요청 후 평균 1~3 영업일 내 반영합니다.", tags: ["기능 추가", "UI 수정", "빠른 처리"] },
-  { icon: PhoneCall, title: "전담 기술 지원", desc: "계약 고객 전용 기술 지원 채널을 통해 전담 엔지니어에게 직접 문의할 수 있습니다. 이메일·카카오톡·전화 다채널 지원을 제공합니다.", tags: ["전담 엔지니어", "다채널 지원", "계약 고객 전용"] },
-  { icon: AlertTriangle, title: "장애 원인 분석 & 보고", desc: "장애 복구 후 RCA(Root Cause Analysis) 보고서를 작성하여 재발 방지 대책을 수립합니다. 투명한 사후 보고로 신뢰를 유지합니다.", tags: ["RCA 보고서", "재발 방지", "투명한 소통"] },
-  { icon: HeadphonesIcon, title: "사용자 문의 처리 대행", desc: "학습자·관리자의 시스템 관련 문의를 1차로 접수·분류하고 기술 이슈는 직접 처리, 운영 이슈는 담당자에게 전달합니다.", tags: ["1차 접수 대행", "이슈 분류", "빠른 에스컬레이션"] },
-];
-
-const plans = [
-  { name: "Basic", price: "300,000", unit: "원", priceNote: "월 이용료 (VAT별도)", features: [{ main: "월 2회 정기 점검", sub: "" }, { main: "장애 대응 (영업시간 내)", sub: "평일 09:00–18:00" }, { main: "보안 패치 적용", sub: "" }, { main: "월간 현황 리포트", sub: "" }, { main: "이메일 기술 지원", sub: "" }], recommend: "소규모 이러닝 서비스, 개인 강사, 소형 학원에 추천드려요" },
-  { name: "Standard", price: "600,000", unit: "원", priceNote: "월 이용료 (VAT별도)", highlight: true, badge: "가장 많이 선택!", features: [{ main: "월 4회 정기 점검", sub: "" }, { main: "장애 대응 24/7", sub: "공휴일 포함 연중무휴" }, { main: "보안 패치 & 성능 최적화", sub: "" }, { main: "월간 성능·보안 리포트", sub: "" }, { main: "이메일·카카오톡 기술 지원", sub: "" }, { main: "소규모 기능 개선", sub: "월 2건 이내" }], recommend: "중형 이러닝 플랫폼, 중소기업, 협회, 평생교육원에 추천드려요" },
-  { name: "Premium", price: "1,200,000", unit: "원", priceNote: "월 이용료 (VAT별도)", features: [{ main: "월 8회 정기 점검", sub: "" }, { main: "장애 대응 24/7 전담팀", sub: "SLA 99.9% 보장" }, { main: "보안·성능·DB 종합 최적화", sub: "" }, { main: "주간 + 월간 종합 리포트", sub: "" }, { main: "전화·이메일·카카오 전담 채널", sub: "" }, { main: "기능 개선 무제한", sub: "우선 처리" }, { main: "연간 보안 감사", sub: "1회 포함" }], recommend: "대형 교육기관, 공공기관, 금융·엔터프라이즈 고객에 추천드려요" },
-];
-
-const stats = [
-  { value: "5분", label: "평균 초동 대응", sub: "장애 감지 후" },
-  { value: "99.9%", label: "SLA 가동률", sub: "Premium 기준" },
-  { value: "30일", label: "백업 보관 기간", sub: "스냅샷 보관" },
-  { value: "24/7", label: "모니터링", sub: "365일 무중단" },
-];
-
-const processSteps = [
-  { icon: FileSearch, title: "초기 진단", desc: "서버·코드·DB 환경을 전수 점검하고 현황 보고서를 작성합니다.", tag: "1~2주" },
-  { icon: Settings, title: "환경 세팅", desc: "모니터링 도구 설치, 알림 채널 연동, 백업 정책을 수립합니다.", tag: "1주" },
-  { icon: Monitor, title: "상시 모니터링", desc: "24/7 NOC 팀이 서버 상태를 실시간 감시하고 이상 징후를 탐지합니다.", tag: "상시" },
-  { icon: AlertTriangle, title: "장애 대응", desc: "장애 감지 시 5분 내 초동 조치, 복구 후 RCA 보고서를 공유합니다.", tag: "5분 내" },
-  { icon: FileText, title: "정기 리포트", desc: "월간 성능·보안·작업 내역 리포트를 제공하고 개선안을 제안합니다.", tag: "월 1회" },
-];
-
-const devFeatures = [
-  { icon: Code2, title: "신규 기능 개발", desc: "기존 LMS에 없는 기능을 새롭게 개발하여 추가합니다. 출석 관리, 퀴즈 엔진, 수강권 시스템, 결제 연동 등 다양한 기능을 맞춤 개발합니다.", tags: ["맞춤 기능 개발", "API 연동", "LMS 확장"] },
-  { icon: Paintbrush, title: "UI/UX 디자인 개선", desc: "노후화된 화면을 최신 트렌드에 맞게 리뉴얼합니다. 학습자 경험을 중심으로 직관적인 화면 구조와 세련된 시각 디자인을 적용합니다.", tags: ["화면 리뉴얼", "UX 개선", "반응형 디자인"] },
-  { icon: LayoutDashboard, title: "관리자 화면 고도화", desc: "관리자가 필요로 하는 통계 대시보드, 대량 회원 관리, 콘텐츠 일괄 처리 등 운영 효율을 높이는 관리 기능을 추가로 개발합니다.", tags: ["대시보드", "대량 처리", "운영 자동화"] },
-  { icon: MonitorSmartphone, title: "모바일 최적화", desc: "PC 중심으로 개발된 LMS를 모바일·태블릿 환경에서도 완벽하게 동작하도록 반응형으로 개선합니다.", tags: ["반응형 웹", "모바일 UX", "크로스 디바이스"] },
-  { icon: Puzzle, title: "외부 서비스 연동", desc: "카카오톡 알림톡, PG 결제, HR·ERP 시스템, SSO, 외부 API 등 다양한 서드파티 서비스와 LMS를 연동합니다.", tags: ["카카오 알림톡", "PG 결제", "SSO 연동"] },
-  { icon: Layers, title: "기존 콘텐츠 마이그레이션", desc: "타사 LMS나 구형 시스템에서 학습 데이터, 회원 정보, 동영상 콘텐츠를 안전하게 이전합니다. 무중단 전환을 지원합니다.", tags: ["데이터 이전", "무중단 전환", "콘텐츠 마이그레이션"] },
-];
-
-const faqs = [
-  { q: "유지보수 계약 중에 추가 개발 요청도 가능한가요?", a: "네, 가능합니다. Standard 이상 플랜에서는 월 일정 건수의 소규모 기능 개선이 포함되어 있으며, 대규모 개발이 필요한 경우 별도 견적을 안내드립니다." },
-  { q: "장애가 발생하면 어떤 프로세스로 대응하나요?", a: "NOC 팀이 24/7 모니터링하다가 장애를 감지하면 즉시 담당 엔지니어에게 알림이 전달됩니다. 평균 5분 이내 초동 조치를 시작하며, 복구 후에는 RCA 보고서를 공유합니다." },
-  { q: "현재 다른 업체에서 운영 중인데, 전환이 가능한가요?", a: "가능합니다. 기존 서버 환경과 소스코드를 분석한 후 무중단 전환 계획을 수립합니다. 인수인계 기간 동안 기존 업체와 병행 운영하여 서비스 중단 없이 안전하게 이관합니다." },
-  { q: "월간 리포트에는 어떤 내용이 포함되나요?", a: "서버 가동률, 트래픽 분석, 장애 발생·처리 이력, 보안 점검 결과, 성능 지표, 작업 내역 요약이 포함됩니다. Premium 플랜은 주간 리포트도 추가 제공됩니다." },
-  { q: "계약 기간과 해지 조건은 어떻게 되나요?", a: "최소 계약 기간은 3개월이며, 이후 월 단위로 연장됩니다. 해지는 1개월 전 서면 통보로 가능하며, 해지 시 모든 관리 문서와 접근 권한을 인수인계합니다." },
-  { q: "보안 패치는 얼마나 자주 적용되나요?", a: "긴급 보안 패치는 발표 후 24시간 이내 적용하며, 일반 패치는 월 1~2회 정기 점검 시 일괄 적용합니다." },
-];
+const featureIcons = [Clock, RefreshCw, Shield, BarChart3, Settings, PhoneCall, AlertTriangle, HeadphonesIcon];
+const processIcons = [FileSearch, Settings, Monitor, AlertTriangle, FileText];
+const devFeatureIcons = [Code2, Paintbrush, LayoutDashboard, MonitorSmartphone, Puzzle, Layers];
 
 export default function MaintenancePage() {
+  const { t } = useTranslation();
+
+  const features = (t("maintenance.features", { returnObjects: true }) as any[]).map((item, index) => ({
+    ...item,
+    icon: featureIcons[index] || Clock
+  }));
+
+  const processSteps = (t("maintenance.processSteps", { returnObjects: true }) as any[]).map((item, index) => ({
+    ...item,
+    icon: processIcons[index] || FileSearch
+  }));
+
+  const devFeatures = (t("maintenance.devFeatures", { returnObjects: true }) as any[]).map((item, index) => ({
+    ...item,
+    icon: devFeatureIcons[index] || Code2
+  }));
+
+  const plans = t("maintenance.plans", { returnObjects: true }) as any[];
+  const stats = t("maintenance.stats", { returnObjects: true }) as any[];
+  const faqs = t("maintenance.faqs", { returnObjects: true }) as any[];
+  const testimonials = t("maintenance.testimonials", { returnObjects: true }) as any[];
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="유지보수"
-        description="LMS 및 웹헤즈 솔루션 전문 유지보수 서비스. 24/7 장애 대응, 보안 패치, 성능 최적화, 기능 개선까지 전담 엔지니어가 책임지고 관리합니다."
-        keywords="이러닝 유지보수, LMS 유지보수, 서버 유지보수, 24/7 장애 대응, 이러닝 운영 관리"
+        title={t("maintenance.seo.title")}
+        description={t("maintenance.seo.description")}
+        keywords={t("maintenance.seo.keywords")}
         path="/maintenance"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Service",
           "name": "웹헤즈 유지보수",
           "provider": { "@type": "Organization", "name": "웹헤즈" },
-          "description": "LMS 및 이러닝 솔루션 전문 유지보수. 24/7 장애 대응, 보안 패치, 성능 최적화.",
+          "description": t("maintenance.seo.description"),
           "areaServed": "KR",
           "serviceType": "IT 유지보수",
           "url": "https://webheads-sparkle-landing.lovable.app/maintenance"
@@ -103,17 +74,17 @@ export default function MaintenancePage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(220, 60%, 35%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>유지보수</span>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(220, 60%, 35%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>{t("maintenance.hero.badge")}</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
-              안정적인 운영을 위한<br />
-              <span style={{ color: "hsl(220, 80%, 50%)" }}>유지보수 서비스</span>
+              {t("maintenance.hero.title")}<br />
+              <span style={{ color: "hsl(220, 80%, 50%)" }}>{t("maintenance.hero.titleHighlight")}</span>
             </h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>
-              LMS를 포함한 웹헤즈 모든 솔루션의 장애 대응, 보안 패치, 성능 최적화, 기능 개선을 전담 엔지니어가 책임지고 관리합니다.
+              {t("maintenance.hero.desc")}
             </p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>유지보수 상담 신청</a>
-              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>요금제 보기</a>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>{t("maintenance.hero.cta1")}</a>
+              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>{t("maintenance.hero.cta2")}</a>
             </div>
           </div>
         </div>
@@ -123,7 +94,7 @@ export default function MaintenancePage() {
       <section className="py-24 bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
-            {stats.map((s) => (
+            {stats.map((s: any) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
                 <span className="block font-black leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span>
                 <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
@@ -139,16 +110,16 @@ export default function MaintenancePage() {
       <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">주요 서비스</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">
-              운영의 모든 것을<br />책임지고 관리합니다
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("maintenance.featuresSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+              {t("maintenance.featuresSection.title")}
             </h2>
             <p className="text-muted-foreground mt-4 text-base">
-              장애 대응부터 성능 최적화, 보안 관리까지 이러닝 플랫폼 운영에 필요한 모든 유지보수를 제공합니다.
+              {t("maintenance.featuresSection.desc")}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((f) => (
+            {features.map((f: any) => (
               <div key={f.title} className="rounded-2xl p-7 bg-background hover:bg-muted transition-colors duration-200 flex flex-col gap-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-secondary shadow-sm">
                   <f.icon className="w-5 h-5 text-primary" />
@@ -156,7 +127,7 @@ export default function MaintenancePage() {
                 <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
                 <div className="flex flex-wrap gap-1.5 mt-1">
-                  {f.tags.map((tag) => (
+                  {f.tags.map((tag: string) => (
                     <span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>
                   ))}
                 </div>
@@ -166,21 +137,21 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      <ServiceMidCTA heading="우리 서비스에 맞는 유지보수가 궁금하신가요?" description="현재 운영 환경을 분석하고, 최적의 유지보수 방안을 무료로 제안드립니다." />
-      <ServiceExtraFeatures features={devFeatures} subheading="추가 개발" heading={"유지보수를 넘어\n기능 개발까지"} description="단순 관리를 넘어, LMS의 성장을 함께 설계하고 개발합니다." />
-      <ServiceProcess steps={processSteps} subheading="프로세스" heading={"체계적인 유지보수\n진행 프로세스"} description="계약부터 정기 리포트까지, 투명하고 체계적으로 진행됩니다." />
+      <ServiceMidCTA heading={t("maintenance.midCTA.heading")} description={t("maintenance.midCTA.description")} />
+      <ServiceExtraFeatures features={devFeatures} subheading={t("maintenance.extraSection.sub")} heading={t("maintenance.extraSection.heading")} description={t("maintenance.extraSection.desc")} />
+      <ServiceProcess steps={processSteps} subheading={t("maintenance.processSection.sub")} heading={t("maintenance.processSection.heading")} description={t("maintenance.processSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">요금제</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">
-              규모에 맞는 플랜을<br />선택하세요
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("maintenance.plansSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+              {t("maintenance.plansSection.title")}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            {plans.map((plan) => (
+            {plans.map((plan: any) => (
               <div
                 key={plan.name}
                 className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${
@@ -205,7 +176,7 @@ export default function MaintenancePage() {
                     {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
                   </div>
                   <ul className="flex flex-col gap-3.5 flex-1">
-                    {plan.features.map((f) => (
+                    {plan.features.map((f: any) => (
                       <li key={f.main} className="flex items-start gap-2.5">
                         <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span>
                         <div>
@@ -224,10 +195,10 @@ export default function MaintenancePage() {
           </div>
           {/* 맞춤 견적 CTA */}
           <div className="mt-12 text-center rounded-2xl border border-border bg-secondary/50 p-8">
-            <p className="text-foreground font-semibold text-lg mb-2">위 요금제에 딱 맞지 않으시나요?</p>
-            <p className="text-muted-foreground text-sm mb-6">운영 환경에 맞는 맞춤 견적을 무료로 제안드립니다.</p>
+            <p className="text-foreground font-semibold text-lg mb-2">{t("maintenance.plansCustom.title")}</p>
+            <p className="text-muted-foreground text-sm mb-6">{t("maintenance.plansCustom.desc")}</p>
             <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-              맞춤 견적 요청하기
+              {t("maintenance.plansCustom.cta")}
             </a>
           </div>
         </div>

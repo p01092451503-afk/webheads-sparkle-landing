@@ -57,6 +57,390 @@
     "desc": "的常见问题解答。",
     "descDefault": "查看常见问题解答。"
   },
+  "hosting": {
+    "seo": { "title": "在线学习托管", "description": "支持CDN、AWS、IDC的在线学习专业托管服务。99.9% SLA可用率、24/7 NOC监控、自动扩展，提供无中断的学习环境。", "keywords": "在线学习托管, LMS托管, CDN, AWS托管, IDC服务器" },
+    "hero": { "badge": "在线学习托管", "title": "为在线学习优化的", "titleHighlight": "云端托管", "desc": "支持CDN、AWS、IDC的在线学习专业托管服务，为学习者提供无中断的学习环境。", "cta1": "申请免费咨询", "cta2": "查看套餐" },
+    "stats": [
+      { "value": "99.9%", "label": "服务器可用率", "sub": "SLA保障" },
+      { "value": "50+", "label": "CDN边缘节点", "sub": "全球加速" },
+      { "value": "5分钟", "label": "初始响应时间", "sub": "NOC专属团队" },
+      { "value": "24/7", "label": "技术支持", "sub": "365天不间断" }
+    ],
+    "featuresSection": { "sub": "核心功能", "title": "体验为在线学习优化的\n基础设施" },
+    "features": [
+      { "title": "全球CDN加速", "desc": "通过国内外50多个边缘服务器，从离用户最近的节点分发内容。无缓冲地实时播放HD·4K在线学习内容。", "tags": ["50+ 边缘节点", "HD流媒体", "延迟最小化"] },
+      { "title": "AWS云托管", "desc": "基于Amazon Web Services（EC2·S3·CloudFront·RDS），服务器容量根据学习者数量自动调整。Multi-AZ配置最大化可用性。", "tags": ["Multi-AZ", "按需计费", "S3存储"] },
+      { "title": "IDC服务器运营", "desc": "在国内顶级Tier-3 IDC数据中心运营专用物理服务器。双电源·双通信线路消除单点故障（SPOF）。", "tags": ["Tier-3 IDC", "专用物理服务器", "双线路"] },
+      { "title": "24/7实时监控", "desc": "365天24小时NOC专属团队监控服务器·网络·应用状态。阈值超标告警时平均5分钟内启动初始响应。", "tags": ["NOC专属团队", "5分钟内初始响应", "故障自动告警"] },
+      { "title": "自动扩展", "desc": "学期初·考试期等流量激增时，AWS Auto Scaling和Load Balancer实时扩展实例。", "tags": ["Auto Scaling", "Load Balancing", "成本优化"] },
+      { "title": "详细使用统计", "desc": "实时仪表板查看学习者访问状况、流量趋势、内容播放率·完成率。", "tags": ["实时仪表板", "月度报告", "完成率分析"] },
+      { "title": "DDoS防御与安全", "desc": "标配WAF和DDoS拦截方案，自动拦截恶意流量。免费提供SSL/TLS证书。", "tags": ["WAF标配", "DDoS拦截", "SSL免费提供"] },
+      { "title": "专用备份与恢复", "desc": "每天自动备份内容·数据库·配置文件，最多保留30天快照。", "tags": ["每日自动备份", "30天快照", "即时恢复"] },
+      { "title": "专属技术支持", "desc": "从初始服务器配置到LMS对接、域名设置、SSL应用，Webheads专属工程师直接提供支持。", "tags": ["专属工程师", "LMS对接支持", "定期检查"] }
+    ],
+    "midCTA": { "heading": "想了解适合贵机构的托管方案？", "description": "分析流量规模和安全需求，免费为您推荐最佳托管环境。" },
+    "extraSection": { "sub": "增值服务", "heading": "超越托管\n设计整体基础设施", "desc": "提供数据库双机热备、大容量存储、VPN对接等企业级基础设施服务。" },
+    "extraFeatures": [
+      { "title": "数据库双机热备与复制", "desc": "Master-Slave架构实现数据库双机热备，故障时支持自动切换（Failover）。", "tags": ["Master-Slave", "自动Failover", "数据稳定性"] },
+      { "title": "大容量存储扩展", "desc": "根据视频·文档内容增长弹性扩展S3·NAS存储。", "tags": ["S3存储", "NAS", "无限扩展"] },
+      { "title": "VPN与专用网络", "desc": "为企业·公共机构的内网对接构建Site-to-Site VPN及专线。", "tags": ["Site-to-Site VPN", "专线", "内网对接"] },
+      { "title": "无停机服务器迁移", "desc": "从其他托管商安全迁移至Webheads，无服务中断。", "tags": ["无停机迁移", "数据迁移", "DNS切换"] },
+      { "title": "专属基础设施咨询", "desc": "提供流量模式分析、成本优化、架构改进等基础设施全面咨询。", "tags": ["成本优化", "架构设计", "流量分析"] },
+      { "title": "实时性能仪表板", "desc": "提供实时监控CPU·内存·网络·磁盘使用量的专用仪表板。", "tags": ["实时监控", "告警设置", "资源分析"] }
+    ],
+    "processSection": { "sub": "引入流程", "heading": "系统化的托管\n引入流程", "desc": "从需求分析到服务上线，专属工程师全程陪伴。" },
+    "processSteps": [
+      { "title": "需求分析", "desc": "分析流量规模、内容容量、安全需求等，设计最佳基础设施架构。", "tag": "1~2天" },
+      { "title": "服务器配置与设置", "desc": "AWS/IDC环境配置、域名·SSL设置、LMS安装及初始数据迁移。", "tag": "3~5天" },
+      { "title": "测试与优化", "desc": "经过负载测试、安全检查、性能调优，确保稳定的服务环境。", "tag": "2~3天" },
+      { "title": "服务上线", "desc": "DNS切换及服务上线后72小时集中监控确认稳定性。", "tag": "上线日" },
+      { "title": "运营与报告", "desc": "提供24/7监控和月度性能·流量报告，持续优化。", "tag": "持续" }
+    ],
+    "plansSection": { "sub": "套餐", "title": "选择适合规模的\n套餐", "desc": "所有价格不含VAT。超出用量按套餐单价计费。" },
+    "plans": [
+      { "name": "Basic", "price": "500,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "features": [{ "main": "视频流量 500GB/月", "sub": "超出按1GB 500韩元计费" }, { "main": "视频存储空间 共100GB", "sub": "超出按1GB 1,000韩元计费" }, { "main": "会员数无限制", "sub": "" }, { "main": "提供免费设计模板", "sub": "" }, { "main": "SSL安全证书安装", "sub": "" }, { "main": "混合应用开发", "sub": "月+30万韩元" }], "recommend": "推荐给个人讲师、个体经营者、小型学院" },
+      { "name": "Plus", "price": "700,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "features": [{ "main": "视频流量 1,500GB/月", "sub": "超出按1GB 400韩元计费" }, { "main": "视频存储空间 共200GB", "sub": "超出按1GB 800韩元计费" }, { "main": "会员数无限制", "sub": "" }, { "main": "提供免费设计模板", "sub": "" }, { "main": "SSL安全证书安装", "sub": "" }, { "main": "混合应用开发", "sub": "月+30万韩元" }], "recommend": "推荐给中型学院、个体经营者、中小企业、协会" },
+      { "name": "Premium", "price": "1,000,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "features": [{ "main": "视频流量 2,000GB/月", "sub": "超出按1GB 300韩元计费" }, { "main": "视频存储空间 共250GB", "sub": "超出按1GB 500韩元计费" }, { "main": "会员数无限制", "sub": "" }, { "main": "提供免费设计模板", "sub": "" }, { "main": "SSL安全证书安装", "sub": "" }, { "main": "混合应用开发", "sub": "月+30万韩元" }], "recommend": "推荐给大型学院、中小企业、继续教育学院、其他教育机构", "highlight": true, "badge": "热门套餐！" }
+    ],
+    "plansCustom": { "title": "以上套餐不太合适？", "desc": "根据您的流量规模免费提供定制报价。", "cta": "申请定制报价" },
+    "faqs": [
+      { "q": "流量突然增加会产生额外费用吗？", "a": "基于AWS的托管通过Auto Scaling自动应对，超出流量按套餐单价计费。" },
+      { "q": "可以从现有托管迁移吗？", "a": "可以。我们支持从其他托管商到Webheads的无停机迁移。" },
+      { "q": "SSL证书如何提供？", "a": "默认提供Let's Encrypt免费SSL证书，自动续期。" },
+      { "q": "服务器故障时的响应流程是怎样的？", "a": "NOC团队24/7监控，检测到故障时平均5分钟内启动初始响应。" },
+      { "q": "视频存储空间不足怎么办？", "a": "超出套餐基础存储空间时，可按每GB额外费用无限扩展。" }
+    ],
+    "testimonials": [
+      { "name": "金泰浩", "role": "IT基础设施团队长", "org": "A 网络大学", "rating": 5, "date": "2024.09", "period": "使用7年", "content": "学期初同时在线超过3000人时也不会卡顿或变慢，非常稳定。" },
+      { "name": "李秀妍", "role": "运营经理", "org": "B 职业培训机构", "rating": 4, "date": "2025.01", "period": "使用3年", "content": "之前的托管每月两三次无法访问，换到这里后一次都没有过。" },
+      { "name": "朴正民", "role": "代表", "org": "C 教育科技", "rating": 3, "date": "2024.11", "period": "使用2年", "content": "海外学员反馈视频加载速度明显加快了。" }
+    ]
+  },
+  "maintenance": {
+    "seo": { "title": "运维", "description": "LMS及Webheads解决方案专业运维服务。24/7故障响应、安全补丁、性能优化、功能改进，专属工程师负责管理。", "keywords": "在线学习运维, LMS运维, 服务器运维, 24/7故障响应" },
+    "hero": { "badge": "运维", "title": "为稳定运营提供的", "titleHighlight": "运维服务", "desc": "包括LMS在内的Webheads所有解决方案的故障响应、安全补丁、性能优化、功能改进，由专属工程师负责管理。", "cta1": "申请运维咨询", "cta2": "查看套餐" },
+    "stats": [
+      { "value": "5分钟", "label": "平均初始响应", "sub": "故障检测后" },
+      { "value": "99.9%", "label": "SLA可用率", "sub": "Premium标准" },
+      { "value": "30天", "label": "备份保留期限", "sub": "快照保留" },
+      { "value": "24/7", "label": "监控", "sub": "365天不间断" }
+    ],
+    "featuresSection": { "sub": "核心服务", "title": "全面负责\n运营管理", "desc": "从故障响应到性能优化、安全管理，提供在线学习平台运营所需的全部运维服务。" },
+    "features": [
+      { "title": "24/7故障响应", "desc": "服务故障发生时24小时365天即时响应。NOC专属团队监控，故障检测后平均5分钟内启动初始响应。", "tags": ["24/7监控", "5分钟内初始响应", "NOC专属团队"] },
+      { "title": "定期更新与补丁", "desc": "定期执行LMS功能更新、安全补丁、操作系统·库版本管理。", "tags": ["安全补丁", "版本管理", "变更记录管理"] },
+      { "title": "安全漏洞检查", "desc": "通过定期漏洞扫描和渗透测试保护学习者数据和个人信息。", "tags": ["漏洞扫描", "OWASP标准", "个人信息保护"] },
+      { "title": "性能优化", "desc": "通过数据库查询调优、缓存优化、服务器资源分析持续改善LMS响应速度。", "tags": ["DB调优", "缓存优化", "月度报告"] },
+      { "title": "功能改进与定制", "desc": "快速处理运营中需要的小功能添加、UI修改、管理员设置变更等。", "tags": ["功能添加", "UI修改", "快速处理"] },
+      { "title": "专属技术支持", "desc": "合同客户可通过专属技术支持渠道直接联系专属工程师。", "tags": ["专属工程师", "多渠道支持", "合同客户专属"] },
+      { "title": "故障原因分析与报告", "desc": "故障恢复后编写RCA（Root Cause Analysis）报告，制定防止再发措施。", "tags": ["RCA报告", "防止再发", "透明沟通"] },
+      { "title": "用户咨询处理代行", "desc": "一级接收·分类学习者·管理员的系统相关咨询，技术问题直接处理。", "tags": ["一级接收代行", "问题分类", "快速升级"] }
+    ],
+    "midCTA": { "heading": "想了解适合您服务的运维方案？", "description": "分析当前运营环境，免费推荐最佳运维方案。" },
+    "extraSection": { "sub": "额外开发", "heading": "超越运维\n延伸至功能开发", "desc": "不仅仅是简单管理，与LMS共同设计和开发成长。" },
+    "devFeatures": [
+      { "title": "新功能开发", "desc": "为现有LMS开发并添加新功能。考勤管理、测验引擎、课程券系统等。", "tags": ["定制功能开发", "API对接", "LMS扩展"] },
+      { "title": "UI/UX设计改进", "desc": "按照最新趋势对老旧界面进行翻新。", "tags": ["界面翻新", "UX改进", "响应式设计"] },
+      { "title": "管理后台升级", "desc": "追加开发统计仪表板、批量会员管理、内容批处理等提高运营效率的管理功能。", "tags": ["仪表板", "批量处理", "运营自动化"] },
+      { "title": "移动端优化", "desc": "将PC端开发的LMS改造为在移动端·平板端完美运行的响应式设计。", "tags": ["响应式Web", "移动UX", "跨设备"] },
+      { "title": "外部服务对接", "desc": "对接KakaoTalk通知、PG支付、HR·ERP系统、SSO、外部API等各种第三方服务。", "tags": ["KakaoTalk通知", "PG支付", "SSO对接"] },
+      { "title": "现有内容迁移", "desc": "从其他LMS或旧系统安全迁移学习数据、会员信息、视频内容。", "tags": ["数据迁移", "无停机迁移", "内容迁移"] }
+    ],
+    "processSection": { "sub": "流程", "heading": "系统化的运维\n执行流程", "desc": "从合同到定期报告，透明且系统化地进行。" },
+    "processSteps": [
+      { "title": "初始诊断", "desc": "全面检查服务器·代码·数据库环境，编写现状报告。", "tag": "1~2周" },
+      { "title": "环境配置", "desc": "安装监控工具、对接告警渠道、制定备份策略。", "tag": "1周" },
+      { "title": "持续监控", "desc": "24/7 NOC团队实时监控服务器状态，检测异常迹象。", "tag": "持续" },
+      { "title": "故障响应", "desc": "故障检测后5分钟内初始响应，恢复后共享RCA报告。", "tag": "5分钟内" },
+      { "title": "定期报告", "desc": "提供月度性能·安全·工作内容报告，并提出改进建议。", "tag": "每月1次" }
+    ],
+    "plansSection": { "sub": "套餐", "title": "选择适合规模的\n套餐" },
+    "plans": [
+      { "name": "Basic", "price": "300,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "features": [{ "main": "每月2次定期检查", "sub": "" }, { "main": "故障响应（工作时间内）", "sub": "工作日 09:00–18:00" }, { "main": "安全补丁应用", "sub": "" }, { "main": "月度现状报告", "sub": "" }, { "main": "邮件技术支持", "sub": "" }], "recommend": "推荐给小型在线学习服务、个人讲师、小型学院" },
+      { "name": "Standard", "price": "600,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "highlight": true, "badge": "最多选择！", "features": [{ "main": "每月4次定期检查", "sub": "" }, { "main": "故障响应 24/7", "sub": "含节假日全年无休" }, { "main": "安全补丁 & 性能优化", "sub": "" }, { "main": "月度性能·安全报告", "sub": "" }, { "main": "邮件·KakaoTalk技术支持", "sub": "" }, { "main": "小功能改进", "sub": "每月2件以内" }], "recommend": "推荐给中型在线学习平台、中小企业、协会、继续教育学院" },
+      { "name": "Premium", "price": "1,200,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "features": [{ "main": "每月8次定期检查", "sub": "" }, { "main": "故障响应 24/7 专属团队", "sub": "SLA 99.9%保障" }, { "main": "安全·性能·DB综合优化", "sub": "" }, { "main": "周报 + 月度综合报告", "sub": "" }, { "main": "电话·邮件·KakaoTalk专属渠道", "sub": "" }, { "main": "功能改进无限制", "sub": "优先处理" }, { "main": "年度安全审计", "sub": "含1次" }], "recommend": "推荐给大型教育机构、公共机构、金融·企业客户" }
+    ],
+    "plansCustom": { "title": "以上套餐不太合适？", "desc": "根据运营环境免费提供定制报价。", "cta": "申请定制报价" },
+    "faqs": [
+      { "q": "运维合同期间可以申请额外开发吗？", "a": "可以。Standard以上套餐包含每月一定数量的小功能改进。" },
+      { "q": "发生故障时如何响应？", "a": "NOC团队24/7监控，检测到故障后立即通知负责工程师。平均5分钟内启动初始响应。" },
+      { "q": "目前在其他公司运营，可以迁移吗？", "a": "可以。分析现有服务器环境和源代码后制定无停机迁移计划。" },
+      { "q": "月度报告包含哪些内容？", "a": "包含服务器可用率、流量分析、故障发生·处理记录、安全检查结果、性能指标。" },
+      { "q": "合同期限和解约条件是什么？", "a": "最低合同期限3个月，之后按月延续。解约需提前1个月书面通知。" },
+      { "q": "安全补丁多久应用一次？", "a": "紧急安全补丁发布后24小时内应用，一般补丁在每月1~2次的定期检查时批量应用。" }
+    ],
+    "testimonials": [
+      { "name": "崔荣镇", "role": "CTO", "org": "D 教育科技", "rating": 4, "date": "2025.02", "period": "使用5年", "content": "凌晨3点服务器出问题，5分钟内就接到了电话。不到30分钟就恢复正常了。" },
+      { "name": "韩素希", "role": "教育运营团队", "org": "E 网络大学", "rating": 5, "date": "2024.10", "period": "使用9年", "content": "我们没有开发人员，无法自行进行安全更新或服务器管理。他们全部代劳，让我们能专注于运营。" },
+      { "name": "郑宇成", "role": "IT负责人", "org": "F 教育协会", "rating": 3, "date": "2024.12", "period": "使用2年", "content": "每月发送的报告很清晰，向管理层汇报时可以直接使用。" }
+    ]
+  },
+  "chatbot": {
+    "seo": { "title": "AI聊天机器人", "description": "基于GPT-4o、Claude 3.5的LMS对接AI聊天机器人。自动应答学习者咨询、FAQ自动学习、多语言支持。", "keywords": "AI聊天机器人, LMS聊天机器人, 在线学习聊天机器人" },
+    "hero": { "badge": "AI聊天机器人", "title": "在线学习专业", "titleHighlight": "AI聊天机器人方案", "desc": "24小时即时回答学习者问题的AI聊天机器人，降低教育运营成本，大幅提升学习者满意度。", "cta1": "申请免费演示", "cta2": "查看构建流程" },
+    "stats": [
+      { "value": "80%", "label": "重复咨询自动处理", "sub": "减轻运营团队工作量" },
+      { "value": "24/7", "label": "不间断应答服务", "sub": "提升学习者满意度" },
+      { "value": "2周", "label": "平均构建周期", "sub": "快速服务应用" }
+    ],
+    "featuresSection": { "sub": "核心功能", "title": "用最新AI技术\n革新在线学习" },
+    "features": [
+      { "title": "基于LLM的自然语言理解", "desc": "利用GPT-4o、Claude 3.5等最新大语言模型，生成理解上下文的精确回答。", "tags": ["GPT-4o", "Claude 3.5", "RAG", "Prompt Engineering"] },
+      { "title": "LMS对接定制回答", "desc": "通过REST API与LMS数据库实时对接，基于课程状态、作业截止日期、成绩信息提供个性化回答。", "tags": ["REST API", "实时对接", "个性化", "课程数据"] },
+      { "title": "FAQ自动学习与知识库", "desc": "上传现有FAQ、运营手册、课程大纲等文档，基于向量嵌入自动索引，即时构建高精度知识库。", "tags": ["向量嵌入", "文档解析", "知识库", "自动索引"] },
+      { "title": "多语言处理与翻译", "desc": "自动检测韩语、英语、中文、日语等10种以上语言，并用该语言回答。", "tags": ["韩/英/中/日", "自动语言检测", "10种以上支持", "全球化"] },
+      { "title": "多渠道部署", "desc": "以KakaoTalk频道、网站聊天窗口、移动应用SDK形式，将单一聊天机器人同时部署到多个渠道。", "tags": ["KakaoTalk", "网页小工具", "移动SDK", "会话管理"] },
+      { "title": "运营状态仪表板", "desc": "实时仪表板可视化问题类型分类、解决率、升级比率、CSAT、平均响应时间等KPI。", "tags": ["实时监控", "CSAT", "KPI", "可视化"] },
+      { "title": "安全与隐私保护", "desc": "加密传输学习者个人信息（TLS 1.3），对话日志基于用户同意进行收集。", "tags": ["TLS 1.3", "加密", "GDPR", "个人信息保护法"] },
+      { "title": "持续学习与模型优化", "desc": "基于实际对话数据进行定期微调，随时间推移提高回答精度。", "tags": ["Fine-tuning", "RLHF", "反馈循环", "自动优化"] },
+      { "title": "客服升级与协作", "desc": "聊天机器人无法处理的复杂咨询实时转给客服，并完整传递之前的对话上下文。", "tags": ["Human Handoff", "实时转接", "上下文传递", "协作"] }
+    ],
+    "midCTA": { "heading": "想了解适合贵机构的AI聊天机器人？", "description": "根据机构特性免费推荐聊天机器人构建方案。", "ctaText": "申请免费演示" },
+    "processSection": { "sub": "构建流程", "title": "系统化的\n四阶段构建流程" },
+    "process": [
+      { "step": "01", "title": "需求分析与设计", "desc": "深入分析机构特性、学习者咨询模式、对接系统，设计聊天机器人架构和对话场景。", "detail": "意图设计 · 实体定义 · 架构设计" },
+      { "step": "02", "title": "数据收集与AI训练", "desc": "收集·整理FAQ、讲义资料、内部规定等文档，转换为向量嵌入。", "detail": "文档解析 · 向量DB构建 · RAG流水线" },
+      { "step": "03", "title": "开发与质量验证", "desc": "聊天机器人引擎开发和LMS·渠道对接后，测试100个以上边缘场景。", "detail": "场景测试 · 性能测量 · Fallback验证" },
+      { "step": "04", "title": "部署与持续运营支持", "desc": "全渠道部署后，通过月度性能报告和定期微调持续改善聊天机器人质量。", "detail": "多渠道部署 · 月度报告 · 定期改进" }
+    ],
+    "faqs": [
+      { "q": "引入聊天机器人后可以立即使用现有FAQ吗？", "a": "可以，上传现有FAQ文档后会自动通过向量嵌入索引，立即可用。" },
+      { "q": "聊天机器人无法回答的问题如何处理？", "a": "根据Fallback场景自动推荐\"连接客服\"或\"提交咨询\"选项。" },
+      { "q": "可以同时应用到KakaoTalk频道和网站吗？", "a": "可以，单一聊天机器人引擎可同时部署到KakaoTalk、网站、移动应用。" },
+      { "q": "学习者个人信息安全受到保护吗？", "a": "遵守TLS 1.3加密传输、个人信息脱敏、基于同意的日志收集等个人信息保护法和GDPR准则。" },
+      { "q": "聊天机器人回答精度如何管理？", "a": "通过月度定期微调和反馈循环持续改进。" }
+    ],
+    "testimonials": [
+      { "name": "金智贤", "role": "教育运营组长", "org": "M 网络大学", "rating": 5, "date": "2024.11", "period": "使用3年", "content": "说实话一开始不太相信聊天机器人能有多大用，但引入2周后重复的问题几乎都由聊天机器人处理了。" },
+      { "name": "李东勋", "role": "平台经理", "org": "N 企业培训中心", "rating": 4, "date": "2025.01", "period": "使用5年", "content": "夜间和周末提问的学习者很多，聊天机器人立即回答，能感受到完课率提高了。" },
+      { "name": "吴秀珍", "role": "CS主管", "org": "O 终身教育企业", "rating": 3, "date": "2024.09", "period": "使用2年", "content": "KakaoTalk和官网都有聊天机器人，学习者在方便的地方直接提问。" }
+    ]
+  },
+  "appdev": {
+    "seo": { "title": "应用开发", "description": "与Webheads LMS完美对接的iOS·Android应用开发。", "keywords": "在线学习应用开发, LMS应用, iOS应用, Android应用, React Native, Flutter" },
+    "hero": { "badge": "应用开发", "title": "从LMS完美对接到", "titleHighlight": "多种用途的应用开发", "desc": "不仅开发与Webheads在线学习解决方案完美对接的学习应用，还开发电商·预约·企业内部等多种用途的移动应用。", "cta1": "申请开发咨询", "cta2": "查看多种应用" },
+    "stats": [
+      { "value": "iOS+AOS", "label": "同步开发", "sub": "单一团队处理" },
+      { "value": "90%+", "label": "原生性能", "sub": "跨平台对比" },
+      { "value": "完美", "label": "LMS对接", "sub": "Webheads方案基础" },
+      { "value": "4周", "label": "平均开发周期", "sub": "MVP标准" }
+    ],
+    "lmsFeaturesSection": { "sub": "LMS对接应用", "title": "与Webheads在线学习解决方案\n完美对接", "desc": "如果您正在使用Webheads LMS，无需另行构建即可在应用中提供相同的学习环境。" },
+    "lmsFeatures": [
+      { "title": "Webheads LMS完美对接", "desc": "与Webheads在线学习解决方案通过REST API·WebSocket实时双向对接。", "tags": ["REST API", "WebSocket", "实时同步"] },
+      { "title": "学习督促PUSH通知", "desc": "通过FCM·APNs在最佳时机自动发送学习督促、作业截止通知。", "tags": ["FCM", "APNs", "个性化通知"] },
+      { "title": "移动DRM视频安全", "desc": "Widevine（Android）·FairPlay（iOS）DRM完全阻止流媒体视频的非法录制·截屏。", "tags": ["Widevine", "FairPlay", "AES-128"] },
+      { "title": "离线学习支持", "desc": "即使网络不稳定，也可通过本地缓存课程内容实现无中断学习。", "tags": ["本地缓存", "离线模式", "自动同步"] },
+      { "title": "学习分析与进度管理", "desc": "在应用内仪表板可视化学习时间、进度率、测验正确率等30多项指标。", "tags": ["30+指标", "实时图表", "管理员仪表板"] },
+      { "title": "安全与SSO对接", "desc": "基于OAuth 2.0·SAML 2.0的SSO，使用Webheads LMS账号即可立即登录应用。", "tags": ["OAuth 2.0", "SAML SSO", "Root检测"] }
+    ],
+    "midCTA": { "heading": "不确定需要什么样的应用？", "description": "根据机构特性免费推荐应用开发方案。", "ctaText": "申请开发咨询" },
+    "otherAppsSection": { "sub": "多种应用开发", "title": "除在线学习外\n还能开发各种应用", "desc": "电商、预约、企业内部、社区等按用途定制的iOS·Android同步开发。" },
+    "otherApps": [
+      { "title": "电商与市场平台", "desc": "构建商品上架·支付·物流追踪·评价的全栈电商应用。", "tags": ["PG支付", "结算自动化", "评价"] },
+      { "title": "预约与日程管理", "desc": "开发教室·会议室·医疗预约等各种预约管理应用。", "tags": ["预约系统", "通知自动化", "日历"] },
+      { "title": "企业内部与办公协同", "desc": "按组织需求定制考勤管理、电子审批、企业公告等内部应用。", "tags": ["考勤管理", "电子审批", "ERP对接"] },
+      { "title": "社区与社交平台", "desc": "支持动态、聊天、关注等SNS社区功能到专业社区应用。", "tags": ["动态", "实时聊天", "通知"] }
+    ],
+    "devStackSection": { "sub": "开发技术", "title": "用经过验证的技术栈\n稳定开发" },
+    "devStack": [
+      { "title": "iOS / Android原生", "desc": "用Swift（iOS）、Kotlin（Android）开发完全遵循各平台指南的原生应用。", "tags": ["Swift", "Kotlin", "原生UI"] },
+      { "title": "混合 / 跨平台", "desc": "用React Native·Flutter从单一代码库同时开发iOS·Android。", "tags": ["React Native", "Flutter", "成本节省"] },
+      { "title": "应用商店发布与维护", "desc": "代行App Store·Google Play审核应对到发布的全流程。", "tags": ["App Store", "Google Play", "CI/CD"] }
+    ],
+    "faqs": [
+      { "q": "同时开发iOS和Android费用会翻倍吗？", "a": "不会。使用React Native或Flutter跨平台开发，从单一代码库同时开发，可节省30~40%成本。" },
+      { "q": "也代行App Store/Google Play上架吗？", "a": "是的，代行App Store·Google Play上架全流程。" },
+      { "q": "可以将现有Web LMS转换为应用吗？", "a": "可以，如果正在使用Webheads LMS，可通过REST API对接现有数据快速构建应用。" },
+      { "q": "应用上线后也可以运维吗？", "a": "可以，提供应用更新、Bug修复、OS更新应对、功能添加等持续运维服务。" },
+      { "q": "离线学习功能适用于所有内容吗？", "a": "根据DRM策略，可按内容设置是否允许离线下载。" }
+    ],
+    "testimonials": [
+      { "name": "高敏秀", "role": "移动事业团队", "org": "V 网络大学", "rating": 3, "date": "2024.10", "period": "使用2年", "content": "iOS和Android应用都做了，从网页学习切换到应用也能接着看。" },
+      { "name": "南智允", "role": "教育企划组长", "org": "W 大企业培训中心", "rating": 5, "date": "2025.01", "period": "使用5年", "content": "开始发送Push通知后回到应用的比率明显提高了。" },
+      { "name": "黄道允", "role": "代表", "org": "X 创业公司", "rating": 4, "date": "2024.08", "period": "使用3年", "content": "不到一个月就把MVP上架到了App Store。审核被拒的应对也帮忙处理了，真的很方便。" }
+    ]
+  },
+  "drm": {
+    "seo": { "title": "DRM方案", "description": "Widevine、FairPlay、PlayReady多重DRM完美保护在线学习视频。", "keywords": "DRM, 在线学习DRM, 视频安全, Widevine, FairPlay, Catenoid, ZonePlayer" },
+    "hero": { "badge": "DRM", "title": "在线学习内容", "titleHighlight": "完美保护", "desc": "Catenoid、ZonePlayer DRM方案从根源阻止非法复制和未授权传播，安全守护珍贵的教育内容。", "cta1": "DRM引入咨询", "cta2": "方案比较" },
+    "stats": [
+      { "value": "100%", "label": "非法截屏拦截", "sub": "全平台应对" },
+      { "value": "多重", "label": "DRM标准支持", "sub": "Widevine·FairPlay·PlayReady" },
+      { "value": "EME", "label": "Web标准应用", "sub": "无需插件" },
+      { "value": "即时", "label": "泄露者追踪", "sub": "水印基础" }
+    ],
+    "featuresSection": { "sub": "核心功能", "title": "提供内容安全的\n全部功能" },
+    "features": [
+      { "title": "Catenoid DRM", "desc": "通过国内第一在线学习DRM方案Catenoid，用AES-128加密保护HLS/DASH流媒体内容。", "tags": ["AES-128", "Widevine", "FairPlay", "PlayReady"] },
+      { "title": "ZonePlayer DRM", "desc": "基于ZonePlayer的DRM按段加密HLS/DASH流媒体内容。", "tags": ["HLS/DASH", "分段加密", "截屏防止", "企业特化"] },
+      { "title": "屏幕截取与录制防止", "desc": "在Windows、macOS、iOS、Android全平台实时检测OBS、截屏工具并立即中止播放。", "tags": ["OBS拦截", "实时检测", "HDMI拦截", "全平台"] },
+      { "title": "个人识别水印", "desc": "将学习者的姓名、ID、IP地址等唯一标识信息以不可见或可见水印实时嵌入视频。", "tags": ["不可见水印", "实时嵌入", "泄露者追踪", "IP记录"] },
+      { "title": "多平台与多浏览器支持", "desc": "在Windows、macOS、Linux、iOS、Android全OS和Chrome、Firefox、Safari、Edge中无需插件即可运行。", "tags": ["EME标准", "无需插件", "全OS支持", "全浏览器"] },
+      { "title": "LMS完美API对接", "desc": "不仅与Webheads LMS完美对接，也可通过REST API与第三方LMS对接。", "tags": ["REST API", "Moodle对接", "权限控制", "违规日志"] },
+      { "title": "设备注册与并发限制", "desc": "设置每个学习者账户可用的设备数量，超出设备自动阻止播放。", "tags": ["设备注册限制", "并发阻止", "防止账号共享", "会话管理"] },
+      { "title": "离线播放保护", "desc": "下载用于离线学习的内容时，本地设备上也保持DRM加密。", "tags": ["离线DRM", "播放有效期", "次数限制", "许可证管理"] },
+      { "title": "安全威胁检测与监控", "desc": "实时检测异常播放模式、反复许可证错误、海外IP访问等安全威胁。", "tags": ["实时检测", "异常模式感知", "管理员仪表板", "拦截记录"] }
+    ],
+    "midCTA": { "heading": "想了解适合您内容的DRM方案？", "description": "分析机构环境，免费推荐最佳DRM方案。", "ctaText": "DRM引入咨询" },
+    "solutionsSection": { "sub": "方案比较", "title": "供应方案介绍", "desc": "为您推荐最适合机构环境的DRM方案。" },
+    "solutions": [
+      { "name": "Catenoid DRM", "desc": "基于Kollus播放器的5级内容安全体系，在线学习行业占有率压倒性的国内代表DRM方案。", "features": ["5级安全（OTU认证·重复播放拦截·Multi-DRM·Kollus DRM·录制工具拦截）", "音频&视频水印（国内首创）", "专用播放器 + HTML5 + 移动SDK", "离线Download & Play支持", "AI倍速播放（Android/iOS）", "播放器皮肤自定义API"], "ctaText": "引入咨询" },
+      { "name": "ZonePlayer DRM", "desc": "同时提供Pre-Packaging和实时加密方式，已在EBS等大型服务中应用验证的DRM方案。", "features": ["实时加密 & 用户级别独立加密", "安全服务器中转加密传输（原始保护）", "录制工具检测 & 数据包捕获拦截（zone@GUARD）", "并发连接防止 & 设备限制", "虚拟驱动器基础（Linux/Windows服务器）", "下载监控 & 运营界面提供"], "ctaText": "引入咨询" }
+    ],
+    "faqs": [
+      { "q": "应用DRM后学习者需要安装额外程序吗？", "a": "不需要。基于EME Web标准运行，无需安装任何插件或程序，直接在浏览器中播放。" },
+      { "q": "Catenoid和ZonePlayer哪个更合适？", "a": "大规模流量和CDN联动重要时推荐Catenoid，屏幕截取防止和水印重要时推荐ZonePlayer。" },
+      { "q": "可以在现有LMS上追加应用DRM吗？", "a": "可以，基于REST API不仅可对接Webheads LMS，也可对接第三方LMS。" },
+      { "q": "移动应用中DRM也能运行吗？", "a": "可以，提供iOS（FairPlay）和Android（Widevine）专用SDK。" },
+      { "q": "应用DRM后视频播放速度会受影响吗？", "a": "几乎无感。使用硬件加速解密，保持与普通播放相同的质量和速度。" }
+    ],
+    "testimonials": [
+      { "name": "林炫佑", "role": "内容安全负责人", "org": "G 在线教育企业", "rating": 5, "date": "2024.08", "period": "使用6年", "content": "应用DRM之前泄露视频一直在流传，应用之后真的一个都没有了。" },
+      { "name": "赵恩彬", "role": "运营总监", "org": "H 网络大学", "rating": 3, "date": "2024.11", "period": "使用2年", "content": "以前要求安装插件时学习者有很多不满，现在直接在浏览器播放，投诉几乎没有了。" },
+      { "name": "徐俊浩", "role": "安全组长", "org": "I 金融研修院", "rating": 4, "date": "2025.01", "period": "使用4年", "content": "金融行业安全审计很严格，DRM应用现状资料可以直接从仪表板导出，审计应对轻松多了。" }
+    ]
+  },
+  "channel": {
+    "seo": { "title": "渠道/短信", "description": "Channel Talk LMS对接、SMS/LMS批量发送、学习督促自动化消息提高学习者参与率。", "keywords": "Channel Talk, SMS发送, 在线学习通知, 学习督促" },
+    "hero": { "badge": "渠道/短信", "title": "与学习者的沟通", "titleHighlight": "通过自动化提效", "desc": "将Channel Talk和SMS与LMS对接，从学习督促到结业通知，实现所有沟通自动化。", "cta1": "申请引入咨询", "cta2": "查看应用案例" },
+    "stats": [
+      { "value": "98%", "label": "SMS到达率", "sub": "稳定的消息发送" },
+      { "value": "40%↑", "label": "学习完成率提升", "sub": "督促消息效果" },
+      { "value": "即时", "label": "LMS对接", "sub": "快速服务应用" }
+    ],
+    "featuresSection": { "sub": "核心功能", "title": "基于LMS对接的\n自动化消息发送" },
+    "features": [
+      { "title": "Channel Talk LMS对接", "desc": "利用Channel Talk（Channel.io）Open API实现LMS学习者账户1:1映射，在咨询界面实时展示学习状况·进度率。", "tags": ["Channel.io API", "LMS对接", "实时咨询", "上下文共享"] },
+      { "title": "SMS / LMS批量发送", "desc": "通过KISA认证SMS发送网关批量发送长文（LMS）、短文（SMS）、MMS消息。", "tags": ["SMS/LMS/MMS", "批量发送", "拒收处理", "080免费接收"] },
+      { "title": "学习督促自动化消息", "desc": "设置进度率阈值、剩余学习期限、未访问天数等条件，自动发送督促消息。", "tags": ["条件发送", "进度率联动", "发送计划", "消息模板"] },
+      { "title": "CRM细分对接", "desc": "基于LMS学习者属性动态构建细分群，按群发送定制消息。", "tags": ["动态细分", "属性定向", "REST API", "外部CRM对接"] },
+      { "title": "发送统计与效果分析", "desc": "通过仪表板提供消息发送数、到达率、阅读率、URL点击率等各渠道详细统计。", "tags": ["发送统计", "阅读率追踪", "URL点击分析", "ROI衡量"] },
+      { "title": "基于事件的自动化场景", "desc": "以报名、首次登录、学习完成等LMS事件为触发器设置消息发送场景。", "tags": ["事件触发", "多阶段流程", "无代码设置", "LMS Webhook"] },
+      { "title": "KakaoTalk通知/好友消息发送", "desc": "通过KakaoTalk商业消息API发送通知消息和好友消息。相比SMS最多可节省70%费用。", "tags": ["通知消息", "好友消息", "KakaoTalk商业消息", "富媒体消息"] },
+      { "title": "隐私保护与接收同意管理", "desc": "依据信息通信网法收集·存储接收同意，拒收请求时立即从发送对象中排除。", "tags": ["接收同意管理", "个人信息保护法", "拒收处理", "审计日志"] },
+      { "title": "Push通知与邮件统一发送", "desc": "除SMS·Channel Talk外，在同一自动化场景中统一发送移动应用Push通知和HTML邮件。", "tags": ["Push通知", "FCM/APNS", "邮件发送", "Fallback策略"] }
+    ],
+    "midCTA": { "heading": "想了解适合贵机构的消息自动化？", "description": "免费推荐学习者沟通自动化方案。" },
+    "useCasesSection": { "sub": "应用案例", "title": "在这些场景中\n使用", "desc": "在学习旅程的每个阶段通过自动化沟通提升学习者体验。" },
+    "useCases": [
+      { "title": "课程通知发送", "desc": "新学员注册时自动发送包含LMS访问URL、ID/密码指南、学习日程的SMS。" },
+      { "title": "学习督促通知", "desc": "自动识别进度率低于标准或未访问超过3天的学习者并发送督促消息。" },
+      { "title": "结业祝贺消息", "desc": "课程结业后立即自动发送祝贺消息和结业证下载链接。" },
+      { "title": "实时聊天咨询", "desc": "在Channel Talk咨询界面实时确认学习者的学习状况进行应对。" },
+      { "title": "通知批量发送", "desc": "向全体学习者或特定群组通过SMS/KakaoTalk通知批量发送重要公告。" },
+      { "title": "满意度调查链接发送", "desc": "课程结束后自动通过SMS发送学习满意度调查链接。" },
+      { "title": "法定培训对象管理", "desc": "自动提取法定培训对象，向未完成者分阶段发送指引SMS。" },
+      { "title": "证书到期提前通知", "desc": "根据证书到期日自动发送更新指引SMS。" },
+      { "title": "开课前提醒发送", "desc": "特定时间的活动前自动发送访问链接和准备事项通知。" }
+    ],
+    "faqs": [
+      { "q": "Channel Talk和SMS可以同时使用吗？", "a": "可以，Channel Talk实时咨询和SMS/KakaoTalk通知自动发送可同时使用。" },
+      { "q": "SMS发送费用如何计算？", "a": "按条计费，短信约15韩元，长文约40韩元，KakaoTalk通知约8韩元。" },
+      { "q": "学习督促消息按什么条件自动发送？", "a": "可以无代码方式设置进度率标准、未访问天数、剩余学习期限等条件。" },
+      { "q": "拒收如何处理？", "a": "默认提供080免费拒收号码，拒收请求时立即自动从发送对象中排除。" },
+      { "q": "可以直接对接现有LMS吗？", "a": "Webheads LMS可即时对接，第三方LMS也可通过REST API/Webhook方式对接。" }
+    ],
+    "testimonials": [
+      { "name": "白承焕", "role": "教育运营经理", "org": "J 职业培训机构", "rating": 4, "date": "2024.12", "period": "使用3年", "content": "设置了自动给未完成者发短信后，完课率明显上升了。" },
+      { "name": "权娜英", "role": "CS团队主管", "org": "K 网络大学", "rating": 5, "date": "2025.01", "period": "使用8年", "content": "对接Channel Talk后咨询员可以直接看到学习者的学习状态。咨询时间减少了一半以上。" },
+      { "name": "柳志浩", "role": "市场团队长", "org": "L 在线学习企业", "rating": 3, "date": "2024.10", "period": "使用2年", "content": "换成KakaoTalk通知后短信费用大幅下降，点击率也比SMS高很多。" }
+    ]
+  },
+  "pg": {
+    "seo": { "title": "PG支付对接", "description": "Toss Payments、KG Inicis、Mobilians、PayTeacher、海外PG等在线学习平台支付对接服务。", "keywords": "PG支付, 在线学习支付, Toss Payments, KG Inicis" },
+    "hero": { "badge": "PG", "title": "国内外多家PG的", "titleHighlight": "完美支付对接", "desc": "从Toss Payments、KG Inicis到Stripe·PayPal海外支付。统一对接在线学习平台所需的所有支付方式。", "cta1": "申请引入咨询", "cta2": "查看对接PG" },
+    "stats": [
+      { "value": "8+", "label": "对接PG", "sub": "国内外主要PG" },
+      { "value": "16+", "label": "支付方式", "sub": "多种支付方式支持" },
+      { "value": "140+", "label": "支持货币国", "sub": "全球支付可用" },
+      { "value": "99.9%", "label": "支付稳定性", "sub": "稳定的支付处理" }
+    ],
+    "paymentMethodsSection": { "sub": "支持的支付方式", "title": "国内+海外\n支付方式统一支持" },
+    "paymentMethods": ["信用卡（国内全卡组织）", "借记卡", "实时银行转账", "虚拟账户（银行汇款）", "手机小额支付", "KakaoPay", "NaverPay", "TossPay", "Apple Pay", "Google Pay", "海外 Visa / Mastercard", "Amex / JCB / UnionPay", "WeChat Pay", "Alipay", "PayPal", "托管支付"],
+    "featuresSection": { "sub": "核心功能", "title": "为在线学习业务\n优化的支付基础设施" },
+    "features": [
+      { "title": "Toss Payments对接", "desc": "通过Toss Payments REST API v2统一对接信用卡、银行转账、虚拟账户、手机支付等国内主要支付方式。", "tags": ["REST API v2", "支付小组件", "PCI-DSS", "便捷支付"] },
+      { "title": "KG Inicis对接", "desc": "与国内第一PG KG Inicis对接，支持全部支付方式。", "tags": ["信用卡", "自动扣款/定期支付", "托管", "部分退款"] },
+      { "title": "Mobilians对接", "desc": "通过国内代表手机支付PG Mobilians对接运营商小额支付。", "tags": ["手机小额支付", "运营商计费", "SKT/KT/LGU+", "定期支付"] },
+      { "title": "PayTeacher对接", "desc": "对接教育机构特化PG方案PayTeacher，实现学费分期、家长代付等功能。", "tags": ["教育机构特化", "分期支付", "代付", "课程联动"] },
+      { "title": "海外支付（全球PG）对接", "desc": "与Stripe、PayPal、Adyen等全球PG对接，支持多币种支付。", "tags": ["Stripe", "PayPal", "多币种", "海外卡"] },
+      { "title": "定期支付（订阅）自动化", "desc": "将课程券月费、年度订阅等定期支付产品与LMS会员账户联动自动扣款。", "tags": ["自动扣款", "订阅管理", "Retry Logic", "自助服务"] },
+      { "title": "支付统计与结算报告", "desc": "实时仪表板提供日·月支付情况、营收趋势、退款率、各PG手续费分析。", "tags": ["实时仪表板", "结算报告", "税务发票", "手续费分析"] },
+      { "title": "安全与隐私保护", "desc": "采用不在服务器存储卡信息的令牌化（Tokenization）方式。", "tags": ["令牌化", "TLS 1.3", "ISMS-P", "金融监管认证"] },
+      { "title": "支付错误监控与客服支持", "desc": "提供实时支付成功·失败监控、异常交易检测（FDS）告警。", "tags": ["FDS", "实时监控", "自动客服", "退款管理"] }
+    ],
+    "midCTA": { "heading": "想了解适合您平台的支付对接？", "description": "免费推荐针对商业模式优化的PG对接方案。" },
+    "partnersSection": { "sub": "对接PG", "title": "国内外主要\nPG对接", "desc": "根据客户的商业模式选择最佳PG进行对接。" },
+    "pgPartners": [
+      { "name": "Toss Payments", "category": "国内PG", "desc": "信用卡·便捷支付统一" },
+      { "name": "KG Inicis", "category": "国内PG", "desc": "国内第一支付基础设施" },
+      { "name": "Mobilians", "category": "手机支付", "desc": "运营商小额支付专业" },
+      { "name": "PayTeacher", "category": "教育特化PG", "desc": "教育机构分期·自动转账" },
+      { "name": "Stripe", "category": "全球PG", "desc": "全球140个国家支付" },
+      { "name": "PayPal", "category": "全球PG", "desc": "海外买家信赖支付" },
+      { "name": "Adyen", "category": "全球PG", "desc": "企业级全球支付" },
+      { "name": "WeChat Pay / Alipay", "category": "中华区支付", "desc": "中国用户支付支持" }
+    ],
+    "faqs": [
+      { "q": "PG对接需要多长时间？", "a": "单个PG平均1~2周完成对接。" },
+      { "q": "可以同时使用多个PG吗？", "a": "可以，同时对接国内PG和海外PG，按支付方式自动路由到最佳PG。" },
+      { "q": "定期支付（订阅）如何设置？", "a": "在管理后台设置定期支付产品，可设置支付失败时的自动重试策略。" },
+      { "q": "海外支付的汇率如何应用？", "a": "通过Stripe等全球PG自动应用实时汇率。" },
+      { "q": "支付安全如何保障？", "a": "应用PCI-DSS认证环境、卡信息令牌化、TLS 1.3加密传输、FDS等多层安全。" }
+    ],
+    "testimonials": [
+      { "name": "张玄锡", "role": "开发团队长", "org": "S 在线学习企业", "rating": 5, "date": "2024.09", "period": "使用6年", "content": "Toss Payments对接不到一周就完成了。定期支付自动化也一起做了，每月手动操作的工作没有了。" },
+      { "name": "文瑞英", "role": "财务负责人", "org": "T 网络大学", "rating": 3, "date": "2025.01", "period": "使用2年", "content": "结算报告自动生成，开发票和增值税申报时不用做Excel了。" },
+      { "name": "申东旭", "role": "事业部长", "org": "U 全球教育机构", "rating": 4, "date": "2024.11", "period": "使用4年", "content": "海外学员之前支付很困难，对接Stripe后全球营收明显增长了。" }
+    ]
+  },
+  "content": {
+    "seo": { "title": "内容开发", "description": "从视频课程、互动内容、2D/3D动画到游戏化，专业制作各种在线学习内容。", "keywords": "在线学习内容制作, 视频课程, 互动内容, 游戏化" },
+    "hero": { "badge": "内容", "title": "无论什么教育", "titleHighlight": "以最佳内容制作", "desc": "视频·互动·游戏化·动画等，专家根据学习目的设计和制作内容。", "cta1": "申请制作咨询", "cta2": "查看内容类型" },
+    "stats": [
+      { "value": "500+", "label": "制作课程", "sub": "验证过的案例" },
+      { "value": "4K", "label": "拍摄分辨率", "sub": "广播级品质" },
+      { "value": "9种+", "label": "内容类型", "sub": "按目的最佳格式" },
+      { "value": "3阶段", "label": "品质检验", "sub": "教学设计·媒体·技术" }
+    ],
+    "featuresSection": { "sub": "核心能力", "title": "负责内容制作的\n全过程" },
+    "features": [
+      { "title": "视频课程制作", "desc": "支持专业工作室多机位拍摄、屏幕录制、教案制作幻灯片等多种方式。", "tags": ["4K拍摄", "多机位", "屏幕录制", "专业编辑"] },
+      { "title": "互动内容", "desc": "使用H5P、Adobe Captivate、Articulate Storyline等制作分支场景、测验、模拟等。", "tags": ["H5P", "Storyline", "Captivate", "模拟"] },
+      { "title": "2D / 3D动画", "desc": "用2D动态图形和3D动画直观地可视化复杂概念。", "tags": ["After Effects", "Blender", "动态图形", "3D可视化"] },
+      { "title": "游戏化内容", "desc": "将积分·徽章·排行榜·任务系统内置于内容中，激励学习者持续参与。", "tags": ["积分·徽章", "排行榜", "场景学习", "沉浸式"] },
+      { "title": "响应式多设备支持", "desc": "基于HTML5在所有设备上自动优化布局。", "tags": ["HTML5", "响应式", "iOS·Android", "离线播放"] },
+      { "title": "法定培训内容", "desc": "按照相关法律法规最新修订案定期更新5大法定培训。", "tags": ["5大法定培训", "法规更新", "定期更新", "年度许可"] },
+      { "title": "AI语音与专业配音", "desc": "同时提供AI语音合成（TTS）和专业配音员录音服务。", "tags": ["AI TTS", "专业配音", "多语言", "SRT字幕"] },
+      { "title": "企业BI定制设计", "desc": "将企业CI/BI融入课程模板，保持品牌一致性。", "tags": ["CI/BI融入", "定制模板", "品牌化", "批量制作"] },
+      { "title": "品质检验与无障碍合规", "desc": "经过教育工学专家3阶段品质检验，遵守WCAG 2.1 AA标准。", "tags": ["3阶段检验", "WCAG 2.1", "无障碍", "教学设计"] }
+    ],
+    "midCTA": { "heading": "不确定需要什么样的内容？", "description": "根据教育目的和对象免费推荐最佳内容类型。", "ctaText": "申请制作咨询" },
+    "typesSection": { "sub": "内容类型", "title": "任何领域\n定制制作", "desc": "从企业培训到法定培训、医疗·金融·大学课程，拥有数百个制作案例。" },
+    "contentTypes": [
+      { "label": "企业岗位培训", "desc": "从入门到深入，岗位能力强化定制内容" },
+      { "label": "法定培训", "desc": "性骚扰·安全·个人信息保护等5大法定培训" },
+      { "label": "医疗·保健培训", "desc": "临床模拟、患者安全、感染预防培训" },
+      { "label": "大学·HRD培训", "desc": "学分认可、能力导向大学在线课程" },
+      { "label": "游戏化学习", "desc": "沉浸式场景·任务驱动学习体验设计" },
+      { "label": "外语培训", "desc": "英语·中文·日语等多语言课程制作" },
+      { "label": "领导力·组织文化", "desc": "变革管理、沟通、领导力能力发展内容" },
+      { "label": "金融·保险培训", "desc": "合规·伦理·产品培训内容专业制作" }
+    ],
+    "faqs": [
+      { "q": "内容制作周期是多久？", "a": "简单拍摄编辑2~3周，互动·动画内容4~6周。" },
+      { "q": "可以用现有教案（PPT）制作内容吗？", "a": "可以，基于现有PPT教案可转换制作为幻灯片课程、屏幕录制课程、互动内容等。" },
+      { "q": "法定培训内容在法规变更时会更新吗？", "a": "年度许可合同时，法规修订引起的内容更新免费提供。" },
+      { "q": "配音用AI语音还是专业配音好？", "a": "批量制作·快速交付推荐AI TTS，高品质·情感传达重要时推荐专业配音。" },
+      { "q": "必须遵守WCAG无障碍标准吗？", "a": "公共机构·大学等法律要求遵守网页无障碍。基本制作时遵守WCAG 2.1 AA。" }
+    ],
+    "testimonials": [
+      { "name": "宋民雅", "role": "HRD经理", "org": "P 大企业", "rating": 4, "date": "2024.10", "period": "使用4年", "content": "视频质量确实不一样。员工们问'这是外部培训视频吗'。" },
+      { "name": "尹在赫", "role": "教学设计师", "org": "Q 公共教育机构", "rating": 5, "date": "2024.12", "period": "使用7年", "content": "加入互动内容后学习者反应明显不同了。分支场景型效果很好。" },
+      { "name": "姜多恩", "role": "教育团队", "org": "R 医疗机构", "rating": 3, "date": "2025.02", "period": "使用2年", "content": "医疗操作用文字很难解释，用3D动画制作后学习者反馈理解快多了。" }
+    ]
+  },
   "landing": {
     "seo": { "title": "Webheads 服务", "description": "与Webheads一起，涵盖在线学习的一切。托管、AI聊天机器人、应用开发、DRM、支付、内容制作——一站式提供。", "keywords": "在线学习, LMS, Webheads, 托管, AI聊天机器人, 应用开发, DRM, 支付, 内容制作, 运维" },
     "hero": { "sub": "Webheads 服务", "title1": "在线学习的一切", "title2": "一站式解决", "desc": "从托管到AI聊天机器人、应用开发、DRM、支付集成。\n为在线学习事业提供所有所需服务。", "cta1": "浏览服务", "cta2": "免费咨询" },
