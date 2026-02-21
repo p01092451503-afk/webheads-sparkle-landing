@@ -35,7 +35,7 @@ export default function Header() {
       }`}
     >
       <div className="container mx-auto px-6 max-w-6xl">
-        <div className="flex items-center gap-6 h-14">
+        <div className="flex items-center gap-6 h-16">
           {/* Logo */}
           <Link
             to="/"
@@ -65,6 +65,14 @@ export default function Header() {
             })}
           </nav>
 
+          {/* 무료 상담 CTA */}
+          <a
+            href="#contact"
+            className="hidden lg:inline-flex shrink-0 px-4 py-2 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors whitespace-nowrap"
+          >
+            무료 상담
+          </a>
+
           {/* Mobile: 햄버거 */}
           <button
             className="lg:hidden ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -73,16 +81,6 @@ export default function Header() {
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-        </div>
-
-        {/* 무료 상담 CTA — 별도 줄 */}
-        <div className="hidden lg:flex justify-end pb-2">
-          <a
-            href="#contact"
-            className="inline-flex px-5 py-2 rounded-xl text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors whitespace-nowrap"
-          >
-            무료 상담
-          </a>
         </div>
       </div>
 
