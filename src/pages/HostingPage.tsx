@@ -94,7 +94,7 @@ export default function HostingPage() {
       <ServiceProcess steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
 
       {/* Plans */}
-      <section id="plans" className="py-28 bg-secondary">
+      <section id="plans" className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("hosting.plansSection.sub")}</p>
