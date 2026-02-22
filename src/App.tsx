@@ -17,6 +17,7 @@ import ChannelPage from "./pages/ChannelPage";
 import PgPage from "./pages/PgPage";
 import MaintenancePage from "./pages/MaintenancePage";
 import LmsPage from "./pages/LmsPage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="/channel" element={<ChannelPage />} />
             <Route path="/pg" element={<PgPage />} />
             <Route path="/maintenance" element={<MaintenancePage />} />
+            <Route path="/about" element={<AboutPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
