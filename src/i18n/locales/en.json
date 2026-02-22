@@ -507,7 +507,7 @@
   },
   "lms": {
     "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 300+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
-    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Monetize Your Knowledge", "titleHighlight": "Faster & Smarter", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "Webheads LMS", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions" },
     "statsTitle": "300+ companies are already transforming their learning",
     "stats": [
       { "value": "16yr", "label": "LMS Expertise", "sub": "Industry Leader" },
