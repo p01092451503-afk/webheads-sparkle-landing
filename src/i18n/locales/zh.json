@@ -506,12 +506,12 @@
     "stats": [{ "value": "500+", "label": "客户" }, { "value": "15年+", "label": "运营经验" }, { "value": "99.9%", "label": "服务器可用率" }, { "value": "24/7", "label": "技术支持" }]
   },
   "lms": {
-    "seo": { "title": "Webheads LMS", "description": "将制作、管理、运营等所有在线教育流程统一到一个平台的在线学习解决方案。400+企业信赖的LMS。", "keywords": "LMS, 在线学习, Webheads, 在线教育, 学习管理系统" },
+    "seo": { "title": "Webheads LMS", "description": "将制作、管理、运营等所有在线教育流程统一到一个平台的在线学习解决方案。300+企业信赖的LMS。", "keywords": "LMS, 在线学习, Webheads, 在线教育, 学习管理系统" },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "将您的知识变现", "titleHighlight": "更快更智能", "desc": "Webheads LMS将制作、管理、运营等所有在线教育流程统一到一个平台。", "cta1": "咨询导入", "cta2": "方案对比" },
-    "statsTitle": "已有400+企业体验学习变革",
+    "statsTitle": "已有300+企业体验学习变革",
     "stats": [
       { "value": "16年", "label": "LMS专业企业", "sub": "行业最长" },
-      { "value": "400+", "label": "导入企业", "sub": "累计客户" },
+      { "value": "300+", "label": "导入企业", "sub": "累计客户" },
       { "value": "84.2%", "label": "5年以上使用率", "sub": "续约率" },
       { "value": "TCB", "label": "技术优秀企业", "sub": "IBK认证" }
     ],
