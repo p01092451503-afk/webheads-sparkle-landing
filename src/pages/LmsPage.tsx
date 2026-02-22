@@ -67,7 +67,7 @@ export default function LmsPage() {
           <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><LmsHeroVisual /></div>
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
-          <div className="max-w-xl">
+          <div className="max-w-2xl">
             <span
               className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
               style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(260, 70%, 40%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
