@@ -655,5 +655,66 @@
       "stats": [["Students", ""], ["Courses", ""], ["Completion", "%"]],
       "badges": { "openDays": "3-Day Setup" }
     }
+  },
+  "about": {
+    "seo": { "title": "About Webheads", "description": "Webheads — 16 years of e-learning expertise. LMS development, hosting, AI, DRM, and content creation for 300+ enterprises.", "keywords": "Webheads, about, e-learning company, LMS development, Korea" },
+    "hero": { "sub": "ABOUT US", "title1": "Building the Future", "title2": "of ", "title3": "e-Learning", "desc": "Since 2010, Webheads has been delivering enterprise-grade LMS solutions, hosting, AI, and content services to 300+ organizations across Korea." },
+    "heroStats": [{ "value": "2010", "label": "Founded" }, { "value": "300+", "label": "Clients" }, { "value": "15", "label": "Team Members" }],
+    "overviewSub": "COMPANY OVERVIEW",
+    "overviewTitle": "Webheads Inc.",
+    "overview": [
+      { "label": "Company", "value": "Webheads Inc. (주식회사 웹헤즈)" },
+      { "label": "Established", "value": "April 2, 2010 (16th year)" },
+      { "label": "Headquarters", "value": "3F, 114 World Cup-ro, Mapo-gu, Seoul" },
+      { "label": "IDC Center", "value": "LG U+ Gasan Digital Center, Geumcheon-gu" },
+      { "label": "Contact", "value": "02-540-4337 · Fax 02-6935-1004" },
+      { "label": "Website", "value": "www.webheads.co.kr" },
+      { "label": "Certification", "value": "RCB Tech Assessment — Top Technology Company" },
+      { "label": "Registration", "value": "Package SW Development · Digital Content · DRM" },
+      { "label": "Email", "value": "34bus@webheads.co.kr" }
+    ],
+    "orgSub": "ORGANIZATION",
+    "orgTitle": "Our Team of 15 Experts",
+    "orgDesc": "Specialized teams with an average of 15+ years of industry experience.",
+    "orgTeams": [
+      { "name": "CEO & Business", "count": 1, "detail": "Sales & Strategy" },
+      { "name": "Solutions Team", "count": 9, "detail": "4 Senior · 4 Mid · 1 Junior" },
+      { "name": "Content Team", "count": 2, "detail": "2 Senior Engineers" },
+      { "name": "Hosting Team", "count": 2, "detail": "1 Senior · 1 Mid Engineer" },
+      { "name": "Business Support", "count": 1, "detail": "Operations & Admin" }
+    ],
+    "bizSub": "BUSINESS AREAS",
+    "bizTitle": "Core Competencies",
+    "bizDesc": "End-to-end e-learning services from platform development to infrastructure and content.",
+    "bizAreas": [
+      { "title": "LMS Development & Supply", "desc": "SI (custom build) and SaaS (rental) e-learning platforms for enterprises, government, universities, and academies.", "tags": ["PHP", "Java", "React Native", "Flutter", "SaaS", "SI"] },
+      { "title": "IDC & Hosting Services", "desc": "Web hosting, media hosting, CDN, AWS, and NCP cloud management with 24/7 monitoring and security.", "tags": ["CDN", "AWS", "IDC", "NCP", "Backup"] },
+      { "title": "AI Technology R&D", "desc": "AI chatbot, AI tutor, and content recommendation engine — multilingual NLP-based systems integrated with LMS.", "tags": ["AI Chatbot", "AI Tutor", "NLP", "Recommendation"] },
+      { "title": "DRM & Content Security", "desc": "Digital Rights Management solutions including ZonePlayer, Kollus, and StarPlayer integration.", "tags": ["DRM", "Watermark", "Capture Prevention"] },
+      { "title": "Content Development", "desc": "End-to-end e-learning content production — 4K video, interactive H5P, animation, and SCORM packaging.", "tags": ["4K Video", "H5P", "SCORM", "Animation"] },
+      { "title": "PG Payment Integration", "desc": "Seamless integration with KG Inicis, Toss Payments, NicePay, and global gateways like Stripe and PayPal.", "tags": ["Inicis", "Toss", "Stripe", "PayPal"] }
+    ],
+    "featuresSub": "LMS FEATURES",
+    "featuresTitle": "30+ Built-in Capabilities",
+    "featuresDesc": "Everything needed for online education, out of the box.",
+    "features": ["Unified Admin Dashboard", "Unlimited Course Categories", "DRM Video Player Integration", "PG Auto-Integration (Card, Bank, Mobile)", "B2B Sales Management (CRM)", "Social Login (Google, Kakao, etc.)", "SMS & Email Notifications", "Completion Certificates", "PC & Mobile Sync Learning", "Live Video (Zoom, Kollus Live)", "AI Subtitle Generation", "Variable Speed Playback (0.5~2.0x)"],
+    "clientsSub": "CLIENTS",
+    "clientsTitle": "Trusted by 300+ Organizations",
+    "clientsDesc": "From startups to large enterprises and government agencies.",
+    "majorClients": [
+      { "name": "Yanadoo", "desc": "600K+ members · English video education", "type": "SI Build & Delivery" },
+      { "name": "Weolbu", "desc": "300K+ members · Real estate education", "type": "SI Build · Hosting · Maintenance" },
+      { "name": "KAUAC", "desc": "7K+ members · University admissions training", "type": "SaaS · Content · Hosting" },
+      { "name": "KMAC", "desc": "4M+ members · Corporate consulting & education", "type": "SI Build · Hosting · Maintenance" }
+    ],
+    "clientLogosLabel": "AND MANY MORE",
+    "clientLogos": ["SK Hynix", "Pulmuone", "Incheon Airport", "Seoul Police", "Sungkyunkwan Univ.", "Korea Univ.", "Chung-Ang Univ.", "Catholic Univ.", "Kyungpook Univ.", "Sunmoon Univ.", "KG Eduwon", "Samyang Foods", "TransCosmos Korea", "Korea Appraisers Assoc.", "Gyeonggi Fire Dept.", "Korea Childcare Agency", "Thermofisher Scientific"],
+    "supportSub": "SUPPORT",
+    "supportTitle": "Maintenance & Support Policy",
+    "support": [
+      { "title": "Free Maintenance", "desc": "12 months of complimentary maintenance after system delivery. Bug fixes resolved within 3 hours of report.", "tag": "Included" },
+      { "title": "Paid Maintenance", "desc": "Feature additions, design changes, and extended development beyond the initial agreement scope.", "tag": "Optional" },
+      { "title": "Rebuild / Re-dev", "desc": "Full or partial system rebuild when requirements exceed maintenance scope. Includes expansion and enhancement.", "tag": "Custom Quote" }
+    ]
   }
 }
