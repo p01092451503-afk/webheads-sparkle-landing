@@ -1,4 +1,9 @@
+import { useTranslation } from "react-i18next";
+
 export default function PgHeroVisual() {
+  const { t } = useTranslation();
+  const transactions = t("visuals.pg.transactions", { returnObjects: true }) as string[][];
+
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none">
       <style>{`
@@ -16,35 +21,28 @@ export default function PgHeroVisual() {
         <div style={{
           position: "absolute", left: "50%", top: "50%",
           transform: "translate(-52%, -48%) rotateX(10deg) rotateY(-18deg) rotateZ(4deg)",
-          width: 255, height: 155,
-          borderRadius: 22,
+          width: 255, height: 155, borderRadius: 22,
           background: "linear-gradient(135deg, hsl(152,60%,20%), hsl(152,70%,12%))",
           boxShadow: "0 28px 60px rgba(20,140,80,0.35), 0 4px 16px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.12)",
           overflow: "hidden",
         }}>
-          {/* shimmer */}
           <div style={{ position: "absolute", top: 0, bottom: 0, width: "40%", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)", animation: "pg-shimmer 2.8s ease-in-out infinite", left: "-60%" }} />
-          {/* circles deco */}
           <div style={{ position: "absolute", right: -30, top: -30, width: 120, height: 120, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
           <div style={{ position: "absolute", right: -10, top: -50, width: 100, height: 100, borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
           <div style={{ padding: "18px 20px" }}>
-            {/* chip */}
             <div style={{ width: 34, height: 26, borderRadius: 5, background: "linear-gradient(135deg, #facc15, #b45309)", marginBottom: 14, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <div style={{ width: 24, height: 16, borderRadius: 3, border: "1px solid rgba(0,0,0,0.15)", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 1 }}>
                 {[0,1,2,3].map(i => <div key={i} style={{ background: "rgba(0,0,0,0.08)", borderRadius: 1 }} />)}
               </div>
             </div>
-            {/* card number */}
             <div style={{ fontFamily: "monospace", fontSize: 14, color: "rgba(255,255,255,0.85)", letterSpacing: 3, marginBottom: 14 }}>
               •••• •••• •••• 4521
             </div>
-            {/* bottom row */}
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
               <div>
-                <div style={{ fontSize: 7, color: "rgba(255,255,255,0.4)", marginBottom: 2 }}>결제 수단</div>
-                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.85)", fontWeight: 700 }}>토스페이먼츠</div>
+                <div style={{ fontSize: 7, color: "rgba(255,255,255,0.4)", marginBottom: 2 }}>{t("visuals.pg.paymentMethod")}</div>
+                <div style={{ fontSize: 10, color: "rgba(255,255,255,0.85)", fontWeight: 700 }}>{t("visuals.pg.providerName")}</div>
               </div>
-              {/* mastercard style */}
               <div style={{ display: "flex", gap: -8 }}>
                 <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#ef4444", opacity: 0.9 }} />
                 <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#facc15", marginLeft: -12, opacity: 0.9 }} />
@@ -58,8 +56,7 @@ export default function PgHeroVisual() {
         <div style={{
           position: "absolute", left: "50%", top: "50%",
           transform: "translate(-28%, -28%) rotateX(12deg) rotateY(-22deg) rotateZ(6deg)",
-          width: 180, height: 110,
-          borderRadius: 18,
+          width: 180, height: 110, borderRadius: 18,
           background: "rgba(20,20,40,0.85)",
           boxShadow: "0 16px 40px rgba(0,0,0,0.3)",
           backdropFilter: "blur(12px)",
@@ -67,20 +64,23 @@ export default function PgHeroVisual() {
           border: "1px solid rgba(255,255,255,0.1)",
         }}>
           <div style={{ padding: "12px 14px" }}>
-            <div style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", marginBottom: 6 }}>최근 결제</div>
-            {[["카드 결제", "₩ 89,000", "#34d399"], ["정기결제", "₩ 29,900", "#60a5fa"], ["환불 처리", "₩ 15,000", "#f87171"]].map(([label, amount, color], i) => (
-              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: color }} />
-                  <span style={{ fontSize: 7.5, color: "rgba(255,255,255,0.6)" }}>{label}</span>
+            <div style={{ fontSize: 8, color: "rgba(255,255,255,0.4)", marginBottom: 6 }}>{t("visuals.pg.recentPayments")}</div>
+            {transactions.map(([label, amount], i) => {
+              const colors = ["#34d399", "#60a5fa", "#f87171"];
+              return (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: colors[i] }} />
+                    <span style={{ fontSize: 7.5, color: "rgba(255,255,255,0.6)" }}>{label}</span>
+                  </div>
+                  <span style={{ fontSize: 8, color: colors[i], fontWeight: 700 }}>{amount}</span>
                 </div>
-                <span style={{ fontSize: 8, color, fontWeight: 700 }}>{amount}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        {/* ── Floating: Globe / 140 countries ── */}
+        {/* ── Floating: Globe ── */}
         <div style={{ position: "absolute", left: "8%", top: "8%", animation: "pg-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,80,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><radialGradient id="pgGlobeGrad" cx="38%" cy="32%"><stop offset="0%" stopColor="hsl(152,80%,65%)"/><stop offset="100%" stopColor="hsl(152,70%,35%)"/></radialGradient></defs>
@@ -113,11 +113,11 @@ export default function PgHeroVisual() {
         </div>
 
         {/* ── Badges ── */}
-        <div style={{ position: "absolute", right: "4%", bottom: "28%", animation: "pg-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(152,70%,38%), hsl(152,80%,25%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,140,80,0.38)" }}>토스페이먼츠</div>
+        <div style={{ position: "absolute", right: "4%", bottom: "28%", animation: "pg-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(152,70%,38%), hsl(152,80%,25%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,140,80,0.38)" }}>{t("visuals.pg.badges.provider")}</div>
         <div style={{ position: "absolute", left: "2%", top: "36%", animation: "pg-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>Stripe</div>
-        <div style={{ position: "absolute", right: "9%", top: "54%", animation: "pg-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>140+ 국가</div>
-        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "pg-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(180,30,30,0.35)" }}>정기결제</div>
-        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "pg-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(140,50,220,0.35)" }}>16+ 수단</div>
+        <div style={{ position: "absolute", right: "9%", top: "54%", animation: "pg-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>{t("visuals.pg.badges.countries")}</div>
+        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "pg-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(180,30,30,0.35)" }}>{t("visuals.pg.badges.recurring")}</div>
+        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "pg-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(140,50,220,0.35)" }}>{t("visuals.pg.badges.methods")}</div>
       </div>
     </div>
   );

@@ -598,5 +598,62 @@
       { "name": "吴智英", "role": "学务运营团队", "org": "H终身教育学院", "rating": 4, "date": "2024.08", "period": "使用3年", "content": "即使在选课高峰期流量激增也保持稳定，学务日程管理自动化后行政工作减少了一半。教授反馈也很好。" },
       { "name": "徐东贤", "role": "技术支持组长", "org": "I公共机构教育中心", "rating": 5, "date": "2025.02", "period": "使用8年", "content": "以前每次安全审计都很担心，NEO本地部署在网络隔离环境中也能完美运行。技术支持响应快速且细致。" }
     ]
+  },
+  "visuals": {
+    "content": {
+      "videoTitle": "视频讲座 | CH01_在线学习基础",
+      "tags": ["互动式", "H5P", "游戏化"],
+      "badges": { "courses": "500+ 课程", "aiTts": "AI TTS", "review": "3步质检" }
+    },
+    "appDev": {
+      "appName": "LMS App",
+      "status": "学习状态",
+      "weeklyProgress": "本周学习进度",
+      "courses": ["React 基础", "算法", "设计"],
+      "notifTitle": "学习提醒",
+      "notifDesc": "距今日目标",
+      "navItems": ["首页", "课程", "统计", "MY"],
+      "badges": { "platform": "iOS + AOS", "flutter": "Flutter", "push": "推送通知", "mvp": "4周MVP", "lms": "LMS集成" }
+    },
+    "drm": {
+      "badges": { "block": "100% 拦截", "watermark": "水印" }
+    },
+    "maintenance": {
+      "statuses": ["正常", "正常", "运行中"],
+      "responseSpeed": "响应速度",
+      "stats": [["响应", "5分钟"], ["运行率", "99.9%"], ["备份", "30天"]],
+      "badges": { "support": "响应", "initial": "5分钟响应" }
+    },
+    "channel": {
+      "headerTitle": "自动发送状态",
+      "messages": [
+        { "type": "SMS", "msg": "📚 您今天还没有学习！立即开始学习 →" },
+        { "type": "Kakao", "msg": "🎓 [恭喜结业] 您已完成课程！" },
+        { "type": "频道", "msg": "💬 您好！有什么可以帮您的吗？" }
+      ],
+      "stats": [["到达率", "98%"], ["完成率", "+40%↑"], ["自动化", "9种"]],
+      "badges": { "bulkSms": "SMS群发", "reach": "98% 到达", "automation": "自动化", "channelTalk": "频道聊天", "alimtalk": "通知消息" }
+    },
+    "chatbot": {
+      "botName": "Webheads AI聊天机器人",
+      "responding": "● 回复中",
+      "userMsg1": "课程进度怎么样？",
+      "botMsg1": "您已完成<strong style=\"color: hsl(192,80%,65%)\">68%</strong>的进度。距离目标还剩32%！💪",
+      "userMsg2": "今天可以学习哪些课程？",
+      "inputPlaceholder": "输入消息...",
+      "badges": { "multilang": "多语言", "autoRate": "80% 自动化" }
+    },
+    "pg": {
+      "paymentMethod": "支付方式",
+      "providerName": "Toss Payments",
+      "recentPayments": "最近支付",
+      "transactions": [["卡支付", "₩ 89,000"], ["订阅", "₩ 29,900"], ["退款", "₩ 15,000"]],
+      "badges": { "provider": "Toss Payments", "countries": "140+ 国家", "recurring": "订阅", "methods": "16+ 方式" }
+    },
+    "lms": {
+      "courses": ["UX设计基础", "Python数据分析", "商务英语"],
+      "stats": [["学员", ""], ["课程", ""], ["结业率", "%"]],
+      "badges": { "openDays": "3天上线" }
+    }
   }
 }

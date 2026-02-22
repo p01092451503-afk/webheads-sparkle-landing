@@ -598,5 +598,62 @@
       { "name": "オ・ジヨン", "role": "学事運営チーム", "org": "H 生涯教育院", "rating": 4, "date": "2024.08", "period": "利用3年目", "content": "受講登録シーズンのトラフィック集中でも安定しており、学事日程管理が自動化されて事務作業が半減しました。教授陣からも好評です。" },
       { "name": "ソ・ドンヒョン", "role": "技術サポートチーム長", "org": "I 公共機関教育センター", "rating": 5, "date": "2025.02", "period": "利用8年目", "content": "セキュリティ監査のたびに心配でしたが、NEOオンプレミス型はネットワーク分離環境でも完璧に動作します。技術サポートの対応も迅速で丁寧です。" }
     ]
+  },
+  "visuals": {
+    "content": {
+      "videoTitle": "動画講義 | CH01_eラーニング基礎",
+      "tags": ["インタラクティブ", "H5P", "ゲーミフィケーション"],
+      "badges": { "courses": "500+ 講座", "aiTts": "AI TTS", "review": "3段階検収" }
+    },
+    "appDev": {
+      "appName": "LMS App",
+      "status": "学習状況",
+      "weeklyProgress": "今週の学習進度",
+      "courses": ["React 基礎", "アルゴリズム", "デザイン"],
+      "notifTitle": "学習リマインダー",
+      "notifDesc": "今日の目標達成まで",
+      "navItems": ["ホーム", "講義", "統計", "MY"],
+      "badges": { "platform": "iOS + AOS", "flutter": "Flutter", "push": "PUSH通知", "mvp": "4週間MVP", "lms": "LMS連携" }
+    },
+    "drm": {
+      "badges": { "block": "100% ブロック", "watermark": "ウォーターマーク" }
+    },
+    "maintenance": {
+      "statuses": ["正常", "正常", "実行中"],
+      "responseSpeed": "応答速度",
+      "stats": [["応答", "5分"], ["稼働率", "99.9%"], ["バックアップ", "30日"]],
+      "badges": { "support": "対応", "initial": "初動5分" }
+    },
+    "channel": {
+      "headerTitle": "自動配信状況",
+      "messages": [
+        { "type": "SMS", "msg": "📚 今日はまだ受講していません！今すぐ学習へ →" },
+        { "type": "Kakao", "msg": "🎓 [修了おめでとう] コースを完了しました！" },
+        { "type": "チャット", "msg": "💬 こんにちは！何かお手伝いできますか？" }
+      ],
+      "stats": [["到達率", "98%"], ["完了率", "+40%↑"], ["自動化", "9種"]],
+      "badges": { "bulkSms": "SMS一括配信", "reach": "98% 到達", "automation": "自動化", "channelTalk": "チャネルトーク", "alimtalk": "通知トーク" }
+    },
+    "chatbot": {
+      "botName": "Webheads AIチャットボット",
+      "responding": "● 応答中",
+      "userMsg1": "講義の進捗率はどうですか？",
+      "botMsg1": "現在<strong style=\"color: hsl(192,80%,65%)\">68%</strong>の進度を完了しました。目標まで32%です！💪",
+      "userMsg2": "今日受講できる講義は？",
+      "inputPlaceholder": "メッセージを入力...",
+      "badges": { "multilang": "多言語", "autoRate": "80% 自動化" }
+    },
+    "pg": {
+      "paymentMethod": "決済手段",
+      "providerName": "Toss Payments",
+      "recentPayments": "最近の決済",
+      "transactions": [["カード決済", "₩ 89,000"], ["定期決済", "₩ 29,900"], ["返金処理", "₩ 15,000"]],
+      "badges": { "provider": "Toss Payments", "countries": "140+ 国", "recurring": "定期決済", "methods": "16+ 手段" }
+    },
+    "lms": {
+      "courses": ["UXデザイン基礎", "Pythonデータ分析", "ビジネス英語"],
+      "stats": [["受講生", ""], ["コース", ""], ["修了率", "%"]],
+      "badges": { "openDays": "3日オープン" }
+    }
   }
 }

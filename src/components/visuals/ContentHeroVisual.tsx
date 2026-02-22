@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 export default function ContentHeroVisual() {
+  const { t } = useTranslation();
+
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none">
       <style>{`
@@ -39,7 +43,7 @@ export default function ContentHeroVisual() {
             </div>
             {/* title overlay bottom */}
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "20px 10px 8px", background: "linear-gradient(0deg, rgba(0,0,0,0.5), transparent)" }}>
-              <span style={{ fontSize: 8, color: "#fff", fontWeight: 600 }}>동영상 강의 | CH01_이러닝 기초</span>
+              <span style={{ fontSize: 8, color: "#fff", fontWeight: 600 }}>{t("visuals.content.videoTitle")}</span>
             </div>
             {/* 4K badge on video */}
             <div style={{ position: "absolute", top: 8, left: 8, background: "rgba(0,0,0,0.55)", borderRadius: 5, padding: "2px 6px", fontSize: 7.5, color: "#fff", fontWeight: 800 }}>4K</div>
@@ -62,7 +66,7 @@ export default function ContentHeroVisual() {
           </div>
           {/* tag row */}
           <div style={{ padding: "0 12px 8px", display: "flex", gap: 4, flexWrap: "wrap" }}>
-            {["인터랙티브", "H5P", "게이미피케이션"].map(tag => (
+            {(t("visuals.content.tags", { returnObjects: true }) as string[]).map(tag => (
               <span key={tag} style={{ fontSize: 7, background: "hsl(25,90%,93%)", color: "hsl(25,80%,40%)", padding: "2px 7px", borderRadius: 5, fontWeight: 600 }}>{tag}</span>
             ))}
           </div>
@@ -92,7 +96,6 @@ export default function ContentHeroVisual() {
             <path d="M8 30 Q8 52 26 52 Q44 52 44 30" fill="none" stroke="hsl(220,15%,55%)" strokeWidth="3" strokeLinecap="round"/>
             <line x1="26" y1="52" x2="26" y2="64" stroke="hsl(220,15%,55%)" strokeWidth="3" strokeLinecap="round"/>
             <line x1="16" y1="64" x2="36" y2="64" stroke="hsl(220,15%,55%)" strokeWidth="3" strokeLinecap="round"/>
-            {/* highlight */}
             <rect x="18" y="8" width="6" height="16" rx="3" fill="rgba(255,255,255,0.2)"/>
           </svg>
         </div>
@@ -115,9 +118,9 @@ export default function ContentHeroVisual() {
         {/* ── Badges ── */}
         <div style={{ position: "absolute", right: "4%", bottom: "28%", animation: "ct-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(25,90%,52%), hsl(20,90%,38%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 15, boxShadow: "0 10px 24px rgba(200,80,20,0.38)" }}>4K</div>
         <div style={{ position: "absolute", left: "2%", top: "36%", animation: "ct-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(0,75%,52%), hsl(0,80%,38%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(180,30,30,0.35)" }}>HD</div>
-        <div style={{ position: "absolute", right: "9%", top: "54%", animation: "ct-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>500+ 강좌</div>
-        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "ct-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>AI TTS</div>
-        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "ct-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(30,80,200,0.35)" }}>3단계 검수</div>
+        <div style={{ position: "absolute", right: "9%", top: "54%", animation: "ct-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>{t("visuals.content.badges.courses")}</div>
+        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "ct-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>{t("visuals.content.badges.aiTts")}</div>
+        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "ct-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(30,80,200,0.35)" }}>{t("visuals.content.badges.review")}</div>
       </div>
     </div>
   );
