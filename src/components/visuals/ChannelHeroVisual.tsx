@@ -78,12 +78,11 @@ export default function ChannelHeroVisual() {
         {/* ── Floating: Message icon ── */}
         <div style={{ position: "absolute", right: "6%", top: "10%", animation: "ch-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(250,200,10,0.3))" }}>
           <svg width="62" height="62" viewBox="0 0 62 62">
-            <defs><linearGradient id="msgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#34d399"/><stop offset="100%" stopColor="#059669"/></linearGradient></defs>
+            <defs><linearGradient id="msgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs>
             <rect width="62" height="62" rx="16" fill="url(#msgGrad)"/>
             <path d="M17 20h20c2.2 0 4 1.8 4 4v12c0 2.2-1.8 4-4 4h-8.5l-5.5 4.5V40H17c-2.2 0-4-1.8-4-4V24c0-2.2 1.8-4 4-4z" fill="rgba(255,255,255,0.92)"/>
-            <circle cx="23" cy="30" r="2.2" fill="#059669"/>
-            <circle cx="31" cy="30" r="2.2" fill="#059669"/>
-            <circle cx="39" cy="30" r="2.2" fill="#059669"/>
+            <rect x="20" y="26" width="14" height="2.2" rx="1.1" fill="#7c3aed"/>
+            <rect x="20" y="30.5" width="10" height="2.2" rx="1.1" fill="#7c3aed"/>
           </svg>
         </div>
 
