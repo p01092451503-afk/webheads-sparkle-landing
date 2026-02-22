@@ -80,10 +80,10 @@ export default function ChannelHeroVisual() {
           <svg width="62" height="62" viewBox="0 0 62 62">
             <defs><linearGradient id="msgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#34d399"/><stop offset="100%" stopColor="#059669"/></linearGradient></defs>
             <rect width="62" height="62" rx="16" fill="url(#msgGrad)"/>
-            <path d="M16 18h22a3 3 0 013 3v14a3 3 0 01-3 3H28l-6 5v-5h-6a3 3 0 01-3-3V21a3 3 0 013-3z" fill="rgba(255,255,255,0.9)"/>
-            <circle cx="23" cy="28" r="2" fill="#059669"/>
-            <circle cx="31" cy="28" r="2" fill="#059669"/>
-            <circle cx="39" cy="28" r="2" fill="#059669"/>
+            <path d="M17 20h20c2.2 0 4 1.8 4 4v12c0 2.2-1.8 4-4 4h-8.5l-5.5 4.5V40H17c-2.2 0-4-1.8-4-4V24c0-2.2 1.8-4 4-4z" fill="rgba(255,255,255,0.92)"/>
+            <circle cx="23" cy="30" r="2.2" fill="#059669"/>
+            <circle cx="31" cy="30" r="2.2" fill="#059669"/>
+            <circle cx="39" cy="30" r="2.2" fill="#059669"/>
           </svg>
         </div>
 
