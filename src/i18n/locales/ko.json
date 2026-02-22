@@ -621,8 +621,8 @@
     "maintenance": {
       "statuses": ["정상", "정상", "실행중"],
       "responseSpeed": "응답속도",
-      "stats": [["응답", "5분"], ["가동률", "99.9%"], ["백업", "30일"]],
-      "badges": { "support": "대응", "initial": "초동 5분" }
+      "stats": [["응답", "10분"], ["가동률", "99.9%"], ["백업", "30일"]],
+      "badges": { "support": "대응", "initial": "초동 10분" }
     },
     "channel": {
       "headerTitle": "자동화 발송 현황",
