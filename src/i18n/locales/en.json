@@ -598,5 +598,62 @@
       { "name": "Jiyoung Oh", "role": "Academic Operations", "org": "H Lifelong Education Center", "rating": 4, "date": "2024.08", "period": "3rd year user", "content": "Stays stable even during registration traffic spikes. Academic schedule automation cut our admin work in half. Professors are happy too." },
       { "name": "Donghyun Seo", "role": "Tech Support Lead", "org": "I Public Education Center", "rating": 5, "date": "2025.02", "period": "8th year user", "content": "Used to worry during security audits, but the NEO on-premise works perfectly in air-gapped environments. Tech support is fast and thorough." }
     ]
+  },
+  "visuals": {
+    "content": {
+      "videoTitle": "Video Lecture | CH01_eLearning Basics",
+      "tags": ["Interactive", "H5P", "Gamification"],
+      "badges": { "courses": "500+ Courses", "aiTts": "AI TTS", "review": "3-Step QA" }
+    },
+    "appDev": {
+      "appName": "LMS App",
+      "status": "Learning Status",
+      "weeklyProgress": "Weekly Progress",
+      "courses": ["React Basics", "Algorithms", "Design"],
+      "notifTitle": "Study Reminder",
+      "notifDesc": "Until today's goal",
+      "navItems": ["Home", "Courses", "Stats", "MY"],
+      "badges": { "platform": "iOS + AOS", "flutter": "Flutter", "push": "PUSH Alerts", "mvp": "4-Week MVP", "lms": "LMS Integration" }
+    },
+    "drm": {
+      "badges": { "block": "100% Blocked", "watermark": "Watermark" }
+    },
+    "maintenance": {
+      "statuses": ["Normal", "Normal", "Running"],
+      "responseSpeed": "Response",
+      "stats": [["Response", "5 min"], ["Uptime", "99.9%"], ["Backup", "30 days"]],
+      "badges": { "support": "Support", "initial": "5-min Response" }
+    },
+    "channel": {
+      "headerTitle": "Automation Status",
+      "messages": [
+        { "type": "SMS", "msg": "📚 You haven't studied today! Start learning now →" },
+        { "type": "Kakao", "msg": "🎓 [Congrats] You completed the course!" },
+        { "type": "Channel", "msg": "💬 Hi! How can we help you?" }
+      ],
+      "stats": [["Reach", "98%"], ["Completion", "+40%↑"], ["Automation", "9 types"]],
+      "badges": { "bulkSms": "Bulk SMS", "reach": "98% Reach", "automation": "Automation", "channelTalk": "Channel Talk", "alimtalk": "Alim Talk" }
+    },
+    "chatbot": {
+      "botName": "Webheads AI Chatbot",
+      "responding": "● Responding",
+      "userMsg1": "What's my course progress?",
+      "botMsg1": "You've completed <strong style=\"color: hsl(192,80%,65%)\">68%</strong> of the course. 32% left to reach your goal! 💪",
+      "userMsg2": "What courses are available today?",
+      "inputPlaceholder": "Type a message...",
+      "badges": { "multilang": "Multi-lang", "autoRate": "80% Automated" }
+    },
+    "pg": {
+      "paymentMethod": "Payment Method",
+      "providerName": "Toss Payments",
+      "recentPayments": "Recent Payments",
+      "transactions": [["Card Payment", "₩ 89,000"], ["Subscription", "₩ 29,900"], ["Refund", "₩ 15,000"]],
+      "badges": { "provider": "Toss Payments", "countries": "140+ Countries", "recurring": "Subscription", "methods": "16+ Methods" }
+    },
+    "lms": {
+      "courses": ["UX Design Basics", "Python Data Analysis", "Business English"],
+      "stats": [["Students", ""], ["Courses", ""], ["Completion", "%"]],
+      "badges": { "openDays": "3-Day Setup" }
+    }
   }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function AnimatedNumber({ target, duration = 1800, suffix = "", pause = 2000 }: { target: number; duration?: number; suffix?: string; pause?: number }) {
   const [value, setValue] = useState(0);
@@ -23,6 +24,10 @@ function AnimatedNumber({ target, duration = 1800, suffix = "", pause = 2000 }: 
 }
 
 export default function AppDevHeroVisual() {
+  const { t } = useTranslation();
+  const courses = t("visuals.appDev.courses", { returnObjects: true }) as string[];
+  const navItems = t("visuals.appDev.navItems", { returnObjects: true }) as string[];
+
   return (
     <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none">
       <style>{`
@@ -52,8 +57,8 @@ export default function AppDevHeroVisual() {
             <div style={{ padding: "10px 12px 6px", display: "flex", alignItems: "center", gap: 6 }}>
               <div style={{ width: 22, height: 22, borderRadius: "50%", background: "linear-gradient(135deg,hsl(245,80%,65%),hsl(245,70%,50%))" }} />
               <div>
-                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.9)", fontWeight: 700 }}>LMS App</div>
-                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.4)" }}>학습 현황</div>
+                <div style={{ fontSize: 8, color: "rgba(255,255,255,0.9)", fontWeight: 700 }}>{t("visuals.appDev.appName")}</div>
+                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.4)" }}>{t("visuals.appDev.status")}</div>
               </div>
               <div style={{ marginLeft: "auto", width: 18, height: 10, borderRadius: 4, background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <div style={{ animation: "app-pulse 1.5s ease-in-out infinite", width: 6, height: 6, borderRadius: "50%", background: "#34d399" }} />
@@ -61,14 +66,14 @@ export default function AppDevHeroVisual() {
             </div>
             {/* progress card */}
             <div style={{ margin: "4px 8px", background: "rgba(255,255,255,0.07)", borderRadius: 10, padding: "8px 10px" }}>
-              <div style={{ fontSize: 7, color: "rgba(255,255,255,0.5)", marginBottom: 4 }}>이번 주 학습 진도</div>
+              <div style={{ fontSize: 7, color: "rgba(255,255,255,0.5)", marginBottom: 4 }}>{t("visuals.appDev.weeklyProgress")}</div>
               <div style={{ fontSize: 16, color: "#fff", fontWeight: 800, lineHeight: 1 }}><AnimatedNumber target={68} suffix="%" /></div>
               <div style={{ marginTop: 6, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.1)", overflow: "hidden" }}>
                 <div style={{ height: "100%", borderRadius: 2, background: "linear-gradient(90deg, hsl(245,80%,65%), hsl(280,70%,65%))", animation: "app-progress 3.5s cubic-bezier(0.22, 1, 0.36, 1) infinite" }} />
               </div>
             </div>
             {/* course list */}
-            {[["React 기초", 92, "#818cf8"], ["알고리즘", 45, "#60a5fa"], ["디자인", 71, "#f472b6"]].map(([name, pct, color], i) => (
+            {[[courses[0], 92, "#818cf8"], [courses[1], 45, "#60a5fa"], [courses[2], 71, "#f472b6"]].map(([name, pct, color], i) => (
               <div key={i} style={{ margin: "4px 8px", display: "flex", alignItems: "center", gap: 6 }}>
                 <div style={{ width: 6, height: 6, borderRadius: "50%", background: color as string }} />
                 <span style={{ fontSize: 7, color: "rgba(255,255,255,0.6)", flex: 1 }}>{name}</span>
@@ -79,8 +84,8 @@ export default function AppDevHeroVisual() {
             <div style={{ margin: "8px 8px 0", background: "rgba(255,255,255,0.12)", borderRadius: 8, padding: "6px 8px", display: "flex", gap: 5, alignItems: "flex-start" }}>
               <div style={{ fontSize: 10 }}>🔔</div>
               <div>
-                <div style={{ fontSize: 6.5, color: "#fff", fontWeight: 700 }}>학습 독려 알림</div>
-                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.4)" }}>오늘 목표 달성까지 <AnimatedNumber target={32} suffix="%" duration={1400} />!</div>
+                <div style={{ fontSize: 6.5, color: "#fff", fontWeight: 700 }}>{t("visuals.appDev.notifTitle")}</div>
+                <div style={{ fontSize: 6, color: "rgba(255,255,255,0.4)" }}>{t("visuals.appDev.notifDesc")} <AnimatedNumber target={32} suffix="%" duration={1400} />!</div>
               </div>
             </div>
             {/* bottom nav */}
@@ -88,7 +93,7 @@ export default function AppDevHeroVisual() {
               {["🏠", "📚", "📊", "👤"].map((ic, i) => (
                 <div key={i} style={{ fontSize: 10, opacity: i === 1 ? 1 : 0.4 }} />
               ))}
-              {["홈", "강의", "통계", "MY"].map((lbl, i) => (
+              {navItems.map((lbl, i) => (
                 <div key={i} style={{ fontSize: 5.5, color: i === 0 ? "hsl(245,80%,70%)" : "rgba(255,255,255,0.3)", textAlign: "center" }}>{lbl}</div>
               ))}
             </div>
@@ -133,11 +138,11 @@ export default function AppDevHeroVisual() {
         </div>
 
         {/* ── Badges ── */}
-        <div style={{ position: "absolute", right: "5%", bottom: "26%", animation: "app-float-b 3.6s ease-in-out infinite", animationDelay: "0.4s", background: "linear-gradient(135deg, hsl(245,80%,55%), hsl(245,70%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(80,50,200,0.38)", whiteSpace: "nowrap" }}>iOS + AOS</div>
-        <div style={{ position: "absolute", left: "2%", top: "38%", animation: "app-float-d 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(200,80%,50%), hsl(200,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,130,220,0.35)" }}>Flutter</div>
-        <div style={{ position: "absolute", right: "8%", top: "52%", animation: "app-float-a 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>PUSH 알림</div>
-        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "app-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>4주 MVP</div>
-        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "app-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(30,160,90,0.35)" }}>LMS 연동</div>
+        <div style={{ position: "absolute", right: "5%", bottom: "26%", animation: "app-float-b 3.6s ease-in-out infinite", animationDelay: "0.4s", background: "linear-gradient(135deg, hsl(245,80%,55%), hsl(245,70%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(80,50,200,0.38)", whiteSpace: "nowrap" }}>{t("visuals.appDev.badges.platform")}</div>
+        <div style={{ position: "absolute", left: "2%", top: "38%", animation: "app-float-d 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(200,80%,50%), hsl(200,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,130,220,0.35)" }}>{t("visuals.appDev.badges.flutter")}</div>
+        <div style={{ position: "absolute", right: "8%", top: "52%", animation: "app-float-a 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>{t("visuals.appDev.badges.push")}</div>
+        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "app-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>{t("visuals.appDev.badges.mvp")}</div>
+        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "app-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(30,160,90,0.35)" }}>{t("visuals.appDev.badges.lms")}</div>
       </div>
     </div>
   );

@@ -598,5 +598,62 @@
       { "name": "오지영", "role": "학사운영팀", "org": "H 평생교육원", "rating": 4, "date": "2024.08", "period": "이용 3년차", "content": "수강신청 시즌에 트래픽 몰려도 안정적이고, 학사 일정 관리가 자동화돼서 행정 업무가 절반으로 줄었어요. 교수님 피드백도 좋습니다." },
       { "name": "서동현", "role": "기술지원 팀장", "org": "I 공공기관 교육센터", "rating": 5, "date": "2025.02", "period": "이용 8년차", "content": "보안 감사 때마다 걱정이었는데, NEO 구축형은 망분리 환경에서도 완벽하게 동작해요. 기술지원 응답도 빠르고 꼼꼼합니다." }
     ]
+  },
+  "visuals": {
+    "content": {
+      "videoTitle": "동영상 강의 | CH01_이러닝 기초",
+      "tags": ["인터랙티브", "H5P", "게이미피케이션"],
+      "badges": { "courses": "500+ 강좌", "aiTts": "AI TTS", "review": "3단계 검수" }
+    },
+    "appDev": {
+      "appName": "LMS App",
+      "status": "학습 현황",
+      "weeklyProgress": "이번 주 학습 진도",
+      "courses": ["React 기초", "알고리즘", "디자인"],
+      "notifTitle": "학습 독려 알림",
+      "notifDesc": "오늘 목표 달성까지",
+      "navItems": ["홈", "강의", "통계", "MY"],
+      "badges": { "platform": "iOS + AOS", "flutter": "Flutter", "push": "PUSH 알림", "mvp": "4주 MVP", "lms": "LMS 연동" }
+    },
+    "drm": {
+      "badges": { "block": "100% 차단", "watermark": "워터마크" }
+    },
+    "maintenance": {
+      "statuses": ["정상", "정상", "실행중"],
+      "responseSpeed": "응답속도",
+      "stats": [["응답", "5분"], ["가동률", "99.9%"], ["백업", "30일"]],
+      "badges": { "support": "대응", "initial": "초동 5분" }
+    },
+    "channel": {
+      "headerTitle": "자동화 발송 현황",
+      "messages": [
+        { "type": "SMS", "msg": "📚 오늘 수강하지 않으셨네요! 지금 학습하러 가기 →" },
+        { "type": "카카오", "msg": "🎓 [수료 축하] 과정을 완료하셨습니다!" },
+        { "type": "채널톡", "msg": "💬 안녕하세요! 무엇을 도와드릴까요?" }
+      ],
+      "stats": [["도달률", "98%"], ["완료율", "+40%↑"], ["자동화", "9종"]],
+      "badges": { "bulkSms": "SMS 대량발송", "reach": "98% 도달", "automation": "자동화", "channelTalk": "채널톡", "alimtalk": "알림톡" }
+    },
+    "chatbot": {
+      "botName": "웹헤즈 AI 챗봇",
+      "responding": "● 응답 중",
+      "userMsg1": "강의 진도율이 어떻게 되나요?",
+      "botMsg1": "현재 <strong style=\"color: hsl(192,80%,65%)\">68%</strong> 진도를 완료하셨습니다. 목표까지 32%가 남았어요! 💪",
+      "userMsg2": "오늘 수강 가능한 강의는?",
+      "inputPlaceholder": "메시지를 입력하세요...",
+      "badges": { "multilang": "다국어", "autoRate": "80% 자동화" }
+    },
+    "pg": {
+      "paymentMethod": "결제 수단",
+      "providerName": "토스페이먼츠",
+      "recentPayments": "최근 결제",
+      "transactions": [["카드 결제", "₩ 89,000"], ["정기결제", "₩ 29,900"], ["환불 처리", "₩ 15,000"]],
+      "badges": { "provider": "토스페이먼츠", "countries": "140+ 국가", "recurring": "정기결제", "methods": "16+ 수단" }
+    },
+    "lms": {
+      "courses": ["UX 디자인 기초", "Python 데이터 분석", "비즈니스 영어"],
+      "stats": [["수강생", ""], ["과정", ""], ["수료율", "%"]],
+      "badges": { "openDays": "3일 오픈" }
+    }
   }
 }
