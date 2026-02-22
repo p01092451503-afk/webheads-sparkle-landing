@@ -621,8 +621,8 @@
     "maintenance": {
       "statuses": ["正常", "正常", "运行中"],
       "responseSpeed": "响应速度",
-      "stats": [["响应", "5分钟"], ["运行率", "99.9%"], ["备份", "30天"]],
-      "badges": { "support": "响应", "initial": "5分钟响应" }
+      "stats": [["响应", "10分钟"], ["运行率", "99.9%"], ["备份", "30天"]],
+      "badges": { "support": "响应", "initial": "10分钟响应" }
     },
     "channel": {
       "headerTitle": "自动发送状态",

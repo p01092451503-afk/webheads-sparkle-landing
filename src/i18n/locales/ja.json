@@ -621,8 +621,8 @@
     "maintenance": {
       "statuses": ["正常", "正常", "実行中"],
       "responseSpeed": "応答速度",
-      "stats": [["応答", "5分"], ["稼働率", "99.9%"], ["バックアップ", "30日"]],
-      "badges": { "support": "対応", "initial": "初動5分" }
+      "stats": [["応答", "10分"], ["稼働率", "99.9%"], ["バックアップ", "30日"]],
+      "badges": { "support": "対応", "initial": "初動10分" }
     },
     "channel": {
       "headerTitle": "自動配信状況",

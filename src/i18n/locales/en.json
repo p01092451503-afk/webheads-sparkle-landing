@@ -621,8 +621,8 @@
     "maintenance": {
       "statuses": ["Normal", "Normal", "Running"],
       "responseSpeed": "Response",
-      "stats": [["Response", "5 min"], ["Uptime", "99.9%"], ["Backup", "30 days"]],
-      "badges": { "support": "Support", "initial": "5-min Response" }
+      "stats": [["Response", "10 min"], ["Uptime", "99.9%"], ["Backup", "30 days"]],
+      "badges": { "support": "Support", "initial": "10-min Response" }
     },
     "channel": {
       "headerTitle": "Automation Status",
