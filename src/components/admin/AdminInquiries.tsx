@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
@@ -27,6 +27,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [searchQuery, setSearchQuery] = useState("");
   const [noteText, setNoteText] = useState("");
   const [savingNote, setSavingNote] = useState(false);
+  const itemRefs = useRef<Record<string, HTMLDivElement>>({});
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
@@ -161,7 +162,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
           const sc = statusConfig[inq.status as InquiryStatus] || statusConfig.new;
           const isSelected = selectedInquiry?.id === inq.id;
           return (
-            <div key={inq.id} className="rounded-2xl overflow-hidden transition-all duration-200"
+            <div key={inq.id} ref={(el) => { if (el) itemRefs.current[inq.id] = el; }} className="rounded-2xl overflow-hidden transition-all duration-200"
               style={{
                 background: "hsl(var(--background))",
                 border: isSelected ? "1.5px solid hsl(var(--primary))" : "1px solid hsl(var(--border) / 0.8)",
@@ -172,7 +173,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
               <div
                 onClick={() => {
                   if (isSelected) { setSelectedInquiry(null); }
-                  else { setSelectedInquiry(inq); setNoteText(inq.notes || ""); }
+                  else {
+                    setSelectedInquiry(inq); setNoteText(inq.notes || "");
+                    setTimeout(() => { itemRefs.current[inq.id]?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
+                  }
                 }}
                 className="group p-5 cursor-pointer"
               >
