@@ -110,20 +110,46 @@ serve(async (req) => {
 </html>
     `.trim();
 
-    const res = await fetch("https://api.resend.com/emails", {
+    // Try verified domain first, fall back to Resend default
+    const fromAddress = "웹헤즈 상담 <noreply@service.webheads.co.kr>";
+    const fallbackFrom = "웹헤즈 상담 <onboarding@resend.dev>";
+
+    let res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "웹헤즈 상담 <noreply@service.webheads.co.kr>",
+        from: fromAddress,
         to: ["34bus@webheads.co.kr"],
         subject: `[웹헤즈 ${typeLabel}] ${company} · ${name} 님의 ${typeLabel}`,
         html: htmlBody,
         reply_to: email || undefined,
       }),
     });
+
+    let data = await res.json();
+
+    // If domain not verified, retry with fallback
+    if (!res.ok && data.message?.includes("not verified")) {
+      console.log("Domain not verified yet, using fallback sender");
+      res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${RESEND_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: fallbackFrom,
+          to: ["34bus@webheads.co.kr"],
+          subject: `[웹헤즈 ${typeLabel}] ${company} · ${name} 님의 ${typeLabel}`,
+          html: htmlBody,
+          reply_to: email || undefined,
+        }),
+      });
+      data = await res.json();
+    }
 
     const data = await res.json();
 
