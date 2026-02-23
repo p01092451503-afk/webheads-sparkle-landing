@@ -372,7 +372,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
 
-      <SectionGroup title="일별 방문 추이">
+      <SectionGroup title="일별 방문 추이" number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
           <div className="flex items-end gap-1.5 h-[160px]">
             {dailyData.map((d) => (
