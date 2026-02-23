@@ -291,6 +291,39 @@ export default function LmsPage() {
               </a>
             </div>
            </div>
+
+          {/* HTML Comparison Table for AIO */}
+          <div className="mt-12">
+            <h3 className="font-black text-foreground text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
+            <p className="text-muted-foreground text-sm mb-8">{t("lms.comparisonTable.desc")}</p>
+            <div className="rounded-2xl border border-border overflow-hidden bg-background">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border" style={{ background: "var(--lms-gradient-subtle)" }}>
+                      {(t("lms.comparisonTable.headers", { returnObjects: true }) as string[]).map((header, i) => (
+                        <th key={i} className={`px-5 py-4 text-left font-bold text-foreground whitespace-nowrap ${i === 0 ? "min-w-[120px]" : "min-w-[180px]"}`}>
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(t("lms.comparisonTable.rows", { returnObjects: true }) as string[][]).map((row, rowIdx) => (
+                      <tr key={rowIdx} className={`border-b border-border last:border-0 ${rowIdx % 2 === 1 ? "bg-muted/30" : ""}`}>
+                        {row.map((cell, cellIdx) => (
+                          <td key={cellIdx} className={`px-5 py-3.5 ${cellIdx === 0 ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
           {/* KDT Government-funded */}
           <div
             className="mt-6 rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
