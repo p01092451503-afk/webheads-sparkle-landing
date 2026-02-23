@@ -164,6 +164,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
           return (
             <div key={inq.id} ref={(el) => { if (el) itemRefs.current[inq.id] = el; }} className="rounded-2xl overflow-hidden transition-all duration-200"
               style={{
+                scrollMarginTop: "120px",
                 background: "hsl(var(--background))",
                 border: isSelected ? "1.5px solid hsl(var(--primary))" : "1px solid hsl(var(--border) / 0.8)",
                 boxShadow: isSelected ? "0 0 0 3px hsl(var(--primary) / 0.06), 0 2px 8px hsl(var(--primary) / 0.08)" : "0 1px 3px hsl(0 0% 0% / 0.02)",
