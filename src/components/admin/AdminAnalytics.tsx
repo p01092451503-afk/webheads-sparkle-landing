@@ -658,11 +658,15 @@ function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: s
   );
 }
 
-function SectionGroup({ title, children }: { title: string; children: React.ReactNode }) {
+function SectionGroup({ title, children, number }: { title: string; children: React.ReactNode; number?: number }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <div className="flex flex-col gap-4">
       <button className="flex items-center gap-2 w-full text-left px-1" onClick={() => setCollapsed(!collapsed)}>
+        {number !== undefined && (
+          <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[12px] shrink-0"
+            style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{number}</span>
+        )}
         <h3 className="text-[15px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 700 }}>{title}</h3>
         <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-200" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
       </button>
