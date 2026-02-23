@@ -638,7 +638,6 @@ function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: s
     </div>
   );
 }
-}
 
 function BarRow({ rank, label, value, max, color, suffix }: { rank: number; label: string; value: number; max: number; color: string; suffix?: string }) {
   const pct = max > 0 ? (value / max) * 100 : 0;
