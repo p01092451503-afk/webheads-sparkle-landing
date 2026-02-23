@@ -117,7 +117,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "웹헤즈 상담 <noreply@webheads.co.kr>",
+        from: "웹헤즈 상담 <noreply@service.webheads.co.kr>",
         to: ["34bus@webheads.co.kr"],
         subject: `[웹헤즈 ${typeLabel}] ${company} · ${name} 님의 ${typeLabel}`,
         html: htmlBody,
