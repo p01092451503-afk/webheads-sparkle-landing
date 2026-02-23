@@ -4,8 +4,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { Lock, Loader2, Mail, Shield } from "lucide-react";
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const savedEmail = localStorage.getItem("admin_saved_email") || "";
+  const savedPassword = localStorage.getItem("admin_saved_password") || "";
+  const [email, setEmail] = useState(savedEmail);
+  const [password, setPassword] = useState(savedPassword);
+  const [rememberMe, setRememberMe] = useState(!!savedEmail);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -46,6 +49,14 @@ export default function AdminLogin() {
       setError("관리자 권한이 없는 계정입니다.");
       setLoading(false);
       return;
+    }
+
+    if (rememberMe) {
+      localStorage.setItem("admin_saved_email", email);
+      localStorage.setItem("admin_saved_password", password);
+    } else {
+      localStorage.removeItem("admin_saved_email");
+      localStorage.removeItem("admin_saved_password");
     }
 
     navigate("/admin", { replace: true });
@@ -141,6 +152,18 @@ export default function AdminLogin() {
               />
             </div>
           </div>
+
+          <label className="flex items-center gap-2 cursor-pointer select-none pl-1">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="w-4 h-4 rounded accent-primary cursor-pointer"
+            />
+            <span className="text-[13px] text-muted-foreground" style={{ fontWeight: 500 }}>
+              아이디 / 비밀번호 저장
+            </span>
+          </label>
 
           {error && (
             <div
