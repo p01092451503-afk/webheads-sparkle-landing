@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Home, Loader2, Bell, Settings, Shield
+  LogOut, MessageSquare, BarChart3, Home, Loader2, Bell, Settings, Shield, ExternalLink
 } from "lucide-react";
 import AdminHome from "@/components/admin/AdminHome";
 import AdminInquiries from "@/components/admin/AdminInquiries";
@@ -168,14 +168,24 @@ export default function AdminDashboard() {
               ))}
             </div>
           </div>
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
-            style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
-          >
-            <LogOut className="w-4 h-4" />
-            <span className="hidden sm:inline">로그아웃</span>
-          </button>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => navigate("/lms")}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
+              style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
+            >
+              <ExternalLink className="w-4 h-4" />
+              <span className="hidden sm:inline">LMS 페이지</span>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
+              style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">로그아웃</span>
+            </button>
+          </div>
         </div>
       </header>
 
