@@ -11,12 +11,13 @@ import {
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
   DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
   ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award,
-  Sparkles, ArrowRight
+  Sparkles, ArrowRight, Rocket, CreditCard, Database, Layers, HardDriveDownload, Settings
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone];
 const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
+const saasFeatureIcons = [Rocket, CreditCard, RefreshCw, Layers, Database, Plug, HardDriveDownload, Settings];
 const aiFeatureIcons = [Brain, Subtitles, MessageSquare, FileCheck, BarChart3, Search];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
@@ -27,6 +28,7 @@ export default function LmsPage() {
 
   const cloudFeatures = (t("lms.cloudFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || Cloud }));
   const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: neoFeatureIcons[i] || Server }));
+  const saasFeatures = (t("lms.saasFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: saasFeatureIcons[i] || Rocket }));
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
   const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
   const kdtFeatures = (t("lms.kdtFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: kdtFeatureIcons[i] || GraduationCap }));
@@ -180,7 +182,7 @@ export default function LmsPage() {
             <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Cloud AI */}
             <div
               className="rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
@@ -216,6 +218,43 @@ export default function LmsPage() {
                 style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
               >
                 {t("lms.cloud.cta")}
+              </a>
+            </div>
+            {/* SaaS */}
+            <div
+              className="rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
+              style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "linear-gradient(90deg, hsl(175, 70%, 40%), hsl(195, 80%, 48%))" }} />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(175, 70%, 93%)" }}>
+                  <Rocket className="w-5 h-5" style={{ color: "hsl(175, 70%, 40%)" }} />
+                </div>
+                <div>
+                  <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
+                  <p className="text-xs text-muted-foreground">{t("lms.saas.subtitle")}</p>
+                </div>
+              </div>
+              <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{t("lms.saas.desc")}</p>
+              <div className="flex flex-col gap-3">
+                {saasFeatures.map((f: any) => (
+                  <div key={f.title} className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
+                      <f.icon className="w-4 h-4" style={{ color: "hsl(175, 70%, 40%)" }} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
+                      <p className="text-xs text-muted-foreground">{f.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <a
+                href="#contact"
+                className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, hsl(175, 70%, 40%), hsl(195, 80%, 48%))" }}
+              >
+                {t("lms.saas.cta")}
               </a>
             </div>
             {/* NEO On-premise */}
