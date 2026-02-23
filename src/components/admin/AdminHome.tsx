@@ -12,18 +12,26 @@ interface AdminHomeProps {
 }
 
 export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHomeProps) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const [dateRange, setDateRange] = useState(0);
 
-  const todayInquiries = inquiries.filter((i) => new Date(i.created_at) >= today);
-  const newInquiries = inquiries.filter((i) => i.status === "new");
-  const todayViews = pageViews.filter((v) => new Date(v.created_at) >= today);
-  const todaySessions = new Set(todayViews.map((v) => v.session_id)).size;
+  const filteredInquiries = useMemo(() => {
+    const since = new Date();
+    if (dateRange === 0) since.setHours(0, 0, 0, 0);
+    else since.setDate(since.getDate() - dateRange);
+    return inquiries.filter((i) => new Date(i.created_at) >= since);
+  }, [inquiries, dateRange]);
 
-  const totalSessions30d = new Set(pageViews.map((v) => v.session_id)).size;
-  const conversionRate = totalSessions30d > 0 ? ((inquiries.length / totalSessions30d) * 100).toFixed(1) : "0.0";
+  const filteredViews = useMemo(() => {
+    const since = new Date();
+    if (dateRange === 0) since.setHours(0, 0, 0, 0);
+    else since.setDate(since.getDate() - dateRange);
+    return pageViews.filter((v) => new Date(v.created_at) >= since);
+  }, [pageViews, dateRange]);
 
-  const recentInquiries = inquiries.slice(0, 5);
+  const newInquiries = filteredInquiries.filter((i) => i.status === "new");
+  const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
+  const conversionRate = uniqueSessions > 0 ? ((filteredInquiries.length / uniqueSessions) * 100).toFixed(1) : "0.0";
+  const recentInquiries = filteredInquiries.slice(0, 5);
 
   // Analytics summary data
   const analyticsSummary = useMemo(() => {
