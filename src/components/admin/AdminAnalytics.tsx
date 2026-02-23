@@ -738,13 +738,13 @@ function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: s
   const hasMore = childArray.length > maxItems;
   const visibleChildren = expanded ? childArray : childArray.slice(0, maxItems);
   return (
-    <div className="rounded-2xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="flex items-center gap-2 mb-5">
+    <div className="rounded-xl p-4" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="flex items-center gap-2 mb-4">
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
         {tooltip && <HelpTooltip text={tooltip} />}
       </div>
-      <div className="flex flex-col gap-3">{visibleChildren}</div>
+      <div className="flex flex-col gap-2.5">{visibleChildren}</div>
       {hasMore && (
         <button
           onClick={() => setExpanded(!expanded)}
