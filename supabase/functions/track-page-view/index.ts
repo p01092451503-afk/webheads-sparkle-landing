@@ -43,9 +43,31 @@ Deno.serve(async (req) => {
     const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/;
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/;
     // Cloudflare proxy IP ranges commonly used by scrapers/bots
-    const cloudflareProxyPattern = /^104\.28\./;
+    const isCloudflareProxy = ip ? /^104\.28\./.test(ip) : false;
+
     if (aiPatterns.test(ua)) visitor_type = "ai";
-    else if (botPatterns.test(ua)) visitor_type = "bot";
+    else if (botPatterns.test(ua) || isCloudflareProxy) visitor_type = "bot";
+
+    // Detect repeated same-UA access from same IP (likely bot) — check recent 10min window
+    if (visitor_type === "human" && ip && body.user_agent) {
+      try {
+        const tenMinAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+        const checkSupabase = createClient(
+          Deno.env.get("SUPABASE_URL")!,
+          Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+        );
+        const { count } = await checkSupabase
+          .from("page_views")
+          .select("*", { count: "exact", head: true })
+          .eq("ip_address", ip)
+          .eq("user_agent", body.user_agent)
+          .gte("created_at", tenMinAgo);
+        // 5+ identical UA hits from same IP in 10min = bot
+        if (count && count >= 5) visitor_type = "bot";
+      } catch (e) {
+        console.error("Repeat UA check failed:", e);
+      }
+    }
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
