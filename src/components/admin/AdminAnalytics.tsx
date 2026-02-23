@@ -375,13 +375,18 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       <SectionGroup title="일별 방문 추이" number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-          <div className="flex items-end gap-1.5 h-[160px]">
+          <div className="flex items-end justify-center gap-2 h-[180px]">
             {dailyData.map((d) => (
-              <div key={d.date} className="flex-1 flex flex-col items-center gap-1.5 min-w-0">
+              <div key={d.date} className="flex flex-col items-center gap-1.5" style={{ width: dailyData.length === 1 ? "80px" : undefined, flex: dailyData.length > 1 ? 1 : undefined, maxWidth: "64px", minWidth: "28px" }}>
                 <span className="text-[10px] text-muted-foreground" style={{ fontWeight: 600 }}>{d.views}</span>
-                <div className="w-full flex flex-col gap-0.5" style={{ height: `${Math.max((d.views / maxDailyViews) * 120, 4)}px` }}>
-                  <div className="w-full flex-1 rounded-t-md transition-all duration-300" style={{ background: "hsl(214, 90%, 52%)", minHeight: "2px" }} />
-                </div>
+                <div
+                  className="w-full rounded-lg transition-all duration-500"
+                  style={{
+                    height: `${Math.max((d.views / maxDailyViews) * 140, 6)}px`,
+                    background: "linear-gradient(180deg, hsl(214 90% 60%), hsl(214 90% 48%))",
+                    boxShadow: d.views > 0 ? "0 2px 8px hsl(214 90% 52% / 0.3)" : "none",
+                  }}
+                />
                 <span className="text-[9px] text-muted-foreground/60 truncate w-full text-center">{d.label}</span>
               </div>
             ))}
