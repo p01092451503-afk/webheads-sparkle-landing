@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
