@@ -138,12 +138,33 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return `${y}-${m}-${d}`;
   };
 
-  // Daily traffic
+  // Daily or Hourly traffic (hourly when "오늘" is selected)
+  const isToday = dateRange === 0;
+
   const dailyData = useMemo(() => {
+    if (isToday) {
+      // Hourly breakdown for today
+      const hours: Record<number, { views: number; sessions: Set<string> }> = {};
+      for (let h = 0; h < 24; h++) {
+        hours[h] = { views: 0, sessions: new Set() };
+      }
+      filteredViews.forEach((v) => {
+        const d = new Date(v.created_at);
+        const h = d.getHours();
+        hours[h].views++;
+        if (v.session_id) hours[h].sessions.add(v.session_id);
+      });
+      return Object.entries(hours).map(([h, d]) => ({
+        date: h,
+        label: `${String(h).padStart(2, "0")}시`,
+        views: d.views,
+        sessions: d.sessions.size,
+      }));
+    }
+
     const days: Record<string, { views: number; sessions: Set<string> }> = {};
     const today = new Date();
-    const numDays = dateRange === 0 ? 1 : dateRange;
-    // Generate keys from (today - numDays + 1) to today, using local timezone
+    const numDays = dateRange;
     for (let i = numDays - 1; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
@@ -151,7 +172,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       days[key] = { views: 0, sessions: new Set() };
     }
     filteredViews.forEach((v) => {
-      // Convert UTC created_at to local date key
       const key = toLocalDateKey(new Date(v.created_at));
       if (days[key]) { days[key].views++; if (v.session_id) days[key].sessions.add(v.session_id); }
     });
@@ -161,7 +181,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       views: d.views,
       sessions: d.sessions.size,
     }));
-  }, [filteredViews, dateRange]);
+  }, [filteredViews, dateRange, isToday]);
 
   const maxDailyViews = Math.max(...dailyData.map((d) => d.views), 1);
 
@@ -386,7 +406,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
 
-      <SectionGroup title="일별 방문 추이" number={3}>
+      <SectionGroup title={isToday ? "시간대별 방문 추이" : "일별 방문 추이"} number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={dailyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -396,7 +416,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
                 tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
                 axisLine={false}
                 tickLine={false}
-                interval={dailyData.length > 14 ? Math.floor(dailyData.length / 7) : 0}
+                interval={isToday ? 2 : (dailyData.length > 14 ? Math.floor(dailyData.length / 7) : 0)}
               />
               <YAxis
                 tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
