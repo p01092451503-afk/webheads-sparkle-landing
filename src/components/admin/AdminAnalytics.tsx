@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
-  TrendingUp, BarChart3, Calendar, Wifi, Clock
+  TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin
 } from "lucide-react";
 
 interface AdminAnalyticsProps {
@@ -47,6 +47,30 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
     return acc;
   }, {} as Record<string, number>);
   const topIPs = Object.entries(ipCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
+
+  // Location stats
+  const locationCounts = filteredViews.reduce((acc, v) => {
+    const loc = v.city || v.country || "알 수 없음";
+    acc[loc] = (acc[loc] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+  const topLocations = Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
+
+  // IP with location display
+  const ipWithLocation = useMemo(() => {
+    const ipMap: Record<string, { count: number; city: string | null; country: string | null }> = {};
+    filteredViews.forEach((v) => {
+      const ip = v.ip_address || "알 수 없음";
+      if (!ipMap[ip]) ipMap[ip] = { count: 0, city: null, country: null };
+      ipMap[ip].count++;
+      if (v.city) ipMap[ip].city = v.city;
+      if (v.country) ipMap[ip].country = v.country;
+    });
+    return Object.entries(ipMap)
+      .map(([ip, d]) => ({ ip, count: d.count, location: d.city || d.country || null }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 10);
+  }, [filteredViews]);
 
   // Page dwell time stats
   const pageDwellTimes = useMemo(() => {
@@ -187,9 +211,14 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
             <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
           ))}
         </ChartCard>
+        <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />}>
+          {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([loc, count], i) => (
+            <BarRow key={loc} rank={i + 1} label={loc} value={count as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />
+          ))}
+        </ChartCard>
         <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />}>
-          {topIPs.length === 0 ? <Empty /> : topIPs.map(([ip, count], i) => (
-            <BarRow key={ip} rank={i + 1} label={ip} value={count as number} max={topIPs[0][1] as number} color="hsl(192, 80%, 45%)" />
+          {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => (
+            <BarRow key={d.ip} rank={i + 1} label={d.location ? `${d.ip}  ·  ${d.location}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />
           ))}
         </ChartCard>
         <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />}>
