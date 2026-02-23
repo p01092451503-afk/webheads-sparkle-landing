@@ -613,7 +613,11 @@ function MetricCard({ icon, label, value, color, sub, tooltip }: {
   );
 }
 
-function ChartCard({ title, icon, children, tooltip }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string }) {
+function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string; maxItems?: number }) {
+  const [expanded, setExpanded] = useState(false);
+  const childArray = React.Children.toArray(children);
+  const hasMore = childArray.length > maxItems;
+  const visibleChildren = expanded ? childArray : childArray.slice(0, maxItems);
   return (
     <div className="rounded-2xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
       <div className="flex items-center gap-2 mb-5">
@@ -621,9 +625,19 @@ function ChartCard({ title, icon, children, tooltip }: { title: string; icon: Re
         <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
         {tooltip && <HelpTooltip text={tooltip} />}
       </div>
-      <div className="flex flex-col gap-3">{children}</div>
+      <div className="flex flex-col gap-3">{visibleChildren}</div>
+      {hasMore && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full mt-3 pt-3 flex items-center justify-center gap-1 text-[12px] transition-all hover:opacity-70"
+          style={{ fontWeight: 500, color: "hsl(var(--primary))", borderTop: "1px solid hsl(var(--border) / 0.5)" }}
+        >
+          {expanded ? "접기" : `더보기 (+${childArray.length - maxItems})`}
+        </button>
+      )}
     </div>
   );
+}
 }
 
 function BarRow({ rank, label, value, max, color, suffix }: { rank: number; label: string; value: number; max: number; color: string; suffix?: string }) {
