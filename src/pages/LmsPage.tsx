@@ -10,7 +10,8 @@ import {
   Languages, Lock, Link2, Wrench, BarChart3, Brain, Subtitles, MessageSquare,
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
   DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
-  ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award
+  ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award,
+  Sparkles, ArrowRight
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -54,40 +55,52 @@ export default function LmsPage() {
         faqJsonLd={faqs}
       />
 
-      {/* Hero */}
+      {/* Hero — LMS Premium Gradient */}
       <section
-        className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden"
-        style={{
-          background: "var(--hero-bg)"
-        }}
+        className="relative min-h-[80vh] flex items-center pt-20 pb-14 overflow-hidden"
+        style={{ background: "var(--lms-hero-bg)" }}
       >
-        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(260, 80%, 70%, 0.15) 0%, transparent 70%)" }} />
-        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", right: "-5%", background: "radial-gradient(ellipse 50% 60% at 70% 60%, hsla(200, 80%, 60%, 0.1) 0%, transparent 70%)" }} />
+        {/* Ambient gradient orbs */}
+        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(255, 75%, 60%, 0.18) 0%, transparent 70%)" }} />
+        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", right: "-5%", background: "radial-gradient(ellipse 50% 60% at 70% 60%, hsl(220, 90%, 56%, 0.12) 0%, transparent 70%)" }} />
+        <div className="absolute pointer-events-none" style={{ width: "60%", height: "60%", top: "20%", left: "5%", background: "radial-gradient(ellipse 40% 40% at 30% 50%, hsl(192, 80%, 50%, 0.08) 0%, transparent 70%)" }} />
+
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
           <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><LmsHeroVisual /></div>
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-2xl">
             <span
-              className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-              style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(260, 70%, 40%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+              style={{ background: "var(--lms-badge-bg)", backdropFilter: "blur(8px)", color: `hsl(var(--lms-badge-text))`, boxShadow: "0 2px 12px hsl(255, 75%, 58%, 0.15)" }}
             >
+              <Sparkles className="w-3.5 h-3.5" />
               {t("lms.hero.badge")}
             </span>
             <h1
-              className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight"
+              className="text-4xl lg:text-[3.4rem] font-black leading-[1.1] mb-5 tracking-tight"
               style={{ color: "hsl(var(--foreground))" }}
             >
               {t("lms.hero.title")}
               <br />
-              <span className="text-primary">{t("lms.hero.titleHighlight")}</span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: "var(--lms-gradient)" }}
+              >
+                {t("lms.hero.titleHighlight")}
+              </span>
             </h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">
               {t("lms.hero.desc")}
             </p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">
+              <a
+                href="#contact"
+                className="group px-7 py-3.5 rounded-2xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] text-white flex items-center gap-2"
+                style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
+              >
                 {t("lms.hero.cta1")}
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">
                 {t("lms.hero.cta2")}
@@ -97,8 +110,9 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-24 bg-background border-b border-border">
+      {/* Stats — with gradient accent line */}
+      <section className="py-24 bg-background relative">
+        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--lms-gradient)" }} />
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="font-black text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
@@ -106,7 +120,12 @@ export default function LmsPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
             {stats.map((s: any) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
-                <span className="block font-black leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span>
+                <span
+                  className="block font-black leading-none mb-2 text-4xl md:text-5xl tracking-tight bg-clip-text text-transparent"
+                  style={{ backgroundImage: "var(--lms-gradient)" }}
+                >
+                  {s.value}
+                </span>
                 <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
                 <span className="block text-xs text-muted-foreground">{s.sub}</span>
               </div>
@@ -115,26 +134,16 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Partners - temporarily hidden
-      <section className="py-16 bg-secondary">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-6 text-center">{t("lms.partnersTitle")}</p>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
-            {partners.map((name: string) => (
-              <span key={name} className="text-sm font-medium text-muted-foreground px-4 py-2 rounded-full bg-background border border-border">
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
-
       {/* Device Friendly */}
-      <section className="py-28" style={{ background: "var(--plans-bg)" }}>
+      <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4 text-primary">{t("lms.deviceSection.sub")}</p>
+            <p
+              className="text-sm font-semibold tracking-widest uppercase mb-4"
+              style={{ color: `hsl(var(--lms-primary))` }}
+            >
+              {t("lms.deviceSection.sub")}
+            </p>
             <h2 className="font-black leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
             <p className="mt-4 text-base text-muted-foreground">{t("lms.deviceSection.desc")}</p>
           </div>
@@ -144,9 +153,16 @@ export default function LmsPage() {
               { icon: Tablet, label: "Tablet" },
               { icon: Smartphone, label: "Mobile" }
             ].map(({ icon: Icon, label }) => (
-              <div key={label} className="rounded-2xl p-7 flex flex-col items-center gap-4 text-center transition-all duration-200 hover:scale-[1.02] bg-background" style={{ border: "1px solid hsl(214, 20%, 88%)" }}>
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: "hsl(214, 90%, 52%, 0.08)" }}>
-                  <Icon className="w-7 h-7 text-primary" />
+              <div
+                key={label}
+                className="rounded-2xl p-7 flex flex-col items-center gap-4 text-center transition-all duration-200 hover:scale-[1.02] bg-background"
+                style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+              >
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                  style={{ background: "var(--lms-gradient-subtle)" }}
+                >
+                  <Icon className="w-7 h-7" style={{ color: `hsl(var(--lms-primary))` }} />
                 </div>
                 <h3 className="font-bold text-lg text-foreground">{label}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
@@ -160,16 +176,20 @@ export default function LmsPage() {
       <section id="solutions" className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("lms.solutionsSection.sub")}</p>
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
             <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Cloud AI */}
-            <div className="rounded-3xl p-8 bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md transition-all duration-200">
+            <div
+              className="rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
+              style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "var(--lms-gradient)" }} />
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(260, 80%, 95%)" }}>
-                  <Cloud className="w-5 h-5" style={{ color: "hsl(260, 80%, 55%)" }} />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(255, 75%, 58%, 0.1)" }}>
+                  <Cloud className="w-5 h-5" style={{ color: "hsl(255, 75%, 58%)" }} />
                 </div>
                 <div>
                   <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
@@ -180,8 +200,8 @@ export default function LmsPage() {
               <div className="flex flex-col gap-3">
                 {cloudFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
-                      <f.icon className="w-4 h-4 text-primary" />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "var(--lms-gradient-subtle)" }}>
+                      <f.icon className="w-4 h-4" style={{ color: `hsl(var(--lms-primary))` }} />
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
@@ -190,12 +210,20 @@ export default function LmsPage() {
                   </div>
                 ))}
               </div>
-              <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">
+              <a
+                href="#contact"
+                className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
+                style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
+              >
                 {t("lms.cloud.cta")}
               </a>
             </div>
             {/* NEO On-premise */}
-            <div className="rounded-3xl p-8 bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md transition-all duration-200">
+            <div
+              className="rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
+              style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "linear-gradient(90deg, hsl(220, 70%, 45%), hsl(200, 80%, 50%))" }} />
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(220, 80%, 95%)" }}>
                   <Server className="w-5 h-5" style={{ color: "hsl(220, 70%, 45%)" }} />
@@ -210,7 +238,7 @@ export default function LmsPage() {
                 {neoFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
-                      <f.icon className="w-4 h-4 text-primary" />
+                      <f.icon className="w-4 h-4" style={{ color: "hsl(220, 70%, 45%)" }} />
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
@@ -219,13 +247,21 @@ export default function LmsPage() {
                   </div>
                 ))}
               </div>
-              <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">
+              <a
+                href="#contact"
+                className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, hsl(220, 70%, 45%), hsl(200, 80%, 50%))" }}
+              >
                 {t("lms.neo.cta")}
               </a>
             </div>
            </div>
           {/* KDT Government-funded */}
-          <div className="mt-6 rounded-3xl p-8 bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md transition-all duration-200">
+          <div
+            className="mt-6 rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
+            style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+          >
+            <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "linear-gradient(90deg, hsl(145, 60%, 38%), hsl(160, 70%, 45%))" }} />
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
                 <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
@@ -240,7 +276,7 @@ export default function LmsPage() {
               {kdtFeatures.map((f: any) => (
                 <div key={f.title} className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
-                    <f.icon className="w-4 h-4 text-primary" />
+                    <f.icon className="w-4 h-4" style={{ color: "hsl(145, 60%, 38%)" }} />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
@@ -249,7 +285,11 @@ export default function LmsPage() {
                 </div>
               ))}
             </div>
-            <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">
+            <a
+              href="#contact"
+              className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, hsl(145, 60%, 38%), hsl(160, 70%, 45%))" }}
+            >
               {t("lms.kdt.cta")}
             </a>
           </div>
@@ -260,16 +300,21 @@ export default function LmsPage() {
       <section className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("lms.allInOneSection.sub")}</p>
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
             <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {allInOneFeatures.map((f: any, i: number) => {
               const Icon = allInOneIcons[i] || Search;
               return (
-                <div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
-                    <Icon className="w-5 h-5 text-primary" />
+                <div
+                  key={f.title}
+                  className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-all duration-200 flex flex-col gap-3 hover:shadow-md"
+                >
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"
+                  >
+                    <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
                   </div>
                   <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
@@ -286,7 +331,7 @@ export default function LmsPage() {
       <section className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("lms.aiSection.sub")}</p>
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
             <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.aiSection.desc")}</p>
           </div>
@@ -294,9 +339,9 @@ export default function LmsPage() {
             {aiFeatures.map((f: any, i: number) => {
               const Icon = aiFeatureIcons[i] || Brain;
               return (
-                <div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3">
+                <div key={f.title} className="rounded-2xl p-7 transition-all duration-200 flex flex-col gap-3 hover:shadow-md relative overflow-hidden" style={{ background: "var(--lms-gradient-subtle)", border: `1px solid hsl(var(--lms-card-border))` }}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
-                    <Icon className="w-5 h-5 text-primary" />
+                    <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
                   </div>
                   <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
@@ -308,25 +353,29 @@ export default function LmsPage() {
       </section>
 
       {/* Plans */}
-      <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
+      <section id="plans" className="py-28" style={{ background: "var(--lms-section-alt)" }}>
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("lms.plansSection.sub")}</p>
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.plansSection.sub")}</p>
             <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.plansSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.plansSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
             {(t("lms.plans", { returnObjects: true }) as any[]).map((plan: any) => (
-              <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 border-primary shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`}>
-                {plan.badge && <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">{plan.badge}</div>}
+              <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { border: `2px solid hsl(var(--lms-primary))` } : undefined}>
+                {plan.badge && (
+                  <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "var(--lms-gradient)" }}>
+                    {plan.badge}
+                  </div>
+                )}
                 <div className="p-8 flex flex-col gap-5 flex-1">
                   <div>
-                    <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3>
-                    <div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} />
+                    <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
+                    <div className={`h-px mt-4 ${plan.highlight ? "" : "bg-border"}`} style={plan.highlight ? { background: `hsl(var(--lms-primary) / 0.2)` } : undefined} />
                   </div>
                   <div>
                     <div className="flex items-end gap-1">
-                      <span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>
+                      <span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.price}</span>
                       {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
                     </div>
                     {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
@@ -334,7 +383,7 @@ export default function LmsPage() {
                   <ul className="flex flex-col gap-3.5 flex-1">
                     {plan.features.map((f: any) => (
                       <li key={f.main} className="flex items-start gap-2.5">
-                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span>
+                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: `hsl(var(--lms-primary))` }}>✓</span>
                         <div>
                           <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
                           {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
@@ -349,10 +398,16 @@ export default function LmsPage() {
               </div>
             ))}
           </div>
-          <div className="mt-12 text-center rounded-2xl border border-border bg-background/50 p-8">
+          <div className="mt-12 text-center rounded-2xl border bg-background/50 p-8" style={{ borderColor: `hsl(var(--lms-card-border))` }}>
             <p className="text-foreground font-semibold text-lg mb-2">{t("lms.plansCustom.title")}</p>
             <p className="text-muted-foreground text-sm mb-6">{t("lms.plansCustom.desc")}</p>
-            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("lms.plansCustom.cta")}</a>
+            <a
+              href="#contact"
+              className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white hover:opacity-90 transition-all"
+              style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
+            >
+              {t("lms.plansCustom.cta")}
+            </a>
           </div>
         </div>
       </section>
