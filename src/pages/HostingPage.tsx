@@ -26,7 +26,7 @@ export default function HostingPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("hosting.seo.title")} description={t("hosting.seo.description")} keywords={t("hosting.seo.keywords")} path="/hosting" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("hosting.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": t("hosting.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/hosting" }} faqJsonLd={faqs} />
+      <SEO title={t("hosting.seo.title")} description={t("hosting.seo.description")} keywords={t("hosting.seo.keywords")} path="/hosting" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("hosting.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": t("hosting.seo.title"), "url": "https://webheads-sub.lovable.app/hosting" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--hero-bg)" }}>

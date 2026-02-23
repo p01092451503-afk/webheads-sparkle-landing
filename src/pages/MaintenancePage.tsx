@@ -56,7 +56,7 @@ export default function MaintenancePage() {
           "description": t("maintenance.seo.description"),
           "areaServed": "KR",
           "serviceType": t("maintenance.seo.title"),
-          "url": "https://webheads-sparkle-landing.lovable.app/maintenance"
+          "url": "https://webheads-sub.lovable.app/maintenance"
         }}
         faqJsonLd={faqs}
       />

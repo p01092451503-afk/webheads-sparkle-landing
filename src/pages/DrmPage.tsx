@@ -20,7 +20,7 @@ export default function DrmPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/drm" }} faqJsonLd={faqs} />
+      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://webheads-sub.lovable.app/drm" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--hero-bg)" }}>
