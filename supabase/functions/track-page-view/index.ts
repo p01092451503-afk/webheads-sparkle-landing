@@ -37,11 +37,13 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Classify visitor type from user_agent
+    // Classify visitor type from user_agent + IP heuristics
     const ua = (body.user_agent || "").toLowerCase();
     let visitor_type = "human";
     const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/;
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/;
+    // Cloudflare proxy IP ranges commonly used by scrapers/bots
+    const cloudflareProxyPattern = /^104\.28\./;
     if (aiPatterns.test(ua)) visitor_type = "ai";
     else if (botPatterns.test(ua)) visitor_type = "bot";
 
