@@ -406,7 +406,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
 
-      <SectionGroup title="일별 방문 추이" number={3}>
+      <SectionGroup title={isToday ? "시간대별 방문 추이" : "일별 방문 추이"} number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={dailyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -416,7 +416,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
                 tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
                 axisLine={false}
                 tickLine={false}
-                interval={dailyData.length > 14 ? Math.floor(dailyData.length / 7) : 0}
+                interval={isToday ? 2 : (dailyData.length > 14 ? Math.floor(dailyData.length / 7) : 0)}
               />
               <YAxis
                 tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
