@@ -200,7 +200,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     filteredViews.forEach((v) => {
       if (v.utm_source) acc[v.utm_source] = (acc[v.utm_source] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   const utmCampaignCounts = useMemo(() => {
