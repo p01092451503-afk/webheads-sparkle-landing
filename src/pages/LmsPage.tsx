@@ -190,7 +190,7 @@ export default function LmsPage() {
                   </div>
                 ))}
               </div>
-              <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-foreground text-primary-foreground hover:opacity-85">
+              <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">
                 {t("lms.cloud.cta")}
               </a>
             </div>
@@ -219,7 +219,7 @@ export default function LmsPage() {
                   </div>
                 ))}
               </div>
-              <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-foreground text-primary-foreground hover:opacity-85">
+              <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">
                 {t("lms.neo.cta")}
               </a>
             </div>
@@ -249,7 +249,7 @@ export default function LmsPage() {
                 </div>
               ))}
             </div>
-            <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-foreground text-primary-foreground hover:opacity-85">
+            <a href="#contact" className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">
               {t("lms.kdt.cta")}
             </a>
           </div>
