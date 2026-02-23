@@ -37,6 +37,14 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Classify visitor type from user_agent
+    const ua = (body.user_agent || "").toLowerCase();
+    let visitor_type = "human";
+    const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/;
+    const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/;
+    if (aiPatterns.test(ua)) visitor_type = "ai";
+    else if (botPatterns.test(ua)) visitor_type = "bot";
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
@@ -62,6 +70,7 @@ Deno.serve(async (req) => {
       utm_term: body.utm_term || null,
       utm_content: body.utm_content || null,
       is_first_visit: body.is_first_visit || false,
+      visitor_type,
     });
 
     if (error) {
