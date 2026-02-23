@@ -226,7 +226,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       const label = c.element_text || c.element_id || "Unknown";
       acc[label] = (acc[label] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredClicks]);
 
   const ctaByPage = useMemo(() => {
