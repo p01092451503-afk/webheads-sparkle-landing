@@ -2,7 +2,8 @@ import { useState, useMemo } from "react";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
-  MousePointerClick, Users, ScrollText, Link2
+  MousePointerClick, Users, ScrollText, Link2, LogOut,
+  Route, Languages, MonitorSmartphone, Grid3X3
 } from "lucide-react";
 
 interface AdminAnalyticsProps {
@@ -195,6 +196,105 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return { first, returning };
   }, [filteredViews]);
 
+  // ========== Exit Pages (last page per session) ==========
+  const exitPages = useMemo(() => {
+    const sessionPages: Record<string, { path: string; time: string }> = {};
+    filteredViews.forEach((v) => {
+      if (!v.session_id) return;
+      if (!sessionPages[v.session_id] || v.created_at > sessionPages[v.session_id].time) {
+        sessionPages[v.session_id] = { path: v.page_path, time: v.created_at };
+      }
+    });
+    const acc: Record<string, number> = {};
+    Object.values(sessionPages).forEach((s) => { acc[s.path] = (acc[s.path] || 0) + 1; });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredViews]);
+
+  // ========== Conversion Funnel ==========
+  const funnelData = useMemo(() => {
+    const sessions = new Set(filteredViews.map((v) => v.session_id).filter(Boolean));
+    const landingSessions = new Set<string>();
+    const serviceSessions = new Set<string>();
+    const contactSessions = new Set<string>();
+
+    const servicePages = ["/lms", "/hosting", "/drm", "/content", "/chatbot", "/channel", "/maintenance", "/app-dev", "/pg"];
+    
+    filteredViews.forEach((v) => {
+      if (!v.session_id) return;
+      if (v.page_path === "/") landingSessions.add(v.session_id);
+      if (servicePages.some((p) => v.page_path.startsWith(p))) serviceSessions.add(v.session_id);
+      if (v.page_path === "/about" || v.page_path.includes("contact")) contactSessions.add(v.session_id);
+    });
+
+    // Also count sessions that submitted an inquiry
+    const inquirySessions = new Set(filteredInquiries.map((i: any) => i.session_id).filter(Boolean));
+
+    return [
+      { label: "전체 방문", count: sessions.size },
+      { label: "랜딩 페이지", count: landingSessions.size },
+      { label: "서비스 페이지", count: serviceSessions.size },
+      { label: "문의/소개 페이지", count: contactSessions.size },
+      { label: "문의 제출", count: filteredInquiries.length },
+    ];
+  }, [filteredViews, filteredInquiries]);
+
+  // ========== Hourly Traffic Heatmap ==========
+  const hourlyData = useMemo(() => {
+    const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
+    const grid: number[][] = Array.from({ length: 7 }, () => Array(24).fill(0));
+    filteredViews.forEach((v) => {
+      const d = new Date(v.created_at);
+      grid[d.getDay()][d.getHours()]++;
+    });
+    return { grid, dayNames };
+  }, [filteredViews]);
+
+  const maxHourly = useMemo(() => Math.max(...hourlyData.grid.flat(), 1), [hourlyData]);
+
+  // ========== Page Flow (A → B transitions) ==========
+  const pageFlows = useMemo(() => {
+    const sessionViews: Record<string, { path: string; time: string }[]> = {};
+    filteredViews.forEach((v) => {
+      if (!v.session_id) return;
+      if (!sessionViews[v.session_id]) sessionViews[v.session_id] = [];
+      sessionViews[v.session_id].push({ path: v.page_path, time: v.created_at });
+    });
+
+    const flows: Record<string, number> = {};
+    Object.values(sessionViews).forEach((views) => {
+      views.sort((a, b) => a.time.localeCompare(b.time));
+      for (let i = 0; i < views.length - 1; i++) {
+        if (views[i].path !== views[i + 1].path) {
+          const key = `${views[i].path} → ${views[i + 1].path}`;
+          flows[key] = (flows[key] || 0) + 1;
+        }
+      }
+    });
+    return Object.entries(flows).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredViews]);
+
+  // ========== Screen Resolution ==========
+  const resolutionCounts = useMemo(() => {
+    const acc: Record<string, number> = {};
+    filteredViews.forEach((v) => {
+      if (v.screen_width && v.screen_height) {
+        const res = `${v.screen_width}×${v.screen_height}`;
+        acc[res] = (acc[res] || 0) + 1;
+      }
+    });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredViews]);
+
+  // ========== Language Distribution ==========
+  const languageCounts = useMemo(() => {
+    const acc: Record<string, number> = {};
+    filteredViews.forEach((v) => {
+      const lang = v.language || "Unknown";
+      acc[lang] = (acc[lang] || 0) + 1;
+    });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredViews]);
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -327,6 +427,120 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />}>
           {topOS.length === 0 ? <Empty /> : topOS.map(([name, count], i) => (
             <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topOS[0][1] as number} color="hsl(260, 70%, 55%)" />
+          ))}
+        </ChartCard>
+      </div>
+
+      {/* Conversion Funnel */}
+      <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+        <div className="flex items-center gap-2 mb-6">
+          <TrendingUp className="w-4 h-4 text-muted-foreground" />
+          <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>전환 퍼널</h4>
+        </div>
+        <div className="flex flex-col gap-3">
+          {funnelData.map((step, i) => {
+            const pct = funnelData[0].count > 0 ? (step.count / funnelData[0].count) * 100 : 0;
+            const dropOff = i > 0 && funnelData[i - 1].count > 0
+              ? ((1 - step.count / funnelData[i - 1].count) * 100).toFixed(1)
+              : null;
+            return (
+              <div key={step.label}>
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px]"
+                      style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{i + 1}</span>
+                    <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>{step.label}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[13px] text-foreground" style={{ fontWeight: 600 }}>{step.count.toLocaleString()}</span>
+                    {dropOff && (
+                      <span className="text-[11px] px-1.5 py-0.5 rounded-md" style={{ color: "hsl(0, 84%, 60%)", background: "hsl(0 84% 60% / 0.08)", fontWeight: 600 }}>
+                        -{dropOff}%
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="h-2 rounded-full overflow-hidden" style={{ background: "hsl(214 90% 52% / 0.08)" }}>
+                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(214, 90%, 52%)" }} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Hourly Traffic Heatmap */}
+      <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+        <div className="flex items-center gap-2 mb-6">
+          <Grid3X3 className="w-4 h-4 text-muted-foreground" />
+          <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>시간대별 트래픽 히트맵</h4>
+        </div>
+        <div className="overflow-x-auto">
+          <div className="min-w-[600px]">
+            {/* Hour labels */}
+            <div className="flex mb-1 ml-8">
+              {Array.from({ length: 24 }, (_, h) => (
+                <span key={h} className="flex-1 text-center text-[9px] text-muted-foreground/50" style={{ fontWeight: 500 }}>{h}</span>
+              ))}
+            </div>
+            {/* Grid rows */}
+            {hourlyData.dayNames.map((day, dayIdx) => (
+              <div key={day} className="flex items-center gap-1 mb-1">
+                <span className="w-7 text-[11px] text-muted-foreground text-right shrink-0" style={{ fontWeight: 500 }}>{day}</span>
+                <div className="flex flex-1 gap-0.5">
+                  {hourlyData.grid[dayIdx].map((count, hour) => {
+                    const intensity = maxHourly > 0 ? count / maxHourly : 0;
+                    return (
+                      <div
+                        key={hour}
+                        className="flex-1 rounded-sm transition-all"
+                        style={{
+                          height: "20px",
+                          background: count === 0
+                            ? "hsl(var(--muted))"
+                            : `hsl(214 90% 52% / ${0.15 + intensity * 0.85})`,
+                        }}
+                        title={`${day} ${hour}시: ${count}건`}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+            {/* Legend */}
+            <div className="flex items-center justify-end gap-2 mt-3">
+              <span className="text-[10px] text-muted-foreground/50">적음</span>
+              <div className="flex gap-0.5">
+                {[0.15, 0.35, 0.55, 0.75, 1].map((op, i) => (
+                  <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(214 90% 52% / ${op})` }} />
+                ))}
+              </div>
+              <span className="text-[10px] text-muted-foreground/50">많음</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Exit Pages, Page Flows, Resolution, Language */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />}>
+          {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
+            <BarRow key={path} rank={i + 1} label={path} value={count} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />
+          ))}
+        </ChartCard>
+        <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />}>
+          {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([flow, count], i) => (
+            <BarRow key={flow} rank={i + 1} label={flow} value={count} max={pageFlows[0][1]} color="hsl(260, 70%, 55%)" />
+          ))}
+        </ChartCard>
+        <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />}>
+          {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([res, count], i) => (
+            <BarRow key={res} rank={i + 1} label={res} value={count} max={resolutionCounts[0][1]} color="hsl(192, 80%, 45%)" />
+          ))}
+        </ChartCard>
+        <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />}>
+          {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([lang, count], i) => (
+            <BarRow key={lang} rank={i + 1} label={lang} value={count} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />
           ))}
         </ChartCard>
       </div>
