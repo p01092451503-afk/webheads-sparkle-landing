@@ -97,6 +97,7 @@ export type Database = {
           created_at: string
           device_type: string | null
           id: string
+          ip_address: string | null
           language: string | null
           os: string | null
           page_path: string
@@ -113,6 +114,7 @@ export type Database = {
           created_at?: string
           device_type?: string | null
           id?: string
+          ip_address?: string | null
           language?: string | null
           os?: string | null
           page_path: string
@@ -129,6 +131,7 @@ export type Database = {
           created_at?: string
           device_type?: string | null
           id?: string
+          ip_address?: string | null
           language?: string | null
           os?: string | null
           page_path?: string
