@@ -111,7 +111,7 @@ export default function LmsPage() {
       </section>
 
       {/* Stats — with gradient accent line */}
-      <section className="py-24 bg-background relative">
+      <section className="py-24 relative">
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--lms-gradient)" }} />
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-12">
@@ -297,7 +297,7 @@ export default function LmsPage() {
       </section>
 
       {/* All-in-One Management */}
-      <section className="py-28 bg-background">
+      <section className="py-28">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
@@ -328,7 +328,7 @@ export default function LmsPage() {
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
       {/* AI Features */}
-      <section className="py-28 bg-background">
+      <section className="py-28">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
