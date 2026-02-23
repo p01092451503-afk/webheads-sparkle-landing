@@ -232,7 +232,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   const ctaByPage = useMemo(() => {
     const acc: Record<string, number> = {};
     filteredClicks.forEach((c) => { acc[c.page_path] = (acc[c.page_path] || 0) + 1; });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredClicks]);
 
   // ========== NEW: Scroll Depth Stats ==========
