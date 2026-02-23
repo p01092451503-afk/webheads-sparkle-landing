@@ -3,7 +3,7 @@ import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
   MousePointerClick, Users, ScrollText, Link2, LogOut,
-  Route, Languages, MonitorSmartphone, Grid3X3
+  Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit
 } from "lucide-react";
 
 interface AdminAnalyticsProps {
@@ -38,6 +38,25 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const totalViews = filteredViews.length;
   const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
+
+  // Visitor type classification (DB value or frontend fallback)
+  const visitorTypeCounts = useMemo(() => {
+    const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/i;
+    const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
+    let human = 0, bot = 0, ai = 0;
+    filteredViews.forEach((v) => {
+      const type = v.visitor_type || (() => {
+        const ua = (v.user_agent || "").toLowerCase();
+        if (aiPatterns.test(ua)) return "ai";
+        if (botPatterns.test(ua)) return "bot";
+        return "human";
+      })();
+      if (type === "ai") ai++;
+      else if (type === "bot") bot++;
+      else human++;
+    });
+    return { human, bot, ai, total: human + bot + ai };
+  }, [filteredViews]);
 
   const deviceCounts = filteredViews.reduce((acc, v) => {
     acc[v.device_type || "unknown"] = (acc[v.device_type || "unknown"] || 0) + 1; return acc;
@@ -343,7 +362,14 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         <MetricCard icon={<Link2 className="w-5 h-5" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" tooltip="UTM 파라미터가 포함된 URL로 유입된 방문 수입니다. 광고, SNS, 이메일 등 마케팅 캠페인의 성과를 추적합니다." />
       </div>
 
-      {/* Daily Traffic Chart */}
+      {/* Visitor Type Breakdown */}
+      <div className="grid grid-cols-3 gap-4">
+        <MetricCard icon={<User className="w-5 h-5" />} label="사람" value={visitorTypeCounts.human} color="hsl(214, 90%, 52%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." />
+        <MetricCard icon={<Bot className="w-5 h-5" />} label="검색엔진 봇" value={visitorTypeCounts.bot} color="hsl(35, 90%, 50%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.bot / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다." />
+        <MetricCard icon={<BrainCircuit className="w-5 h-5" />} label="AI 봇" value={visitorTypeCounts.ai} color="hsl(260, 70%, 55%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="ChatGPT, Claude, Perplexity 등 AI 서비스의 크롤러 방문입니다. AI 검색에 노출되고 있는지 확인할 수 있습니다." />
+      </div>
+
+
       <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
         <div className="flex items-center gap-2 mb-6">
           <Calendar className="w-4 h-4 text-muted-foreground" />
