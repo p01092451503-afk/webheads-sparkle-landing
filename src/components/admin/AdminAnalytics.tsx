@@ -471,13 +471,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </ChartCard>
       </div>
 
-      {/* Conversion Funnel */}
-      <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-        <div className="flex items-center gap-2 mb-6">
-          <TrendingUp className="w-4 h-4 text-muted-foreground" />
-          <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>전환 퍼널</h4>
-          <HelpTooltip text="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다." />
-        </div>
+      <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
         <div className="flex flex-col gap-3">
           {funnelData.map((step, i) => {
             const pct = funnelData[0].count > 0 ? (step.count / funnelData[0].count) * 100 : 0;
@@ -508,24 +502,16 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
             );
           })}
         </div>
-      </div>
+      </SectionCard>
 
-      {/* Hourly Traffic Heatmap */}
-      <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-        <div className="flex items-center gap-2 mb-6">
-          <Grid3X3 className="w-4 h-4 text-muted-foreground" />
-          <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>시간대별 트래픽 히트맵</h4>
-          <HelpTooltip text="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요." />
-        </div>
+      <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />} tooltip="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요.">
         <div className="overflow-x-auto">
           <div className="min-w-[600px]">
-            {/* Hour labels */}
             <div className="flex mb-1 ml-8">
               {Array.from({ length: 24 }, (_, h) => (
                 <span key={h} className="flex-1 text-center text-[9px] text-muted-foreground/50" style={{ fontWeight: 500 }}>{h}</span>
               ))}
             </div>
-            {/* Grid rows */}
             {hourlyData.dayNames.map((day, dayIdx) => (
               <div key={day} className="flex items-center gap-1 mb-1">
                 <span className="w-7 text-[11px] text-muted-foreground text-right shrink-0" style={{ fontWeight: 500 }}>{day}</span>
@@ -549,7 +535,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
                 </div>
               </div>
             ))}
-            {/* Legend */}
             <div className="flex items-center justify-end gap-2 mt-3">
               <span className="text-[10px] text-muted-foreground/50">적음</span>
               <div className="flex gap-0.5">
@@ -561,7 +546,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
             </div>
           </div>
         </div>
-      </div>
+      </SectionCard>
 
       {/* Exit Pages, Page Flows, Resolution, Language */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
