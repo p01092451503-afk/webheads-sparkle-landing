@@ -81,20 +81,32 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Greeting */}
-      <div>
-        <h2 className="text-[24px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
-          안녕하세요 👋
-        </h2>
-        <p className="text-[14px] text-muted-foreground mt-1">
-          오늘의 현황을 확인하세요
-        </p>
+      {/* Greeting + Date Filter */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-[24px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
+            안녕하세요 👋
+          </h2>
+          <p className="text-[14px] text-muted-foreground mt-1">
+            오늘의 현황을 확인하세요
+          </p>
+        </div>
+        <div className="flex gap-1 p-1 rounded-xl" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+          {[{ value: 0, label: "오늘" }, { value: 7, label: "7일" }, { value: 14, label: "14일" }, { value: 30, label: "30일" }].map((d) => (
+            <button key={d.value} onClick={() => setDateRange(d.value)}
+              className="px-3 py-1.5 rounded-lg text-[12px] transition-all whitespace-nowrap"
+              style={{ fontWeight: dateRange === d.value ? 600 : 500, color: dateRange === d.value ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))", background: dateRange === d.value ? "hsl(var(--foreground))" : "transparent" }}
+            >
+              {d.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricCard label="오늘 문의" value={todayInquiries.length} sub={`신규 ${newInquiries.length}건`} color="hsl(214, 90%, 52%)" icon={<MessageSquare className="w-5 h-5" />} />
-        <MetricCard label="오늘 방문" value={todayViews.length} sub={`${todaySessions} 세션`} color="hsl(150, 60%, 42%)" icon={<Eye className="w-5 h-5" />} />
+        <MetricCard label="문의" value={filteredInquiries.length} sub={`신규 ${newInquiries.length}건`} color="hsl(214, 90%, 52%)" icon={<MessageSquare className="w-5 h-5" />} />
+        <MetricCard label="방문" value={filteredViews.length} sub={`${uniqueSessions} 세션`} color="hsl(150, 60%, 42%)" icon={<Eye className="w-5 h-5" />} />
         <MetricCard label="전환율" value={`${conversionRate}%`} sub="방문 → 문의" color="hsl(35, 90%, 50%)" icon={<TrendingUp className="w-5 h-5" />} />
         <MetricCard label="총 문의" value={inquiries.length} sub="전체 누적" color="hsl(260, 70%, 55%)" icon={<Building2 className="w-5 h-5" />} />
       </div>
