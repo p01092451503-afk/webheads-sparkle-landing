@@ -67,7 +67,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, {} as Record<string, number>);
 
   const pageCounts = filteredViews.reduce((acc, v) => { acc[v.page_path] = (acc[v.page_path] || 0) + 1; return acc; }, {} as Record<string, number>);
-  const topPages = Object.entries(pageCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 8);
+  const topPages = Object.entries(pageCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
   const browserCounts = filteredViews.reduce((acc, v) => { acc[v.browser || "Unknown"] = (acc[v.browser || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topBrowsers = Object.entries(browserCounts).sort(([, a], [, b]) => (b as number) - (a as number));
