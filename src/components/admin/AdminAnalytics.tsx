@@ -344,7 +344,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         acc[res] = (acc[res] || 0) + 1;
       }
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== Language Distribution ==========
