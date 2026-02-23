@@ -76,7 +76,7 @@ export default function LmsPage() {
             </span>
             <h1
               className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight"
-              style={{ color: "hsl(220, 60%, 8%)" }}
+              style={{ color: "hsl(var(--foreground))" }}
             >
               {t("lms.hero.title")}
               <br />
