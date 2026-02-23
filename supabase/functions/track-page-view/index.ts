@@ -18,6 +18,26 @@ Deno.serve(async (req) => {
     const forwarded = req.headers.get("x-forwarded-for");
     const ip = forwarded ? forwarded.split(",")[0].trim() : req.headers.get("x-real-ip") || null;
 
+    // Geo lookup via free API
+    let country: string | null = null;
+    let city: string | null = null;
+    if (ip && ip !== "127.0.0.1" && ip !== "::1") {
+      try {
+        const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,regionName,city&lang=ko`);
+        if (geoRes.ok) {
+          const geo = await geoRes.json();
+          if (geo.status === "success") {
+            country = geo.country || null;
+            // Combine region + city for Korean addresses (e.g. "경기도 성남시")
+            const parts = [geo.regionName, geo.city].filter(Boolean);
+            city = parts.length > 0 ? parts.join(" ") : null;
+          }
+        }
+      } catch (geoErr) {
+        console.error("Geo lookup failed:", geoErr);
+      }
+    }
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
@@ -35,6 +55,8 @@ Deno.serve(async (req) => {
       language: body.language || null,
       session_id: body.session_id || null,
       ip_address: ip,
+      country,
+      city,
     });
 
     if (error) {
