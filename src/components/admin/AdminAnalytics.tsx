@@ -350,24 +350,26 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </div>
 
-      {/* Summary */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-        <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다. 한 사용자가 여러 페이지를 보면 각각 1회로 집계됩니다." />
-        <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" tooltip="브라우저 탭을 열고 사이트를 방문한 고유 세션 수입니다. 같은 사용자도 새 탭이나 다른 시간에 방문하면 별도 세션으로 집계됩니다." />
-        <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" tooltip="방문자가 한 페이지에 머문 평균 시간입니다. 체류시간이 길수록 콘텐츠에 관심이 높다는 의미입니다. 최대 30분까지만 집계합니다." />
-        <MetricCard icon={<MousePointerClick className="w-5 h-5" />} label="CTA 클릭" value={filteredClicks.length} color="hsl(340, 65%, 55%)" tooltip="'상담 신청', '데모 요청', '문의하기' 등 전환 유도 버튼(CTA)이 클릭된 총 횟수입니다. 마케팅 효과를 측정하는 핵심 지표입니다." />
-        <MetricCard icon={<Users className="w-5 h-5" />} label="신규 방문" value={visitStats.first} color="hsl(35, 90%, 50%)" sub={`재방문 ${visitStats.returning}`} tooltip="처음 사이트를 방문한 사용자 수입니다. 재방문 수와 비교하여 신규 유입과 리텐션(재방문율)을 파악할 수 있습니다." />
-        <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(260, 70%, 55%)" tooltip="모바일 기기(스마트폰)로 접속한 방문 횟수입니다. 모바일 비율이 높으면 모바일 최적화가 특히 중요합니다." />
-        <MetricCard icon={<TrendingUp className="w-5 h-5" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} tooltip="전체 세션 중 실제 문의를 제출한 비율입니다. (문의 수 ÷ 고유 세션 × 100) 마케팅 ROI를 판단하는 가장 중요한 지표입니다." />
-        <MetricCard icon={<Link2 className="w-5 h-5" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" tooltip="UTM 파라미터가 포함된 URL로 유입된 방문 수입니다. 광고, SNS, 이메일 등 마케팅 캠페인의 성과를 추적합니다." />
-      </div>
+      <SectionGroup title="주요 지표 요약">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+          <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다. 한 사용자가 여러 페이지를 보면 각각 1회로 집계됩니다." />
+          <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" tooltip="브라우저 탭을 열고 사이트를 방문한 고유 세션 수입니다. 같은 사용자도 새 탭이나 다른 시간에 방문하면 별도 세션으로 집계됩니다." />
+          <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" tooltip="방문자가 한 페이지에 머문 평균 시간입니다. 체류시간이 길수록 콘텐츠에 관심이 높다는 의미입니다. 최대 30분까지만 집계합니다." />
+          <MetricCard icon={<MousePointerClick className="w-5 h-5" />} label="CTA 클릭" value={filteredClicks.length} color="hsl(340, 65%, 55%)" tooltip="'상담 신청', '데모 요청', '문의하기' 등 전환 유도 버튼(CTA)이 클릭된 총 횟수입니다. 마케팅 효과를 측정하는 핵심 지표입니다." />
+          <MetricCard icon={<Users className="w-5 h-5" />} label="신규 방문" value={visitStats.first} color="hsl(35, 90%, 50%)" sub={`재방문 ${visitStats.returning}`} tooltip="처음 사이트를 방문한 사용자 수입니다. 재방문 수와 비교하여 신규 유입과 리텐션(재방문율)을 파악할 수 있습니다." />
+          <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(260, 70%, 55%)" tooltip="모바일 기기(스마트폰)로 접속한 방문 횟수입니다. 모바일 비율이 높으면 모바일 최적화가 특히 중요합니다." />
+          <MetricCard icon={<TrendingUp className="w-5 h-5" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} tooltip="전체 세션 중 실제 문의를 제출한 비율입니다. (문의 수 ÷ 고유 세션 × 100) 마케팅 ROI를 판단하는 가장 중요한 지표입니다." />
+          <MetricCard icon={<Link2 className="w-5 h-5" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" tooltip="UTM 파라미터가 포함된 URL로 유입된 방문 수입니다. 광고, SNS, 이메일 등 마케팅 캠페인의 성과를 추적합니다." />
+        </div>
+      </SectionGroup>
 
-      {/* Visitor Type Breakdown */}
-      <div className="grid grid-cols-3 gap-4">
-        <MetricCard icon={<User className="w-5 h-5" />} label="사람" value={visitorTypeCounts.human} color="hsl(214, 90%, 52%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." />
-        <MetricCard icon={<Bot className="w-5 h-5" />} label="검색엔진 봇" value={visitorTypeCounts.bot} color="hsl(35, 90%, 50%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.bot / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다." />
-        <MetricCard icon={<BrainCircuit className="w-5 h-5" />} label="AI 봇" value={visitorTypeCounts.ai} color="hsl(260, 70%, 55%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="ChatGPT, Claude, Perplexity 등 AI 서비스의 크롤러 방문입니다. AI 검색에 노출되고 있는지 확인할 수 있습니다." />
-      </div>
+      <SectionGroup title="방문자 유형 분석">
+        <div className="grid grid-cols-3 gap-4">
+          <MetricCard icon={<User className="w-5 h-5" />} label="사람" value={visitorTypeCounts.human} color="hsl(214, 90%, 52%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." />
+          <MetricCard icon={<Bot className="w-5 h-5" />} label="검색엔진 봇" value={visitorTypeCounts.bot} color="hsl(35, 90%, 50%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.bot / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다." />
+          <MetricCard icon={<BrainCircuit className="w-5 h-5" />} label="AI 봇" value={visitorTypeCounts.ai} color="hsl(260, 70%, 55%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="ChatGPT, Claude, Perplexity 등 AI 서비스의 크롤러 방문입니다. AI 검색에 노출되고 있는지 확인할 수 있습니다." />
+        </div>
+      </SectionGroup>
 
 
       <SectionCard title="일별 방문 추이" icon={<Calendar className="w-4 h-4" />}>
