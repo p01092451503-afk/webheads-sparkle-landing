@@ -430,48 +430,49 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      {/* Detail Charts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
-          {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
-            <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />} tooltip="방문자의 IP 주소 기반 접속 지역입니다. 주요 고객이 어느 지역에 분포하는지 파악하여 지역 타겟 마케팅에 활용할 수 있습니다.">
-          {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([loc, count], i) => (
-            <BarRow key={loc} rank={i + 1} label={loc} value={count as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />} tooltip="접속한 IP 주소별 방문 횟수입니다. 동일 IP에서 반복 방문이 많으면 해당 기업/기관의 높은 관심을 의미할 수 있습니다.">
-          {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => {
-            const timeStr = d.lastVisit ? (() => {
-              const dt = new Date(d.lastVisit);
-              const m = String(dt.getMonth() + 1).padStart(2, "0");
-              const day = String(dt.getDate()).padStart(2, "0");
-              const h = String(dt.getHours()).padStart(2, "0");
-              const min = String(dt.getMinutes()).padStart(2, "0");
-              return `${m}/${day} ${h}:${min}`;
-            })() : "";
-            const suffix = [d.location, timeStr].filter(Boolean).join("  ·  ");
-            return <BarRow key={d.ip} rank={i + 1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />;
-          })}
-        </ChartCard>
-        <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} tooltip="방문자가 어디에서 링크를 클릭하여 사이트에 왔는지 보여줍니다. '직접 방문'은 URL을 직접 입력하거나 북마크로 접속한 경우입니다.">
-          {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([ref, count], i) => (
-            <BarRow key={ref} rank={i + 1} label={ref} value={count as number} max={topReferrers[0][1] as number} color="hsl(150, 60%, 42%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />} tooltip="방문자가 사용한 웹 브라우저 분포입니다. 특정 브라우저에서 문제가 발생하면 해당 브라우저 점유율을 확인하여 대응 우선순위를 정할 수 있습니다.">
-          {topBrowsers.length === 0 ? <Empty /> : topBrowsers.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topBrowsers[0][1] as number} color="hsl(35, 90%, 50%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />} tooltip="방문자의 운영체제(Windows, macOS, iOS, Android 등) 분포입니다. 주요 사용자의 환경을 파악하여 호환성 테스트 우선순위를 정합니다.">
-          {topOS.length === 0 ? <Empty /> : topOS.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topOS[0][1] as number} color="hsl(260, 70%, 55%)" />
-          ))}
-        </ChartCard>
-      </div>
+      <SectionGroup title="방문자 · 페이지 상세">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
+            {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
+              <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />} tooltip="방문자의 IP 주소 기반 접속 지역입니다. 주요 고객이 어느 지역에 분포하는지 파악하여 지역 타겟 마케팅에 활용할 수 있습니다.">
+            {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([loc, count], i) => (
+              <BarRow key={loc} rank={i + 1} label={loc} value={count as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />} tooltip="접속한 IP 주소별 방문 횟수입니다. 동일 IP에서 반복 방문이 많으면 해당 기업/기관의 높은 관심을 의미할 수 있습니다.">
+            {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => {
+              const timeStr = d.lastVisit ? (() => {
+                const dt = new Date(d.lastVisit);
+                const m = String(dt.getMonth() + 1).padStart(2, "0");
+                const day = String(dt.getDate()).padStart(2, "0");
+                const h = String(dt.getHours()).padStart(2, "0");
+                const min = String(dt.getMinutes()).padStart(2, "0");
+                return `${m}/${day} ${h}:${min}`;
+              })() : "";
+              const suffix = [d.location, timeStr].filter(Boolean).join("  ·  ");
+              return <BarRow key={d.ip} rank={i + 1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />;
+            })}
+          </ChartCard>
+          <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} tooltip="방문자가 어디에서 링크를 클릭하여 사이트에 왔는지 보여줍니다. '직접 방문'은 URL을 직접 입력하거나 북마크로 접속한 경우입니다.">
+            {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([ref, count], i) => (
+              <BarRow key={ref} rank={i + 1} label={ref} value={count as number} max={topReferrers[0][1] as number} color="hsl(150, 60%, 42%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />} tooltip="방문자가 사용한 웹 브라우저 분포입니다. 특정 브라우저에서 문제가 발생하면 해당 브라우저 점유율을 확인하여 대응 우선순위를 정할 수 있습니다.">
+            {topBrowsers.length === 0 ? <Empty /> : topBrowsers.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topBrowsers[0][1] as number} color="hsl(35, 90%, 50%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />} tooltip="방문자의 운영체제(Windows, macOS, iOS, Android 등) 분포입니다. 주요 사용자의 환경을 파악하여 호환성 테스트 우선순위를 정합니다.">
+            {topOS.length === 0 ? <Empty /> : topOS.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topOS[0][1] as number} color="hsl(260, 70%, 55%)" />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
 
       <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
         <div className="flex flex-col gap-3">
