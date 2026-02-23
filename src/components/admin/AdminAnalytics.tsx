@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
@@ -324,14 +324,14 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       {/* Summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-        <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" />
-        <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" />
-        <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" />
-        <MetricCard icon={<MousePointerClick className="w-5 h-5" />} label="CTA 클릭" value={filteredClicks.length} color="hsl(340, 65%, 55%)" />
-        <MetricCard icon={<Users className="w-5 h-5" />} label="신규 방문" value={visitStats.first} color="hsl(35, 90%, 50%)" sub={`재방문 ${visitStats.returning}`} />
-        <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(260, 70%, 55%)" />
-        <MetricCard icon={<TrendingUp className="w-5 h-5" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} />
-        <MetricCard icon={<Link2 className="w-5 h-5" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" />
+        <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다. 한 사용자가 여러 페이지를 보면 각각 1회로 집계됩니다." />
+        <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" tooltip="브라우저 탭을 열고 사이트를 방문한 고유 세션 수입니다. 같은 사용자도 새 탭이나 다른 시간에 방문하면 별도 세션으로 집계됩니다." />
+        <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" tooltip="방문자가 한 페이지에 머문 평균 시간입니다. 체류시간이 길수록 콘텐츠에 관심이 높다는 의미입니다. 최대 30분까지만 집계합니다." />
+        <MetricCard icon={<MousePointerClick className="w-5 h-5" />} label="CTA 클릭" value={filteredClicks.length} color="hsl(340, 65%, 55%)" tooltip="'상담 신청', '데모 요청', '문의하기' 등 전환 유도 버튼(CTA)이 클릭된 총 횟수입니다. 마케팅 효과를 측정하는 핵심 지표입니다." />
+        <MetricCard icon={<Users className="w-5 h-5" />} label="신규 방문" value={visitStats.first} color="hsl(35, 90%, 50%)" sub={`재방문 ${visitStats.returning}`} tooltip="처음 사이트를 방문한 사용자 수입니다. 재방문 수와 비교하여 신규 유입과 리텐션(재방문율)을 파악할 수 있습니다." />
+        <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(260, 70%, 55%)" tooltip="모바일 기기(스마트폰)로 접속한 방문 횟수입니다. 모바일 비율이 높으면 모바일 최적화가 특히 중요합니다." />
+        <MetricCard icon={<TrendingUp className="w-5 h-5" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} tooltip="전체 세션 중 실제 문의를 제출한 비율입니다. (문의 수 ÷ 고유 세션 × 100) 마케팅 ROI를 판단하는 가장 중요한 지표입니다." />
+        <MetricCard icon={<Link2 className="w-5 h-5" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" tooltip="UTM 파라미터가 포함된 URL로 유입된 방문 수입니다. 광고, SNS, 이메일 등 마케팅 캠페인의 성과를 추적합니다." />
       </div>
 
       {/* Daily Traffic Chart */}
@@ -361,22 +361,22 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       {/* UTM & CTA Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />}>
+        <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
           {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
             <BarRow key={name} rank={i + 1} label={name} value={count} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />
           ))}
         </ChartCard>
-        <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />}>
+        <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />} tooltip="utm_campaign 파라미터로 추적되는 마케팅 캠페인별 유입 수입니다. 광고 캠페인의 성과를 비교·분석할 때 활용합니다.">
           {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([name, count], i) => (
             <BarRow key={name} rank={i + 1} label={name} value={count} max={utmCampaignCounts[0][1]} color="hsl(200, 70%, 50%)" />
           ))}
         </ChartCard>
-        <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />}>
+        <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />} tooltip="'상담 신청', '데모 요청' 등 전환 유도 버튼(CTA)의 클릭 수를 버튼 텍스트별로 집계합니다. 어떤 CTA가 가장 효과적인지 파악할 수 있습니다.">
           {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([name, count], i) => (
             <BarRow key={name} rank={i + 1} label={name} value={count} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />
           ))}
         </ChartCard>
-        <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />}>
+        <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />} tooltip="어느 페이지에서 CTA 버튼이 가장 많이 클릭되었는지 보여줍니다. 전환이 잘 일어나는 페이지와 개선이 필요한 페이지를 구분할 수 있습니다.">
           {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
             <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
           ))}
@@ -385,12 +385,12 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       {/* Scroll & Dwell Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />}>
+        <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
           {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
             <BarRow key={d.path} rank={i + 1} label={d.path} value={d.avg} max={100} color="hsl(35, 90%, 50%)" suffix="%" />
           ))}
         </ChartCard>
-        <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />}>
+        <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />} tooltip="각 페이지에 방문자가 머문 평균 시간입니다. 체류시간이 긴 페이지는 콘텐츠 관심도가 높고, 짧은 페이지는 내용 개선이 필요할 수 있습니다.">
           {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
             <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
           ))}
@@ -399,32 +399,32 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       {/* Detail Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />}>
+        <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
           {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
             <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
           ))}
         </ChartCard>
-        <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />}>
+        <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />} tooltip="방문자의 IP 주소 기반 접속 지역입니다. 주요 고객이 어느 지역에 분포하는지 파악하여 지역 타겟 마케팅에 활용할 수 있습니다.">
           {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([loc, count], i) => (
             <BarRow key={loc} rank={i + 1} label={loc} value={count as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />
           ))}
         </ChartCard>
-        <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />}>
+        <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />} tooltip="접속한 IP 주소별 방문 횟수입니다. 동일 IP에서 반복 방문이 많으면 해당 기업/기관의 높은 관심을 의미할 수 있습니다.">
           {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => (
             <BarRow key={d.ip} rank={i + 1} label={d.location ? `${d.ip}  ·  ${d.location}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />
           ))}
         </ChartCard>
-        <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />}>
+        <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} tooltip="방문자가 어디에서 링크를 클릭하여 사이트에 왔는지 보여줍니다. '직접 방문'은 URL을 직접 입력하거나 북마크로 접속한 경우입니다.">
           {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([ref, count], i) => (
             <BarRow key={ref} rank={i + 1} label={ref} value={count as number} max={topReferrers[0][1] as number} color="hsl(150, 60%, 42%)" />
           ))}
         </ChartCard>
-        <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />}>
+        <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />} tooltip="방문자가 사용한 웹 브라우저 분포입니다. 특정 브라우저에서 문제가 발생하면 해당 브라우저 점유율을 확인하여 대응 우선순위를 정할 수 있습니다.">
           {topBrowsers.length === 0 ? <Empty /> : topBrowsers.map(([name, count], i) => (
             <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topBrowsers[0][1] as number} color="hsl(35, 90%, 50%)" />
           ))}
         </ChartCard>
-        <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />}>
+        <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />} tooltip="방문자의 운영체제(Windows, macOS, iOS, Android 등) 분포입니다. 주요 사용자의 환경을 파악하여 호환성 테스트 우선순위를 정합니다.">
           {topOS.length === 0 ? <Empty /> : topOS.map(([name, count], i) => (
             <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topOS[0][1] as number} color="hsl(260, 70%, 55%)" />
           ))}
@@ -435,7 +435,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
         <div className="flex items-center gap-2 mb-6">
           <TrendingUp className="w-4 h-4 text-muted-foreground" />
-          <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>전환 퍼널</h4>
+          <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>전환 퍼널</h4>
+          <HelpTooltip text="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다." />
         </div>
         <div className="flex flex-col gap-3">
           {funnelData.map((step, i) => {
@@ -473,7 +474,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
         <div className="flex items-center gap-2 mb-6">
           <Grid3X3 className="w-4 h-4 text-muted-foreground" />
-          <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>시간대별 트래픽 히트맵</h4>
+          <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>시간대별 트래픽 히트맵</h4>
+          <HelpTooltip text="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요." />
         </div>
         <div className="overflow-x-auto">
           <div className="min-w-[600px]">
@@ -523,22 +525,22 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       {/* Exit Pages, Page Flows, Resolution, Language */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />}>
+        <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
           {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
             <BarRow key={path} rank={i + 1} label={path} value={count} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />
           ))}
         </ChartCard>
-        <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />}>
+        <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />} tooltip="방문자가 한 페이지에서 다음 페이지로 이동한 경로입니다. 주요 동선을 파악하여 네비게이션을 최적화하고 전환 경로를 설계할 수 있습니다.">
           {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([flow, count], i) => (
             <BarRow key={flow} rank={i + 1} label={flow} value={count} max={pageFlows[0][1]} color="hsl(260, 70%, 55%)" />
           ))}
         </ChartCard>
-        <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />}>
+        <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />} tooltip="방문자 기기의 화면 해상도 분포입니다. 가장 많이 사용되는 해상도에 맞춰 반응형 디자인을 최적화하는 데 참고합니다.">
           {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([res, count], i) => (
             <BarRow key={res} rank={i + 1} label={res} value={count} max={resolutionCounts[0][1]} color="hsl(192, 80%, 45%)" />
           ))}
         </ChartCard>
-        <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />}>
+        <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />} tooltip="방문자의 브라우저 언어 설정 분포입니다. 다국어 페이지 제작 시 우선순위를 결정하거나, 해외 유입 비율을 파악하는 데 활용합니다.">
           {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([lang, count], i) => (
             <BarRow key={lang} rank={i + 1} label={lang} value={count} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />
           ))}
@@ -548,12 +550,40 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   );
 }
 
-function MetricCard({ icon, label, value, color, sub }: {
-  icon: React.ReactNode; label: string; value: number | string; color: string; sub?: string;
+function HelpTooltip({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  return (
+    <div className="relative inline-flex" ref={ref}>
+      <button
+        onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
+        onBlur={() => setTimeout(() => setOpen(false), 150)}
+        className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] shrink-0 transition-all hover:opacity-80"
+        style={{ fontWeight: 700, color: "hsl(var(--muted-foreground))", background: "hsl(var(--muted))", border: "1px solid hsl(var(--border))" }}
+      >
+        ?
+      </button>
+      {open && (
+        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-[240px] rounded-xl p-3 text-[11px] leading-relaxed shadow-lg animate-in fade-in zoom-in-95 duration-150"
+          style={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", color: "hsl(var(--popover-foreground))", fontWeight: 400 }}>
+          {text}
+          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 rotate-45"
+            style={{ background: "hsl(var(--popover))", borderRight: "1px solid hsl(var(--border))", borderBottom: "1px solid hsl(var(--border))" }} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MetricCard({ icon, label, value, color, sub, tooltip }: {
+  icon: React.ReactNode; label: string; value: number | string; color: string; sub?: string; tooltip?: string;
 }) {
   return (
     <div className="rounded-2xl p-5 flex flex-col gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${color}10`, color }}>{icon}</div>
+      <div className="flex items-center justify-between">
+        <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${color}10`, color }}>{icon}</div>
+        {tooltip && <HelpTooltip text={tooltip} />}
+      </div>
       <div>
         <p className="text-[24px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
           {typeof value === "number" ? value.toLocaleString() : value}
@@ -565,12 +595,13 @@ function MetricCard({ icon, label, value, color, sub }: {
   );
 }
 
-function ChartCard({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
+function ChartCard({ title, icon, children, tooltip }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string }) {
   return (
     <div className="rounded-2xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
       <div className="flex items-center gap-2 mb-5">
         <span className="text-muted-foreground">{icon}</span>
-        <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>{title}</h4>
+        <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
+        {tooltip && <HelpTooltip text={tooltip} />}
       </div>
       <div className="flex flex-col gap-3">{children}</div>
     </div>
