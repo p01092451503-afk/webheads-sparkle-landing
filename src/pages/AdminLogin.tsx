@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, Loader2, Mail } from "lucide-react";
+import { Lock, Loader2, Mail, Shield } from "lucide-react";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -35,7 +35,7 @@ export default function AdminLogin() {
 
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password });
     if (authError) {
-      setError("로그인에 실패했습니다.");
+      setError("이메일 또는 비밀번호가 올바르지 않습니다.");
       setLoading(false);
       return;
     }
@@ -43,7 +43,7 @@ export default function AdminLogin() {
     const { data: roleData } = await supabase.from("user_roles").select("role").eq("user_id", authData.user.id).eq("role", "admin").maybeSingle();
     if (!roleData) {
       await supabase.auth.signOut();
-      setError("관리자 권한이 없습니다.");
+      setError("관리자 권한이 없는 계정입니다.");
       setLoading(false);
       return;
     }
@@ -52,56 +52,141 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 pt-20">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-            <Lock className="w-6 h-6 text-primary" />
+    <div className="min-h-screen flex items-center justify-center px-4"
+      style={{ background: "hsl(var(--background))" }}
+    >
+      <div className="w-full max-w-[400px]">
+        {/* Logo / Icon Area */}
+        <div className="flex flex-col items-center mb-10">
+          <div
+            className="w-16 h-16 rounded-[20px] flex items-center justify-center mb-5"
+            style={{
+              background: "linear-gradient(135deg, hsl(214, 90%, 52%) 0%, hsl(192, 90%, 55%) 100%)",
+              boxShadow: "0 8px 28px -4px hsl(214 90% 52% / 0.4)",
+            }}
+          >
+            <Shield className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-black tracking-tight text-foreground">관리자 로그인</h1>
-          <p className="text-sm text-muted-foreground mt-1">관리자 계정으로 로그인하세요</p>
+          <h1
+            className="text-[26px] tracking-[-0.04em] text-foreground"
+            style={{ fontWeight: 700 }}
+          >
+            관리자 로그인
+          </h1>
+          <p className="text-[15px] mt-2 text-muted-foreground" style={{ letterSpacing: "-0.01em" }}>
+            웹헤즈 관리 시스템에 접속합니다
+          </p>
         </div>
-        <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 flex flex-col gap-4">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-foreground">이메일</label>
+
+        {/* Login Form */}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            <label className="text-[13px] font-semibold text-foreground pl-1" style={{ letterSpacing: "-0.01em" }}>
+              이메일
+            </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-muted-foreground/50" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full rounded-xl pl-10 pr-4 py-3 text-sm bg-muted border border-border outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 text-foreground"
+                className="w-full rounded-2xl pl-12 pr-5 py-4 text-[15px] outline-none transition-all duration-200 text-foreground placeholder:text-muted-foreground/40"
+                style={{
+                  background: "hsl(var(--muted))",
+                  border: "1.5px solid hsl(var(--border))",
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.border = "1.5px solid hsl(var(--primary))";
+                  e.currentTarget.style.boxShadow = "0 0 0 4px hsl(var(--primary) / 0.08)";
+                  e.currentTarget.style.background = "hsl(var(--background))";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.border = "1.5px solid hsl(var(--border))";
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.background = "hsl(var(--muted))";
+                }}
                 placeholder="admin@webheads.co.kr"
               />
             </div>
           </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-foreground">비밀번호</label>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-[13px] font-semibold text-foreground pl-1" style={{ letterSpacing: "-0.01em" }}>
+              비밀번호
+            </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-muted-foreground/50" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full rounded-xl pl-10 pr-4 py-3 text-sm bg-muted border border-border outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 text-foreground"
+                className="w-full rounded-2xl pl-12 pr-5 py-4 text-[15px] outline-none transition-all duration-200 text-foreground placeholder:text-muted-foreground/40"
+                style={{
+                  background: "hsl(var(--muted))",
+                  border: "1.5px solid hsl(var(--border))",
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.border = "1.5px solid hsl(var(--primary))";
+                  e.currentTarget.style.boxShadow = "0 0 0 4px hsl(var(--primary) / 0.08)";
+                  e.currentTarget.style.background = "hsl(var(--background))";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.border = "1.5px solid hsl(var(--border))";
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.background = "hsl(var(--muted))";
+                }}
                 placeholder="••••••••"
               />
             </div>
           </div>
+
           {error && (
-            <p className="text-sm text-destructive bg-destructive/10 rounded-lg py-2 px-3 text-center">{error}</p>
+            <div
+              className="flex items-center gap-3 rounded-2xl py-3.5 px-4 text-[14px]"
+              style={{
+                background: "hsl(0 84% 60% / 0.06)",
+                color: "hsl(0 84% 50%)",
+                border: "1px solid hsl(0 84% 60% / 0.12)",
+              }}
+            >
+              <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                style={{ background: "hsl(0 84% 60% / 0.12)" }}
+              >
+                <span className="text-xs">!</span>
+              </div>
+              <span style={{ fontWeight: 500 }}>{error}</span>
+            </div>
           )}
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl font-bold text-sm bg-foreground text-background hover:bg-foreground/90 transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
+            className="w-full py-4 rounded-2xl text-[15px] flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
+            style={{
+              fontWeight: 600,
+              background: "hsl(var(--foreground))",
+              color: "hsl(var(--background))",
+              letterSpacing: "-0.01em",
+              marginTop: "4px",
+            }}
           >
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-            {loading ? "로그인 중..." : "로그인"}
+            {loading ? (
+              <>
+                <Loader2 className="w-[18px] h-[18px] animate-spin" />
+                로그인 중...
+              </>
+            ) : (
+              "로그인"
+            )}
           </button>
         </form>
+
+        {/* Footer text */}
+        <p className="text-center text-[12px] text-muted-foreground/60 mt-8" style={{ letterSpacing: "-0.01em" }}>
+          © WEBHEADS. 관리자 전용 시스템입니다.
+        </p>
       </div>
     </div>
   );
