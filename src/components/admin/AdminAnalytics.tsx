@@ -569,7 +569,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="콘텐츠 소비 분석">
+      <SectionGroup title="콘텐츠 소비 분석" number={8}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
             {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
