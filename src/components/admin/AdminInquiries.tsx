@@ -2,8 +2,13 @@ import { useState, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
-  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2
+  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2
 } from "lucide-react";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
 
@@ -62,6 +67,13 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setSelectedInquiry({ ...selectedInquiry, notes: noteText });
     logActivity("note_update", "inquiry", selectedInquiry.id);
     setSavingNote(false);
+  };
+
+  const deleteInquiry = async (id: string) => {
+    await supabase.from("contact_inquiries").delete().eq("id", id);
+    setInquiries((prev: any[]) => prev.filter((i) => i.id !== id));
+    if (selectedInquiry?.id === id) setSelectedInquiry(null);
+    logActivity("delete", "inquiry", id);
   };
 
   const exportCSV = () => {
@@ -287,6 +299,37 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                           );
                         })}
                       </div>
+                    </div>
+
+                    {/* Delete */}
+                    <div className="mt-4 pt-4" style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <button
+                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] transition-all active:scale-[0.96]"
+                            style={{ fontWeight: 600, color: "hsl(0, 72%, 51%)", background: "hsl(0 72% 51% / 0.08)" }}
+                          >
+                            <Trash2 className="w-3 h-3" /> 문의 삭제
+                          </button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>문의를 삭제하시겠습니까?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              {selectedInquiry.company} · {selectedInquiry.name} 문의가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>취소</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => deleteInquiry(selectedInquiry.id)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            >
+                              삭제
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </div>
                 </div>
