@@ -49,7 +49,7 @@ export default function LmsPage() {
           "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" },
           "description": t("lms.seo.description"),
           "applicationCategory": "LMS",
-          "url": "https://webheads-sparkle-landing.lovable.app/lms"
+          "url": "https://webheads-sub.lovable.app/lms"
         }}
         faqJsonLd={faqs}
       />
