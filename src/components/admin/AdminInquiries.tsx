@@ -187,10 +187,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <span className="flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-lg"
-                        style={{ fontWeight: 600, color: sc.color, background: sc.bg }}
+                      <span className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-full"
+                        style={{ fontWeight: 700, color: "white", background: sc.color, boxShadow: `0 2px 6px ${sc.color}40` }}
                       >
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: sc.dot }} />
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.7)" }} />
                         {sc.label}
                       </span>
                       <span className="text-[11px] px-2 py-0.5 rounded-md"
