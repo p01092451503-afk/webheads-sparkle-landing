@@ -2,8 +2,13 @@ import { useState, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
-  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2
+  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2
 } from "lucide-react";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
 
