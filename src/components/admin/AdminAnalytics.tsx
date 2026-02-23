@@ -67,7 +67,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, {} as Record<string, number>);
 
   const pageCounts = filteredViews.reduce((acc, v) => { acc[v.page_path] = (acc[v.page_path] || 0) + 1; return acc; }, {} as Record<string, number>);
-  const topPages = Object.entries(pageCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 8);
+  const topPages = Object.entries(pageCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
   const browserCounts = filteredViews.reduce((acc, v) => { acc[v.browser || "Unknown"] = (acc[v.browser || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topBrowsers = Object.entries(browserCounts).sort(([, a], [, b]) => (b as number) - (a as number));
@@ -79,7 +79,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     try { const ref = v.referrer ? new URL(v.referrer).hostname : "직접 방문"; acc[ref] = (acc[ref] || 0) + 1; } catch { acc["기타"] = (acc["기타"] || 0) + 1; }
     return acc;
   }, {} as Record<string, number>);
-  const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 8);
+  const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
   // IP with location
   const ipWithLocation = useMemo(() => {
@@ -95,7 +95,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(ipMap)
       .map(([ip, d]) => ({ ip, count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
       .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
+;
   }, [filteredViews]);
 
   // Location stats
@@ -105,7 +105,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       acc[loc] = (acc[loc] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-    return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
+    return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number));
   }, [filteredViews]);
 
   // Dwell time
@@ -121,7 +121,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
       .sort((a, b) => b.avg - a.avg)
-      .slice(0, 10);
+;
   }, [filteredViews]);
 
   const overallAvgDwell = useMemo(() => {
@@ -200,7 +200,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     filteredViews.forEach((v) => {
       if (v.utm_source) acc[v.utm_source] = (acc[v.utm_source] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   const utmCampaignCounts = useMemo(() => {
@@ -208,7 +208,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     filteredViews.forEach((v) => {
       if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   const utmMediumCounts = useMemo(() => {
@@ -216,7 +216,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     filteredViews.forEach((v) => {
       if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== NEW: CTA Click Stats ==========
@@ -226,13 +226,13 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       const label = c.element_text || c.element_id || "Unknown";
       acc[label] = (acc[label] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredClicks]);
 
   const ctaByPage = useMemo(() => {
     const acc: Record<string, number> = {};
     filteredClicks.forEach((c) => { acc[c.page_path] = (acc[c.page_path] || 0) + 1; });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredClicks]);
 
   // ========== NEW: Scroll Depth Stats ==========
@@ -248,7 +248,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
       .sort((a, b) => b.avg - a.avg)
-      .slice(0, 10);
+;
   }, [filteredViews]);
 
   // ========== NEW: First Visit vs Return ==========
@@ -269,7 +269,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     });
     const acc: Record<string, number> = {};
     Object.values(sessionPages).forEach((s) => { acc[s.path] = (acc[s.path] || 0) + 1; });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== Conversion Funnel ==========
@@ -332,7 +332,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         }
       }
     });
-    return Object.entries(flows).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(flows).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== Screen Resolution ==========
@@ -344,7 +344,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         acc[res] = (acc[res] || 0) + 1;
       }
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== Language Distribution ==========
@@ -354,7 +354,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       const lang = v.language || "Unknown";
       acc[lang] = (acc[lang] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   return (
