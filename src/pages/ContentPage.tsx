@@ -3,12 +3,14 @@ import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
 import ContentHeroVisual from "@/components/visuals/ContentHeroVisual";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
+import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import { Film, PenTool, Layers, Monitor, Users, Mic, Palette, ClipboardCheck, Gamepad2, BookOpen, Building2, Stethoscope, GraduationCap, Globe } from "lucide-react";
+import { Film, PenTool, Layers, Monitor, Users, Mic, Palette, ClipboardCheck, Gamepad2, BookOpen, Building2, Stethoscope, GraduationCap, Globe, ClipboardList, FileText, Camera, Code, CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Film, PenTool, Layers, Gamepad2, Monitor, Users, Mic, Palette, ClipboardCheck];
 const contentTypeIcons = [Building2, Users, Stethoscope, GraduationCap, Gamepad2, Globe, BookOpen, Film];
+const processIcons = [ClipboardList, FileText, Camera, Code, CheckCircle];
 
 export default function ContentPage() {
   const { t } = useTranslation();
@@ -18,6 +20,7 @@ export default function ContentPage() {
   const stats = t("content.stats", { returnObjects: true }) as any[];
   const faqs = t("content.faqs", { returnObjects: true }) as any[];
   const testimonials = t("content.testimonials", { returnObjects: true }) as any[];
+  const processSteps = (t("content.process", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || ClipboardList }));
 
   return (
     <div className="min-h-screen bg-background">
@@ -81,6 +84,7 @@ export default function ContentPage() {
         </div>
       </section>
 
+      <ServiceProcess steps={processSteps} heading={t("content.processSection.title")} subheading={t("content.processSection.sub")} description={t("content.processSection.desc")} />
       <ServiceFAQ faqs={faqs} serviceName={t("content.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
       <ContactSection />
