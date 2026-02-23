@@ -235,7 +235,7 @@ function MiniList({ title, icon, items, emptyText }: {
 }) {
   const max = items.length > 0 ? items[0].value : 1;
   return (
-    <div className="rounded-2xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+    <div className="rounded-xl p-4" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>{title}</h4>
