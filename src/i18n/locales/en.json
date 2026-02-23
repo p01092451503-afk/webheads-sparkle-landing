@@ -561,7 +561,7 @@
       "desc": "Looking for a cloud LMS you can deploy instantly without upfront costs? Compare the key differences of each solution below.",
       "headers": ["Comparison", "Webheads AI (Rental)", "Webheads NEO (On-premise)", "Webheads SaaS"],
       "rows": [
-        ["Deployment", "Cloud rental", "On-premise server", "Cloud subscription"],
+        ["Deployment", "Cloud rental", "Flexible server choice (own or cloud)", "Cloud subscription"],
         ["Time to Launch", "As fast as 3 days", "4–12 weeks", "Instant access"],
         ["Upfront Cost", "None (monthly)", "Project-based quote", "None (monthly)"],
         ["Customization", "Pre-set features only", "Fully customizable", "Standard + partial config"],
