@@ -37,7 +37,7 @@ export default function LmsPage() {
   const processSteps = (t("lms.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || ClipboardCheck }));
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ background: "var(--lms-page-bg)" }}>
       <SEO
         title={t("lms.seo.title")}
         description={t("lms.seo.description")}

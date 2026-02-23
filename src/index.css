@@ -114,6 +114,7 @@
     --lms-card-border: 250 30% 85%;
     --lms-badge-bg: hsla(255, 70%, 55%, 0.1);
     --lms-badge-text: 255 70% 45%;
+    --lms-page-bg: hsl(252, 30%, 97%);
   }
 
   .dark {
@@ -193,6 +194,7 @@
     --lms-card-border: 250 30% 22%;
     --lms-badge-bg: hsla(255, 70%, 60%, 0.15);
     --lms-badge-text: 255 75% 72%;
+    --lms-page-bg: hsl(252, 25%, 10%);
   }
 }
 
