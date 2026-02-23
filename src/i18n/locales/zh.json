@@ -2,7 +2,7 @@
   "header": {
     "services": ["LMS介绍", "在线学习托管", "运维", "AI聊天机器人", "应用开发", "DRM", "渠道/短信", "支付", "内容"],
     "cta": "免费咨询",
-    "logo": "Webheads."
+    "logo": "Webheads"
   },
   "footer": {
     "company": "公司信息",
