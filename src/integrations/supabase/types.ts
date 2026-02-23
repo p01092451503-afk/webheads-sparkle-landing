@@ -44,6 +44,45 @@ export type Database = {
         }
         Relationships: []
       }
+      click_events: {
+        Row: {
+          browser: string | null
+          created_at: string
+          device_type: string | null
+          element_id: string | null
+          element_text: string | null
+          element_type: string
+          id: string
+          ip_address: string | null
+          page_path: string
+          session_id: string | null
+        }
+        Insert: {
+          browser?: string | null
+          created_at?: string
+          device_type?: string | null
+          element_id?: string | null
+          element_text?: string | null
+          element_type: string
+          id?: string
+          ip_address?: string | null
+          page_path: string
+          session_id?: string | null
+        }
+        Update: {
+          browser?: string | null
+          created_at?: string
+          device_type?: string | null
+          element_id?: string | null
+          element_text?: string | null
+          element_type?: string
+          id?: string
+          ip_address?: string | null
+          page_path?: string
+          session_id?: string | null
+        }
+        Relationships: []
+      }
       contact_inquiries: {
         Row: {
           company: string
@@ -99,14 +138,21 @@ export type Database = {
           duration_seconds: number | null
           id: string
           ip_address: string | null
+          is_first_visit: boolean | null
           language: string | null
           os: string | null
           page_path: string
           referrer: string | null
           screen_height: number | null
           screen_width: number | null
+          scroll_depth: number | null
           session_id: string | null
           user_agent: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
         }
         Insert: {
           browser?: string | null
@@ -117,14 +163,21 @@ export type Database = {
           duration_seconds?: number | null
           id?: string
           ip_address?: string | null
+          is_first_visit?: boolean | null
           language?: string | null
           os?: string | null
           page_path: string
           referrer?: string | null
           screen_height?: number | null
           screen_width?: number | null
+          scroll_depth?: number | null
           session_id?: string | null
           user_agent?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
         }
         Update: {
           browser?: string | null
@@ -135,14 +188,21 @@ export type Database = {
           duration_seconds?: number | null
           id?: string
           ip_address?: string | null
+          is_first_visit?: boolean | null
           language?: string | null
           os?: string | null
           page_path?: string
           referrer?: string | null
           screen_height?: number | null
           screen_width?: number | null
+          scroll_depth?: number | null
           session_id?: string | null
           user_agent?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
         }
         Relationships: []
       }

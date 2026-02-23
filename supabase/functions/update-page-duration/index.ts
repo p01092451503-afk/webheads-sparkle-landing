@@ -12,7 +12,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { session_id, page_path, duration_seconds } = await req.json();
+    const { session_id, page_path, duration_seconds, scroll_depth } = await req.json();
 
     if (!session_id || !page_path || typeof duration_seconds !== "number") {
       return new Response(JSON.stringify({ error: "Missing fields" }), {
@@ -26,7 +26,7 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    // Find the most recent matching page view and update duration
+    // Find the most recent matching page view and update duration + scroll depth
     const { data: rows } = await supabase
       .from("page_views")
       .select("id")
@@ -39,9 +39,13 @@ Deno.serve(async (req) => {
     if (rows && rows.length > 0) {
       // Cap at 30 minutes to filter out idle tabs
       const capped = Math.min(Math.round(duration_seconds), 1800);
+      const updateData: Record<string, any> = { duration_seconds: capped };
+      if (typeof scroll_depth === "number" && scroll_depth > 0) {
+        updateData.scroll_depth = Math.min(scroll_depth, 100);
+      }
       await supabase
         .from("page_views")
-        .update({ duration_seconds: capped })
+        .update(updateData)
         .eq("id", rows[0].id);
     }
 

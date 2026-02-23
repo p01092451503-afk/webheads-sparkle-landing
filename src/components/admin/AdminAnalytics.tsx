@@ -1,16 +1,18 @@
 import { useState, useMemo } from "react";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
-  TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin
+  TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
+  MousePointerClick, Users, ScrollText, Link2
 } from "lucide-react";
 
 interface AdminAnalyticsProps {
   pageViews: any[];
   inquiries: any[];
+  clickEvents: any[];
   onRefresh: (days: number) => void;
 }
 
-export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: AdminAnalyticsProps) {
+export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRefresh }: AdminAnalyticsProps) {
   const [dateRange, setDateRange] = useState(7);
 
   const filteredViews = useMemo(() => {
@@ -18,6 +20,12 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
     since.setDate(since.getDate() - dateRange);
     return pageViews.filter((v) => new Date(v.created_at) >= since);
   }, [pageViews, dateRange]);
+
+  const filteredClicks = useMemo(() => {
+    const since = new Date();
+    since.setDate(since.getDate() - dateRange);
+    return clickEvents.filter((v) => new Date(v.created_at) >= since);
+  }, [clickEvents, dateRange]);
 
   const totalViews = filteredViews.length;
   const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
@@ -41,22 +49,7 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
   }, {} as Record<string, number>);
   const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 8);
 
-  const ipCounts = filteredViews.reduce((acc, v) => {
-    const ip = v.ip_address || "알 수 없음";
-    acc[ip] = (acc[ip] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-  const topIPs = Object.entries(ipCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
-
-  // Location stats
-  const locationCounts = filteredViews.reduce((acc, v) => {
-    const loc = v.city || v.country || "알 수 없음";
-    acc[loc] = (acc[loc] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-  const topLocations = Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
-
-  // IP with location display
+  // IP with location
   const ipWithLocation = useMemo(() => {
     const ipMap: Record<string, { count: number; city: string | null; country: string | null }> = {};
     filteredViews.forEach((v) => {
@@ -72,7 +65,17 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
       .slice(0, 10);
   }, [filteredViews]);
 
-  // Page dwell time stats
+  // Location stats
+  const topLocations = useMemo(() => {
+    const locationCounts = filteredViews.reduce((acc, v) => {
+      const loc = v.city || v.country || "알 수 없음";
+      acc[loc] = (acc[loc] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
+  }, [filteredViews]);
+
+  // Dwell time
   const pageDwellTimes = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
     filteredViews.forEach((v) => {
@@ -94,27 +97,21 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
     return Math.round(withDuration.reduce((s, v) => s + v.duration_seconds, 0) / withDuration.length);
   }, [filteredViews]);
 
-  // Daily traffic chart data
+  // Daily traffic
   const dailyData = useMemo(() => {
     const days: Record<string, { views: number; sessions: Set<string> }> = {};
     const since = new Date();
     since.setDate(since.getDate() - dateRange);
-
     for (let i = 0; i < dateRange; i++) {
       const d = new Date(since);
       d.setDate(d.getDate() + i + 1);
       const key = d.toISOString().slice(0, 10);
       days[key] = { views: 0, sessions: new Set() };
     }
-
     filteredViews.forEach((v) => {
       const key = v.created_at.slice(0, 10);
-      if (days[key]) {
-        days[key].views++;
-        if (v.session_id) days[key].sessions.add(v.session_id);
-      }
+      if (days[key]) { days[key].views++; if (v.session_id) days[key].sessions.add(v.session_id); }
     });
-
     return Object.entries(days).map(([date, d]) => ({
       date,
       label: new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" }),
@@ -133,6 +130,70 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
   }, [inquiries, dateRange]);
 
   const conversionRate = uniqueSessions > 0 ? ((filteredInquiries.length / uniqueSessions) * 100).toFixed(1) : "0.0";
+
+  // ========== NEW: UTM Stats ==========
+  const utmSourceCounts = useMemo(() => {
+    const acc: Record<string, number> = {};
+    filteredViews.forEach((v) => {
+      if (v.utm_source) acc[v.utm_source] = (acc[v.utm_source] || 0) + 1;
+    });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredViews]);
+
+  const utmCampaignCounts = useMemo(() => {
+    const acc: Record<string, number> = {};
+    filteredViews.forEach((v) => {
+      if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1;
+    });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredViews]);
+
+  const utmMediumCounts = useMemo(() => {
+    const acc: Record<string, number> = {};
+    filteredViews.forEach((v) => {
+      if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1;
+    });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredViews]);
+
+  // ========== NEW: CTA Click Stats ==========
+  const ctaClickCounts = useMemo(() => {
+    const acc: Record<string, number> = {};
+    filteredClicks.forEach((c) => {
+      const label = c.element_text || c.element_id || "Unknown";
+      acc[label] = (acc[label] || 0) + 1;
+    });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredClicks]);
+
+  const ctaByPage = useMemo(() => {
+    const acc: Record<string, number> = {};
+    filteredClicks.forEach((c) => { acc[c.page_path] = (acc[c.page_path] || 0) + 1; });
+    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+  }, [filteredClicks]);
+
+  // ========== NEW: Scroll Depth Stats ==========
+  const scrollDepthStats = useMemo(() => {
+    const acc: Record<string, { total: number; count: number }> = {};
+    filteredViews.forEach((v) => {
+      if (typeof v.scroll_depth === "number" && v.scroll_depth > 0) {
+        if (!acc[v.page_path]) acc[v.page_path] = { total: 0, count: 0 };
+        acc[v.page_path].total += v.scroll_depth;
+        acc[v.page_path].count++;
+      }
+    });
+    return Object.entries(acc)
+      .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
+      .sort((a, b) => b.avg - a.avg)
+      .slice(0, 10);
+  }, [filteredViews]);
+
+  // ========== NEW: First Visit vs Return ==========
+  const visitStats = useMemo(() => {
+    const first = filteredViews.filter((v) => v.is_first_visit === true).length;
+    const returning = filteredViews.length - first;
+    return { first, returning };
+  }, [filteredViews]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -162,13 +223,15 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
         <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" />
         <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" />
         <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" />
-        <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(35, 90%, 50%)" />
-        <MetricCard icon={<Monitor className="w-5 h-5" />} label="데스크톱" value={deviceCounts.desktop || 0} color="hsl(260, 70%, 55%)" />
+        <MetricCard icon={<MousePointerClick className="w-5 h-5" />} label="CTA 클릭" value={filteredClicks.length} color="hsl(340, 65%, 55%)" />
+        <MetricCard icon={<Users className="w-5 h-5" />} label="신규 방문" value={visitStats.first} color="hsl(35, 90%, 50%)" sub={`재방문 ${visitStats.returning}`} />
+        <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(260, 70%, 55%)" />
         <MetricCard icon={<TrendingUp className="w-5 h-5" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} />
+        <MetricCard icon={<Link2 className="w-5 h-5" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" />
       </div>
 
       {/* Daily Traffic Chart */}
@@ -182,10 +245,7 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
             <div key={d.date} className="flex-1 flex flex-col items-center gap-1.5 min-w-0">
               <span className="text-[10px] text-muted-foreground" style={{ fontWeight: 600 }}>{d.views}</span>
               <div className="w-full flex flex-col gap-0.5" style={{ height: `${Math.max((d.views / maxDailyViews) * 120, 4)}px` }}>
-                <div
-                  className="w-full flex-1 rounded-t-md transition-all duration-300"
-                  style={{ background: "hsl(214, 90%, 52%)", minHeight: "2px" }}
-                />
+                <div className="w-full flex-1 rounded-t-md transition-all duration-300" style={{ background: "hsl(214, 90%, 52%)", minHeight: "2px" }} />
               </div>
               <span className="text-[9px] text-muted-foreground/60 truncate w-full text-center">{d.label}</span>
             </div>
@@ -199,13 +259,46 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
         </div>
       </div>
 
-      {/* Detail Charts */}
+      {/* UTM & CTA Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />}>
+          {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
+            <BarRow key={name} rank={i + 1} label={name} value={count} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />
+          ))}
+        </ChartCard>
+        <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />}>
+          {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([name, count], i) => (
+            <BarRow key={name} rank={i + 1} label={name} value={count} max={utmCampaignCounts[0][1]} color="hsl(200, 70%, 50%)" />
+          ))}
+        </ChartCard>
+        <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />}>
+          {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([name, count], i) => (
+            <BarRow key={name} rank={i + 1} label={name} value={count} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />
+          ))}
+        </ChartCard>
+        <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />}>
+          {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
+            <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
+          ))}
+        </ChartCard>
+      </div>
+
+      {/* Scroll & Dwell Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />}>
+          {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
+            <BarRow key={d.path} rank={i + 1} label={d.path} value={d.avg} max={100} color="hsl(35, 90%, 50%)" suffix="%" />
+          ))}
+        </ChartCard>
         <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />}>
           {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
             <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
           ))}
         </ChartCard>
+      </div>
+
+      {/* Detail Charts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />}>
           {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
             <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
@@ -270,7 +363,7 @@ function ChartCard({ title, icon, children }: { title: string; icon: React.React
   );
 }
 
-function BarRow({ rank, label, value, max, color }: { rank: number; label: string; value: number; max: number; color: string }) {
+function BarRow({ rank, label, value, max, color, suffix }: { rank: number; label: string; value: number; max: number; color: string; suffix?: string }) {
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
     <div className="flex items-center gap-3">
@@ -278,7 +371,7 @@ function BarRow({ rank, label, value, max, color }: { rank: number; label: strin
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between mb-1">
           <span className="text-[12px] text-foreground truncate" style={{ fontWeight: 500 }}>{label}</span>
-          <span className="text-[12px] text-foreground shrink-0 ml-2" style={{ fontWeight: 600 }}>{value}</span>
+          <span className="text-[12px] text-foreground shrink-0 ml-2" style={{ fontWeight: 600 }}>{value}{suffix || ""}</span>
         </div>
         <div className="h-1.5 rounded-full overflow-hidden" style={{ background: `${color}10` }}>
           <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: color }} />

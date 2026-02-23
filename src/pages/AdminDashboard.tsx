@@ -19,6 +19,7 @@ export default function AdminDashboard() {
   const [userId, setUserId] = useState<string | null>(null);
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [pageViews, setPageViews] = useState<any[]>([]);
+  const [clickEvents, setClickEvents] = useState<any[]>([]);
   const [newInquiryAlert, setNewInquiryAlert] = useState(false);
 
   useEffect(() => { checkAuth(); }, []);
@@ -26,6 +27,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchInquiries();
     fetchPageViews(30);
+    fetchClickEvents(30);
   }, []);
 
   // Realtime subscription for new inquiries
@@ -65,6 +67,13 @@ export default function AdminDashboard() {
     since.setDate(since.getDate() - days);
     const { data } = await supabase.from("page_views").select("*").gte("created_at", since.toISOString()).order("created_at", { ascending: false }).limit(1000);
     setPageViews(data || []);
+  };
+
+  const fetchClickEvents = async (days: number) => {
+    const since = new Date();
+    since.setDate(since.getDate() - days);
+    const { data } = await supabase.from("click_events").select("*").gte("created_at", since.toISOString()).order("created_at", { ascending: false }).limit(1000);
+    setClickEvents(data || []);
   };
 
   const logActivity = useCallback(async (action: string, targetType?: string, targetId?: string, details?: any) => {
@@ -210,7 +219,8 @@ export default function AdminDashboard() {
           <AdminAnalytics
             pageViews={pageViews}
             inquiries={inquiries}
-            onRefresh={fetchPageViews}
+            clickEvents={clickEvents}
+            onRefresh={(days: number) => { fetchPageViews(days); fetchClickEvents(days); }}
           />
         )}
         {tab === "activity" && <AdminActivityLog />}
