@@ -5,6 +5,10 @@ import {
   MousePointerClick, Users, ScrollText, Link2, LogOut,
   Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown
 } from "lucide-react";
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
+  ResponsiveContainer
+} from "recharts";
 
 interface AdminAnalyticsProps {
   pageViews: any[];
