@@ -193,7 +193,7 @@ export default function LmsPage() {
                 </div>
                 <div>
                   <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
-                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.cloud.subtitle")}</p>
+                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(245, 58%, 55%)" }}>{t("lms.cloud.subtitle")}</p>
                 </div>
               </div>
               <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.cloud.desc")}</p>
@@ -229,7 +229,7 @@ export default function LmsPage() {
                 </div>
                 <div>
                   <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.neo.name")}</h3>
-                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.neo.subtitle")}</p>
+                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(215, 65%, 48%)" }}>{t("lms.neo.subtitle")}</p>
                 </div>
               </div>
               <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.neo.desc")}</p>
@@ -265,7 +265,7 @@ export default function LmsPage() {
                 </div>
                 <div>
                   <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
-                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.saas.subtitle")}</p>
+                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(170, 55%, 38%)" }}>{t("lms.saas.subtitle")}</p>
                 </div>
               </div>
               <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.saas.desc")}</p>
