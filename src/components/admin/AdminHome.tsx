@@ -145,7 +145,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       </div>
 
       {/* Recent Inquiries + Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {/* Recent Inquiries */}
         <div
           className="lg:col-span-2 rounded-2xl p-6"
