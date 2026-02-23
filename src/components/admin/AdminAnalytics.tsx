@@ -390,187 +390,193 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionCard>
 
-      {/* UTM & CTA Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
-          {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />} tooltip="utm_campaign 파라미터로 추적되는 마케팅 캠페인별 유입 수입니다. 광고 캠페인의 성과를 비교·분석할 때 활용합니다.">
-          {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count} max={utmCampaignCounts[0][1]} color="hsl(200, 70%, 50%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />} tooltip="'상담 신청', '데모 요청' 등 전환 유도 버튼(CTA)의 클릭 수를 버튼 텍스트별로 집계합니다. 어떤 CTA가 가장 효과적인지 파악할 수 있습니다.">
-          {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />} tooltip="어느 페이지에서 CTA 버튼이 가장 많이 클릭되었는지 보여줍니다. 전환이 잘 일어나는 페이지와 개선이 필요한 페이지를 구분할 수 있습니다.">
-          {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
-            <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
-          ))}
-        </ChartCard>
-      </div>
-
-      {/* Scroll & Dwell Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
-          {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
-            <BarRow key={d.path} rank={i + 1} label={d.path} value={d.avg} max={100} color="hsl(35, 90%, 50%)" suffix="%" />
-          ))}
-        </ChartCard>
-        <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />} tooltip="각 페이지에 방문자가 머문 평균 시간입니다. 체류시간이 긴 페이지는 콘텐츠 관심도가 높고, 짧은 페이지는 내용 개선이 필요할 수 있습니다.">
-          {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
-            <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
-          ))}
-        </ChartCard>
-      </div>
-
-      {/* Detail Charts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
-          {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
-            <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />} tooltip="방문자의 IP 주소 기반 접속 지역입니다. 주요 고객이 어느 지역에 분포하는지 파악하여 지역 타겟 마케팅에 활용할 수 있습니다.">
-          {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([loc, count], i) => (
-            <BarRow key={loc} rank={i + 1} label={loc} value={count as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />} tooltip="접속한 IP 주소별 방문 횟수입니다. 동일 IP에서 반복 방문이 많으면 해당 기업/기관의 높은 관심을 의미할 수 있습니다.">
-          {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => {
-            const timeStr = d.lastVisit ? (() => {
-              const dt = new Date(d.lastVisit);
-              const m = String(dt.getMonth() + 1).padStart(2, "0");
-              const day = String(dt.getDate()).padStart(2, "0");
-              const h = String(dt.getHours()).padStart(2, "0");
-              const min = String(dt.getMinutes()).padStart(2, "0");
-              return `${m}/${day} ${h}:${min}`;
-            })() : "";
-            const suffix = [d.location, timeStr].filter(Boolean).join("  ·  ");
-            return <BarRow key={d.ip} rank={i + 1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />;
-          })}
-        </ChartCard>
-        <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} tooltip="방문자가 어디에서 링크를 클릭하여 사이트에 왔는지 보여줍니다. '직접 방문'은 URL을 직접 입력하거나 북마크로 접속한 경우입니다.">
-          {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([ref, count], i) => (
-            <BarRow key={ref} rank={i + 1} label={ref} value={count as number} max={topReferrers[0][1] as number} color="hsl(150, 60%, 42%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />} tooltip="방문자가 사용한 웹 브라우저 분포입니다. 특정 브라우저에서 문제가 발생하면 해당 브라우저 점유율을 확인하여 대응 우선순위를 정할 수 있습니다.">
-          {topBrowsers.length === 0 ? <Empty /> : topBrowsers.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topBrowsers[0][1] as number} color="hsl(35, 90%, 50%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />} tooltip="방문자의 운영체제(Windows, macOS, iOS, Android 등) 분포입니다. 주요 사용자의 환경을 파악하여 호환성 테스트 우선순위를 정합니다.">
-          {topOS.length === 0 ? <Empty /> : topOS.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topOS[0][1] as number} color="hsl(260, 70%, 55%)" />
-          ))}
-        </ChartCard>
-      </div>
-
-      <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
-        <div className="flex flex-col gap-3">
-          {funnelData.map((step, i) => {
-            const pct = funnelData[0].count > 0 ? (step.count / funnelData[0].count) * 100 : 0;
-            const dropOff = i > 0 && funnelData[i - 1].count > 0
-              ? ((1 - step.count / funnelData[i - 1].count) * 100).toFixed(1)
-              : null;
-            return (
-              <div key={step.label}>
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px]"
-                      style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{i + 1}</span>
-                    <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>{step.label}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[13px] text-foreground" style={{ fontWeight: 600 }}>{step.count.toLocaleString()}</span>
-                    {dropOff && (
-                      <span className="text-[11px] px-1.5 py-0.5 rounded-md" style={{ color: "hsl(0, 84%, 60%)", background: "hsl(0 84% 60% / 0.08)", fontWeight: 600 }}>
-                        -{dropOff}%
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="h-2 rounded-full overflow-hidden" style={{ background: "hsl(214 90% 52% / 0.08)" }}>
-                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(214, 90%, 52%)" }} />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </SectionCard>
-
-      <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />} tooltip="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요.">
-        <div className="overflow-x-auto">
-          <div className="min-w-[600px]">
-            <div className="flex mb-1 ml-8">
-              {Array.from({ length: 24 }, (_, h) => (
-                <span key={h} className="flex-1 text-center text-[9px] text-muted-foreground/50" style={{ fontWeight: 500 }}>{h}</span>
-              ))}
-            </div>
-            {hourlyData.dayNames.map((day, dayIdx) => (
-              <div key={day} className="flex items-center gap-1 mb-1">
-                <span className="w-7 text-[11px] text-muted-foreground text-right shrink-0" style={{ fontWeight: 500 }}>{day}</span>
-                <div className="flex flex-1 gap-0.5">
-                  {hourlyData.grid[dayIdx].map((count, hour) => {
-                    const intensity = maxHourly > 0 ? count / maxHourly : 0;
-                    return (
-                      <div
-                        key={hour}
-                        className="flex-1 rounded-sm transition-all"
-                        style={{
-                          height: "20px",
-                          background: count === 0
-                            ? "hsl(var(--muted))"
-                            : `hsl(214 90% 52% / ${0.15 + intensity * 0.85})`,
-                        }}
-                        title={`${day} ${hour}시: ${count}건`}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
+      <SectionGroup title="마케팅 · UTM · CTA">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
+            {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />
             ))}
-            <div className="flex items-center justify-end gap-2 mt-3">
-              <span className="text-[10px] text-muted-foreground/50">적음</span>
-              <div className="flex gap-0.5">
-                {[0.15, 0.35, 0.55, 0.75, 1].map((op, i) => (
-                  <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(214 90% 52% / ${op})` }} />
+          </ChartCard>
+          <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />} tooltip="utm_campaign 파라미터로 추적되는 마케팅 캠페인별 유입 수입니다. 광고 캠페인의 성과를 비교·분석할 때 활용합니다.">
+            {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count} max={utmCampaignCounts[0][1]} color="hsl(200, 70%, 50%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />} tooltip="'상담 신청', '데모 요청' 등 전환 유도 버튼(CTA)의 클릭 수를 버튼 텍스트별로 집계합니다. 어떤 CTA가 가장 효과적인지 파악할 수 있습니다.">
+            {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />} tooltip="어느 페이지에서 CTA 버튼이 가장 많이 클릭되었는지 보여줍니다. 전환이 잘 일어나는 페이지와 개선이 필요한 페이지를 구분할 수 있습니다.">
+            {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
+              <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
+
+      <SectionGroup title="콘텐츠 소비 분석">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
+            {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
+              <BarRow key={d.path} rank={i + 1} label={d.path} value={d.avg} max={100} color="hsl(35, 90%, 50%)" suffix="%" />
+            ))}
+          </ChartCard>
+          <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />} tooltip="각 페이지에 방문자가 머문 평균 시간입니다. 체류시간이 긴 페이지는 콘텐츠 관심도가 높고, 짧은 페이지는 내용 개선이 필요할 수 있습니다.">
+            {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
+              <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
+
+      <SectionGroup title="방문자 · 페이지 상세">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
+            {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
+              <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />} tooltip="방문자의 IP 주소 기반 접속 지역입니다. 주요 고객이 어느 지역에 분포하는지 파악하여 지역 타겟 마케팅에 활용할 수 있습니다.">
+            {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([loc, count], i) => (
+              <BarRow key={loc} rank={i + 1} label={loc} value={count as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />} tooltip="접속한 IP 주소별 방문 횟수입니다. 동일 IP에서 반복 방문이 많으면 해당 기업/기관의 높은 관심을 의미할 수 있습니다.">
+            {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => {
+              const timeStr = d.lastVisit ? (() => {
+                const dt = new Date(d.lastVisit);
+                const m = String(dt.getMonth() + 1).padStart(2, "0");
+                const day = String(dt.getDate()).padStart(2, "0");
+                const h = String(dt.getHours()).padStart(2, "0");
+                const min = String(dt.getMinutes()).padStart(2, "0");
+                return `${m}/${day} ${h}:${min}`;
+              })() : "";
+              const suffix = [d.location, timeStr].filter(Boolean).join("  ·  ");
+              return <BarRow key={d.ip} rank={i + 1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />;
+            })}
+          </ChartCard>
+          <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} tooltip="방문자가 어디에서 링크를 클릭하여 사이트에 왔는지 보여줍니다. '직접 방문'은 URL을 직접 입력하거나 북마크로 접속한 경우입니다.">
+            {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([ref, count], i) => (
+              <BarRow key={ref} rank={i + 1} label={ref} value={count as number} max={topReferrers[0][1] as number} color="hsl(150, 60%, 42%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />} tooltip="방문자가 사용한 웹 브라우저 분포입니다. 특정 브라우저에서 문제가 발생하면 해당 브라우저 점유율을 확인하여 대응 우선순위를 정할 수 있습니다.">
+            {topBrowsers.length === 0 ? <Empty /> : topBrowsers.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topBrowsers[0][1] as number} color="hsl(35, 90%, 50%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />} tooltip="방문자의 운영체제(Windows, macOS, iOS, Android 등) 분포입니다. 주요 사용자의 환경을 파악하여 호환성 테스트 우선순위를 정합니다.">
+            {topOS.length === 0 ? <Empty /> : topOS.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topOS[0][1] as number} color="hsl(260, 70%, 55%)" />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
+
+      <SectionGroup title="전환 · 트래픽 패턴">
+        <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
+          <div className="flex flex-col gap-3">
+            {funnelData.map((step, i) => {
+              const pct = funnelData[0].count > 0 ? (step.count / funnelData[0].count) * 100 : 0;
+              const dropOff = i > 0 && funnelData[i - 1].count > 0
+                ? ((1 - step.count / funnelData[i - 1].count) * 100).toFixed(1)
+                : null;
+              return (
+                <div key={step.label}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px]"
+                        style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{i + 1}</span>
+                      <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>{step.label}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] text-foreground" style={{ fontWeight: 600 }}>{step.count.toLocaleString()}</span>
+                      {dropOff && (
+                        <span className="text-[11px] px-1.5 py-0.5 rounded-md" style={{ color: "hsl(0, 84%, 60%)", background: "hsl(0 84% 60% / 0.08)", fontWeight: 600 }}>
+                          -{dropOff}%
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="h-2 rounded-full overflow-hidden" style={{ background: "hsl(214 90% 52% / 0.08)" }}>
+                    <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(214, 90%, 52%)" }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </SectionCard>
+
+        <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />} tooltip="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요.">
+          <div className="overflow-x-auto">
+            <div className="min-w-[600px]">
+              <div className="flex mb-1 ml-8">
+                {Array.from({ length: 24 }, (_, h) => (
+                  <span key={h} className="flex-1 text-center text-[9px] text-muted-foreground/50" style={{ fontWeight: 500 }}>{h}</span>
                 ))}
               </div>
-              <span className="text-[10px] text-muted-foreground/50">많음</span>
+              {hourlyData.dayNames.map((day, dayIdx) => (
+                <div key={day} className="flex items-center gap-1 mb-1">
+                  <span className="w-7 text-[11px] text-muted-foreground text-right shrink-0" style={{ fontWeight: 500 }}>{day}</span>
+                  <div className="flex flex-1 gap-0.5">
+                    {hourlyData.grid[dayIdx].map((count, hour) => {
+                      const intensity = maxHourly > 0 ? count / maxHourly : 0;
+                      return (
+                        <div
+                          key={hour}
+                          className="flex-1 rounded-sm transition-all"
+                          style={{
+                            height: "20px",
+                            background: count === 0
+                              ? "hsl(var(--muted))"
+                              : `hsl(214 90% 52% / ${0.15 + intensity * 0.85})`,
+                          }}
+                          title={`${day} ${hour}시: ${count}건`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+              <div className="flex items-center justify-end gap-2 mt-3">
+                <span className="text-[10px] text-muted-foreground/50">적음</span>
+                <div className="flex gap-0.5">
+                  {[0.15, 0.35, 0.55, 0.75, 1].map((op, i) => (
+                    <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(214 90% 52% / ${op})` }} />
+                  ))}
+                </div>
+                <span className="text-[10px] text-muted-foreground/50">많음</span>
+              </div>
             </div>
           </div>
-        </div>
-      </SectionCard>
+        </SectionCard>
+      </SectionGroup>
 
-      {/* Exit Pages, Page Flows, Resolution, Language */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
-          {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
-            <BarRow key={path} rank={i + 1} label={path} value={count} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />} tooltip="방문자가 한 페이지에서 다음 페이지로 이동한 경로입니다. 주요 동선을 파악하여 네비게이션을 최적화하고 전환 경로를 설계할 수 있습니다.">
-          {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([flow, count], i) => (
-            <BarRow key={flow} rank={i + 1} label={flow} value={count} max={pageFlows[0][1]} color="hsl(260, 70%, 55%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />} tooltip="방문자 기기의 화면 해상도 분포입니다. 가장 많이 사용되는 해상도에 맞춰 반응형 디자인을 최적화하는 데 참고합니다.">
-          {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([res, count], i) => (
-            <BarRow key={res} rank={i + 1} label={res} value={count} max={resolutionCounts[0][1]} color="hsl(192, 80%, 45%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />} tooltip="방문자의 브라우저 언어 설정 분포입니다. 다국어 페이지 제작 시 우선순위를 결정하거나, 해외 유입 비율을 파악하는 데 활용합니다.">
-          {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([lang, count], i) => (
-            <BarRow key={lang} rank={i + 1} label={lang} value={count} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />
-          ))}
-        </ChartCard>
-      </div>
+      <SectionGroup title="이탈 · 환경 분석">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
+            {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
+              <BarRow key={path} rank={i + 1} label={path} value={count} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />} tooltip="방문자가 한 페이지에서 다음 페이지로 이동한 경로입니다. 주요 동선을 파악하여 네비게이션을 최적화하고 전환 경로를 설계할 수 있습니다.">
+            {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([flow, count], i) => (
+              <BarRow key={flow} rank={i + 1} label={flow} value={count} max={pageFlows[0][1]} color="hsl(260, 70%, 55%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />} tooltip="방문자 기기의 화면 해상도 분포입니다. 가장 많이 사용되는 해상도에 맞춰 반응형 디자인을 최적화하는 데 참고합니다.">
+            {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([res, count], i) => (
+              <BarRow key={res} rank={i + 1} label={res} value={count} max={resolutionCounts[0][1]} color="hsl(192, 80%, 45%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />} tooltip="방문자의 브라우저 언어 설정 분포입니다. 다국어 페이지 제작 시 우선순위를 결정하거나, 해외 유입 비율을 파악하는 데 활용합니다.">
+            {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([lang, count], i) => (
+              <BarRow key={lang} rank={i + 1} label={lang} value={count} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
     </div>
   );
 }
@@ -622,47 +628,52 @@ function MetricCard({ icon, label, value, color, sub, tooltip }: {
 
 function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string; maxItems?: number }) {
   const [expanded, setExpanded] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
   const childArray = React.Children.toArray(children);
   const hasMore = childArray.length > maxItems;
   const visibleChildren = expanded ? childArray : childArray.slice(0, maxItems);
   return (
     <div className="rounded-2xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <button className="flex items-center gap-2 w-full text-left" onClick={() => setCollapsed(!collapsed)} style={{ marginBottom: collapsed ? 0 : "1.25rem" }}>
+      <div className="flex items-center gap-2 mb-5">
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
-        {tooltip && <span onClick={(e) => e.stopPropagation()}><HelpTooltip text={tooltip} /></span>}
-        <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
-      </button>
-      {!collapsed && (
-        <>
-          <div className="flex flex-col gap-3">{visibleChildren}</div>
-          {hasMore && (
-            <button
-              onClick={() => setExpanded(!expanded)}
-              className="w-full mt-3 pt-3 flex items-center justify-center gap-1 text-[12px] transition-all hover:opacity-70"
-              style={{ fontWeight: 500, color: "hsl(var(--primary))", borderTop: "1px solid hsl(var(--border) / 0.5)" }}
-            >
-              {expanded ? "접기" : `더보기 (+${childArray.length - maxItems})`}
-            </button>
-          )}
-        </>
+        {tooltip && <HelpTooltip text={tooltip} />}
+      </div>
+      <div className="flex flex-col gap-3">{visibleChildren}</div>
+      {hasMore && (
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="w-full mt-3 pt-3 flex items-center justify-center gap-1 text-[12px] transition-all hover:opacity-70"
+          style={{ fontWeight: 500, color: "hsl(var(--primary))", borderTop: "1px solid hsl(var(--border) / 0.5)" }}
+        >
+          {expanded ? "접기" : `더보기 (+${childArray.length - maxItems})`}
+        </button>
       )}
     </div>
   );
 }
 
-function SectionCard({ title, icon, children, tooltip }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string }) {
+function SectionGroup({ title, children }: { title: string; children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <button className="flex items-center gap-2 w-full text-left" onClick={() => setCollapsed(!collapsed)} style={{ marginBottom: collapsed ? 0 : "1.5rem" }}>
-        <span className="text-muted-foreground">{icon}</span>
-        <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
-        {tooltip && <span onClick={(e) => e.stopPropagation()}><HelpTooltip text={tooltip} /></span>}
-        <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
+    <div className="flex flex-col gap-4">
+      <button className="flex items-center gap-2 w-full text-left px-1" onClick={() => setCollapsed(!collapsed)}>
+        <h3 className="text-[15px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 700 }}>{title}</h3>
+        <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-200" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
       </button>
       {!collapsed && children}
+    </div>
+  );
+}
+
+function SectionCard({ title, icon, children, tooltip }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string }) {
+  return (
+    <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="flex items-center gap-2 mb-6">
+        <span className="text-muted-foreground">{icon}</span>
+        <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
+        {tooltip && <HelpTooltip text={tooltip} />}
+      </div>
+      {children}
     </div>
   );
 }
