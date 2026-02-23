@@ -45,21 +45,27 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   // Visitor type classification (DB value or frontend fallback)
   const visitorTypeCounts = useMemo(() => {
-    const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/i;
+    const searchBotPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|sogou|applebot|naverbot|seznambot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot/i;
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
-    let human = 0, bot = 0, ai = 0;
+    const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/i;
+    let human = 0, searchBot = 0, scraper = 0, ai = 0;
     filteredViews.forEach((v) => {
-      const type = v.visitor_type || (() => {
+      let type = v.visitor_type;
+      if (!type || type === "bot") {
+        // Fallback or reclassify legacy "bot" values
         const ua = (v.user_agent || "").toLowerCase();
-        if (aiPatterns.test(ua)) return "ai";
-        if (botPatterns.test(ua)) return "bot";
-        return "human";
-      })();
+        if (aiPatterns.test(ua)) type = "ai";
+        else if (searchBotPatterns.test(ua)) type = "search_bot";
+        else if (scraperPatterns.test(ua)) type = "scraper";
+        else if (v.visitor_type === "bot") type = "scraper"; // legacy "bot" without matching UA → scraper
+        else type = "human";
+      }
       if (type === "ai") ai++;
-      else if (type === "bot") bot++;
+      else if (type === "search_bot") searchBot++;
+      else if (type === "scraper") scraper++;
       else human++;
     });
-    return { human, bot, ai, total: human + bot + ai };
+    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai };
   }, [filteredViews]);
 
   const deviceCounts = filteredViews.reduce((acc, v) => {
