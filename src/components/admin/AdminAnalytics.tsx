@@ -105,7 +105,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       acc[loc] = (acc[loc] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-    return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
+    return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number));
   }, [filteredViews]);
 
   // Dwell time
