@@ -350,7 +350,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </div>
 
-      <SectionGroup title="주요 지표 요약">
+      <SectionGroup title="주요 지표 요약" number={1}>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
           <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다. 한 사용자가 여러 페이지를 보면 각각 1회로 집계됩니다." />
           <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" tooltip="브라우저 탭을 열고 사이트를 방문한 고유 세션 수입니다. 같은 사용자도 새 탭이나 다른 시간에 방문하면 별도 세션으로 집계됩니다." />
@@ -363,7 +363,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="방문자 유형 분석">
+      <SectionGroup title="방문자 유형 분석" number={2}>
         <div className="grid grid-cols-3 gap-4">
           <MetricCard icon={<User className="w-5 h-5" />} label="사람" value={visitorTypeCounts.human} color="hsl(214, 90%, 52%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." />
           <MetricCard icon={<Bot className="w-5 h-5" />} label="검색엔진 봇" value={visitorTypeCounts.bot} color="hsl(35, 90%, 50%)" sub={visitorTypeCounts.total > 0 ? `${Math.round((visitorTypeCounts.bot / visitorTypeCounts.total) * 100)}%` : "0%"} tooltip="Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다." />
@@ -372,7 +372,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
 
-      <SectionGroup title="일별 방문 추이">
+      <SectionGroup title="일별 방문 추이" number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
           <div className="flex items-end gap-1.5 h-[160px]">
             {dailyData.map((d) => (
@@ -396,7 +396,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
 
 
-      <SectionGroup title="방문자 · 페이지 상세">
+      <SectionGroup title="방문자 · 페이지 상세" number={4}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
             {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
@@ -440,7 +440,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="전환 · 트래픽 패턴">
+      <SectionGroup title="전환 · 트래픽 패턴" number={5}>
         <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
           <div className="flex flex-col gap-3">
             {funnelData.map((step, i) => {
@@ -519,7 +519,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </SectionCard>
       </SectionGroup>
 
-      <SectionGroup title="이탈 · 환경 분석">
+      <SectionGroup title="이탈 · 환경 분석" number={6}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
             {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
@@ -544,7 +544,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="마케팅 · UTM · CTA">
+      <SectionGroup title="마케팅 · UTM · CTA" number={7}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
             {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
@@ -569,7 +569,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="콘텐츠 소비 분석">
+      <SectionGroup title="콘텐츠 소비 분석" number={8}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
             {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
@@ -658,11 +658,15 @@ function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: s
   );
 }
 
-function SectionGroup({ title, children }: { title: string; children: React.ReactNode }) {
+function SectionGroup({ title, children, number }: { title: string; children: React.ReactNode; number?: number }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <div className="flex flex-col gap-4">
       <button className="flex items-center gap-2 w-full text-left px-1" onClick={() => setCollapsed(!collapsed)}>
+        {number !== undefined && (
+          <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[12px] shrink-0"
+            style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{number}</span>
+        )}
         <h3 className="text-[15px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 700 }}>{title}</h3>
         <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-200" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
       </button>
