@@ -437,6 +437,14 @@
       { "label": "Leadership & Culture", "desc": "Change management, communication, leadership development content" },
       { "label": "Finance & Insurance", "desc": "Compliance, ethics, and product training content" }
     ],
+    "processSection": { "sub": "PRODUCTION PROCESS", "title": "Systematic Step-by-Step\nContent Production", "desc": "From planning to delivery, we produce the highest quality content through a proven process." },
+    "process": [
+      { "title": "Requirements Analysis", "desc": "We analyze training objectives, target audience, content type, and scope to establish the optimal production direction and instructional design strategy.", "tag": "1-2 days" },
+      { "title": "Planning & Scripting", "desc": "Instructional design experts create the learning structure, storyboards, and narration scripts, then conduct client review sessions.", "tag": "3-5 days" },
+      { "title": "Design & Recording", "desc": "UI/UX design, graphics production, professional studio recording, and voice-over sessions to create all visual and audio elements.", "tag": "5-10 days" },
+      { "title": "Development & Editing", "desc": "Video editing, interaction development, animation implementation, and SCORM/xAPI packaging to complete technical development.", "tag": "5-10 days" },
+      { "title": "Review & Delivery", "desc": "Three-stage quality review (instructional design, media, technical) followed by revisions and final content delivery.", "tag": "2-3 days" }
+    ],
     "faqs": [
       { "q": "How long does content production take?", "a": "Production timelines vary by content type. Simple instructor-recorded and edited content takes about 2-3 weeks, while 2D/3D animation or interactive simulation content takes about 4-6 weeks. The process follows a systematic approach: ① Planning & scriptwriting (1 week) → ② Design & recording (1-2 weeks) → ③ Editing & development (1-2 weeks) → ④ Review & revisions (3-5 days). Client approval is required at each stage before proceeding, ensuring the final product always matches your expectations." },
       { "q": "Can content be made from existing PPT materials?", "a": "Yes, we can create various types of e-learning content based on your existing PPT materials. Options include slide-based lectures, screen recording lectures, narrated animation lectures, and quiz/branching interactive content. Send us your PPT and our instructional design experts will analyze the content and recommend the optimal content type to maximize learning effectiveness. We'll also suggest design improvements and interactive elements to enhance engagement." },
