@@ -1,6 +1,6 @@
 {
   "header": {
-    "services": ["LMS", "이러닝호스팅", "유지보수", "AI챗봇", "어플리케이션", "DRM", "채널톡/SMS", "PG", "콘텐츠"],
+    "services": ["LMS", "호스팅", "유지보수", "AI챗봇", "APP", "DRM", "채널톡/SMS", "PG", "콘텐츠"],
     "cta": "문의하기",
     "logo": "웹헤즈"
   },
@@ -53,7 +53,7 @@
     "tabConsultation": "상담 신청",
     "tabDemo": "데모 신청",
     "formMessagePlaceholderDemo": "데모를 원하시는 서비스나 기능을 구체적으로 작성해주세요.",
-    "services": ["LMS", "이러닝호스팅", "유지보수", "AI챗봇", "어플리케이션", "DRM", "채널톡/SMS", "PG", "콘텐츠"]
+    "services": ["LMS", "호스팅", "유지보수", "AI챗봇", "APP", "DRM", "채널톡/SMS", "PG", "콘텐츠"]
   },
   "testimonial": {
     "sub": "고객 후기",
@@ -228,7 +228,7 @@
   },
   "appdev": {
     "seo": { "title": "어플리케이션 개발", "description": "웹헤즈 LMS와 완벽 연동되는 iOS·Android 앱 개발.", "keywords": "이러닝 앱 개발, LMS 앱 개발, iOS 앱, Android 앱, React Native, Flutter" },
-    "hero": { "badge": "어플리케이션", "title": "LMS 완벽 연동부터", "titleHighlight": "다양한 목적의 앱 개발", "desc": "웹헤즈 이러닝 솔루션과 완벽하게 연동되는 학습 앱은 물론, 커머스·예약·사내 업무 등 목적에 맞는 다양한 모바일 앱을 개발합니다.", "cta1": "개발 상담 신청", "cta2": "다양한 앱 보기" },
+    "hero": { "badge": "APP", "title": "LMS 완벽 연동부터", "titleHighlight": "다양한 목적의 앱 개발", "desc": "웹헤즈 이러닝 솔루션과 완벽하게 연동되는 학습 앱은 물론, 커머스·예약·사내 업무 등 목적에 맞는 다양한 모바일 앱을 개발합니다.", "cta1": "개발 상담 신청", "cta2": "다양한 앱 보기" },
     "stats": [
       { "value": "iOS+AOS", "label": "동시 개발", "sub": "단일 팀으로 처리" },
       { "value": "90%+", "label": "네이티브 성능", "sub": "크로스플랫폼 대비" },
@@ -461,7 +461,7 @@
       { "title": "이러닝 호스팅", "desc": "CDN · AWS · IDC 기반의 안정적인 이러닝 인프라를 제공합니다.\n99.9% 가동률과 24/7 모니터링으로 끊김 없는 학습 환경을 보장합니다.", "highlights": ["CDN 가속화", "AWS 클라우드", "IDC 서버", "24/7 모니터링"] },
       { "title": "유지보수", "desc": "LMS 운영에 필요한 기술 지원과 장애 대응을 전담합니다.\n정기 점검부터 긴급 대응까지, 안정적인 플랫폼 운영을 돕습니다.", "highlights": ["정기 점검", "장애 대응", "성능 최적화", "보안 업데이트"] },
       { "title": "AI 챗봇", "desc": "LMS에 최적화된 AI 챗봇이 학습자의 질문에\n24시간 즉시 응답합니다.", "highlights": ["맞춤형 학습 상담", "FAQ 자동 응답", "LMS 연동", "다국어 지원"] },
-      { "title": "어플리케이션", "desc": "이러닝에 특화된 iOS / Android 앱으로\n언제 어디서나 학습할 수 있는 환경을 구축합니다.", "highlights": ["iOS / Android", "하이브리드 앱", "PUSH 알림", "오프라인 학습"] },
+      { "title": "APP", "desc": "이러닝에 특화된 iOS / Android 앱으로\n언제 어디서나 학습할 수 있는 환경을 구축합니다.", "highlights": ["iOS / Android", "하이브리드 앱", "PUSH 알림", "오프라인 학습"] },
       { "title": "DRM", "desc": "불법 복제를 원천 차단하는 DRM 솔루션으로\n소중한 이러닝 콘텐츠를 안전하게 보호합니다.", "highlights": ["카테노이드 DRM", "존플레이어", "캡처 방지", "워터마크"] },
       { "title": "채널톡/SMS", "desc": "채널톡과 SMS를 LMS와 연동하여\n학습 독려부터 수료 안내까지 자동화합니다.", "highlights": ["채널톡 연동", "SMS 대량 발송", "카카오 알림톡", "자동화 시나리오"] },
       { "title": "PG", "desc": "토스페이먼츠, KG이니시스부터 Stripe·PayPal까지\n다양한 결제 수단을 통합 연동합니다.", "highlights": ["토스페이먼츠", "KG이니시스", "해외 결제", "정기결제"] },
