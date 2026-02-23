@@ -396,7 +396,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
 
 
-      <SectionGroup title="방문자 · 페이지 상세">
+      <SectionGroup title="방문자 · 페이지 상세" number={4}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
             {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
