@@ -313,12 +313,12 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
         <div className="flex items-center gap-3">
           <div className="flex gap-1 p-1 rounded-xl" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-            {[7, 14, 30].map((d) => (
-              <button key={d} onClick={() => setDateRange(d)}
+            {[{ value: 0, label: "오늘" }, { value: 7, label: "7일" }, { value: 14, label: "14일" }, { value: 30, label: "30일" }].map((d) => (
+              <button key={d.value} onClick={() => setDateRange(d.value)}
                 className="px-3.5 py-1.5 rounded-lg text-[12px] transition-all whitespace-nowrap"
-                style={{ fontWeight: dateRange === d ? 600 : 500, color: dateRange === d ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))", background: dateRange === d ? "hsl(var(--foreground))" : "transparent" }}
+                style={{ fontWeight: dateRange === d.value ? 600 : 500, color: dateRange === d.value ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))", background: dateRange === d.value ? "hsl(var(--foreground))" : "transparent" }}
               >
-                {d}일
+                {d.label}
               </button>
             ))}
           </div>
