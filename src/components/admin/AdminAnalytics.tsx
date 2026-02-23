@@ -145,7 +145,7 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
           <div className="flex gap-1 p-1 rounded-xl" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
             {[7, 14, 30].map((d) => (
               <button key={d} onClick={() => setDateRange(d)}
-                className="px-3.5 py-1.5 rounded-lg text-[12px] transition-all"
+                className="px-3.5 py-1.5 rounded-lg text-[12px] transition-all whitespace-nowrap"
                 style={{ fontWeight: dateRange === d ? 600 : 500, color: dateRange === d ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))", background: dateRange === d ? "hsl(var(--foreground))" : "transparent" }}
               >
                 {d}일
