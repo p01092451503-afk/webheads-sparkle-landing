@@ -34,13 +34,16 @@ export default function Header() {
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center gap-1.5 flex-1">
-            {services.map((s) => {
+            {services.map((s, idx) => {
               const isActive = location.pathname === s.path;
               const isLms = s.path === "/lms";
               return (
-                <Link key={s.path} to={s.path} className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${isLms ? (isActive ? "text-white shadow-md" : "text-white shadow-sm hover:shadow-md") : isActive ? "text-white shadow-sm" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isLms ? { background: isActive ? "hsl(255, 75%, 55%)" : "hsl(255, 65%, 58%)" } : isActive ? { background: "hsl(214, 45%, 65%)" } : undefined}>
-                  {s.label}
-                </Link>
+                <span key={s.path} className="flex items-center gap-1.5">
+                  <Link to={s.path} className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${isLms ? (isActive ? "text-white shadow-md" : "text-white shadow-sm hover:shadow-md") : isActive ? "text-white shadow-sm" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isLms ? { background: isActive ? "hsl(255, 75%, 55%)" : "hsl(255, 65%, 58%)" } : isActive ? { background: "hsl(214, 45%, 65%)" } : undefined}>
+                    {s.label}
+                  </Link>
+                  {idx === 0 && <span className="w-px h-5 bg-border ml-0.5" />}
+                </span>
               );
             })}
           </nav>
