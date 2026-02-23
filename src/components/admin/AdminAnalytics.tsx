@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
-  TrendingUp, BarChart3, Calendar, Wifi
+  TrendingUp, BarChart3, Calendar, Wifi, Clock
 } from "lucide-react";
 
 interface AdminAnalyticsProps {
@@ -47,6 +47,28 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
     return acc;
   }, {} as Record<string, number>);
   const topIPs = Object.entries(ipCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
+
+  // Page dwell time stats
+  const pageDwellTimes = useMemo(() => {
+    const acc: Record<string, { total: number; count: number }> = {};
+    filteredViews.forEach((v) => {
+      if (v.duration_seconds && v.duration_seconds > 0) {
+        if (!acc[v.page_path]) acc[v.page_path] = { total: 0, count: 0 };
+        acc[v.page_path].total += v.duration_seconds;
+        acc[v.page_path].count++;
+      }
+    });
+    return Object.entries(acc)
+      .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
+      .sort((a, b) => b.avg - a.avg)
+      .slice(0, 10);
+  }, [filteredViews]);
+
+  const overallAvgDwell = useMemo(() => {
+    const withDuration = filteredViews.filter((v) => v.duration_seconds && v.duration_seconds > 0);
+    if (withDuration.length === 0) return 0;
+    return Math.round(withDuration.reduce((s, v) => s + v.duration_seconds, 0) / withDuration.length);
+  }, [filteredViews]);
 
   // Daily traffic chart data
   const dailyData = useMemo(() => {
@@ -116,9 +138,10 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
         <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" />
         <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" />
+        <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" />
         <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(35, 90%, 50%)" />
         <MetricCard icon={<Monitor className="w-5 h-5" />} label="데스크톱" value={deviceCounts.desktop || 0} color="hsl(260, 70%, 55%)" />
         <MetricCard icon={<TrendingUp className="w-5 h-5" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} />
@@ -154,6 +177,11 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
 
       {/* Detail Charts */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />}>
+          {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
+            <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
+          ))}
+        </ChartCard>
         <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />}>
           {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
             <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
@@ -231,6 +259,33 @@ function BarRow({ rank, label, value, max, color }: { rank: number; label: strin
   );
 }
 
-function Empty() {
-  return <p className="text-[13px] text-muted-foreground/50 text-center py-6" style={{ fontWeight: 500 }}>데이터가 없습니다</p>;
+function Empty({ msg }: { msg?: string } = {}) {
+  return <p className="text-[13px] text-muted-foreground/50 text-center py-6" style={{ fontWeight: 500 }}>{msg || "데이터가 없습니다"}</p>;
+}
+
+function formatDuration(seconds: number): string {
+  if (seconds < 1) return "0초";
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  if (m > 0) return `${m}분 ${s}초`;
+  return `${s}초`;
+}
+
+function DwellRow({ rank, label, avgSeconds, count, max }: { rank: number; label: string; avgSeconds: number; count: number; max: number }) {
+  const pct = max > 0 ? (avgSeconds / max) * 100 : 0;
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-[11px] w-5 text-center text-muted-foreground/50" style={{ fontWeight: 600 }}>{rank}</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-[12px] text-foreground truncate" style={{ fontWeight: 500 }}>{label}</span>
+          <span className="text-[12px] text-foreground shrink-0 ml-2" style={{ fontWeight: 600 }}>{formatDuration(avgSeconds)}</span>
+        </div>
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "hsl(192, 80%, 45%, 0.1)" }}>
+          <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(192, 80%, 45%)" }} />
+        </div>
+        <span className="text-[10px] text-muted-foreground/50 mt-0.5" style={{ fontWeight: 500 }}>{count}회 방문</span>
+      </div>
+    </div>
+  );
 }

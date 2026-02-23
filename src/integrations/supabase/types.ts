@@ -96,6 +96,7 @@ export type Database = {
           country: string | null
           created_at: string
           device_type: string | null
+          duration_seconds: number | null
           id: string
           ip_address: string | null
           language: string | null
@@ -113,6 +114,7 @@ export type Database = {
           country?: string | null
           created_at?: string
           device_type?: string | null
+          duration_seconds?: number | null
           id?: string
           ip_address?: string | null
           language?: string | null
@@ -130,6 +132,7 @@ export type Database = {
           country?: string | null
           created_at?: string
           device_type?: string | null
+          duration_seconds?: number | null
           id?: string
           ip_address?: string | null
           language?: string | null
