@@ -2,7 +2,7 @@
   "header": {
     "services": ["LMS", "호스팅", "유지보수", "AI챗봇", "APP", "DRM", "채널톡/SMS", "PG", "콘텐츠"],
     "cta": "문의하기",
-    "logo": "웹헤즈."
+    "logo": "웹헤즈"
   },
   "footer": {
     "company": "Company",
