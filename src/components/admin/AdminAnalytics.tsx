@@ -519,7 +519,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </SectionCard>
       </SectionGroup>
 
-      <SectionGroup title="이탈 · 환경 분석">
+      <SectionGroup title="이탈 · 환경 분석" number={6}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
             {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
