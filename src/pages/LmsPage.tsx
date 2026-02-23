@@ -176,120 +176,116 @@ export default function LmsPage() {
 
       {/* Cloud (AI) vs On-premise (NEO) Comparison */}
       <section id="solutions" className="py-28 bg-secondary">
-        <div className="container mx-auto px-6 max-w-5xl">
+        <div className="container mx-auto px-6 max-w-7xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
             <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Cloud AI */}
-            <div
-              className="rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
-              style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
+              style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
             >
-              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "var(--lms-gradient)" }} />
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(255, 75%, 58%, 0.1)" }}>
-                  <Cloud className="w-5 h-5" style={{ color: "hsl(255, 75%, 58%)" }} />
+              <div className="flex items-center gap-3.5 mb-5">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
+                  <Cloud className="w-6 h-6" style={{ color: "hsl(245, 58%, 55%)" }} />
                 </div>
                 <div>
                   <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
-                  <p className="text-xs text-muted-foreground">{t("lms.cloud.subtitle")}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.cloud.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{t("lms.cloud.desc")}</p>
-              <div className="flex flex-col gap-3">
+              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.cloud.desc")}</p>
+              <div className="flex flex-col gap-4 flex-1">
                 {cloudFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "var(--lms-gradient-subtle)" }}>
-                      <f.icon className="w-4 h-4" style={{ color: `hsl(var(--lms-primary))` }} />
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(245, 60%, 95%)" }}>
+                      <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(245, 58%, 55%)" }} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
-                      <p className="text-xs text-muted-foreground">{f.desc}</p>
+                      <h4 className="text-sm font-bold text-foreground leading-snug">{f.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <a
                 href="#contact"
-                className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
-                style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
+                className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
+                style={{ background: "linear-gradient(135deg, hsl(245, 58%, 55%), hsl(195, 80%, 50%))" }}
               >
                 {t("lms.cloud.cta")}
               </a>
             </div>
+
             {/* NEO On-premise */}
-            <div
-              className="rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
-              style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
+              style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
             >
-              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "linear-gradient(90deg, hsl(220, 70%, 45%), hsl(200, 80%, 50%))" }} />
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(220, 80%, 95%)" }}>
-                  <Server className="w-5 h-5" style={{ color: "hsl(220, 70%, 45%)" }} />
+              <div className="flex items-center gap-3.5 mb-5">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(215, 70%, 94%)" }}>
+                  <Server className="w-6 h-6" style={{ color: "hsl(215, 65%, 48%)" }} />
                 </div>
                 <div>
                   <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.neo.name")}</h3>
-                  <p className="text-xs text-muted-foreground">{t("lms.neo.subtitle")}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.neo.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{t("lms.neo.desc")}</p>
-              <div className="flex flex-col gap-3">
+              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.neo.desc")}</p>
+              <div className="flex flex-col gap-4 flex-1">
                 {neoFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
-                      <f.icon className="w-4 h-4" style={{ color: "hsl(220, 70%, 45%)" }} />
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(215, 70%, 94%)" }}>
+                      <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(215, 65%, 48%)" }} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
-                      <p className="text-xs text-muted-foreground">{f.desc}</p>
+                      <h4 className="text-sm font-bold text-foreground leading-snug">{f.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <a
                 href="#contact"
-                className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, hsl(220, 70%, 45%), hsl(200, 80%, 50%))" }}
+                className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
+                style={{ background: "hsl(215, 65%, 48%)" }}
               >
                 {t("lms.neo.cta")}
               </a>
             </div>
+
             {/* SaaS */}
-            <div
-              className="rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
-              style={{ border: `1px solid hsl(var(--lms-card-border))` }}
+            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
+              style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
             >
-              <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "linear-gradient(90deg, hsl(175, 70%, 40%), hsl(195, 80%, 48%))" }} />
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(175, 70%, 93%)" }}>
-                  <Rocket className="w-5 h-5" style={{ color: "hsl(175, 70%, 40%)" }} />
+              <div className="flex items-center gap-3.5 mb-5">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(170, 55%, 93%)" }}>
+                  <Sparkles className="w-6 h-6" style={{ color: "hsl(170, 55%, 38%)" }} />
                 </div>
                 <div>
                   <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
-                  <p className="text-xs text-muted-foreground">{t("lms.saas.subtitle")}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.saas.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{t("lms.saas.desc")}</p>
-              <div className="flex flex-col gap-3">
+              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.saas.desc")}</p>
+              <div className="flex flex-col gap-4 flex-1">
                 {saasFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
-                      <f.icon className="w-4 h-4" style={{ color: "hsl(175, 70%, 40%)" }} />
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(170, 55%, 93%)" }}>
+                      <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(170, 55%, 38%)" }} />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
-                      <p className="text-xs text-muted-foreground">{f.desc}</p>
+                      <h4 className="text-sm font-bold text-foreground leading-snug">{f.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <a
                 href="#contact"
-                className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
-                style={{ background: "linear-gradient(135deg, hsl(175, 70%, 40%), hsl(195, 80%, 48%))" }}
+                className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
+                style={{ background: "linear-gradient(135deg, hsl(170, 55%, 38%), hsl(195, 80%, 50%))" }}
               >
                 {t("lms.saas.cta")}
               </a>
