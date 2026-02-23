@@ -80,7 +80,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       {/* Greeting + Date Filter */}
       <div className="flex items-center justify-between">
         <div>
