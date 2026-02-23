@@ -126,20 +126,29 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Math.round(withDuration.reduce((s, v) => s + v.duration_seconds, 0) / withDuration.length);
   }, [filteredViews]);
 
+  // Helper: local date to YYYY-MM-DD string (timezone-safe)
+  const toLocalDateKey = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+
   // Daily traffic
   const dailyData = useMemo(() => {
     const days: Record<string, { views: number; sessions: Set<string> }> = {};
-    const since = new Date();
+    const today = new Date();
     const numDays = dateRange === 0 ? 1 : dateRange;
-    since.setDate(since.getDate() - numDays);
-    for (let i = 0; i < numDays; i++) {
-      const d = new Date(since);
-      d.setDate(d.getDate() + i + 1);
-      const key = d.toISOString().slice(0, 10);
+    // Generate keys from (today - numDays + 1) to today, using local timezone
+    for (let i = numDays - 1; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      const key = toLocalDateKey(d);
       days[key] = { views: 0, sessions: new Set() };
     }
     filteredViews.forEach((v) => {
-      const key = v.created_at.slice(0, 10);
+      // Convert UTC created_at to local date key
+      const key = toLocalDateKey(new Date(v.created_at));
       if (days[key]) { days[key].views++; if (v.session_id) days[key].sessions.add(v.session_id); }
     });
     return Object.entries(days).map(([date, d]) => ({
