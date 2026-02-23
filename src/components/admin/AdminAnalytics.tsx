@@ -208,7 +208,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     filteredViews.forEach((v) => {
       if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   const utmMediumCounts = useMemo(() => {
