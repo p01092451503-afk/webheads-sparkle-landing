@@ -18,13 +18,21 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const filteredViews = useMemo(() => {
     const since = new Date();
-    since.setDate(since.getDate() - dateRange);
+    if (dateRange === 0) {
+      since.setHours(0, 0, 0, 0);
+    } else {
+      since.setDate(since.getDate() - dateRange);
+    }
     return pageViews.filter((v) => new Date(v.created_at) >= since);
   }, [pageViews, dateRange]);
 
   const filteredClicks = useMemo(() => {
     const since = new Date();
-    since.setDate(since.getDate() - dateRange);
+    if (dateRange === 0) {
+      since.setHours(0, 0, 0, 0);
+    } else {
+      since.setDate(since.getDate() - dateRange);
+    }
     return clickEvents.filter((v) => new Date(v.created_at) >= since);
   }, [clickEvents, dateRange]);
 
