@@ -181,7 +181,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
         </div>
 
         {/* Status Summary */}
-        <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+        <div className="rounded-xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
           <h3 className="text-[15px] text-foreground tracking-[-0.02em] mb-5" style={{ fontWeight: 600 }}>문의 현황</h3>
           <div className="flex flex-col gap-3">
             {[
