@@ -388,27 +388,61 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       <SectionGroup title="일별 방문 추이" number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-          <div className="flex items-end justify-center gap-1 h-[180px] overflow-hidden">
-            {dailyData.map((d) => (
-              <div key={d.date} className="flex flex-col items-center gap-1" style={{ flex: "1 1 0%", minWidth: 0, maxWidth: dailyData.length === 1 ? "80px" : undefined }}>
-                <span className="text-[10px] text-muted-foreground truncate w-full text-center" style={{ fontWeight: 600, fontSize: dailyData.length > 14 ? "8px" : "10px" }}>{d.views}</span>
-                <div
-                  className="w-full rounded-md transition-all duration-500"
-                  style={{
-                    height: `${Math.max((d.views / maxDailyViews) * 130, 4)}px`,
-                    background: "linear-gradient(180deg, hsl(214 90% 60%), hsl(214 90% 48%))",
-                    boxShadow: d.views > 0 ? "0 2px 8px hsl(214 90% 52% / 0.3)" : "none",
-                    borderRadius: dailyData.length > 14 ? "4px" : "6px",
-                  }}
-                />
-                <span className="text-muted-foreground/60 truncate w-full text-center" style={{ fontSize: dailyData.length > 14 ? "7px" : "9px" }}>{dailyData.length > 20 ? d.label.replace(/월 /, "/").replace("일", "") : d.label}</span>
-              </div>
-            ))}
-          </div>
+          <ResponsiveContainer width="100%" height={220}>
+            <LineChart data={dailyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+              <XAxis
+                dataKey="label"
+                tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+                axisLine={false}
+                tickLine={false}
+                interval={dailyData.length > 14 ? Math.floor(dailyData.length / 7) : 0}
+              />
+              <YAxis
+                tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+                axisLine={false}
+                tickLine={false}
+                allowDecimals={false}
+              />
+              <RechartsTooltip
+                contentStyle={{
+                  background: "hsl(var(--background))",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: "12px",
+                  fontSize: "12px",
+                  boxShadow: "0 4px 12px hsl(0 0% 0% / 0.08)",
+                }}
+                labelStyle={{ fontWeight: 600, marginBottom: 4 }}
+              />
+              <Line
+                type="monotone"
+                dataKey="views"
+                name="페이지뷰"
+                stroke="hsl(214, 90%, 52%)"
+                strokeWidth={2.5}
+                dot={{ r: 3, fill: "hsl(214, 90%, 52%)", strokeWidth: 0 }}
+                activeDot={{ r: 5, fill: "hsl(214, 90%, 52%)", strokeWidth: 2, stroke: "white" }}
+              />
+              <Line
+                type="monotone"
+                dataKey="sessions"
+                name="세션"
+                stroke="hsl(150, 60%, 42%)"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ r: 2, fill: "hsl(150, 60%, 42%)", strokeWidth: 0 }}
+                activeDot={{ r: 4, fill: "hsl(150, 60%, 42%)", strokeWidth: 2, stroke: "white" }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
           <div className="flex items-center gap-4 mt-4 pt-3" style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-sm" style={{ background: "hsl(214, 90%, 52%)" }} />
               <span className="text-[11px] text-muted-foreground">페이지뷰</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-sm" style={{ background: "hsl(150, 60%, 42%)" }} />
+              <span className="text-[11px] text-muted-foreground">세션</span>
             </div>
           </div>
         </div>
