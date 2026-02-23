@@ -104,7 +104,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <MetricCard label="문의" value={filteredInquiries.length} sub={`신규 ${newInquiries.length}건`} color="hsl(214, 90%, 52%)" icon={<MessageSquare className="w-5 h-5" />} />
         <MetricCard label="방문" value={filteredViews.length} sub={`${uniqueSessions} 세션`} color="hsl(150, 60%, 42%)" icon={<Eye className="w-5 h-5" />} />
         <MetricCard label="전환율" value={`${conversionRate}%`} sub="방문 → 문의" color="hsl(35, 90%, 50%)" icon={<TrendingUp className="w-5 h-5" />} />
