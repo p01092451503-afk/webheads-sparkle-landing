@@ -520,7 +520,7 @@
     "partners": ["Yanadu", "Wolgeupjaengi", "Korea Energy Foundation", "Transcosmos", "KAPAAS", "MOHW", "Incheon Airport", "KAIST"],
     "deviceSection": { "sub": "Responsive Design", "title": "User-Friendly for\nLearners and Admins", "desc": "Optimized responsive design across all devices — PC, tablet, and mobile.", "pc": "Multi-panel dashboards, batch student management, and statistical reports are efficiently laid out on large screens to maximize admin productivity.", "tablet": "A UI optimized for 10–12\" touch displays provides immersive learning through gesture-based interactions — from video lectures to quizzes and note-taking.", "mobile": "Native-level responsiveness with offline caching lets you continue learning seamlessly on the subway or at a café, with push notifications for study reminders." },
     "solutionsSection": { "sub": "Solutions", "title": "Choose the Right\nDeployment for You", "desc": "Cloud (AI), SaaS, or On-premise (NEO) — pick the LMS that fits your business." },
-    "cloud": { "name": "Webheads AI", "subtitle": "Cloud · Launch in just 3 days", "desc": "A cloud-based LMS with flexible pricing plans that lets you launch your education site quickly.", "cta": "Inquire about AI" },
+    "cloud": { "name": "Webheads AI", "subtitle": "Rental · Launch in just 3 days", "desc": "A cloud-based LMS with flexible pricing plans that lets you launch your education site quickly.", "cta": "Inquire about AI" },
     "cloudFeatures": [
       { "title": "Flexible Pricing", "desc": "Pricing plans tailored to various business sizes" },
       { "title": "Quick Launch", "desc": "Build your education site with the most features in just 3 days" },
@@ -530,7 +530,8 @@
       { "title": "API Integration", "desc": "RESTful APIs for seamless data integration with external systems" },
       { "title": "Auto Updates", "desc": "Latest features and security patches applied automatically" },
       { "title": "Learning Analytics", "desc": "Real-time dashboard for learner progress, completion rates, and performance" },
-      { "title": "Mobile Optimized", "desc": "Responsive UI across PC, tablet, and mobile for seamless learning" }
+      { "title": "Mobile Optimized", "desc": "Responsive UI across PC, tablet, and mobile for seamless learning" },
+      { "title": "Pre-set Features Only", "desc": "Operate quickly and reliably using the pre-configured standard feature set" }
     ],
     "neo": { "name": "Webheads NEO", "subtitle": "On-premise · Strong security & customization", "desc": "An on-premise LMS with optimized security systems and fully customizable solutions.", "cta": "Inquire about NEO" },
     "neoFeatures": [
