@@ -79,7 +79,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     try { const ref = v.referrer ? new URL(v.referrer).hostname : "직접 방문"; acc[ref] = (acc[ref] || 0) + 1; } catch { acc["기타"] = (acc["기타"] || 0) + 1; }
     return acc;
   }, {} as Record<string, number>);
-  const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 8);
+  const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
   // IP with location
   const ipWithLocation = useMemo(() => {
