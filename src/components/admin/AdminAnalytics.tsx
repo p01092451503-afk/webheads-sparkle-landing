@@ -6,7 +6,7 @@ import {
   Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown
 } from "lucide-react";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
+  AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
   ResponsiveContainer
 } from "recharts";
 
@@ -409,7 +409,17 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       <SectionGroup title={isToday ? "시간대별 방문 추이" : "일별 방문 추이"} number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
           <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={dailyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <AreaChart data={dailyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <defs>
+                <linearGradient id="gradViews" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="hsl(214, 90%, 52%)" stopOpacity={0.3} />
+                  <stop offset="100%" stopColor="hsl(214, 90%, 52%)" stopOpacity={0.02} />
+                </linearGradient>
+                <linearGradient id="gradSessions" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="hsl(150, 60%, 42%)" stopOpacity={0.2} />
+                  <stop offset="100%" stopColor="hsl(150, 60%, 42%)" stopOpacity={0.02} />
+                </linearGradient>
+              </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
               <XAxis
                 dataKey="label"
@@ -434,26 +444,28 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
                 }}
                 labelStyle={{ fontWeight: 600, marginBottom: 4 }}
               />
-              <Line
+              <Area
                 type="monotone"
                 dataKey="views"
                 name="페이지뷰"
                 stroke="hsl(214, 90%, 52%)"
                 strokeWidth={2.5}
+                fill="url(#gradViews)"
                 dot={{ r: 3, fill: "hsl(214, 90%, 52%)", strokeWidth: 0 }}
                 activeDot={{ r: 5, fill: "hsl(214, 90%, 52%)", strokeWidth: 2, stroke: "white" }}
               />
-              <Line
+              <Area
                 type="monotone"
                 dataKey="sessions"
                 name="세션"
                 stroke="hsl(150, 60%, 42%)"
                 strokeWidth={2}
                 strokeDasharray="5 5"
+                fill="url(#gradSessions)"
                 dot={{ r: 2, fill: "hsl(150, 60%, 42%)", strokeWidth: 0 }}
                 activeDot={{ r: 4, fill: "hsl(150, 60%, 42%)", strokeWidth: 2, stroke: "white" }}
               />
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
           <div className="flex items-center gap-4 mt-4 pt-3" style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}>
             <div className="flex items-center gap-1.5">
