@@ -3,7 +3,7 @@ import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
   MousePointerClick, Users, ScrollText, Link2, LogOut,
-  Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit
+  Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown
 } from "lucide-react";
 
 interface AdminAnalyticsProps {
