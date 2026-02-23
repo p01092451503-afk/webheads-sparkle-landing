@@ -7,7 +7,7 @@ import "./i18n";
 
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>
-    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="light">
       <App />
     </ThemeProvider>
   </HelmetProvider>
