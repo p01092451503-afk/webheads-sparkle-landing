@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -27,7 +28,6 @@ serve(async (req) => {
     const isDemo = inquiryType === "demo";
     const typeLabel = isDemo ? "데모 신청" : "무료 상담";
 
-    // Basic validation
     if (!company || !name || !phone) {
       return new Response(
         JSON.stringify({ error: "필수 항목이 누락되었습니다." }),
@@ -35,6 +35,26 @@ serve(async (req) => {
       );
     }
 
+    // Save to database
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+    const { error: dbError } = await supabaseAdmin.from("contact_inquiries").insert({
+      company,
+      name,
+      phone,
+      email: email || null,
+      service: service || null,
+      message: message || null,
+      inquiry_type: inquiryType,
+    });
+
+    if (dbError) {
+      console.error("DB insert error:", dbError);
+    }
+
+    // Send email
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     if (!RESEND_API_KEY) {
       throw new Error("RESEND_API_KEY가 설정되지 않았습니다.");
@@ -110,7 +130,6 @@ serve(async (req) => {
 </html>
     `.trim();
 
-    // Try verified domain first, fall back to Resend default
     const fromAddress = "웹헤즈 상담 <noreply@service.webheads.co.kr>";
     const fallbackFrom = "웹헤즈 상담 <onboarding@resend.dev>";
 
@@ -131,7 +150,6 @@ serve(async (req) => {
 
     let data = await res.json();
 
-    // If domain not verified, retry with fallback
     if (!res.ok && data.message?.includes("not verified")) {
       console.log("Domain not verified yet, using fallback sender");
       res = await fetch("https://api.resend.com/emails", {
@@ -150,8 +168,6 @@ serve(async (req) => {
       });
       data = await res.json();
     }
-
-    const data = await res.json();
 
     if (!res.ok) {
       console.error("Resend API error:", data);
