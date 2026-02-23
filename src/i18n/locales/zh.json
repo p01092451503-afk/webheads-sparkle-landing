@@ -519,7 +519,7 @@
     "partnersTitle": "主要客户",
     "partners": ["Yanadu", "月薪族富翁", "韩国能源财团", "Transcosmos", "韩国鉴定评价师协会", "保健福祉部", "仁川国际机场公社", "KAIST"],
     "deviceSection": { "sub": "响应式设计", "title": "学习者和管理者\n都舒适的使用体验", "desc": "在PC、平板、手机等所有设备上提供优化的响应式设计。", "pc": "大屏显示器上高效布局多面板仪表板、批量学员管理和统计报表，最大化管理员工作效率。", "tablet": "专为10-12英寸触屏优化的UI，通过手势交互实现视频课程、测验和笔记等沉浸式学习体验。", "mobile": "原生应用级响应速度和离线缓存，地铁或咖啡厅均可无缝学习，推送通知提醒学习进度。" },
-    "solutionsSection": { "sub": "方案对比", "title": "根据目的\n选择构建方式", "desc": "云端型(AI)和本地部署型(NEO)，选择适合您业务目的的最佳LMS。" },
+    "solutionsSection": { "sub": "方案对比", "title": "根据目的\n选择构建方式", "desc": "云端型(AI)、SaaS型、本地部署型(NEO) — 选择适合您业务目的的最佳LMS。" },
     "cloud": { "name": "Webheads AI", "subtitle": "云端型 · 仅3天即可上线", "desc": "以灵活的价格方案快速开设教育网站的云端型LMS。", "cta": "咨询AI方案" },
     "cloudFeatures": [
       { "title": "灵活定价", "desc": "为各种业务规模量身定制的灵活价格方案" },
@@ -543,6 +543,17 @@
       { "title": "本地部署", "desc": "在客户自有IDC、AWS或云环境中直接安装运营" },
       { "title": "SSO·LDAP集成", "desc": "与企业内部账户系统统一认证，便捷访问管理" },
       { "title": "SLA保障", "desc": "99.9%可用率保障及故障紧急响应机制" }
+    ],
+    "saas": { "name": "Webheads SaaS", "subtitle": "SaaS型 · 订阅制即用LMS", "desc": "无需服务器部署，按月订阅即可立即使用的SaaS型LMS。包含自动更新和维护，让您专注于教育运营。", "cta": "咨询SaaS方案" },
+    "saasFeatures": [
+      { "title": "即时可用", "desc": "注册后立即开设教育网站，无需安装或配置" },
+      { "title": "月度订阅", "desc": "无前期建设成本，按月合理订阅费用运营" },
+      { "title": "自动更新", "desc": "最新功能和安全补丁自动应用，始终保持最新状态" },
+      { "title": "多租户架构", "desc": "稳定的多租户架构，客户数据完全隔离" },
+      { "title": "可扩展存储", "desc": "随学员增长灵活扩展的云存储" },
+      { "title": "标准API", "desc": "RESTful API轻松与现有系统数据对接" },
+      { "title": "实时备份", "desc": "自动备份和灾难恢复体系保障数据安全" },
+      { "title": "技术支持", "desc": "专属技术支持团队快速响应及入门指导" }
     ],
     "kdt": { "name": "Webheads 国费", "subtitle": "KDT · 政府补贴培训专用LMS", "desc": "专为K-Digital Training(KDT)等政府补贴培训课程优化的LMS，从HRD-Net对接到考勤·评估·结业管理，全面支持符合政府标准的系统化教务运营。", "cta": "咨询国费LMS" },
     "kdtFeatures": [
