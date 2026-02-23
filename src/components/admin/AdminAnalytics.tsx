@@ -6,7 +6,7 @@ import {
   Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown
 } from "lucide-react";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
+  AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
   ResponsiveContainer
 } from "recharts";
 
