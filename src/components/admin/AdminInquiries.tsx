@@ -277,7 +277,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                           return (
                             <button key={s} onClick={() => updateStatus(selectedInquiry.id, s)}
                               className="py-2.5 rounded-xl text-[12px] transition-all duration-200 active:scale-[0.96]"
-                              style={{ fontWeight: isActive ? 600 : 500, color: isActive ? cfg.color : "hsl(var(--muted-foreground))", background: isActive ? cfg.bg : "hsl(var(--muted))", border: isActive ? `1.5px solid ${cfg.color}30` : "1.5px solid transparent" }}
+                              style={{ fontWeight: isActive ? 700 : 500, color: isActive ? "white" : "hsl(var(--muted-foreground))", background: isActive ? cfg.color : "hsl(var(--muted))", border: isActive ? `1.5px solid ${cfg.color}` : "1.5px solid transparent", boxShadow: isActive ? `0 2px 8px ${cfg.color}40` : "none" }}
                             >
                               {cfg.label}
                             </button>
