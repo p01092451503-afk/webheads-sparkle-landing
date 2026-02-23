@@ -716,18 +716,18 @@ function MetricCard({ icon, label, value, color, sub, tooltip }: {
   icon: React.ReactNode; label: string; value: number | string; color: string; sub?: string; tooltip?: string;
 }) {
   return (
-    <div className="rounded-2xl p-5 flex flex-col gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="flex items-center justify-between">
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${color}10`, color }}>{icon}</div>
-        {tooltip && <HelpTooltip text={tooltip} />}
+    <div className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${color}15`, color }}>{icon}</div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline gap-2">
+          <p className="text-[22px] tracking-[-0.04em] text-foreground leading-none" style={{ fontWeight: 700 }}>
+            {typeof value === "number" ? value.toLocaleString() : value}
+          </p>
+          <span className="text-[11px] text-muted-foreground" style={{ fontWeight: 500 }}>{label}</span>
+        </div>
+        {sub && <p className="text-[11px] text-muted-foreground/60 mt-0.5">{sub}</p>}
       </div>
-      <div>
-        <p className="text-[24px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
-          {typeof value === "number" ? value.toLocaleString() : value}
-        </p>
-        <p className="text-[12px] text-muted-foreground mt-0.5" style={{ fontWeight: 500 }}>{label}</p>
-        {sub && <p className="text-[11px] text-muted-foreground/60">{sub}</p>}
-      </div>
+      {tooltip && <HelpTooltip text={tooltip} />}
     </div>
   );
 }
