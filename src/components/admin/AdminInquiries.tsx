@@ -300,6 +300,37 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                         })}
                       </div>
                     </div>
+
+                    {/* Delete */}
+                    <div className="mt-4 pt-4" style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <button
+                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] transition-all active:scale-[0.96]"
+                            style={{ fontWeight: 600, color: "hsl(0, 72%, 51%)", background: "hsl(0 72% 51% / 0.08)" }}
+                          >
+                            <Trash2 className="w-3 h-3" /> 문의 삭제
+                          </button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>문의를 삭제하시겠습니까?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              {selectedInquiry.company} · {selectedInquiry.name} 문의가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>취소</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => deleteInquiry(selectedInquiry.id)}
+                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                            >
+                              삭제
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
                   </div>
                 </div>
               )}
