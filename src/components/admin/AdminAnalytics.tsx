@@ -216,7 +216,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     filteredViews.forEach((v) => {
       if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1;
     });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== NEW: CTA Click Stats ==========
