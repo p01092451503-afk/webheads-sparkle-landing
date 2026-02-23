@@ -152,11 +152,11 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
               </button>
             ))}
           </div>
-          <button onClick={() => onRefresh(30)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] transition-all hover:bg-card"
-            style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))", background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
+          <button onClick={() => onRefresh(30)} title="새로고침"
+            className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:bg-card shrink-0"
+            style={{ color: "hsl(var(--muted-foreground))", background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
           >
-            <RefreshCw className="w-3 h-3" /> 새로고침
+            <RefreshCw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
