@@ -440,7 +440,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="전환 · 트래픽 패턴">
+      <SectionGroup title="전환 · 트래픽 패턴" number={5}>
         <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
           <div className="flex flex-col gap-3">
             {funnelData.map((step, i) => {
