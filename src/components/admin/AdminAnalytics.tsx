@@ -474,106 +474,109 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
-        <div className="flex flex-col gap-3">
-          {funnelData.map((step, i) => {
-            const pct = funnelData[0].count > 0 ? (step.count / funnelData[0].count) * 100 : 0;
-            const dropOff = i > 0 && funnelData[i - 1].count > 0
-              ? ((1 - step.count / funnelData[i - 1].count) * 100).toFixed(1)
-              : null;
-            return (
-              <div key={step.label}>
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px]"
-                      style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{i + 1}</span>
-                    <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>{step.label}</span>
+      <SectionGroup title="전환 · 트래픽 패턴">
+        <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
+          <div className="flex flex-col gap-3">
+            {funnelData.map((step, i) => {
+              const pct = funnelData[0].count > 0 ? (step.count / funnelData[0].count) * 100 : 0;
+              const dropOff = i > 0 && funnelData[i - 1].count > 0
+                ? ((1 - step.count / funnelData[i - 1].count) * 100).toFixed(1)
+                : null;
+              return (
+                <div key={step.label}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px]"
+                        style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{i + 1}</span>
+                      <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>{step.label}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] text-foreground" style={{ fontWeight: 600 }}>{step.count.toLocaleString()}</span>
+                      {dropOff && (
+                        <span className="text-[11px] px-1.5 py-0.5 rounded-md" style={{ color: "hsl(0, 84%, 60%)", background: "hsl(0 84% 60% / 0.08)", fontWeight: 600 }}>
+                          -{dropOff}%
+                        </span>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[13px] text-foreground" style={{ fontWeight: 600 }}>{step.count.toLocaleString()}</span>
-                    {dropOff && (
-                      <span className="text-[11px] px-1.5 py-0.5 rounded-md" style={{ color: "hsl(0, 84%, 60%)", background: "hsl(0 84% 60% / 0.08)", fontWeight: 600 }}>
-                        -{dropOff}%
-                      </span>
-                    )}
+                  <div className="h-2 rounded-full overflow-hidden" style={{ background: "hsl(214 90% 52% / 0.08)" }}>
+                    <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(214, 90%, 52%)" }} />
                   </div>
                 </div>
-                <div className="h-2 rounded-full overflow-hidden" style={{ background: "hsl(214 90% 52% / 0.08)" }}>
-                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(214, 90%, 52%)" }} />
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </SectionCard>
+              );
+            })}
+          </div>
+        </SectionCard>
 
-      <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />} tooltip="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요.">
-        <div className="overflow-x-auto">
-          <div className="min-w-[600px]">
-            <div className="flex mb-1 ml-8">
-              {Array.from({ length: 24 }, (_, h) => (
-                <span key={h} className="flex-1 text-center text-[9px] text-muted-foreground/50" style={{ fontWeight: 500 }}>{h}</span>
-              ))}
-            </div>
-            {hourlyData.dayNames.map((day, dayIdx) => (
-              <div key={day} className="flex items-center gap-1 mb-1">
-                <span className="w-7 text-[11px] text-muted-foreground text-right shrink-0" style={{ fontWeight: 500 }}>{day}</span>
-                <div className="flex flex-1 gap-0.5">
-                  {hourlyData.grid[dayIdx].map((count, hour) => {
-                    const intensity = maxHourly > 0 ? count / maxHourly : 0;
-                    return (
-                      <div
-                        key={hour}
-                        className="flex-1 rounded-sm transition-all"
-                        style={{
-                          height: "20px",
-                          background: count === 0
-                            ? "hsl(var(--muted))"
-                            : `hsl(214 90% 52% / ${0.15 + intensity * 0.85})`,
-                        }}
-                        title={`${day} ${hour}시: ${count}건`}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-            <div className="flex items-center justify-end gap-2 mt-3">
-              <span className="text-[10px] text-muted-foreground/50">적음</span>
-              <div className="flex gap-0.5">
-                {[0.15, 0.35, 0.55, 0.75, 1].map((op, i) => (
-                  <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(214 90% 52% / ${op})` }} />
+        <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />} tooltip="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요.">
+          <div className="overflow-x-auto">
+            <div className="min-w-[600px]">
+              <div className="flex mb-1 ml-8">
+                {Array.from({ length: 24 }, (_, h) => (
+                  <span key={h} className="flex-1 text-center text-[9px] text-muted-foreground/50" style={{ fontWeight: 500 }}>{h}</span>
                 ))}
               </div>
-              <span className="text-[10px] text-muted-foreground/50">많음</span>
+              {hourlyData.dayNames.map((day, dayIdx) => (
+                <div key={day} className="flex items-center gap-1 mb-1">
+                  <span className="w-7 text-[11px] text-muted-foreground text-right shrink-0" style={{ fontWeight: 500 }}>{day}</span>
+                  <div className="flex flex-1 gap-0.5">
+                    {hourlyData.grid[dayIdx].map((count, hour) => {
+                      const intensity = maxHourly > 0 ? count / maxHourly : 0;
+                      return (
+                        <div
+                          key={hour}
+                          className="flex-1 rounded-sm transition-all"
+                          style={{
+                            height: "20px",
+                            background: count === 0
+                              ? "hsl(var(--muted))"
+                              : `hsl(214 90% 52% / ${0.15 + intensity * 0.85})`,
+                          }}
+                          title={`${day} ${hour}시: ${count}건`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+              <div className="flex items-center justify-end gap-2 mt-3">
+                <span className="text-[10px] text-muted-foreground/50">적음</span>
+                <div className="flex gap-0.5">
+                  {[0.15, 0.35, 0.55, 0.75, 1].map((op, i) => (
+                    <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(214 90% 52% / ${op})` }} />
+                  ))}
+                </div>
+                <span className="text-[10px] text-muted-foreground/50">많음</span>
+              </div>
             </div>
           </div>
-        </div>
-      </SectionCard>
+        </SectionCard>
+      </SectionGroup>
 
-      {/* Exit Pages, Page Flows, Resolution, Language */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
-          {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
-            <BarRow key={path} rank={i + 1} label={path} value={count} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />} tooltip="방문자가 한 페이지에서 다음 페이지로 이동한 경로입니다. 주요 동선을 파악하여 네비게이션을 최적화하고 전환 경로를 설계할 수 있습니다.">
-          {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([flow, count], i) => (
-            <BarRow key={flow} rank={i + 1} label={flow} value={count} max={pageFlows[0][1]} color="hsl(260, 70%, 55%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />} tooltip="방문자 기기의 화면 해상도 분포입니다. 가장 많이 사용되는 해상도에 맞춰 반응형 디자인을 최적화하는 데 참고합니다.">
-          {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([res, count], i) => (
-            <BarRow key={res} rank={i + 1} label={res} value={count} max={resolutionCounts[0][1]} color="hsl(192, 80%, 45%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />} tooltip="방문자의 브라우저 언어 설정 분포입니다. 다국어 페이지 제작 시 우선순위를 결정하거나, 해외 유입 비율을 파악하는 데 활용합니다.">
-          {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([lang, count], i) => (
-            <BarRow key={lang} rank={i + 1} label={lang} value={count} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />
-          ))}
-        </ChartCard>
-      </div>
+      <SectionGroup title="이탈 · 환경 분석">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
+            {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
+              <BarRow key={path} rank={i + 1} label={path} value={count} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />} tooltip="방문자가 한 페이지에서 다음 페이지로 이동한 경로입니다. 주요 동선을 파악하여 네비게이션을 최적화하고 전환 경로를 설계할 수 있습니다.">
+            {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([flow, count], i) => (
+              <BarRow key={flow} rank={i + 1} label={flow} value={count} max={pageFlows[0][1]} color="hsl(260, 70%, 55%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />} tooltip="방문자 기기의 화면 해상도 분포입니다. 가장 많이 사용되는 해상도에 맞춰 반응형 디자인을 최적화하는 데 참고합니다.">
+            {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([res, count], i) => (
+              <BarRow key={res} rank={i + 1} label={res} value={count} max={resolutionCounts[0][1]} color="hsl(192, 80%, 45%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />} tooltip="방문자의 브라우저 언어 설정 분포입니다. 다국어 페이지 제작 시 우선순위를 결정하거나, 해외 유입 비율을 파악하는 데 활용합니다.">
+            {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([lang, count], i) => (
+              <BarRow key={lang} rank={i + 1} label={lang} value={count} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
     </div>
   );
 }
