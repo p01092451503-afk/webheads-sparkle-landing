@@ -390,29 +390,30 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionCard>
 
-      {/* UTM & CTA Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
-          {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />} tooltip="utm_campaign 파라미터로 추적되는 마케팅 캠페인별 유입 수입니다. 광고 캠페인의 성과를 비교·분석할 때 활용합니다.">
-          {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count} max={utmCampaignCounts[0][1]} color="hsl(200, 70%, 50%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />} tooltip="'상담 신청', '데모 요청' 등 전환 유도 버튼(CTA)의 클릭 수를 버튼 텍스트별로 집계합니다. 어떤 CTA가 가장 효과적인지 파악할 수 있습니다.">
-          {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([name, count], i) => (
-            <BarRow key={name} rank={i + 1} label={name} value={count} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />
-          ))}
-        </ChartCard>
-        <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />} tooltip="어느 페이지에서 CTA 버튼이 가장 많이 클릭되었는지 보여줍니다. 전환이 잘 일어나는 페이지와 개선이 필요한 페이지를 구분할 수 있습니다.">
-          {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
-            <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
-          ))}
-        </ChartCard>
-      </div>
+      <SectionGroup title="마케팅 · UTM · CTA">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
+            {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />} tooltip="utm_campaign 파라미터로 추적되는 마케팅 캠페인별 유입 수입니다. 광고 캠페인의 성과를 비교·분석할 때 활용합니다.">
+            {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count} max={utmCampaignCounts[0][1]} color="hsl(200, 70%, 50%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />} tooltip="'상담 신청', '데모 요청' 등 전환 유도 버튼(CTA)의 클릭 수를 버튼 텍스트별로 집계합니다. 어떤 CTA가 가장 효과적인지 파악할 수 있습니다.">
+            {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([name, count], i) => (
+              <BarRow key={name} rank={i + 1} label={name} value={count} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />
+            ))}
+          </ChartCard>
+          <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />} tooltip="어느 페이지에서 CTA 버튼이 가장 많이 클릭되었는지 보여줍니다. 전환이 잘 일어나는 페이지와 개선이 필요한 페이지를 구분할 수 있습니다.">
+            {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
+              <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
 
       {/* Scroll & Dwell Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
