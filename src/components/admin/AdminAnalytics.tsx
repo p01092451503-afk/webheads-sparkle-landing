@@ -385,7 +385,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </div>
 
       <SectionGroup title="주요 지표 요약" number={1}>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다. 한 사용자가 여러 페이지를 보면 각각 1회로 집계됩니다." />
           <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" tooltip="브라우저 탭을 열고 사이트를 방문한 고유 세션 수입니다. 같은 사용자도 새 탭이나 다른 시간에 방문하면 별도 세션으로 집계됩니다." />
           <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" tooltip="방문자가 한 페이지에 머문 평균 시간입니다. 체류시간이 길수록 콘텐츠에 관심이 높다는 의미입니다. 최대 30분까지만 집계합니다." />
@@ -716,18 +716,18 @@ function MetricCard({ icon, label, value, color, sub, tooltip }: {
   icon: React.ReactNode; label: string; value: number | string; color: string; sub?: string; tooltip?: string;
 }) {
   return (
-    <div className="rounded-2xl p-5 flex flex-col gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="flex items-center justify-between">
-        <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${color}10`, color }}>{icon}</div>
-        {tooltip && <HelpTooltip text={tooltip} />}
+    <div className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${color}15`, color }}>{icon}</div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-baseline gap-2">
+          <p className="text-[22px] tracking-[-0.04em] text-foreground leading-none" style={{ fontWeight: 700 }}>
+            {typeof value === "number" ? value.toLocaleString() : value}
+          </p>
+          <span className="text-[11px] text-muted-foreground" style={{ fontWeight: 500 }}>{label}</span>
+        </div>
+        {sub && <p className="text-[11px] text-muted-foreground/60 mt-0.5">{sub}</p>}
       </div>
-      <div>
-        <p className="text-[24px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
-          {typeof value === "number" ? value.toLocaleString() : value}
-        </p>
-        <p className="text-[12px] text-muted-foreground mt-0.5" style={{ fontWeight: 500 }}>{label}</p>
-        {sub && <p className="text-[11px] text-muted-foreground/60">{sub}</p>}
-      </div>
+      {tooltip && <HelpTooltip text={tooltip} />}
     </div>
   );
 }
@@ -738,13 +738,13 @@ function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: s
   const hasMore = childArray.length > maxItems;
   const visibleChildren = expanded ? childArray : childArray.slice(0, maxItems);
   return (
-    <div className="rounded-2xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="flex items-center gap-2 mb-5">
+    <div className="rounded-xl p-4" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="flex items-center gap-2 mb-4">
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
         {tooltip && <HelpTooltip text={tooltip} />}
       </div>
-      <div className="flex flex-col gap-3">{visibleChildren}</div>
+      <div className="flex flex-col gap-2.5">{visibleChildren}</div>
       {hasMore && (
         <button
           onClick={() => setExpanded(!expanded)}
