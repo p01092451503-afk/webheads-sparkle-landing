@@ -390,20 +390,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionCard>
 
-      <SectionGroup title="콘텐츠 소비 분석">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
-            {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
-              <BarRow key={d.path} rank={i + 1} label={d.path} value={d.avg} max={100} color="hsl(35, 90%, 50%)" suffix="%" />
-            ))}
-          </ChartCard>
-          <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />} tooltip="각 페이지에 방문자가 머문 평균 시간입니다. 체류시간이 긴 페이지는 콘텐츠 관심도가 높고, 짧은 페이지는 내용 개선이 필요할 수 있습니다.">
-            {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
-              <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
-            ))}
-          </ChartCard>
-        </div>
-      </SectionGroup>
+
 
       <SectionGroup title="방문자 · 페이지 상세">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -573,6 +560,21 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />} tooltip="어느 페이지에서 CTA 버튼이 가장 많이 클릭되었는지 보여줍니다. 전환이 잘 일어나는 페이지와 개선이 필요한 페이지를 구분할 수 있습니다.">
             {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
               <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
+            ))}
+          </ChartCard>
+        </div>
+      </SectionGroup>
+
+      <SectionGroup title="콘텐츠 소비 분석">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
+            {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
+              <BarRow key={d.path} rank={i + 1} label={d.path} value={d.avg} max={100} color="hsl(35, 90%, 50%)" suffix="%" />
+            ))}
+          </ChartCard>
+          <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />} tooltip="각 페이지에 방문자가 머문 평균 시간입니다. 체류시간이 긴 페이지는 콘텐츠 관심도가 높고, 짧은 페이지는 내용 개선이 필요할 수 있습니다.">
+            {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
+              <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
             ))}
           </ChartCard>
         </div>
