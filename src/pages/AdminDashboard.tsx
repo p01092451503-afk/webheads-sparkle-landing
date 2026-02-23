@@ -136,55 +136,56 @@ export default function AdminDashboard() {
           borderColor: "hsl(var(--border) / 0.6)",
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <h1 className="text-[22px] tracking-[-0.04em] text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800 }}>
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
+          {/* Top row: logo + right actions */}
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            <h1 className="text-[20px] sm:text-[22px] tracking-[-0.04em] text-foreground shrink-0" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800 }}>
               웹헤즈
             </h1>
-            <div className="h-5 w-px bg-border" />
-            <div className="flex gap-0.5">
-              {tabs.map((t) => (
-                <button
-                  key={t.key}
-                  onClick={() => setTab(t.key)}
-                  className="relative flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] transition-all duration-200"
-                  style={{
-                    fontWeight: tab === t.key ? 600 : 500,
-                    color: tab === t.key ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))",
-                    background: tab === t.key ? "hsl(var(--muted))" : "transparent",
-                  }}
-                >
-                  <t.icon className="w-4 h-4" />
-                  <span className="hidden sm:inline">{t.label}</span>
-                  {t.key === "inquiries" && newCount > 0 && (
-                    <span
-                      className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px]"
-                      style={{ fontWeight: 700, background: "hsl(0 84% 60%)", color: "white", padding: "0 5px" }}
-                    >
-                      {newCount}
-                    </span>
-                  )}
-                </button>
-              ))}
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => navigate("/lms")}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
+                style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
+              >
+                <ExternalLink className="w-4 h-4" />
+                <span className="hidden sm:inline">LMS 페이지</span>
+              </button>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
+                style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
+              >
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline">로그아웃</span>
+              </button>
             </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <button
-              onClick={() => navigate("/lms")}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
-              style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
-            >
-              <ExternalLink className="w-4 h-4" />
-              <span className="hidden sm:inline">LMS 페이지</span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
-              style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
-            >
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">로그아웃</span>
-            </button>
+          {/* Bottom row: tabs (scrollable on mobile) */}
+          <div className="-mb-px flex gap-0.5 overflow-x-auto scrollbar-hide pb-2 sm:pb-0">
+            {tabs.map((t) => (
+              <button
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                className="relative flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl text-[13px] transition-all duration-200 shrink-0"
+                style={{
+                  fontWeight: tab === t.key ? 600 : 500,
+                  color: tab === t.key ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))",
+                  background: tab === t.key ? "hsl(var(--muted))" : "transparent",
+                }}
+              >
+                <t.icon className="w-4 h-4" />
+                <span>{t.label}</span>
+                {t.key === "inquiries" && newCount > 0 && (
+                  <span
+                    className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px]"
+                    style={{ fontWeight: 700, background: "hsl(0 84% 60%)", color: "white", padding: "0 5px" }}
+                  >
+                    {newCount}
+                  </span>
+                )}
+              </button>
+            ))}
           </div>
         </div>
       </header>
