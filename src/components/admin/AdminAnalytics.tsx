@@ -398,22 +398,22 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
       <SectionGroup title="방문자 유형 분석" number={2}>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-3">
           {[
-            { icon: <User className="w-6 h-6" />, label: "사람", value: visitorTypeCounts.human, color: "hsl(214, 90%, 52%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100) : 0, tooltip: "실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." },
-            { icon: <Bot className="w-6 h-6" />, label: "검색엔진 봇", value: visitorTypeCounts.bot, color: "hsl(35, 90%, 50%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.bot / visitorTypeCounts.total) * 100) : 0, tooltip: "Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다." },
-            { icon: <BrainCircuit className="w-6 h-6" />, label: "AI 봇", value: visitorTypeCounts.ai, color: "hsl(260, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100) : 0, tooltip: "ChatGPT, Claude, Perplexity 등 AI 서비스의 크롤러 방문입니다. AI 검색에 노출되고 있는지 확인할 수 있습니다." },
+            { icon: <User className="w-4 h-4" />, label: "사람", value: visitorTypeCounts.human, color: "hsl(214, 90%, 52%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100) : 0, tooltip: "실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." },
+            { icon: <Bot className="w-4 h-4" />, label: "검색엔진 봇", value: visitorTypeCounts.bot, color: "hsl(35, 90%, 50%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.bot / visitorTypeCounts.total) * 100) : 0, tooltip: "Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다." },
+            { icon: <BrainCircuit className="w-4 h-4" />, label: "AI 봇", value: visitorTypeCounts.ai, color: "hsl(260, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100) : 0, tooltip: "ChatGPT, Claude, Perplexity 등 AI 서비스의 크롤러 방문입니다. AI 검색에 노출되고 있는지 확인할 수 있습니다." },
           ].map((item) => (
-            <div key={item.label} className="rounded-2xl p-5 flex flex-col gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-              <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: `${item.color}10`, color: item.color }}>{item.icon}</div>
-                {item.tooltip && <HelpTooltip text={item.tooltip} />}
+            <div key={item.label} className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}10`, color: item.color }}>{item.icon}</div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <p className="text-[20px] sm:text-[22px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 800 }}>{item.value.toLocaleString()}</p>
+                  <p className="text-[13px]" style={{ fontWeight: 700, color: item.color }}>{item.pct}%</p>
+                </div>
+                <p className="text-[12px] text-muted-foreground" style={{ fontWeight: 600 }}>{item.label}</p>
               </div>
-              <div>
-                <p className="text-[28px] sm:text-[32px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 800 }}>{item.value.toLocaleString()}</p>
-                <p className="text-[15px] sm:text-[17px] text-foreground mt-1" style={{ fontWeight: 700 }}>{item.label}</p>
-                <p className="text-[16px] sm:text-[18px] mt-0.5" style={{ fontWeight: 700, color: item.color }}>{item.pct}%</p>
-              </div>
+              {item.tooltip && <HelpTooltip text={item.tooltip} />}
             </div>
           ))}
         </div>
