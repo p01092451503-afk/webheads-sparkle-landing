@@ -148,7 +148,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {/* Recent Inquiries */}
         <div
-          className="lg:col-span-2 rounded-2xl p-6"
+          className="lg:col-span-2 rounded-xl p-5"
           style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
         >
           <div className="flex items-center justify-between mb-5">
