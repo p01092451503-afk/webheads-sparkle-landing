@@ -544,7 +544,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="마케팅 · UTM · CTA">
+      <SectionGroup title="마케팅 · UTM · CTA" number={7}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
             {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
