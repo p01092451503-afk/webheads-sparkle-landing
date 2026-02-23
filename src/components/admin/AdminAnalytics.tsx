@@ -384,19 +384,20 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       <SectionGroup title="일별 방문 추이" number={3}>
         <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-          <div className="flex items-end justify-center gap-2 h-[180px]">
+          <div className="flex items-end justify-center gap-1 h-[180px] overflow-hidden">
             {dailyData.map((d) => (
-              <div key={d.date} className="flex flex-col items-center gap-1.5" style={{ width: dailyData.length === 1 ? "80px" : undefined, flex: dailyData.length > 1 ? 1 : undefined, maxWidth: "64px", minWidth: "28px" }}>
-                <span className="text-[10px] text-muted-foreground" style={{ fontWeight: 600 }}>{d.views}</span>
+              <div key={d.date} className="flex flex-col items-center gap-1" style={{ flex: "1 1 0%", minWidth: 0, maxWidth: dailyData.length === 1 ? "80px" : undefined }}>
+                <span className="text-[10px] text-muted-foreground truncate w-full text-center" style={{ fontWeight: 600, fontSize: dailyData.length > 14 ? "8px" : "10px" }}>{d.views}</span>
                 <div
-                  className="w-full rounded-lg transition-all duration-500"
+                  className="w-full rounded-md transition-all duration-500"
                   style={{
-                    height: `${Math.max((d.views / maxDailyViews) * 140, 6)}px`,
+                    height: `${Math.max((d.views / maxDailyViews) * 130, 4)}px`,
                     background: "linear-gradient(180deg, hsl(214 90% 60%), hsl(214 90% 48%))",
                     boxShadow: d.views > 0 ? "0 2px 8px hsl(214 90% 52% / 0.3)" : "none",
+                    borderRadius: dailyData.length > 14 ? "4px" : "6px",
                   }}
                 />
-                <span className="text-[9px] text-muted-foreground/60 truncate w-full text-center">{d.label}</span>
+                <span className="text-muted-foreground/60 truncate w-full text-center" style={{ fontSize: dailyData.length > 14 ? "7px" : "9px" }}>{dailyData.length > 20 ? d.label.replace(/월 /, "/").replace("일", "") : d.label}</span>
               </div>
             ))}
           </div>
