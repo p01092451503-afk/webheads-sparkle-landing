@@ -35,7 +35,7 @@ export default function ChannelPage() {
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">{t("channel.hero.title")}<br /><span className="text-primary">{t("channel.hero.titleHighlight")}</span></h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("channel.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("channel.hero.cta1")}</a>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors hover:bg-primary/90 bg-primary text-primary-foreground">{t("channel.hero.cta1")}</a>
               <a href="#cases" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("channel.hero.cta2")}</a>
             </div>
           </div>
@@ -75,7 +75,7 @@ export default function ChannelPage() {
             <p className="text-muted-foreground mt-4 text-base">{t("channel.useCasesSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {useCases.map((uc: any, i: number) => (<div key={uc.title} className="flex items-start gap-4 p-6 rounded-2xl bg-background border border-border hover:border-primary/30 hover:shadow-sm transition-all"><div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-primary-foreground font-bold text-xs bg-foreground">{String(i + 1).padStart(2, "0")}</div><div><h4 className="font-bold text-foreground text-sm mb-1 tracking-tight">{uc.title}</h4><p className="text-muted-foreground text-xs leading-relaxed">{uc.desc}</p></div></div>))}
+            {useCases.map((uc: any, i: number) => (<div key={uc.title} className="flex items-start gap-4 p-6 rounded-2xl bg-background border border-border hover:border-primary/30 hover:shadow-sm transition-all"><div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-primary-foreground font-bold text-xs bg-primary">{String(i + 1).padStart(2, "0")}</div><div><h4 className="font-bold text-foreground text-sm mb-1 tracking-tight">{uc.title}</h4><p className="text-muted-foreground text-xs leading-relaxed">{uc.desc}</p></div></div>))}
           </div>
         </div>
       </section>
