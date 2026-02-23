@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
-  TrendingUp, BarChart3, Calendar
+  TrendingUp, BarChart3, Calendar, Wifi
 } from "lucide-react";
 
 interface AdminAnalyticsProps {
@@ -40,6 +40,13 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
     return acc;
   }, {} as Record<string, number>);
   const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 8);
+
+  const ipCounts = filteredViews.reduce((acc, v) => {
+    const ip = v.ip_address || "알 수 없음";
+    acc[ip] = (acc[ip] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+  const topIPs = Object.entries(ipCounts).sort(([, a], [, b]) => (b as number) - (a as number)).slice(0, 10);
 
   // Daily traffic chart data
   const dailyData = useMemo(() => {
@@ -150,6 +157,11 @@ export default function AdminAnalytics({ pageViews, inquiries, onRefresh }: Admi
         <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />}>
           {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
             <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
+          ))}
+        </ChartCard>
+        <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />}>
+          {topIPs.length === 0 ? <Empty /> : topIPs.map(([ip, count], i) => (
+            <BarRow key={ip} rank={i + 1} label={ip} value={count as number} max={topIPs[0][1] as number} color="hsl(192, 80%, 45%)" />
           ))}
         </ChartCard>
         <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />}>
