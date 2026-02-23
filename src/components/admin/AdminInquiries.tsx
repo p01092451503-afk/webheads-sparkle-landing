@@ -132,13 +132,13 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
             onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border))"; e.currentTarget.style.boxShadow = "none"; }}
           />
         </div>
-        <div className="flex gap-1.5">
+        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
           {(["all", "new", "in_progress", "completed", "archived"] as const).map((s) => {
             const cfg = s === "all" ? { label: "전체", color: "hsl(var(--foreground))", bg: "hsl(var(--foreground) / 0.06)", dot: "" } : statusConfig[s];
             const isActive = statusFilter === s;
             return (
               <button key={s} onClick={() => setStatusFilter(s)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] transition-all"
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] transition-all whitespace-nowrap shrink-0"
                 style={{ fontWeight: isActive ? 600 : 500, color: isActive ? cfg.color : "hsl(var(--muted-foreground))", background: isActive ? cfg.bg : "transparent" }}
               >
                 {s !== "all" && <span className="w-1.5 h-1.5 rounded-full" style={{ background: cfg.dot }} />}
