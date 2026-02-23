@@ -248,7 +248,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
       .sort((a, b) => b.avg - a.avg)
-      .slice(0, 10);
+;
   }, [filteredViews]);
 
   // ========== NEW: First Visit vs Return ==========
