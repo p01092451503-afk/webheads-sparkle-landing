@@ -38,7 +38,7 @@ export default function Header() {
               const isActive = location.pathname === s.path;
               const isLms = s.path === "/lms";
               return (
-                <Link key={s.path} to={s.path} className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${isActive ? (isLms ? "text-white shadow-sm" : "bg-primary text-primary-foreground shadow-sm") : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isActive && isLms ? { background: "hsl(268, 60%, 50%)" } : undefined}>
+                <Link key={s.path} to={s.path} className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${isLms ? (isActive ? "text-white shadow-md" : "text-white shadow-sm hover:shadow-md") : isActive ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isLms ? { background: isActive ? "hsl(255, 75%, 55%)" : "hsl(255, 65%, 58%)" } : undefined}>
                   {s.label}
                 </Link>
               );
@@ -61,7 +61,7 @@ export default function Header() {
               const isActive = location.pathname === s.path;
               const isLms = s.path === "/lms";
               return (
-                <Link key={s.path} to={s.path} className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive ? (isLms ? "text-white" : "bg-primary text-primary-foreground") : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isActive && isLms ? { background: "hsl(268, 60%, 50%)" } : undefined}>
+                <Link key={s.path} to={s.path} className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isLms ? (isActive ? "text-white shadow-md" : "text-white") : isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isLms ? { background: isActive ? "hsl(255, 75%, 55%)" : "hsl(255, 65%, 58%)" } : undefined}>
                   {s.label}
                 </Link>
               );
