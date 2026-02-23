@@ -39,60 +39,30 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     const browserCounts: Record<string, number> = {};
     const topPages: Record<string, number> = {};
     const locationCounts: Record<string, number> = {};
-    let totalDwell = 0;
-    let dwellCount = 0;
-    let totalScroll = 0;
-    let scrollCount = 0;
-    let firstVisit = 0;
-    let returning = 0;
+    let totalDwell = 0, dwellCount = 0, totalScroll = 0, scrollCount = 0, firstVisit = 0, returning = 0;
 
-    pageViews.forEach((v) => {
-      // Device
+    filteredViews.forEach((v) => {
       if (v.device_type) deviceCounts[v.device_type] = (deviceCounts[v.device_type] || 0) + 1;
-      // Browser
       if (v.browser) browserCounts[v.browser] = (browserCounts[v.browser] || 0) + 1;
-      // Pages
       if (v.page_path) topPages[v.page_path] = (topPages[v.page_path] || 0) + 1;
-      // Location
       const loc = v.city || v.country;
       if (loc) locationCounts[loc] = (locationCounts[loc] || 0) + 1;
-      // Dwell
-      if (v.duration_seconds && v.duration_seconds > 0) {
-        totalDwell += v.duration_seconds;
-        dwellCount++;
-      }
-      // Scroll
-      if (v.scroll_depth && v.scroll_depth > 0) {
-        totalScroll += v.scroll_depth;
-        scrollCount++;
-      }
-      // Visit type
-      if (v.is_first_visit) firstVisit++;
-      else returning++;
+      if (v.duration_seconds && v.duration_seconds > 0) { totalDwell += v.duration_seconds; dwellCount++; }
+      if (v.scroll_depth && v.scroll_depth > 0) { totalScroll += v.scroll_depth; scrollCount++; }
+      if (v.is_first_visit) firstVisit++; else returning++;
     });
 
     const topBrowsers = Object.entries(browserCounts).sort(([, a], [, b]) => b - a).slice(0, 3);
     const topPagesList = Object.entries(topPages).sort(([, a], [, b]) => b - a).slice(0, 5);
     const topLocList = Object.entries(locationCounts).sort(([, a], [, b]) => b - a).slice(0, 5);
-    const mobileCount = (deviceCounts["mobile"] || 0);
-    const desktopCount = (deviceCounts["desktop"] || 0);
-    const tabletCount = (deviceCounts["tablet"] || 0);
+    const mobileCount = deviceCounts["mobile"] || 0;
+    const desktopCount = deviceCounts["desktop"] || 0;
+    const tabletCount = deviceCounts["tablet"] || 0;
     const total = mobileCount + desktopCount + tabletCount;
     const mobileRate = total > 0 ? Math.round((mobileCount / total) * 100) : 0;
 
-    return {
-      avgDwell: dwellCount > 0 ? Math.round(totalDwell / dwellCount) : 0,
-      avgScroll: scrollCount > 0 ? Math.round(totalScroll / scrollCount) : 0,
-      mobileRate,
-      mobileCount,
-      desktopCount,
-      firstVisit,
-      returning,
-      topBrowsers,
-      topPagesList,
-      topLocList,
-    };
-  }, [pageViews]);
+    return { avgDwell: dwellCount > 0 ? Math.round(totalDwell / dwellCount) : 0, avgScroll: scrollCount > 0 ? Math.round(totalScroll / scrollCount) : 0, mobileRate, mobileCount, desktopCount, firstVisit, returning, topBrowsers, topPagesList, topLocList };
+  }, [filteredViews]);
 
   const formatDuration = (s: number) => {
     if (s < 60) return `${s}초`;
