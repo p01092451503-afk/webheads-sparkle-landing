@@ -35,14 +35,48 @@ function parseUA(ua: string) {
   return { browser, os, deviceType };
 }
 
+function sendDuration(pagePath: string, startTime: number) {
+  const duration = (Date.now() - startTime) / 1000;
+  if (duration < 1) return; // ignore sub-second visits
+  const sessionId = getSessionId();
+  
+  // Use sendBeacon for reliability on page unload
+  const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-page-duration`;
+  const body = JSON.stringify({
+    session_id: sessionId,
+    page_path: pagePath,
+    duration_seconds: duration,
+  });
+  
+  if (navigator.sendBeacon) {
+    const blob = new Blob([body], { type: "application/json" });
+    navigator.sendBeacon(url, blob);
+  } else {
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true,
+    }).catch(() => {});
+  }
+}
+
 export default function PageTracker() {
   const location = useLocation();
   const lastPath = useRef<string>("");
+  const pageStartTime = useRef<number>(Date.now());
 
   useEffect(() => {
     const path = location.pathname + location.hash;
     if (path === lastPath.current) return;
+
+    // Send duration for previous page
+    if (lastPath.current) {
+      sendDuration(lastPath.current.split("#")[0], pageStartTime.current);
+    }
+
     lastPath.current = path;
+    pageStartTime.current = Date.now();
 
     const ua = navigator.userAgent;
     const { browser, os, deviceType } = parseUA(ua);
@@ -64,6 +98,24 @@ export default function PageTracker() {
       if (error) console.error("Tracking error:", error);
     });
   }, [location.pathname, location.hash]);
+
+  // Send duration on tab close / page unload
+  useEffect(() => {
+    const handleUnload = () => {
+      if (lastPath.current) {
+        sendDuration(lastPath.current.split("#")[0], pageStartTime.current);
+      }
+    };
+    window.addEventListener("beforeunload", handleUnload);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden" && lastPath.current) {
+        sendDuration(lastPath.current.split("#")[0], pageStartTime.current);
+      }
+    });
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, []);
 
   return null;
 }
