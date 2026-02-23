@@ -398,35 +398,7 @@ export default function LmsPage() {
               </div>
             ))}
           </div>
-          {/* Enterprise Plan - horizontal */}
-          {(() => {
-            const ep = t("lms.enterprisePlan", { returnObjects: true }) as any;
-            return (
-              <div className="mt-6 rounded-3xl bg-background border border-border hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col md:flex-row">
-                <div className="p-8 md:w-1/3 flex flex-col justify-center">
-                  <h3 className="font-black text-3xl tracking-tight" style={{ color: `hsl(var(--lms-primary))` }}>{ep.name}</h3>
-                  <div className="h-px mt-4 bg-border" />
-                  <span className="font-black text-4xl tracking-tight mt-5 text-foreground">{ep.price}</span>
-                </div>
-                <div className="p-8 md:flex-1 flex flex-col justify-center border-t md:border-t-0 md:border-l border-border">
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-                    {ep.features.map((f: any) => (
-                      <li key={f.main} className="flex items-start gap-2.5">
-                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: `hsl(var(--lms-primary))` }}>✓</span>
-                        <div>
-                          <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
-                          {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="rounded-xl p-4 mt-6 bg-foreground">
-                    <p className="text-sm text-background/60 leading-relaxed text-center">{ep.recommend}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })()}
+          {/* Enterprise Plan - hidden for now */}
           <div className="mt-12 text-center rounded-2xl border bg-background/50 p-8" style={{ borderColor: `hsl(var(--lms-card-border))` }}>
             <p className="text-foreground font-semibold text-lg mb-2">{t("lms.plansCustom.title")}</p>
             <p className="text-muted-foreground text-sm mb-6">{t("lms.plansCustom.desc")}</p>
