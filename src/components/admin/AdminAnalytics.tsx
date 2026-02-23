@@ -666,14 +666,16 @@ function SectionGroup({ title, children }: { title: string; children: React.Reac
 }
 
 function SectionCard({ title, icon, children, tooltip }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string }) {
+  const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="flex items-center gap-2 mb-6">
+    <div className="rounded-2xl" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <button className="flex items-center gap-2 w-full text-left p-6" onClick={() => setCollapsed(!collapsed)} style={{ paddingBottom: collapsed ? undefined : "0" }}>
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
         {tooltip && <HelpTooltip text={tooltip} />}
-      </div>
-      {children}
+        <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-200" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
+      </button>
+      {!collapsed && <div className="px-6 pb-6 pt-4">{children}</div>}
     </div>
   );
 }
