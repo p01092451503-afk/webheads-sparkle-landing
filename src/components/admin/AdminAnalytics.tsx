@@ -52,16 +52,17 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   // IP with location
   const ipWithLocation = useMemo(() => {
-    const ipMap: Record<string, { count: number; city: string | null; country: string | null }> = {};
+    const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null }> = {};
     filteredViews.forEach((v) => {
       const ip = v.ip_address || "알 수 없음";
-      if (!ipMap[ip]) ipMap[ip] = { count: 0, city: null, country: null };
+      if (!ipMap[ip]) ipMap[ip] = { count: 0, city: null, country: null, lastVisit: null };
       ipMap[ip].count++;
       if (v.city) ipMap[ip].city = v.city;
       if (v.country) ipMap[ip].country = v.country;
+      if (!ipMap[ip].lastVisit || v.created_at > ipMap[ip].lastVisit!) ipMap[ip].lastVisit = v.created_at;
     });
     return Object.entries(ipMap)
-      .map(([ip, d]) => ({ ip, count: d.count, location: d.city || d.country || null }))
+      .map(([ip, d]) => ({ ip, count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 10);
   }, [filteredViews]);
@@ -410,9 +411,18 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           ))}
         </ChartCard>
         <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />} tooltip="접속한 IP 주소별 방문 횟수입니다. 동일 IP에서 반복 방문이 많으면 해당 기업/기관의 높은 관심을 의미할 수 있습니다.">
-          {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => (
-            <BarRow key={d.ip} rank={i + 1} label={d.location ? `${d.ip}  ·  ${d.location}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />
-          ))}
+          {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => {
+            const timeStr = d.lastVisit ? (() => {
+              const dt = new Date(d.lastVisit);
+              const m = String(dt.getMonth() + 1).padStart(2, "0");
+              const day = String(dt.getDate()).padStart(2, "0");
+              const h = String(dt.getHours()).padStart(2, "0");
+              const min = String(dt.getMinutes()).padStart(2, "0");
+              return `${m}/${day} ${h}:${min}`;
+            })() : "";
+            const suffix = [d.location, timeStr].filter(Boolean).join("  ·  ");
+            return <BarRow key={d.ip} rank={i + 1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />;
+          })}
         </ChartCard>
         <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} tooltip="방문자가 어디에서 링크를 클릭하여 사이트에 왔는지 보여줍니다. '직접 방문'은 URL을 직접 입력하거나 북마크로 접속한 경우입니다.">
           {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([ref, count], i) => (
