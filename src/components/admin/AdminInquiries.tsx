@@ -69,6 +69,13 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setSavingNote(false);
   };
 
+  const deleteInquiry = async (id: string) => {
+    await supabase.from("contact_inquiries").delete().eq("id", id);
+    setInquiries((prev: any[]) => prev.filter((i) => i.id !== id));
+    if (selectedInquiry?.id === id) setSelectedInquiry(null);
+    logActivity("delete", "inquiry", id);
+  };
+
   const exportCSV = () => {
     const headers = ["접수일", "상태", "유형", "회사명", "담당자", "연락처", "이메일", "관심서비스", "문의내용", "메모"];
     const rows = filteredInquiries.map((inq) => [
