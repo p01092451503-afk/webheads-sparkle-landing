@@ -20,21 +20,12 @@ export default function ScrollButtons() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const btnStyle: React.CSSProperties = {
-    background: "hsl(0 0% 100% / 0.9)",
-    border: "1px solid hsl(var(--border))",
-    color: "hsl(var(--foreground))",
-    boxShadow: "0 2px 12px hsl(220 60% 8% / 0.1)",
-    backdropFilter: "blur(8px)",
-  };
-
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2">
       {showTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105"
-          style={btnStyle}
+          className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 bg-background/90 border border-border text-foreground shadow-md backdrop-blur-sm"
           aria-label="Scroll to top"
         >
           <ArrowUp className="w-5 h-5" />
@@ -48,8 +39,7 @@ export default function ScrollButtons() {
               behavior: "smooth",
             })
           }
-          className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105"
-          style={btnStyle}
+          className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 bg-background/90 border border-border text-foreground shadow-md backdrop-blur-sm"
           aria-label="Scroll to bottom"
         >
           <ArrowDown className="w-5 h-5" />

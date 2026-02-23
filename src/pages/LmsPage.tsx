@@ -58,7 +58,7 @@ export default function LmsPage() {
       <section
         className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden"
         style={{
-          background: "linear-gradient(160deg, hsl(240, 60%, 95%) 0%, hsl(250, 50%, 90%) 40%, hsl(260, 50%, 88%) 100%)"
+          background: "var(--hero-bg)"
         }}
       >
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(260, 80%, 70%, 0.15) 0%, transparent 70%)" }} />
@@ -80,16 +80,16 @@ export default function LmsPage() {
             >
               {t("lms.hero.title")}
               <br />
-              <span style={{ color: "hsl(260, 80%, 55%)" }}>{t("lms.hero.titleHighlight")}</span>
+              <span className="text-primary">{t("lms.hero.titleHighlight")}</span>
             </h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>
+            <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">
               {t("lms.hero.desc")}
             </p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">
                 {t("lms.hero.cta1")}
               </a>
-              <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>
+              <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">
                 {t("lms.hero.cta2")}
               </a>
             </div>
@@ -131,7 +131,7 @@ export default function LmsPage() {
       */}
 
       {/* Device Friendly */}
-      <section className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%)" }}>
+      <section className="py-28" style={{ background: "var(--plans-bg)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4 text-primary">{t("lms.deviceSection.sub")}</p>
@@ -308,7 +308,7 @@ export default function LmsPage() {
       </section>
 
       {/* Plans */}
-      <section id="plans" className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%)" }}>
+      <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("lms.plansSection.sub")}</p>
@@ -342,8 +342,8 @@ export default function LmsPage() {
                       </li>
                     ))}
                   </ul>
-                  <div className="rounded-xl p-4 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}>
-                    <p className="text-sm text-white/60 leading-relaxed text-center">{plan.recommend}</p>
+                  <div className="rounded-xl p-4 mt-2 bg-foreground">
+                    <p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p>
                   </div>
                 </div>
               </div>

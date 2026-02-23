@@ -33,8 +33,8 @@ export default function LandingPage() {
       />
 
       {/* ── Hero ── */}
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-16 overflow-hidden" style={{ background: "hsl(0, 0%, 100%)" }}>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, hsl(214, 90%, 95%) 0%, transparent 70%)" }} />
+      <section className="relative min-h-[90vh] flex items-center justify-center pt-16 overflow-hidden bg-background">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)" }} />
         <div className="container mx-auto px-6 relative z-10 text-center max-w-4xl">
           <p className="text-sm font-semibold tracking-widest uppercase mb-6 text-primary" style={{ opacity: 0, animation: "fade-up 0.7s ease-out 0.1s forwards" }}>{t("landing.hero.sub")}</p>
           <h1 className="text-[2.8rem] md:text-[3.8rem] lg:text-[4.5rem] font-black leading-[1.15] tracking-tight text-foreground mb-6" style={{ opacity: 0, animation: "fade-up 0.7s ease-out 0.2s forwards" }}>
@@ -42,8 +42,8 @@ export default function LandingPage() {
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-xl mx-auto mb-10 whitespace-pre-line" style={{ opacity: 0, animation: "fade-up 0.7s ease-out 0.35s forwards" }}>{t("landing.hero.desc")}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center" style={{ opacity: 0, animation: "fade-up 0.7s ease-out 0.5s forwards" }}>
-            <a href="#services" className="px-8 py-4 rounded-2xl text-base font-bold transition-all hover:opacity-90" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>{t("landing.hero.cta1")}</a>
-            <a href="#contact" className="px-8 py-4 rounded-2xl text-base font-bold border transition-colors hover:bg-secondary" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)" }}>{t("landing.hero.cta2")}</a>
+            <a href="#services" className="px-8 py-4 rounded-2xl text-base font-bold transition-all hover:opacity-90 bg-foreground text-background">{t("landing.hero.cta1")}</a>
+            <a href="#contact" className="px-8 py-4 rounded-2xl text-base font-bold border transition-colors hover:bg-secondary border-border text-foreground">{t("landing.hero.cta2")}</a>
           </div>
         </div>
       </section>
@@ -75,8 +75,7 @@ export default function LandingPage() {
               <Link
                 key={svc.path}
                 to={svc.path}
-                className="group relative rounded-3xl p-8 md:p-10 transition-all duration-300 border border-border hover:border-transparent hover:shadow-lg"
-                style={{ background: "hsl(0, 0%, 100%)" }}
+                className="group relative rounded-3xl p-8 md:p-10 transition-all duration-300 border border-border hover:border-transparent hover:shadow-lg bg-card"
               >
                 <div className="absolute left-0 top-6 bottom-6 w-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: svc.accent }} />
                 <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">

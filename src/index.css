@@ -85,6 +85,88 @@
     --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 220 45% 18%;
     --sidebar-ring: 214 90% 52%;
+
+    /* Dark mode specific tokens (light defaults) */
+    --hero-bg: linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%);
+    --hero-text: 220 60% 8%;
+    --hero-text-secondary: 220 20% 40%;
+    --hero-badge-bg: hsla(0, 0%, 100%, 0.85);
+    --hero-cta-bg: 220 60% 8%;
+    --hero-cta-text: 0 0% 100%;
+    --hero-cta2-bg: hsla(0, 0%, 100%, 0.8);
+    --hero-cta2-border: 214 20% 85%;
+    --hero-cta2-text: 220 60% 8%;
+    --plans-bg: linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%);
+    --plans-recommend-bg: 220 60% 12%;
+    --contact-bg: linear-gradient(180deg, hsl(214, 30%, 97%) 0%, hsl(214, 25%, 94%) 100%);
+    --contact-card-bg: 0 0% 100%;
+    --contact-form-bg: 0 0% 100%;
+  }
+
+  .dark {
+    /* Semantic Tokens */
+    --background: 222 47% 6%;
+    --foreground: 210 20% 92%;
+
+    --card: 222 45% 8%;
+    --card-foreground: 210 20% 92%;
+
+    --popover: 222 45% 8%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 214 90% 58%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 40% 13%;
+    --secondary-foreground: 210 20% 85%;
+
+    --muted: 220 30% 12%;
+    --muted-foreground: 220 15% 55%;
+
+    --accent: 192 80% 50%;
+    --accent-foreground: 210 20% 92%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 30% 18%;
+    --input: 220 30% 18%;
+    --ring: 214 90% 58%;
+
+    /* Custom Tokens */
+    --hero-gradient: linear-gradient(135deg, hsl(222, 47%, 6%) 0%, hsl(222, 50%, 10%) 50%, hsl(220, 55%, 14%) 100%);
+    --card-gradient: linear-gradient(145deg, hsl(222, 45%, 8%) 0%, hsl(222, 40%, 10%) 100%);
+    --primary-gradient: linear-gradient(135deg, hsl(214, 90%, 52%) 0%, hsl(192, 80%, 50%) 100%);
+    --navy-gradient: linear-gradient(180deg, hsl(222, 47%, 6%) 0%, hsl(222, 45%, 8%) 100%);
+
+    --shadow-card: 0 4px 24px -4px hsl(214 90% 52% / 0.08), 0 1px 4px hsl(0 0% 0% / 0.2);
+    --shadow-primary: 0 8px 32px -8px hsl(214 90% 52% / 0.3);
+    --shadow-hover: 0 12px 40px -8px hsl(214 90% 52% / 0.25);
+
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 214 90% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 40% 13%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 220 30% 18%;
+    --sidebar-ring: 214 90% 58%;
+
+    /* Dark mode specific tokens */
+    --hero-bg: linear-gradient(160deg, hsl(222, 47%, 6%) 0%, hsl(220, 45%, 10%) 40%, hsl(218, 40%, 14%) 100%);
+    --hero-text: 210 20% 92%;
+    --hero-text-secondary: 220 15% 60%;
+    --hero-badge-bg: hsla(220, 40%, 13%, 0.9);
+    --hero-cta-bg: 0 0% 100%;
+    --hero-cta-text: 220 60% 8%;
+    --hero-cta2-bg: hsla(220, 40%, 13%, 0.8);
+    --hero-cta2-border: 220 30% 22%;
+    --hero-cta2-text: 210 20% 92%;
+    --plans-bg: linear-gradient(180deg, hsl(222, 40%, 10%) 0%, hsl(222, 38%, 8%) 100%);
+    --plans-recommend-bg: 220 50% 8%;
+    --contact-bg: linear-gradient(180deg, hsl(222, 40%, 8%) 0%, hsl(222, 38%, 6%) 100%);
+    --contact-card-bg: 222 45% 10%;
+    --contact-form-bg: 222 45% 10%;
   }
 }
 

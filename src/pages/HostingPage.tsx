@@ -16,52 +16,33 @@ const processIcons = [FileSearch, Settings, Monitor, CheckCircle, FileText];
 export default function HostingPage() {
   const { t } = useTranslation();
 
-  const features = (t("hosting.features", { returnObjects: true }) as any[]).map((item, index) => ({
-    ...item,
-    icon: featureIcons[index] || Globe
-  }));
-
-  const extraFeatures = (t("hosting.extraFeatures", { returnObjects: true }) as any[]).map((item, index) => ({
-    ...item,
-    icon: extraFeatureIcons[index] || Database
-  }));
-
-  const processSteps = (t("hosting.processSteps", { returnObjects: true }) as any[]).map((item, index) => ({
-    ...item,
-    icon: processIcons[index] || FileSearch
-  }));
-
+  const features = (t("hosting.features", { returnObjects: true }) as any[]).map((item, index) => ({ ...item, icon: featureIcons[index] || Globe }));
+  const extraFeatures = (t("hosting.extraFeatures", { returnObjects: true }) as any[]).map((item, index) => ({ ...item, icon: extraFeatureIcons[index] || Database }));
+  const processSteps = (t("hosting.processSteps", { returnObjects: true }) as any[]).map((item, index) => ({ ...item, icon: processIcons[index] || FileSearch }));
   const plans = t("hosting.plans", { returnObjects: true }) as any[];
   const stats = t("hosting.stats", { returnObjects: true }) as any[];
   const faqs = t("hosting.faqs", { returnObjects: true }) as any[];
   const testimonials = t("hosting.testimonials", { returnObjects: true }) as any[];
 
   return (
-    <div className="min-h-screen bg-white">
-      <SEO 
-        title={t("hosting.seo.title")} 
-        description={t("hosting.seo.description")} 
-        keywords={t("hosting.seo.keywords")} 
-        path="/hosting" 
-        jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("hosting.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": t("hosting.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/hosting" }} 
-        faqJsonLd={faqs}
-      />
+    <div className="min-h-screen bg-background">
+      <SEO title={t("hosting.seo.title")} description={t("hosting.seo.description")} keywords={t("hosting.seo.keywords")} path="/hosting" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("hosting.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": t("hosting.seo.title"), "url": "https://webheads-sparkle-landing.lovable.app/hosting" }} faqJsonLd={faqs} />
 
       {/* Hero */}
-      <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}>
-        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(214, 80%, 70%, 0.18) 0%, transparent 70%)" }} />
-        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsla(152, 60%, 60%, 0.1) 0%, transparent 70%)" }} />
+      <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--hero-bg)" }}>
+        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(var(--primary) / 0.15) 0%, transparent 70%)" }} />
+        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsl(var(--accent) / 0.08) 0%, transparent 70%)" }} />
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
           <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><HostingHeroVisual /></div>
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(214, 80%, 42%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>{t("hosting.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>{t("hosting.hero.title")}<br /><span style={{ color: "hsl(214, 90%, 52%)" }}>{t("hosting.hero.titleHighlight")}</span></h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>{t("hosting.hero.desc")}</p>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("hosting.hero.badge")}</span>
+            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">{t("hosting.hero.title")}<br /><span className="text-primary">{t("hosting.hero.titleHighlight")}</span></h1>
+            <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("hosting.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>{t("hosting.hero.cta1")}</a>
-              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>{t("hosting.hero.cta2")}</a>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("hosting.hero.cta1")}</a>
+              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("hosting.hero.cta2")}</a>
             </div>
           </div>
         </div>
@@ -94,7 +75,7 @@ export default function HostingPage() {
       <ServiceProcess steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
 
       {/* Plans */}
-      <section id="plans" className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%)" }}>
+      <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("hosting.plansSection.sub")}</p>
@@ -102,7 +83,7 @@ export default function HostingPage() {
             <p className="text-muted-foreground mt-4 text-base">{t("hosting.plansSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            {plans.map((plan: any) => (<div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 border-primary shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`}>{plan.badge && <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">{plan.badge}</div>}<div className="p-8 flex flex-col gap-5 flex-1"><div><h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3><div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} /></div><div><div className="flex items-end gap-1"><span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>{plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}</div>{plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}</div><ul className="flex flex-col gap-3.5 flex-1">{plan.features.map((f: any) => (<li key={f.main} className="flex items-start gap-2.5"><span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span><div><p className="text-base font-medium text-foreground leading-tight">{f.main}</p>{f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}</div></li>))}</ul><div className="rounded-xl p-4 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}><p className="text-sm text-white/60 leading-relaxed text-center">{plan.recommend}</p></div></div></div>))}
+            {plans.map((plan: any) => (<div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 border-primary shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`}>{plan.badge && <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">{plan.badge}</div>}<div className="p-8 flex flex-col gap-5 flex-1"><div><h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3><div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} /></div><div><div className="flex items-end gap-1"><span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>{plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}</div>{plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}</div><ul className="flex flex-col gap-3.5 flex-1">{plan.features.map((f: any) => (<li key={f.main} className="flex items-start gap-2.5"><span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span><div><p className="text-base font-medium text-foreground leading-tight">{f.main}</p>{f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}</div></li>))}</ul><div className="rounded-xl p-4 mt-2 bg-foreground"><p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p></div></div></div>))}
           </div>
           <div className="mt-12 text-center rounded-2xl border border-border bg-background/50 p-8">
             <p className="text-foreground font-semibold text-lg mb-2">{t("hosting.plansCustom.title")}</p>
