@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   MessageSquare, Eye, TrendingUp, ArrowUpRight, ChevronRight,
   Clock, Phone, Building2, Smartphone, Globe, MousePointerClick,
@@ -12,18 +12,26 @@ interface AdminHomeProps {
 }
 
 export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHomeProps) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const [dateRange, setDateRange] = useState(0);
 
-  const todayInquiries = inquiries.filter((i) => new Date(i.created_at) >= today);
-  const newInquiries = inquiries.filter((i) => i.status === "new");
-  const todayViews = pageViews.filter((v) => new Date(v.created_at) >= today);
-  const todaySessions = new Set(todayViews.map((v) => v.session_id)).size;
+  const filteredInquiries = useMemo(() => {
+    const since = new Date();
+    if (dateRange === 0) since.setHours(0, 0, 0, 0);
+    else since.setDate(since.getDate() - dateRange);
+    return inquiries.filter((i) => new Date(i.created_at) >= since);
+  }, [inquiries, dateRange]);
 
-  const totalSessions30d = new Set(pageViews.map((v) => v.session_id)).size;
-  const conversionRate = totalSessions30d > 0 ? ((inquiries.length / totalSessions30d) * 100).toFixed(1) : "0.0";
+  const filteredViews = useMemo(() => {
+    const since = new Date();
+    if (dateRange === 0) since.setHours(0, 0, 0, 0);
+    else since.setDate(since.getDate() - dateRange);
+    return pageViews.filter((v) => new Date(v.created_at) >= since);
+  }, [pageViews, dateRange]);
 
-  const recentInquiries = inquiries.slice(0, 5);
+  const newInquiries = filteredInquiries.filter((i) => i.status === "new");
+  const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
+  const conversionRate = uniqueSessions > 0 ? ((filteredInquiries.length / uniqueSessions) * 100).toFixed(1) : "0.0";
+  const recentInquiries = filteredInquiries.slice(0, 5);
 
   // Analytics summary data
   const analyticsSummary = useMemo(() => {
@@ -31,60 +39,30 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     const browserCounts: Record<string, number> = {};
     const topPages: Record<string, number> = {};
     const locationCounts: Record<string, number> = {};
-    let totalDwell = 0;
-    let dwellCount = 0;
-    let totalScroll = 0;
-    let scrollCount = 0;
-    let firstVisit = 0;
-    let returning = 0;
+    let totalDwell = 0, dwellCount = 0, totalScroll = 0, scrollCount = 0, firstVisit = 0, returning = 0;
 
-    pageViews.forEach((v) => {
-      // Device
+    filteredViews.forEach((v) => {
       if (v.device_type) deviceCounts[v.device_type] = (deviceCounts[v.device_type] || 0) + 1;
-      // Browser
       if (v.browser) browserCounts[v.browser] = (browserCounts[v.browser] || 0) + 1;
-      // Pages
       if (v.page_path) topPages[v.page_path] = (topPages[v.page_path] || 0) + 1;
-      // Location
       const loc = v.city || v.country;
       if (loc) locationCounts[loc] = (locationCounts[loc] || 0) + 1;
-      // Dwell
-      if (v.duration_seconds && v.duration_seconds > 0) {
-        totalDwell += v.duration_seconds;
-        dwellCount++;
-      }
-      // Scroll
-      if (v.scroll_depth && v.scroll_depth > 0) {
-        totalScroll += v.scroll_depth;
-        scrollCount++;
-      }
-      // Visit type
-      if (v.is_first_visit) firstVisit++;
-      else returning++;
+      if (v.duration_seconds && v.duration_seconds > 0) { totalDwell += v.duration_seconds; dwellCount++; }
+      if (v.scroll_depth && v.scroll_depth > 0) { totalScroll += v.scroll_depth; scrollCount++; }
+      if (v.is_first_visit) firstVisit++; else returning++;
     });
 
     const topBrowsers = Object.entries(browserCounts).sort(([, a], [, b]) => b - a).slice(0, 3);
     const topPagesList = Object.entries(topPages).sort(([, a], [, b]) => b - a).slice(0, 5);
     const topLocList = Object.entries(locationCounts).sort(([, a], [, b]) => b - a).slice(0, 5);
-    const mobileCount = (deviceCounts["mobile"] || 0);
-    const desktopCount = (deviceCounts["desktop"] || 0);
-    const tabletCount = (deviceCounts["tablet"] || 0);
+    const mobileCount = deviceCounts["mobile"] || 0;
+    const desktopCount = deviceCounts["desktop"] || 0;
+    const tabletCount = deviceCounts["tablet"] || 0;
     const total = mobileCount + desktopCount + tabletCount;
     const mobileRate = total > 0 ? Math.round((mobileCount / total) * 100) : 0;
 
-    return {
-      avgDwell: dwellCount > 0 ? Math.round(totalDwell / dwellCount) : 0,
-      avgScroll: scrollCount > 0 ? Math.round(totalScroll / scrollCount) : 0,
-      mobileRate,
-      mobileCount,
-      desktopCount,
-      firstVisit,
-      returning,
-      topBrowsers,
-      topPagesList,
-      topLocList,
-    };
-  }, [pageViews]);
+    return { avgDwell: dwellCount > 0 ? Math.round(totalDwell / dwellCount) : 0, avgScroll: scrollCount > 0 ? Math.round(totalScroll / scrollCount) : 0, mobileRate, mobileCount, desktopCount, firstVisit, returning, topBrowsers, topPagesList, topLocList };
+  }, [filteredViews]);
 
   const formatDuration = (s: number) => {
     if (s < 60) return `${s}초`;
@@ -103,20 +81,32 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Greeting */}
-      <div>
-        <h2 className="text-[24px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
-          안녕하세요 👋
-        </h2>
-        <p className="text-[14px] text-muted-foreground mt-1">
-          오늘의 현황을 확인하세요
-        </p>
+      {/* Greeting + Date Filter */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-[24px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
+            안녕하세요 👋
+          </h2>
+          <p className="text-[14px] text-muted-foreground mt-1">
+            오늘의 현황을 확인하세요
+          </p>
+        </div>
+        <div className="flex gap-1 p-1 rounded-xl" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+          {[{ value: 0, label: "오늘" }, { value: 7, label: "7일" }, { value: 14, label: "14일" }, { value: 30, label: "30일" }].map((d) => (
+            <button key={d.value} onClick={() => setDateRange(d.value)}
+              className="px-3 py-1.5 rounded-lg text-[12px] transition-all whitespace-nowrap"
+              style={{ fontWeight: dateRange === d.value ? 600 : 500, color: dateRange === d.value ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))", background: dateRange === d.value ? "hsl(var(--foreground))" : "transparent" }}
+            >
+              {d.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <MetricCard label="오늘 문의" value={todayInquiries.length} sub={`신규 ${newInquiries.length}건`} color="hsl(214, 90%, 52%)" icon={<MessageSquare className="w-5 h-5" />} />
-        <MetricCard label="오늘 방문" value={todayViews.length} sub={`${todaySessions} 세션`} color="hsl(150, 60%, 42%)" icon={<Eye className="w-5 h-5" />} />
+        <MetricCard label="문의" value={filteredInquiries.length} sub={`신규 ${newInquiries.length}건`} color="hsl(214, 90%, 52%)" icon={<MessageSquare className="w-5 h-5" />} />
+        <MetricCard label="방문" value={filteredViews.length} sub={`${uniqueSessions} 세션`} color="hsl(150, 60%, 42%)" icon={<Eye className="w-5 h-5" />} />
         <MetricCard label="전환율" value={`${conversionRate}%`} sub="방문 → 문의" color="hsl(35, 90%, 50%)" icon={<TrendingUp className="w-5 h-5" />} />
         <MetricCard label="총 문의" value={inquiries.length} sub="전체 누적" color="hsl(260, 70%, 55%)" icon={<Building2 className="w-5 h-5" />} />
       </div>
