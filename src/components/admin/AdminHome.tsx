@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   MessageSquare, Eye, TrendingUp, ArrowUpRight, ChevronRight,
   Clock, Phone, Building2, Smartphone, Globe, MousePointerClick,
