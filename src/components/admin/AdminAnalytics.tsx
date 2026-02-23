@@ -39,6 +39,25 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   const totalViews = filteredViews.length;
   const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
 
+  // Visitor type classification (DB value or frontend fallback)
+  const visitorTypeCounts = useMemo(() => {
+    const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/i;
+    const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
+    let human = 0, bot = 0, ai = 0;
+    filteredViews.forEach((v) => {
+      const type = v.visitor_type || (() => {
+        const ua = (v.user_agent || "").toLowerCase();
+        if (aiPatterns.test(ua)) return "ai";
+        if (botPatterns.test(ua)) return "bot";
+        return "human";
+      })();
+      if (type === "ai") ai++;
+      else if (type === "bot") bot++;
+      else human++;
+    });
+    return { human, bot, ai, total: human + bot + ai };
+  }, [filteredViews]);
+
   const deviceCounts = filteredViews.reduce((acc, v) => {
     acc[v.device_type || "unknown"] = (acc[v.device_type || "unknown"] || 0) + 1; return acc;
   }, {} as Record<string, number>);
