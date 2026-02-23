@@ -372,25 +372,27 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
 
-      <SectionCard title="일별 방문 추이" icon={<Calendar className="w-4 h-4" />}>
-        <div className="flex items-end gap-1.5 h-[160px]">
-          {dailyData.map((d) => (
-            <div key={d.date} className="flex-1 flex flex-col items-center gap-1.5 min-w-0">
-              <span className="text-[10px] text-muted-foreground" style={{ fontWeight: 600 }}>{d.views}</span>
-              <div className="w-full flex flex-col gap-0.5" style={{ height: `${Math.max((d.views / maxDailyViews) * 120, 4)}px` }}>
-                <div className="w-full flex-1 rounded-t-md transition-all duration-300" style={{ background: "hsl(214, 90%, 52%)", minHeight: "2px" }} />
+      <SectionGroup title="일별 방문 추이">
+        <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+          <div className="flex items-end gap-1.5 h-[160px]">
+            {dailyData.map((d) => (
+              <div key={d.date} className="flex-1 flex flex-col items-center gap-1.5 min-w-0">
+                <span className="text-[10px] text-muted-foreground" style={{ fontWeight: 600 }}>{d.views}</span>
+                <div className="w-full flex flex-col gap-0.5" style={{ height: `${Math.max((d.views / maxDailyViews) * 120, 4)}px` }}>
+                  <div className="w-full flex-1 rounded-t-md transition-all duration-300" style={{ background: "hsl(214, 90%, 52%)", minHeight: "2px" }} />
+                </div>
+                <span className="text-[9px] text-muted-foreground/60 truncate w-full text-center">{d.label}</span>
               </div>
-              <span className="text-[9px] text-muted-foreground/60 truncate w-full text-center">{d.label}</span>
+            ))}
+          </div>
+          <div className="flex items-center gap-4 mt-4 pt-3" style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-sm" style={{ background: "hsl(214, 90%, 52%)" }} />
+              <span className="text-[11px] text-muted-foreground">페이지뷰</span>
             </div>
-          ))}
-        </div>
-        <div className="flex items-center gap-4 mt-4 pt-3" style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-sm" style={{ background: "hsl(214, 90%, 52%)" }} />
-            <span className="text-[11px] text-muted-foreground">페이지뷰</span>
           </div>
         </div>
-      </SectionCard>
+      </SectionGroup>
 
 
 
