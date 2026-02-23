@@ -350,7 +350,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </div>
 
-      <SectionGroup title="주요 지표 요약">
+      <SectionGroup title="주요 지표 요약" number={1}>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
           <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다. 한 사용자가 여러 페이지를 보면 각각 1회로 집계됩니다." />
           <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" tooltip="브라우저 탭을 열고 사이트를 방문한 고유 세션 수입니다. 같은 사용자도 새 탭이나 다른 시간에 방문하면 별도 세션으로 집계됩니다." />
