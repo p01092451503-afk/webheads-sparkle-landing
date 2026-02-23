@@ -80,7 +80,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       {/* Greeting + Date Filter */}
       <div className="flex items-center justify-between">
         <div>
@@ -104,7 +104,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <MetricCard label="문의" value={filteredInquiries.length} sub={`신규 ${newInquiries.length}건`} color="hsl(214, 90%, 52%)" icon={<MessageSquare className="w-5 h-5" />} />
         <MetricCard label="방문" value={filteredViews.length} sub={`${uniqueSessions} 세션`} color="hsl(150, 60%, 42%)" icon={<Eye className="w-5 h-5" />} />
         <MetricCard label="전환율" value={`${conversionRate}%`} sub="방문 → 문의" color="hsl(35, 90%, 50%)" icon={<TrendingUp className="w-5 h-5" />} />
@@ -112,7 +112,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       </div>
 
       {/* Analytics Summary Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <MetricCard label="평균 체류" value={formatDuration(analyticsSummary.avgDwell)} sub="페이지당 평균" color="hsl(192, 80%, 45%)" icon={<Clock className="w-5 h-5" />} />
         <MetricCard label="평균 스크롤" value={`${analyticsSummary.avgScroll}%`} sub="콘텐츠 소비율" color="hsl(340, 65%, 55%)" icon={<ScrollText className="w-5 h-5" />} />
         <MetricCard label="모바일 비율" value={`${analyticsSummary.mobileRate}%`} sub={`모바일 ${analyticsSummary.mobileCount} · 데스크톱 ${analyticsSummary.desktopCount}`} color="hsl(260, 70%, 55%)" icon={<Smartphone className="w-5 h-5" />} />
@@ -120,7 +120,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       </div>
 
       {/* Analytics Mini Charts Row */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {/* Top Pages */}
         <MiniList
           title="인기 페이지"
@@ -145,10 +145,10 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       </div>
 
       {/* Recent Inquiries + Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {/* Recent Inquiries */}
         <div
-          className="lg:col-span-2 rounded-2xl p-6"
+          className="lg:col-span-2 rounded-xl p-5"
           style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
         >
           <div className="flex items-center justify-between mb-5">
@@ -181,7 +181,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
         </div>
 
         {/* Status Summary */}
-        <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+        <div className="rounded-xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
           <h3 className="text-[15px] text-foreground tracking-[-0.02em] mb-5" style={{ fontWeight: 600 }}>문의 현황</h3>
           <div className="flex flex-col gap-3">
             {[
@@ -215,13 +215,15 @@ function MetricCard({ label, value, sub, color, icon }: {
   label: string; value: number | string; sub: string; color: string; icon: React.ReactNode;
 }) {
   return (
-    <div className="rounded-2xl p-5 flex flex-col gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${color}10`, color }}>{icon}</div>
-      <div>
-        <p className="text-[28px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>
-          {typeof value === "number" ? value.toLocaleString() : value}
-        </p>
-        <p className="text-[12px] text-muted-foreground mt-0.5" style={{ fontWeight: 500 }}>{label}</p>
+    <div className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${color}15`, color }}>{icon}</div>
+      <div className="min-w-0">
+        <div className="flex items-baseline gap-2">
+          <p className="text-[22px] tracking-[-0.04em] text-foreground leading-none" style={{ fontWeight: 700 }}>
+            {typeof value === "number" ? value.toLocaleString() : value}
+          </p>
+          <span className="text-[11px] text-muted-foreground" style={{ fontWeight: 500 }}>{label}</span>
+        </div>
         <p className="text-[11px] text-muted-foreground/60 mt-0.5">{sub}</p>
       </div>
     </div>
@@ -233,8 +235,8 @@ function MiniList({ title, icon, items, emptyText }: {
 }) {
   const max = items.length > 0 ? items[0].value : 1;
   return (
-    <div className="rounded-2xl p-5" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="flex items-center gap-2 mb-4">
+    <div className="rounded-xl p-4" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="flex items-center gap-2 mb-3">
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>{title}</h4>
       </div>
