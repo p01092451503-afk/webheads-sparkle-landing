@@ -332,7 +332,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         }
       }
     });
-    return Object.entries(flows).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(flows).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== Screen Resolution ==========
