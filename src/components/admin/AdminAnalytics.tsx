@@ -269,7 +269,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     });
     const acc: Record<string, number> = {};
     Object.values(sessionPages).forEach((s) => { acc[s.path] = (acc[s.path] || 0) + 1; });
-    return Object.entries(acc).sort(([, a], [, b]) => b - a).slice(0, 10);
+    return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   // ========== Conversion Funnel ==========
