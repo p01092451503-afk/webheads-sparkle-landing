@@ -370,11 +370,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </div>
 
 
-      <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-        <div className="flex items-center gap-2 mb-6">
-          <Calendar className="w-4 h-4 text-muted-foreground" />
-          <h4 className="text-[14px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>일별 방문 추이</h4>
-        </div>
+      <SectionCard title="일별 방문 추이" icon={<Calendar className="w-4 h-4" />}>
         <div className="flex items-end gap-1.5 h-[160px]">
           {dailyData.map((d) => (
             <div key={d.date} className="flex-1 flex flex-col items-center gap-1.5 min-w-0">
@@ -392,7 +388,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
             <span className="text-[11px] text-muted-foreground">페이지뷰</span>
           </div>
         </div>
-      </div>
+      </SectionCard>
 
       {/* UTM & CTA Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
