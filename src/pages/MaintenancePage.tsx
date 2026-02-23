@@ -64,7 +64,7 @@ export default function MaintenancePage() {
       {/* Hero */}
       <section
         className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden"
-        style={{ background: "linear-gradient(160deg, hsl(210, 50%, 92%) 0%, hsl(214, 60%, 88%) 40%, hsl(220, 50%, 85%) 100%)" }}
+        style={{ background: "var(--hero-bg)" }}
       >
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(220, 80%, 70%, 0.18) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsla(152, 60%, 60%, 0.1) 0%, transparent 70%)" }} />
@@ -75,17 +75,17 @@ export default function MaintenancePage() {
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "hsla(0, 0%, 100%, 0.85)", backdropFilter: "blur(8px)", color: "hsl(220, 60%, 35%)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}>{t("maintenance.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight" style={{ color: "hsl(220, 60%, 8%)" }}>
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("maintenance.hero.badge")}</span>
+            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">
               {t("maintenance.hero.title")}<br />
-              <span style={{ color: "hsl(220, 80%, 50%)" }}>{t("maintenance.hero.titleHighlight")}</span>
+              <span className="text-primary">{t("maintenance.hero.titleHighlight")}</span>
             </h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md" style={{ color: "hsl(220, 20%, 40%)", textShadow: "0 1px 2px hsla(0, 0%, 100%, 0.6)" }}>
+            <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">
               {t("maintenance.hero.desc")}
             </p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85" style={{ background: "hsl(220, 60%, 8%)", color: "#fff" }}>{t("maintenance.hero.cta1")}</a>
-              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border" style={{ borderColor: "hsl(214, 20%, 85%)", color: "hsl(220, 60%, 8%)", background: "hsla(0, 0%, 100%, 0.8)", backdropFilter: "blur(8px)" }}>{t("maintenance.hero.cta2")}</a>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("maintenance.hero.cta1")}</a>
+              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("maintenance.hero.cta2")}</a>
             </div>
           </div>
         </div>
@@ -143,7 +143,7 @@ export default function MaintenancePage() {
       <ServiceProcess steps={processSteps} subheading={t("maintenance.processSection.sub")} heading={t("maintenance.processSection.heading")} description={t("maintenance.processSection.desc")} />
 
       {/* Plans */}
-      <section id="plans" className="py-28" style={{ background: "linear-gradient(180deg, hsl(220, 45%, 88%) 0%, hsl(222, 40%, 84%) 100%)" }}>
+      <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("maintenance.plansSection.sub")}</p>
@@ -187,8 +187,8 @@ export default function MaintenancePage() {
                       </li>
                     ))}
                   </ul>
-                  <div className="rounded-xl p-4 mt-2" style={{ background: "hsl(220, 60%, 12%)" }}>
-                    <p className="text-sm text-white/60 leading-relaxed text-center">{plan.recommend}</p>
+                  <div className="rounded-xl p-4 mt-2 bg-foreground">
+                    <p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p>
                   </div>
                 </div>
               </div>

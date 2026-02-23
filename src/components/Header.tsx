@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
+import ThemeToggle from "./ThemeToggle";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
 
@@ -26,7 +27,7 @@ export default function Header() {
   useEffect(() => { setMobileOpen(false); }, [location]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-border ${scrolled ? "shadow-sm" : ""}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-md border-b border-border ${scrolled ? "shadow-sm" : ""}`}>
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="flex items-center gap-6 h-16">
           <Link to="/lms" className="shrink-0 tracking-tight text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
@@ -43,6 +44,7 @@ export default function Header() {
               );
             })}
           </nav>
+          <ThemeToggle />
           <LanguageSwitcher />
           <a href="#contact" className="hidden lg:inline-flex shrink-0 px-4 py-2 rounded-xl text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-colors whitespace-nowrap">
             {t("header.cta")}
@@ -53,7 +55,7 @@ export default function Header() {
         </div>
       </div>
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-border shadow-md">
+        <div className="lg:hidden bg-background border-t border-border shadow-md">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-1">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
