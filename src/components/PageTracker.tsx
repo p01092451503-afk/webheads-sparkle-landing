@@ -16,12 +16,14 @@ function parseUA(ua: string) {
   let os = "Unknown";
   let deviceType = "desktop";
 
-  if (ua.includes("Firefox/")) browser = "Firefox";
+  if (ua.includes("Firefox/") || ua.includes("FxiOS/")) browser = "Firefox";
   else if (ua.includes("Edg/")) browser = "Edge";
   else if (ua.includes("OPR/") || ua.includes("Opera")) browser = "Opera";
+  else if (ua.includes("CriOS/")) browser = "Chrome";
   else if (ua.includes("Chrome/") && ua.includes("Safari/")) browser = "Chrome";
   else if (ua.includes("Safari/") && !ua.includes("Chrome")) browser = "Safari";
   else if (ua.includes("MSIE") || ua.includes("Trident/")) browser = "IE";
+  else if (ua.includes("Mobile/") && ua.includes("AppleWebKit")) browser = "Safari (In-App)";
 
   if (ua.includes("Windows")) os = "Windows";
   else if (ua.includes("Mac OS")) os = "macOS";
