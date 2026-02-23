@@ -37,18 +37,24 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Classify visitor type from user_agent + IP heuristics
+    // Classify visitor type: human | search_bot | scraper | ai
     const ua = (body.user_agent || "").toLowerCase();
     let visitor_type = "human";
-    const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/;
+
+    // Search engine crawlers (beneficial bots for SEO)
+    const searchBotPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|sogou|applebot|naverbot|seznambot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot/;
+    // AI crawlers
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/;
+    // SEO/scraper tools & generic crawlers
+    const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/;
     // Cloudflare proxy IP ranges commonly used by scrapers/bots
     const isCloudflareProxy = ip ? /^104\.28\./.test(ip) : false;
 
     if (aiPatterns.test(ua)) visitor_type = "ai";
-    else if (botPatterns.test(ua) || isCloudflareProxy) visitor_type = "bot";
+    else if (searchBotPatterns.test(ua)) visitor_type = "search_bot";
+    else if (scraperPatterns.test(ua) || isCloudflareProxy) visitor_type = "scraper";
 
-    // Detect repeated same-UA access from same IP (likely bot) — check recent 10min window
+    // Detect repeated same-UA access from same IP (likely scraper) — check recent 10min window
     if (visitor_type === "human" && ip && body.user_agent) {
       try {
         const tenMinAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString();
@@ -62,8 +68,7 @@ Deno.serve(async (req) => {
           .eq("ip_address", ip)
           .eq("user_agent", body.user_agent)
           .gte("created_at", tenMinAgo);
-        // 5+ identical UA hits from same IP in 10min = bot
-        if (count && count >= 5) visitor_type = "bot";
+        if (count && count >= 5) visitor_type = "scraper";
       } catch (e) {
         console.error("Repeat UA check failed:", e);
       }

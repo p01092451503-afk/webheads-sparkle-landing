@@ -3,7 +3,7 @@ import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
   MousePointerClick, Users, ScrollText, Link2, LogOut,
-  Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown
+  Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown, ShieldAlert
 } from "lucide-react";
 import {
   AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
@@ -45,21 +45,27 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   // Visitor type classification (DB value or frontend fallback)
   const visitorTypeCounts = useMemo(() => {
-    const botPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|ia_archiver|archive\.org|sogou|exabot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot|semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|seznambot|applebot/i;
+    const searchBotPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|sogou|applebot|naverbot|seznambot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot/i;
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
-    let human = 0, bot = 0, ai = 0;
+    const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/i;
+    let human = 0, searchBot = 0, scraper = 0, ai = 0;
     filteredViews.forEach((v) => {
-      const type = v.visitor_type || (() => {
+      let type = v.visitor_type;
+      if (!type || type === "bot") {
+        // Fallback or reclassify legacy "bot" values
         const ua = (v.user_agent || "").toLowerCase();
-        if (aiPatterns.test(ua)) return "ai";
-        if (botPatterns.test(ua)) return "bot";
-        return "human";
-      })();
+        if (aiPatterns.test(ua)) type = "ai";
+        else if (searchBotPatterns.test(ua)) type = "search_bot";
+        else if (scraperPatterns.test(ua)) type = "scraper";
+        else if (v.visitor_type === "bot") type = "scraper"; // legacy "bot" without matching UA → scraper
+        else type = "human";
+      }
       if (type === "ai") ai++;
-      else if (type === "bot") bot++;
+      else if (type === "search_bot") searchBot++;
+      else if (type === "scraper") scraper++;
       else human++;
     });
-    return { human, bot, ai, total: human + bot + ai };
+    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai };
   }, [filteredViews]);
 
   const deviceCounts = filteredViews.reduce((acc, v) => {
@@ -398,10 +404,11 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
       <SectionGroup title="방문자 유형 분석" number={2}>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { icon: <User className="w-4 h-4" />, label: "사람", value: visitorTypeCounts.human, color: "hsl(214, 90%, 52%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100) : 0, tooltip: "실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." },
-            { icon: <Bot className="w-4 h-4" />, label: "검색엔진 봇", value: visitorTypeCounts.bot, color: "hsl(35, 90%, 50%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.bot / visitorTypeCounts.total) * 100) : 0, tooltip: "Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다." },
+            { icon: <Bot className="w-4 h-4" />, label: "검색엔진 봇", value: visitorTypeCounts.searchBot, color: "hsl(35, 90%, 50%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.searchBot / visitorTypeCounts.total) * 100) : 0, tooltip: "Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다. 이 봇이 많을수록 검색에 잘 노출되고 있다는 의미입니다." },
+            { icon: <ShieldAlert className="w-4 h-4" />, label: "스크래퍼", value: visitorTypeCounts.scraper, color: "hsl(0, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.scraper / visitorTypeCounts.total) * 100) : 0, tooltip: "SEO 분석 도구(Ahrefs, SEMrush 등), Cloudflare 프록시, 반복 접속 스크래퍼 등의 방문입니다. 실제 사용자가 아니므로 통계 왜곡의 원인이 됩니다." },
             { icon: <BrainCircuit className="w-4 h-4" />, label: "AI 봇", value: visitorTypeCounts.ai, color: "hsl(260, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100) : 0, tooltip: "ChatGPT, Claude, Perplexity 등 AI 서비스의 크롤러 방문입니다. AI 검색에 노출되고 있는지 확인할 수 있습니다." },
           ].map((item) => (
             <div key={item.label} className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
