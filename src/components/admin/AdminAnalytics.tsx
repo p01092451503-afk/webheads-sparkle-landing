@@ -130,8 +130,9 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   const dailyData = useMemo(() => {
     const days: Record<string, { views: number; sessions: Set<string> }> = {};
     const since = new Date();
-    since.setDate(since.getDate() - dateRange);
-    for (let i = 0; i < dateRange; i++) {
+    const numDays = dateRange === 0 ? 1 : dateRange;
+    since.setDate(since.getDate() - numDays);
+    for (let i = 0; i < numDays; i++) {
       const d = new Date(since);
       d.setDate(d.getDate() + i + 1);
       const key = d.toISOString().slice(0, 10);
