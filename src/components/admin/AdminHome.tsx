@@ -112,7 +112,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       </div>
 
       {/* Analytics Summary Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <MetricCard label="평균 체류" value={formatDuration(analyticsSummary.avgDwell)} sub="페이지당 평균" color="hsl(192, 80%, 45%)" icon={<Clock className="w-5 h-5" />} />
         <MetricCard label="평균 스크롤" value={`${analyticsSummary.avgScroll}%`} sub="콘텐츠 소비율" color="hsl(340, 65%, 55%)" icon={<ScrollText className="w-5 h-5" />} />
         <MetricCard label="모바일 비율" value={`${analyticsSummary.mobileRate}%`} sub={`모바일 ${analyticsSummary.mobileCount} · 데스크톱 ${analyticsSummary.desktopCount}`} color="hsl(260, 70%, 55%)" icon={<Smartphone className="w-5 h-5" />} />
