@@ -150,30 +150,35 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
         </div>
       </div>
 
-      {/* List + Detail */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <div className="lg:col-span-3 flex flex-col gap-2">
-          {filteredInquiries.length === 0 ? (
-            <div className="rounded-2xl py-20 text-center" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-              <MessageSquare className="w-10 h-10 mx-auto mb-3 text-muted-foreground/30" />
-              <p className="text-[14px] text-muted-foreground">{searchQuery || statusFilter !== "all" ? "조건에 맞는 문의가 없습니다" : "접수된 문의가 없습니다"}</p>
-            </div>
-          ) : filteredInquiries.map((inq) => {
-            const sc = statusConfig[inq.status as InquiryStatus] || statusConfig.new;
-            const isSelected = selectedInquiry?.id === inq.id;
-            return (
-              <div key={inq.id}
-                onClick={() => { setSelectedInquiry(inq); setNoteText(inq.notes || ""); }}
-                className="group rounded-2xl p-5 cursor-pointer transition-all duration-200"
-                style={{
-                  background: "hsl(var(--background))",
-                  border: isSelected ? "1.5px solid hsl(var(--primary))" : "1px solid hsl(var(--border) / 0.8)",
-                  boxShadow: isSelected ? "0 0 0 3px hsl(var(--primary) / 0.06), 0 2px 8px hsl(var(--primary) / 0.08)" : "0 1px 3px hsl(0 0% 0% / 0.02)",
+      {/* List with inline detail */}
+      <div className="flex flex-col gap-2">
+        {filteredInquiries.length === 0 ? (
+          <div className="rounded-2xl py-20 text-center" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+            <MessageSquare className="w-10 h-10 mx-auto mb-3 text-muted-foreground/30" />
+            <p className="text-[14px] text-muted-foreground">{searchQuery || statusFilter !== "all" ? "조건에 맞는 문의가 없습니다" : "접수된 문의가 없습니다"}</p>
+          </div>
+        ) : filteredInquiries.map((inq) => {
+          const sc = statusConfig[inq.status as InquiryStatus] || statusConfig.new;
+          const isSelected = selectedInquiry?.id === inq.id;
+          return (
+            <div key={inq.id} className="rounded-2xl overflow-hidden transition-all duration-200"
+              style={{
+                background: "hsl(var(--background))",
+                border: isSelected ? "1.5px solid hsl(var(--primary))" : "1px solid hsl(var(--border) / 0.8)",
+                boxShadow: isSelected ? "0 0 0 3px hsl(var(--primary) / 0.06), 0 2px 8px hsl(var(--primary) / 0.08)" : "0 1px 3px hsl(0 0% 0% / 0.02)",
+              }}
+            >
+              {/* Summary row */}
+              <div
+                onClick={() => {
+                  if (isSelected) { setSelectedInquiry(null); }
+                  else { setSelectedInquiry(inq); setNoteText(inq.notes || ""); }
                 }}
+                className="group p-5 cursor-pointer"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <span className="flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-lg"
                         style={{ fontWeight: 600, color: sc.color, background: sc.bg }}
                       >
@@ -196,101 +201,91 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     <p className="text-[15px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>
                       {inq.company}<span className="text-muted-foreground" style={{ fontWeight: 400 }}> · {inq.name}</span>
                     </p>
-                    <div className="flex items-center gap-3 mt-1.5">
+                    <div className="flex items-center gap-3 mt-1.5 flex-wrap">
                       <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Phone className="w-3 h-3" />{inq.phone}</span>
                       {inq.email && <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Mail className="w-3 h-3" />{inq.email}</span>}
+                      {inq.service && <span className="text-[12px] text-muted-foreground">· {inq.service}</span>}
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <span className="text-[11px] text-muted-foreground/70">{formatDate(inq.created_at)}</span>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-colors mt-2" />
+                    <ChevronRight
+                      className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-all mt-2"
+                      style={{ transform: isSelected ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
+                    />
                   </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Detail Panel */}
-        <div className="lg:col-span-2">
-          {selectedInquiry ? (
-            <div className="rounded-2xl p-6 sticky top-24"
-              style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-[16px] text-foreground tracking-[-0.03em]" style={{ fontWeight: 700 }}>문의 상세</h3>
-                <button onClick={() => setSelectedInquiry(null)} className="w-8 h-8 rounded-xl flex items-center justify-center transition-colors hover:bg-muted">
-                  <X className="w-4 h-4 text-muted-foreground" />
-                </button>
-              </div>
+              {/* Inline detail panel */}
+              {isSelected && (
+                <div className="px-5 pb-5 pt-0">
+                  <div className="rounded-xl p-5" style={{ background: "hsl(var(--muted) / 0.5)", border: "1px solid hsl(var(--border) / 0.5)" }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <DetailRow icon={Building2} label="회사명" value={selectedInquiry.company} />
+                      <DetailRow icon={User} label="담당자" value={selectedInquiry.name} />
+                      <DetailRow icon={Phone} label="연락처" value={selectedInquiry.phone} isLink href={`tel:${selectedInquiry.phone}`} />
+                      {selectedInquiry.email && <DetailRow icon={Mail} label="이메일" value={selectedInquiry.email} isLink href={`mailto:${selectedInquiry.email}`} />}
+                      {selectedInquiry.service && <DetailRow icon={FileText} label="관심 서비스" value={selectedInquiry.service} />}
+                      <DetailRow icon={Calendar} label="접수일" value={new Date(selectedInquiry.created_at).toLocaleString("ko-KR")} />
+                    </div>
 
-              <div className="flex flex-col gap-4">
-                <DetailRow icon={Building2} label="회사명" value={selectedInquiry.company} />
-                <DetailRow icon={User} label="담당자" value={selectedInquiry.name} />
-                <DetailRow icon={Phone} label="연락처" value={selectedInquiry.phone} isLink href={`tel:${selectedInquiry.phone}`} />
-                {selectedInquiry.email && <DetailRow icon={Mail} label="이메일" value={selectedInquiry.email} isLink href={`mailto:${selectedInquiry.email}`} />}
-                {selectedInquiry.service && <DetailRow icon={FileText} label="관심 서비스" value={selectedInquiry.service} />}
-                <DetailRow icon={Calendar} label="접수일" value={new Date(selectedInquiry.created_at).toLocaleString("ko-KR")} />
+                    {selectedInquiry.message && (
+                      <div className="mt-4">
+                        <p className="text-[11px] text-muted-foreground mb-2" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>문의 내용</p>
+                        <div className="rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap"
+                          style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border) / 0.5)" }}>
+                          {selectedInquiry.message}
+                        </div>
+                      </div>
+                    )}
 
-                {selectedInquiry.message && (
-                  <div className="mt-1">
-                    <p className="text-[11px] text-muted-foreground mb-2" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>문의 내용</p>
-                    <div className="rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap"
-                      style={{ background: "hsl(var(--muted))", border: "1px solid hsl(var(--border) / 0.5)" }}>
-                      {selectedInquiry.message}
+                    {/* Notes */}
+                    <div className="mt-4">
+                      <p className="text-[11px] text-muted-foreground mb-2" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>내부 메모</p>
+                      <textarea
+                        value={noteText}
+                        onChange={(e) => setNoteText(e.target.value)}
+                        rows={3}
+                        placeholder="이 문의에 대한 내부 메모를 남겨보세요..."
+                        className="w-full rounded-xl p-3.5 text-[13px] outline-none transition-all text-foreground placeholder:text-muted-foreground/40 resize-none"
+                        style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border) / 0.5)" }}
+                        onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary))"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(var(--primary) / 0.06)"; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border) / 0.5)"; e.currentTarget.style.boxShadow = "none"; }}
+                      />
+                      <button onClick={saveNote} disabled={savingNote}
+                        className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] transition-all active:scale-[0.96] disabled:opacity-50"
+                        style={{ fontWeight: 600, color: "hsl(var(--primary))", background: "hsl(var(--primary) / 0.08)" }}
+                      >
+                        {savingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
+                        메모 저장
+                      </button>
+                    </div>
+
+                    {/* Status */}
+                    <div className="mt-4 pt-4" style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}>
+                      <p className="text-[11px] text-muted-foreground mb-3" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>상태 변경</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        {(Object.keys(statusConfig) as InquiryStatus[]).map((s) => {
+                          const cfg = statusConfig[s];
+                          const isActive = selectedInquiry.status === s;
+                          return (
+                            <button key={s} onClick={() => updateStatus(selectedInquiry.id, s)}
+                              className="py-2.5 rounded-xl text-[12px] transition-all duration-200 active:scale-[0.96]"
+                              style={{ fontWeight: isActive ? 600 : 500, color: isActive ? cfg.color : "hsl(var(--muted-foreground))", background: isActive ? cfg.bg : "hsl(var(--muted))", border: isActive ? `1.5px solid ${cfg.color}30` : "1.5px solid transparent" }}
+                            >
+                              {cfg.label}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
-                )}
-
-                {/* Notes */}
-                <div className="mt-1">
-                  <p className="text-[11px] text-muted-foreground mb-2" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>내부 메모</p>
-                  <textarea
-                    value={noteText}
-                    onChange={(e) => setNoteText(e.target.value)}
-                    rows={3}
-                    placeholder="이 문의에 대한 내부 메모를 남겨보세요..."
-                    className="w-full rounded-xl p-3.5 text-[13px] outline-none transition-all text-foreground placeholder:text-muted-foreground/40 resize-none"
-                    style={{ background: "hsl(var(--muted))", border: "1px solid hsl(var(--border) / 0.5)" }}
-                    onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary))"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(var(--primary) / 0.06)"; }}
-                    onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border) / 0.5)"; e.currentTarget.style.boxShadow = "none"; }}
-                  />
-                  <button onClick={saveNote} disabled={savingNote}
-                    className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] transition-all active:scale-[0.96] disabled:opacity-50"
-                    style={{ fontWeight: 600, color: "hsl(var(--primary))", background: "hsl(var(--primary) / 0.08)" }}
-                  >
-                    {savingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
-                    메모 저장
-                  </button>
                 </div>
-
-                {/* Status */}
-                <div className="mt-2 pt-4" style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}>
-                  <p className="text-[11px] text-muted-foreground mb-3" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>상태 변경</p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {(Object.keys(statusConfig) as InquiryStatus[]).map((s) => {
-                      const cfg = statusConfig[s];
-                      const isActive = selectedInquiry.status === s;
-                      return (
-                        <button key={s} onClick={() => updateStatus(selectedInquiry.id, s)}
-                          className="py-2.5 rounded-xl text-[12px] transition-all duration-200 active:scale-[0.96]"
-                          style={{ fontWeight: isActive ? 600 : 500, color: isActive ? cfg.color : "hsl(var(--muted-foreground))", background: isActive ? cfg.bg : "hsl(var(--muted))", border: isActive ? `1.5px solid ${cfg.color}30` : "1.5px solid transparent" }}
-                        >
-                          {cfg.label}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
-          ) : (
-            <div className="rounded-2xl py-20 text-center" style={{ background: "hsl(var(--background))", border: "1px dashed hsl(var(--border))" }}>
-              <FileText className="w-10 h-10 mx-auto mb-3 text-muted-foreground/20" />
-              <p className="text-[14px] text-muted-foreground/60" style={{ fontWeight: 500 }}>좌측에서 문의를 선택하세요</p>
-            </div>
-          )}
-        </div>
+          );
+        })}
       </div>
     </div>
   );
