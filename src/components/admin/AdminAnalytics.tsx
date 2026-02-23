@@ -95,7 +95,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(ipMap)
       .map(([ip, d]) => ({ ip, count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
       .sort((a, b) => b.count - a.count)
-      .slice(0, 10);
+;
   }, [filteredViews]);
 
   // Location stats
