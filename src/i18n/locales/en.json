@@ -2,7 +2,7 @@
   "header": {
     "services": ["LMS", "Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
     "cta": "Contact Us",
-    "logo": "Webheads"
+    "logo": "Webheads."
   },
   "footer": {
     "company": "Company",
