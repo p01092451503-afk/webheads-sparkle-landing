@@ -27,10 +27,10 @@ export default function Header() {
   useEffect(() => { setMobileOpen(false); }, [location]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[hsl(230,18%,30%)]/95 backdrop-blur-xl shadow-lg" : "bg-[hsl(230,18%,30%)]/90 backdrop-blur-md"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-xl shadow-sm border-b border-gray-200/60" : "bg-white/90 backdrop-blur-md border-b border-gray-200/40"}`}>
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         <div className="flex items-center gap-4 h-[56px]">
-          <Link to="/lms" className="shrink-0 tracking-tight text-white lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
+          <Link to="/lms" className="shrink-0 tracking-tight text-[hsl(230,25%,15%)] lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center flex-1">
@@ -44,15 +44,15 @@ export default function Header() {
                       to={s.path}
                       className={`whitespace-nowrap px-5 py-1.5 rounded-lg text-[0.96rem] font-medium transition-all duration-200 ${
                         isLms
-                          ? "text-white bg-white/[0.12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
+                          ? "text-white bg-[hsl(230,25%,25%)] shadow-sm"
                           : isActive
-                          ? "text-white bg-white/15"
-                          : "text-white/60 hover:text-white hover:bg-white/10"
+                          ? "text-[hsl(230,25%,15%)] bg-gray-100"
+                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-100"
                       }`}
                     >
                       {s.label}
                     </Link>
-                    {idx === 0 && <span className="w-[1.5px] h-5 bg-white/30 mx-2 rounded-full" />}
+                    {idx === 0 && <span className="w-[1.5px] h-5 bg-gray-300 mx-2 rounded-full" />}
                   </span>
                 );
               })}
@@ -62,10 +62,10 @@ export default function Header() {
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
-          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-white text-[hsl(230,25%,12%)] hover:bg-white/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
+          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)] transition-all duration-200 hover:shadow-md whitespace-nowrap">
             {t("header.cta")}
           </a>
-          <button className="lg:hidden ml-auto p-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
+          <button className="lg:hidden ml-auto p-2 text-gray-500 hover:text-gray-800 transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
