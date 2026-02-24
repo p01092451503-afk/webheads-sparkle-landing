@@ -98,6 +98,25 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      {/* Plans */}
+      <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("appdev.plansSection.sub")}</p>
+            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("appdev.plansSection.title")}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{t("appdev.plansSection.desc")}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-start">
+            {plans.map((plan: any) => (<div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 border-primary shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`}>{plan.badge && <div className="bg-primary text-primary-foreground text-sm font-bold text-center py-2.5 tracking-wide">{plan.badge}</div>}<div className="p-8 flex flex-col gap-5 flex-1"><div><h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3><div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} /></div><div><div className="flex items-end gap-1"><span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>{plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}</div>{plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}</div><ul className="flex flex-col gap-3.5 flex-1">{plan.features.map((f: any) => (<li key={f.main} className="flex items-start gap-2.5"><span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm text-primary">✓</span><p className="text-base font-medium text-foreground leading-tight">{f.main}</p></li>))}</ul><div className="rounded-xl p-4 mt-2 bg-foreground"><p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p></div></div></div>))}
+          </div>
+          <div className="mt-12 text-center rounded-2xl border border-border bg-background/50 p-8">
+            <p className="text-foreground font-semibold text-lg mb-2">{t("appdev.plansCustom.title")}</p>
+            <p className="text-muted-foreground text-sm mb-6">{t("appdev.plansCustom.desc")}</p>
+            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("appdev.plansCustom.cta")}</a>
+          </div>
+        </div>
+      </section>
+
       <ServiceFAQ faqs={faqs} serviceName={t("appdev.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
       <ContactSection />
