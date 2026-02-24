@@ -10,7 +10,7 @@ interface SEOProps {
   faqJsonLd?: { q: string; a: string }[];
 }
 
-const BASE_URL = "https://webheads-sub.lovable.app";
+const BASE_URL = "https://service.webheads.co.kr";
 const OG_IMAGE = `${BASE_URL}/og-image.png`;
 
 const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string }> = {
