@@ -69,7 +69,7 @@ export default function Header() {
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
-          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-foreground text-background hover:bg-foreground/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
+          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-6 py-2.5 rounded-full text-base font-bold bg-foreground text-background hover:bg-foreground/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
             {t("header.cta")}
           </a>
           <button className="lg:hidden ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
