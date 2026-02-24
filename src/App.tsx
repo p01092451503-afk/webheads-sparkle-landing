@@ -49,23 +49,25 @@ const App = () => (
         <ScrollToTop />
         <PageTracker />
         <Layout>
-          <Routes>
-            <Route path="/" element={<Navigate to="/lms" replace />} />
-            <Route path="/lms" element={<LmsPage />} />
-            <Route path="/hosting" element={<HostingPage />} />
-            <Route path="/chatbot" element={<ChatbotPage />} />
-            <Route path="/app-dev" element={<AppDevPage />} />
-            <Route path="/content" element={<ContentPage />} />
-            <Route path="/drm" element={<DrmPage />} />
-            <Route path="/channel" element={<ChannelPage />} />
-            <Route path="/pg" element={<PgPage />} />
-            <Route path="/maintenance" element={<MaintenancePage />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            {/* <Route path="/about" element={<AboutPage />} /> */}
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-screen" />}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/lms" replace />} />
+              <Route path="/lms" element={<LmsPage />} />
+              <Route path="/hosting" element={<HostingPage />} />
+              <Route path="/chatbot" element={<ChatbotPage />} />
+              <Route path="/app-dev" element={<AppDevPage />} />
+              <Route path="/content" element={<ContentPage />} />
+              <Route path="/drm" element={<DrmPage />} />
+              <Route path="/channel" element={<ChannelPage />} />
+              <Route path="/pg" element={<PgPage />} />
+              <Route path="/maintenance" element={<MaintenancePage />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              {/* <Route path="/about" element={<AboutPage />} /> */}
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </Layout>
       </BrowserRouter>
     </TooltipProvider>
