@@ -46,8 +46,8 @@ export default function Header() {
                         isLms
                           ? "text-white bg-gradient-to-r from-[hsl(250,50%,50%)] to-[hsl(230,60%,45%)] shadow-sm"
                           : isActive
-                          ? "text-[hsl(230,25%,15%)] bg-gray-100"
-                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-100"
+                           ? "text-[hsl(230,25%,15%)] bg-gray-200"
+                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-200"
                       }`}
                     >
                       {s.label}
