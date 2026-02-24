@@ -267,8 +267,8 @@
     ],
     "plansSection": { "sub": "价格方案", "title": "适合项目的\n应用开发方案", "desc": "所有价格不含增值税。可根据项目范围调整。" },
     "plans": [
-      { "name": "MVP", "price": "1,500万", "unit": "韩元起", "priceNote": "一次性开发费", "features": [{ "main": "iOS或Android单平台" }, { "main": "3-5个核心功能" }, { "main": "基础UI/UX设计" }, { "main": "应用商店上架代办" }, { "main": "上线后1个月Bug修复" }], "recommend": "适合需要快速市场验证的初创企业" },
-      { "name": "Standard", "price": "3,000万", "unit": "韩元起", "priceNote": "一次性开发费", "features": [{ "main": "iOS+Android同步开发" }, { "main": "Webheads LMS基础对接" }, { "main": "PUSH通知·离线模式" }, { "main": "定制UI/UX设计" }, { "main": "应用商店上架+审核应对" }, { "main": "上线后3个月运维" }], "recommend": "适合需要LMS对接的中型教育机构", "highlight": true, "badge": "最受欢迎！" },
+      { "name": "MVP", "price": "150万", "unit": "韩元起", "priceNote": "一次性开发费", "features": [{ "main": "iOS或Android单平台" }, { "main": "3-5个核心功能" }, { "main": "基础UI/UX设计" }, { "main": "应用商店上架代办" }, { "main": "上线后1个月Bug修复" }], "recommend": "适合需要快速市场验证的初创企业" },
+      { "name": "Standard", "price": "250万", "unit": "韩元起", "priceNote": "一次性开发费", "features": [{ "main": "iOS+Android同步开发" }, { "main": "Webheads LMS基础对接" }, { "main": "PUSH通知·离线模式" }, { "main": "定制UI/UX设计" }, { "main": "应用商店上架+审核应对" }, { "main": "上线后3个月运维" }], "recommend": "适合需要LMS对接的中型教育机构", "highlight": true, "badge": "最受欢迎！" },
       { "name": "Enterprise", "price": "另询", "unit": "", "priceNote": "定制报价", "features": [{ "main": "iOS+Android+平板优化" }, { "main": "LMS全面对接+SSO+DRM" }, { "main": "高级学习分析仪表板" }, { "main": "定制原生模块开发" }, { "main": "应用商店上架+持续更新" }, { "main": "专属PM+年度运维合同" }], "recommend": "适合大型教育机构、网络大学、企业培训中心" }
     ],
     "plansCustom": { "title": "以上方案都不太合适？", "desc": "根据项目规模免费提供定制报价。", "cta": "申请定制报价" },
