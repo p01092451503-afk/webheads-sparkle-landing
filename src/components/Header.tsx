@@ -30,7 +30,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         <div className="flex items-center gap-6 h-[64px]">
-          <Link to="/lms" className="shrink-0 tracking-tight text-white lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.75rem" }}>
+          <Link to="/lms" className="shrink-0 tracking-tight text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.75rem" }}>
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center flex-1">
@@ -42,14 +42,14 @@ export default function Header() {
                   <span key={s.path} className="flex items-center">
                     <Link
                       to={s.path}
-                      className={`whitespace-nowrap px-5 py-2 rounded-lg text-[0.96rem] font-semibold transition-all duration-200 ${
+                      className={`whitespace-nowrap px-5 py-2 rounded-lg text-[0.96rem] font-semibold transition-all duration-200 drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)] ${
                         isLms
                           ? isActive
-                            ? "text-white bg-white/15"
-                            : "text-white/90 hover:text-white hover:bg-white/10"
+                            ? "text-white bg-white/20"
+                            : "text-white hover:text-white hover:bg-white/15"
                           : isActive
-                          ? "text-white bg-white/15"
-                          : "text-white/60 hover:text-white hover:bg-white/10"
+                          ? "text-white bg-white/20"
+                          : "text-white/80 hover:text-white hover:bg-white/15"
                       }`}
                     >
                       {s.label}
