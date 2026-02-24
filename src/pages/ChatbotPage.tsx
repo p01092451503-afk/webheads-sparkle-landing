@@ -18,6 +18,7 @@ export default function ChatbotPage() {
   }));
   const process = t("chatbot.process", { returnObjects: true }) as any[];
   const stats = t("chatbot.stats", { returnObjects: true }) as any[];
+  const plans = t("chatbot.plans", { returnObjects: true }) as any[];
   const faqs = t("chatbot.faqs", { returnObjects: true }) as any[];
   const testimonials = t("chatbot.testimonials", { returnObjects: true }) as any[];
 
