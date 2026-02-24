@@ -27,10 +27,10 @@ export default function Header() {
   useEffect(() => { setMobileOpen(false); }, [location]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[hsl(230,25%,12%)]/95 backdrop-blur-xl shadow-lg" : "bg-[hsl(230,25%,12%)]/90 backdrop-blur-md"}`}>
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
-        <div className="flex items-center gap-6 h-[64px]">
-          <Link to="/lms" className="shrink-0 tracking-tight text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)] lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.75rem" }}>
+        <div className="flex items-center gap-4 h-[56px]">
+          <Link to="/lms" className="shrink-0 tracking-tight text-white lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center flex-1">
@@ -42,33 +42,33 @@ export default function Header() {
                   <span key={s.path} className="flex items-center">
                     <Link
                       to={s.path}
-                      className={`whitespace-nowrap px-5 py-2 rounded-lg text-[0.96rem] font-semibold transition-all duration-200 drop-shadow-[0_1px_3px_rgba(0,0,0,0.4)] ${
+                      className={`whitespace-nowrap px-4 py-1.5 rounded-md text-[0.875rem] font-medium transition-all duration-200 ${
                         isLms
                           ? isActive
-                            ? "text-white bg-white/20"
-                            : "text-white hover:text-white hover:bg-white/15"
+                            ? "text-white bg-white/15"
+                            : "text-white/90 hover:text-white hover:bg-white/10"
                           : isActive
-                          ? "text-white bg-white/20"
-                          : "text-white/80 hover:text-white hover:bg-white/15"
+                          ? "text-white bg-white/15"
+                          : "text-white/60 hover:text-white hover:bg-white/10"
                       }`}
                     >
                       {s.label}
                     </Link>
-                    {idx === 0 && <span className="w-[1px] h-5 bg-white/20 mx-2" />}
+                    {idx === 0 && <span className="w-[1px] h-4 bg-white/20 mx-1.5" />}
                   </span>
                 );
               })}
             </div>
           </nav>
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-1">
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
-          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-6 py-2.5 rounded-full text-[0.88rem] font-bold bg-white text-[hsl(230,25%,12%)] hover:bg-white/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
+          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-white text-[hsl(230,25%,12%)] hover:bg-white/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
             {t("header.cta")}
           </a>
           <button className="lg:hidden ml-auto p-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>

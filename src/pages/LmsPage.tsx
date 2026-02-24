@@ -59,7 +59,7 @@ export default function LmsPage() {
 
       {/* Hero — LMS Premium Gradient */}
       <section
-        className="relative min-h-[80vh] flex items-center pt-20 pb-14 overflow-x-clip overflow-y-visible"
+        className="relative min-h-[80vh] flex items-center pt-20 pb-14 overflow-hidden"
         style={{ background: "var(--lms-hero-bg)" }}
       >
         {/* Ambient gradient orbs */}
@@ -67,8 +67,8 @@ export default function LmsPage() {
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", right: "-5%", background: "radial-gradient(ellipse 50% 60% at 70% 60%, hsl(220, 90%, 56%, 0.12) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "60%", height: "60%", top: "20%", left: "5%", background: "radial-gradient(ellipse 40% 40% at 30% 50%, hsl(192, 80%, 50%, 0.08) 0%, transparent 70%)" }} />
 
-        <div className="absolute inset-x-0 top-0 bottom-0 pointer-events-none select-none flex items-center justify-center overflow-visible" style={{ opacity: 0.85 }}>
-          <div className="relative w-full min-h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><LmsHeroVisual /></div>
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
+          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><LmsHeroVisual /></div>
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-2xl">
