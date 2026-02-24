@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,20 +9,20 @@ import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import ScrollButtons from "./components/ScrollButtons";
 import PageTracker from "./components/PageTracker";
-import LandingPage from "./pages/LandingPage";
-import HostingPage from "./pages/HostingPage";
-import ChatbotPage from "./pages/ChatbotPage";
-import AppDevPage from "./pages/AppDevPage";
-import ContentPage from "./pages/ContentPage";
-import DrmPage from "./pages/DrmPage";
-import ChannelPage from "./pages/ChannelPage";
-import PgPage from "./pages/PgPage";
-import MaintenancePage from "./pages/MaintenancePage";
-import LmsPage from "./pages/LmsPage";
-import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
-// import AboutPage from "./pages/AboutPage";
-import NotFound from "./pages/NotFound";
+
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+const HostingPage = lazy(() => import("./pages/HostingPage"));
+const ChatbotPage = lazy(() => import("./pages/ChatbotPage"));
+const AppDevPage = lazy(() => import("./pages/AppDevPage"));
+const ContentPage = lazy(() => import("./pages/ContentPage"));
+const DrmPage = lazy(() => import("./pages/DrmPage"));
+const ChannelPage = lazy(() => import("./pages/ChannelPage"));
+const PgPage = lazy(() => import("./pages/PgPage"));
+const MaintenancePage = lazy(() => import("./pages/MaintenancePage"));
+const LmsPage = lazy(() => import("./pages/LmsPage"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -48,23 +49,25 @@ const App = () => (
         <ScrollToTop />
         <PageTracker />
         <Layout>
-          <Routes>
-            <Route path="/" element={<Navigate to="/lms" replace />} />
-            <Route path="/lms" element={<LmsPage />} />
-            <Route path="/hosting" element={<HostingPage />} />
-            <Route path="/chatbot" element={<ChatbotPage />} />
-            <Route path="/app-dev" element={<AppDevPage />} />
-            <Route path="/content" element={<ContentPage />} />
-            <Route path="/drm" element={<DrmPage />} />
-            <Route path="/channel" element={<ChannelPage />} />
-            <Route path="/pg" element={<PgPage />} />
-            <Route path="/maintenance" element={<MaintenancePage />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            {/* <Route path="/about" element={<AboutPage />} /> */}
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-screen" />}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/lms" replace />} />
+              <Route path="/lms" element={<LmsPage />} />
+              <Route path="/hosting" element={<HostingPage />} />
+              <Route path="/chatbot" element={<ChatbotPage />} />
+              <Route path="/app-dev" element={<AppDevPage />} />
+              <Route path="/content" element={<ContentPage />} />
+              <Route path="/drm" element={<DrmPage />} />
+              <Route path="/channel" element={<ChannelPage />} />
+              <Route path="/pg" element={<PgPage />} />
+              <Route path="/maintenance" element={<MaintenancePage />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              {/* <Route path="/about" element={<AboutPage />} /> */}
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </Layout>
       </BrowserRouter>
     </TooltipProvider>
