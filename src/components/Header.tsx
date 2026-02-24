@@ -42,7 +42,7 @@ export default function Header() {
                   <span key={s.path} className="flex items-center">
                     <Link
                       to={s.path}
-                      className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                      className={`whitespace-nowrap px-4.5 py-2 rounded-full text-base font-semibold transition-all duration-200 ${
                         isLms
                           ? "text-white shadow-md hover:shadow-lg hover:brightness-110 hover:scale-[1.04]"
                           : isActive
