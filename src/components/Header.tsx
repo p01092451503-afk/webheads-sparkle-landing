@@ -65,7 +65,7 @@ export default function Header() {
           <a href="#contact" className="hidden lg:inline-flex shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)] transition-all duration-200 hover:shadow-md whitespace-nowrap">
             {t("header.cta")}
           </a>
-          <button className="lg:hidden ml-auto p-2 text-white/70 hover:text-white transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
+          <button className="lg:hidden ml-auto p-2 text-gray-500 hover:text-gray-800 transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
