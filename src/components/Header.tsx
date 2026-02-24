@@ -27,7 +27,7 @@ export default function Header() {
   useEffect(() => { setMobileOpen(false); }, [location]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[hsl(230,20%,22%)]/95 backdrop-blur-xl shadow-lg" : "bg-[hsl(230,20%,22%)]/90 backdrop-blur-md"}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[hsl(230,18%,30%)]/95 backdrop-blur-xl shadow-lg" : "bg-[hsl(230,18%,30%)]/90 backdrop-blur-md"}`}>
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         <div className="flex items-center gap-4 h-[56px]">
           <Link to="/lms" className="shrink-0 tracking-tight text-white lg:static absolute left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
