@@ -47,8 +47,22 @@ Deno.serve(async (req) => {
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/;
     // SEO/scraper tools & generic crawlers
     const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/;
-    // Cloudflare proxy IP ranges commonly used by scrapers/bots
-    const isCloudflareProxy = ip ? /^104\.28\./.test(ip) : false;
+    // Cloudflare IP ranges (official CIDR blocks used by CF proxies/bots)
+    const cloudflareRanges = [
+      /^104\.(16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31)\./,  // 104.16.0.0/12
+      /^172\.(64|65|66|67|68|69|70|71)\./,                           // 172.64.0.0/13
+      /^131\.0\.72\./,                                                // 131.0.72.0/22
+      /^141\.101\./,                                                  // 141.101.64.0/18
+      /^108\.162\./,                                                  // 108.162.192.0/18
+      /^190\.93\./,                                                   // 190.93.240.0/20
+      /^188\.114\./,                                                  // 188.114.96.0/20
+      /^197\.234\./,                                                  // 197.234.240.0/22
+      /^198\.41\./,                                                   // 198.41.128.0/17
+      /^162\.158\./,                                                  // 162.158.0.0/15
+      /^173\.245\./,                                                  // 173.245.48.0/20
+      /^103\.(21|22|31)\./,                                           // 103.21.244.0/22, 103.22.200.0/22, 103.31.4.0/22
+    ];
+    const isCloudflareProxy = ip ? cloudflareRanges.some(r => r.test(ip)) : false;
 
     if (aiPatterns.test(ua)) visitor_type = "ai";
     else if (searchBotPatterns.test(ua)) visitor_type = "search_bot";
