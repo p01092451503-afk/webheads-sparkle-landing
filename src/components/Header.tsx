@@ -44,10 +44,10 @@ export default function Header() {
                       to={s.path}
                       className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                         isLms
-                          ? "text-white shadow-md hover:shadow-lg hover:brightness-110"
+                          ? "text-white shadow-md hover:shadow-lg hover:brightness-110 hover:scale-[1.04]"
                           : isActive
-                          ? "text-white shadow-sm"
-                          : "text-muted-foreground hover:text-foreground hover:bg-background/80"
+                          ? "text-white shadow-sm hover:brightness-110 hover:scale-[1.04]"
+                          : "text-muted-foreground hover:text-foreground hover:bg-primary/10 hover:scale-[1.04]"
                       }`}
                       style={
                         isLms
