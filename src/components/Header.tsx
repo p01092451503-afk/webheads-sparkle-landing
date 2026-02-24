@@ -34,7 +34,7 @@ export default function Header() {
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               {services.map((s, idx) => {
                 const isActive = location.pathname === s.path;
                 const isLms = s.path === "/lms";
@@ -42,9 +42,9 @@ export default function Header() {
                   <span key={s.path} className="flex items-center">
                     <Link
                       to={s.path}
-                      className={`whitespace-nowrap px-4 py-1.5 rounded-md text-[0.96rem] font-medium transition-all duration-200 ${
+                      className={`whitespace-nowrap px-5 py-1.5 rounded-lg text-[0.96rem] font-medium transition-all duration-200 ${
                         isLms
-                          ? "text-white bg-white/[0.12] px-5 py-1.5 rounded-lg shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
+                          ? "text-white bg-white/[0.12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
                           : isActive
                           ? "text-white bg-white/15"
                           : "text-white/60 hover:text-white hover:bg-white/10"
@@ -52,7 +52,7 @@ export default function Header() {
                     >
                       {s.label}
                     </Link>
-                    {idx === 0 && <span className="w-[1.5px] h-5 bg-white/35 mx-2.5 rounded-full" />}
+                    {idx === 0 && <span className="w-[1.5px] h-5 bg-white/30 mx-2 rounded-full" />}
                   </span>
                 );
               })}
