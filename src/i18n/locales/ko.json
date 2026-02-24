@@ -266,6 +266,13 @@
       { "title": "하이브리드 / 크로스플랫폼", "desc": "React Native·Flutter로 단일 코드베이스에서 iOS·Android를 동시에 개발합니다.", "tags": ["React Native", "Flutter", "비용 절감"] },
       { "title": "앱스토어 배포 & 유지관리", "desc": "App Store·Google Play 심사 대응부터 배포까지 전 과정을 대행합니다.", "tags": ["App Store", "Google Play", "CI/CD"] }
     ],
+    "plansSection": { "sub": "요금제", "title": "프로젝트에 맞는\n앱 개발 플랜", "desc": "모든 요금은 VAT 별도이며, 프로젝트 범위에 따라 조정될 수 있습니다." },
+    "plans": [
+      { "name": "MVP", "price": "1,500만", "unit": "원~", "priceNote": "1회 개발비", "features": [{ "main": "iOS 또는 Android 단일 플랫폼" }, { "main": "핵심 기능 3~5개" }, { "main": "기본 UI/UX 디자인" }, { "main": "앱스토어 등록 대행" }, { "main": "출시 후 1개월 버그 수정" }], "recommend": "빠르게 시장 검증이 필요한 스타트업·개인사업자께 추천드려요" },
+      { "name": "Standard", "price": "3,000만", "unit": "원~", "priceNote": "1회 개발비", "features": [{ "main": "iOS + Android 동시 개발" }, { "main": "웹헤즈 LMS 기본 연동" }, { "main": "PUSH 알림 · 오프라인 모드" }, { "main": "맞춤 UI/UX 디자인" }, { "main": "앱스토어 등록 + 심사 대응" }, { "main": "출시 후 3개월 유지보수" }], "recommend": "LMS 연동이 필요한 중형 교육기관께 추천드려요", "highlight": true, "badge": "가장 많이 선택!" },
+      { "name": "Enterprise", "price": "별도문의", "unit": "", "priceNote": "맞춤 견적", "features": [{ "main": "iOS + Android + 태블릿 최적화" }, { "main": "LMS 풀 연동 + SSO + DRM" }, { "main": "고급 학습 분석 대시보드" }, { "main": "커스텀 네이티브 모듈 개발" }, { "main": "앱스토어 등록 + 지속 업데이트" }, { "main": "전담 PM + 연간 유지보수 계약" }], "recommend": "대형 교육기관, 사이버대학교, 기업교육센터에 추천드려요" }
+    ],
+    "plansCustom": { "title": "위 요금제가 딱 맞지 않으신가요?", "desc": "프로젝트 규모에 맞는 맞춤 견적을 무료로 제안드립니다.", "cta": "맞춤 견적 요청" },
     "faqs": [
       { "q": "iOS와 Android를 동시에 개발하면 비용이 두 배인가요?", "a": "아닙니다. 웹헤즈는 React Native 또는 Flutter 크로스플랫폼 프레임워크를 활용하여 하나의 코드베이스로 iOS와 Android 앱을 동시에 개발합니다. 이를 통해 네이티브 앱 대비 약 30~40%의 개발 비용을 절감할 수 있으며, 이후 유지보수 시에도 한 번의 수정으로 양쪽 플랫폼에 동시 반영되므로 운영 비용도 크게 줄어듭니다. 물론 플랫폼 고유 기능(Face ID, NFC 등)이 필요한 경우 네이티브 모듈을 추가하여 최적의 사용자 경험을 제공합니다." },
       { "q": "앱스토어/구글플레이 등록도 대행해 주시나요?", "a": "네, Apple App Store와 Google Play Store 등록 전 과정을 대행해 드립니다. 개발자 계정 생성 안내부터 앱 메타데이터(스크린샷, 설명문, 키워드) 작성, 심사 제출, 심사 리젝 대응까지 모든 과정을 책임지고 진행합니다. 특히 Apple의 까다로운 심사 기준에 대한 풍부한 경험을 바탕으로 리젝률을 최소화하며, 등록 완료 후에도 앱 업데이트 시 재심사 과정을 계속 지원합니다." },
