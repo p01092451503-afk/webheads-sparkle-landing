@@ -44,9 +44,7 @@ export default function Header() {
                       to={s.path}
                       className={`whitespace-nowrap px-4 py-1.5 rounded-md text-[0.875rem] font-medium transition-all duration-200 ${
                         isLms
-                          ? isActive
-                            ? "text-white bg-white/15"
-                            : "text-white/90 hover:text-white hover:bg-white/10"
+                          ? "text-white bg-white/[0.12] px-5 py-1.5 rounded-lg shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
                           : isActive
                           ? "text-white bg-white/15"
                           : "text-white/60 hover:text-white hover:bg-white/10"
