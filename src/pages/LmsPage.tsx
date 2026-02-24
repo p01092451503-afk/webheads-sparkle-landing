@@ -59,7 +59,7 @@ export default function LmsPage() {
 
       {/* Hero — LMS Premium Gradient */}
       <section
-        className="relative min-h-[80vh] flex items-center pt-20 pb-14 overflow-hidden"
+        className="relative min-h-[80vh] flex items-center pt-20 pb-14 overflow-x-clip overflow-y-visible"
         style={{ background: "var(--lms-hero-bg)" }}
       >
         {/* Ambient gradient orbs */}
