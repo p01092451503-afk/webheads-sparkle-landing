@@ -89,6 +89,10 @@ export default function Header() {
                 </Link>
               );
             })}
+            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
+              <ThemeToggle />
+              <LanguageSwitcher />
+            </div>
             <a href="#contact" className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center">
               {t("header.cta")}
             </a>
