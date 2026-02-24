@@ -34,7 +34,7 @@ export default function Header() {
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center gap-0 bg-muted/50 dark:bg-muted/30 rounded-full px-1.5 py-1 border border-border/30">
+            <div className="flex items-center gap-0 bg-muted/80 dark:bg-muted/50 rounded-full px-1.5 py-1 border border-border/50 shadow-sm">
               {services.map((s, idx) => {
                 const isActive = location.pathname === s.path;
                 const isLms = s.path === "/lms";
