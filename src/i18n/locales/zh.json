@@ -265,6 +265,13 @@
       { "title": "混合 / 跨平台", "desc": "用React Native·Flutter从单一代码库同时开发iOS·Android。", "tags": ["React Native", "Flutter", "成本节省"] },
       { "title": "应用商店发布与维护", "desc": "代行App Store·Google Play审核应对到发布的全流程。", "tags": ["App Store", "Google Play", "CI/CD"] }
     ],
+    "plansSection": { "sub": "价格方案", "title": "适合项目的\n应用开发方案", "desc": "所有价格不含增值税。可根据项目范围调整。" },
+    "plans": [
+      { "name": "MVP", "price": "1,500万", "unit": "韩元起", "priceNote": "一次性开发费", "features": [{ "main": "iOS或Android单平台" }, { "main": "3-5个核心功能" }, { "main": "基础UI/UX设计" }, { "main": "应用商店上架代办" }, { "main": "上线后1个月Bug修复" }], "recommend": "适合需要快速市场验证的初创企业" },
+      { "name": "Standard", "price": "3,000万", "unit": "韩元起", "priceNote": "一次性开发费", "features": [{ "main": "iOS+Android同步开发" }, { "main": "Webheads LMS基础对接" }, { "main": "PUSH通知·离线模式" }, { "main": "定制UI/UX设计" }, { "main": "应用商店上架+审核应对" }, { "main": "上线后3个月运维" }], "recommend": "适合需要LMS对接的中型教育机构", "highlight": true, "badge": "最受欢迎！" },
+      { "name": "Enterprise", "price": "另询", "unit": "", "priceNote": "定制报价", "features": [{ "main": "iOS+Android+平板优化" }, { "main": "LMS全面对接+SSO+DRM" }, { "main": "高级学习分析仪表板" }, { "main": "定制原生模块开发" }, { "main": "应用商店上架+持续更新" }, { "main": "专属PM+年度运维合同" }], "recommend": "适合大型教育机构、网络大学、企业培训中心" }
+    ],
+    "plansCustom": { "title": "以上方案都不太合适？", "desc": "根据项目规模免费提供定制报价。", "cta": "申请定制报价" },
     "faqs": [
       { "q": "同时开发iOS和Android费用会翻倍吗？", "a": "不会。Webheads使用React Native或Flutter跨平台框架，从单一代码库同时开发iOS和Android应用。相比分别进行原生开发可节省约30~40%的开发成本，后续维护时一次修改即可同步到两个平台，运营成本也大幅降低。当然，如需平台专有功能（Face ID、NFC等），我们会添加原生模块以提供最佳用户体验。" },
       { "q": "也代行App Store/Google Play上架吗？", "a": "是的，我们代办Apple App Store和Google Play Store上架的全部流程。从开发者账号创建指导到应用元数据（截图、描述、关键词）编写、审核提交、被拒应对，所有环节我们都负责到底。尤其基于丰富的Apple严格审核标准应对经验，将被拒率降到最低。上架完成后的应用更新再审核流程也持续提供支持。" },

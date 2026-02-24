@@ -265,6 +265,13 @@
       { "title": "ハイブリッド / クロスプラットフォーム", "desc": "React Native・Flutterで単一コードベースからiOS・Androidを同時開発します。", "tags": ["React Native", "Flutter", "コスト削減"] },
       { "title": "アプリストア配信＆維持管理", "desc": "App Store・Google Play審査対応から配信まで全過程を代行します。", "tags": ["App Store", "Google Play", "CI/CD"] }
     ],
+    "plansSection": { "sub": "料金プラン", "title": "プロジェクトに合った\nアプリ開発プラン", "desc": "すべての料金はVAT別途です。プロジェクト範囲に応じて調整される場合があります。" },
+    "plans": [
+      { "name": "MVP", "price": "1,500万", "unit": "ウォン〜", "priceNote": "1回開発費", "features": [{ "main": "iOSまたはAndroid単一プラットフォーム" }, { "main": "コア機能3〜5個" }, { "main": "基本UI/UXデザイン" }, { "main": "アプリストア登録代行" }, { "main": "リリース後1ヶ月バグ修正" }], "recommend": "市場検証が早急に必要なスタートアップにおすすめ" },
+      { "name": "Standard", "price": "3,000万", "unit": "ウォン〜", "priceNote": "1回開発費", "features": [{ "main": "iOS＋Android同時開発" }, { "main": "Webheads LMS基本連携" }, { "main": "PUSH通知・オフラインモード" }, { "main": "カスタムUI/UXデザイン" }, { "main": "アプリストア登録＋審査対応" }, { "main": "リリース後3ヶ月保守" }], "recommend": "LMS連携が必要な中規模教育機関におすすめ", "highlight": true, "badge": "最も人気！" },
+      { "name": "Enterprise", "price": "別途お問い合わせ", "unit": "", "priceNote": "カスタム見積", "features": [{ "main": "iOS＋Android＋タブレット最適化" }, { "main": "LMSフル連携＋SSO＋DRM" }, { "main": "高度学習分析ダッシュボード" }, { "main": "カスタムネイティブモジュール開発" }, { "main": "アプリストア登録＋継続アップデート" }, { "main": "専任PM＋年間保守契約" }], "recommend": "大規模教育機関、サイバー大学、企業教育センターにおすすめ" }
+    ],
+    "plansCustom": { "title": "上記プランが合わない場合は？", "desc": "プロジェクト規模に合ったカスタム見積を無料でご提案します。", "cta": "カスタム見積を依頼" },
     "faqs": [
       { "q": "iOSとAndroidを同時開発するとコストは2倍ですか？", "a": "いいえ。WebheadsはReact NativeまたはFlutterクロスプラットフォームフレームワークを活用し、単一コードベースからiOS・Androidアプリを同時開発します。これによりネイティブアプリ対比約30〜40%の開発コストを削減でき、保守時も1回の修正で両プラットフォームに同時反映されるため運用コストも大幅に削減されます。もちろんプラットフォーム固有機能（Face ID、NFCなど）が必要な場合はネイティブモジュールを追加して最適なユーザー体験を提供します。" },
       { "q": "App Store/Google Play登録も代行してくれますか？", "a": "はい、Apple App StoreとGoogle Play Storeの登録全過程を代行いたします。開発者アカウント作成のご案内からアプリメタデータ（スクリーンショット、説明文、キーワード）作成、審査提出、リジェクト対応まですべてのプロセスを責任を持って進行します。特にAppleの厳格な審査基準に対する豊富な経験を基にリジェクト率を最小化し、登録完了後もアプリアップデート時の再審査プロセスを継続的にサポートします。" },
