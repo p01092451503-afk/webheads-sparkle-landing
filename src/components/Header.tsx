@@ -73,22 +73,21 @@ export default function Header() {
         </div>
       </div>
       {mobileOpen && (
-        <div className="lg:hidden bg-background border-t border-border shadow-md">
+        <div className="lg:hidden bg-[hsl(230,25%,12%)] border-t border-white/10 shadow-md">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-1">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
-              const isLms = s.path === "/lms";
               return (
-                <Link key={s.path} to={s.path} className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isLms ? (isActive ? "text-white shadow-md" : "text-white") : isActive ? "text-white" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isLms ? { background: isActive ? "hsl(255, 75%, 55%)" : "hsl(255, 65%, 58%)" } : isActive ? { background: "hsl(214, 45%, 65%)" } : undefined}>
+                <Link key={s.path} to={s.path} className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive ? "text-white bg-white/15" : "text-white/60 hover:text-white hover:bg-white/10"}`}>
                   {s.label}
                 </Link>
               );
             })}
-            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
+            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-white/10">
               <ThemeToggle />
               <LanguageSwitcher />
             </div>
-            <a href="#contact" className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center">
+            <a href="#contact" className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-[hsl(230,25%,12%)] text-center">
               {t("header.cta")}
             </a>
           </div>
