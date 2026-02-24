@@ -267,8 +267,8 @@
     ],
     "plansSection": { "sub": "料金プラン", "title": "プロジェクトに合った\nアプリ開発プラン", "desc": "すべての料金はVAT別途です。プロジェクト範囲に応じて調整される場合があります。" },
     "plans": [
-      { "name": "MVP", "price": "150万", "unit": "ウォン〜", "priceNote": "1回開発費", "features": [{ "main": "iOSまたはAndroid単一プラットフォーム" }, { "main": "コア機能3〜5個" }, { "main": "基本UI/UXデザイン" }, { "main": "アプリストア登録代行" }, { "main": "リリース後1ヶ月バグ修正" }], "recommend": "市場検証が早急に必要なスタートアップにおすすめ" },
-      { "name": "Standard", "price": "250万", "unit": "ウォン〜", "priceNote": "1回開発費", "features": [{ "main": "iOS＋Android同時開発" }, { "main": "Webheads LMS基本連携" }, { "main": "PUSH通知・オフラインモード" }, { "main": "カスタムUI/UXデザイン" }, { "main": "アプリストア登録＋審査対応" }, { "main": "リリース後3ヶ月保守" }], "recommend": "LMS連携が必要な中規模教育機関におすすめ", "highlight": true, "badge": "最も人気！" },
+      { "name": "MVP", "price": "1,500,000", "unit": "ウォン〜", "priceNote": "1回開発費", "features": [{ "main": "iOSまたはAndroid単一プラットフォーム" }, { "main": "コア機能3〜5個" }, { "main": "基本UI/UXデザイン" }, { "main": "アプリストア登録代行" }, { "main": "リリース後1ヶ月バグ修正" }], "recommend": "市場検証が早急に必要なスタートアップにおすすめ" },
+      { "name": "Standard", "price": "2,500,000", "unit": "ウォン〜", "priceNote": "1回開発費", "features": [{ "main": "iOS＋Android同時開発" }, { "main": "Webheads LMS基本連携" }, { "main": "PUSH通知・オフラインモード" }, { "main": "カスタムUI/UXデザイン" }, { "main": "アプリストア登録＋審査対応" }, { "main": "リリース後3ヶ月保守" }], "recommend": "LMS連携が必要な中規模教育機関におすすめ", "highlight": true, "badge": "最も人気！" },
       { "name": "Enterprise", "price": "別途お問い合わせ", "unit": "", "priceNote": "カスタム見積", "features": [{ "main": "iOS＋Android＋タブレット最適化" }, { "main": "LMSフル連携＋SSO＋DRM" }, { "main": "高度学習分析ダッシュボード" }, { "main": "カスタムネイティブモジュール開発" }, { "main": "アプリストア登録＋継続アップデート" }, { "main": "専任PM＋年間保守契約" }], "recommend": "大規模教育機関、サイバー大学、企業教育センターにおすすめ" }
     ],
     "plansCustom": { "title": "上記プランが合わない場合は？", "desc": "プロジェクト規模に合ったカスタム見積を無料でご提案します。", "cta": "カスタム見積を依頼" },
