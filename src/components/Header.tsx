@@ -52,7 +52,7 @@ export default function Header() {
                     >
                       {s.label}
                     </Link>
-                    {idx === 0 && <span className="w-[1.5px] h-5 bg-white/30 mx-2 rounded-full" />}
+                    {idx === 0 && <span className="w-[1.5px] h-5 bg-gray-300 mx-2 rounded-full" />}
                   </span>
                 );
               })}
