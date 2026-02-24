@@ -30,7 +30,7 @@ export default function Header() {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/85 backdrop-blur-2xl shadow-xl border-b border-border/40" : "bg-background/70 backdrop-blur-lg border-b border-transparent"}`}>
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
         <div className="flex items-center gap-4 h-[68px]">
-          <Link to="/lms" className="shrink-0 tracking-tight text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
+          <Link to="/lms" className="shrink-0 tracking-tight text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.85rem" }}>
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center flex-1">
