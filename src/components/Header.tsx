@@ -27,29 +27,47 @@ export default function Header() {
   useEffect(() => { setMobileOpen(false); }, [location]);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-md border-b border-border ${scrolled ? "shadow-sm" : ""}`}>
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="flex items-center gap-6 h-16">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/90 backdrop-blur-xl shadow-lg border-b border-border/50" : "bg-background/80 backdrop-blur-md border-b border-transparent"}`}>
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="flex items-center gap-5 h-[60px]">
           <Link to="/lms" className="shrink-0 tracking-tight text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
             {t("header.logo")}
           </Link>
-          <nav className="hidden lg:flex items-center justify-center gap-1.5 flex-1">
+          <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1">
             {services.map((s, idx) => {
               const isActive = location.pathname === s.path;
               const isLms = s.path === "/lms";
               return (
-                <span key={s.path} className="flex items-center gap-1.5">
-                  <Link to={s.path} className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition-all duration-150 ${isLms ? (isActive ? "text-white shadow-md" : "text-white shadow-sm hover:shadow-md") : isActive ? "text-white shadow-sm" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`} style={isLms ? { background: isActive ? "hsl(255, 75%, 55%)" : "hsl(255, 65%, 58%)" } : isActive ? { background: "hsl(214, 45%, 65%)" } : undefined}>
+                <span key={s.path} className="flex items-center gap-0.5">
+                  <Link
+                    to={s.path}
+                    className={`whitespace-nowrap px-4 py-2 rounded-full text-[13px] font-semibold transition-all duration-200 ${
+                      isLms
+                        ? "text-white shadow-md hover:shadow-lg hover:scale-[1.03]"
+                        : isActive
+                        ? "text-white shadow-md"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    }`}
+                    style={
+                      isLms
+                        ? { background: isActive ? "hsl(255, 75%, 52%)" : "hsl(255, 65%, 58%)" }
+                        : isActive
+                        ? { background: "hsl(214, 50%, 58%)" }
+                        : undefined
+                    }
+                  >
                     {s.label}
                   </Link>
-                  {idx === 0 && <span className="w-px h-5 bg-border ml-2 mr-1" />}
+                  {idx === 0 && <span className="w-px h-4 bg-border/60 ml-2.5 mr-1.5" />}
                 </span>
               );
             })}
           </nav>
-          <ThemeToggle />
-          <LanguageSwitcher />
-          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-4 py-2 rounded-xl text-sm font-semibold bg-foreground text-background hover:bg-foreground/90 transition-colors whitespace-nowrap">
+          <div className="hidden lg:flex items-center gap-1.5">
+            <ThemeToggle />
+            <LanguageSwitcher />
+          </div>
+          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-5 py-2 rounded-full text-[13px] font-bold bg-foreground text-background hover:bg-foreground/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
             {t("header.cta")}
           </a>
           <button className="lg:hidden ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
