@@ -44,7 +44,7 @@ export default function Header() {
                       to={s.path}
                       className={`whitespace-nowrap px-5 py-1.5 rounded-lg text-[0.96rem] font-medium transition-all duration-200 ${
                         isLms
-                          ? "text-white bg-[hsl(230,25%,25%)] shadow-sm"
+                          ? "text-white bg-gradient-to-r from-[hsl(250,50%,50%)] to-[hsl(230,60%,45%)] shadow-sm"
                           : isActive
                           ? "text-[hsl(230,25%,15%)] bg-gray-100"
                           : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-100"
