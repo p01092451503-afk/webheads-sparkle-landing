@@ -42,7 +42,7 @@ export default function Header() {
                   <span key={s.path} className="flex items-center">
                     <Link
                       to={s.path}
-                      className={`whitespace-nowrap px-5 py-2 rounded-lg text-[1.2rem] font-semibold transition-all duration-200 ${
+                      className={`whitespace-nowrap px-5 py-2 rounded-lg text-[0.96rem] font-semibold transition-all duration-200 ${
                         isLms
                           ? isActive
                             ? "text-white bg-white/15"
