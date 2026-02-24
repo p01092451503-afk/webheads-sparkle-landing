@@ -29,12 +29,12 @@ export default function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/85 backdrop-blur-2xl shadow-xl border-b border-border/40" : "bg-background/70 backdrop-blur-lg border-b border-transparent"}`}>
       <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
-        <div className="flex items-center gap-4 h-[68px]">
-          <Link to="/lms" className="shrink-0 tracking-tight text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.85rem" }}>
+        <div className="flex items-center gap-4 h-[56px]">
+          <Link to="/lms" className="shrink-0 tracking-tight text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}>
             {t("header.logo")}
           </Link>
           <nav className="hidden lg:flex items-center justify-center flex-1">
-            <div className="flex items-center gap-1 bg-muted/50 dark:bg-muted/30 rounded-full px-2 py-1.5 border border-border/30">
+            <div className="flex items-center gap-0 bg-muted/50 dark:bg-muted/30 rounded-full px-1.5 py-1 border border-border/30">
               {services.map((s, idx) => {
                 const isActive = location.pathname === s.path;
                 const isLms = s.path === "/lms";
@@ -42,7 +42,7 @@ export default function Header() {
                   <span key={s.path} className="flex items-center">
                     <Link
                       to={s.path}
-                      className={`whitespace-nowrap px-4.5 py-2 rounded-full text-base font-semibold transition-all duration-200 ${
+                      className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                         isLms
                           ? "text-white shadow-md hover:shadow-lg hover:brightness-110 hover:scale-[1.04]"
                           : isActive
@@ -59,7 +59,7 @@ export default function Header() {
                     >
                       {s.label}
                     </Link>
-                    {idx === 0 && <span className="w-[1.5px] h-6 bg-foreground/25 mx-3" />}
+                    {idx === 0 && <span className="w-[1.5px] h-5 bg-foreground/25 mx-2.5" />}
                   </span>
                 );
               })}
@@ -69,7 +69,7 @@ export default function Header() {
             <ThemeToggle />
             <LanguageSwitcher />
           </div>
-          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-6 py-2.5 rounded-full text-base font-bold bg-foreground text-background hover:bg-foreground/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
+          <a href="#contact" className="hidden lg:inline-flex shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-foreground text-background hover:bg-foreground/90 transition-all duration-200 hover:shadow-md whitespace-nowrap">
             {t("header.cta")}
           </a>
           <button className="lg:hidden ml-auto p-2 text-muted-foreground hover:text-foreground transition-colors" onClick={() => setMobileOpen((v) => !v)} aria-label="Menu">
