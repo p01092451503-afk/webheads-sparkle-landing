@@ -533,19 +533,28 @@
     "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 300+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "Webheads LMS", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Why Do You Need Add-On Services?" },
     "ecosystem": {
-      "title": "LMS Alone Isn't Enough",
-      "desc": "LMS is the core of online education, but a successful e-learning business requires infrastructure, content, security, payments, and more — all working together seamlessly.",
-      "intro": "Think of it like a car: the engine (LMS) alone won't get you anywhere. You also need wheels (hosting), fuel (content), a lock (DRM), and GPS (chatbot). Together, they complete the full educational experience. See how each service connects to your LMS below.",
-      "cta": "Get a Free Custom Consultation",
+      "title": "Wait — isn't LMS\nenough on its own?",
+      "desc": "A lot of people think so. But successful e-learning businesses need a few more pieces to really work.",
+      "analogyEmoji": "🏠",
+      "analogy": "Building a house isn't just about the structure. You need electricity, plumbing, locks, and interior design to actually live in it. LMS works the same way.",
+      "stepsTitle": "Here's how it works",
+      "steps": [
+        { "emoji": "1️⃣", "text": "Build your education site with LMS" },
+        { "emoji": "2️⃣", "text": "Connect add-on services so learners have a great experience" },
+        { "emoji": "3️⃣", "text": "Revenue grows and operations get easier" }
+      ],
+      "servicesTitle": "Which services do you need?",
+      "cta": "Get a free custom consultation",
+      "ctaSub": "Mon–Fri 10:00–18:00 · We usually reply within 1 business day",
       "services": [
-        { "name": "Hosting", "why": "Your LMS needs reliable server infrastructure. Hosting ensures smooth video playback and secure data storage even during peak traffic." },
-        { "name": "Content Production", "why": "Even the best LMS is an empty classroom without quality content. Professional filming, editing, and interactive content maximize learning outcomes." },
-        { "name": "DRM Security", "why": "If paid courses are pirated, you lose revenue and instructor trust. DRM is the lock that protects your valuable educational content." },
-        { "name": "AI Chatbot", "why": "AI handles repetitive learner questions 24/7, reducing your operations team's workload by over 80% while boosting learner satisfaction." },
-        { "name": "App Development", "why": "A mobile app lets learners study anywhere — on the commute, at a café — dramatically increasing course completion rates with push notifications." },
-        { "name": "PG Payment", "why": "Secure payment systems are essential for selling paid courses. Integrate Toss, Inicis, and international payments like Stripe and PayPal in one go." },
-        { "name": "Channel/SMS", "why": "Automated study reminders, completion notices, and event alerts reduce learner dropout and increase re-enrollment rates." },
-        { "name": "Maintenance", "why": "After LMS launch, you still need security patches, feature updates, and incident response. Dedicated engineers ensure 24/7 stable operations." }
+        { "emoji": "🏗️", "name": "Hosting", "problem": "If videos lag or buffer, learners leave.", "solution": "Stable servers that handle thousands of users — zero buffering!" },
+        { "emoji": "🎬", "name": "Content Production", "problem": "An LMS without courses is like an empty classroom.", "solution": "From filming to editing — pros create high-quality courses for you" },
+        { "emoji": "🔒", "name": "DRM Security", "problem": "Pirated courses mean lost revenue.", "solution": "Block screen capture & recording to keep your content safe" },
+        { "emoji": "🤖", "name": "AI Chatbot", "problem": "Answering the same questions every day exhausts your team.", "solution": "AI auto-responds 24/7 and cuts support workload by 80%" },
+        { "emoji": "📱", "name": "App Development", "problem": "Poor mobile experience = lower completion rates.", "solution": "A dedicated app lets learners study on the go with push reminders" },
+        { "emoji": "💳", "name": "PG Payment", "problem": "Complicated checkout kills conversion rates.", "solution": "One integration for cards, Toss, and international payments" },
+        { "emoji": "💬", "name": "Channel/SMS", "problem": "Learners quietly drop off and never come back.", "solution": "Auto study nudges & completion alerts cut dropout dramatically" },
+        { "emoji": "🛠️", "name": "Maintenance", "problem": "What happens when something breaks after launch?", "solution": "Dedicated engineers monitor 24/7 and respond immediately" }
       ]
     },
     "statsTitle": "300+ companies are already transforming their learning",
