@@ -115,10 +115,18 @@ export default function LmsPage() {
               </a>
               <button
                 onClick={() => setEcosystemOpen(true)}
-                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-all border border-border text-foreground bg-background/80 backdrop-blur-sm flex items-center gap-2 hover:bg-secondary"
+                className="group px-7 py-3.5 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] text-white relative overflow-hidden"
+                style={{
+                  background: "linear-gradient(135deg, hsl(245, 65%, 55%), hsl(215, 80%, 50%))",
+                  boxShadow: "0 4px 20px -4px hsl(245, 60%, 50%, 0.4), 0 0 0 1px hsl(245, 60%, 60%, 0.2)",
+                }}
               >
                 <BookOpen className="w-4 h-4" />
                 {t("lms.hero.ctaEcosystem")}
+                <span className="absolute top-0 right-0 -mt-0.5 -mr-0.5 flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-50" />
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-white/80" />
+                </span>
               </button>
             </div>
             <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
