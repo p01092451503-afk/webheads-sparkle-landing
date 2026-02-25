@@ -9,7 +9,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import ScrollButtons from "./components/ScrollButtons";
 import PageTracker from "./components/PageTracker";
-import LandingPage from "./pages/LandingPage";
+
 import HostingPage from "./pages/HostingPage";
 import ChatbotPage from "./pages/ChatbotPage";
 import AppDevPage from "./pages/AppDevPage";
