@@ -104,68 +104,6 @@ const MaintenanceIcon = ({ color }: { color: string }) => (
   </svg>
 );
 
-/* ── House-building analogy: clean 3-step flow ── */
-const AnalogyFlow = () => (
-  <div className="flex items-center justify-between gap-1 mt-5">
-    {/* Step 1 */}
-    <div className="flex flex-col items-center gap-2 flex-1">
-      <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(245, 50%, 92%)" }}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M3 21V10L12 3L21 10V21H15V15H9V21H3Z" fill="hsl(245, 55%, 68%)" />
-          <rect x="10" y="15" width="4" height="6" rx="0.5" fill="hsl(245, 50%, 55%)" />
-        </svg>
-      </div>
-      <span className="text-[0.7rem] font-bold text-muted-foreground text-center leading-tight">LMS<br />구조물</span>
-    </div>
-
-    {/* Connector 1 */}
-    <div className="flex items-center pb-5">
-      <div className="w-5 h-[2px] rounded-full" style={{ background: "hsl(230, 30%, 82%)" }} />
-      <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="-ml-px">
-        <path d="M1 1L5 5L1 9" stroke="hsl(230, 30%, 72%)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
-
-    {/* Step 2 */}
-    <div className="flex flex-col items-center gap-2 flex-1">
-      <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(215, 55%, 92%)" }}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M3 21V10L12 3L21 10V21H15V15H9V21H3Z" fill="hsl(215, 55%, 72%)" />
-          <rect x="10" y="15" width="4" height="6" rx="0.5" fill="hsl(215, 50%, 58%)" />
-          <path d="M17.5 5.5L16 8.5H17.5L15.5 12L17 9H15.5Z" fill="hsl(45, 90%, 55%)" />
-          <circle cx="7" cy="7.5" r="2" fill="hsl(200, 65%, 62%)" opacity="0.75" />
-        </svg>
-      </div>
-      <span className="text-[0.7rem] font-bold text-muted-foreground text-center leading-tight">+부가서비스<br />인프라 완성</span>
-    </div>
-
-    {/* Connector 2 */}
-    <div className="flex items-center pb-5">
-      <div className="w-5 h-[2px] rounded-full" style={{ background: "hsl(180, 30%, 80%)" }} />
-      <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="-ml-px">
-        <path d="M1 1L5 5L1 9" stroke="hsl(180, 30%, 68%)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
-
-    {/* Step 3 */}
-    <div className="flex flex-col items-center gap-2 flex-1">
-      <div className="w-12 h-12 rounded-2xl flex items-center justify-center relative" style={{ background: "linear-gradient(135deg, hsl(150, 45%, 88%), hsl(170, 50%, 85%))" }}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M3 21V10L12 3L21 10V21H15V15H9V21H3Z" fill="hsl(150, 45%, 55%)" />
-          <rect x="10" y="15" width="4" height="6" rx="0.5" fill="hsl(150, 40%, 42%)" />
-          <rect x="5" y="12" width="3" height="3" rx="0.5" fill="hsl(200, 50%, 68%)" />
-          <rect x="16" y="12" width="3" height="3" rx="0.5" fill="hsl(200, 50%, 68%)" />
-        </svg>
-        <div className="absolute -top-1 -right-1">
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-            <path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5Z" fill="hsl(45, 90%, 55%)" />
-          </svg>
-        </div>
-      </div>
-      <span className="text-[0.7rem] font-bold text-center leading-tight" style={{ color: "hsl(150, 45%, 38%)" }}>성공하는<br />교육 사업 ✨</span>
-    </div>
-  </div>
-);
 
 const serviceIllustrations: Record<string, React.FC<{ color: string }>> = {
   hosting: HostingIcon,
@@ -220,7 +158,7 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
             <p className="text-[0.925rem] font-semibold text-foreground leading-[1.7]" style={{ wordBreak: "keep-all" }}>
               {t("lms.ecosystem.analogy")}
             </p>
-            <AnalogyFlow />
+            
           </div>
         </div>
 
