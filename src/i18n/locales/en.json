@@ -531,7 +531,23 @@
   },
   "lms": {
     "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 300+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
-    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "Webheads LMS", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "Webheads LMS", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Why Do You Need Add-On Services?" },
+    "ecosystem": {
+      "title": "LMS Alone Isn't Enough",
+      "desc": "LMS is the core of online education, but a successful e-learning business requires infrastructure, content, security, payments, and more — all working together seamlessly.",
+      "intro": "Think of it like a car: the engine (LMS) alone won't get you anywhere. You also need wheels (hosting), fuel (content), a lock (DRM), and GPS (chatbot). Together, they complete the full educational experience. See how each service connects to your LMS below.",
+      "cta": "Get a Free Custom Consultation",
+      "services": [
+        { "name": "Hosting", "why": "Your LMS needs reliable server infrastructure. Hosting ensures smooth video playback and secure data storage even during peak traffic." },
+        { "name": "Content Production", "why": "Even the best LMS is an empty classroom without quality content. Professional filming, editing, and interactive content maximize learning outcomes." },
+        { "name": "DRM Security", "why": "If paid courses are pirated, you lose revenue and instructor trust. DRM is the lock that protects your valuable educational content." },
+        { "name": "AI Chatbot", "why": "AI handles repetitive learner questions 24/7, reducing your operations team's workload by over 80% while boosting learner satisfaction." },
+        { "name": "App Development", "why": "A mobile app lets learners study anywhere — on the commute, at a café — dramatically increasing course completion rates with push notifications." },
+        { "name": "PG Payment", "why": "Secure payment systems are essential for selling paid courses. Integrate Toss, Inicis, and international payments like Stripe and PayPal in one go." },
+        { "name": "Channel/SMS", "why": "Automated study reminders, completion notices, and event alerts reduce learner dropout and increase re-enrollment rates." },
+        { "name": "Maintenance", "why": "After LMS launch, you still need security patches, feature updates, and incident response. Dedicated engineers ensure 24/7 stable operations." }
+      ]
+    },
     "statsTitle": "300+ companies are already transforming their learning",
     "stats": [
       { "value": "16yr", "label": "LMS Expertise", "sub": "Industry Leader" },

@@ -11,9 +11,12 @@ import {
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
   DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
   ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award,
-  Sparkles, ArrowRight, Rocket, CreditCard, Database, Layers, HardDriveDownload, Settings, PackageCheck
+  Sparkles, ArrowRight, Rocket, CreditCard, Database, Layers, HardDriveDownload, Settings, PackageCheck,
+  BookOpen
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 
 const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, PackageCheck];
 const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
@@ -25,6 +28,7 @@ const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
 
 export default function LmsPage() {
   const { t } = useTranslation();
+  const [ecosystemOpen, setEcosystemOpen] = useState(false);
 
   const cloudFeatures = (t("lms.cloudFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || Cloud }));
   const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: neoFeatureIcons[i] || Server }));
@@ -106,10 +110,18 @@ export default function LmsPage() {
                 {t("lms.hero.cta1")}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </a>
-              <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">
+              <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 backdrop-blur-sm">
                 {t("lms.hero.cta2")}
               </a>
+              <button
+                onClick={() => setEcosystemOpen(true)}
+                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-all border border-border text-foreground bg-background/80 backdrop-blur-sm flex items-center gap-2 hover:bg-secondary"
+              >
+                <BookOpen className="w-4 h-4" />
+                {t("lms.hero.ctaEcosystem")}
+              </button>
             </div>
+            <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
           </div>
         </div>
       </section>
