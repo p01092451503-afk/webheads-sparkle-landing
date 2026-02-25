@@ -102,6 +102,16 @@
     --contact-card-bg: 0 0% 100%;
     --contact-form-bg: 0 0% 100%;
 
+    /* Service-specific Hero Backgrounds */
+    --hosting-hero-bg: linear-gradient(160deg, hsl(200, 50%, 94%) 0%, hsl(195, 55%, 90%) 40%, hsl(205, 50%, 87%) 100%);
+    --channel-hero-bg: linear-gradient(160deg, hsl(155, 40%, 94%) 0%, hsl(160, 45%, 90%) 40%, hsl(150, 40%, 87%) 100%);
+    --content-hero-bg: linear-gradient(160deg, hsl(30, 50%, 95%) 0%, hsl(25, 55%, 91%) 40%, hsl(35, 45%, 88%) 100%);
+    --drm-hero-bg: linear-gradient(160deg, hsl(220, 45%, 92%) 0%, hsl(225, 50%, 88%) 40%, hsl(230, 45%, 85%) 100%);
+    --chatbot-hero-bg: linear-gradient(160deg, hsl(185, 45%, 94%) 0%, hsl(190, 50%, 90%) 40%, hsl(195, 45%, 87%) 100%);
+    --pg-hero-bg: linear-gradient(160deg, hsl(240, 45%, 95%) 0%, hsl(235, 50%, 91%) 40%, hsl(245, 45%, 88%) 100%);
+    --appdev-hero-bg: linear-gradient(160deg, hsl(165, 40%, 94%) 0%, hsl(170, 45%, 90%) 40%, hsl(175, 40%, 87%) 100%);
+    --maintenance-hero-bg: linear-gradient(160deg, hsl(210, 25%, 93%) 0%, hsl(215, 30%, 89%) 40%, hsl(210, 25%, 86%) 100%);
+
     /* LMS Premium Theme Tokens */
     --lms-hero-bg: linear-gradient(160deg, hsl(250, 40%, 96%) 0%, hsl(240, 50%, 92%) 30%, hsl(220, 55%, 90%) 60%, hsl(260, 45%, 93%) 100%);
     --lms-primary: 255 75% 58%;
@@ -181,6 +191,16 @@
     --contact-bg: linear-gradient(180deg, hsl(222, 40%, 8%) 0%, hsl(222, 38%, 6%) 100%);
     --contact-card-bg: 222 45% 10%;
     --contact-form-bg: 222 45% 10%;
+
+    /* Service-specific Hero Backgrounds (Dark) */
+    --hosting-hero-bg: linear-gradient(160deg, hsl(200, 40%, 8%) 0%, hsl(195, 45%, 10%) 40%, hsl(205, 40%, 12%) 100%);
+    --channel-hero-bg: linear-gradient(160deg, hsl(155, 35%, 7%) 0%, hsl(160, 40%, 9%) 40%, hsl(150, 35%, 11%) 100%);
+    --content-hero-bg: linear-gradient(160deg, hsl(30, 35%, 8%) 0%, hsl(25, 40%, 10%) 40%, hsl(35, 35%, 12%) 100%);
+    --drm-hero-bg: linear-gradient(160deg, hsl(220, 40%, 7%) 0%, hsl(225, 45%, 9%) 40%, hsl(230, 40%, 11%) 100%);
+    --chatbot-hero-bg: linear-gradient(160deg, hsl(185, 35%, 7%) 0%, hsl(190, 40%, 9%) 40%, hsl(195, 35%, 11%) 100%);
+    --pg-hero-bg: linear-gradient(160deg, hsl(240, 40%, 7%) 0%, hsl(235, 45%, 9%) 40%, hsl(245, 40%, 11%) 100%);
+    --appdev-hero-bg: linear-gradient(160deg, hsl(165, 35%, 7%) 0%, hsl(170, 40%, 9%) 40%, hsl(175, 35%, 11%) 100%);
+    --maintenance-hero-bg: linear-gradient(160deg, hsl(210, 25%, 8%) 0%, hsl(215, 30%, 10%) 40%, hsl(210, 25%, 12%) 100%);
 
     /* LMS Premium Theme Tokens (Dark) */
     --lms-hero-bg: linear-gradient(160deg, hsl(250, 40%, 8%) 0%, hsl(240, 45%, 10%) 30%, hsl(255, 40%, 12%) 60%, hsl(230, 45%, 10%) 100%);
