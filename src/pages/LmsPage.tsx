@@ -456,59 +456,91 @@ export default function LmsPage() {
             <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.plansSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.plansSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 items-start">
-            {(t("lms.plans", { returnObjects: true }) as any[]).map((plan: any) => (
-              <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { border: `2px solid hsl(var(--lms-primary))` } : undefined}>
-                {plan.badge && (
-                  <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "var(--lms-gradient)" }}>
-                    {plan.badge}
-                  </div>
-                )}
-                <div className="p-8 flex flex-col gap-5 flex-1">
-                  <div>
-                    <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
-                    {plan.solutionType && (
-                      <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide">{plan.solutionType}</p>
-                    )}
-                    <div className={`h-px mt-4 ${plan.highlight ? "" : "bg-border"}`} style={plan.highlight ? { background: `hsl(var(--lms-primary) / 0.2)` } : undefined} />
-                  </div>
-                  <div>
-                    <div className="flex items-end gap-1">
-                      <span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.price}</span>
-                      {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
-                    </div>
-                    {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
-                  </div>
-                  <ul className="flex flex-col gap-3.5 flex-1">
-                    {plan.features.map((f: any) => (
-                      <li key={f.main} className="flex items-start gap-2.5">
-                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: `hsl(var(--lms-primary))` }}>✓</span>
-                        <div>
-                          <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
-                          {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
+          {(() => {
+            const allPlans = t("lms.plans", { returnObjects: true }) as any[];
+            const mainPlans = allPlans.filter((_: any, i: number) => i < allPlans.length - 1);
+            const enterprisePlan = allPlans[allPlans.length - 1];
+            return (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+                  {mainPlans.map((plan: any) => (
+                    <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { border: `2px solid hsl(var(--lms-primary))` } : undefined}>
+                      {plan.badge && (
+                        <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "var(--lms-gradient)" }}>
+                          {plan.badge}
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="rounded-xl p-4 mt-2 bg-foreground">
-                    <p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p>
+                      )}
+                      <div className="p-8 flex flex-col gap-5 flex-1">
+                        <div>
+                          <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
+                          {plan.solutionType && (
+                            <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide">{plan.solutionType}</p>
+                          )}
+                          <div className={`h-px mt-4 ${plan.highlight ? "" : "bg-border"}`} style={plan.highlight ? { background: `hsl(var(--lms-primary) / 0.2)` } : undefined} />
+                        </div>
+                        <div>
+                          <div className="flex items-end gap-1">
+                            <span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.price}</span>
+                            {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
+                          </div>
+                          {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
+                        </div>
+                        <ul className="flex flex-col gap-3.5 flex-1">
+                          {plan.features.map((f: any) => (
+                            <li key={f.main} className="flex items-start gap-2.5">
+                              <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: `hsl(var(--lms-primary))` }}>✓</span>
+                              <div>
+                                <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
+                                {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="rounded-xl p-4 mt-2 bg-foreground">
+                          <p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Enterprise Plan - 별도 하단 배치 */}
+                <div className="mt-10 max-w-md mx-auto">
+                  <div className="relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md">
+                    <div className="p-8 flex flex-col gap-5 flex-1">
+                      <div>
+                        <h3 className="font-black text-3xl tracking-tight text-foreground">{enterprisePlan.name}</h3>
+                        {enterprisePlan.solutionType && (
+                          <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide">{enterprisePlan.solutionType}</p>
+                        )}
+                        <div className="h-px mt-4 bg-border" />
+                      </div>
+                      <div>
+                        <div className="flex items-end gap-1">
+                          <span className="font-black leading-none tracking-tight text-4xl text-foreground">{enterprisePlan.price}</span>
+                          {enterprisePlan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{enterprisePlan.unit}</span>}
+                        </div>
+                      </div>
+                      <ul className="flex flex-col gap-3.5 flex-1">
+                        {enterprisePlan.features.map((f: any) => (
+                          <li key={f.main} className="flex items-start gap-2.5">
+                            <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: `hsl(var(--lms-primary))` }}>✓</span>
+                            <div>
+                              <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
+                              {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="rounded-xl p-4 mt-2 bg-foreground">
+                        <p className="text-sm text-background/60 leading-relaxed text-center">{enterprisePlan.recommend}</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          {/* Enterprise Plan - hidden for now */}
-          <div className="mt-12 text-center rounded-2xl border bg-background/50 p-8" style={{ borderColor: `hsl(var(--lms-card-border))` }}>
-            <p className="text-foreground font-semibold text-lg mb-2">{t("lms.plansCustom.title")}</p>
-            <p className="text-muted-foreground text-sm mb-6">{t("lms.plansCustom.desc")}</p>
-            <a
-              href="#contact"
-              className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white hover:opacity-90 transition-all"
-              style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
-            >
-              {t("lms.plansCustom.cta")}
-            </a>
-          </div>
+              </>
+            );
+          })()}
         </div>
       </section>
 
