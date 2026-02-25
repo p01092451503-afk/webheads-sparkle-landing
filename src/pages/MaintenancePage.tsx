@@ -64,7 +64,7 @@ export default function MaintenancePage() {
       {/* Hero */}
       <section
         className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden"
-        style={{ background: "var(--hero-bg)" }}
+        style={{ background: "var(--maintenance-hero-bg)" }}
       >
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(220, 80%, 70%, 0.18) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsla(152, 60%, 60%, 0.1) 0%, transparent 70%)" }} />

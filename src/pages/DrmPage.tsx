@@ -23,7 +23,7 @@ export default function DrmPage() {
       <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://webheads-sub.lovable.app/drm" }} faqJsonLd={faqs} />
 
       {/* Hero */}
-      <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--hero-bg)" }}>
+      <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--drm-hero-bg)" }}>
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(var(--accent) / 0.15) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsl(var(--accent) / 0.08) 0%, transparent 70%)" }} />
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
