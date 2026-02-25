@@ -531,7 +531,22 @@
   },
   "lms": {
     "seo": { "title": "Webheads LMS", "description": "将制作、管理、运营等所有在线教育流程统一到一个平台的在线学习解决方案。300+企业信赖的LMS。", "keywords": "LMS, 在线学习, Webheads, 在线教育, 学习管理系统" },
-    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "将您的知识变现", "titleHighlight": "更快更智能", "desc": "Webheads LMS将制作、管理、运营等所有在线教育流程统一到一个平台。", "cta1": "咨询导入", "cta2": "方案对比", "ctaEcosystem": "为什么需要附加服务？" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "将您的知识变现", "titleHighlight": "更快更智能", "desc": "Webheads LMS将制作、管理、运营等所有在线教育流程统一到一个平台。", "cta1": "咨询导入", "cta2": "方案对比", "ctaEcosystem": "为什么需要附加服务？", "ctaWhy": "为什么选Webheads？" },
+    "whyWebheads": {
+      "title": "为什么选择\nWebheads LMS？",
+      "desc": "16年来与300+企业同行——了解Webheads作为在线教育领域领导者的差异化优势。",
+      "highlight": "16年经验 · 300+客户 · 84.2%续约率——数字证明的信赖",
+      "reasonsTitle": "我们的优势",
+      "reasons": [
+        { "title": "最快3天上线", "desc": "无需复杂的服务器搭建和开发周期，最快3天即可上线高质量教育网站。预配置模板和模块化系统大幅缩短从策划到上线的时间。" },
+        { "title": "一站式营收引擎", "desc": "LMS、支付网关、DRM安全、内容制作、营销自动化——教育事业所需的一切功能集成在一个平台。从报名到结业证书发放，无需对接多个供应商即可一站式运营。" },
+        { "title": "行业领先的安全体系", "desc": "Catenoid/ZonePlayer DRM保护、数字水印、录屏检测、并发登录限制等多层安全系统开箱即用。从源头保护您的付费内容和知识产权。" },
+        { "title": "300+机构验证的稳定性", "desc": "从大企业、政府机构到创业公司，300+组织选择了Webheads。84.2%的五年以上续约率充分证明了平台的稳定性和满意度。" },
+        { "title": "灵活的解决方案矩阵", "desc": "追求速度选云端型(AI)，注重安全和定制选部署型(NEO)，政府补贴课程选KDT专用——根据业务规模和目标选择最优LMS。还有SaaS型可即刻启用。" },
+        { "title": "专属支持 & 24/7运维", "desc": "从导入咨询到入职培训、运营中的故障响应，专属客户经理和DevOps工程师全程保驾护航。24小时服务器监控，15分钟内首次响应，定期安全补丁和性能优化。" }
+      ],
+      "cta": "免费获取导入咨询"
+    },
     "ecosystem": {
       "title": "只有LMS\n就够了吗？",
       "desc": "很多人这样认为。但成功的教育事业，除了LMS还需要一些关键要素。",
