@@ -7,7 +7,7 @@ import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import LmsHeroVisual from "@/components/visuals/LmsHeroVisual";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
-  Languages, Lock, Link2, Wrench, BarChart3, Brain, Subtitles, MessageSquare,
+  Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
   DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
   ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award,
@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, PackageCheck];
 const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
 const saasFeatureIcons = [Rocket, CreditCard, RefreshCw, Layers, Database, Plug, HardDriveDownload, Settings];
-const aiFeatureIcons = [Brain, Subtitles, MessageSquare, FileCheck, BarChart3, Search];
+const aiFeatureIcons = [Brain, Subtitles, MessageSquare, FileCheck, Search];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];

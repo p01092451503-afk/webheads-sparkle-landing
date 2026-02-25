@@ -619,7 +619,6 @@
       { "title": "Auto Multi-language Subtitles", "desc": "AI automatically generates multi-language subtitles so anyone can learn easily." },
       { "title": "AI Tutor & Chatbot", "desc": "AI tutors and chatbots respond to learner questions in real-time for better efficiency." },
       { "title": "AI Content Summarization", "desc": "AI auto-summarizes long lecture videos and materials into key takeaways for efficient review." },
-      { "title": "AI Grade Prediction & Retention", "desc": "Analyzes learning patterns to predict grades and detects at-risk learners early for proactive intervention." },
       { "title": "AI Voice Search", "desc": "Converts in-video speech to text, letting learners jump to the exact moment a keyword is mentioned." }
     ],
     "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale", "desc": "Cloud (AI) LMS pricing plans. On-premise (NEO) requires a custom quote." },
