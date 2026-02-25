@@ -531,7 +531,7 @@
   },
   "lms": {
     "seo": { "title": "Webheads LMS", "description": "制作・管理・運営すべてのオンライン教育プロセスを一つのプラットフォームに統合するeラーニングソリューション。300以上の企業が信頼するLMS。", "keywords": "LMS, eラーニング, Webheads, オンライン教育, 学習管理システム" },
-    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "あなたの知識を収益化しよう", "titleHighlight": "より速く、よりスマートに", "desc": "Webheads LMSは制作・管理・運営すべてのオンライン教育プロセスを一つのプラットフォームに統合します。", "cta1": "導入相談", "cta2": "ソリューション比較", "ctaEcosystem": "なぜ付加サービスが必要？", "ctaWhy": "なぜWebheads LMS？" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "あなたの知識を収益化しよう", "titleHighlight": "より速く、よりスマートに", "desc": "Webheads LMSは制作・管理・運営すべてのオンライン教育プロセスを一つのプラットフォームに統合します。", "cta1": "導入相談", "cta2": "ソリューション比較", "ctaEcosystem": "LMS以外の付加サービスも重要です", "ctaWhy": "なぜWebheads LMS？" },
     "whyWebheads": {
       "title": "なぜWebheads LMSを\n選ぶべき？",
       "desc": "16年間300社以上と共に歩んできた実績 — Webheadsだけの差別化された強みをご確認ください。",

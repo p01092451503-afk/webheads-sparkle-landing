@@ -532,7 +532,7 @@
   },
   "lms": {
     "seo": { "title": "웹헤즈 LMS", "description": "제작, 관리, 운영 등 모든 온라인 교육 과정과 복잡한 교육 관리를 하나의 플랫폼으로 통합하는 이러닝 솔루션. 300+ 기업이 신뢰하는 LMS.", "keywords": "LMS, 이러닝 솔루션, 웹헤즈, 온라인 교육, 학습 관리 시스템, 이러닝 플랫폼" },
-    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "사업 성공을 위한 첫걸음,", "titleHighlight": "웹헤즈 LMS", "desc": "복잡한 시스템 구축과 운영의 짐을 내려놓으세요. 오랜 시간 다듬어진 웹헤즈의 올인원 LMS 솔루션이 가장 매끄럽고 완벽한 온라인 교육 환경을 제공합니다.", "cta1": "도입 문의", "cta2": "솔루션 비교", "ctaEcosystem": "왜 부가서비스가 필요할까?", "ctaWhy": "왜 웹헤즈 LMS?" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "사업 성공을 위한 첫걸음,", "titleHighlight": "웹헤즈 LMS", "desc": "복잡한 시스템 구축과 운영의 짐을 내려놓으세요. 오랜 시간 다듬어진 웹헤즈의 올인원 LMS 솔루션이 가장 매끄럽고 완벽한 온라인 교육 환경을 제공합니다.", "cta1": "도입 문의", "cta2": "솔루션 비교", "ctaEcosystem": "LMS 외 부가서비스도 중요합니다", "ctaWhy": "왜 웹헤즈 LMS?" },
     "whyWebheads": {
       "title": "왜 웹헤즈 LMS를\n선택해야 할까요?",
       "desc": "16년간 300개 이상의 기업과 함께 하며 검증된 이러닝 전문 기업, 웹헤즈만의 차별화된 강점을 확인하세요.",
