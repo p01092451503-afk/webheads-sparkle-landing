@@ -48,24 +48,70 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const searchBotPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|sogou|applebot|naverbot|seznambot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot/i;
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
     const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/i;
+    
+    // Scraper sub-classification patterns
+    const seoToolPatterns: [RegExp, string][] = [
+      [/semrushbot/i, "SEMrush"],
+      [/ahrefsbot/i, "Ahrefs"],
+      [/dotbot/i, "Moz"],
+      [/serpstatbot/i, "Serpstat"],
+      [/dataforseo/i, "DataForSEO"],
+      [/screaming frog/i, "Screaming Frog"],
+      [/sitebulb/i, "Sitebulb"],
+      [/mj12bot/i, "Majestic"],
+      [/megaindex/i, "MegaIndex"],
+    ];
+    const archivePatterns: [RegExp, string][] = [
+      [/ia_archiver|archive\.org/i, "Internet Archive"],
+    ];
+    const otherScraperPatterns: [RegExp, string][] = [
+      [/petalbot/i, "PetalBot (Huawei)"],
+      [/blexbot/i, "BLEXBot"],
+      [/rogerbot/i, "RogerBot"],
+      [/exabot/i, "Exabot"],
+    ];
+
     let human = 0, searchBot = 0, scraper = 0, ai = 0;
+    const scraperSubCounts: Record<string, number> = {};
+
+    const classifyScraper = (ua: string, visitorType: string) => {
+      const uaLower = (ua || "").toLowerCase();
+      
+      for (const [pat, name] of seoToolPatterns) {
+        if (pat.test(uaLower)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; return; }
+      }
+      for (const [pat, name] of archivePatterns) {
+        if (pat.test(uaLower)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; return; }
+      }
+      for (const [pat, name] of otherScraperPatterns) {
+        if (pat.test(uaLower)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; return; }
+      }
+      // Cloudflare proxy or repeat-access detection (no specific UA match)
+      if (visitorType === "scraper" && !scraperPatterns.test(uaLower)) {
+        scraperSubCounts["반복접속/CF 프록시"] = (scraperSubCounts["반복접속/CF 프록시"] || 0) + 1;
+        return;
+      }
+      scraperSubCounts["기타"] = (scraperSubCounts["기타"] || 0) + 1;
+    };
+
     filteredViews.forEach((v) => {
       let type = v.visitor_type;
       if (!type || type === "bot") {
-        // Fallback or reclassify legacy "bot" values
         const ua = (v.user_agent || "").toLowerCase();
         if (aiPatterns.test(ua)) type = "ai";
         else if (searchBotPatterns.test(ua)) type = "search_bot";
         else if (scraperPatterns.test(ua)) type = "scraper";
-        else if (v.visitor_type === "bot") type = "scraper"; // legacy "bot" without matching UA → scraper
+        else if (v.visitor_type === "bot") type = "scraper";
         else type = "human";
       }
       if (type === "ai") ai++;
       else if (type === "search_bot") searchBot++;
-      else if (type === "scraper") scraper++;
+      else if (type === "scraper") { scraper++; classifyScraper(v.user_agent || "", v.visitor_type || ""); }
       else human++;
     });
-    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai };
+
+    const scraperSubs = Object.entries(scraperSubCounts).sort(([, a], [, b]) => b - a);
+    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs };
   }, [filteredViews]);
 
   const deviceCounts = filteredViews.reduce((acc, v) => {
@@ -424,6 +470,20 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
             </div>
           ))}
         </div>
+        {visitorTypeCounts.scraperSubs.length > 0 && (
+          <div className="mt-3 rounded-xl px-4 py-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+            <p className="text-[12px] text-muted-foreground mb-2" style={{ fontWeight: 600 }}>스크래퍼 종류별 상세</p>
+            <div className="flex flex-wrap gap-2">
+              {visitorTypeCounts.scraperSubs.map(([name, count]) => (
+                <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: "hsl(0, 70%, 55%, 0.08)", border: "1px solid hsl(0, 70%, 55%, 0.15)" }}>
+                  <span className="text-foreground" style={{ fontWeight: 600 }}>{name}</span>
+                  <span style={{ fontWeight: 800, color: "hsl(0, 70%, 55%)" }}>{count.toLocaleString()}</span>
+                  <span className="text-muted-foreground">({visitorTypeCounts.scraper > 0 ? Math.round((count / visitorTypeCounts.scraper) * 100) : 0}%)</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </SectionGroup>
 
 
