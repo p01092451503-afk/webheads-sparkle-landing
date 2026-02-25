@@ -166,7 +166,7 @@
     "plansSection": { "sub": "套餐", "title": "选择适合规模的\n套餐" },
     "plans": [
       { "name": "Basic", "price": "300,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "features": [{ "main": "每月2次定期检查", "sub": "" }, { "main": "故障响应（工作时间内）", "sub": "工作日 09:00–18:00" }, { "main": "安全补丁应用", "sub": "" }, { "main": "月度现状报告", "sub": "" }, { "main": "邮件技术支持", "sub": "" }], "recommend": "推荐给小型在线学习服务、个人讲师、小型学院" },
-      { "name": "Standard", "price": "600,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "highlight": true, "badge": "最多选择！", "features": [{ "main": "每月4次定期检查", "sub": "" }, { "main": "故障响应 24/7", "sub": "含节假日全年无休" }, { "main": "安全补丁 & 性能优化", "sub": "" }, { "main": "月度性能·安全报告", "sub": "" }, { "main": "邮件·KakaoTalk技术支持", "sub": "" }, { "main": "小功能改进", "sub": "每月2件以内" }], "recommend": "推荐给中型在线学习平台、中小企业、协会、继续教育学院" },
+      { "name": "Standard", "price": "600,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "highlight": true, "badge": "最多选择！", "features": [{ "main": "每月4次定期检查", "sub": "" }, { "main": "故障响应 24/7", "sub": "含节假日全年无休" }, { "main": "安全补丁 & 性能优化", "sub": "" }, { "main": "月度性能·安全报告", "sub": "" }, { "main": "邮件·KakaoTalk技术支持", "sub": "" }, { "main": "小功能改进", "sub": "每月6件以内" }], "recommend": "推荐给中型在线学习平台、中小企业、协会、继续教育学院" },
       { "name": "Premium", "price": "1,200,000", "unit": "韩元", "priceNote": "月费（不含VAT）", "features": [{ "main": "每月8次定期检查", "sub": "" }, { "main": "故障响应 24/7 专属团队", "sub": "SLA 99.9%保障" }, { "main": "安全·性能·DB综合优化", "sub": "" }, { "main": "周报 + 月度综合报告", "sub": "" }, { "main": "电话·邮件·KakaoTalk专属渠道", "sub": "" }, { "main": "功能改进无限制", "sub": "优先处理" }, { "main": "年度安全审计", "sub": "含1次" }], "recommend": "推荐给大型教育机构、公共机构、金融·企业客户" }
     ],
     "plansCustom": { "title": "以上套餐不太合适？", "desc": "根据运营环境免费提供定制报价。", "cta": "申请定制报价" },
