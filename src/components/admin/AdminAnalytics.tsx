@@ -506,18 +506,22 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           { subs: visitorTypeCounts.searchBotSubs, label: "검색엔진 봇 종류별 상세", color: "hsl(35, 90%, 50%)", total: visitorTypeCounts.searchBot },
           { subs: visitorTypeCounts.aiBotSubs, label: "AI 봇 종류별 상세", color: "hsl(260, 70%, 55%)", total: visitorTypeCounts.ai },
           { subs: visitorTypeCounts.scraperSubs, label: "스크래퍼 종류별 상세", color: "hsl(0, 70%, 55%)", total: visitorTypeCounts.scraper },
-        ].filter(g => g.subs.length > 0).map((group) => (
+        ].map((group) => (
           <div key={group.label} className="mt-3 rounded-xl px-4 py-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
             <p className="text-[12px] text-muted-foreground mb-2" style={{ fontWeight: 600 }}>{group.label}</p>
-            <div className="flex flex-wrap gap-2">
-              {group.subs.map(([name, count]) => (
-                <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: `${group.color.replace(')', ', 0.08)')}`, border: `1px solid ${group.color.replace(')', ', 0.15)')}` }}>
-                  <span className="text-foreground" style={{ fontWeight: 600 }}>{name}</span>
-                  <span style={{ fontWeight: 800, color: group.color }}>{count.toLocaleString()}</span>
-                  <span className="text-muted-foreground">({group.total > 0 ? Math.round((count / group.total) * 100) : 0}%)</span>
-                </div>
-              ))}
-            </div>
+            {group.subs.length > 0 ? (
+              <div className="flex flex-wrap gap-2">
+                {group.subs.map(([name, count]) => (
+                  <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: `${group.color.replace(')', ', 0.08)')}`, border: `1px solid ${group.color.replace(')', ', 0.15)')}` }}>
+                    <span className="text-foreground" style={{ fontWeight: 600 }}>{name}</span>
+                    <span style={{ fontWeight: 800, color: group.color }}>{count.toLocaleString()}</span>
+                    <span className="text-muted-foreground">({group.total > 0 ? Math.round((count / group.total) * 100) : 0}%)</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-[11px] text-muted-foreground/50 py-1">해당 기간에 감지된 데이터가 없습니다</p>
+            )}
           </div>
         ))}
         {visitorTypeCounts.aiBotPages.length > 0 && (
