@@ -531,7 +531,22 @@
   },
   "lms": {
     "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 300+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
-    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "Webheads LMS", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Why Do You Need Add-On Services?" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "Webheads LMS", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Why Do You Need Add-On Services?", "ctaWhy": "Why Webheads LMS?" },
+    "whyWebheads": {
+      "title": "Why Choose\nWebheads LMS?",
+      "desc": "Trusted by 300+ companies over 16 years — discover what makes Webheads the proven leader in e-learning.",
+      "highlight": "16 years of expertise · 300+ clients · 84.2% renewal rate — trust backed by numbers",
+      "reasonsTitle": "Our Advantages",
+      "reasons": [
+        { "title": "Launch in Just 3 Days", "desc": "Skip months of server setup and development. With pre-built templates and modular architecture, your education platform goes live in as little as 3 days — dramatically reducing time-to-market." },
+        { "title": "All-in-One Revenue Engine", "desc": "LMS, payment gateway, DRM security, content production, and marketing automation — everything your education business needs, unified in one platform. From enrollment to certification, run it all without juggling multiple vendors." },
+        { "title": "Industry-Leading Security", "desc": "Multi-layered protection with Catenoid/ZonePlayer DRM, forensic watermarking, screen recording detection, and concurrent login limits. Safeguard your premium content and intellectual property from day one." },
+        { "title": "Proven by 300+ Organizations", "desc": "Yanadu, Korea Energy Foundation, Incheon Airport, KAIST — enterprises, government agencies, and startups across industries trust Webheads. Our 84.2% five-year renewal rate speaks for itself." },
+        { "title": "Flexible Solution Lineup", "desc": "Need speed? Go Cloud (AI). Need security & customization? Choose On-premise (NEO). Running government-funded courses? KDT edition. Plus SaaS for instant, zero-IT-burden deployment." },
+        { "title": "Dedicated Support & 24/7 Maintenance", "desc": "From onboarding to incident response, a dedicated manager and DevOps engineers have your back. 24/7 server monitoring, 15-minute first response SLA, regular security patches, and performance tuning included." }
+      ],
+      "cta": "Get a Free Consultation"
+    },
     "ecosystem": {
       "title": "Wait — isn't LMS\nenough on its own?",
       "desc": "A lot of people think so. But successful e-learning businesses need a few more pieces to really work.",

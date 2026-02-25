@@ -17,6 +17,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
+import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 
 const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, PackageCheck];
 const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
@@ -29,6 +30,7 @@ const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
 export default function LmsPage() {
   const { t } = useTranslation();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
+  const [whyOpen, setWhyOpen] = useState(false);
 
   const cloudFeatures = (t("lms.cloudFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || Cloud }));
   const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: neoFeatureIcons[i] || Server }));
@@ -128,8 +130,16 @@ export default function LmsPage() {
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-white/80" />
                 </span>
               </button>
+              <button
+                onClick={() => setWhyOpen(true)}
+                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-all border border-border text-foreground bg-background/80 backdrop-blur-sm flex items-center gap-2 hover:bg-secondary"
+              >
+                <Award className="w-4 h-4" />
+                {t("lms.hero.ctaWhy")}
+              </button>
             </div>
             <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
+            <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
           </div>
         </div>
       </section>
