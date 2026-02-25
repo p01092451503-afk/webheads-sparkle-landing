@@ -13,8 +13,6 @@ import {
   Code2, Paintbrush, LayoutDashboard, MonitorSmartphone, Puzzle, Layers,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import HeroFloatingVisual from "@/components/shared/HeroFloatingVisual";
-import HeroGridOverlay from "@/components/shared/HeroGridOverlay";
 
 const featureIcons = [Clock, RefreshCw, Shield, BarChart3, Settings, PhoneCall, AlertTriangle, HeadphonesIcon];
 const processIcons = [FileSearch, Settings, Monitor, AlertTriangle, FileText];
@@ -70,23 +68,24 @@ export default function MaintenancePage() {
       >
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsla(220, 80%, 70%, 0.18) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsla(152, 60%, 60%, 0.1) 0%, transparent 70%)" }} />
-        <HeroGridOverlay />
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
-          <HeroFloatingVisual><MaintenanceHeroVisual /></HeroFloatingVisual>
+          <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}>
+            <MaintenanceHeroVisual />
+          </div>
         </div>
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("maintenance.hero.badge")}</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">
               {t("maintenance.hero.title")}<br />
-              <span className="hero-gradient-text-primary hero-title-highlight">{t("maintenance.hero.titleHighlight")}</span>
+              <span className="text-primary">{t("maintenance.hero.titleHighlight")}</span>
             </h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">
               {t("maintenance.hero.desc")}
             </p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="hero-cta-primary px-7 py-3.5 rounded-2xl font-bold text-sm bg-foreground text-background">{t("maintenance.hero.cta1")}</a>
-              <a href="#plans" className="hero-cta-secondary px-7 py-3.5 rounded-2xl font-bold text-sm border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("maintenance.hero.cta2")}</a>
+              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("maintenance.hero.cta1")}</a>
+              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("maintenance.hero.cta2")}</a>
             </div>
           </div>
         </div>
