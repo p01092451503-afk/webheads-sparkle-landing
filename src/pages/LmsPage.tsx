@@ -497,6 +497,17 @@ export default function LmsPage() {
               </div>
             ))}
           </div>
+          <div className="mt-12 text-center rounded-2xl border bg-background/50 p-8" style={{ borderColor: `hsl(var(--lms-card-border))` }}>
+            <p className="text-foreground font-semibold text-lg mb-2">{t("lms.plansCustom.title")}</p>
+            <p className="text-muted-foreground text-sm mb-6">{t("lms.plansCustom.desc")}</p>
+            <a
+              href="#contact"
+              className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white hover:opacity-90 transition-all"
+              style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
+            >
+              {t("lms.plansCustom.cta")}
+            </a>
+          </div>
         </div>
       </section>
 
