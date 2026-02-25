@@ -32,7 +32,7 @@ export default function DrmPage() {
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-accent shadow-sm">{t("drm.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">{t("drm.hero.title")}<br /><span className="text-accent">{t("drm.hero.titleHighlight")}</span></h1>
+            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">{t("drm.hero.title")}<br /><span style={{ color: "hsl(220, 85%, 45%)" }}>{t("drm.hero.titleHighlight")}</span></h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("drm.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("drm.hero.cta1")}</a>
