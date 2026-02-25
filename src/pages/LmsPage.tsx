@@ -459,12 +459,10 @@ export default function LmsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 items-start">
             {(t("lms.plans", { returnObjects: true }) as any[]).map((plan: any) => (
               <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { border: `2px solid hsl(var(--lms-primary))` } : undefined}>
-                {plan.badge ? (
+                {plan.badge && (
                   <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "var(--lms-gradient)" }}>
                     {plan.badge}
                   </div>
-                ) : (
-                  <div className="h-[38px]" />
                 )}
                 <div className="p-8 flex flex-col gap-5 flex-1">
                   <div>
