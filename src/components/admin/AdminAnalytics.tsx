@@ -50,68 +50,87 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/i;
     
     // Scraper sub-classification patterns
-    const seoToolPatterns: [RegExp, string][] = [
-      [/semrushbot/i, "SEMrush"],
-      [/ahrefsbot/i, "Ahrefs"],
-      [/dotbot/i, "Moz"],
-      [/serpstatbot/i, "Serpstat"],
-      [/dataforseo/i, "DataForSEO"],
-      [/screaming frog/i, "Screaming Frog"],
-      [/sitebulb/i, "Sitebulb"],
-      [/mj12bot/i, "Majestic"],
-      [/megaindex/i, "MegaIndex"],
+    const seoToolPats: [RegExp, string][] = [
+      [/semrushbot/i, "SEMrush"], [/ahrefsbot/i, "Ahrefs"], [/dotbot/i, "Moz"],
+      [/serpstatbot/i, "Serpstat"], [/dataforseo/i, "DataForSEO"], [/screaming frog/i, "Screaming Frog"],
+      [/sitebulb/i, "Sitebulb"], [/mj12bot/i, "Majestic"], [/megaindex/i, "MegaIndex"],
     ];
-    const archivePatterns: [RegExp, string][] = [
-      [/ia_archiver|archive\.org/i, "Internet Archive"],
+    const archivePats: [RegExp, string][] = [[/ia_archiver|archive\.org/i, "Internet Archive"]];
+    const otherScraperPats: [RegExp, string][] = [
+      [/petalbot/i, "PetalBot (Huawei)"], [/blexbot/i, "BLEXBot"], [/rogerbot/i, "RogerBot"], [/exabot/i, "Exabot"],
     ];
-    const otherScraperPatterns: [RegExp, string][] = [
-      [/petalbot/i, "PetalBot (Huawei)"],
-      [/blexbot/i, "BLEXBot"],
-      [/rogerbot/i, "RogerBot"],
-      [/exabot/i, "Exabot"],
+
+    // Search bot sub-classification patterns
+    const searchBotSubPats: [RegExp, string][] = [
+      [/googlebot/i, "Google"], [/bingbot/i, "Bing"], [/yandex/i, "Yandex"],
+      [/baiduspider/i, "Baidu"], [/duckduckbot/i, "DuckDuckGo"], [/slurp/i, "Yahoo"],
+      [/naverbot/i, "Naver"], [/applebot/i, "Apple"], [/sogou/i, "Sogou"],
+      [/facebot|facebookexternalhit/i, "Facebook"], [/twitterbot/i, "Twitter/X"],
+      [/linkedinbot/i, "LinkedIn"], [/pinterestbot/i, "Pinterest"],
+      [/seznambot/i, "Seznam"], [/msnbot/i, "MSN"],
+    ];
+
+    // AI bot sub-classification patterns
+    const aiBotSubPats: [RegExp, string][] = [
+      [/gptbot|chatgpt|openai/i, "OpenAI (GPTBot)"], [/claude|anthropic|claudebot/i, "Anthropic (Claude)"],
+      [/bytespider/i, "ByteDance"], [/ccbot/i, "Common Crawl"],
+      [/cohere/i, "Cohere"], [/perplexity/i, "Perplexity"],
+      [/youbot/i, "You.com"], [/google-extended/i, "Google AI"],
+      [/meta-externalagent/i, "Meta AI"], [/amazonbot/i, "Amazon"],
+      [/ai2bot/i, "AI2 (Allen)"],
     ];
 
     let human = 0, searchBot = 0, scraper = 0, ai = 0;
     const scraperSubCounts: Record<string, number> = {};
+    const searchBotSubCounts: Record<string, number> = {};
+    const aiBotSubCounts: Record<string, number> = {};
 
-    const classifyScraper = (ua: string, visitorType: string) => {
-      const uaLower = (ua || "").toLowerCase();
-      
-      for (const [pat, name] of seoToolPatterns) {
-        if (pat.test(uaLower)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; return; }
+    const classifySub = (ua: string, patterns: [RegExp, string][], counts: Record<string, number>, fallback?: string) => {
+      for (const [pat, name] of patterns) {
+        if (pat.test(ua)) { counts[name] = (counts[name] || 0) + 1; return; }
       }
-      for (const [pat, name] of archivePatterns) {
-        if (pat.test(uaLower)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; return; }
-      }
-      for (const [pat, name] of otherScraperPatterns) {
-        if (pat.test(uaLower)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; return; }
-      }
-      // Cloudflare proxy or repeat-access detection (no specific UA match)
-      if (visitorType === "scraper" && !scraperPatterns.test(uaLower)) {
-        scraperSubCounts["반복접속/CF 프록시"] = (scraperSubCounts["반복접속/CF 프록시"] || 0) + 1;
-        return;
-      }
-      scraperSubCounts["기타"] = (scraperSubCounts["기타"] || 0) + 1;
+      const fb = fallback || "기타";
+      counts[fb] = (counts[fb] || 0) + 1;
     };
 
     filteredViews.forEach((v) => {
       let type = v.visitor_type;
+      const ua = (v.user_agent || "");
       if (!type || type === "bot") {
-        const ua = (v.user_agent || "").toLowerCase();
-        if (aiPatterns.test(ua)) type = "ai";
-        else if (searchBotPatterns.test(ua)) type = "search_bot";
-        else if (scraperPatterns.test(ua)) type = "scraper";
+        const uaL = ua.toLowerCase();
+        if (aiPatterns.test(uaL)) type = "ai";
+        else if (searchBotPatterns.test(uaL)) type = "search_bot";
+        else if (scraperPatterns.test(uaL)) type = "scraper";
         else if (v.visitor_type === "bot") type = "scraper";
         else type = "human";
       }
-      if (type === "ai") ai++;
-      else if (type === "search_bot") searchBot++;
-      else if (type === "scraper") { scraper++; classifyScraper(v.user_agent || "", v.visitor_type || ""); }
-      else human++;
+      if (type === "ai") {
+        ai++;
+        classifySub(ua, aiBotSubPats, aiBotSubCounts);
+      } else if (type === "search_bot") {
+        searchBot++;
+        classifySub(ua, searchBotSubPats, searchBotSubCounts);
+      } else if (type === "scraper") {
+        scraper++;
+        const uaL = ua.toLowerCase();
+        let matched = false;
+        for (const pats of [seoToolPats, archivePats, otherScraperPats]) {
+          for (const [pat, name] of pats) {
+            if (pat.test(uaL)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; matched = true; break; }
+          }
+          if (matched) break;
+        }
+        if (!matched) {
+          if (!scraperPatterns.test(uaL)) scraperSubCounts["반복접속/CF 프록시"] = (scraperSubCounts["반복접속/CF 프록시"] || 0) + 1;
+          else scraperSubCounts["기타"] = (scraperSubCounts["기타"] || 0) + 1;
+        }
+      } else human++;
     });
 
     const scraperSubs = Object.entries(scraperSubCounts).sort(([, a], [, b]) => b - a);
-    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs };
+    const searchBotSubs = Object.entries(searchBotSubCounts).sort(([, a], [, b]) => b - a);
+    const aiBotSubs = Object.entries(aiBotSubCounts).sort(([, a], [, b]) => b - a);
+    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs, searchBotSubs, aiBotSubs };
   }, [filteredViews]);
 
   const deviceCounts = filteredViews.reduce((acc, v) => {
@@ -470,20 +489,24 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
             </div>
           ))}
         </div>
-        {visitorTypeCounts.scraperSubs.length > 0 && (
-          <div className="mt-3 rounded-xl px-4 py-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-            <p className="text-[12px] text-muted-foreground mb-2" style={{ fontWeight: 600 }}>스크래퍼 종류별 상세</p>
+        {[
+          { subs: visitorTypeCounts.searchBotSubs, label: "검색엔진 봇 종류별 상세", color: "hsl(35, 90%, 50%)", total: visitorTypeCounts.searchBot },
+          { subs: visitorTypeCounts.aiBotSubs, label: "AI 봇 종류별 상세", color: "hsl(260, 70%, 55%)", total: visitorTypeCounts.ai },
+          { subs: visitorTypeCounts.scraperSubs, label: "스크래퍼 종류별 상세", color: "hsl(0, 70%, 55%)", total: visitorTypeCounts.scraper },
+        ].filter(g => g.subs.length > 0).map((group) => (
+          <div key={group.label} className="mt-3 rounded-xl px-4 py-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+            <p className="text-[12px] text-muted-foreground mb-2" style={{ fontWeight: 600 }}>{group.label}</p>
             <div className="flex flex-wrap gap-2">
-              {visitorTypeCounts.scraperSubs.map(([name, count]) => (
-                <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: "hsl(0, 70%, 55%, 0.08)", border: "1px solid hsl(0, 70%, 55%, 0.15)" }}>
+              {group.subs.map(([name, count]) => (
+                <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: `${group.color.replace(')', ', 0.08)')}`, border: `1px solid ${group.color.replace(')', ', 0.15)')}` }}>
                   <span className="text-foreground" style={{ fontWeight: 600 }}>{name}</span>
-                  <span style={{ fontWeight: 800, color: "hsl(0, 70%, 55%)" }}>{count.toLocaleString()}</span>
-                  <span className="text-muted-foreground">({visitorTypeCounts.scraper > 0 ? Math.round((count / visitorTypeCounts.scraper) * 100) : 0}%)</span>
+                  <span style={{ fontWeight: 800, color: group.color }}>{count.toLocaleString()}</span>
+                  <span className="text-muted-foreground">({group.total > 0 ? Math.round((count / group.total) * 100) : 0}%)</span>
                 </div>
               ))}
             </div>
           </div>
-        )}
+        ))}
       </SectionGroup>
 
 
