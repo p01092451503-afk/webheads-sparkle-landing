@@ -104,70 +104,67 @@ const MaintenanceIcon = ({ color }: { color: string }) => (
   </svg>
 );
 
-/* ── House-building analogy infographic ── */
-const HouseBuildingInfographic = () => (
-  <svg width="100%" height="120" viewBox="0 0 420 120" fill="none" className="mt-3 mb-1">
-    {/* Step 1: Foundation / Structure */}
-    <g>
-      <rect x="20" y="50" width="60" height="50" rx="4" fill="hsl(245, 50%, 90%)" />
-      <polygon points="20,50 50,25 80,50" fill="hsl(245, 55%, 82%)" />
-      <rect x="40" y="70" width="14" height="20" rx="2" fill="hsl(245, 50%, 70%)" />
-      <rect x="26" y="60" width="10" height="10" rx="1" fill="hsl(245, 45%, 78%)" stroke="hsl(245, 50%, 65%)" strokeWidth="0.8" />
-      <rect x="58" y="60" width="10" height="10" rx="1" fill="hsl(245, 45%, 78%)" stroke="hsl(245, 50%, 65%)" strokeWidth="0.8" />
-      <text x="50" y="115" fontSize="9" fill="hsl(245, 40%, 45%)" fontWeight="700" textAnchor="middle">LMS</text>
-    </g>
+/* ── House-building analogy: clean 3-step flow ── */
+const AnalogyFlow = () => (
+  <div className="flex items-center justify-between gap-1 mt-5">
+    {/* Step 1 */}
+    <div className="flex flex-col items-center gap-2 flex-1">
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(245, 50%, 92%)" }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 21V10L12 3L21 10V21H15V15H9V21H3Z" fill="hsl(245, 55%, 68%)" />
+          <rect x="10" y="15" width="4" height="6" rx="0.5" fill="hsl(245, 50%, 55%)" />
+        </svg>
+      </div>
+      <span className="text-[0.7rem] font-bold text-muted-foreground text-center leading-tight">LMS<br />구조물</span>
+    </div>
 
-    {/* Arrow 1 */}
-    <g opacity="0.5">
-      <line x1="90" y1="72" x2="120" y2="72" stroke="hsl(245, 40%, 70%)" strokeWidth="2" strokeDasharray="4 3" />
-      <polygon points="118,68 126,72 118,76" fill="hsl(245, 40%, 70%)" />
-    </g>
+    {/* Connector 1 */}
+    <div className="flex items-center pb-5">
+      <div className="w-5 h-[2px] rounded-full" style={{ background: "hsl(230, 30%, 82%)" }} />
+      <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="-ml-px">
+        <path d="M1 1L5 5L1 9" stroke="hsl(230, 30%, 72%)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
 
-    {/* Step 2: Adding utilities (electricity, water, lock) */}
-    <g>
-      <rect x="130" y="50" width="60" height="50" rx="4" fill="hsl(215, 60%, 90%)" />
-      <polygon points="130,50 160,25 190,50" fill="hsl(215, 55%, 82%)" />
-      <rect x="150" y="70" width="14" height="20" rx="2" fill="hsl(215, 55%, 72%)" />
-      {/* Electricity bolt */}
-      <path d="M139 60L143 66H140L144 74L140 68H143Z" fill="hsl(45, 85%, 55%)" />
-      {/* Water drop */}
-      <path d="M174 62C174 62 178 68 178 71C178 73.2 176.2 75 174 75C171.8 75 170 73.2 170 71C170 68 174 62 174 62Z" fill="hsl(200, 70%, 60%)" />
-      {/* Lock */}
-      <rect x="154" y="58" width="8" height="6" rx="1.5" fill="hsl(0, 60%, 55%)" />
-      <path d="M156 58V56C156 54.3 157.3 53 159 53V53C160.7 53 162 54.3 162 56V58" stroke="hsl(0, 60%, 55%)" strokeWidth="1.2" fill="none" />
-      <text x="160" y="115" fontSize="8.5" fill="hsl(215, 40%, 45%)" fontWeight="700" textAnchor="middle">+부가서비스</text>
-    </g>
+    {/* Step 2 */}
+    <div className="flex flex-col items-center gap-2 flex-1">
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(215, 55%, 92%)" }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 21V10L12 3L21 10V21H15V15H9V21H3Z" fill="hsl(215, 55%, 72%)" />
+          <rect x="10" y="15" width="4" height="6" rx="0.5" fill="hsl(215, 50%, 58%)" />
+          <path d="M17.5 5.5L16 8.5H17.5L15.5 12L17 9H15.5Z" fill="hsl(45, 90%, 55%)" />
+          <circle cx="7" cy="7.5" r="2" fill="hsl(200, 65%, 62%)" opacity="0.75" />
+        </svg>
+      </div>
+      <span className="text-[0.7rem] font-bold text-muted-foreground text-center leading-tight">+부가서비스<br />인프라 완성</span>
+    </div>
 
-    {/* Arrow 2 */}
-    <g opacity="0.5">
-      <line x1="200" y1="72" x2="230" y2="72" stroke="hsl(215, 40%, 70%)" strokeWidth="2" strokeDasharray="4 3" />
-      <polygon points="228,68 236,72 228,76" fill="hsl(215, 40%, 70%)" />
-    </g>
+    {/* Connector 2 */}
+    <div className="flex items-center pb-5">
+      <div className="w-5 h-[2px] rounded-full" style={{ background: "hsl(180, 30%, 80%)" }} />
+      <svg width="7" height="10" viewBox="0 0 7 10" fill="none" className="-ml-px">
+        <path d="M1 1L5 5L1 9" stroke="hsl(180, 30%, 68%)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </div>
 
-    {/* Step 3: Complete house with garden */}
-    <g>
-      <rect x="240" y="50" width="70" height="50" rx="4" fill="hsl(150, 45%, 88%)" />
-      <polygon points="240,50 275,20 310,50" fill="hsl(150, 40%, 78%)" />
-      <rect x="260" y="70" width="14" height="20" rx="2" fill="hsl(150, 40%, 62%)" />
-      <rect x="248" y="60" width="10" height="10" rx="1" fill="hsl(200, 50%, 80%)" stroke="hsl(200, 50%, 65%)" strokeWidth="0.8" />
-      <rect x="286" y="60" width="10" height="10" rx="1" fill="hsl(200, 50%, 80%)" stroke="hsl(200, 50%, 65%)" strokeWidth="0.8" />
-      {/* Chimney smoke */}
-      <path d="M290 30C292 26 296 28 294 24" stroke="hsl(0, 0%, 75%)" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-      {/* Tree */}
-      <circle cx="320" cy="78" r="8" fill="hsl(140, 50%, 65%)" />
-      <rect x="318.5" y="86" width="3" height="10" rx="1" fill="hsl(30, 40%, 50%)" />
-      {/* Star sparkle */}
-      <path d="M326 55L328 50L330 55L335 57L330 59L328 64L326 59L321 57Z" fill="hsl(45, 90%, 60%)" opacity="0.7" />
-      <text x="280" y="115" fontSize="8.5" fill="hsl(150, 40%, 35%)" fontWeight="700" textAnchor="middle">완성된 교육 사업</text>
-    </g>
-
-    {/* Revenue arrow going up */}
-    <g>
-      <path d="M350 85L370 45" stroke="hsl(150, 55%, 45%)" strokeWidth="2.5" strokeLinecap="round" />
-      <polygon points="367,42 374,42 370,35" fill="hsl(150, 55%, 45%)" />
-      <text x="380" y="50" fontSize="8" fill="hsl(150, 50%, 40%)" fontWeight="700">📈</text>
-    </g>
-  </svg>
+    {/* Step 3 */}
+    <div className="flex flex-col items-center gap-2 flex-1">
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center relative" style={{ background: "linear-gradient(135deg, hsl(150, 45%, 88%), hsl(170, 50%, 85%))" }}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 21V10L12 3L21 10V21H15V15H9V21H3Z" fill="hsl(150, 45%, 55%)" />
+          <rect x="10" y="15" width="4" height="6" rx="0.5" fill="hsl(150, 40%, 42%)" />
+          <rect x="5" y="12" width="3" height="3" rx="0.5" fill="hsl(200, 50%, 68%)" />
+          <rect x="16" y="12" width="3" height="3" rx="0.5" fill="hsl(200, 50%, 68%)" />
+        </svg>
+        <div className="absolute -top-1 -right-1">
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+            <path d="M7 0L8.5 5.5L14 7L8.5 8.5L7 14L5.5 8.5L0 7L5.5 5.5Z" fill="hsl(45, 90%, 55%)" />
+          </svg>
+        </div>
+      </div>
+      <span className="text-[0.7rem] font-bold text-center leading-tight" style={{ color: "hsl(150, 45%, 38%)" }}>성공하는<br />교육 사업 ✨</span>
+    </div>
+  </div>
 );
 
 const serviceIllustrations: Record<string, React.FC<{ color: string }>> = {
@@ -223,7 +220,7 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
             <p className="text-[0.925rem] font-semibold text-foreground leading-[1.7]" style={{ wordBreak: "keep-all" }}>
               {t("lms.ecosystem.analogy")}
             </p>
-            <HouseBuildingInfographic />
+            <AnalogyFlow />
           </div>
         </div>
 
