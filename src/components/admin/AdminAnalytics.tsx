@@ -84,6 +84,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const scraperSubCounts: Record<string, number> = {};
     const searchBotSubCounts: Record<string, number> = {};
     const aiBotSubCounts: Record<string, number> = {};
+    // AI bot per-page tracking: { botName: { pagePath: count } }
+    const aiBotPageMap: Record<string, Record<string, number>> = {};
 
     const classifySub = (ua: string, patterns: [RegExp, string][], counts: Record<string, number>, fallback?: string) => {
       for (const [pat, name] of patterns) {
@@ -107,6 +109,13 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (type === "ai") {
         ai++;
         classifySub(ua, aiBotSubPats, aiBotSubCounts);
+        // Track which pages each AI bot crawls
+        let botName = "기타";
+        for (const [pat, name] of aiBotSubPats) {
+          if (pat.test(ua)) { botName = name; break; }
+        }
+        if (!aiBotPageMap[botName]) aiBotPageMap[botName] = {};
+        aiBotPageMap[botName][v.page_path] = (aiBotPageMap[botName][v.page_path] || 0) + 1;
       } else if (type === "search_bot") {
         searchBot++;
         classifySub(ua, searchBotSubPats, searchBotSubCounts);
@@ -130,7 +139,11 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const scraperSubs = Object.entries(scraperSubCounts).sort(([, a], [, b]) => b - a);
     const searchBotSubs = Object.entries(searchBotSubCounts).sort(([, a], [, b]) => b - a);
     const aiBotSubs = Object.entries(aiBotSubCounts).sort(([, a], [, b]) => b - a);
-    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs, searchBotSubs, aiBotSubs };
+    // Convert aiBotPageMap to sorted array format
+    const aiBotPages: { bot: string; pages: [string, number][] }[] = Object.entries(aiBotPageMap)
+      .map(([bot, pages]) => ({ bot, pages: Object.entries(pages).sort(([, a], [, b]) => b - a) }))
+      .sort((a, b) => b.pages.reduce((s, [, c]) => s + c, 0) - a.pages.reduce((s, [, c]) => s + c, 0));
+    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs, searchBotSubs, aiBotSubs, aiBotPages };
   }, [filteredViews]);
 
   const deviceCounts = filteredViews.reduce((acc, v) => {
@@ -507,6 +520,36 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
             </div>
           </div>
         ))}
+        {visitorTypeCounts.aiBotPages.length > 0 && (
+          <div className="mt-3 rounded-xl px-4 py-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+            <p className="text-[12px] text-muted-foreground mb-3" style={{ fontWeight: 600 }}>🤖 AI 봇별 크롤링 페이지 분석</p>
+            <div className="flex flex-col gap-3">
+              {visitorTypeCounts.aiBotPages.map(({ bot, pages }) => {
+                const botTotal = pages.reduce((s, [, c]) => s + c, 0);
+                return (
+                  <div key={bot}>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-[12px] text-foreground" style={{ fontWeight: 700 }}>{bot}</span>
+                      <span className="text-[11px] text-muted-foreground">총 {botTotal}회</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      {pages.slice(0, 8).map(([path, count]) => (
+                        <div key={path} className="flex items-center gap-2">
+                          <div className="flex-1 h-5 rounded overflow-hidden relative" style={{ background: "hsl(var(--muted) / 0.3)" }}>
+                            <div className="h-full rounded" style={{ width: `${Math.max((count / pages[0][1]) * 100, 4)}%`, background: "hsl(260, 70%, 55%, 0.2)" }} />
+                            <span className="absolute left-2 top-0 h-full flex items-center text-[10px] text-foreground" style={{ fontWeight: 500 }}>{path}</span>
+                          </div>
+                          <span className="text-[10px] shrink-0" style={{ fontWeight: 700, color: "hsl(260, 70%, 55%)" }}>{count}</span>
+                          <span className="text-[10px] text-muted-foreground shrink-0">({Math.round((count / botTotal) * 100)}%)</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </SectionGroup>
 
 
