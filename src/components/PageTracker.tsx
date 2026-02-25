@@ -23,15 +23,31 @@ function isFirstVisit(): boolean {
   return false;
 }
 
-function getUTMParams(): Record<string, string | null> {
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
+const UTM_STORAGE_PREFIX = "_wh_utm_";
+
+function captureAndGetUTMParams(): Record<string, string | null> {
   const params = new URLSearchParams(window.location.search);
-  return {
-    utm_source: params.get("utm_source"),
-    utm_medium: params.get("utm_medium"),
-    utm_campaign: params.get("utm_campaign"),
-    utm_term: params.get("utm_term"),
-    utm_content: params.get("utm_content"),
-  };
+  
+  // If URL has any UTM param, store all in sessionStorage (overwrite previous)
+  const hasUtm = UTM_KEYS.some(k => params.has(k));
+  if (hasUtm) {
+    for (const key of UTM_KEYS) {
+      const val = params.get(key);
+      if (val) {
+        sessionStorage.setItem(UTM_STORAGE_PREFIX + key, val);
+      } else {
+        sessionStorage.removeItem(UTM_STORAGE_PREFIX + key);
+      }
+    }
+  }
+
+  // Return stored UTM values (persisted across SPA navigations)
+  const result: Record<string, string | null> = {};
+  for (const key of UTM_KEYS) {
+    result[key] = sessionStorage.getItem(UTM_STORAGE_PREFIX + key) || null;
+  }
+  return result;
 }
 
 function parseUA(ua: string) {
@@ -170,7 +186,7 @@ export default function PageTracker() {
 
     const ua = navigator.userAgent;
     const { browser, os, deviceType } = parseUA(ua);
-    const utmParams = getUTMParams();
+    const utmParams = captureAndGetUTMParams();
 
     supabase.functions.invoke("track-page-view", {
       body: {
