@@ -25,6 +25,8 @@ export default function PgPage() {
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--pg-hero-bg)" }}>
+        {/* Vertical line pattern */}
+        <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.03, backgroundImage: "repeating-linear-gradient(90deg, hsl(240, 50%, 40%) 0px, hsl(240, 50%, 40%) 1px, transparent 1px, transparent 20px)", backgroundSize: "20px 100%" }} />
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(240, 70%, 55%, 0.18) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsl(235, 60%, 50%, 0.1) 0%, transparent 70%)" }} />
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
