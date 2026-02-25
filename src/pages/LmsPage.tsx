@@ -130,13 +130,6 @@ export default function LmsPage() {
                   <span className="relative inline-flex rounded-full h-3 w-3 bg-white/80" />
                 </span>
               </button>
-              <button
-                onClick={() => setWhyOpen(true)}
-                className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-all border border-border text-foreground bg-background/80 backdrop-blur-sm flex items-center gap-2 hover:bg-secondary"
-              >
-                <Award className="w-4 h-4" />
-                {t("lms.hero.ctaWhy")}
-              </button>
             </div>
             <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
             <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
