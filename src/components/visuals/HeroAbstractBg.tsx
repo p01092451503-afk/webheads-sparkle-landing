@@ -13,8 +13,8 @@ function LmsPattern() {
     <svg viewBox="0 0 1440 800" fill="none" className="w-full h-full">
       <defs>
         <linearGradient id="lms-g1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="hsl(255,75%,65%)" stopOpacity="0.45" />
-          <stop offset="100%" stopColor="hsl(220,90%,60%)" stopOpacity="0.2" />
+          <stop offset="0%" stopColor="hsl(255,75%,65%)" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="hsl(220,90%,60%)" stopOpacity="0.45" />
         </linearGradient>
       </defs>
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(i => (
@@ -25,10 +25,10 @@ function LmsPattern() {
           rx={180 + i * 28}
           ry={100 + i * 18}
           stroke="url(#lms-g1)"
-          strokeWidth={2}
+          strokeWidth={2.8}
           fill="none"
           transform={`rotate(${-25 + i * 2}, ${1100 + i * 8}, ${120 + i * 6})`}
-          opacity={0.7 - i * 0.04}
+          opacity={0.85 - i * 0.04}
         />
       ))}
       {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => (
@@ -38,9 +38,9 @@ function LmsPattern() {
           cy={780}
           r={120 + i * 50}
           stroke="hsl(255,60%,70%)"
-          strokeWidth={1.5}
+          strokeWidth={2.2}
           fill="none"
-          opacity={0.35 - i * 0.03}
+          opacity={0.55 - i * 0.04}
         />
       ))}
     </svg>
@@ -58,9 +58,9 @@ function HostingPattern() {
           cy={150}
           r={60 + i * 45}
           stroke="hsl(195,70%,50%)"
-          strokeWidth={1.5}
+          strokeWidth={2.5}
           fill="none"
-          opacity={0.4 - i * 0.03}
+          opacity={0.65 - i * 0.04}
         />
       ))}
       {[0, 1, 2, 3, 4, 5].map(i => (
@@ -68,9 +68,9 @@ function HostingPattern() {
           key={`w-${i}`}
           d={`M 900 ${600 + i * 25} Q 1050 ${560 + i * 25}, 1200 ${620 + i * 25} T 1500 ${580 + i * 25}`}
           stroke="hsl(200,65%,55%)"
-          strokeWidth={1.8}
+          strokeWidth={2.5}
           fill="none"
-          opacity={0.35 - i * 0.04}
+          opacity={0.6 - i * 0.06}
         />
       ))}
     </svg>
@@ -86,9 +86,9 @@ function MaintenancePattern() {
           key={`a-${i}`}
           d={`M ${1200 + Math.cos(i * 1.05) * 200} ${300 + Math.sin(i * 1.05) * 150} A 200 150 0 0 1 ${1200 + Math.cos(i * 1.05 + 0.8) * 200} ${300 + Math.sin(i * 1.05 + 0.8) * 150}`}
           stroke="hsl(210,45%,55%)"
-          strokeWidth={2.2}
+          strokeWidth={3}
           fill="none"
-          opacity={0.4 - i * 0.04}
+          opacity={0.65 - i * 0.06}
         />
       ))}
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(i => (
@@ -99,8 +99,8 @@ function MaintenancePattern() {
           x2={100 + i * 35}
           y2={850}
           stroke="hsl(215,40%,55%)"
-          strokeWidth={1.2}
-          opacity={0.25}
+          strokeWidth={1.8}
+          opacity={0.45}
         />
       ))}
       {[0, 1, 2, 3].map(i => (
@@ -110,9 +110,9 @@ function MaintenancePattern() {
           cy={400}
           r={250 + i * 60}
           stroke="hsl(210,35%,60%)"
-          strokeWidth={1}
+          strokeWidth={1.6}
           fill="none"
-          opacity={0.2}
+          opacity={0.4}
           strokeDasharray="8 12"
         />
       ))}
@@ -188,9 +188,9 @@ function AppDevPattern() {
           key={`r-${i}`}
           d={`M -50 ${80 + i * 18} C 300 ${30 + i * 18}, 500 ${160 + i * 18}, 750 ${100 + i * 18} S 1100 ${180 + i * 18}, 1500 ${90 + i * 18}`}
           stroke="hsl(170,55%,48%)"
-          strokeWidth={1.8}
+          strokeWidth={2.5}
           fill="none"
-          opacity={0.35 - i * 0.025}
+          opacity={0.6 - i * 0.04}
         />
       ))}
       {[0, 1, 2, 3, 4, 5].map(i => {
@@ -204,10 +204,10 @@ function AppDevPattern() {
             width={s}
             height={s}
             stroke="hsl(165,50%,50%)"
-            strokeWidth={1.4}
+            strokeWidth={2}
             fill="none"
             transform={`rotate(45, ${cx}, ${cy})`}
-            opacity={0.3 - i * 0.035}
+            opacity={0.55 - i * 0.06}
           />
         );
       })}
@@ -224,9 +224,9 @@ function DrmPattern() {
           key={`sh-${i}`}
           d={`M ${1300 - i * 30} ${-20 + i * 10} Q ${1350 - i * 15} ${200 + i * 20}, ${1200 - i * 25} ${400 + i * 15}`}
           stroke="hsl(225,65%,58%)"
-          strokeWidth={2}
+          strokeWidth={2.8}
           fill="none"
-          opacity={0.4 - i * 0.035}
+          opacity={0.65 - i * 0.05}
         />
       ))}
       {[0, 1, 2, 3, 4].map(row =>
@@ -241,9 +241,9 @@ function DrmPattern() {
                 return `${cx + 22 * Math.cos(angle)},${cy + 22 * Math.sin(angle)}`;
               }).join(" ")}
               stroke="hsl(230,55%,55%)"
-              strokeWidth={1.2}
+              strokeWidth={1.8}
               fill="none"
-              opacity={0.25}
+              opacity={0.45}
             />
           );
         })
@@ -264,9 +264,9 @@ function ChannelPattern() {
           rx={80 + i * 55}
           ry={50 + i * 35}
           stroke="hsl(155,55%,48%)"
-          strokeWidth={1.8}
+          strokeWidth={2.5}
           fill="none"
-          opacity={0.4 - i * 0.03}
+          opacity={0.65 - i * 0.04}
           transform={`rotate(-10, 1300, 100)`}
         />
       ))}
@@ -275,9 +275,9 @@ function ChannelPattern() {
           key={`fc-${i}`}
           d={`M -30 ${620 + i * 22} Q 200 ${580 + i * 22}, 400 ${640 + i * 22} T 800 ${610 + i * 22}`}
           stroke="hsl(160,50%,50%)"
-          strokeWidth={1.5}
+          strokeWidth={2.2}
           fill="none"
-          opacity={0.3 - i * 0.035}
+          opacity={0.55 - i * 0.06}
         />
       ))}
     </svg>
@@ -293,9 +293,9 @@ function PgPattern() {
           key={`pc-${i}`}
           d={`M -50 ${60 + i * 22} C 350 ${20 + i * 22}, 500 ${120 + i * 22}, 850 ${50 + i * 22} S 1200 ${130 + i * 22}, 1500 ${70 + i * 22}`}
           stroke="hsl(240,60%,58%)"
-          strokeWidth={1.6}
+          strokeWidth={2.4}
           fill="none"
-          opacity={0.35 - i * 0.025}
+          opacity={0.6 - i * 0.035}
         />
       ))}
       {[0, 1, 2, 3].map(i => (
@@ -307,9 +307,9 @@ function PgPattern() {
           height={180 + i * 60}
           rx={30 + i * 10}
           stroke="hsl(235,55%,55%)"
-          strokeWidth={1.4}
+          strokeWidth={2}
           fill="none"
-          opacity={0.3 - i * 0.05}
+          opacity={0.55 - i * 0.08}
         />
       ))}
     </svg>
@@ -334,9 +334,9 @@ function ContentPattern() {
             key={`sp-${i}`}
             d={`M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}`}
             stroke="hsl(30,60%,50%)"
-            strokeWidth={2}
+            strokeWidth={2.8}
             fill="none"
-            opacity={0.4 - i * 0.04}
+            opacity={0.65 - i * 0.06}
           />
         );
       })}
@@ -345,15 +345,15 @@ function ContentPattern() {
           key={`oc-${i}`}
           d={`M -40 ${580 + i * 20} C 150 ${540 + i * 20}, 280 ${620 + i * 20}, 500 ${570 + i * 20}`}
           stroke="hsl(25,55%,55%)"
-          strokeWidth={1.5}
+          strokeWidth={2.2}
           fill="none"
-          opacity={0.3 - i * 0.025}
+          opacity={0.55 - i * 0.04}
         />
       ))}
       {[
         [1150, 120], [1280, 280], [1100, 320], [1320, 160], [1250, 380],
       ].map(([cx, cy], i) => (
-        <circle key={`sc-${i}`} cx={cx} cy={cy} r={4} fill="hsl(30,55%,55%)" opacity={0.35} />
+        <circle key={`sc-${i}`} cx={cx} cy={cy} r={5.5} fill="hsl(30,55%,55%)" opacity={0.6} />
       ))}
     </svg>
   );
