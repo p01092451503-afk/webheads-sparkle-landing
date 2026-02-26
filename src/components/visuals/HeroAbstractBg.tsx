@@ -124,24 +124,56 @@ function MaintenancePattern() {
 function ChatbotPattern() {
   return (
     <svg viewBox="0 0 1440 800" fill="none" className="w-full h-full">
-      <path d="M 1100 80 C 1200 40, 1350 120, 1400 250 C 1450 380, 1300 420, 1180 380 C 1060 340, 1000 200, 1100 80 Z" stroke="hsl(190,70%,50%)" strokeWidth={2} fill="none" opacity={0.35} />
-      <path d="M 1080 60 C 1190 10, 1380 100, 1430 260 C 1480 420, 1310 470, 1160 410 C 1010 350, 960 180, 1080 60 Z" stroke="hsl(185,65%,55%)" strokeWidth={1.6} fill="none" opacity={0.25} />
-      <path d="M 1060 40 C 1180 -20, 1410 80, 1460 270 C 1510 460, 1320 520, 1140 440 C 960 360, 920 160, 1060 40 Z" stroke="hsl(195,60%,50%)" strokeWidth={1.2} fill="none" opacity={0.18} />
-      {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
+      <defs>
+        <linearGradient id="chat-g1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="hsl(190,80%,45%)" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="hsl(220,75%,55%)" stopOpacity="0.4" />
+        </linearGradient>
+      </defs>
+      {/* Large organic blobs - top right */}
+      <path d="M 1100 80 C 1200 40, 1350 120, 1400 250 C 1450 380, 1300 420, 1180 380 C 1060 340, 1000 200, 1100 80 Z" stroke="url(#chat-g1)" strokeWidth={3} fill="none" opacity={0.6} />
+      <path d="M 1080 60 C 1190 10, 1380 100, 1430 260 C 1480 420, 1310 470, 1160 410 C 1010 350, 960 180, 1080 60 Z" stroke="hsl(185,70%,50%)" strokeWidth={2.5} fill="none" opacity={0.5} />
+      <path d="M 1060 40 C 1180 -20, 1410 80, 1460 270 C 1510 460, 1320 520, 1140 440 C 960 360, 920 160, 1060 40 Z" stroke="hsl(195,65%,48%)" strokeWidth={2} fill="none" opacity={0.4} />
+      <path d="M 1040 20 C 1170 -50, 1440 60, 1490 280 C 1540 500, 1330 570, 1120 470 C 910 370, 880 140, 1040 20 Z" stroke="hsl(200,60%,52%)" strokeWidth={1.6} fill="none" opacity={0.3} />
+      {/* Flowing wave lines - bottom left */}
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
         <path
           key={`s-${i}`}
-          d={`M ${-20 + i * 10} ${650 + i * 15} C ${100 + i * 30} ${600 + i * 10}, ${200 + i * 20} ${700 + i * 8}, ${350 + i * 15} ${670 + i * 12}`}
-          stroke="hsl(190,60%,55%)"
-          strokeWidth={1.5}
+          d={`M ${-40 + i * 8} ${600 + i * 18} C ${120 + i * 25} ${550 + i * 12}, ${240 + i * 18} ${660 + i * 10}, ${400 + i * 12} ${620 + i * 14} S ${550 + i * 10} ${680 + i * 8}, ${700 + i * 8} ${640 + i * 12}`}
+          stroke="hsl(190,65%,50%)"
+          strokeWidth={2.2 - i * 0.1}
           fill="none"
-          opacity={0.3 - i * 0.025}
+          opacity={0.6 - i * 0.04}
         />
       ))}
+      {/* Concentric arcs - mid area */}
+      {[0, 1, 2, 3, 4, 5].map(i => (
+        <circle
+          key={`cc-${i}`}
+          cx={180}
+          cy={200}
+          r={80 + i * 50}
+          stroke="hsl(195,70%,50%)"
+          strokeWidth={1.8}
+          fill="none"
+          opacity={0.5 - i * 0.06}
+          strokeDasharray={i % 2 === 0 ? "none" : "12 8"}
+        />
+      ))}
+      {/* Floating nodes */}
       {[
-        [1150, 180], [1250, 300], [1100, 350], [1300, 150], [1350, 380],
-        [100, 680], [200, 720], [300, 660], [150, 750]
-      ].map(([cx, cy], i) => (
-        <circle key={`d-${i}`} cx={cx} cy={cy} r={3.5} fill="hsl(190,70%,55%)" opacity={0.4} />
+        [1150, 180, 6], [1250, 300, 5], [1100, 350, 4], [1300, 150, 7], [1350, 380, 5],
+        [100, 680, 5], [220, 720, 4], [330, 660, 6], [150, 750, 3], [1200, 200, 4],
+        [80, 300, 3], [250, 150, 4]
+      ].map(([cx, cy, r], i) => (
+        <circle key={`d-${i}`} cx={cx} cy={cy} r={r} fill="hsl(190,75%,50%)" opacity={0.55} />
+      ))}
+      {/* Connection lines between nodes */}
+      {[
+        [1150, 180, 1250, 300], [1250, 300, 1350, 380], [1100, 350, 1300, 150],
+        [100, 680, 220, 720], [220, 720, 330, 660]
+      ].map(([x1, y1, x2, y2], i) => (
+        <line key={`ln-${i}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="hsl(190,65%,55%)" strokeWidth={1.5} opacity={0.35} />
       ))}
     </svg>
   );
