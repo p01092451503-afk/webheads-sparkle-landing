@@ -40,7 +40,7 @@ export default function LmsHeroVisual() {
   const lmsStats = t("visuals.lms.stats", { returnObjects: true }) as string[][];
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none">
+    <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none" style={{ transform: "scale(0.81)", transformOrigin: "center center" }}>
       <style>{`
         @keyframes lms-float-a { 0%,100%{transform:translateY(0px) rotate(-6deg);} 50%{transform:translateY(-14px) rotate(-6deg);} }
         @keyframes lms-float-b { 0%,100%{transform:translateY(0px) rotate(5deg);} 50%{transform:translateY(-10px) rotate(5deg);} }
@@ -51,7 +51,7 @@ export default function LmsHeroVisual() {
         @keyframes lms-progress { 0%{width:0%} 40%{width:100%} 80%{width:100%} 85%{width:0%} 100%{width:0%} }
       `}</style>
 
-      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
+      <div style={{ width: 340, height: 340, position: "relative", perspective: "900px" }}>
 
         {/* ══ Main Card: LMS Dashboard ══ */}
         <div style={{
