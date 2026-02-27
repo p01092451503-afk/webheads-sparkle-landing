@@ -62,7 +62,7 @@ export default function DrmHeroVisual() {
         </div>
 
         {/* ── Floating: Fingerprint ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "drm-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,120,70,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "drm-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,120,70,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><linearGradient id="fpGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(152,80%,55%)"/><stop offset="100%" stopColor="hsl(152,70%,32%)"/></linearGradient></defs>
             <rect width="64" height="64" rx="17" fill="url(#fpGrad)"/>
