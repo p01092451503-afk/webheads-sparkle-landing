@@ -204,7 +204,7 @@ export default function AdminLogin() {
 
         {/* Footer text */}
         <p className="text-center text-[12px] text-muted-foreground/60 mt-8" style={{ letterSpacing: "-0.01em" }}>
-          © WEBHEADS. 관리자 전용 시스템입니다.
+          Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved.
         </p>
       </div>
     </div>
