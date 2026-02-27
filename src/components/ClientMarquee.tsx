@@ -28,7 +28,7 @@ export default function ClientMarquee() {
           100% { transform: translateX(-50%); }
         }
         .marquee-track {
-          animation: marquee-scroll 30s linear infinite;
+          animation: marquee-scroll 39s linear infinite;
         }
       `}</style>
     </section>
