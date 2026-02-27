@@ -6,6 +6,19 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
 
+// Solid colors per service for the organic blob nav indicator
+const serviceBlobColors: Record<string, string> = {
+  "/lms": "hsl(250, 55%, 52%)",
+  "/hosting": "hsl(195, 55%, 45%)",
+  "/maintenance": "hsl(195, 55%, 45%)",
+  "/chatbot": "hsl(192, 50%, 42%)",
+  "/app-dev": "hsl(192, 50%, 42%)",
+  "/drm": "hsl(235, 45%, 48%)",
+  "/channel": "hsl(195, 55%, 45%)",
+  "/pg": "hsl(235, 45%, 48%)",
+  "/content": "hsl(235, 45%, 48%)",
+};
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
