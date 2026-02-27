@@ -51,7 +51,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav — all services inline */}
-            <nav className="hidden lg:flex items-center gap-0.5 flex-1">
+            <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1">
               {services.map((s, i) => {
                 const isActive = location.pathname === s.path;
                 const isLms = i === 0;
