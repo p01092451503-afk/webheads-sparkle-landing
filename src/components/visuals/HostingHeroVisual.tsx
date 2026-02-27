@@ -129,7 +129,7 @@ export default function HostingHeroVisual() {
 
         {/* ══ Floating Object 2: Shield ══ */}
         <div style={{
-          position: "absolute", right: "8%", top: "12%",
+          position: "absolute", right: "12%", top: "14%",
           animation: "float-e 4.2s ease-in-out infinite",
           animationDelay: "0.7s",
           filter: "drop-shadow(0 14px 22px rgba(30,180,100,0.3))",
