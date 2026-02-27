@@ -141,7 +141,7 @@ export default function LmsPage() {
 
       {/* Stats — with gradient accent line */}
       <section className="py-24 relative">
-        <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--lms-gradient)" }} />
+        
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
