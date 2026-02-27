@@ -114,7 +114,7 @@ export default function LmsHeroVisual() {
         </div>
 
         {/* ══ Floating: Play Button ══ */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "lms-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(60,130,220,0.3))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "lms-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(60,130,220,0.3))" }}>
           <svg width="60" height="60" viewBox="0 0 60 60">
             <defs><linearGradient id="playGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(214,90%,60%)"/><stop offset="100%" stopColor="hsl(214,80%,38%)"/></linearGradient></defs>
             <rect x="4" y="8" width="52" height="36" rx="8" fill="url(#playGrad)"/>
