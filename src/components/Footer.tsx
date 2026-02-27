@@ -5,6 +5,39 @@ import { useTranslation } from "react-i18next";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
 
+const serviceBlobColors: Record<string, string> = {
+  "/lms": "hsl(250, 55%, 52%)",
+  "/hosting": "hsl(250, 55%, 52%)",
+  "/maintenance": "hsl(250, 55%, 52%)",
+  "/chatbot": "hsl(192, 50%, 42%)",
+  "/app-dev": "hsl(192, 50%, 42%)",
+  "/drm": "hsl(235, 45%, 48%)",
+  "/channel": "hsl(192, 50%, 42%)",
+  "/pg": "hsl(235, 45%, 48%)",
+  "/content": "hsl(235, 45%, 48%)",
+};
+
+function FooterServiceLink({ to, label, isLms, blobColor }: { to: string; label: string; isLms: boolean; blobColor: string }) {
+  const [hovered, setHovered] = useState(false);
+  const showBlob = isLms || hovered;
+  return (
+    <Link
+      to={to}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className={`text-sm font-semibold inline-block px-3 py-1 transition-all duration-200 ${
+        showBlob ? "text-white" : "text-muted-foreground"
+      }`}
+      style={showBlob ? {
+        background: blobColor,
+        borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
+      } : undefined}
+    >
+      {label}
+    </Link>
+  );
+}
+
 export default function Footer() {
   const { t } = useTranslation();
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
