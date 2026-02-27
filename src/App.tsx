@@ -35,7 +35,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {!isAdmin && <Header />}
       <main>{children}</main>
       {!isAdmin && <Footer />}
-      {!isAdmin && <ScrollButtons />}
+      
     </>
   );
 };
