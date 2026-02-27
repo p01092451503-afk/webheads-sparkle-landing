@@ -88,7 +88,7 @@ export default function LmsPage() {
               {t("lms.hero.badge")}
             </span>
             <h1
-              className="text-4xl lg:text-[3.4rem] font-black leading-[1.1] mb-5 tracking-tight"
+              className="text-4xl lg:text-[3.4rem] font-bold leading-[1.1] mb-5 tracking-tight"
               style={{ color: "hsl(var(--foreground))", wordBreak: "keep-all" }}
             >
               {t("lms.hero.title")}
