@@ -3,10 +3,10 @@ import { useTranslation } from "react-i18next";
 import { Globe } from "lucide-react";
 
 const languages = [
-  { code: "en", label: "English" },
-  { code: "ko", label: "한국어" },
-  { code: "ja", label: "日本語" },
-  { code: "zh", label: "中文" },
+  { code: "ko", label: "한국어", flag: "🇰🇷" },
+  { code: "en", label: "English", flag: "🇺🇸" },
+  { code: "ja", label: "日本語", flag: "🇯🇵" },
+  { code: "zh", label: "中文", flag: "🇨🇳" },
 ];
 
 export default function LanguageSwitcher() {
@@ -40,13 +40,14 @@ export default function LanguageSwitcher() {
             <button
               key={lang.code}
               onClick={() => { i18n.changeLanguage(lang.code); setOpen(false); }}
-              className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+              className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 transition-colors ${
                 lang.code === i18n.language
-                  ? "bg-secondary text-foreground font-semibold"
+                  ? "bg-primary/10 text-primary font-semibold"
                   : "text-muted-foreground hover:bg-secondary hover:text-foreground"
               }`}
             >
-              {lang.label}
+              <span>{lang.flag}</span>
+              <span>{lang.label}</span>
             </button>
           ))}
         </div>
