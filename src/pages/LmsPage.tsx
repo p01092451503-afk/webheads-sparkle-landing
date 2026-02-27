@@ -64,78 +64,84 @@ export default function LmsPage() {
         faqJsonLd={faqs}
       />
 
-      {/* Hero — LMS Premium Gradient */}
+      {/* Hero — Centered with abstract volumetric patterns */}
       <section
-        className="relative flex items-center pt-20 pb-6 overflow-hidden"
-        style={{ background: "var(--lms-hero-bg)" }}
+        className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden"
+        style={{ background: "linear-gradient(135deg, hsl(245, 70%, 52%) 0%, hsl(225, 80%, 50%) 50%, hsl(245, 65%, 48%) 100%)" }}
       >
-        <HeroAbstractBg variant="lms" />
-        {/* Ambient gradient orbs */}
-        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(255, 75%, 60%, 0.18) 0%, transparent 70%)" }} />
-        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", right: "-5%", background: "radial-gradient(ellipse 50% 60% at 70% 60%, hsl(220, 90%, 56%, 0.12) 0%, transparent 70%)" }} />
-        <div className="absolute pointer-events-none" style={{ width: "60%", height: "60%", top: "20%", left: "5%", background: "radial-gradient(ellipse 40% 40% at 30% 50%, hsl(192, 80%, 50%, 0.08) 0%, transparent 70%)" }} />
+        {/* Abstract volumetric arc patterns */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="xMidYMid slice">
+          {/* Left side concentric arcs */}
+          <g opacity="0.18">
+            {[0, 1, 2, 3, 4, 5, 6].map(i => (
+              <circle key={`l-${i}`} cx={-80 + i * 8} cy={380 + i * 5} r={120 + i * 55} stroke="white" strokeWidth={2.5 - i * 0.15} fill="none" />
+            ))}
+          </g>
+          {/* Right side concentric arcs */}
+          <g opacity="0.12">
+            {[0, 1, 2, 3, 4, 5].map(i => (
+              <circle key={`r-${i}`} cx={1480 - i * 10} cy={480 + i * 8} r={100 + i * 60} stroke="white" strokeWidth={2 - i * 0.12} fill="none" />
+            ))}
+          </g>
+          {/* Top-right flowing arcs */}
+          <g opacity="0.1">
+            {[0, 1, 2, 3].map(i => (
+              <path key={`tr-${i}`} d={`M ${1100 + i * 40} ${-20 + i * 15} Q ${1300 + i * 20} ${100 + i * 30} ${1460} ${60 + i * 50}`} stroke="white" strokeWidth={2} fill="none" />
+            ))}
+          </g>
+          {/* Subtle radial glow */}
+          <defs>
+            <radialGradient id="lms-hero-glow" cx="50%" cy="40%" r="50%">
+              <stop offset="0%" stopColor="white" stopOpacity="0.06" />
+              <stop offset="100%" stopColor="white" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          <rect x="0" y="0" width="1440" height="600" fill="url(#lms-hero-glow)" />
+        </svg>
 
-        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
-          <div className="relative w-full h-full max-w-[765px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%) translateY(8%)" }}><LmsHeroVisual /></div>
-        </div>
-        <div className="container mx-auto px-6 py-14 relative z-10 lg:pl-[10%]">
-          <div className="max-w-2xl">
-            <span
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-              style={{ background: "var(--lms-badge-bg)", backdropFilter: "blur(8px)", color: `hsl(var(--lms-badge-text))`, boxShadow: "0 2px 12px hsl(255, 75%, 58%, 0.15)" }}
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              {t("lms.hero.badge")}
+        <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+          <span
+            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
+            style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "white" }}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            {t("lms.hero.badge")}
+          </span>
+          <h1
+            className="text-4xl lg:text-[3.2rem] font-bold leading-[1.15] mb-5 tracking-tight text-white"
+            style={{ wordBreak: "keep-all" }}
+          >
+            {t("lms.hero.title")}
+            <br />
+            <span style={{ opacity: 0.95 }}>
+              {t("lms.hero.titleHighlight")}
             </span>
-            <h1
-              className="text-4xl lg:text-[3.4rem] font-bold leading-[1.1] mb-5 tracking-tight"
-              style={{ color: "hsl(var(--foreground))", wordBreak: "keep-all" }}
+          </h1>
+          <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: "rgba(255,255,255,0.75)" }}>
+            {t("lms.hero.desc")}
+          </p>
+          <div className="flex gap-3 flex-wrap justify-center">
+            <a
+              href="#contact"
+              className="group px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] flex items-center gap-2"
+              style={{ background: "white", color: "hsl(245, 70%, 50%)" }}
             >
-              {t("lms.hero.title")}
-              <br />
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: "var(--lms-gradient)" }}
-              >
-                {t("lms.hero.titleHighlight")}
-              </span>
-            </h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">
-              {t("lms.hero.desc")}
-            </p>
-            <div className="flex gap-3 flex-wrap">
-              <a
-                href="#contact"
-                className="group px-5 py-2.5 rounded-2xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] text-white flex items-center gap-2"
-                style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
-              >
-                {t("lms.hero.cta1")}
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
-              <a href="#solutions" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 backdrop-blur-sm">
-                {t("lms.hero.cta2")}
-              </a>
-              <button
-                onClick={() => setEcosystemOpen(true)}
-                className="group px-5 py-2.5 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] text-white relative overflow-hidden animate-[shimmer_3s_ease-in-out_infinite]"
-                style={{
-                  background: "linear-gradient(135deg, hsl(245, 65%, 55%), hsl(215, 80%, 50%))",
-                  boxShadow: "0 4px 24px -4px hsl(245, 60%, 50%, 0.5), 0 0 0 2px hsl(245, 60%, 70%, 0.25)",
-                }}
-              >
-                <span className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
-                  <span
-                    className="absolute inset-0 -translate-x-full animate-[shine_3s_ease-in-out_infinite]"
-                    style={{ background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.25) 50%, transparent 60%)" }}
-                  />
-                </span>
-                <BookOpen className="w-4 h-4 relative z-10" />
-                <span className="relative z-10">{t("lms.hero.ctaEcosystem")}</span>
-              </button>
-            </div>
-            <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
-            <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
+              {t("lms.hero.cta1")}
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <a href="#solutions" className="px-5 py-2.5 rounded-xl font-bold text-sm transition-colors border border-white/30 text-white hover:bg-white/10">
+              {t("lms.hero.cta2")}
+            </a>
+            <button
+              onClick={() => setEcosystemOpen(true)}
+              className="group px-5 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] border border-white/30 text-white hover:bg-white/10"
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>{t("lms.hero.ctaEcosystem")}</span>
+            </button>
           </div>
+          <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
+          <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
         </div>
       </section>
 
