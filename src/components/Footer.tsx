@@ -69,10 +69,9 @@ export default function Footer() {
 
             {/* Phone */}
             <div className="flex flex-col gap-1.5">
-              <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.phone")}</p>
-              <a href="tel:0254044337" className="text-[22px] font-black tracking-[-0.03em] text-foreground hover:text-primary transition-colors">
-                02-540-4337
-              </a>
+              <p className="text-[14px] font-medium text-foreground/70">
+                {t("footer.phoneLabel")}
+              </p>
             </div>
           </div>
           <div>
