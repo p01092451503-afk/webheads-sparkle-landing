@@ -93,7 +93,7 @@ export default function MaintenanceHeroVisual() {
         </div>
 
         {/* ══ Floating Object 2: Shield Check ══ */}
-        <div style={{ position: "absolute", right: "7%", top: "10%", animation: "mnt-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(30,180,100,0.32))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "mnt-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(30,180,100,0.32))" }}>
           <svg width="62" height="68" viewBox="0 0 62 68">
             <defs><linearGradient id="mntShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(152,76%,52%)"/><stop offset="100%" stopColor="hsl(152,70%,30%)"/></linearGradient></defs>
             <path d="M31 4 L56 16 L56 36 Q56 55 31 64 Q6 55 6 36 L6 16 Z" fill="url(#mntShieldGrad)"/>
