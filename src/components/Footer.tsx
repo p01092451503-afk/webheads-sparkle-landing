@@ -40,6 +40,7 @@ function FooterServiceLink({ to, label, isActive, blobColor }: { to: string; lab
 
 export default function Footer() {
   const { t } = useTranslation();
+  const location = useLocation();
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
   return (
