@@ -117,7 +117,7 @@ export default function LmsPage() {
               </a>
               <button
                 onClick={() => setEcosystemOpen(true)}
-                className="group px-7 py-3.5 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] text-white relative overflow-hidden animate-[shimmer_3s_ease-in-out_infinite]"
+                className="group px-5 py-2.5 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] text-white relative overflow-hidden animate-[shimmer_3s_ease-in-out_infinite]"
                 style={{
                   background: "linear-gradient(135deg, hsl(245, 65%, 55%), hsl(215, 80%, 50%))",
                   boxShadow: "0 4px 24px -4px hsl(245, 60%, 50%, 0.5), 0 0 0 2px hsl(245, 60%, 70%, 0.25)",
