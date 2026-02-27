@@ -480,7 +480,7 @@ export default function LmsPage() {
             <a
               href="#contact"
               className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white hover:opacity-90 transition-all"
-              style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
+              style={{ background: "hsl(var(--lms-primary))", boxShadow: "var(--lms-shadow)" }}
             >
               {t("lms.plansCustom.cta")}
             </a>

@@ -374,7 +374,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                   disabled={loading}
                   className="w-full py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 mt-1 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
                   style={{
-                    background: "var(--primary-gradient)",
+                    background: "hsl(var(--primary))",
                     color: "hsl(var(--primary-foreground))",
                     boxShadow: "0 4px 16px hsl(var(--primary) / 0.3)",
                   }}
