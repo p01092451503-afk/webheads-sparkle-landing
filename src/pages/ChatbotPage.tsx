@@ -77,7 +77,7 @@ export default function ChatbotPage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("chatbot.processSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("chatbot.processSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("chatbot.processSection.title")}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {process.map((p: any, i: number) => (<div key={p.step} className="relative rounded-2xl p-7 bg-background border border-border hover:border-primary/30 transition-colors flex flex-col gap-3"><span className="font-black text-5xl tracking-tight text-primary/20">{p.step}</span><h3 className="font-bold text-foreground text-base tracking-tight">{p.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{p.desc}</p><div className="pt-3 border-t border-border"><p className="text-xs text-primary font-medium">{p.detail}</p></div>{i < process.length - 1 && <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-primary/30"><ArrowLeft className="w-5 h-5 rotate-180" /></div>}</div>))}
