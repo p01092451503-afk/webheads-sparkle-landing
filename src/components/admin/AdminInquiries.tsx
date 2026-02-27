@@ -12,11 +12,11 @@ import {
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
 
-const statusConfig: Record<InquiryStatus, { label: string; color: string; bg: string; dot: string }> = {
-  new: { label: "신규", color: "hsl(214, 90%, 52%)", bg: "hsl(214 90% 52% / 0.08)", dot: "hsl(214, 90%, 52%)" },
-  in_progress: { label: "진행중", color: "hsl(35, 90%, 50%)", bg: "hsl(35 90% 50% / 0.08)", dot: "hsl(35, 90%, 50%)" },
-  completed: { label: "완료", color: "hsl(150, 60%, 42%)", bg: "hsl(150 60% 42% / 0.08)", dot: "hsl(150, 60%, 42%)" },
-  archived: { label: "보관", color: "hsl(var(--muted-foreground))", bg: "hsl(var(--muted))", dot: "hsl(var(--muted-foreground))" },
+const statusConfig: Record<InquiryStatus, { label: string; color: string }> = {
+  new: { label: "신규", color: "hsl(221, 83%, 53%)" },
+  in_progress: { label: "진행중", color: "hsl(37, 90%, 51%)" },
+  completed: { label: "완료", color: "hsl(152, 57%, 42%)" },
+  archived: { label: "보관", color: "hsl(220, 9%, 46%)" },
 };
 
 interface AdminInquiriesProps {
@@ -85,7 +85,6 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
       inq.company, inq.name, inq.phone, inq.email || "", inq.service || "",
       (inq.message || "").replace(/\n/g, " "), (inq.notes || "").replace(/\n/g, " "),
     ]);
-
     const csvContent = [headers, ...rows].map((r) => r.map((c) => `"${c}"`).join(",")).join("\n");
     const BOM = "\uFEFF";
     const blob = new Blob([BOM + csvContent], { type: "text/csv;charset=utf-8;" });
@@ -110,82 +109,80 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-[22px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>문의 관리</h2>
-          <p className="text-[14px] text-muted-foreground mt-1">총 {inquiries.length}건의 문의</p>
+          <h2 className="text-[20px] font-bold tracking-[-0.03em] text-foreground">문의 관리</h2>
+          <p className="text-[13px] text-muted-foreground mt-0.5">총 {inquiries.length}건</p>
         </div>
         <div className="flex gap-2">
           <button onClick={exportCSV}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] transition-all hover:shadow-sm"
-            style={{ fontWeight: 500, color: "hsl(var(--foreground))", background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-colors"
           >
-            <Download className="w-3.5 h-3.5" /> CSV 다운로드
+            <Download className="w-3.5 h-3.5" /> CSV
           </button>
           <button onClick={onRefresh}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] transition-all hover:shadow-sm"
-            style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))", background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-colors"
           >
-            <RefreshCw className="w-3.5 h-3.5" /> 새로고침
+            <RefreshCw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
       {/* Search & Filter */}
       <div className="flex items-center gap-3 flex-wrap">
-        <div className="relative flex-1 min-w-[240px] max-w-[400px]">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50" />
+        <div className="relative flex-1 min-w-[200px] max-w-[360px]">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40" />
           <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="회사명, 이름, 연락처로 검색..."
-            className="w-full rounded-xl pl-11 pr-4 py-2.5 text-[13px] outline-none transition-all text-foreground placeholder:text-muted-foreground/40"
-            style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
-            onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary))"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(var(--primary) / 0.06)"; }}
-            onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border))"; e.currentTarget.style.boxShadow = "none"; }}
+            placeholder="검색..."
+            className="w-full rounded-xl pl-10 pr-4 py-2.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 bg-white border border-[hsl(220,13%,91%)] focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
           />
         </div>
-        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+        <div className="flex gap-1 overflow-x-auto scrollbar-hide">
           {(["all", "new", "in_progress", "completed", "archived"] as const).map((s) => {
-            const cfg = s === "all" ? { label: "전체", color: "hsl(var(--foreground))", bg: "hsl(var(--foreground) / 0.06)", dot: "" } : statusConfig[s];
+            const cfg = s === "all" ? { label: "전체", color: "hsl(221, 83%, 53%)" } : statusConfig[s];
             const isActive = statusFilter === s;
             return (
               <button key={s} onClick={() => setStatusFilter(s)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] transition-all whitespace-nowrap shrink-0"
-                style={{ fontWeight: isActive ? 600 : 500, color: isActive ? cfg.color : "hsl(var(--muted-foreground))", background: isActive ? cfg.bg : "transparent" }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-full text-[12px] font-medium transition-all whitespace-nowrap shrink-0"
+                style={{
+                  color: isActive ? "white" : "hsl(220, 9%, 46%)",
+                  background: isActive ? cfg.color : "white",
+                  border: isActive ? `1px solid ${cfg.color}` : "1px solid hsl(220, 13%, 91%)",
+                }}
               >
-                {s !== "all" && <span className="w-1.5 h-1.5 rounded-full" style={{ background: cfg.dot }} />}
                 {cfg.label}
-                <span className="text-[11px]" style={{ opacity: 0.6 }}>{statusCounts[s] || 0}</span>
+                <span className="text-[11px]" style={{ opacity: isActive ? 0.8 : 0.5 }}>{statusCounts[s] || 0}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* List with inline detail */}
+      {/* List */}
       <div className="flex flex-col gap-2">
         {filteredInquiries.length === 0 ? (
-          <div className="rounded-2xl py-20 text-center" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-            <MessageSquare className="w-10 h-10 mx-auto mb-3 text-muted-foreground/30" />
-            <p className="text-[14px] text-muted-foreground">{searchQuery || statusFilter !== "all" ? "조건에 맞는 문의가 없습니다" : "접수된 문의가 없습니다"}</p>
+          <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] py-20 text-center">
+            <MessageSquare className="w-10 h-10 mx-auto mb-3 text-muted-foreground/20" />
+            <p className="text-[13px] text-muted-foreground/50">{searchQuery || statusFilter !== "all" ? "조건에 맞는 문의가 없습니다" : "접수된 문의가 없습니다"}</p>
           </div>
         ) : filteredInquiries.map((inq) => {
           const sc = statusConfig[inq.status as InquiryStatus] || statusConfig.new;
           const isSelected = selectedInquiry?.id === inq.id;
           return (
-            <div key={inq.id} ref={(el) => { if (el) itemRefs.current[inq.id] = el; }} className="rounded-2xl overflow-hidden transition-all duration-200"
+            <div key={inq.id} ref={(el) => { if (el) itemRefs.current[inq.id] = el; }}
+              className="bg-white rounded-2xl overflow-hidden transition-all duration-200"
               style={{
                 scrollMarginTop: "120px",
-                background: "hsl(var(--background))",
                 borderLeft: `3px solid ${sc.color}`,
-                borderTop: isSelected ? "1.5px solid hsl(var(--primary))" : "1px solid hsl(var(--border) / 0.8)",
-                borderRight: isSelected ? "1.5px solid hsl(var(--primary))" : "1px solid hsl(var(--border) / 0.8)",
-                borderBottom: isSelected ? "1.5px solid hsl(var(--primary))" : "1px solid hsl(var(--border) / 0.8)",
-                boxShadow: isSelected ? "0 0 0 3px hsl(var(--primary) / 0.06), 0 2px 8px hsl(var(--primary) / 0.08)" : "0 1px 3px hsl(0 0% 0% / 0.02)",
+                border: isSelected ? `1.5px solid hsl(221, 83%, 53%)` : `1px solid hsl(220, 13%, 91%)`,
+                borderLeftWidth: "3px",
+                borderLeftColor: sc.color,
+                boxShadow: isSelected ? "0 0 0 3px hsl(221 83% 53% / 0.06)" : "none",
               }}
             >
-              {/* Summary row */}
+              {/* Summary */}
               <div
                 onClick={() => {
                   if (isSelected) { setSelectedInquiry(null); }
@@ -194,53 +191,46 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     setTimeout(() => { itemRefs.current[inq.id]?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
                   }
                 }}
-                className="group p-5 cursor-pointer"
+                className="group p-4 sm:p-5 cursor-pointer"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <span className="flex items-center gap-1.5 text-[12px] px-3 py-1.5 rounded-full"
-                        style={{ fontWeight: 700, color: "white", background: sc.color, boxShadow: `0 2px 6px ${sc.color}40` }}
+                    <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full text-white"
+                        style={{ background: sc.color }}
                       >
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.7)" }} />
                         {sc.label}
                       </span>
-                      <span className="text-[11px] px-2 py-0.5 rounded-md"
-                        style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))", background: "hsl(var(--muted))" }}
-                      >
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-muted-foreground bg-[hsl(220,14%,96%)]">
                         {inq.inquiry_type === "demo" ? "데모" : "상담"}
                       </span>
                       {inq.notes && (
-                        <span className="text-[11px] px-2 py-0.5 rounded-md"
-                          style={{ fontWeight: 500, color: "hsl(35, 90%, 50%)", background: "hsl(35 90% 50% / 0.08)" }}
-                        >
-                          📝 메모
-                        </span>
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">📝 메모</span>
                       )}
                     </div>
-                    <p className="text-[15px] text-foreground tracking-[-0.02em]" style={{ fontWeight: 600 }}>
-                      {inq.company}<span className="text-muted-foreground" style={{ fontWeight: 400 }}> · {inq.name}</span>
+                    <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">
+                      {inq.company}<span className="font-normal text-muted-foreground"> · {inq.name}</span>
                     </p>
-                    <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+                    <div className="flex items-center gap-3 mt-1 flex-wrap">
                       <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Phone className="w-3 h-3" />{inq.phone}</span>
                       {inq.email && <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Mail className="w-3 h-3" />{inq.email}</span>}
-                      {inq.service && <span className="text-[12px] text-muted-foreground">· {inq.service}</span>}
+                      {inq.service && <span className="text-[12px] text-muted-foreground/60">· {inq.service}</span>}
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
-                    <span className="text-[11px] text-muted-foreground/70">{formatDate(inq.created_at)}</span>
+                    <span className="text-[11px] text-muted-foreground/50">{formatDate(inq.created_at)}</span>
                     <ChevronRight
-                      className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-all mt-2"
+                      className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-all mt-1"
                       style={{ transform: isSelected ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Inline detail panel */}
+              {/* Detail */}
               {isSelected && (
-                <div className="px-5 pb-5 pt-0">
-                  <div className="rounded-xl p-5" style={{ background: "hsl(var(--muted) / 0.5)", border: "1px solid hsl(var(--border) / 0.5)" }}>
+                <div className="px-4 sm:px-5 pb-5 pt-0">
+                  <div className="rounded-xl p-5 bg-[hsl(220,14%,97%)] border border-[hsl(220,13%,93%)]">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <DetailRow icon={Building2} label="회사명" value={selectedInquiry.company} />
                       <DetailRow icon={User} label="담당자" value={selectedInquiry.name} />
@@ -252,9 +242,8 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
 
                     {selectedInquiry.message && (
                       <div className="mt-4">
-                        <p className="text-[11px] text-muted-foreground mb-2" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>문의 내용</p>
-                        <div className="rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap"
-                          style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border) / 0.5)" }}>
+                        <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">문의 내용</p>
+                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(220,13%,93%)]">
                           {selectedInquiry.message}
                         </div>
                       </div>
@@ -262,20 +251,16 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
 
                     {/* Notes */}
                     <div className="mt-4">
-                      <p className="text-[11px] text-muted-foreground mb-2" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>내부 메모</p>
+                      <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">내부 메모</p>
                       <textarea
                         value={noteText}
                         onChange={(e) => setNoteText(e.target.value)}
                         rows={3}
-                        placeholder="이 문의에 대한 내부 메모를 남겨보세요..."
-                        className="w-full rounded-xl p-3.5 text-[13px] outline-none transition-all text-foreground placeholder:text-muted-foreground/40 resize-none"
-                        style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border) / 0.5)" }}
-                        onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary))"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(var(--primary) / 0.06)"; }}
-                        onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border) / 0.5)"; e.currentTarget.style.boxShadow = "none"; }}
+                        placeholder="메모를 입력하세요..."
+                        className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(220,13%,93%)] focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
                       />
                       <button onClick={saveNote} disabled={savingNote}
-                        className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] transition-all active:scale-[0.96] disabled:opacity-50"
-                        style={{ fontWeight: 600, color: "hsl(var(--primary))", background: "hsl(var(--primary) / 0.08)" }}
+                        className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.12)] transition-all active:scale-[0.96] disabled:opacity-50"
                       >
                         {savingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
                         메모 저장
@@ -283,16 +268,20 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     </div>
 
                     {/* Status */}
-                    <div className="mt-4 pt-4" style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}>
-                      <p className="text-[11px] text-muted-foreground mb-3" style={{ fontWeight: 600, letterSpacing: "0.02em" }}>상태 변경</p>
+                    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
+                      <p className="text-[11px] font-semibold text-muted-foreground mb-3 tracking-wide">상태 변경</p>
                       <div className="grid grid-cols-4 gap-2">
                         {(Object.keys(statusConfig) as InquiryStatus[]).map((s) => {
                           const cfg = statusConfig[s];
                           const isActive = selectedInquiry.status === s;
                           return (
                             <button key={s} onClick={() => updateStatus(selectedInquiry.id, s)}
-                              className="py-2.5 rounded-xl text-[12px] transition-all duration-200 active:scale-[0.96]"
-                              style={{ fontWeight: isActive ? 700 : 500, color: isActive ? "white" : "hsl(var(--muted-foreground))", background: isActive ? cfg.color : "hsl(var(--muted))", border: isActive ? `1.5px solid ${cfg.color}` : "1.5px solid transparent", boxShadow: isActive ? `0 2px 8px ${cfg.color}40` : "none" }}
+                              className="py-2.5 rounded-xl text-[12px] font-medium transition-all duration-200 active:scale-[0.96]"
+                              style={{
+                                color: isActive ? "white" : "hsl(220, 9%, 46%)",
+                                background: isActive ? cfg.color : "white",
+                                border: isActive ? `1.5px solid ${cfg.color}` : "1.5px solid hsl(220, 13%, 91%)",
+                              }}
                             >
                               {cfg.label}
                             </button>
@@ -302,13 +291,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     </div>
 
                     {/* Delete */}
-                    <div className="mt-4 pt-4" style={{ borderTop: "1px solid hsl(var(--border) / 0.6)" }}>
+                    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <button
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] transition-all active:scale-[0.96]"
-                            style={{ fontWeight: 600, color: "hsl(0, 72%, 51%)", background: "hsl(0 72% 51% / 0.08)" }}
-                          >
+                          <button className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] hover:bg-[hsl(0,84%,60%,0.1)] transition-all active:scale-[0.96]">
                             <Trash2 className="w-3 h-3" /> 문의 삭제
                           </button>
                         </AlertDialogTrigger>
@@ -347,15 +333,15 @@ function DetailRow({ icon: Icon, label, value, isLink, href }: {
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(var(--muted))" }}>
+      <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5 bg-[hsl(220,14%,93%)]">
         <Icon className="w-4 h-4 text-muted-foreground" />
       </div>
       <div className="min-w-0 flex-1">
-        <p className="text-[11px] text-muted-foreground" style={{ fontWeight: 500 }}>{label}</p>
+        <p className="text-[11px] font-medium text-muted-foreground">{label}</p>
         {isLink && href ? (
-          <a href={href} className="text-[14px] text-primary hover:underline" style={{ fontWeight: 500 }}>{value}</a>
+          <a href={href} className="text-[14px] font-medium text-[hsl(221,83%,53%)] hover:underline">{value}</a>
         ) : (
-          <p className="text-[14px] text-foreground" style={{ fontWeight: 500 }}>{value}</p>
+          <p className="text-[14px] font-medium text-foreground">{value}</p>
         )}
       </div>
     </div>

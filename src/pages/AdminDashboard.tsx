@@ -30,7 +30,6 @@ export default function AdminDashboard() {
     fetchClickEvents(30);
   }, []);
 
-  // Realtime subscription for new inquiries
   useEffect(() => {
     const channel = supabase
       .channel('inquiries-realtime')
@@ -44,7 +43,6 @@ export default function AdminDashboard() {
         setTimeout(() => setNewInquiryAlert(false), 5000);
       })
       .subscribe();
-
     return () => { supabase.removeChannel(channel); };
   }, []);
 
@@ -79,11 +77,7 @@ export default function AdminDashboard() {
   const logActivity = useCallback(async (action: string, targetType?: string, targetId?: string, details?: any) => {
     if (!userId) return;
     await supabase.from("admin_activity_logs").insert({
-      user_id: userId,
-      action,
-      target_type: targetType,
-      target_id: targetId,
-      details,
+      user_id: userId, action, target_type: targetType, target_id: targetId, details,
     });
   }, [userId]);
 
@@ -95,9 +89,9 @@ export default function AdminDashboard() {
 
   const tabs: { key: Tab; icon: any; label: string }[] = [
     { key: "home", icon: Home, label: "홈" },
-    { key: "inquiries", icon: MessageSquare, label: "문의 관리" },
-    { key: "analytics", icon: BarChart3, label: "접속 분석" },
-    { key: "activity", icon: Shield, label: "활동 로그" },
+    { key: "inquiries", icon: MessageSquare, label: "문의" },
+    { key: "analytics", icon: BarChart3, label: "분석" },
+    { key: "activity", icon: Shield, label: "활동" },
     { key: "settings", icon: Settings, label: "설정" },
   ];
 
@@ -105,123 +99,90 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "hsl(var(--muted))" }}>
-        <Loader2 className="w-6 h-6 animate-spin text-muted-foreground" />
+      <div className="min-h-screen flex items-center justify-center bg-[hsl(220,14%,96%)]">
+        <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen" style={{ background: "hsl(var(--muted))" }}>
-      {/* Realtime Alert Banner */}
+    <div className="min-h-screen bg-[hsl(220,14%,96%)]">
+      {/* Realtime Alert */}
       {newInquiryAlert && (
-        <div
-          className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-center py-3 text-[13px] animate-in slide-in-from-top duration-300"
-          style={{
-            background: "hsl(214 90% 52%)",
-            color: "white",
-            fontWeight: 600,
-          }}
-        >
+        <div className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-center py-3 text-[13px] font-semibold text-white animate-in slide-in-from-top duration-300 bg-[hsl(221,83%,53%)]">
           <Bell className="w-4 h-4 mr-2 animate-bounce" />
-          새로운 문의가 접수되었습니다!
+          새로운 문의가 접수되었습니다
           <button
             onClick={() => { setNewInquiryAlert(false); setTab("inquiries"); }}
-            className="ml-4 px-3 py-1 rounded-lg text-[12px] transition-all"
-            style={{ background: "hsla(0,0%,100%,0.2)", fontWeight: 600 }}
+            className="ml-4 px-3 py-1 rounded-full text-[12px] font-semibold bg-white/20 hover:bg-white/30 transition-colors"
           >
-            확인하기
+            확인
           </button>
         </div>
       )}
 
-      {/* Top Navigation */}
-      <header
-        className="sticky top-0 z-50 border-b"
-        style={{
-          background: "hsl(var(--background) / 0.85)",
-          backdropFilter: "blur(20px) saturate(180%)",
-          WebkitBackdropFilter: "blur(20px) saturate(180%)",
-          borderColor: "hsl(var(--border) / 0.6)",
-        }}
-      >
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6">
-          {/* Top row: logo + right actions */}
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            <h1 className="text-[20px] sm:text-[22px] tracking-[-0.04em] text-foreground shrink-0" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800 }}>
-              웹헤즈
-            </h1>
-            <div className="flex items-center gap-1">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[hsl(220,13%,91%)]">
+        <div className="max-w-[1120px] mx-auto px-5 sm:px-6">
+          <div className="flex items-center justify-between h-14">
+            <span className="text-[18px] font-extrabold tracking-[-0.03em] text-foreground">웹헤즈</span>
+            <div className="flex items-center gap-0.5">
               <button
                 onClick={() => navigate("/lms")}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
-                style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium text-muted-foreground hover:text-foreground hover:bg-[hsl(220,14%,96%)] transition-all"
               >
-                <ExternalLink className="w-4 h-4" />
-                <span className="hidden sm:inline">LMS 페이지</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">사이트</span>
               </button>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-3 py-2 rounded-xl text-[13px] transition-all hover:bg-muted"
-                style={{ fontWeight: 500, color: "hsl(var(--muted-foreground))" }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium text-muted-foreground hover:text-foreground hover:bg-[hsl(220,14%,96%)] transition-all"
               >
-                <LogOut className="w-4 h-4" />
+                <LogOut className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">로그아웃</span>
               </button>
             </div>
           </div>
-          {/* Bottom row: tabs (scrollable on mobile) */}
-          <div className="-mb-px flex gap-0.5 overflow-x-auto scrollbar-hide pb-2 sm:pb-0">
-            {tabs.map((t) => (
-              <button
-                key={t.key}
-                onClick={() => setTab(t.key)}
-                className="relative flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl text-[13px] transition-all duration-200 shrink-0"
-                style={{
-                  fontWeight: tab === t.key ? 600 : 500,
-                  color: tab === t.key ? "hsl(var(--foreground))" : "hsl(var(--muted-foreground))",
-                  background: tab === t.key ? "hsl(var(--muted))" : "transparent",
-                }}
-              >
-                <t.icon className="w-4 h-4" />
-                <span>{t.label}</span>
-                {t.key === "inquiries" && newCount > 0 && (
-                  <span
-                    className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px]"
-                    style={{ fontWeight: 700, background: "hsl(0 84% 60%)", color: "white", padding: "0 5px" }}
-                  >
-                    {newCount}
-                  </span>
-                )}
-              </button>
-            ))}
+
+          {/* Tabs */}
+          <div className="flex gap-1 -mb-px overflow-x-auto scrollbar-hide">
+            {tabs.map((t) => {
+              const isActive = tab === t.key;
+              return (
+                <button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  className="relative flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-medium transition-all shrink-0"
+                  style={{
+                    color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)",
+                  }}
+                >
+                  <t.icon className="w-4 h-4" />
+                  <span>{t.label}</span>
+                  {t.key === "inquiries" && newCount > 0 && (
+                    <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px] font-bold bg-[hsl(0,84%,60%)] text-white px-1">
+                      {newCount}
+                    </span>
+                  )}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       </header>
 
-      <div className="max-w-[1200px] mx-auto px-6 py-8">
+      <div className="max-w-[1120px] mx-auto px-5 sm:px-6 py-6">
         {tab === "home" && (
-          <AdminHome
-            inquiries={inquiries}
-            pageViews={pageViews}
-            onNavigate={setTab}
-          />
+          <AdminHome inquiries={inquiries} pageViews={pageViews} onNavigate={setTab} />
         )}
         {tab === "inquiries" && (
-          <AdminInquiries
-            inquiries={inquiries}
-            setInquiries={setInquiries}
-            onRefresh={fetchInquiries}
-            logActivity={logActivity}
-          />
+          <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
         )}
         {tab === "analytics" && (
-          <AdminAnalytics
-            pageViews={pageViews}
-            inquiries={inquiries}
-            clickEvents={clickEvents}
-            onRefresh={(days: number) => { fetchPageViews(days); fetchClickEvents(days); }}
-          />
+          <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => { fetchPageViews(days); fetchClickEvents(days); }} />
         )}
         {tab === "activity" && <AdminActivityLog />}
         {tab === "settings" && <AdminSettings />}

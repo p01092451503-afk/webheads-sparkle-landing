@@ -6,7 +6,7 @@ import {
   Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown, ShieldAlert
 } from "lucide-react";
 import {
-  AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
   ResponsiveContainer
 } from "recharts";
 
@@ -22,34 +22,25 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const filteredViews = useMemo(() => {
     const since = new Date();
-    if (dateRange === 0) {
-      since.setHours(0, 0, 0, 0);
-    } else {
-      since.setDate(since.getDate() - dateRange);
-    }
+    if (dateRange === 0) since.setHours(0, 0, 0, 0);
+    else since.setDate(since.getDate() - dateRange);
     return pageViews.filter((v) => new Date(v.created_at) >= since);
   }, [pageViews, dateRange]);
 
   const filteredClicks = useMemo(() => {
     const since = new Date();
-    if (dateRange === 0) {
-      since.setHours(0, 0, 0, 0);
-    } else {
-      since.setDate(since.getDate() - dateRange);
-    }
+    if (dateRange === 0) since.setHours(0, 0, 0, 0);
+    else since.setDate(since.getDate() - dateRange);
     return clickEvents.filter((v) => new Date(v.created_at) >= since);
   }, [clickEvents, dateRange]);
 
   const totalViews = filteredViews.length;
   const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
 
-  // Visitor type classification (DB value or frontend fallback)
   const visitorTypeCounts = useMemo(() => {
     const searchBotPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|sogou|applebot|naverbot|seznambot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot/i;
     const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
     const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/i;
-    
-    // Scraper sub-classification patterns
     const seoToolPats: [RegExp, string][] = [
       [/semrushbot/i, "SEMrush"], [/ahrefsbot/i, "Ahrefs"], [/dotbot/i, "Moz"],
       [/serpstatbot/i, "Serpstat"], [/dataforseo/i, "DataForSEO"], [/screaming frog/i, "Screaming Frog"],
@@ -59,8 +50,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const otherScraperPats: [RegExp, string][] = [
       [/petalbot/i, "PetalBot (Huawei)"], [/blexbot/i, "BLEXBot"], [/rogerbot/i, "RogerBot"], [/exabot/i, "Exabot"],
     ];
-
-    // Search bot sub-classification patterns
     const searchBotSubPats: [RegExp, string][] = [
       [/googlebot/i, "Google"], [/bingbot/i, "Bing"], [/yandex/i, "Yandex"],
       [/baiduspider/i, "Baidu"], [/duckduckbot/i, "DuckDuckGo"], [/slurp/i, "Yahoo"],
@@ -69,8 +58,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       [/linkedinbot/i, "LinkedIn"], [/pinterestbot/i, "Pinterest"],
       [/seznambot/i, "Seznam"], [/msnbot/i, "MSN"],
     ];
-
-    // AI bot sub-classification patterns
     const aiBotSubPats: [RegExp, string][] = [
       [/gptbot|chatgpt|openai/i, "OpenAI (GPTBot)"], [/claude|anthropic|claudebot/i, "Anthropic (Claude)"],
       [/bytespider/i, "ByteDance"], [/ccbot/i, "Common Crawl"],
@@ -84,7 +71,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const scraperSubCounts: Record<string, number> = {};
     const searchBotSubCounts: Record<string, number> = {};
     const aiBotSubCounts: Record<string, number> = {};
-    // AI bot per-page tracking: { botName: { pagePath: count } }
     const aiBotPageMap: Record<string, Record<string, number>> = {};
 
     const classifySub = (ua: string, patterns: [RegExp, string][], counts: Record<string, number>, fallback?: string) => {
@@ -109,7 +95,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (type === "ai") {
         ai++;
         classifySub(ua, aiBotSubPats, aiBotSubCounts);
-        // Track which pages each AI bot crawls
         let botName = "기타";
         for (const [pat, name] of aiBotSubPats) {
           if (pat.test(ua)) { botName = name; break; }
@@ -139,7 +124,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const scraperSubs = Object.entries(scraperSubCounts).sort(([, a], [, b]) => b - a);
     const searchBotSubs = Object.entries(searchBotSubCounts).sort(([, a], [, b]) => b - a);
     const aiBotSubs = Object.entries(aiBotSubCounts).sort(([, a], [, b]) => b - a);
-    // Convert aiBotPageMap to sorted array format
     const aiBotPages: { bot: string; pages: [string, number][] }[] = Object.entries(aiBotPageMap)
       .map(([bot, pages]) => ({ bot, pages: Object.entries(pages).sort(([, a], [, b]) => b - a) }))
       .sort((a, b) => b.pages.reduce((s, [, c]) => s + c, 0) - a.pages.reduce((s, [, c]) => s + c, 0));
@@ -165,7 +149,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, {} as Record<string, number>);
   const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
-  // IP with location
   const ipWithLocation = useMemo(() => {
     const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null }> = {};
     filteredViews.forEach((v) => {
@@ -178,11 +161,9 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     });
     return Object.entries(ipMap)
       .map(([ip, d]) => ({ ip, count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
-      .sort((a, b) => b.count - a.count)
-;
+      .sort((a, b) => b.count - a.count);
   }, [filteredViews]);
 
-  // Location stats
   const topLocations = useMemo(() => {
     const locationCounts = filteredViews.reduce((acc, v) => {
       const loc = v.city || v.country || "알 수 없음";
@@ -192,7 +173,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number));
   }, [filteredViews]);
 
-  // Dwell time
   const pageDwellTimes = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
     filteredViews.forEach((v) => {
@@ -204,8 +184,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     });
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
-      .sort((a, b) => b.avg - a.avg)
-;
+      .sort((a, b) => b.avg - a.avg);
   }, [filteredViews]);
 
   const overallAvgDwell = useMemo(() => {
@@ -214,7 +193,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Math.round(withDuration.reduce((s, v) => s + v.duration_seconds, 0) / withDuration.length);
   }, [filteredViews]);
 
-  // Helper: local date to YYYY-MM-DD string (timezone-safe)
   const toLocalDateKey = (date: Date) => {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -222,16 +200,12 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return `${y}-${m}-${d}`;
   };
 
-  // Daily or Hourly traffic (hourly when "오늘" is selected)
   const isToday = dateRange === 0;
 
   const dailyData = useMemo(() => {
     if (isToday) {
-      // Hourly breakdown for today
       const hours: Record<number, { views: number; sessions: Set<string> }> = {};
-      for (let h = 0; h < 24; h++) {
-        hours[h] = { views: 0, sessions: new Set() };
-      }
+      for (let h = 0; h < 24; h++) hours[h] = { views: 0, sessions: new Set() };
       filteredViews.forEach((v) => {
         const d = new Date(v.created_at);
         const h = d.getHours();
@@ -239,17 +213,12 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         if (v.session_id) hours[h].sessions.add(v.session_id);
       });
       return Object.entries(hours).map(([h, d]) => ({
-        date: h,
-        label: `${String(h).padStart(2, "0")}시`,
-        views: d.views,
-        sessions: d.sessions.size,
+        date: h, label: `${String(h).padStart(2, "0")}시`, views: d.views, sessions: d.sessions.size,
       }));
     }
-
     const days: Record<string, { views: number; sessions: Set<string> }> = {};
     const today = new Date();
-    const numDays = dateRange;
-    for (let i = numDays - 1; i >= 0; i--) {
+    for (let i = dateRange - 1; i >= 0; i--) {
       const d = new Date(today);
       d.setDate(d.getDate() - i);
       const key = toLocalDateKey(d);
@@ -260,16 +229,10 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (days[key]) { days[key].views++; if (v.session_id) days[key].sessions.add(v.session_id); }
     });
     return Object.entries(days).map(([date, d]) => ({
-      date,
-      label: new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" }),
-      views: d.views,
-      sessions: d.sessions.size,
+      date, label: new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" }), views: d.views, sessions: d.sessions.size,
     }));
   }, [filteredViews, dateRange, isToday]);
 
-  const maxDailyViews = Math.max(...dailyData.map((d) => d.views), 1);
-
-  // Conversion rate
   const filteredInquiries = useMemo(() => {
     const since = new Date();
     since.setDate(since.getDate() - dateRange);
@@ -278,38 +241,27 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const conversionRate = uniqueSessions > 0 ? ((filteredInquiries.length / uniqueSessions) * 100).toFixed(1) : "0.0";
 
-  // ========== NEW: UTM Stats ==========
   const utmSourceCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => {
-      if (v.utm_source) acc[v.utm_source] = (acc[v.utm_source] || 0) + 1;
-    });
+    filteredViews.forEach((v) => { if (v.utm_source) acc[v.utm_source] = (acc[v.utm_source] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   const utmCampaignCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => {
-      if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1;
-    });
+    filteredViews.forEach((v) => { if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
   const utmMediumCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => {
-      if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1;
-    });
+    filteredViews.forEach((v) => { if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
-  // ========== NEW: CTA Click Stats ==========
   const ctaClickCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredClicks.forEach((c) => {
-      const label = c.element_text || c.element_id || "Unknown";
-      acc[label] = (acc[label] || 0) + 1;
-    });
+    filteredClicks.forEach((c) => { const label = c.element_text || c.element_id || "Unknown"; acc[label] = (acc[label] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredClicks]);
 
@@ -319,7 +271,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredClicks]);
 
-  // ========== NEW: Scroll Depth Stats ==========
   const scrollDepthStats = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
     filteredViews.forEach((v) => {
@@ -331,50 +282,39 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     });
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
-      .sort((a, b) => b.avg - a.avg)
-;
+      .sort((a, b) => b.avg - a.avg);
   }, [filteredViews]);
 
-  // ========== NEW: First Visit vs Return ==========
   const visitStats = useMemo(() => {
     const first = filteredViews.filter((v) => v.is_first_visit === true).length;
-    const returning = filteredViews.length - first;
-    return { first, returning };
+    return { first, returning: filteredViews.length - first };
   }, [filteredViews]);
 
-  // ========== Exit Pages (last page per session) ==========
   const exitPages = useMemo(() => {
     const sessionPages: Record<string, { path: string; time: string }> = {};
     filteredViews.forEach((v) => {
       if (!v.session_id) return;
-      if (!sessionPages[v.session_id] || v.created_at > sessionPages[v.session_id].time) {
+      if (!sessionPages[v.session_id] || v.created_at > sessionPages[v.session_id].time)
         sessionPages[v.session_id] = { path: v.page_path, time: v.created_at };
-      }
     });
     const acc: Record<string, number> = {};
     Object.values(sessionPages).forEach((s) => { acc[s.path] = (acc[s.path] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
-  // ========== Conversion Funnel ==========
   const funnelData = useMemo(() => {
     const sessions = new Set(filteredViews.map((v) => v.session_id).filter(Boolean));
     const landingSessions = new Set<string>();
     const serviceSessions = new Set<string>();
     const contactSessions = new Set<string>();
-
     const servicePages = ["/lms", "/hosting", "/drm", "/content", "/chatbot", "/channel", "/maintenance", "/app-dev", "/pg"];
-    
     filteredViews.forEach((v) => {
       if (!v.session_id) return;
       if (v.page_path === "/") landingSessions.add(v.session_id);
       if (servicePages.some((p) => v.page_path.startsWith(p))) serviceSessions.add(v.session_id);
       if (v.page_path === "/about" || v.page_path.includes("contact")) contactSessions.add(v.session_id);
     });
-
-    // Also count sessions that submitted an inquiry
     const inquirySessions = new Set(filteredInquiries.map((i: any) => i.session_id).filter(Boolean));
-
     return [
       { label: "전체 방문", count: sessions.size },
       { label: "랜딩 페이지", count: landingSessions.size },
@@ -384,7 +324,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     ];
   }, [filteredViews, filteredInquiries]);
 
-  // ========== Hourly Traffic Heatmap ==========
   const hourlyData = useMemo(() => {
     const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
     const grid: number[][] = Array.from({ length: 7 }, () => Array(24).fill(0));
@@ -397,7 +336,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const maxHourly = useMemo(() => Math.max(...hourlyData.grid.flat(), 1), [hourlyData]);
 
-  // ========== Page Flow (A → B transitions) ==========
   const pageFlows = useMemo(() => {
     const sessionViews: Record<string, { path: string; time: string }[]> = {};
     filteredViews.forEach((v) => {
@@ -405,7 +343,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (!sessionViews[v.session_id]) sessionViews[v.session_id] = [];
       sessionViews[v.session_id].push({ path: v.page_path, time: v.created_at });
     });
-
     const flows: Record<string, number> = {};
     Object.values(sessionViews).forEach((views) => {
       views.sort((a, b) => a.time.localeCompare(b.time));
@@ -419,7 +356,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(flows).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
-  // ========== Screen Resolution ==========
   const resolutionCounts = useMemo(() => {
     const acc: Record<string, number> = {};
     filteredViews.forEach((v) => {
@@ -431,7 +367,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
-  // ========== Language Distribution ==========
   const languageCounts = useMemo(() => {
     const acc: Record<string, number> = {};
     filteredViews.forEach((v) => {
@@ -442,26 +377,30 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, [filteredViews]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-[22px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>접속 분석</h2>
-          <p className="text-[14px] text-muted-foreground mt-1">최근 {dateRange}일간의 방문 데이터</p>
+          <h2 className="text-[20px] font-bold tracking-[-0.03em] text-foreground">접속 분석</h2>
+          <p className="text-[13px] text-muted-foreground mt-0.5">
+            {isToday ? "오늘" : `최근 ${dateRange}일`}의 방문 데이터
+          </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1 p-1 rounded-xl" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+        <div className="flex items-center gap-2">
+          <div className="flex gap-0.5 p-1 rounded-xl bg-white border border-[hsl(220,13%,91%)]">
             {[{ value: 0, label: "오늘" }, { value: 7, label: "7일" }, { value: 14, label: "14일" }, { value: 30, label: "30일" }].map((d) => (
               <button key={d.value} onClick={() => setDateRange(d.value)}
-                className="px-3.5 py-1.5 rounded-lg text-[12px] transition-all whitespace-nowrap"
-                style={{ fontWeight: dateRange === d.value ? 600 : 500, color: dateRange === d.value ? "hsl(var(--primary-foreground))" : "hsl(var(--muted-foreground))", background: dateRange === d.value ? "hsl(var(--foreground))" : "transparent" }}
+                className="px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all whitespace-nowrap"
+                style={{
+                  color: dateRange === d.value ? "white" : "hsl(220, 9%, 46%)",
+                  background: dateRange === d.value ? "hsl(221, 83%, 53%)" : "transparent",
+                }}
               >
                 {d.label}
               </button>
             ))}
           </div>
-          <button onClick={() => onRefresh(30)} title="새로고침"
-            className="flex items-center justify-center w-9 h-9 rounded-xl transition-all hover:bg-card shrink-0"
-            style={{ color: "hsl(var(--muted-foreground))", background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}
+          <button onClick={() => onRefresh(30)}
+            className="flex items-center justify-center w-9 h-9 rounded-xl bg-white border border-[hsl(220,13%,91%)] text-muted-foreground hover:bg-[hsl(220,14%,96%)] transition-colors"
           >
             <RefreshCw className="w-3.5 h-3.5" />
           </button>
@@ -470,80 +409,79 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
       <SectionGroup title="주요 지표 요약" number={1}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <MetricCard icon={<Eye className="w-5 h-5" />} label="페이지뷰" value={totalViews} color="hsl(214, 90%, 52%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다. 한 사용자가 여러 페이지를 보면 각각 1회로 집계됩니다." />
-          <MetricCard icon={<Globe className="w-5 h-5" />} label="고유 세션" value={uniqueSessions} color="hsl(150, 60%, 42%)" tooltip="브라우저 탭을 열고 사이트를 방문한 고유 세션 수입니다. 같은 사용자도 새 탭이나 다른 시간에 방문하면 별도 세션으로 집계됩니다." />
-          <MetricCard icon={<Clock className="w-5 h-5" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(192, 80%, 45%)" tooltip="방문자가 한 페이지에 머문 평균 시간입니다. 체류시간이 길수록 콘텐츠에 관심이 높다는 의미입니다. 최대 30분까지만 집계합니다." />
-          <MetricCard icon={<MousePointerClick className="w-5 h-5" />} label="CTA 클릭" value={filteredClicks.length} color="hsl(340, 65%, 55%)" tooltip="'상담 신청', '데모 요청', '문의하기' 등 전환 유도 버튼(CTA)이 클릭된 총 횟수입니다. 마케팅 효과를 측정하는 핵심 지표입니다." />
-          <MetricCard icon={<Users className="w-5 h-5" />} label="신규 방문" value={visitStats.first} color="hsl(35, 90%, 50%)" sub={`재방문 ${visitStats.returning}`} tooltip="처음 사이트를 방문한 사용자 수입니다. 재방문 수와 비교하여 신규 유입과 리텐션(재방문율)을 파악할 수 있습니다." />
-          <MetricCard icon={<Smartphone className="w-5 h-5" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(260, 70%, 55%)" tooltip="모바일 기기(스마트폰)로 접속한 방문 횟수입니다. 모바일 비율이 높으면 모바일 최적화가 특히 중요합니다." />
-          <MetricCard icon={<TrendingUp className="w-5 h-5" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} tooltip="전체 세션 중 실제 문의를 제출한 비율입니다. (문의 수 ÷ 고유 세션 × 100) 마케팅 ROI를 판단하는 가장 중요한 지표입니다." />
-          <MetricCard icon={<Link2 className="w-5 h-5" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" tooltip="UTM 파라미터가 포함된 URL로 유입된 방문 수입니다. 광고, SNS, 이메일 등 마케팅 캠페인의 성과를 추적합니다." />
+          <MetricCard icon={<Eye className="w-[18px] h-[18px]" />} label="페이지뷰" value={totalViews} color="hsl(221, 83%, 53%)" tooltip="선택한 기간 동안 사이트의 모든 페이지가 조회된 총 횟수입니다." />
+          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="고유 세션" value={uniqueSessions} color="hsl(152, 57%, 42%)" tooltip="고유 세션 수입니다." />
+          <MetricCard icon={<Clock className="w-[18px] h-[18px]" />} label="평균 체류" value={formatDuration(overallAvgDwell)} color="hsl(199, 89%, 48%)" tooltip="한 페이지에 머문 평균 시간입니다." />
+          <MetricCard icon={<MousePointerClick className="w-[18px] h-[18px]" />} label="CTA 클릭" value={filteredClicks.length} color="hsl(340, 65%, 55%)" tooltip="CTA 버튼 클릭 총 횟수입니다." />
+          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문" value={visitStats.first} color="hsl(37, 90%, 51%)" sub={`재방문 ${visitStats.returning}`} tooltip="신규 방문자 수입니다." />
+          <MetricCard icon={<Smartphone className="w-[18px] h-[18px]" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(262, 60%, 55%)" tooltip="모바일 접속 수입니다." />
+          <MetricCard icon={<TrendingUp className="w-[18px] h-[18px]" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} tooltip="방문 대비 문의 전환율입니다." />
+          <MetricCard icon={<Link2 className="w-[18px] h-[18px]" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" tooltip="UTM 파라미터 유입 수입니다." />
         </div>
       </SectionGroup>
 
       <SectionGroup title="방문자 유형 분석" number={2}>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { icon: <User className="w-4 h-4" />, label: "사람", value: visitorTypeCounts.human, color: "hsl(214, 90%, 52%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100) : 0, tooltip: "실제 사용자(사람)의 방문 횟수입니다. 검색엔진 봇이나 AI 크롤러를 제외한 순수 방문자입니다." },
-            { icon: <Bot className="w-4 h-4" />, label: "검색엔진 봇", value: visitorTypeCounts.searchBot, color: "hsl(35, 90%, 50%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.searchBot / visitorTypeCounts.total) * 100) : 0, tooltip: "Google, Bing, Naver 등 검색엔진 크롤러의 방문입니다. SEO 최적화 상태를 파악하는 데 유용합니다. 이 봇이 많을수록 검색에 잘 노출되고 있다는 의미입니다." },
-            { icon: <ShieldAlert className="w-4 h-4" />, label: "스크래퍼", value: visitorTypeCounts.scraper, color: "hsl(0, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.scraper / visitorTypeCounts.total) * 100) : 0, tooltip: "SEO 분석 도구(Ahrefs, SEMrush 등), Cloudflare 프록시, 반복 접속 스크래퍼 등의 방문입니다. 실제 사용자가 아니므로 통계 왜곡의 원인이 됩니다." },
-            { icon: <BrainCircuit className="w-4 h-4" />, label: "AI 봇", value: visitorTypeCounts.ai, color: "hsl(260, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100) : 0, tooltip: "ChatGPT, Claude, Perplexity 등 AI 서비스의 크롤러 방문입니다. AI 검색에 노출되고 있는지 확인할 수 있습니다." },
+            { icon: <User className="w-4 h-4" />, label: "사람", value: visitorTypeCounts.human, color: "hsl(221, 83%, 53%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100) : 0 },
+            { icon: <Bot className="w-4 h-4" />, label: "검색엔진 봇", value: visitorTypeCounts.searchBot, color: "hsl(37, 90%, 51%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.searchBot / visitorTypeCounts.total) * 100) : 0 },
+            { icon: <ShieldAlert className="w-4 h-4" />, label: "스크래퍼", value: visitorTypeCounts.scraper, color: "hsl(0, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.scraper / visitorTypeCounts.total) * 100) : 0 },
+            { icon: <BrainCircuit className="w-4 h-4" />, label: "AI 봇", value: visitorTypeCounts.ai, color: "hsl(262, 60%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100) : 0 },
           ].map((item) => (
-            <div key={item.label} className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}10`, color: item.color }}>{item.icon}</div>
+            <div key={item.label} className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${item.color}12`, color: item.color }}>{item.icon}</div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-[20px] sm:text-[22px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 800 }}>{item.value.toLocaleString()}</p>
-                  <p className="text-[13px]" style={{ fontWeight: 700, color: item.color }}>{item.pct}%</p>
+                  <p className="text-[20px] font-bold tracking-[-0.04em] text-foreground tabular-nums">{item.value.toLocaleString()}</p>
+                  <p className="text-[12px] font-bold" style={{ color: item.color }}>{item.pct}%</p>
                 </div>
-                <p className="text-[12px] text-muted-foreground" style={{ fontWeight: 600 }}>{item.label}</p>
+                <p className="text-[12px] font-medium text-muted-foreground">{item.label}</p>
               </div>
-              {item.tooltip && <HelpTooltip text={item.tooltip} />}
             </div>
           ))}
         </div>
         {[
-          { subs: visitorTypeCounts.searchBotSubs, label: "검색엔진 봇 종류별 상세", color: "hsl(35, 90%, 50%)", total: visitorTypeCounts.searchBot },
-          { subs: visitorTypeCounts.aiBotSubs, label: "AI 봇 종류별 상세", color: "hsl(260, 70%, 55%)", total: visitorTypeCounts.ai },
+          { subs: visitorTypeCounts.searchBotSubs, label: "검색엔진 봇 종류별 상세", color: "hsl(37, 90%, 51%)", total: visitorTypeCounts.searchBot },
+          { subs: visitorTypeCounts.aiBotSubs, label: "AI 봇 종류별 상세", color: "hsl(262, 60%, 55%)", total: visitorTypeCounts.ai },
           { subs: visitorTypeCounts.scraperSubs, label: "스크래퍼 종류별 상세", color: "hsl(0, 70%, 55%)", total: visitorTypeCounts.scraper },
         ].map((group) => (
-          <div key={group.label} className="mt-3 rounded-xl px-4 py-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-            <p className="text-[12px] text-muted-foreground mb-2" style={{ fontWeight: 600 }}>{group.label}</p>
+          <div key={group.label} className="mt-3 bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3">
+            <p className="text-[12px] font-semibold text-muted-foreground mb-2">{group.label}</p>
             {group.subs.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {group.subs.map(([name, count]) => (
-                  <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: `${group.color.replace(')', ', 0.08)')}`, border: `1px solid ${group.color.replace(')', ', 0.15)')}` }}>
-                    <span className="text-foreground" style={{ fontWeight: 600 }}>{name}</span>
-                    <span style={{ fontWeight: 800, color: group.color }}>{count.toLocaleString()}</span>
+                  <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: `${group.color}08`, border: `1px solid ${group.color}15` }}>
+                    <span className="font-semibold text-foreground">{name}</span>
+                    <span className="font-bold" style={{ color: group.color }}>{count.toLocaleString()}</span>
                     <span className="text-muted-foreground">({group.total > 0 ? Math.round((count / group.total) * 100) : 0}%)</span>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-[11px] text-muted-foreground/50 py-1">해당 기간에 감지된 데이터가 없습니다</p>
+              <p className="text-[11px] text-muted-foreground/40 py-1">해당 기간에 감지된 데이터가 없습니다</p>
             )}
           </div>
         ))}
         {visitorTypeCounts.aiBotPages.length > 0 && (
-          <div className="mt-3 rounded-xl px-4 py-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-            <p className="text-[12px] text-muted-foreground mb-3" style={{ fontWeight: 600 }}>🤖 AI 봇별 크롤링 페이지 분석</p>
+          <div className="mt-3 bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3">
+            <p className="text-[12px] font-semibold text-muted-foreground mb-3">🤖 AI 봇별 크롤링 페이지 분석</p>
             <div className="flex flex-col gap-3">
               {visitorTypeCounts.aiBotPages.map(({ bot, pages }) => {
                 const botTotal = pages.reduce((s, [, c]) => s + c, 0);
                 return (
                   <div key={bot}>
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-[12px] text-foreground" style={{ fontWeight: 700 }}>{bot}</span>
+                      <span className="text-[12px] font-bold text-foreground">{bot}</span>
                       <span className="text-[11px] text-muted-foreground">총 {botTotal}회</span>
                     </div>
                     <div className="flex flex-col gap-1">
                       {pages.slice(0, 8).map(([path, count]) => (
                         <div key={path} className="flex items-center gap-2">
-                          <div className="flex-1 h-5 rounded overflow-hidden relative" style={{ background: "hsl(var(--muted) / 0.3)" }}>
-                            <div className="h-full rounded" style={{ width: `${Math.max((count / pages[0][1]) * 100, 4)}%`, background: "hsl(260, 70%, 55%, 0.2)" }} />
-                            <span className="absolute left-2 top-0 h-full flex items-center text-[10px] text-foreground" style={{ fontWeight: 500 }}>{path}</span>
+                          <div className="flex-1 h-5 rounded overflow-hidden relative bg-[hsl(220,14%,96%)]">
+                            <div className="h-full rounded" style={{ width: `${Math.max((count / pages[0][1]) * 100, 4)}%`, background: "hsl(262, 60%, 55%, 0.15)" }} />
+                            <span className="absolute left-2 top-0 h-full flex items-center text-[10px] font-medium text-foreground">{path}</span>
                           </div>
-                          <span className="text-[10px] shrink-0" style={{ fontWeight: 700, color: "hsl(260, 70%, 55%)" }}>{count}</span>
+                          <span className="text-[10px] font-bold shrink-0" style={{ color: "hsl(262, 60%, 55%)" }}>{count}</span>
                           <span className="text-[10px] text-muted-foreground shrink-0">({Math.round((count / botTotal) * 100)}%)</span>
                         </div>
                       ))}
@@ -556,185 +494,111 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         )}
       </SectionGroup>
 
-
       <SectionGroup title={isToday ? "시간대별 방문 추이" : "일별 방문 추이"} number={3}>
-        <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-          <ResponsiveContainer width="100%" height={220}>
-            <AreaChart data={dailyData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+        <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5">
+          <ResponsiveContainer width="100%" height={200}>
+            <AreaChart data={dailyData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
               <defs>
-                <linearGradient id="gradViews" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="hsl(214, 90%, 52%)" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="hsl(214, 90%, 52%)" stopOpacity={0.02} />
+                <linearGradient id="tossGradViews" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="hsl(221, 83%, 53%)" stopOpacity={0.2} />
+                  <stop offset="100%" stopColor="hsl(221, 83%, 53%)" stopOpacity={0.02} />
                 </linearGradient>
-                <linearGradient id="gradSessions" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="hsl(150, 60%, 42%)" stopOpacity={0.2} />
-                  <stop offset="100%" stopColor="hsl(150, 60%, 42%)" stopOpacity={0.02} />
+                <linearGradient id="tossGradSessions" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="hsl(152, 57%, 42%)" stopOpacity={0.15} />
+                  <stop offset="100%" stopColor="hsl(152, 57%, 42%)" stopOpacity={0.02} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-              <XAxis
-                dataKey="label"
-                tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
-                axisLine={false}
-                tickLine={false}
-                interval={isToday ? 2 : (dailyData.length > 14 ? Math.floor(dailyData.length / 7) : 0)}
-              />
-              <YAxis
-                tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
-                axisLine={false}
-                tickLine={false}
-                allowDecimals={false}
-              />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 13%, 93%)" vertical={false} />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(220, 9%, 60%)" }} axisLine={false} tickLine={false}
+                interval={isToday ? 2 : (dailyData.length > 14 ? Math.floor(dailyData.length / 7) : 0)} />
+              <YAxis tick={{ fontSize: 11, fill: "hsl(220, 9%, 60%)" }} axisLine={false} tickLine={false} allowDecimals={false} />
               <RechartsTooltip
-                contentStyle={{
-                  background: "hsl(var(--background))",
-                  border: "1px solid hsl(var(--border))",
-                  borderRadius: "12px",
-                  fontSize: "12px",
-                  boxShadow: "0 4px 12px hsl(0 0% 0% / 0.08)",
-                }}
+                contentStyle={{ background: "white", border: "1px solid hsl(220, 13%, 91%)", borderRadius: "12px", fontSize: "12px", boxShadow: "0 4px 16px hsl(0 0% 0% / 0.06)" }}
                 labelStyle={{ fontWeight: 600, marginBottom: 4 }}
               />
-              <Area
-                type="monotone"
-                dataKey="views"
-                name="페이지뷰"
-                stroke="hsl(214, 90%, 52%)"
-                strokeWidth={2.5}
-                fill="url(#gradViews)"
-                dot={{ r: 3, fill: "hsl(214, 90%, 52%)", strokeWidth: 0 }}
-                activeDot={{ r: 5, fill: "hsl(214, 90%, 52%)", strokeWidth: 2, stroke: "white" }}
-              />
-              <Area
-                type="monotone"
-                dataKey="sessions"
-                name="세션"
-                stroke="hsl(150, 60%, 42%)"
-                strokeWidth={2}
-                strokeDasharray="5 5"
-                fill="url(#gradSessions)"
-                dot={{ r: 2, fill: "hsl(150, 60%, 42%)", strokeWidth: 0 }}
-                activeDot={{ r: 4, fill: "hsl(150, 60%, 42%)", strokeWidth: 2, stroke: "white" }}
-              />
+              <Area type="monotone" dataKey="views" name="페이지뷰" stroke="hsl(221, 83%, 53%)" strokeWidth={2} fill="url(#tossGradViews)"
+                dot={{ r: 2.5, fill: "hsl(221, 83%, 53%)", strokeWidth: 0 }} activeDot={{ r: 4, fill: "hsl(221, 83%, 53%)", strokeWidth: 2, stroke: "white" }} />
+              <Area type="monotone" dataKey="sessions" name="세션" stroke="hsl(152, 57%, 42%)" strokeWidth={1.5} strokeDasharray="4 4" fill="url(#tossGradSessions)"
+                dot={{ r: 2, fill: "hsl(152, 57%, 42%)", strokeWidth: 0 }} activeDot={{ r: 3.5, fill: "hsl(152, 57%, 42%)", strokeWidth: 2, stroke: "white" }} />
             </AreaChart>
           </ResponsiveContainer>
-          <div className="flex items-center gap-4 mt-4 pt-3" style={{ borderTop: "1px solid hsl(var(--border) / 0.5)" }}>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-sm" style={{ background: "hsl(214, 90%, 52%)" }} />
-              <span className="text-[11px] text-muted-foreground">페이지뷰</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-sm" style={{ background: "hsl(150, 60%, 42%)" }} />
-              <span className="text-[11px] text-muted-foreground">세션</span>
-            </div>
+          <div className="flex items-center gap-4 mt-3 pt-3 border-t border-[hsl(220,13%,95%)]">
+            <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[hsl(221,83%,53%)]" /><span className="text-[11px] text-muted-foreground">페이지뷰</span></div>
+            <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-sm bg-[hsl(152,57%,42%)]" /><span className="text-[11px] text-muted-foreground">세션</span></div>
           </div>
         </div>
       </SectionGroup>
 
-
-
       <SectionGroup title="방문자 · 페이지 상세" number={4}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />} tooltip="가장 많이 조회된 페이지 순위입니다. 어떤 서비스·콘텐츠에 방문자의 관심이 집중되는지 파악하여 마케팅 전략에 활용합니다.">
-            {topPages.length === 0 ? <Empty /> : topPages.map(([path, count], i) => (
-              <BarRow key={path} rank={i + 1} label={path} value={count as number} max={topPages[0][1] as number} color="hsl(214, 90%, 52%)" />
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ChartCard title="인기 페이지" icon={<Eye className="w-4 h-4" />}>
+            {topPages.length === 0 ? <Empty /> : topPages.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c as number} max={topPages[0][1] as number} color="hsl(221, 83%, 53%)" />)}
           </ChartCard>
-          <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />} tooltip="방문자의 IP 주소 기반 접속 지역입니다. 주요 고객이 어느 지역에 분포하는지 파악하여 지역 타겟 마케팅에 활용할 수 있습니다.">
-            {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([loc, count], i) => (
-              <BarRow key={loc} rank={i + 1} label={loc} value={count as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />
-            ))}
+          <ChartCard title="방문 지역" icon={<MapPin className="w-4 h-4" />}>
+            {topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : topLocations.map(([l, c], i) => <BarRow key={l} rank={i+1} label={l} value={c as number} max={topLocations[0][1] as number} color="hsl(340, 65%, 55%)" />)}
           </ChartCard>
-          <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />} tooltip="접속한 IP 주소별 방문 횟수입니다. 동일 IP에서 반복 방문이 많으면 해당 기업/기관의 높은 관심을 의미할 수 있습니다.">
+          <ChartCard title="방문자 IP" icon={<Wifi className="w-4 h-4" />}>
             {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => {
-              const timeStr = d.lastVisit ? (() => {
-                const dt = new Date(d.lastVisit);
-                const m = String(dt.getMonth() + 1).padStart(2, "0");
-                const day = String(dt.getDate()).padStart(2, "0");
-                const h = String(dt.getHours()).padStart(2, "0");
-                const min = String(dt.getMinutes()).padStart(2, "0");
-                return `${m}/${day} ${h}:${min}`;
-              })() : "";
+              const timeStr = d.lastVisit ? (() => { const dt = new Date(d.lastVisit); return `${String(dt.getMonth()+1).padStart(2,"0")}/${String(dt.getDate()).padStart(2,"0")} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")}`; })() : "";
               const suffix = [d.location, timeStr].filter(Boolean).join("  ·  ");
-              return <BarRow key={d.ip} rank={i + 1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(192, 80%, 45%)" />;
+              return <BarRow key={d.ip} rank={i+1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(199, 89%, 48%)" />;
             })}
           </ChartCard>
-          <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} tooltip="방문자가 어디에서 링크를 클릭하여 사이트에 왔는지 보여줍니다. '직접 방문'은 URL을 직접 입력하거나 북마크로 접속한 경우입니다.">
-            {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([ref, count], i) => (
-              <BarRow key={ref} rank={i + 1} label={ref} value={count as number} max={topReferrers[0][1] as number} color="hsl(150, 60%, 42%)" />
-            ))}
+          <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />}>
+            {topReferrers.length === 0 ? <Empty /> : topReferrers.map(([r, c], i) => <BarRow key={r} rank={i+1} label={r} value={c as number} max={topReferrers[0][1] as number} color="hsl(152, 57%, 42%)" />)}
           </ChartCard>
-          <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />} tooltip="방문자가 사용한 웹 브라우저 분포입니다. 특정 브라우저에서 문제가 발생하면 해당 브라우저 점유율을 확인하여 대응 우선순위를 정할 수 있습니다.">
-            {topBrowsers.length === 0 ? <Empty /> : topBrowsers.map(([name, count], i) => (
-              <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topBrowsers[0][1] as number} color="hsl(35, 90%, 50%)" />
-            ))}
+          <ChartCard title="브라우저" icon={<Globe className="w-4 h-4" />}>
+            {topBrowsers.length === 0 ? <Empty /> : topBrowsers.map(([n, c], i) => <BarRow key={n} rank={i+1} label={n} value={c as number} max={topBrowsers[0][1] as number} color="hsl(37, 90%, 51%)" />)}
           </ChartCard>
-          <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />} tooltip="방문자의 운영체제(Windows, macOS, iOS, Android 등) 분포입니다. 주요 사용자의 환경을 파악하여 호환성 테스트 우선순위를 정합니다.">
-            {topOS.length === 0 ? <Empty /> : topOS.map(([name, count], i) => (
-              <BarRow key={name} rank={i + 1} label={name} value={count as number} max={topOS[0][1] as number} color="hsl(260, 70%, 55%)" />
-            ))}
+          <ChartCard title="운영체제" icon={<Monitor className="w-4 h-4" />}>
+            {topOS.length === 0 ? <Empty /> : topOS.map(([n, c], i) => <BarRow key={n} rank={i+1} label={n} value={c as number} max={topOS[0][1] as number} color="hsl(262, 60%, 55%)" />)}
           </ChartCard>
         </div>
       </SectionGroup>
 
       <SectionGroup title="전환 · 트래픽 패턴" number={5}>
-        <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />} tooltip="방문자가 랜딩 페이지 → 서비스 페이지 → 문의 페이지 → 문의 제출까지 단계별로 얼마나 이탈하는지 보여줍니다. 각 단계의 이탈률(빨간 %)이 높은 구간을 개선하면 전환율을 높일 수 있습니다.">
+        <SectionCard title="전환 퍼널" icon={<TrendingUp className="w-4 h-4" />}>
           <div className="flex flex-col gap-3">
             {funnelData.map((step, i) => {
               const pct = funnelData[0].count > 0 ? (step.count / funnelData[0].count) * 100 : 0;
-              const dropOff = i > 0 && funnelData[i - 1].count > 0
-                ? ((1 - step.count / funnelData[i - 1].count) * 100).toFixed(1)
-                : null;
+              const dropOff = i > 0 && funnelData[i-1].count > 0 ? ((1 - step.count / funnelData[i-1].count) * 100).toFixed(1) : null;
               return (
                 <div key={step.label}>
                   <div className="flex items-center justify-between mb-1.5">
                     <div className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px]"
-                        style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{i + 1}</span>
-                      <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>{step.label}</span>
+                      <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[11px] font-bold bg-[hsl(221,83%,53%,0.1)] text-[hsl(221,83%,53%)]">{i+1}</span>
+                      <span className="text-[13px] font-medium text-foreground">{step.label}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[13px] text-foreground" style={{ fontWeight: 600 }}>{step.count.toLocaleString()}</span>
-                      {dropOff && (
-                        <span className="text-[11px] px-1.5 py-0.5 rounded-md" style={{ color: "hsl(0, 84%, 60%)", background: "hsl(0 84% 60% / 0.08)", fontWeight: 600 }}>
-                          -{dropOff}%
-                        </span>
-                      )}
+                      <span className="text-[13px] font-semibold text-foreground tabular-nums">{step.count.toLocaleString()}</span>
+                      {dropOff && <span className="text-[11px] font-semibold px-1.5 py-0.5 rounded-md text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)]">-{dropOff}%</span>}
                     </div>
                   </div>
-                  <div className="h-2 rounded-full overflow-hidden" style={{ background: "hsl(214 90% 52% / 0.08)" }}>
-                    <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(214, 90%, 52%)" }} />
+                  <div className="h-2 rounded-full overflow-hidden bg-[hsl(221,83%,53%,0.06)]">
+                    <div className="h-full rounded-full transition-all duration-500 bg-[hsl(221,83%,53%)]" style={{ width: `${pct}%` }} />
                   </div>
                 </div>
               );
             })}
           </div>
         </SectionCard>
-
-        <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />} tooltip="요일(세로)과 시간(가로)별 방문량을 색상 농도로 표현합니다. 색이 진할수록 방문이 많은 시간대입니다. 광고 집행이나 콘텐츠 발행의 최적 시간을 파악하는 데 활용하세요.">
+        <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />}>
           <div className="overflow-x-auto">
             <div className="min-w-[600px]">
               <div className="flex mb-1 ml-8">
                 {Array.from({ length: 24 }, (_, h) => (
-                  <span key={h} className="flex-1 text-center text-[9px] text-muted-foreground/50" style={{ fontWeight: 500 }}>{h}</span>
+                  <span key={h} className="flex-1 text-center text-[9px] font-medium text-muted-foreground/40">{h}</span>
                 ))}
               </div>
               {hourlyData.dayNames.map((day, dayIdx) => (
                 <div key={day} className="flex items-center gap-1 mb-1">
-                  <span className="w-7 text-[11px] text-muted-foreground text-right shrink-0" style={{ fontWeight: 500 }}>{day}</span>
+                  <span className="w-7 text-[11px] font-medium text-muted-foreground text-right shrink-0">{day}</span>
                   <div className="flex flex-1 gap-0.5">
                     {hourlyData.grid[dayIdx].map((count, hour) => {
                       const intensity = maxHourly > 0 ? count / maxHourly : 0;
                       return (
-                        <div
-                          key={hour}
-                          className="flex-1 rounded-sm transition-all"
-                          style={{
-                            height: "20px",
-                            background: count === 0
-                              ? "hsl(var(--muted))"
-                              : `hsl(214 90% 52% / ${0.15 + intensity * 0.85})`,
-                          }}
+                        <div key={hour} className="flex-1 rounded-sm transition-all"
+                          style={{ height: "20px", background: count === 0 ? "hsl(220, 14%, 95%)" : `hsl(221 83% 53% / ${0.12 + intensity * 0.88})` }}
                           title={`${day} ${hour}시: ${count}건`}
                         />
                       );
@@ -743,13 +607,13 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
                 </div>
               ))}
               <div className="flex items-center justify-end gap-2 mt-3">
-                <span className="text-[10px] text-muted-foreground/50">적음</span>
+                <span className="text-[10px] text-muted-foreground/40">적음</span>
                 <div className="flex gap-0.5">
-                  {[0.15, 0.35, 0.55, 0.75, 1].map((op, i) => (
-                    <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(214 90% 52% / ${op})` }} />
+                  {[0.12, 0.3, 0.5, 0.7, 1].map((op, i) => (
+                    <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(221 83% 53% / ${op})` }} />
                   ))}
                 </div>
-                <span className="text-[10px] text-muted-foreground/50">많음</span>
+                <span className="text-[10px] text-muted-foreground/40">많음</span>
               </div>
             </div>
           </div>
@@ -757,66 +621,46 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
       <SectionGroup title="이탈 · 환경 분석" number={6}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />} tooltip="방문자가 사이트를 떠나기 직전에 마지막으로 본 페이지입니다. 이탈이 많은 페이지는 콘텐츠 개선이나 CTA 추가를 고려해보세요.">
-            {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([path, count], i) => (
-              <BarRow key={path} rank={i + 1} label={path} value={count} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ChartCard title="이탈 페이지" icon={<LogOut className="w-4 h-4" />}>
+            {exitPages.length === 0 ? <Empty msg="이탈 데이터 수집 중..." /> : exitPages.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={exitPages[0][1]} color="hsl(0, 84%, 60%)" />)}
           </ChartCard>
-          <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />} tooltip="방문자가 한 페이지에서 다음 페이지로 이동한 경로입니다. 주요 동선을 파악하여 네비게이션을 최적화하고 전환 경로를 설계할 수 있습니다.">
-            {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([flow, count], i) => (
-              <BarRow key={flow} rank={i + 1} label={flow} value={count} max={pageFlows[0][1]} color="hsl(260, 70%, 55%)" />
-            ))}
+          <ChartCard title="페이지 이동 경로" icon={<Route className="w-4 h-4" />}>
+            {pageFlows.length === 0 ? <Empty msg="이동 경로 데이터 수집 중..." /> : pageFlows.map(([f, c], i) => <BarRow key={f} rank={i+1} label={f} value={c} max={pageFlows[0][1]} color="hsl(262, 60%, 55%)" />)}
           </ChartCard>
-          <ChartCard title="화면 해상도 분포" icon={<MonitorSmartphone className="w-4 h-4" />} tooltip="방문자 기기의 화면 해상도 분포입니다. 가장 많이 사용되는 해상도에 맞춰 반응형 디자인을 최적화하는 데 참고합니다.">
-            {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([res, count], i) => (
-              <BarRow key={res} rank={i + 1} label={res} value={count} max={resolutionCounts[0][1]} color="hsl(192, 80%, 45%)" />
-            ))}
+          <ChartCard title="화면 해상도" icon={<MonitorSmartphone className="w-4 h-4" />}>
+            {resolutionCounts.length === 0 ? <Empty /> : resolutionCounts.map(([r, c], i) => <BarRow key={r} rank={i+1} label={r} value={c} max={resolutionCounts[0][1]} color="hsl(199, 89%, 48%)" />)}
           </ChartCard>
-          <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />} tooltip="방문자의 브라우저 언어 설정 분포입니다. 다국어 페이지 제작 시 우선순위를 결정하거나, 해외 유입 비율을 파악하는 데 활용합니다.">
-            {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([lang, count], i) => (
-              <BarRow key={lang} rank={i + 1} label={lang} value={count} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />
-            ))}
+          <ChartCard title="브라우저 언어" icon={<Languages className="w-4 h-4" />}>
+            {languageCounts.length === 0 ? <Empty /> : languageCounts.map(([l, c], i) => <BarRow key={l} rank={i+1} label={l} value={c} max={languageCounts[0][1]} color="hsl(170, 70%, 40%)" />)}
           </ChartCard>
         </div>
       </SectionGroup>
 
       <SectionGroup title="마케팅 · UTM · CTA" number={7}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />} tooltip="URL에 포함된 utm_source 파라미터 값별 유입 수입니다. Google, Naver, Facebook 등 어떤 채널에서 방문자가 유입되었는지 확인할 수 있습니다.">
-            {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([name, count], i) => (
-              <BarRow key={name} rank={i + 1} label={name} value={count} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ChartCard title="UTM 소스별 유입" icon={<Link2 className="w-4 h-4" />}>
+            {utmSourceCounts.length === 0 ? <Empty msg="UTM 데이터 수집 중..." /> : utmSourceCounts.map(([n, c], i) => <BarRow key={n} rank={i+1} label={n} value={c} max={utmSourceCounts[0][1]} color="hsl(170, 70%, 40%)" />)}
           </ChartCard>
-          <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />} tooltip="utm_campaign 파라미터로 추적되는 마케팅 캠페인별 유입 수입니다. 광고 캠페인의 성과를 비교·분석할 때 활용합니다.">
-            {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([name, count], i) => (
-              <BarRow key={name} rank={i + 1} label={name} value={count} max={utmCampaignCounts[0][1]} color="hsl(200, 70%, 50%)" />
-            ))}
+          <ChartCard title="UTM 캠페인" icon={<BarChart3 className="w-4 h-4" />}>
+            {utmCampaignCounts.length === 0 ? <Empty msg="캠페인 데이터 수집 중..." /> : utmCampaignCounts.map(([n, c], i) => <BarRow key={n} rank={i+1} label={n} value={c} max={utmCampaignCounts[0][1]} color="hsl(199, 89%, 48%)" />)}
           </ChartCard>
-          <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />} tooltip="'상담 신청', '데모 요청' 등 전환 유도 버튼(CTA)의 클릭 수를 버튼 텍스트별로 집계합니다. 어떤 CTA가 가장 효과적인지 파악할 수 있습니다.">
-            {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([name, count], i) => (
-              <BarRow key={name} rank={i + 1} label={name} value={count} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />
-            ))}
+          <ChartCard title="CTA 클릭 이벤트" icon={<MousePointerClick className="w-4 h-4" />}>
+            {ctaClickCounts.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaClickCounts.map(([n, c], i) => <BarRow key={n} rank={i+1} label={n} value={c} max={ctaClickCounts[0][1]} color="hsl(340, 65%, 55%)" />)}
           </ChartCard>
-          <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />} tooltip="어느 페이지에서 CTA 버튼이 가장 많이 클릭되었는지 보여줍니다. 전환이 잘 일어나는 페이지와 개선이 필요한 페이지를 구분할 수 있습니다.">
-            {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([path, count], i) => (
-              <BarRow key={path} rank={i + 1} label={path} value={count} max={ctaByPage[0][1]} color="hsl(280, 60%, 55%)" />
-            ))}
+          <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />}>
+            {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={ctaByPage[0][1]} color="hsl(262, 60%, 55%)" />)}
           </ChartCard>
         </div>
       </SectionGroup>
 
       <SectionGroup title="콘텐츠 소비 분석" number={8}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />} tooltip="방문자가 각 페이지에서 평균적으로 몇 %까지 스크롤했는지 보여줍니다. 100%에 가까울수록 콘텐츠를 끝까지 읽은 것이며, 낮으면 상단에서 이탈한 것입니다.">
-            {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => (
-              <BarRow key={d.path} rank={i + 1} label={d.path} value={d.avg} max={100} color="hsl(35, 90%, 50%)" suffix="%" />
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />}>
+            {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => <BarRow key={d.path} rank={i+1} label={d.path} value={d.avg} max={100} color="hsl(37, 90%, 51%)" suffix="%" />)}
           </ChartCard>
-          <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />} tooltip="각 페이지에 방문자가 머문 평균 시간입니다. 체류시간이 긴 페이지는 콘텐츠 관심도가 높고, 짧은 페이지는 내용 개선이 필요할 수 있습니다.">
-            {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => (
-              <DwellRow key={d.path} rank={i + 1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />
-            ))}
+          <ChartCard title="페이지별 평균 체류시간" icon={<Clock className="w-4 h-4" />}>
+            {pageDwellTimes.length === 0 ? <Empty msg="체류시간 데이터 수집 중..." /> : pageDwellTimes.map((d, i) => <DwellRow key={d.path} rank={i+1} label={d.path} avgSeconds={d.avg} count={d.count} max={pageDwellTimes[0].avg} />)}
           </ChartCard>
         </div>
       </SectionGroup>
@@ -829,20 +673,13 @@ function HelpTooltip({ text }: { text: string }) {
   const ref = useRef<HTMLDivElement>(null);
   return (
     <div className="relative inline-flex" ref={ref}>
-      <button
-        onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
-        onBlur={() => setTimeout(() => setOpen(false), 150)}
-        className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] shrink-0 transition-all hover:opacity-80"
-        style={{ fontWeight: 700, color: "hsl(var(--muted-foreground))", background: "hsl(var(--muted))", border: "1px solid hsl(var(--border))" }}
-      >
-        ?
-      </button>
+      <button onClick={(e) => { e.stopPropagation(); setOpen(!open); }} onBlur={() => setTimeout(() => setOpen(false), 150)}
+        className="w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 text-muted-foreground bg-[hsl(220,14%,93%)] border border-[hsl(220,13%,91%)] hover:opacity-80 transition-all"
+      >?</button>
       {open && (
-        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-[240px] rounded-xl p-3 text-[11px] leading-relaxed shadow-lg animate-in fade-in zoom-in-95 duration-150"
-          style={{ background: "hsl(var(--popover))", border: "1px solid hsl(var(--border))", color: "hsl(var(--popover-foreground))", fontWeight: 400 }}>
+        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-[220px] rounded-xl p-3 text-[11px] leading-relaxed shadow-lg animate-in fade-in zoom-in-95 duration-150 bg-white border border-[hsl(220,13%,91%)] text-foreground">
           {text}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 rotate-45"
-            style={{ background: "hsl(var(--popover))", borderRight: "1px solid hsl(var(--border))", borderBottom: "1px solid hsl(var(--border))" }} />
+          <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px w-2 h-2 rotate-45 bg-white border-r border-b border-[hsl(220,13%,91%)]" />
         </div>
       )}
     </div>
@@ -853,40 +690,37 @@ function MetricCard({ icon, label, value, color, sub, tooltip }: {
   icon: React.ReactNode; label: string; value: number | string; color: string; sub?: string; tooltip?: string;
 }) {
   return (
-    <div className="rounded-xl px-4 py-3 flex items-center gap-3" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${color}15`, color }}>{icon}</div>
+    <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3 flex items-center gap-3">
+      <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${color}12`, color }}>{icon}</div>
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
-          <p className="text-[22px] tracking-[-0.04em] text-foreground leading-none" style={{ fontWeight: 700 }}>
+          <p className="text-[20px] font-bold tracking-[-0.04em] text-foreground leading-none tabular-nums">
             {typeof value === "number" ? value.toLocaleString() : value}
           </p>
-          <span className="text-[11px] text-muted-foreground" style={{ fontWeight: 500 }}>{label}</span>
+          <span className="text-[11px] font-medium text-muted-foreground">{label}</span>
         </div>
-        {sub && <p className="text-[11px] text-muted-foreground/60 mt-0.5">{sub}</p>}
+        {sub && <p className="text-[11px] text-muted-foreground/50 mt-0.5">{sub}</p>}
       </div>
       {tooltip && <HelpTooltip text={tooltip} />}
     </div>
   );
 }
 
-function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string; maxItems?: number }) {
+function ChartCard({ title, icon, children, maxItems = 10 }: { title: string; icon: React.ReactNode; children: React.ReactNode; maxItems?: number }) {
   const [expanded, setExpanded] = useState(false);
   const childArray = React.Children.toArray(children);
   const hasMore = childArray.length > maxItems;
   const visibleChildren = expanded ? childArray : childArray.slice(0, maxItems);
   return (
-    <div className="rounded-xl p-4" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+    <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-4">
       <div className="flex items-center gap-2 mb-4">
         <span className="text-muted-foreground">{icon}</span>
-        <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
-        {tooltip && <HelpTooltip text={tooltip} />}
+        <h4 className="text-[13px] font-semibold text-foreground flex-1">{title}</h4>
       </div>
       <div className="flex flex-col gap-2.5">{visibleChildren}</div>
       {hasMore && (
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="w-full mt-3 pt-3 flex items-center justify-center gap-1 text-[12px] transition-all hover:opacity-70"
-          style={{ fontWeight: 500, color: "hsl(var(--primary))", borderTop: "1px solid hsl(var(--border) / 0.5)" }}
+        <button onClick={() => setExpanded(!expanded)}
+          className="w-full mt-3 pt-3 flex items-center justify-center gap-1 text-[12px] font-medium text-[hsl(221,83%,53%)] border-t border-[hsl(220,13%,95%)] hover:opacity-70 transition-all"
         >
           {expanded ? "접기" : `더보기 (+${childArray.length - maxItems})`}
         </button>
@@ -898,13 +732,12 @@ function ChartCard({ title, icon, children, tooltip, maxItems = 10 }: { title: s
 function SectionGroup({ title, children, number }: { title: string; children: React.ReactNode; number?: number }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <button className="flex items-center gap-2 w-full text-left px-1" onClick={() => setCollapsed(!collapsed)}>
         {number !== undefined && (
-          <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[12px] shrink-0"
-            style={{ fontWeight: 700, background: "hsl(214 90% 52% / 0.1)", color: "hsl(214, 90%, 52%)" }}>{number}</span>
+          <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[12px] font-bold shrink-0 bg-[hsl(221,83%,53%,0.08)] text-[hsl(221,83%,53%)]">{number}</span>
         )}
-        <h3 className="text-[15px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 700 }}>{title}</h3>
+        <h3 className="text-[15px] font-bold text-foreground tracking-[-0.02em] flex-1">{title}</h3>
         <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-200" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
       </button>
       {!collapsed && children}
@@ -912,17 +745,16 @@ function SectionGroup({ title, children, number }: { title: string; children: Re
   );
 }
 
-function SectionCard({ title, icon, children, tooltip }: { title: string; icon: React.ReactNode; children: React.ReactNode; tooltip?: string }) {
+function SectionCard({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="rounded-2xl" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
-      <button className="flex items-center gap-2 w-full text-left p-6" onClick={() => setCollapsed(!collapsed)} style={{ paddingBottom: collapsed ? undefined : "0" }}>
+    <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)]">
+      <button className="flex items-center gap-2 w-full text-left p-5" onClick={() => setCollapsed(!collapsed)} style={{ paddingBottom: collapsed ? undefined : "0" }}>
         <span className="text-muted-foreground">{icon}</span>
-        <h4 className="text-[14px] text-foreground tracking-[-0.02em] flex-1" style={{ fontWeight: 600 }}>{title}</h4>
-        {tooltip && <HelpTooltip text={tooltip} />}
+        <h4 className="text-[13px] font-semibold text-foreground flex-1">{title}</h4>
         <ChevronDown className="w-4 h-4 text-muted-foreground transition-transform duration-200" style={{ transform: collapsed ? "rotate(-90deg)" : "rotate(0deg)" }} />
       </button>
-      {!collapsed && <div className="px-6 pb-6 pt-4">{children}</div>}
+      {!collapsed && <div className="px-5 pb-5 pt-4">{children}</div>}
     </div>
   );
 }
@@ -931,13 +763,13 @@ function BarRow({ rank, label, value, max, color, suffix }: { rank: number; labe
   const pct = max > 0 ? (value / max) * 100 : 0;
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[11px] w-5 text-center text-muted-foreground/50" style={{ fontWeight: 600 }}>{rank}</span>
+      <span className="text-[11px] w-5 text-center text-muted-foreground/40 font-semibold tabular-nums">{rank}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-[12px] text-foreground truncate" style={{ fontWeight: 500 }}>{label}</span>
-          <span className="text-[12px] text-foreground shrink-0 ml-2" style={{ fontWeight: 600 }}>{value}{suffix || ""}</span>
+          <span className="text-[12px] font-medium text-foreground truncate">{label}</span>
+          <span className="text-[12px] font-semibold text-foreground shrink-0 ml-2 tabular-nums">{value}{suffix || ""}</span>
         </div>
-        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: `${color}10` }}>
+        <div className="h-1 rounded-full overflow-hidden bg-[hsl(220,14%,95%)]">
           <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: color }} />
         </div>
       </div>
@@ -946,7 +778,7 @@ function BarRow({ rank, label, value, max, color, suffix }: { rank: number; labe
 }
 
 function Empty({ msg }: { msg?: string } = {}) {
-  return <p className="text-[13px] text-muted-foreground/50 text-center py-6" style={{ fontWeight: 500 }}>{msg || "데이터가 없습니다"}</p>;
+  return <p className="text-[12px] text-muted-foreground/40 text-center py-6 font-medium">{msg || "데이터가 없습니다"}</p>;
 }
 
 function formatDuration(seconds: number): string {
@@ -961,16 +793,16 @@ function DwellRow({ rank, label, avgSeconds, count, max }: { rank: number; label
   const pct = max > 0 ? (avgSeconds / max) * 100 : 0;
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[11px] w-5 text-center text-muted-foreground/50" style={{ fontWeight: 600 }}>{rank}</span>
+      <span className="text-[11px] w-5 text-center text-muted-foreground/40 font-semibold tabular-nums">{rank}</span>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between mb-1">
-          <span className="text-[12px] text-foreground truncate" style={{ fontWeight: 500 }}>{label}</span>
-          <span className="text-[12px] text-foreground shrink-0 ml-2" style={{ fontWeight: 600 }}>{formatDuration(avgSeconds)}</span>
+          <span className="text-[12px] font-medium text-foreground truncate">{label}</span>
+          <span className="text-[12px] font-semibold text-foreground shrink-0 ml-2 tabular-nums">{formatDuration(avgSeconds)}</span>
         </div>
-        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "hsl(192, 80%, 45%, 0.1)" }}>
-          <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "hsl(192, 80%, 45%)" }} />
+        <div className="h-1 rounded-full overflow-hidden bg-[hsl(199,89%,48%,0.08)]">
+          <div className="h-full rounded-full transition-all duration-500 bg-[hsl(199,89%,48%)]" style={{ width: `${pct}%` }} />
         </div>
-        <span className="text-[10px] text-muted-foreground/50 mt-0.5" style={{ fontWeight: 500 }}>{count}회 방문</span>
+        <span className="text-[10px] text-muted-foreground/40 mt-0.5 font-medium">{count}회 방문</span>
       </div>
     </div>
   );

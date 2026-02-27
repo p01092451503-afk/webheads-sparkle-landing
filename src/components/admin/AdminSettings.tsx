@@ -26,7 +26,6 @@ export default function AdminSettings() {
 
     setLoading(true);
 
-    // Verify current password
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       setError("세션이 만료되었습니다. 다시 로그인해주세요.");
@@ -61,80 +60,59 @@ export default function AdminSettings() {
   };
 
   return (
-    <div className="flex flex-col gap-6 max-w-lg">
+    <div className="flex flex-col gap-5 max-w-lg">
       <div>
-        <h2 className="text-[22px] tracking-[-0.04em] text-foreground" style={{ fontWeight: 700 }}>설정</h2>
-        <p className="text-[14px] text-muted-foreground mt-1">계정 및 보안 설정</p>
+        <h2 className="text-[20px] font-bold tracking-[-0.03em] text-foreground">설정</h2>
+        <p className="text-[13px] text-muted-foreground mt-0.5">계정 및 보안 설정</p>
       </div>
 
-      {/* Password Change */}
-      <div className="rounded-2xl p-6" style={{ background: "hsl(var(--background))", border: "1px solid hsl(var(--border))" }}>
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "hsl(var(--primary) / 0.08)" }}>
-            <Shield className="w-4 h-4 text-primary" />
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(221,83%,53%,0.08)]">
+            <Shield className="w-[18px] h-[18px] text-[hsl(221,83%,53%)]" />
           </div>
           <div>
-            <h3 className="text-[15px] text-foreground" style={{ fontWeight: 600 }}>비밀번호 변경</h3>
+            <h3 className="text-[15px] font-semibold text-foreground">비밀번호 변경</h3>
             <p className="text-[12px] text-muted-foreground">보안을 위해 주기적으로 변경하세요</p>
           </div>
         </div>
 
         <form onSubmit={handlePasswordChange} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-[12px] text-muted-foreground pl-1" style={{ fontWeight: 600 }}>현재 비밀번호</label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40" />
-              <input type="password" required value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}
-                className="w-full rounded-xl pl-11 pr-4 py-3 text-[14px] outline-none transition-all text-foreground"
-                style={{ background: "hsl(var(--muted))", border: "1.5px solid hsl(var(--border))" }}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary))"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(var(--primary) / 0.06)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border))"; e.currentTarget.style.boxShadow = "none"; }}
-              />
+          {[
+            { label: "현재 비밀번호", value: currentPassword, onChange: setCurrentPassword, placeholder: "" },
+            { label: "새 비밀번호", value: newPassword, onChange: setNewPassword, placeholder: "8자 이상" },
+            { label: "새 비밀번호 확인", value: confirmPassword, onChange: setConfirmPassword, placeholder: "" },
+          ].map((field) => (
+            <div key={field.label} className="flex flex-col gap-1.5">
+              <label className="text-[12px] font-semibold text-muted-foreground pl-1">{field.label}</label>
+              <div className="relative">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/30" />
+                <input
+                  type="password"
+                  required
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                  placeholder={field.placeholder}
+                  className="w-full rounded-xl pl-11 pr-4 py-3 text-[14px] outline-none text-foreground placeholder:text-muted-foreground/30 bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
+                />
+              </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-[12px] text-muted-foreground pl-1" style={{ fontWeight: 600 }}>새 비밀번호</label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40" />
-              <input type="password" required value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="8자 이상"
-                className="w-full rounded-xl pl-11 pr-4 py-3 text-[14px] outline-none transition-all text-foreground placeholder:text-muted-foreground/40"
-                style={{ background: "hsl(var(--muted))", border: "1.5px solid hsl(var(--border))" }}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary))"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(var(--primary) / 0.06)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border))"; e.currentTarget.style.boxShadow = "none"; }}
-              />
-            </div>
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <label className="text-[12px] text-muted-foreground pl-1" style={{ fontWeight: 600 }}>새 비밀번호 확인</label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/40" />
-              <input type="password" required value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full rounded-xl pl-11 pr-4 py-3 text-[14px] outline-none transition-all text-foreground"
-                style={{ background: "hsl(var(--muted))", border: "1.5px solid hsl(var(--border))" }}
-                onFocus={(e) => { e.currentTarget.style.borderColor = "hsl(var(--primary))"; e.currentTarget.style.boxShadow = "0 0 0 3px hsl(var(--primary) / 0.06)"; }}
-                onBlur={(e) => { e.currentTarget.style.borderColor = "hsl(var(--border))"; e.currentTarget.style.boxShadow = "none"; }}
-              />
-            </div>
-          </div>
+          ))}
 
           {error && (
-            <div className="rounded-xl py-3 px-4 text-[13px]"
-              style={{ background: "hsl(0 84% 60% / 0.06)", color: "hsl(0 84% 50%)", border: "1px solid hsl(0 84% 60% / 0.12)", fontWeight: 500 }}>
+            <div className="rounded-xl py-3 px-4 text-[13px] font-medium bg-[hsl(0,84%,60%,0.06)] text-[hsl(0,84%,50%)] border border-[hsl(0,84%,60%,0.12)]">
               {error}
             </div>
           )}
 
           {success && (
-            <div className="flex items-center gap-2 rounded-xl py-3 px-4 text-[13px]"
-              style={{ background: "hsl(150 60% 42% / 0.06)", color: "hsl(150 60% 35%)", border: "1px solid hsl(150 60% 42% / 0.12)", fontWeight: 500 }}>
+            <div className="flex items-center gap-2 rounded-xl py-3 px-4 text-[13px] font-medium bg-[hsl(152,57%,42%,0.06)] text-[hsl(152,57%,35%)] border border-[hsl(152,57%,42%,0.12)]">
               <Check className="w-4 h-4" /> 비밀번호가 변경되었습니다
             </div>
           )}
 
           <button type="submit" disabled={loading}
-            className="w-full py-3.5 rounded-xl text-[14px] flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 mt-1"
-            style={{ fontWeight: 600, background: "hsl(var(--foreground))", color: "hsl(var(--background))" }}
+            className="w-full py-3.5 rounded-xl text-[14px] font-semibold flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-50 mt-1 bg-[hsl(221,83%,53%)] text-white hover:bg-[hsl(221,83%,48%)]"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
             {loading ? "변경 중..." : "비밀번호 변경"}
