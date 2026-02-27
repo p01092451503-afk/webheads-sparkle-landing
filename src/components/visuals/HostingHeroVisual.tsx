@@ -153,7 +153,7 @@ export default function HostingHeroVisual() {
 
         {/* ══ Floating Object 3: Server Rack ══ */}
         <div style={{
-          position: "absolute", left: "6%", bottom: "18%",
+          position: "absolute", left: "10%", bottom: "22%",
           animation: "float-c 4.5s ease-in-out infinite",
           animationDelay: "1.2s",
           filter: "drop-shadow(0 16px 24px rgba(100,100,200,0.28))",
