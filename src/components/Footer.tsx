@@ -85,7 +85,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-xs font-bold tracking-widest uppercase mb-5 text-foreground">Services</p>
+            <p className="text-xs font-normal tracking-widest uppercase mb-5 text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>Services</p>
             <ul className="flex flex-col gap-1.5">
               {serviceLabels.map((label, i) => {
                 const isActive = location.pathname === servicePaths[i];
