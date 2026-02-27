@@ -55,7 +55,7 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
 
         {/* Step flow */}
         <div className="px-8 pb-5">
-          <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.stepsTitle")}</p>
+          <p className="text-lg font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.stepsTitle")}</p>
           <div className="flex flex-col gap-2.5">
             {steps?.map((step, i) => {
               const StepIcon = stepIcons[i] || Rocket;
@@ -75,7 +75,7 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
 
         {/* Service cards — vertical grid layout with solid icons */}
         <div className="px-8 pt-6 pb-2">
-          <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-5">{t("lms.ecosystem.servicesTitle")}</p>
+          <p className="text-lg font-bold text-muted-foreground tracking-widest uppercase mb-5">{t("lms.ecosystem.servicesTitle")}</p>
           <div className="grid grid-cols-2 gap-4">
             {serviceConfig.map((svc, i) => {
               const data = services?.[i];
