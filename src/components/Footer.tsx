@@ -56,7 +56,7 @@ export default function Footer() {
               <div className="flex flex-col gap-2">
                 <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.company")}</p>
                 <p className="text-[14px] leading-[1.7] font-medium text-foreground/70">{t("footer.address")}</p>
-                <p className="text-[12px] text-muted-foreground/60">{t("footer.privacy")}</p>
+                <p className="text-[14px] font-medium text-foreground/70">{t("footer.privacy")}</p>
               </div>
 
               {/* Time */}
