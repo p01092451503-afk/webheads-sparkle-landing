@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Home, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -17,9 +17,9 @@ const serviceBlobColors: Record<string, string> = {
   "/content": "hsl(235, 45%, 48%)",
 };
 
-function FooterServiceLink({ to, label, isLms, blobColor }: { to: string; label: string; isLms: boolean; blobColor: string }) {
+function FooterServiceLink({ to, label, isActive, blobColor }: { to: string; label: string; isActive: boolean; blobColor: string }) {
   const [hovered, setHovered] = useState(false);
-  const showBlob = isLms || hovered;
+  const showBlob = isActive || hovered;
   return (
     <Link
       to={to}
