@@ -1,8 +1,7 @@
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
-import DrmHeroVisual from "@/components/visuals/DrmHeroVisual";
-import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
@@ -27,22 +26,15 @@ export default function DrmPage() {
       <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://service.webheads.co.kr/drm" }} faqJsonLd={faqs} />
 
       {/* Hero */}
-      <section className="relative flex items-center pt-20 pb-6 overflow-hidden" style={{ background: "var(--drm-hero-bg)" }}>
-        <HeroAbstractBg variant="drm" />
-        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(225, 75%, 55%, 0.18) 0%, transparent 70%)" }} />
-        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsl(230, 65%, 50%, 0.1) 0%, transparent 70%)" }} />
-        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
-          <div className="relative w-full h-full max-w-[765px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%) translateY(8%)" }}><DrmHeroVisual /></div>
-        </div>
-        <div className="container mx-auto px-6 py-14 relative z-10 lg:pl-[10%]">
-          <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-accent shadow-sm">{t("drm.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">{t("drm.hero.title")}<br /><span style={{ color: "hsl(220, 85%, 45%)" }}>{t("drm.hero.titleHighlight")}</span></h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("drm.hero.desc")}</p>
-            <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("drm.hero.cta1")}</a>
-              <a href="#solutions" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("drm.hero.cta2")}</a>
-            </div>
+      <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">
+        <HeroPatternBg theme="indigo-deep" />
+        <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "white" }}>{t("drm.hero.badge")}</span>
+          <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-[1.15] mb-5 tracking-tight text-white" style={{ wordBreak: "keep-all" }}>{t("drm.hero.title")}<br /><span style={{ opacity: 0.95 }}>{t("drm.hero.titleHighlight")}</span></h1>
+          <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: "rgba(255,255,255,0.75)" }}>{t("drm.hero.desc")}</p>
+          <div className="flex gap-3 flex-wrap justify-center">
+            <a href="#contact" className="px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-[1.02]" style={{ background: "white", color: "hsl(235, 65%, 45%)" }}>{t("drm.hero.cta1")}</a>
+            <a href="#solutions" className="px-5 py-2.5 rounded-xl font-bold text-sm transition-colors border border-white/30 text-white hover:bg-white/10">{t("drm.hero.cta2")}</a>
           </div>
         </div>
       </section>

@@ -4,8 +4,7 @@ import SEO from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import LmsHeroVisual from "@/components/visuals/LmsHeroVisual";
-import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
@@ -67,37 +66,10 @@ export default function LmsPage() {
       {/* Hero — Centered with abstract volumetric patterns */}
       <section
         className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(245, 70%, 52%) 0%, hsl(225, 80%, 50%) 50%, hsl(245, 65%, 48%) 100%)" }}
       >
-        {/* Abstract volumetric arc patterns */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="xMidYMid slice">
-          {/* Left side concentric arcs */}
-          <g opacity="0.18">
-            {[0, 1, 2, 3, 4, 5, 6].map(i => (
-              <circle key={`l-${i}`} cx={-80 + i * 8} cy={380 + i * 5} r={120 + i * 55} stroke="white" strokeWidth={2.5 - i * 0.15} fill="none" />
-            ))}
-          </g>
-          {/* Right side concentric arcs */}
-          <g opacity="0.12">
-            {[0, 1, 2, 3, 4, 5].map(i => (
-              <circle key={`r-${i}`} cx={1480 - i * 10} cy={480 + i * 8} r={100 + i * 60} stroke="white" strokeWidth={2 - i * 0.12} fill="none" />
-            ))}
-          </g>
-          {/* Top-right flowing arcs */}
-          <g opacity="0.1">
-            {[0, 1, 2, 3].map(i => (
-              <path key={`tr-${i}`} d={`M ${1100 + i * 40} ${-20 + i * 15} Q ${1300 + i * 20} ${100 + i * 30} ${1460} ${60 + i * 50}`} stroke="white" strokeWidth={2} fill="none" />
-            ))}
-          </g>
-          {/* Subtle radial glow */}
-          <defs>
-            <radialGradient id="lms-hero-glow" cx="50%" cy="40%" r="50%">
-              <stop offset="0%" stopColor="white" stopOpacity="0.06" />
-              <stop offset="100%" stopColor="white" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <rect x="0" y="0" width="1440" height="600" fill="url(#lms-hero-glow)" />
-        </svg>
+        <HeroPatternBg theme="blue-purple" />
+
+
 
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
           <span
