@@ -60,7 +60,7 @@ export default function ChatbotHeroVisual() {
         </div>
 
         {/* ── Floating: Brain/AI icon ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "cb-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,160,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "cb-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,160,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(192,80%,60%)"/><stop offset="100%" stopColor="hsl(192,70%,35%)"/></linearGradient></defs>
             <rect width="64" height="64" rx="18" fill="url(#brainGrad)"/>
