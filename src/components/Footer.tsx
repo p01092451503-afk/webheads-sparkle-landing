@@ -76,7 +76,7 @@ export default function Footer() {
             <ul className="flex flex-col gap-1.5">
               <li>
                 <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
-                  웹헤즈 <ExternalLink className="w-3 h-3" />
+                  <Home className="w-3.5 h-3.5" /> HOME
                 </a>
               </li>
               <li>
