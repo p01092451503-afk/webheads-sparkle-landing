@@ -70,10 +70,6 @@ export default function Header() {
                     `}
                   >
                     {s.label}
-                    {/* Active indicator line */}
-                    {isActive && !isLms && (
-                      <span className="absolute bottom-[-13px] left-1/2 -translate-x-1/2 w-5 h-[3px] rounded-full bg-[hsl(250,55%,52%)]" />
-                    )}
                   </Link>
                 );
               })}
