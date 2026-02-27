@@ -35,8 +35,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {!isAdmin && <Header />}
       <main>{children}</main>
       {!isAdmin && <Footer />}
-      {/* 플로팅 버튼 - 링크 준비 후 노출 예정 */}
-      {/* {!isAdmin && <ScrollButtons />} */}
+      {!isAdmin && <ScrollButtons />}
     </>
   );
 };
