@@ -75,7 +75,7 @@ export default function Header() {
                     key={s.path}
                     to={s.path}
                     className={`
-                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
+                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-normal transition-all duration-200
                       ${showBlob
                         ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
                         : isLms && location.pathname !== "/lms"
