@@ -135,7 +135,7 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[520px] max-h-[88vh] overflow-y-auto p-0 rounded-3xl border-0 shadow-2xl gap-0">
+      <DialogContent className="max-w-[600px] max-h-[88vh] overflow-y-auto p-0 rounded-3xl border-0 shadow-2xl gap-0">
 
         {/* Hero header */}
         <div className="px-8 pt-10 pb-6">
@@ -158,7 +158,6 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
             <p className="text-[0.925rem] font-semibold text-foreground leading-[1.7]" style={{ wordBreak: "keep-all" }}>
               {t("lms.ecosystem.analogy")}
             </p>
-            
           </div>
         </div>
 
@@ -177,10 +176,10 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
 
         <div className="mx-8 border-t border-border" />
 
-        {/* Service cards with SVG illustrations */}
+        {/* Service cards — vertical grid layout */}
         <div className="px-8 pt-6 pb-2">
-          <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.servicesTitle")}</p>
-        <div className="flex flex-col gap-4">
+          <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-5">{t("lms.ecosystem.servicesTitle")}</p>
+          <div className="grid grid-cols-2 gap-4">
             {serviceConfig.map((svc, i) => {
               const data = services?.[i];
               if (!data) return null;
@@ -189,52 +188,45 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
                 <button
                   key={svc.key}
                   onClick={() => { onOpenChange(false); navigate(svc.path); }}
-                  className="text-left rounded-2xl p-6 border border-transparent hover:shadow-md transition-all duration-200 group cursor-pointer"
-                  style={{ background: svc.cardBg, borderLeft: `3px solid ${svc.accent}` }}
+                  className="text-left rounded-2xl p-5 hover:shadow-lg transition-all duration-200 group cursor-pointer flex flex-col gap-3"
+                  style={{ background: svc.bg }}
                 >
-                  <div className="flex items-start gap-5">
-                    {/* SVG illustration */}
-                    <div
-                      className="w-[60px] h-[60px] rounded-2xl flex items-center justify-center shrink-0"
-                      style={{ background: svc.bg }}
-                    >
-                      {Illustration && <Illustration color={svc.accent} />}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h4 className="font-extrabold text-[1rem] text-foreground leading-snug">{data.name}</h4>
-                        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity ml-auto shrink-0" />
-                      </div>
-                      <p className="text-[0.875rem] text-muted-foreground/80 leading-relaxed mb-2.5" style={{ wordBreak: "keep-all" }}>
-                        {data.problem}
-                      </p>
-                      <p className="text-[0.875rem] leading-relaxed font-semibold" style={{ color: svc.accent, wordBreak: "keep-all" }}>
-                        → {data.solution}
-                      </p>
-                      {data.detail && (
-                        <p className="text-[0.8rem] text-muted-foreground/70 leading-[1.7] mt-3 pt-3 border-t border-border/40" style={{ wordBreak: "keep-all" }}>
-                          {data.detail}
-                        </p>
-                      )}
-                    </div>
+                  {/* Icon */}
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center"
+                    style={{ background: `${svc.accent}18` }}
+                  >
+                    {Illustration && <Illustration color={svc.accent} />}
                   </div>
+
+                  {/* Title */}
+                  <h4 className="font-bold text-[0.925rem] text-foreground leading-snug">{data.name}</h4>
+
+                  {/* Description */}
+                  <p className="text-[0.8rem] text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                    {data.problem}
+                  </p>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div className="px-8 pt-4 pb-8">
+        {/* Bottom CTA — minimal style */}
+        <div className="px-8 pt-8 pb-10">
+          <h3 className="font-bold text-[1.15rem] text-foreground leading-snug mb-2" style={{ wordBreak: "keep-all" }}>
+            {t("lms.ecosystem.cta")}
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-5" style={{ wordBreak: "keep-all" }}>
+            {t("lms.ecosystem.ctaSub")}
+          </p>
           <a
             href="#contact"
             onClick={() => onOpenChange(false)}
-            className="block text-center py-4 rounded-2xl font-bold text-[0.95rem] text-white transition-all hover:opacity-90 hover:shadow-lg"
-            style={{ background: "linear-gradient(135deg, hsl(245, 58%, 55%), hsl(215, 80%, 52%))", boxShadow: "0 4px 20px -4px hsl(245, 60%, 55%, 0.35)" }}
+            className="inline-flex items-center px-5 py-2.5 rounded-2xl font-bold text-[0.875rem] text-white bg-foreground hover:opacity-90 transition-opacity"
           >
             {t("lms.ecosystem.cta")}
           </a>
-          <p className="text-center text-xs text-muted-foreground mt-3">{t("lms.ecosystem.ctaSub")}</p>
         </div>
       </DialogContent>
     </Dialog>
