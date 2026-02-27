@@ -91,7 +91,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           {/* Left: Contact Info — compact single column */}
           <div className="lg:col-span-2 flex flex-col gap-3">
             {/* Phone numbers — inline compact */}
-            <div className="p-5 bg-card border border-border hover:border-primary/20 transition-all">
+            <div className="rounded-lg p-5 bg-card border border-border hover:border-primary/20 transition-all">
               <div className="flex items-stretch gap-0 divide-x divide-border">
                 <div className="flex-1 pr-4 min-w-0">
                   <p className="text-[0.6rem] font-semibold mb-1.5 uppercase tracking-wider text-muted-foreground">
