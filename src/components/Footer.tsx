@@ -76,12 +76,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-1.5">
               <li>
                 <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
-                  {t("footer.homepage")} <ExternalLink className="w-3 h-3" />
+                  웹헤즈 <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
               <li>
                 <Link to="/admin/login" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
-                  관리자
+                  <ShieldCheck className="w-3.5 h-3.5" /> 관리자
                 </Link>
               </li>
             </ul>
