@@ -15,7 +15,7 @@ export default function PgHeroVisual() {
         @keyframes pg-count { 0%,100%{opacity:1;} 50%{opacity:0.6;} }
       `}</style>
 
-      <div style={{ width: 269, height: 269, position: "relative", perspective: "900px", transform: "scale(0.7)", transformOrigin: "center center" }}>
+      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
 
         {/* ── Main Card: Credit Card ── */}
         <div style={{

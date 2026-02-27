@@ -14,7 +14,7 @@ export default function ContentHeroVisual() {
         @keyframes ct-bar { 0%,100%{transform:scaleY(0.4);} 50%{transform:scaleY(1);} }
       `}</style>
 
-      <div style={{ width: 269, height: 269, position: "relative", perspective: "900px", transform: "scale(0.7)", transformOrigin: "center center" }}>
+      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
 
         {/* ── Main Card: Video Player ── */}
         <div style={{

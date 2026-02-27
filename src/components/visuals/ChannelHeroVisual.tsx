@@ -16,7 +16,7 @@ export default function ChannelHeroVisual() {
         @keyframes ch-ping { 0%,100%{transform:scale(1);opacity:1;} 50%{transform:scale(1.4);opacity:0.5;} }
       `}</style>
 
-      <div style={{ width: 269, height: 269, position: "relative", perspective: "900px", transform: "scale(0.7)", transformOrigin: "center center" }}>
+      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
 
         <div style={{
           position: "absolute", left: "50%", top: "50%",

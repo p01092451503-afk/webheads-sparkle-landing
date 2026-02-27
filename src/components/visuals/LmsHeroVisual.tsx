@@ -51,7 +51,7 @@ export default function LmsHeroVisual() {
         @keyframes lms-progress { 0%{width:0%} 40%{width:100%} 80%{width:100%} 85%{width:0%} 100%{width:0%} }
       `}</style>
 
-      <div style={{ width: 269, height: 269, position: "relative", perspective: "900px", transform: "scale(0.7)", transformOrigin: "center center" }}>
+      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
 
         {/* ══ Main Card: LMS Dashboard ══ */}
         <div style={{
