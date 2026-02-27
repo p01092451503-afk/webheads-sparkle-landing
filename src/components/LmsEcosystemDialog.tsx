@@ -2,9 +2,11 @@ import { useTranslation } from "react-i18next";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription
 } from "@/components/ui/dialog";
-import { Server, Video, ShieldCheck, Bot, Smartphone, CreditCard, MessageSquareMore, Wrench } from "lucide-react";
+import { Server, Video, ShieldCheck, Bot, Smartphone, CreditCard, MessageSquareMore, Wrench, LayoutDashboard, Puzzle, Rocket } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
+
+const stepIcons: LucideIcon[] = [LayoutDashboard, Puzzle, Rocket];
 
 const serviceConfig: { key: string; path: string; accent: string; icon: LucideIcon }[] = [
   { key: "hosting", path: "/hosting", accent: "hsl(215, 75%, 52%)", icon: Server },
@@ -55,12 +57,17 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
         <div className="px-8 pb-5">
           <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.stepsTitle")}</p>
           <div className="flex flex-col gap-2.5">
-            {steps?.map((step, i) => (
-              <div key={i} className="flex items-center gap-3.5 bg-secondary/60 rounded-xl px-4 py-3">
-                <span className="text-xl shrink-0">{step.emoji}</span>
-                <p className="text-sm font-medium text-foreground leading-snug" style={{ wordBreak: "keep-all" }}>{step.text}</p>
-              </div>
-            ))}
+            {steps?.map((step, i) => {
+              const StepIcon = stepIcons[i] || Rocket;
+              return (
+                <div key={i} className="flex items-start gap-3.5 bg-secondary/60 rounded-xl px-4 py-3.5">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(245, 55%, 52%)" }}>
+                    <StepIcon className="w-4 h-4 text-white" strokeWidth={2.5} />
+                  </div>
+                  <p className="text-sm font-medium text-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>{step.text}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
 
