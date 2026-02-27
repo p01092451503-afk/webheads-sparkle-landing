@@ -98,13 +98,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Gradient bottom line */}
-      <div
-        className="h-[3px] w-full"
-        style={{
-          background: "linear-gradient(90deg, hsl(270,70%,60%) 0%, hsl(250,65%,55%) 30%, hsl(220,80%,55%) 60%, hsl(190,80%,55%) 100%)",
-        }}
-      />
 
       {/* Mobile Menu */}
       {mobileOpen && (
