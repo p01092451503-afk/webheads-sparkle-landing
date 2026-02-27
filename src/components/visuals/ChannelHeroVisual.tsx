@@ -76,7 +76,7 @@ export default function ChannelHeroVisual() {
         </div>
 
         {/* ── Floating: Message icon ── */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "ch-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(250,200,10,0.3))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "ch-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(250,200,10,0.3))" }}>
           <svg width="62" height="62" viewBox="0 0 62 62">
             <defs><linearGradient id="msgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs>
             <rect width="62" height="62" rx="16" fill="url(#msgGrad)"/>
