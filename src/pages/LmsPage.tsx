@@ -118,6 +118,9 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* Client Reference Marquee */}
+      <ClientMarquee />
+
       {/* Stats — with gradient accent line */}
       <section className="py-24 relative">
         
