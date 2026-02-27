@@ -185,7 +185,7 @@ export default function HostingHeroVisual() {
 
         {/* 99.9% badge */}
         <div style={{
-          position: "absolute", right: "4%", bottom: "28%",
+          position: "absolute", right: "8%", bottom: "30%",
           animation: "float-badge2 3.6s ease-in-out infinite",
           animationDelay: "0.5s",
           background: "linear-gradient(135deg, hsl(214,90%,52%), hsl(214,80%,38%))",
