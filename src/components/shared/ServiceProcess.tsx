@@ -9,7 +9,7 @@ export default function ServiceProcess({ steps, heading, subheading, description
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="mb-16">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{subheading}</p>
-          <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{heading}</h2>
+          <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{heading}</h2>
           <p className="text-muted-foreground mt-4 text-base">{description}</p>
         </div>
         <div className="relative">
