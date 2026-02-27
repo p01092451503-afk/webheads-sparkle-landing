@@ -67,21 +67,12 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Phone Numbers */}
-            <div className="flex gap-10">
-              <div className="flex flex-col gap-1.5">
-                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.newInquiry")}</p>
-                <a href="tel:0233364338" className="text-[22px] font-black tracking-[-0.03em] text-foreground hover:text-primary transition-colors">
-                  02.336.4338
-                </a>
-              </div>
-              <div className="h-10 w-px bg-border self-end" />
-              <div className="flex flex-col gap-1.5">
-                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.maintenanceInquiry")}</p>
-                <a href="tel:0254044337" className="text-[22px] font-black tracking-[-0.03em] text-foreground hover:text-primary transition-colors">
-                  02.540.4337
-                </a>
-              </div>
+            {/* Phone */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.phone")}</p>
+              <a href="tel:0254044337" className="text-[22px] font-black tracking-[-0.03em] text-foreground hover:text-primary transition-colors">
+                02-540-4337
+              </a>
             </div>
           </div>
           <div>
