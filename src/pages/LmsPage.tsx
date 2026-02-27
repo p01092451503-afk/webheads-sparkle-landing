@@ -220,7 +220,7 @@ export default function LmsPage() {
                   <Cloud className="w-6 h-6" style={{ color: "hsl(245, 58%, 55%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
                   <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(245, 58%, 55%)" }}>{t("lms.cloud.subtitle")}</p>
                 </div>
               </div>
