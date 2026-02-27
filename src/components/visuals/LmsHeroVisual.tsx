@@ -125,7 +125,7 @@ export default function LmsHeroVisual() {
         </div>
 
         {/* ══ Floating: Book ══ */}
-        <div style={{ position: "absolute", left: "4%", bottom: "16%", animation: "lms-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(100,60,200,0.28))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "20%", animation: "lms-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(100,60,200,0.28))" }}>
           <svg width="56" height="64" viewBox="0 0 56 64">
             <defs><linearGradient id="bookGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(45,90%,65%)"/><stop offset="100%" stopColor="hsl(35,90%,50%)"/></linearGradient></defs>
             <rect x="8" y="4" width="40" height="52" rx="4" fill="url(#bookGrad)"/>
