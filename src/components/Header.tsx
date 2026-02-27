@@ -60,14 +60,18 @@ export default function Header() {
                     key={s.path}
                     to={s.path}
                     className={`
-                      relative whitespace-nowrap px-3.5 py-1.5 rounded-lg text-[0.9rem] font-semibold transition-all duration-200
+                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
                       ${isLms
-                        ? "text-white bg-[hsl(250,55%,52%)] shadow-sm hover:bg-[hsl(250,55%,48%)] mr-3"
+                        ? "text-white shadow-sm hover:scale-[1.03] mr-3"
                         : isActive
-                          ? "text-[hsl(230,25%,15%)]"
-                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50"
+                          ? "text-[hsl(230,25%,15%)] rounded-lg"
+                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                       }
                     `}
+                    style={isLms ? {
+                      background: "linear-gradient(135deg, hsl(250,55%,52%), hsl(230,70%,48%))",
+                      borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
+                    } : undefined}
                   >
                     {s.label}
                   </Link>
