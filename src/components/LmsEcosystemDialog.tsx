@@ -189,7 +189,8 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
                 <button
                   key={svc.key}
                   onClick={() => { onOpenChange(false); navigate(svc.path); }}
-                  className="text-left rounded-2xl p-6 bg-background border border-border/60 hover:border-border hover:shadow-md transition-all duration-200 group cursor-pointer"
+                  className="text-left rounded-2xl p-6 border border-transparent hover:shadow-md transition-all duration-200 group cursor-pointer"
+                  style={{ background: svc.cardBg, borderLeft: `3px solid ${svc.accent}` }}
                 >
                   <div className="flex items-start gap-5">
                     {/* SVG illustration */}
