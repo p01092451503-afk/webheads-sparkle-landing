@@ -41,8 +41,8 @@ export default function ChatbotPage() {
             <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">{t("chatbot.hero.title")}<br /><span style={{ color: "hsl(200, 80%, 38%)" }}>{t("chatbot.hero.titleHighlight")}</span></h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("chatbot.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("chatbot.hero.cta1")}</a>
-              <a href="#process" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("chatbot.hero.cta2")}</a>
+              <a href="#contact" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("chatbot.hero.cta1")}</a>
+              <a href="#process" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("chatbot.hero.cta2")}</a>
             </div>
           </div>
         </div>
