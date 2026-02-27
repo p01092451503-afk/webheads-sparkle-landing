@@ -1,8 +1,7 @@
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
-import ChatbotHeroVisual from "@/components/visuals/ChatbotHeroVisual";
-import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";

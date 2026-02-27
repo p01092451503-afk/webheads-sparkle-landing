@@ -2,8 +2,7 @@ import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lo
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
-import PgHeroVisual from "@/components/visuals/PgHeroVisual";
-import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
