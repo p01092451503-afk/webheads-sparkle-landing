@@ -40,7 +40,7 @@ export default function ClientMarquee() {
           100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          animation: marquee 60s linear infinite;
+          animation: marquee 30s linear infinite;
         }
       `}</style>
     </section>
