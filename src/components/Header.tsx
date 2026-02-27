@@ -80,7 +80,7 @@ export default function Header() {
                         ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
                         : isLms && location.pathname !== "/lms"
                           ? "text-[hsl(250,30%,55%)] hover:scale-[1.03] mr-3"
-                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                          : "text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                       }
                     `}
                     style={showBlob ? {
@@ -138,7 +138,7 @@ export default function Header() {
                       ? "text-white shadow-sm"
                       : isLms
                         ? "text-[hsl(250,30%,55%)]"
-                        : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                        : "text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                   }`}
                   style={isActive ? {
                     background: blobColor,
