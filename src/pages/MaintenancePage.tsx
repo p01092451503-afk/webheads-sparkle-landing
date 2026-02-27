@@ -64,7 +64,7 @@ export default function MaintenancePage() {
 
       {/* Hero */}
       <section
-        className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden"
+        className="relative flex items-center pt-20 pb-6 overflow-hidden"
         style={{ background: "var(--maintenance-hero-bg)" }}
       >
         <HeroAbstractBg variant="maintenance" />
@@ -75,7 +75,7 @@ export default function MaintenancePage() {
             <MaintenanceHeroVisual />
           </div>
         </div>
-        <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
+        <div className="container mx-auto px-6 py-14 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("maintenance.hero.badge")}</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">
