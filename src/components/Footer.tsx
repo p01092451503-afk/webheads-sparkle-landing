@@ -79,6 +79,11 @@ export default function Footer() {
                   {t("footer.homepage")} <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
+              <li>
+                <Link to="/admin" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
+                  Admin
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
