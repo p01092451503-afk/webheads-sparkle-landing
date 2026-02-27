@@ -5,10 +5,12 @@ import ChannelHeroVisual from "@/components/visuals/ChannelHeroVisual";
 import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2 } from "lucide-react";
+import ServiceProcess from "@/components/shared/ServiceProcess";
+import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2, Search, Link, Zap, Activity } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2, MessageCircle, Bell];
+const processIcons = [Search, Link, Zap, Activity];
 
 export default function ChannelPage() {
   const { t } = useTranslation();
@@ -18,10 +20,11 @@ export default function ChannelPage() {
   const stats = t("channel.stats", { returnObjects: true }) as any[];
   const faqs = t("channel.faqs", { returnObjects: true }) as any[];
   const testimonials = t("channel.testimonials", { returnObjects: true }) as any[];
+  const processSteps = (t("channel.processSteps", { returnObjects: true }) as any[]).map((step: any, i: number) => ({ ...step, icon: processIcons[i] || Search }));
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("channel.seo.title")} description={t("channel.seo.description")} keywords={t("channel.seo.keywords")} path="/channel" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("channel.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("channel.seo.description"), "areaServed": "KR", "serviceType": t("channel.seo.title"), "url": "https://webheads-sub.lovable.app/channel" }} faqJsonLd={faqs} />
+      <SEO title={t("channel.seo.title")} description={t("channel.seo.description")} keywords={t("channel.seo.keywords")} path="/channel" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("channel.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("channel.seo.description"), "areaServed": "KR", "serviceType": t("channel.seo.title"), "url": "https://service.webheads.co.kr/channel" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--channel-hero-bg)" }}>
@@ -78,6 +81,25 @@ export default function ChannelPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {useCases.map((uc: any, i: number) => (<div key={uc.title} className="flex items-start gap-4 p-6 rounded-2xl bg-background border border-border hover:border-primary/30 hover:shadow-sm transition-all"><div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-primary-foreground font-bold text-xs bg-primary">{String(i + 1).padStart(2, "0")}</div><div><h4 className="font-bold text-foreground text-sm mb-1 tracking-tight">{uc.title}</h4><p className="text-muted-foreground text-xs leading-relaxed">{uc.desc}</p></div></div>))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <ServiceProcess
+        steps={processSteps}
+        heading={t("channel.processSection.title")}
+        subheading={t("channel.processSection.sub")}
+        description={t("channel.processSection.desc")}
+      />
+
+      {/* Custom Quote CTA */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <div className="rounded-3xl border border-border bg-secondary p-10 text-center">
+            <h3 className="font-black text-2xl text-foreground mb-3">{t("channel.plansCustom.title")}</h3>
+            <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">{t("channel.plansCustom.desc")}</p>
+            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("channel.plansCustom.cta")}</a>
           </div>
         </div>
       </section>

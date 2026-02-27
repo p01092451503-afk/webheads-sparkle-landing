@@ -1,4 +1,4 @@
-import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones } from "lucide-react";
+import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones, Search, FileCheck, Code, Activity } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO from "@/components/SEO";
@@ -6,9 +6,11 @@ import PgHeroVisual from "@/components/visuals/PgHeroVisual";
 import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
+import ServiceProcess from "@/components/shared/ServiceProcess";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [CreditCard, ShieldCheck, Zap, Settings, Globe, RefreshCw, BarChart3, Lock, Headphones];
+const processIcons = [Search, FileCheck, Code, Activity];
 
 export default function PgPage() {
   const { t } = useTranslation();
@@ -19,10 +21,11 @@ export default function PgPage() {
   const stats = t("pg.stats", { returnObjects: true }) as any[];
   const faqs = t("pg.faqs", { returnObjects: true }) as any[];
   const testimonials = t("pg.testimonials", { returnObjects: true }) as any[];
+  const processSteps = (t("pg.processSteps", { returnObjects: true }) as any[]).map((step: any, i: number) => ({ ...step, icon: processIcons[i] || Search }));
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("pg.seo.title")} description={t("pg.seo.description")} keywords={t("pg.seo.keywords")} path="/pg" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("pg.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("pg.seo.description"), "areaServed": "KR", "serviceType": t("pg.seo.title"), "url": "https://webheads-sub.lovable.app/pg" }} faqJsonLd={faqs} />
+      <SEO title={t("pg.seo.title")} description={t("pg.seo.description")} keywords={t("pg.seo.keywords")} path="/pg" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("pg.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("pg.seo.description"), "areaServed": "KR", "serviceType": t("pg.seo.title"), "url": "https://service.webheads.co.kr/pg" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--pg-hero-bg)" }}>
@@ -92,6 +95,25 @@ export default function PgPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {pgPartners.map((p: any, i: number) => (<div key={p.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 hover:shadow-sm transition-all flex flex-col gap-3"><div className="w-9 h-9 rounded-xl flex items-center justify-center bg-primary text-primary-foreground font-bold text-xs">{String(i + 1).padStart(2, "0")}</div><div><span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary mb-1">{p.category}</span><h4 className="font-bold text-foreground text-sm tracking-tight">{p.name}</h4><p className="text-muted-foreground text-xs mt-0.5">{p.desc}</p></div></div>))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <ServiceProcess
+        steps={processSteps}
+        heading={t("pg.processSection.title")}
+        subheading={t("pg.processSection.sub")}
+        description={t("pg.processSection.desc")}
+      />
+
+      {/* Custom Quote CTA */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <div className="rounded-3xl border border-border bg-secondary p-10 text-center">
+            <h3 className="font-black text-2xl text-foreground mb-3">{t("pg.plansCustom.title")}</h3>
+            <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">{t("pg.plansCustom.desc")}</p>
+            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("pg.plansCustom.cta")}</a>
           </div>
         </div>
       </section>

@@ -1,6 +1,8 @@
 {
   "header": {
     "services": ["LMS", "Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
+    "groups": ["Core Solution", "Dev & Infra", "Content & Security", "Integrations"],
+    "allServices": "All Services",
     "cta": "Contact Us",
     "logo": "Webheads"
   },
@@ -323,7 +325,15 @@
       { "name": "H. Lim", "role": "Content Security", "org": "G Online Education", "rating": 5, "date": "2024.08", "period": "6th year", "content": "Before DRM, leaked videos were everywhere. After applying it, not a single one has appeared." },
       { "name": "E. Jo", "role": "Operations Director", "org": "H Cyber University", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "Learners used to complain about plugin installations. Now it just plays in the browser — complaints have nearly disappeared." },
       { "name": "J. Seo", "role": "Security Lead", "org": "I Finance Institute", "rating": 4, "date": "2025.01", "period": "4th year", "content": "In finance, security audits are strict. Being able to pull DRM status reports from the dashboard makes audits much easier." }
-    ]
+    ],
+    "processSection": { "sub": "PROCESS", "title": "How DRM\nImplementation Works", "desc": "Our dedicated engineers support you from consultation to ongoing operations." },
+    "processSteps": [
+      { "title": "Environment Analysis", "desc": "We analyze your content types, learner environment, and security requirements to recommend the optimal DRM solution.", "tag": "1-2 days" },
+      { "title": "Solution Selection & Contract", "desc": "Select the right solution between Catenoid and ZonePlayer and proceed with license agreement.", "tag": "1-3 days" },
+      { "title": "LMS Integration & Testing", "desc": "Integrate DRM API with your LMS and verify playback and security across all platforms.", "tag": "1-2 weeks" },
+      { "title": "Operations & Monitoring", "desc": "After DRM deployment, we provide security threat monitoring and regular reports.", "tag": "Ongoing" }
+    ],
+    "plansCustom": { "title": "Request Custom Quote", "desc": "We'll provide optimal pricing based on your content volume, concurrent users, and security requirements.", "cta": "Get a Quote" }
   },
   "channel": {
     "seo": { "title": "Channel Talk / SMS", "description": "Boost learner engagement with Channel Talk LMS integration, bulk SMS/LMS delivery, and automated learning reminder messages.", "keywords": "Channel Talk, SMS, e-learning alerts, learning reminders, LMS Channel Talk, KakaoTalk" },
@@ -369,7 +379,15 @@
       { "name": "S. Baek", "role": "Education Operations Manager", "org": "J Vocational Training", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "Setting up auto-SMS for non-completers noticeably increased our completion rates." },
       { "name": "N. Kwon", "role": "CS Team Lead", "org": "K Cyber University", "rating": 5, "date": "2025.01", "period": "8th year", "content": "After Channel Talk integration, our agents can see learner enrollment status instantly. Support time was cut by more than half." },
       { "name": "J. Yoo", "role": "Marketing Lead", "org": "L e-Learning Company", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "Switching to KakaoTalk alerts significantly reduced messaging costs, and click-through rates are much higher than SMS." }
-    ]
+    ],
+    "processSection": { "sub": "PROCESS", "title": "How Channel/SMS\nIntegration Works", "desc": "From LMS integration to automation setup, our dedicated engineers support every step." },
+    "processSteps": [
+      { "title": "Requirements Analysis", "desc": "We analyze your current communication channels, learner volume, and automation needs.", "tag": "1-2 days" },
+      { "title": "Channel Setup & Integration", "desc": "Create Channel Talk account, register SMS sender numbers, and connect LMS data.", "tag": "3-5 days" },
+      { "title": "Automation Setup", "desc": "Configure auto-send scenarios for learning reminders, completion notices, and surveys.", "tag": "1-2 weeks" },
+      { "title": "Operations & Optimization", "desc": "Continuously optimize message content and delivery conditions based on performance analytics.", "tag": "Ongoing" }
+    ],
+    "plansCustom": { "title": "Request Custom Quote", "desc": "We'll provide optimal pricing based on learner count, monthly message volume, and channels used.", "cta": "Get a Quote" }
   },
   "pg": {
     "seo": { "title": "PG Payment Integration", "description": "Optimized payment integration for e-learning platforms with Toss Payments, KG Inicis, Mobilians, PayTeacher, and global PGs.", "keywords": "PG payment, e-learning payment, Toss Payments, KG Inicis, online payment integration" },
@@ -417,7 +435,15 @@
       { "name": "H. Jang", "role": "Dev Team Lead", "org": "S e-Learning Company", "rating": 5, "date": "2024.09", "period": "6th year", "content": "Toss Payments integration took less than a week. They even set up subscription automation, eliminating our monthly manual work." },
       { "name": "S. Moon", "role": "Finance Manager", "org": "T Cyber University", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Auto-generated settlement reports mean no more Excel work for tax invoices and VAT filing." },
       { "name": "D. Shin", "role": "Business Director", "org": "U Global Education", "rating": 4, "date": "2024.11", "period": "4th year", "content": "International students had trouble paying until we added Stripe. Global revenue has noticeably increased." }
-    ]
+    ],
+    "processSection": { "sub": "PROCESS", "title": "How PG Payment\nIntegration Works", "desc": "From merchant contracts to settlement automation, we support the entire process." },
+    "processSteps": [
+      { "title": "Business Model Analysis", "desc": "We analyze your tuition structure, payment method needs, and international payment requirements to recommend optimal PGs.", "tag": "1-2 days" },
+      { "title": "PG Selection & Contract", "desc": "Sign merchant agreements with recommended PGs. We provide document guidance and contract consulting.", "tag": "3-7 days" },
+      { "title": "Payment Integration & Testing", "desc": "Integrate payment APIs with your LMS and verify all payment methods in the test environment.", "tag": "1-2 weeks" },
+      { "title": "Settlement & Operations", "desc": "Set up automated settlement reports, tax invoice integration, and refund policies.", "tag": "Ongoing" }
+    ],
+    "plansCustom": { "title": "Request Custom Quote", "desc": "We'll provide optimal commission rates based on monthly transaction volume, PGs used, and payment methods.", "cta": "Get a Quote" }
   },
   "content": {
     "seo": { "title": "Content Development", "description": "Professional production of video lectures, interactive content, 2D/3D animation, gamification, and more for e-learning.", "keywords": "e-learning content, video lectures, interactive content, gamification, mandatory training" },
