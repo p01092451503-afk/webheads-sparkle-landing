@@ -18,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
+import ClientMarquee from "@/components/ClientMarquee";
 
 const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, PackageCheck];
 const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
@@ -116,6 +117,9 @@ export default function LmsPage() {
           <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
         </div>
       </section>
+
+      {/* Client Reference Marquee */}
+      <ClientMarquee />
 
       {/* Stats — with gradient accent line */}
       <section className="py-24 relative">
