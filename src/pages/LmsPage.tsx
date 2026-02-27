@@ -128,8 +128,8 @@ export default function LmsPage() {
             {stats.map((s: any) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
                 <span
-                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight bg-clip-text text-transparent"
-                  style={{ backgroundImage: "var(--lms-gradient)" }}
+                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
+                  style={{ color: "hsl(var(--lms-primary))" }}
                 >
                   {s.value}
                 </span>
@@ -334,7 +334,7 @@ export default function LmsPage() {
             className="mt-6 rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
             style={{ border: `1px solid hsl(var(--lms-card-border))` }}
           >
-            <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "linear-gradient(90deg, hsl(145, 60%, 38%), hsl(160, 70%, 45%))" }} />
+            <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "hsl(145, 60%, 38%)" }} />
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
                 <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
@@ -437,7 +437,7 @@ export default function LmsPage() {
             {(t("lms.plans", { returnObjects: true }) as any[]).map((plan: any) => (
               <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { border: `2px solid hsl(var(--lms-primary))` } : undefined}>
                 {plan.badge && (
-                  <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "var(--lms-gradient)" }}>
+                  <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "hsl(var(--lms-primary))" }}>
                     {plan.badge}
                   </div>
                 )}
