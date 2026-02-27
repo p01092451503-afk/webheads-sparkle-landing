@@ -207,7 +207,7 @@ export default function LmsPage() {
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
