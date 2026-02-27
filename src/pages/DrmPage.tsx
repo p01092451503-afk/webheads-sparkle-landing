@@ -40,8 +40,8 @@ export default function DrmPage() {
             <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">{t("drm.hero.title")}<br /><span style={{ color: "hsl(220, 85%, 45%)" }}>{t("drm.hero.titleHighlight")}</span></h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("drm.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("drm.hero.cta1")}</a>
-              <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("drm.hero.cta2")}</a>
+              <a href="#contact" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("drm.hero.cta1")}</a>
+              <a href="#solutions" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("drm.hero.cta2")}</a>
             </div>
           </div>
         </div>

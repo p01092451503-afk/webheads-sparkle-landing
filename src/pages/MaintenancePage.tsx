@@ -86,8 +86,8 @@ export default function MaintenancePage() {
               {t("maintenance.hero.desc")}
             </p>
             <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("maintenance.hero.cta1")}</a>
-              <a href="#plans" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("maintenance.hero.cta2")}</a>
+              <a href="#contact" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("maintenance.hero.cta1")}</a>
+              <a href="#plans" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("maintenance.hero.cta2")}</a>
             </div>
           </div>
         </div>

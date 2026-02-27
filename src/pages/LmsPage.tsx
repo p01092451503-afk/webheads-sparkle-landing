@@ -106,18 +106,18 @@ export default function LmsPage() {
             <div className="flex gap-3 flex-wrap">
               <a
                 href="#contact"
-                className="group px-7 py-3.5 rounded-2xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] text-white flex items-center gap-2"
+                className="group px-5 py-2.5 rounded-2xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] text-white flex items-center gap-2"
                 style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
               >
                 {t("lms.hero.cta1")}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </a>
-              <a href="#solutions" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 backdrop-blur-sm">
+              <a href="#solutions" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 backdrop-blur-sm">
                 {t("lms.hero.cta2")}
               </a>
               <button
                 onClick={() => setEcosystemOpen(true)}
-                className="group px-7 py-3.5 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] text-white relative overflow-hidden animate-[shimmer_3s_ease-in-out_infinite]"
+                className="group px-5 py-2.5 rounded-2xl font-bold text-sm transition-all flex items-center gap-2 hover:scale-[1.02] text-white relative overflow-hidden animate-[shimmer_3s_ease-in-out_infinite]"
                 style={{
                   background: "linear-gradient(135deg, hsl(245, 65%, 55%), hsl(215, 80%, 50%))",
                   boxShadow: "0 4px 24px -4px hsl(245, 60%, 50%, 0.5), 0 0 0 2px hsl(245, 60%, 70%, 0.25)",
