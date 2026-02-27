@@ -103,7 +103,7 @@ export default function MaintenanceHeroVisual() {
         </div>
 
         {/* ══ Floating Object 3: Gear ══ */}
-        <div style={{ position: "absolute", left: "5%", bottom: "16%", animation: "mnt-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(130,80,220,0.30))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "20%", animation: "mnt-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(130,80,220,0.30))" }}>
           <svg width="60" height="60" viewBox="0 0 60 60">
             <defs><linearGradient id="gearGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(260,70%,68%)"/><stop offset="100%" stopColor="hsl(260,70%,42%)"/></linearGradient></defs>
             <g transform="translate(30,30)">
