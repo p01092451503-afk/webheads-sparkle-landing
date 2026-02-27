@@ -137,33 +137,47 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[520px] max-h-[88vh] overflow-y-auto p-0 rounded-3xl border-0 shadow-2xl gap-0">
 
-        {/* Hero header */}
-        <div className="px-8 pt-10 pb-6">
-          <DialogHeader className="gap-0">
-            <DialogTitle className="text-[1.7rem] font-extrabold leading-[1.25] tracking-tight text-foreground" style={{ wordBreak: "keep-all" }}>
+        {/* Hero header with pattern background */}
+        <div
+          className="relative overflow-hidden rounded-t-3xl px-8 pt-10 pb-8 text-center"
+          style={{ background: "linear-gradient(135deg, hsl(245, 70%, 52%) 0%, hsl(225, 80%, 50%) 50%, hsl(245, 65%, 48%) 100%)" }}
+        >
+          {/* Concentric arc pattern */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 520 220" fill="none" preserveAspectRatio="xMidYMid slice">
+            <g opacity="0.15">
+              {[0, 1, 2, 3, 4, 5].map(i => (
+                <circle key={`l-${i}`} cx={-30 + i * 6} cy={200 + i * 4} r={80 + i * 40} stroke="white" strokeWidth={2 - i * 0.15} fill="none" />
+              ))}
+            </g>
+            <g opacity="0.1">
+              {[0, 1, 2, 3, 4].map(i => (
+                <circle key={`r-${i}`} cx={550 - i * 8} cy={220 + i * 6} r={70 + i * 45} stroke="white" strokeWidth={1.8 - i * 0.12} fill="none" />
+              ))}
+            </g>
+            <defs>
+              <radialGradient id="eco-glow" cx="50%" cy="40%" r="50%">
+                <stop offset="0%" stopColor="white" stopOpacity="0.06" />
+                <stop offset="100%" stopColor="white" stopOpacity="0" />
+              </radialGradient>
+            </defs>
+            <rect x="0" y="0" width="520" height="220" fill="url(#eco-glow)" />
+          </svg>
+
+          <DialogHeader className="gap-0 relative z-10">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-5 mx-auto" style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "white" }}>
+              {t("lms.ecosystem.badge", { defaultValue: "에코시스템" })}
+            </span>
+            <DialogTitle className="text-[1.6rem] font-extrabold leading-[1.25] tracking-tight text-white" style={{ wordBreak: "keep-all" }}>
               {t("lms.ecosystem.title")}
             </DialogTitle>
-            <DialogDescription className="text-[0.95rem] text-muted-foreground leading-relaxed mt-3" style={{ wordBreak: "keep-all" }}>
+            <DialogDescription className="text-sm text-white/70 leading-relaxed mt-3 max-w-sm mx-auto" style={{ wordBreak: "keep-all" }}>
               {t("lms.ecosystem.desc")}
             </DialogDescription>
           </DialogHeader>
         </div>
 
-        {/* Visual analogy */}
-        <div className="px-8 pb-6">
-          <div
-            className="rounded-2xl p-6 relative overflow-hidden"
-            style={{ background: "linear-gradient(135deg, hsl(245, 50%, 96%) 0%, hsl(215, 60%, 95%) 100%)" }}
-          >
-            <p className="text-[0.925rem] font-semibold text-foreground leading-[1.7]" style={{ wordBreak: "keep-all" }}>
-              {t("lms.ecosystem.analogy")}
-            </p>
-            
-          </div>
-        </div>
-
         {/* Step flow */}
-        <div className="px-8 pb-5">
+        <div className="px-8 pt-7 pb-5">
           <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.stepsTitle")}</p>
           <div className="flex flex-col gap-2.5">
             {steps?.map((step, i) => (
@@ -192,7 +206,6 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
                   className="text-left rounded-2xl p-5 bg-background border border-border/60 hover:border-border hover:shadow-md transition-all duration-200 group cursor-pointer"
                 >
                   <div className="flex items-start gap-4">
-                    {/* SVG illustration */}
                     <div
                       className="w-[52px] h-[52px] rounded-2xl flex items-center justify-center shrink-0"
                       style={{ background: svc.bg }}
