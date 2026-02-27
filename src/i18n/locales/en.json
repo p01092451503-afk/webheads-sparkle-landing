@@ -1,6 +1,7 @@
 {
   "header": {
     "services": ["LMS", "Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
+    "serviceDescriptions": ["Online learning platform", "Stable server infrastructure", "Issue response & operations", "AI-powered customer support", "Custom web/app development", "Content piracy protection", "Channel & SMS notifications", "Payment gateway integration", "Video & e-learning production"],
     "groups": ["Core Solution", "Dev & Infra", "Content & Security", "Integrations"],
     "allServices": "All Services",
     "cta": "Contact Us",
