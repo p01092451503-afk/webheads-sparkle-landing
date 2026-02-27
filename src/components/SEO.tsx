@@ -20,8 +20,6 @@ const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string 
   zh: { og: "zh_CN", siteName: "Webheads", suffix: "Webheads" },
 };
 
-const SUPPORTED_LANGS = ["ko", "en"];
-
 export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd }: SEOProps) {
   const { i18n } = useTranslation();
   const lang = i18n.language?.substring(0, 2) || "ko";
@@ -50,11 +48,8 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrl} />
 
-      {/* hreflang */}
-      {SUPPORTED_LANGS.map((lng) => (
-        <link key={lng} rel="alternate" hrefLang={lng} href={`${BASE_URL}${path}`} />
-      ))}
-      <link rel="alternate" hrefLang="x-default" href={`${BASE_URL}${path}`} />
+      {/* hreflang - single URL structure, x-default only */}
+      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
       {/* Open Graph */}
       <meta property="og:type" content="website" />
