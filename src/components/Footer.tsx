@@ -102,7 +102,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="container mx-auto px-6 max-w-5xl py-5 flex items-center justify-center">
-          <p className="text-xs text-muted-foreground">{t("footer.copyright")}</p>
+          <p className="text-xs text-muted-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 400 }}>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>
