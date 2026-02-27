@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
-import ScrollButtons from "./components/ScrollButtons";
+
 import PageTracker from "./components/PageTracker";
 
 import HostingPage from "./pages/HostingPage";
