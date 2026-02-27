@@ -88,11 +88,11 @@ export default function Footer() {
             <p className="text-xs font-bold tracking-widest uppercase mb-5 text-foreground">Services</p>
             <ul className="flex flex-col gap-1.5">
               {serviceLabels.map((label, i) => {
-                const isLms = servicePaths[i] === "/lms";
+                const isActive = location.pathname === servicePaths[i];
                 const blobColor = serviceBlobColors[servicePaths[i]] || "hsl(250, 55%, 52%)";
                 return (
                   <li key={servicePaths[i]}>
-                    <FooterServiceLink to={servicePaths[i]} label={label} isLms={isLms} blobColor={blobColor} />
+                    <FooterServiceLink to={servicePaths[i]} label={label} isActive={isActive} blobColor={blobColor} />
                   </li>
                 );
               })}
