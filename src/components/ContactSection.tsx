@@ -163,7 +163,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           {/* Right: Form — compact */}
           <div className="lg:col-span-3">
             {submitted ? (
-              <div className="p-10 flex flex-col items-center justify-center text-center gap-3 min-h-[420px] bg-card border border-border shadow-sm">
+              <div className="rounded-xl p-10 flex flex-col items-center justify-center text-center gap-3 min-h-[420px] bg-card border border-border shadow-sm">
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center mb-1"
                   style={{
