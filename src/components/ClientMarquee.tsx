@@ -8,7 +8,7 @@ export default function ClientMarquee() {
   const doubled = [...clients, ...clients];
 
   return (
-    <section className="py-10 overflow-hidden" style={{ background: "var(--lms-page-bg)" }}>
+    <section className="py-4 -mt-6 overflow-hidden relative z-10" style={{ background: "var(--lms-page-bg)" }}>
 
       <div className="relative">
         {/* Left/right fade masks */}
