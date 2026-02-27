@@ -379,7 +379,15 @@
       { "name": "白承焕", "role": "教育运营经理", "org": "J 职业培训机构", "rating": 4, "date": "2024.12", "period": "使用3年", "content": "设置了自动给未完成者发短信后，完课率明显上升了。" },
       { "name": "权娜英", "role": "CS团队主管", "org": "K 网络大学", "rating": 5, "date": "2025.01", "period": "使用8年", "content": "对接Channel Talk后咨询员可以直接看到学习者的学习状态。咨询时间减少了一半以上。" },
       { "name": "柳志浩", "role": "市场团队长", "org": "L 在线学习企业", "rating": 3, "date": "2024.10", "period": "使用2年", "content": "换成KakaoTalk通知后短信费用大幅下降，点击率也比SMS高很多。" }
-    ]
+    ],
+    "processSection": { "sub": "引入流程", "title": "渠道/短信引入\n按此流程进行", "desc": "从LMS对接到自动化场景配置，专属工程师全程支持。" },
+    "processSteps": [
+      { "title": "需求分析", "desc": "分析机构的沟通渠道现状、学习者规模和自动化需求。", "tag": "1~2天" },
+      { "title": "渠道设置与LMS对接", "desc": "创建Channel Talk账户、注册SMS发送号码、对接LMS数据。", "tag": "3~5天" },
+      { "title": "自动化场景配置", "desc": "配置学习督促、结业通知、满意度调查等自动发送场景。", "tag": "1~2周" },
+      { "title": "运营与优化", "desc": "基于发送效果分析持续优化消息内容和发送条件。", "tag": "持续" }
+    ],
+    "plansCustom": { "title": "定制报价咨询", "desc": "根据学习者数量、月发送量、使用渠道提供最优价格。", "cta": "获取报价" }
   },
   "pg": {
     "seo": { "title": "PG支付对接", "description": "Toss Payments、KG Inicis、Mobilians、PayTeacher、海外PG等在线学习平台支付对接服务。", "keywords": "PG支付, 在线学习支付, Toss Payments, KG Inicis" },
