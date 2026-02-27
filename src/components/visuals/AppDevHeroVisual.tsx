@@ -126,7 +126,7 @@ export default function AppDevHeroVisual() {
         </div>
 
         {/* ── Floating: React Native badge ── */}
-        <div style={{ position: "absolute", left: "4%", bottom: "20%", animation: "app-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 10px 18px rgba(80,160,220,0.3))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "app-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 10px 18px rgba(80,160,220,0.3))" }}>
           <svg width="58" height="58" viewBox="0 0 58 58">
             <defs><linearGradient id="rnGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#38bdf8"/><stop offset="100%" stopColor="#0284c7"/></linearGradient></defs>
             <rect width="58" height="58" rx="15" fill="url(#rnGrad)"/>
