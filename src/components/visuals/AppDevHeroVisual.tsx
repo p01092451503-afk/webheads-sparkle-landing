@@ -40,7 +40,7 @@ export default function AppDevHeroVisual() {
         @keyframes app-progress { 0%{width:0%} 40%{width:100%} 80%{width:100%} 85%{width:0%} 100%{width:0%} }
       `}</style>
 
-      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
+      <div style={{ width: 336, height: 336, position: "relative", perspective: "900px" }}>
 
         {/* ── Main Card: Phone mockup ── */}
         <div style={{
