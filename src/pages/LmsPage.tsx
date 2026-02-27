@@ -128,8 +128,8 @@ export default function LmsPage() {
             {stats.map((s: any) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
                 <span
-                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight bg-clip-text text-transparent"
-                  style={{ backgroundImage: "var(--lms-gradient)" }}
+                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
+                  style={{ color: "hsl(var(--lms-primary))" }}
                 >
                   {s.value}
                 </span>
