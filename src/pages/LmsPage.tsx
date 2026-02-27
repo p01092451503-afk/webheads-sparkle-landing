@@ -118,9 +118,6 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Client Reference Marquee */}
-      <ClientMarquee />
-
       {/* Stats — with gradient accent line */}
       <section className="py-24 relative">
         
@@ -144,6 +141,9 @@ export default function LmsPage() {
           </div>
         </div>
       </section>
+
+      {/* Client Reference Marquee */}
+      <ClientMarquee />
 
       {/* Device Friendly */}
       <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
