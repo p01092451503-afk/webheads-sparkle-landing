@@ -58,7 +58,7 @@ export default function Header() {
             <Link
               to="/lms"
               className="shrink-0 tracking-tight text-[hsl(230,25%,15%)] mr-8"
-              style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem" }}
+              style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 600, fontSize: "1.625rem" }}
             >
               {t("header.logo")}
             </Link>
