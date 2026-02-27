@@ -138,7 +138,7 @@ export default function Header() {
                       ? "text-white shadow-sm"
                       : isLms
                         ? "text-[hsl(250,30%,55%)]"
-                        : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                        : "text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                   }`}
                   style={isActive ? {
                     background: blobColor,
