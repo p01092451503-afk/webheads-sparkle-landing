@@ -20,7 +20,7 @@ export default function MaintenanceHeroVisual() {
         @keyframes mnt-tick { 0%,100%{stroke-dashoffset:30;} 50%{stroke-dashoffset:0;} }
       `}</style>
 
-      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
+      <div style={{ width: 336, height: 336, position: "relative", perspective: "900px" }}>
 
         {/* ══ Main Card ══ */}
         <div style={{

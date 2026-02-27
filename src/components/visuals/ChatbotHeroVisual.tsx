@@ -14,7 +14,7 @@ export default function ChatbotHeroVisual() {
         @keyframes cb-appear { 0%{opacity:0;transform:translateY(8px);} 100%{opacity:1;transform:translateY(0);} }
       `}</style>
 
-      <div style={{ width: 420, height: 420, position: "relative", perspective: "900px" }}>
+      <div style={{ width: 336, height: 336, position: "relative", perspective: "900px" }}>
 
         <div style={{
           position: "absolute", left: "50%", top: "50%",
