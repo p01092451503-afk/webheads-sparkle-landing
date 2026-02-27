@@ -43,8 +43,9 @@ if (defaultLng !== 'ko') {
   loadLocale(defaultLng);
 }
 
-// Listen for language changes to lazy-load resources
+// Listen for language changes to lazy-load resources and persist
 i18n.on('languageChanged', (lng) => {
+  localStorage.setItem('i18nextLng', lng);
   loadLocale(lng);
 });
 
