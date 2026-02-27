@@ -256,7 +256,7 @@ export default function LmsPage() {
                   <Server className="w-6 h-6" style={{ color: "hsl(215, 65%, 48%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.neo.name")}</h3>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.neo.name")}</h3>
                   <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(215, 65%, 48%)" }}>{t("lms.neo.subtitle")}</p>
                 </div>
               </div>
