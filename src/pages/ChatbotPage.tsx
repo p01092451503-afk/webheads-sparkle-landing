@@ -25,7 +25,7 @@ export default function ChatbotPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("chatbot.seo.title")} description={t("chatbot.seo.description")} keywords={t("chatbot.seo.keywords")} path="/chatbot" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("chatbot.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("chatbot.seo.description"), "areaServed": "KR", "serviceType": t("chatbot.seo.title"), "url": "https://webheads-sub.lovable.app/chatbot" }} faqJsonLd={faqs} />
+      <SEO title={t("chatbot.seo.title")} description={t("chatbot.seo.description")} keywords={t("chatbot.seo.keywords")} path="/chatbot" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("chatbot.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("chatbot.seo.description"), "areaServed": "KR", "serviceType": t("chatbot.seo.title"), "url": "https://service.webheads.co.kr/chatbot" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--chatbot-hero-bg)" }}>
