@@ -46,28 +46,41 @@ export default function Footer() {
     <footer className="bg-background border-t border-border">
       <div className="container mx-auto px-6 max-w-5xl pt-16 pb-[4.4rem]">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_auto_auto] gap-12">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8">
             <span className="text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 800, fontSize: "1.625rem", letterSpacing: "-0.04em", lineHeight: 1 }}>
               {t("header.logo")}
             </span>
-            <div className="flex flex-col gap-1">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-foreground">{t("footer.company")}</p>
-              <p className="text-sm leading-relaxed text-muted-foreground">{t("footer.address")}</p>
-              <p className="text-xs text-muted-foreground">{t("footer.privacy")}</p>
-            </div>
-            <div className="flex flex-col gap-1">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-foreground">{t("footer.time")}</p>
-              <p className="text-sm text-muted-foreground">{t("footer.hours")}</p>
-              <p className="text-sm text-muted-foreground">{t("footer.days")}</p>
-            </div>
-            <div className="flex gap-8">
-              <div>
-                <p className="text-xs mb-1 text-muted-foreground">{t("footer.newInquiry")}</p>
-                <a href="tel:0233364338" className="text-lg tracking-tight transition-colors text-foreground hover:text-primary" style={{ fontWeight: 900 }}>02.336.4338</a>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* Company */}
+              <div className="flex flex-col gap-2">
+                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.company")}</p>
+                <p className="text-[14px] leading-[1.7] font-medium text-foreground/70">{t("footer.address")}</p>
+                <p className="text-[12px] text-muted-foreground/60">{t("footer.privacy")}</p>
               </div>
-              <div>
-                <p className="text-xs mb-1 text-muted-foreground">{t("footer.maintenanceInquiry")}</p>
-                <a href="tel:0254044337" className="text-lg tracking-tight transition-colors text-foreground hover:text-primary" style={{ fontWeight: 900 }}>02.540.4337</a>
+
+              {/* Time */}
+              <div className="flex flex-col gap-2">
+                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.time")}</p>
+                <p className="text-[14px] font-medium text-foreground/70">{t("footer.hours")}</p>
+                <p className="text-[14px] text-foreground/70">{t("footer.days")}</p>
+              </div>
+            </div>
+
+            {/* Phone Numbers */}
+            <div className="flex gap-10">
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.newInquiry")}</p>
+                <a href="tel:0233364338" className="text-[22px] font-black tracking-[-0.03em] text-foreground hover:text-primary transition-colors">
+                  02.336.4338
+                </a>
+              </div>
+              <div className="h-10 w-px bg-border self-end" />
+              <div className="flex flex-col gap-1.5">
+                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.maintenanceInquiry")}</p>
+                <a href="tel:0254044337" className="text-[22px] font-black tracking-[-0.03em] text-foreground hover:text-primary transition-colors">
+                  02.540.4337
+                </a>
               </div>
             </div>
           </div>
