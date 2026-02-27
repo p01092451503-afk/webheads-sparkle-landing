@@ -106,7 +106,7 @@ export default function HostingHeroVisual() {
 
         {/* ══ Floating Object 1: Globe / CDN ══ */}
         <div style={{
-          position: "absolute", left: "14%", top: "8%",
+          position: "absolute", left: "18%", top: "12%",
           animation: "float-a 3.8s ease-in-out infinite",
           filter: "drop-shadow(0 12px 20px rgba(30,80,200,0.28))",
         }}>
