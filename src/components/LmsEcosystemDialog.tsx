@@ -55,7 +55,7 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
 
         {/* Step flow */}
         <div className="px-8 pb-5">
-          <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.stepsTitle")}</p>
+          <p className="text-lg font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.stepsTitle")}</p>
           <div className="flex flex-col gap-2.5">
             {steps?.map((step, i) => {
               const StepIcon = stepIcons[i] || Rocket;
