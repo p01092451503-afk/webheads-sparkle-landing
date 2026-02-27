@@ -84,9 +84,6 @@ export default function AdminLogin() {
           >
             관리자 로그인
           </h1>
-          <p className="text-[15px] mt-2 text-muted-foreground" style={{ letterSpacing: "-0.01em" }}>
-            웹헤즈 관리 시스템에 접속합니다
-          </p>
         </div>
 
         {/* Login Form */}
