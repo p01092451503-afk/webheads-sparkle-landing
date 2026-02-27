@@ -38,7 +38,7 @@ export default function AppDevPage() {
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("appdev.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">{t("appdev.hero.title")}<br /><span className="text-primary">{t("appdev.hero.titleHighlight")}</span></h1>
+            <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">{t("appdev.hero.title")}<br /><span className="text-primary">{t("appdev.hero.titleHighlight")}</span></h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("appdev.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("appdev.hero.cta1")}</a>
