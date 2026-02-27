@@ -1,0 +1,23 @@
+# 웹헤즈 (Webheads) — 이러닝 솔루션 전문 기업
+
+> 웹헤즈는 16년 업력의 이러닝 솔루션 전문 기업입니다.
+> LMS, 이러닝 호스팅, AI 챗봇, DRM, 콘텐츠 제작, 앱 개발,
+> PG 결제 연동, 채널톡/SMS 등 이러닝 사업에 필요한
+> 모든 솔루션을 원스톱으로 제공합니다.
+> 300+ 기업 도입 | 84.2% 재계약률 | IBK 기술우수기업 선정
+
+## 주요 서비스
+- LMS: https://service.webheads.co.kr/lms
+- 이러닝 호스팅: https://service.webheads.co.kr/hosting
+- AI 챗봇: https://service.webheads.co.kr/chatbot
+- 앱 개발: https://service.webheads.co.kr/app-dev
+- DRM 솔루션: https://service.webheads.co.kr/drm
+- 채널톡/SMS: https://service.webheads.co.kr/channel
+- PG 결제 연동: https://service.webheads.co.kr/pg
+- 콘텐츠 개발: https://service.webheads.co.kr/content
+- 유지보수: https://service.webheads.co.kr/maintenance
+
+## 연락처
+- 신규 도입 문의: 02-336-4338
+- 유지보수 문의: 02-540-4337
+- 이메일: 34bus@webheads.co.kr
