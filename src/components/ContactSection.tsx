@@ -178,7 +178,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                 <div
                   className="w-16 h-16 rounded-2xl flex items-center justify-center mb-2"
                   style={{
-                    background: "var(--primary-gradient)",
+                    background: "hsl(var(--primary))",
                     boxShadow: "0 8px 24px hsl(var(--primary) / 0.3)",
                   }}
                 >
