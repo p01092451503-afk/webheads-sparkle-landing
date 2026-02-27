@@ -53,20 +53,10 @@ export default function Footer() {
             <ul className="flex flex-col gap-1.5">
               {serviceLabels.map((label, i) => {
                 const isLms = servicePaths[i] === "/lms";
+                const blobColor = serviceBlobColors[servicePaths[i]] || "hsl(250, 55%, 52%)";
                 return (
                   <li key={servicePaths[i]}>
-                    <Link
-                      to={servicePaths[i]}
-                      className={`text-sm font-medium transition-colors ${
-                        isLms ? "text-white font-semibold inline-block px-3 py-1" : "text-muted-foreground hover:text-foreground"
-                      }`}
-                      style={isLms ? {
-                        background: "hsl(250, 55%, 52%)",
-                        borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
-                      } : undefined}
-                    >
-                      {label}
-                    </Link>
+                    <FooterServiceLink to={servicePaths[i]} label={label} isLms={isLms} blobColor={blobColor} />
                   </li>
                 );
               })}
