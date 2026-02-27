@@ -12,7 +12,7 @@ interface AdminHomeProps {
 }
 
 export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHomeProps) {
-  const [dateRange, setDateRange] = useState(0);
+  const [dateRange, setDateRange] = useState(7);
 
   const filteredInquiries = useMemo(() => {
     const since = new Date();
