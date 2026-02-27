@@ -17,12 +17,12 @@ export default function Footer() {
               {t("header.logo")}
             </span>
             <div className="flex flex-col gap-1">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-muted-foreground">{t("footer.company")}</p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-foreground">{t("footer.company")}</p>
               <p className="text-sm leading-relaxed text-muted-foreground">{t("footer.address")}</p>
               <p className="text-xs text-muted-foreground">{t("footer.privacy")}</p>
             </div>
             <div className="flex flex-col gap-1">
-              <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-muted-foreground">{t("footer.time")}</p>
+              <p className="text-xs font-semibold tracking-widest uppercase mb-2 text-foreground">{t("footer.time")}</p>
               <p className="text-sm text-muted-foreground">{t("footer.hours")}</p>
               <p className="text-sm text-muted-foreground">{t("footer.days")}</p>
             </div>
