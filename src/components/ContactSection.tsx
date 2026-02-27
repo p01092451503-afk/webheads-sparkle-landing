@@ -189,7 +189,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="rounded-2xl p-6 lg:p-8 flex flex-col gap-4 bg-card border border-border shadow-sm"
+                className="p-6 lg:p-8 flex flex-col gap-4 bg-card border border-border shadow-sm"
               >
                 {showDemo && (
                   <div className="flex rounded-lg p-1 gap-1 bg-muted">
