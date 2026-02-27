@@ -51,7 +51,7 @@ export default function Footer() {
               {t("header.logo")}
             </span>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex flex-col gap-6">
               {/* Company */}
               <div className="flex flex-col gap-2">
                 <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.company")}</p>
