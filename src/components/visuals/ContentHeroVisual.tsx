@@ -74,7 +74,7 @@ export default function ContentHeroVisual() {
         </div>
 
         {/* ── Floating: Clapperboard ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "ct-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(30,30,30,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "ct-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(30,30,30,0.3))" }}>
           <svg width="64" height="60" viewBox="0 0 64 60">
             <rect x="2" y="18" width="60" height="40" rx="7" fill="hsl(220,15%,94%)" stroke="hsl(220,15%,80%)" strokeWidth="1"/>
             <rect x="2" y="6" width="60" height="16" rx="5" fill="hsl(220,20%,22%)"/>
