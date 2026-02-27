@@ -75,7 +75,7 @@ export default function DrmHeroVisual() {
         </div>
 
         {/* ── Floating: Shield lock ── */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "drm-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(100,50,220,0.3))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "drm-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(100,50,220,0.3))" }}>
           <svg width="58" height="64" viewBox="0 0 58 64">
             <defs><linearGradient id="shGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#6d28d9"/></linearGradient></defs>
             <path d="M29 4 L52 16 L52 34 Q52 52 29 60 Q6 52 6 34 L6 16 Z" fill="url(#shGrad2)"/>
