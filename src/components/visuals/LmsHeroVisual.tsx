@@ -40,7 +40,7 @@ export default function LmsHeroVisual() {
   const lmsStats = t("visuals.lms.stats", { returnObjects: true }) as string[][];
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none" style={{ transform: "scale(0.93)", transformOrigin: "center center" }}>
+    <div className="relative w-full h-full flex items-center justify-center select-none pointer-events-none" style={{ transform: "scale(1.02)", transformOrigin: "center center" }}>
       <style>{`
         @keyframes lms-float-a { 0%,100%{transform:translateY(0px) rotate(-6deg);} 50%{transform:translateY(-14px) rotate(-6deg);} }
         @keyframes lms-float-b { 0%,100%{transform:translateY(0px) rotate(5deg);} 50%{transform:translateY(-10px) rotate(5deg);} }

@@ -66,7 +66,7 @@ export default function LmsPage() {
 
       {/* Hero — LMS Premium Gradient */}
       <section
-        className="relative flex items-center pt-20 pb-4 overflow-hidden"
+        className="relative flex items-center pt-20 pb-6 overflow-hidden"
         style={{ background: "var(--lms-hero-bg)" }}
       >
         <HeroAbstractBg variant="lms" />
