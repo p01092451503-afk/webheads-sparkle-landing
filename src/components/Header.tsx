@@ -128,7 +128,7 @@ export default function Header() {
                 <Link
                   key={s.path}
                   to={s.path}
-                  className={`px-3 py-2.5 text-sm font-semibold transition-colors ${
+                  className={`inline-block px-3 py-2.5 text-sm font-semibold transition-colors ${
                     isActive
                       ? "text-white shadow-sm"
                       : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
