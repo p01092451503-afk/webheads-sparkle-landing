@@ -120,22 +120,22 @@ export default function Header() {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-0.5">
-            {services.map((s, i) => {
+            {services.map((s) => {
               const isActive = location.pathname === s.path;
-              const isLms = i === 0;
+              const isLms = s.path === "/lms";
+              const blobColor = serviceBlobColors[s.path];
               return (
                 <Link
                   key={s.path}
                   to={s.path}
                   className={`px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                    isLms
-                      ? isActive
-                        ? "text-white bg-[hsl(250,55%,52%)]"
-                        : "text-[hsl(250,55%,52%)] bg-[hsl(250,55%,96%)]"
-                      : isActive
-                        ? "text-[hsl(230,25%,15%)] bg-gray-100"
+                    isActive
+                      ? "text-white"
+                      : isLms
+                        ? "text-[hsl(250,55%,52%)] bg-[hsl(250,55%,96%)]"
                         : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50"
                   }`}
+                  style={isActive ? { background: blobColor } : undefined}
                 >
                   {s.label}
                 </Link>
