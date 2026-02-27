@@ -117,14 +117,14 @@ const serviceIllustrations: Record<string, React.FC<{ color: string }>> = {
 };
 
 const serviceConfig = [
-  { key: "hosting", path: "/hosting", accent: "hsl(215, 75%, 52%)", bg: "hsl(215, 80%, 96%)" },
-  { key: "content", path: "/content", accent: "hsl(35, 85%, 50%)", bg: "hsl(35, 85%, 95%)" },
-  { key: "drm", path: "/drm", accent: "hsl(0, 65%, 52%)", bg: "hsl(0, 60%, 96%)" },
-  { key: "chatbot", path: "/chatbot", accent: "hsl(260, 65%, 55%)", bg: "hsl(260, 60%, 96%)" },
-  { key: "app", path: "/app-dev", accent: "hsl(170, 60%, 40%)", bg: "hsl(170, 55%, 95%)" },
-  { key: "pg", path: "/pg", accent: "hsl(245, 60%, 55%)", bg: "hsl(245, 55%, 96%)" },
-  { key: "channel", path: "/channel", accent: "hsl(195, 80%, 42%)", bg: "hsl(195, 70%, 95%)" },
-  { key: "maintenance", path: "/maintenance", accent: "hsl(150, 55%, 40%)", bg: "hsl(150, 50%, 95%)" },
+  { key: "hosting", path: "/hosting", accent: "hsl(215, 75%, 52%)", bg: "hsl(215, 80%, 96%)", cardBg: "hsl(215, 60%, 97%)" },
+  { key: "content", path: "/content", accent: "hsl(35, 85%, 50%)", bg: "hsl(35, 85%, 95%)", cardBg: "hsl(35, 70%, 97%)" },
+  { key: "drm", path: "/drm", accent: "hsl(0, 65%, 52%)", bg: "hsl(0, 60%, 96%)", cardBg: "hsl(0, 50%, 97%)" },
+  { key: "chatbot", path: "/chatbot", accent: "hsl(260, 65%, 55%)", bg: "hsl(260, 60%, 96%)", cardBg: "hsl(260, 45%, 97%)" },
+  { key: "app", path: "/app-dev", accent: "hsl(170, 60%, 40%)", bg: "hsl(170, 55%, 95%)", cardBg: "hsl(170, 40%, 96%)" },
+  { key: "pg", path: "/pg", accent: "hsl(245, 60%, 55%)", bg: "hsl(245, 55%, 96%)", cardBg: "hsl(245, 40%, 97%)" },
+  { key: "channel", path: "/channel", accent: "hsl(195, 80%, 42%)", bg: "hsl(195, 70%, 95%)", cardBg: "hsl(195, 50%, 96%)" },
+  { key: "maintenance", path: "/maintenance", accent: "hsl(150, 55%, 40%)", bg: "hsl(150, 50%, 95%)", cardBg: "hsl(150, 35%, 96%)" },
 ];
 
 export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
