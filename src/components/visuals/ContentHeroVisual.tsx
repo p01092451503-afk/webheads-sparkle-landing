@@ -88,7 +88,7 @@ export default function ContentHeroVisual() {
         </div>
 
         {/* ── Floating: Microphone ── */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "ct-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(100,50,220,0.28))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "ct-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(100,50,220,0.28))" }}>
           <svg width="52" height="72" viewBox="0 0 52 72">
             <defs><linearGradient id="micGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(220,15%,65%)"/><stop offset="100%" stopColor="hsl(220,15%,40%)"/></linearGradient></defs>
             <rect x="14" y="4" width="24" height="36" rx="12" fill="url(#micGrad)"/>
