@@ -325,7 +325,15 @@
       { "name": "林炫佑", "role": "内容安全负责人", "org": "G 在线教育企业", "rating": 5, "date": "2024.08", "period": "使用6年", "content": "应用DRM之前泄露视频一直在流传，应用之后真的一个都没有了。" },
       { "name": "赵恩彬", "role": "运营总监", "org": "H 网络大学", "rating": 3, "date": "2024.11", "period": "使用2年", "content": "以前要求安装插件时学习者有很多不满，现在直接在浏览器播放，投诉几乎没有了。" },
       { "name": "徐俊浩", "role": "安全组长", "org": "I 金融研修院", "rating": 4, "date": "2025.01", "period": "使用4年", "content": "金融行业安全审计很严格，DRM应用现状资料可以直接从仪表板导出，审计应对轻松多了。" }
-    ]
+    ],
+    "processSection": { "sub": "引入流程", "title": "DRM引入\n按此流程进行", "desc": "专属工程师从咨询到运营全程陪伴。" },
+    "processSteps": [
+      { "title": "环境分析与咨询", "desc": "分析机构的内容类型、学习者环境、安全需求，推荐最佳DRM方案。", "tag": "1~2天" },
+      { "title": "方案选定与签约", "desc": "在Catenoid和ZonePlayer中选择合适的方案并签订许可证协议。", "tag": "1~3天" },
+      { "title": "LMS对接与测试", "desc": "在现有LMS中对接DRM API，在全平台验证正常播放和安全功能。", "tag": "1~2周" },
+      { "title": "运营与监控", "desc": "DRM部署完成后提供安全威胁监控和定期报告。", "tag": "持续" }
+    ],
+    "plansCustom": { "title": "定制报价咨询", "desc": "根据内容数量、并发规模、安全需求提供最优价格。", "cta": "获取报价" }
   },
   "channel": {
     "seo": { "title": "渠道/短信", "description": "Channel Talk LMS对接、SMS/LMS批量发送、学习督促自动化消息提高学习者参与率。", "keywords": "Channel Talk, SMS发送, 在线学习通知, 学习督促" },
