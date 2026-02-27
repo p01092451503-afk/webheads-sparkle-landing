@@ -212,7 +212,7 @@ export default function HostingHeroVisual() {
 
         {/* AWS badge */}
         <div style={{
-          position: "absolute", right: "10%", top: "54%",
+          position: "absolute", right: "14%", top: "56%",
           animation: "float-badge3 4.8s ease-in-out infinite",
           animationDelay: "1s",
           background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))",
