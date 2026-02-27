@@ -64,7 +64,7 @@ export default function MaintenancePage() {
 
       {/* Hero */}
       <section
-        className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden"
+        className="relative flex items-center pt-20 pb-6 overflow-hidden"
         style={{ background: "var(--maintenance-hero-bg)" }}
       >
         <HeroAbstractBg variant="maintenance" />
