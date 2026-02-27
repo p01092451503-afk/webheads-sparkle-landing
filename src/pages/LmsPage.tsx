@@ -66,8 +66,8 @@ export default function LmsPage() {
       {/* Hero — Centered with abstract volumetric patterns */}
       <section
         className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(245, 70%, 52%) 0%, hsl(225, 80%, 50%) 50%, hsl(245, 65%, 48%) 100%)" }}
       >
+        <HeroPatternBg theme="blue-purple" />
         {/* Abstract volumetric arc patterns */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="xMidYMid slice">
           {/* Left side concentric arcs */}
