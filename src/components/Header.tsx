@@ -62,14 +62,18 @@ export default function Header() {
                     className={`
                       relative whitespace-nowrap px-3.5 py-1.5 rounded-lg text-[0.9rem] font-semibold transition-all duration-200
                       ${isLms
-                        ? "text-white bg-[hsl(250,55%,52%)] shadow-sm hover:bg-[hsl(250,55%,48%)]"
+                        ? "text-white bg-[hsl(250,55%,52%)] shadow-sm hover:bg-[hsl(250,55%,48%)] mr-3"
                         : isActive
-                          ? "text-[hsl(230,25%,15%)] bg-gray-100"
+                          ? "text-[hsl(230,25%,15%)]"
                           : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50"
                       }
                     `}
                   >
                     {s.label}
+                    {/* Active indicator line */}
+                    {isActive && !isLms && (
+                      <span className="absolute bottom-[-13px] left-1/2 -translate-x-1/2 w-5 h-[3px] rounded-full bg-[hsl(250,55%,52%)]" />
+                    )}
                   </Link>
                 );
               })}
