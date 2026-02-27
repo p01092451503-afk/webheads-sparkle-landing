@@ -218,7 +218,7 @@ export default function LmsPage() {
               <a
                 href="#contact"
                 className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
-                style={{ background: "linear-gradient(135deg, hsl(245, 58%, 55%), hsl(195, 80%, 50%))" }}
+                style={{ background: "hsl(245, 58%, 55%)" }}
               >
                 {t("lms.cloud.cta")}
               </a>
@@ -290,7 +290,7 @@ export default function LmsPage() {
               <a
                 href="#contact"
                 className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
-                style={{ background: "linear-gradient(135deg, hsl(170, 55%, 38%), hsl(195, 80%, 50%))" }}
+                style={{ background: "hsl(170, 55%, 38%)" }}
               >
                 {t("lms.saas.cta")}
               </a>
@@ -361,7 +361,7 @@ export default function LmsPage() {
             <a
               href="#contact"
               className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, hsl(145, 60%, 38%), hsl(160, 70%, 45%))" }}
+              style={{ background: "hsl(145, 60%, 38%)" }}
             >
               {t("lms.kdt.cta")}
             </a>
@@ -480,7 +480,7 @@ export default function LmsPage() {
             <a
               href="#contact"
               className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white hover:opacity-90 transition-all"
-              style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
+              style={{ background: "hsl(var(--lms-primary))", boxShadow: "var(--lms-shadow)" }}
             >
               {t("lms.plansCustom.cta")}
             </a>
