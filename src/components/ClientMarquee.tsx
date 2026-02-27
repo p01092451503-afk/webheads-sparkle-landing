@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 
 export default function ClientMarquee() {
   const { t } = useTranslation();
-  const title = t("lms.clientsTitle");
   const clients = t("lms.clients", { returnObjects: true }) as string[];
 
   // Duplicate for seamless loop
