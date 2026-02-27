@@ -6,6 +6,19 @@ import LanguageSwitcher from "./LanguageSwitcher";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
 
+// Solid colors per service for the organic blob nav indicator
+const serviceBlobColors: Record<string, string> = {
+  "/lms": "hsl(250, 55%, 52%)",
+  "/hosting": "hsl(195, 55%, 45%)",
+  "/maintenance": "hsl(195, 55%, 45%)",
+  "/chatbot": "hsl(192, 50%, 42%)",
+  "/app-dev": "hsl(192, 50%, 42%)",
+  "/drm": "hsl(235, 45%, 48%)",
+  "/channel": "hsl(195, 55%, 45%)",
+  "/pg": "hsl(235, 45%, 48%)",
+  "/content": "hsl(235, 45%, 48%)",
+};
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -52,24 +65,24 @@ export default function Header() {
 
             {/* Desktop Nav — all services inline */}
             <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1">
-              {services.map((s, i) => {
+              {services.map((s) => {
                 const isActive = location.pathname === s.path;
-                const isLms = i === 0;
+                const isLms = s.path === "/lms";
+                const blobColor = serviceBlobColors[s.path];
+                const showBlob = isLms || isActive;
                 return (
                   <Link
                     key={s.path}
                     to={s.path}
                     className={`
                       relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
-                      ${isLms
-                        ? "text-white shadow-sm hover:scale-[1.03] mr-3"
-                        : isActive
-                          ? "text-[hsl(230,25%,15%)] rounded-lg"
-                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                      ${showBlob
+                        ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
+                        : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                       }
                     `}
-                    style={isLms ? {
-                      background: "linear-gradient(135deg, hsl(250,55%,52%), hsl(230,70%,48%))",
+                    style={showBlob ? {
+                      background: blobColor,
                       borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
                     } : undefined}
                   >
@@ -107,22 +120,22 @@ export default function Header() {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-0.5">
-            {services.map((s, i) => {
+            {services.map((s) => {
               const isActive = location.pathname === s.path;
-              const isLms = i === 0;
+              const isLms = s.path === "/lms";
+              const blobColor = serviceBlobColors[s.path];
               return (
                 <Link
                   key={s.path}
                   to={s.path}
                   className={`px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                    isLms
-                      ? isActive
-                        ? "text-white bg-[hsl(250,55%,52%)]"
-                        : "text-[hsl(250,55%,52%)] bg-[hsl(250,55%,96%)]"
-                      : isActive
-                        ? "text-[hsl(230,25%,15%)] bg-gray-100"
+                    isActive
+                      ? "text-white"
+                      : isLms
+                        ? "text-[hsl(250,55%,52%)] bg-[hsl(250,55%,96%)]"
                         : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50"
                   }`}
+                  style={isActive ? { background: blobColor } : undefined}
                 >
                   {s.label}
                 </Link>
