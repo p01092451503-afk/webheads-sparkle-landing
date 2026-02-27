@@ -87,7 +87,7 @@ export default function ChannelHeroVisual() {
         </div>
 
         {/* ── Floating: SMS phone ── */}
-        <div style={{ position: "absolute", left: "5%", bottom: "20%", animation: "ch-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(30,100,220,0.28))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "ch-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(30,100,220,0.28))" }}>
           <svg width="52" height="68" viewBox="0 0 52 68">
             <defs><linearGradient id="smsPhoneGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient></defs>
             <rect x="4" y="2" width="44" height="64" rx="10" fill="url(#smsPhoneGrad)"/>
