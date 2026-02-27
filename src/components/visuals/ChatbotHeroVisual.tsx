@@ -81,7 +81,7 @@ export default function ChatbotHeroVisual() {
         </div>
 
         {/* ── Floating: RAG / DB icon ── */}
-        <div style={{ position: "absolute", left: "5%", bottom: "20%", animation: "cb-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(250,160,30,0.3))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "cb-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(250,160,30,0.3))" }}>
           <svg width="58" height="58" viewBox="0 0 58 58">
             <defs><linearGradient id="ragGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fb923c"/><stop offset="100%" stopColor="#ea580c"/></linearGradient></defs>
             <rect width="58" height="58" rx="15" fill="url(#ragGrad)"/>
