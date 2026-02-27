@@ -578,12 +578,12 @@
       "title": "Wait — isn't LMS\nenough on its own?",
       "desc": "A lot of people think so. But successful e-learning businesses need a few more pieces to really work.",
       "analogyEmoji": "🏠",
-      "analogy": "Building a house isn't just about the structure. You need electricity, plumbing, locks, and interior design to actually live in it. LMS works the same way.",
+      "analogy": "Building a house isn't just about the frame. You need wiring, plumbing, security locks, and interior finishing before anyone can actually live in it. LMS is exactly the same — the platform is only half the picture. The other half is filled by add-on services.",
       "stepsTitle": "Here's how it works",
       "steps": [
-        { "emoji": "1️⃣", "text": "Build your online education site with LMS" },
-        { "emoji": "2️⃣", "text": "Add hosting, payments, security and more to level up the experience" },
-        { "emoji": "3️⃣", "text": "Learners are satisfied, revenue grows, and operations run smoothly" }
+        { "emoji": "1️⃣", "text": "Build your online education site on LMS. Manage courses, learners, and learning analytics all in one place." },
+        { "emoji": "2️⃣", "text": "Add stable hosting, payments, security, mobile apps, and notifications to take your site to the next level." },
+        { "emoji": "3️⃣", "text": "Learners enjoy seamless experiences, revenue grows naturally, and repetitive operations get automated. A virtuous cycle begins." }
       ],
       "servicesTitle": "Which services do you need?",
       "cta": "Get a free custom consultation",
