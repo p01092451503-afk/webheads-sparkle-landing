@@ -15,7 +15,7 @@ export default function DrmHeroVisual() {
         @keyframes drm-lock { 0%,100%{transform:rotate(-3deg);} 50%{transform:rotate(3deg);} }
       `}</style>
 
-      <div style={{ width: 336, height: 336, position: "relative", perspective: "900px" }}>
+      <div style={{ width: 269, height: 269, position: "relative", perspective: "900px" }}>
         {/* ── Main Card ── */}
         <div style={{
           position: "absolute", left: "50%", top: "50%",
