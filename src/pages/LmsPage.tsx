@@ -363,7 +363,7 @@ export default function LmsPage() {
                 <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
               </div>
               <div>
-                <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.kdt.name")}</h3>
+                <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.kdt.name")}</h3>
                 <p className="text-xs text-muted-foreground">{t("lms.kdt.subtitle")}</p>
               </div>
             </div>
