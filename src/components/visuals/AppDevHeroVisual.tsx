@@ -115,7 +115,7 @@ export default function AppDevHeroVisual() {
 
         {/* ── Floating: Android icon ── */}
         <div style={{
-          position: "absolute", right: "6%", top: "8%",
+          position: "absolute", right: "12%", top: "12%",
           animation: "app-float-e 4.2s ease-in-out infinite", animationDelay: "0.8s",
           filter: "drop-shadow(0 12px 20px rgba(60,180,80,0.3))",
           width: 72, height: 72, borderRadius: 18,
