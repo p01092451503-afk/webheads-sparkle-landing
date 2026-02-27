@@ -106,7 +106,7 @@ export default function LmsPage() {
             <div className="flex gap-3 flex-wrap">
               <a
                 href="#contact"
-                className="group px-7 py-3.5 rounded-2xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] text-white flex items-center gap-2"
+                className="group px-5 py-2.5 rounded-2xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] text-white flex items-center gap-2"
                 style={{ background: "var(--lms-gradient)", boxShadow: "var(--lms-shadow)" }}
               >
                 {t("lms.hero.cta1")}
