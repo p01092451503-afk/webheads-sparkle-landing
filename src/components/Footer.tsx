@@ -57,6 +57,7 @@ export default function Footer() {
                 <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.company")}</p>
                 <p className="text-[14px] leading-[1.7] font-medium text-foreground/70">{t("footer.address")}</p>
                 <p className="text-[14px] font-medium text-foreground/70">{t("footer.privacy")}</p>
+                <p className="text-[14px] font-medium text-foreground/70">{t("footer.phoneLabel")}</p>
               </div>
 
               {/* Time */}
@@ -65,14 +66,6 @@ export default function Footer() {
                 <p className="text-[14px] font-medium text-foreground/70">{t("footer.hours")}</p>
                 <p className="text-[14px] text-foreground/70">{t("footer.days")}</p>
               </div>
-            </div>
-
-            {/* Phone */}
-            <div className="flex flex-col gap-1.5">
-              <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.phone")}</p>
-              <a href="tel:0254044337" className="text-[22px] font-black tracking-[-0.03em] text-foreground hover:text-primary transition-colors">
-                02-540-4337
-              </a>
             </div>
           </div>
           <div>
