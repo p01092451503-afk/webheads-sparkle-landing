@@ -5,10 +5,12 @@ import DrmHeroVisual from "@/components/visuals/DrmHeroVisual";
 import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3 } from "lucide-react";
+import ServiceProcess from "@/components/shared/ServiceProcess";
+import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3, Search, FileCheck, Settings, Activity } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, KeyRound, Lock, BarChart3];
+const processIcons = [Search, FileCheck, Settings, Activity];
 
 export default function DrmPage() {
   const { t } = useTranslation();
@@ -18,10 +20,11 @@ export default function DrmPage() {
   const stats = t("drm.stats", { returnObjects: true }) as any[];
   const faqs = t("drm.faqs", { returnObjects: true }) as any[];
   const testimonials = t("drm.testimonials", { returnObjects: true }) as any[];
+  const processSteps = (t("drm.processSteps", { returnObjects: true }) as any[]).map((step: any, i: number) => ({ ...step, icon: processIcons[i] || Search }));
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://webheads-sub.lovable.app/drm" }} faqJsonLd={faqs} />
+      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://service.webheads.co.kr/drm" }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--drm-hero-bg)" }}>
@@ -78,6 +81,25 @@ export default function DrmPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
             {solutions.map((sol: any) => (<div key={sol.name} className="relative rounded-3xl p-8 flex flex-col gap-5 transition-all duration-200 bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"><div><h3 className="font-black leading-none text-3xl tracking-tight text-foreground">{sol.name}</h3><p className="text-sm mt-2 leading-relaxed text-muted-foreground">{sol.desc}</p></div><div className="h-px bg-border" /><ul className="flex flex-col gap-3 flex-1">{sol.features.map((feat: string) => (<li key={feat} className="flex items-center gap-2.5 text-sm text-muted-foreground"><span className="w-1.5 h-1.5 rounded-full shrink-0 bg-primary" />{feat}</li>))}</ul><a href="#contact" className="block text-center py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">{sol.ctaText}</a></div>))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process */}
+      <ServiceProcess
+        steps={processSteps}
+        heading={t("drm.processSection.title")}
+        subheading={t("drm.processSection.sub")}
+        description={t("drm.processSection.desc")}
+      />
+
+      {/* Custom Quote CTA */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-6 max-w-3xl">
+          <div className="rounded-3xl border border-border bg-secondary p-10 text-center">
+            <h3 className="font-black text-2xl text-foreground mb-3">{t("drm.plansCustom.title")}</h3>
+            <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">{t("drm.plansCustom.desc")}</p>
+            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("drm.plansCustom.cta")}</a>
           </div>
         </div>
       </section>
