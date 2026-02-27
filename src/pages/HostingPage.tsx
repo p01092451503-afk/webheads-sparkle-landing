@@ -30,22 +30,15 @@ export default function HostingPage() {
       <SEO title={t("hosting.seo.title")} description={t("hosting.seo.description")} keywords={t("hosting.seo.keywords")} path="/hosting" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("hosting.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("hosting.seo.description"), "areaServed": "KR", "serviceType": t("hosting.seo.title"), "url": "https://service.webheads.co.kr/hosting" }} faqJsonLd={faqs} />
 
       {/* Hero */}
-      <section className="relative flex items-center pt-20 pb-6 overflow-hidden" style={{ background: "var(--hosting-hero-bg)" }}>
-        <HeroAbstractBg variant="hosting" />
-        <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(195, 80%, 55%, 0.18) 0%, transparent 70%)" }} />
-        <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsl(200, 70%, 50%, 0.1) 0%, transparent 70%)" }} />
-        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
-          <div className="relative w-full h-full max-w-[765px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%) translateY(8%)" }}><HostingHeroVisual /></div>
-        </div>
-        <div className="container mx-auto px-6 py-14 relative z-10 lg:pl-[10%]">
-          <div className="max-w-xl">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("hosting.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">{t("hosting.hero.title")}<br /><span className="text-primary">{t("hosting.hero.titleHighlight")}</span></h1>
-            <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("hosting.hero.desc")}</p>
-            <div className="flex gap-3 flex-wrap">
-              <a href="#contact" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-opacity hover:opacity-85 bg-foreground text-background">{t("hosting.hero.cta1")}</a>
-              <a href="#plans" className="px-5 py-2.5 rounded-2xl font-bold text-sm transition-colors border border-border text-foreground bg-background/80 dark:bg-muted/80 backdrop-blur-sm">{t("hosting.hero.cta2")}</a>
-            </div>
+      <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">
+        <HeroPatternBg theme="blue-purple" />
+        <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "white" }}>{t("hosting.hero.badge")}</span>
+          <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-[1.15] mb-5 tracking-tight text-white" style={{ wordBreak: "keep-all" }}>{t("hosting.hero.title")}<br /><span style={{ opacity: 0.95 }}>{t("hosting.hero.titleHighlight")}</span></h1>
+          <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: "rgba(255,255,255,0.75)" }}>{t("hosting.hero.desc")}</p>
+          <div className="flex gap-3 flex-wrap justify-center">
+            <a href="#contact" className="px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-[1.02]" style={{ background: "white", color: "hsl(245, 70%, 50%)" }}>{t("hosting.hero.cta1")}</a>
+            <a href="#plans" className="px-5 py-2.5 rounded-xl font-bold text-sm transition-colors border border-white/30 text-white hover:bg-white/10">{t("hosting.hero.cta2")}</a>
           </div>
         </div>
       </section>
