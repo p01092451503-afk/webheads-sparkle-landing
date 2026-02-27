@@ -81,7 +81,7 @@ export default function PgHeroVisual() {
         </div>
 
         {/* ── Floating: Globe ── */}
-        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "pg-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,80,0.3))" }}>
+        <div style={{ position: "absolute", left: "4%", top: "4%", animation: "pg-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,80,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><radialGradient id="pgGlobeGrad" cx="38%" cy="32%"><stop offset="0%" stopColor="hsl(152,80%,65%)"/><stop offset="100%" stopColor="hsl(152,70%,35%)"/></radialGradient></defs>
             <circle cx="32" cy="32" r="28" fill="url(#pgGlobeGrad)"/>
@@ -93,7 +93,7 @@ export default function PgHeroVisual() {
         </div>
 
         {/* ── Floating: PayPal-style icon ── */}
-        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "pg-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(30,80,200,0.3))" }}>
+        <div style={{ position: "absolute", right: "2%", top: "6%", animation: "pg-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(30,80,200,0.3))" }}>
           <svg width="62" height="62" viewBox="0 0 62 62">
             <defs><linearGradient id="ppGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1e40af"/></linearGradient></defs>
             <rect width="62" height="62" rx="16" fill="url(#ppGrad)"/>
@@ -102,7 +102,7 @@ export default function PgHeroVisual() {
         </div>
 
         {/* ── Floating: Stripe/Toss ── */}
-        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "pg-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(100,50,220,0.28))" }}>
+        <div style={{ position: "absolute", left: "0%", bottom: "14%", animation: "pg-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(100,50,220,0.28))" }}>
           <svg width="58" height="58" viewBox="0 0 58 58">
             <defs><linearGradient id="stripeGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#818cf8"/><stop offset="100%" stopColor="#4338ca"/></linearGradient></defs>
             <rect width="58" height="58" rx="15" fill="url(#stripeGrad)"/>
@@ -113,11 +113,11 @@ export default function PgHeroVisual() {
         </div>
 
         {/* ── Badges ── */}
-        <div style={{ position: "absolute", right: "8%", bottom: "30%", animation: "pg-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(152,70%,38%), hsl(152,80%,25%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,140,80,0.38)" }}>{t("visuals.pg.badges.provider")}</div>
-        <div style={{ position: "absolute", left: "6%", top: "38%", animation: "pg-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>Stripe</div>
-        <div style={{ position: "absolute", right: "14%", top: "56%", animation: "pg-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>{t("visuals.pg.badges.countries")}</div>
-        <div style={{ position: "absolute", left: "30%", top: "6%", animation: "pg-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(180,30,30,0.35)" }}>{t("visuals.pg.badges.recurring")}</div>
-        <div style={{ position: "absolute", left: "22%", bottom: "6%", animation: "pg-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(140,50,220,0.35)" }}>{t("visuals.pg.badges.methods")}</div>
+        <div style={{ position: "absolute", right: "-2%", bottom: "24%", animation: "pg-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(152,70%,38%), hsl(152,80%,25%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,140,80,0.38)" }}>{t("visuals.pg.badges.provider")}</div>
+        <div style={{ position: "absolute", left: "-4%", top: "32%", animation: "pg-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>Stripe</div>
+        <div style={{ position: "absolute", right: "4%", top: "52%", animation: "pg-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>{t("visuals.pg.badges.countries")}</div>
+        <div style={{ position: "absolute", left: "22%", top: "-2%", animation: "pg-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(180,30,30,0.35)" }}>{t("visuals.pg.badges.recurring")}</div>
+        <div style={{ position: "absolute", left: "14%", bottom: "-2%", animation: "pg-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(140,50,220,0.35)" }}>{t("visuals.pg.badges.methods")}</div>
       </div>
     </div>
   );
