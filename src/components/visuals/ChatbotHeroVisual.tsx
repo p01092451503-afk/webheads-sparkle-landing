@@ -60,7 +60,7 @@ export default function ChatbotHeroVisual() {
         </div>
 
         {/* ── Floating: Brain/AI icon ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "cb-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,160,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "cb-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,160,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(192,80%,60%)"/><stop offset="100%" stopColor="hsl(192,70%,35%)"/></linearGradient></defs>
             <rect width="64" height="64" rx="18" fill="url(#brainGrad)"/>
@@ -69,7 +69,7 @@ export default function ChatbotHeroVisual() {
         </div>
 
         {/* ── Floating: Chat bubble icon ── */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "cb-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(130,50,220,0.3))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "cb-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(130,50,220,0.3))" }}>
           <svg width="62" height="62" viewBox="0 0 62 62">
             <defs><linearGradient id="chatIconGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs>
             <rect width="62" height="62" rx="16" fill="url(#chatIconGrad)"/>
@@ -81,7 +81,7 @@ export default function ChatbotHeroVisual() {
         </div>
 
         {/* ── Floating: RAG / DB icon ── */}
-        <div style={{ position: "absolute", left: "5%", bottom: "20%", animation: "cb-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(250,160,30,0.3))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "cb-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(250,160,30,0.3))" }}>
           <svg width="58" height="58" viewBox="0 0 58 58">
             <defs><linearGradient id="ragGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fb923c"/><stop offset="100%" stopColor="#ea580c"/></linearGradient></defs>
             <rect width="58" height="58" rx="15" fill="url(#ragGrad)"/>
@@ -94,11 +94,11 @@ export default function ChatbotHeroVisual() {
         </div>
 
         {/* ── Badges ── */}
-        <div style={{ position: "absolute", right: "4%", bottom: "28%", animation: "cb-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(192,80%,42%), hsl(192,70%,28%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,140,160,0.38)", whiteSpace: "nowrap" }}>GPT-4o</div>
-        <div style={{ position: "absolute", left: "2%", top: "36%", animation: "cb-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>RAG</div>
-        <div style={{ position: "absolute", right: "9%", top: "54%", animation: "cb-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>24/7</div>
-        <div style={{ position: "absolute", left: "28%", top: "3%", animation: "cb-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>{t("visuals.chatbot.badges.multilang")}</div>
-        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "cb-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>{t("visuals.chatbot.badges.autoRate")}</div>
+        <div style={{ position: "absolute", right: "8%", bottom: "30%", animation: "cb-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(192,80%,42%), hsl(192,70%,28%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,140,160,0.38)", whiteSpace: "nowrap" }}>GPT-4o</div>
+        <div style={{ position: "absolute", left: "6%", top: "38%", animation: "cb-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>RAG</div>
+        <div style={{ position: "absolute", right: "14%", top: "56%", animation: "cb-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>24/7</div>
+        <div style={{ position: "absolute", left: "30%", top: "6%", animation: "cb-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>{t("visuals.chatbot.badges.multilang")}</div>
+        <div style={{ position: "absolute", left: "22%", bottom: "6%", animation: "cb-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>{t("visuals.chatbot.badges.autoRate")}</div>
       </div>
     </div>
   );

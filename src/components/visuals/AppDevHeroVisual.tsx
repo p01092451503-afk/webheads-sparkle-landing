@@ -103,7 +103,7 @@ export default function AppDevHeroVisual() {
 
         {/* ── Floating: iOS icon ── */}
         <div style={{
-          position: "absolute", left: "8%", top: "10%",
+          position: "absolute", left: "14%", top: "14%",
           animation: "app-float-a 3.8s ease-in-out infinite",
           filter: "drop-shadow(0 12px 20px rgba(80,50,200,0.3))",
           width: 72, height: 72, borderRadius: 18,
@@ -115,7 +115,7 @@ export default function AppDevHeroVisual() {
 
         {/* ── Floating: Android icon ── */}
         <div style={{
-          position: "absolute", right: "6%", top: "8%",
+          position: "absolute", right: "12%", top: "12%",
           animation: "app-float-e 4.2s ease-in-out infinite", animationDelay: "0.8s",
           filter: "drop-shadow(0 12px 20px rgba(60,180,80,0.3))",
           width: 72, height: 72, borderRadius: 18,
@@ -126,7 +126,7 @@ export default function AppDevHeroVisual() {
         </div>
 
         {/* ── Floating: React Native badge ── */}
-        <div style={{ position: "absolute", left: "4%", bottom: "20%", animation: "app-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 10px 18px rgba(80,160,220,0.3))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "app-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 10px 18px rgba(80,160,220,0.3))" }}>
           <svg width="58" height="58" viewBox="0 0 58 58">
             <defs><linearGradient id="rnGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#38bdf8"/><stop offset="100%" stopColor="#0284c7"/></linearGradient></defs>
             <rect width="58" height="58" rx="15" fill="url(#rnGrad)"/>
@@ -138,11 +138,11 @@ export default function AppDevHeroVisual() {
         </div>
 
         {/* ── Badges ── */}
-        <div style={{ position: "absolute", right: "5%", bottom: "26%", animation: "app-float-b 3.6s ease-in-out infinite", animationDelay: "0.4s", background: "linear-gradient(135deg, hsl(245,80%,55%), hsl(245,70%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(80,50,200,0.38)", whiteSpace: "nowrap" }}>{t("visuals.appDev.badges.platform")}</div>
-        <div style={{ position: "absolute", left: "2%", top: "38%", animation: "app-float-d 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(200,80%,50%), hsl(200,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,130,220,0.35)" }}>{t("visuals.appDev.badges.flutter")}</div>
-        <div style={{ position: "absolute", right: "8%", top: "52%", animation: "app-float-a 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>{t("visuals.appDev.badges.push")}</div>
-        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "app-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>{t("visuals.appDev.badges.mvp")}</div>
-        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "app-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(30,160,90,0.35)" }}>{t("visuals.appDev.badges.lms")}</div>
+        <div style={{ position: "absolute", right: "8%", bottom: "28%", animation: "app-float-b 3.6s ease-in-out infinite", animationDelay: "0.4s", background: "linear-gradient(135deg, hsl(245,80%,55%), hsl(245,70%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(80,50,200,0.38)", whiteSpace: "nowrap" }}>{t("visuals.appDev.badges.platform")}</div>
+        <div style={{ position: "absolute", left: "6%", top: "40%", animation: "app-float-d 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(200,80%,50%), hsl(200,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,130,220,0.35)" }}>{t("visuals.appDev.badges.flutter")}</div>
+        <div style={{ position: "absolute", right: "12%", top: "54%", animation: "app-float-a 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>{t("visuals.appDev.badges.push")}</div>
+        <div style={{ position: "absolute", left: "30%", top: "6%", animation: "app-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>{t("visuals.appDev.badges.mvp")}</div>
+        <div style={{ position: "absolute", left: "22%", bottom: "6%", animation: "app-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(30,160,90,0.35)" }}>{t("visuals.appDev.badges.lms")}</div>
       </div>
     </div>
   );

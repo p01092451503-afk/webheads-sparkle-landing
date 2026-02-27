@@ -106,7 +106,7 @@ export default function HostingHeroVisual() {
 
         {/* ══ Floating Object 1: Globe / CDN ══ */}
         <div style={{
-          position: "absolute", left: "14%", top: "8%",
+          position: "absolute", left: "18%", top: "12%",
           animation: "float-a 3.8s ease-in-out infinite",
           filter: "drop-shadow(0 12px 20px rgba(30,80,200,0.28))",
         }}>
@@ -129,7 +129,7 @@ export default function HostingHeroVisual() {
 
         {/* ══ Floating Object 2: Shield ══ */}
         <div style={{
-          position: "absolute", right: "8%", top: "12%",
+          position: "absolute", right: "12%", top: "14%",
           animation: "float-e 4.2s ease-in-out infinite",
           animationDelay: "0.7s",
           filter: "drop-shadow(0 14px 22px rgba(30,180,100,0.3))",
@@ -153,7 +153,7 @@ export default function HostingHeroVisual() {
 
         {/* ══ Floating Object 3: Server Rack ══ */}
         <div style={{
-          position: "absolute", left: "6%", bottom: "18%",
+          position: "absolute", left: "10%", bottom: "22%",
           animation: "float-c 4.5s ease-in-out infinite",
           animationDelay: "1.2s",
           filter: "drop-shadow(0 16px 24px rgba(100,100,200,0.28))",
@@ -185,7 +185,7 @@ export default function HostingHeroVisual() {
 
         {/* 99.9% badge */}
         <div style={{
-          position: "absolute", right: "4%", bottom: "28%",
+          position: "absolute", right: "8%", bottom: "30%",
           animation: "float-badge2 3.6s ease-in-out infinite",
           animationDelay: "0.5s",
           background: "linear-gradient(135deg, hsl(214,90%,52%), hsl(214,80%,38%))",
@@ -200,7 +200,7 @@ export default function HostingHeroVisual() {
 
         {/* CDN badge */}
         <div style={{
-          position: "absolute", left: "2%", top: "34%",
+          position: "absolute", left: "6%", top: "36%",
           animation: "float-badge1 4.1s ease-in-out infinite",
           background: "linear-gradient(135deg, hsl(260,75%,60%), hsl(260,80%,42%))",
           color: "#fff",
@@ -212,7 +212,7 @@ export default function HostingHeroVisual() {
 
         {/* AWS badge */}
         <div style={{
-          position: "absolute", right: "10%", top: "54%",
+          position: "absolute", right: "14%", top: "56%",
           animation: "float-badge3 4.8s ease-in-out infinite",
           animationDelay: "1s",
           background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))",
@@ -225,7 +225,7 @@ export default function HostingHeroVisual() {
 
         {/* 24/7 badge */}
         <div style={{
-          position: "absolute", left: "28%", top: "4%",
+          position: "absolute", left: "30%", top: "6%",
           animation: "float-badge4 3.4s ease-in-out infinite",
           animationDelay: "0.3s",
           background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))",
@@ -238,7 +238,7 @@ export default function HostingHeroVisual() {
 
         {/* IDC badge */}
         <div style={{
-          position: "absolute", left: "20%", bottom: "4%",
+          position: "absolute", left: "22%", bottom: "6%",
           animation: "float-b 4.3s ease-in-out infinite",
           animationDelay: "0.9s",
           background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))",

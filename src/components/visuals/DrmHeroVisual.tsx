@@ -62,7 +62,7 @@ export default function DrmHeroVisual() {
         </div>
 
         {/* ── Floating: Fingerprint ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "drm-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,120,70,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "drm-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,120,70,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><linearGradient id="fpGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(152,80%,55%)"/><stop offset="100%" stopColor="hsl(152,70%,32%)"/></linearGradient></defs>
             <rect width="64" height="64" rx="17" fill="url(#fpGrad)"/>
@@ -75,7 +75,7 @@ export default function DrmHeroVisual() {
         </div>
 
         {/* ── Floating: Shield lock ── */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "drm-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(100,50,220,0.3))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "drm-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(100,50,220,0.3))" }}>
           <svg width="58" height="64" viewBox="0 0 58 64">
             <defs><linearGradient id="shGrad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#6d28d9"/></linearGradient></defs>
             <path d="M29 4 L52 16 L52 34 Q52 52 29 60 Q6 52 6 34 L6 16 Z" fill="url(#shGrad2)"/>
@@ -87,7 +87,7 @@ export default function DrmHeroVisual() {
         </div>
 
         {/* ── Floating: Camera off ── */}
-        <div style={{ position: "absolute", left: "5%", bottom: "20%", animation: "drm-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(220,50,50,0.28))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "drm-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(220,50,50,0.28))" }}>
           <svg width="60" height="60" viewBox="0 0 60 60">
             <defs><linearGradient id="camGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f87171"/><stop offset="100%" stopColor="#b91c1c"/></linearGradient></defs>
             <rect width="60" height="60" rx="16" fill="url(#camGrad)"/>
@@ -99,11 +99,11 @@ export default function DrmHeroVisual() {
         </div>
 
         {/* ── Badges ── */}
-        <div style={{ position: "absolute", right: "4%", bottom: "28%", animation: "drm-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(152,75%,38%), hsl(152,80%,25%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,120,70,0.38)" }}>AES-128</div>
-        <div style={{ position: "absolute", left: "2%", top: "36%", animation: "drm-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>Widevine</div>
-        <div style={{ position: "absolute", right: "9%", top: "54%", animation: "drm-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>{t("visuals.drm.badges.block")}</div>
-        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "drm-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>FairPlay</div>
-        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "drm-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>{t("visuals.drm.badges.watermark")}</div>
+        <div style={{ position: "absolute", right: "8%", bottom: "30%", animation: "drm-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(152,75%,38%), hsl(152,80%,25%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(20,120,70,0.38)" }}>AES-128</div>
+        <div style={{ position: "absolute", left: "6%", top: "38%", animation: "drm-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>Widevine</div>
+        <div style={{ position: "absolute", right: "14%", top: "56%", animation: "drm-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>{t("visuals.drm.badges.block")}</div>
+        <div style={{ position: "absolute", left: "30%", top: "6%", animation: "drm-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>FairPlay</div>
+        <div style={{ position: "absolute", left: "22%", bottom: "6%", animation: "drm-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>{t("visuals.drm.badges.watermark")}</div>
       </div>
     </div>
   );

@@ -63,7 +63,7 @@ export default function ChannelHeroVisual() {
         </div>
 
         {/* ── Floating: Bell icon ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "ch-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(200,120,20,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "ch-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(200,120,20,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><linearGradient id="bellGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fbbf24"/><stop offset="100%" stopColor="#b45309"/></linearGradient></defs>
             <rect width="64" height="64" rx="17" fill="url(#bellGrad)"/>
@@ -76,7 +76,7 @@ export default function ChannelHeroVisual() {
         </div>
 
         {/* ── Floating: Message icon ── */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "ch-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(250,200,10,0.3))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "ch-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(250,200,10,0.3))" }}>
           <svg width="62" height="62" viewBox="0 0 62 62">
             <defs><linearGradient id="msgGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#a78bfa"/><stop offset="100%" stopColor="#7c3aed"/></linearGradient></defs>
             <rect width="62" height="62" rx="16" fill="url(#msgGrad)"/>
@@ -87,7 +87,7 @@ export default function ChannelHeroVisual() {
         </div>
 
         {/* ── Floating: SMS phone ── */}
-        <div style={{ position: "absolute", left: "5%", bottom: "20%", animation: "ch-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(30,100,220,0.28))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "ch-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(30,100,220,0.28))" }}>
           <svg width="52" height="68" viewBox="0 0 52 68">
             <defs><linearGradient id="smsPhoneGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1d4ed8"/></linearGradient></defs>
             <rect x="4" y="2" width="44" height="64" rx="10" fill="url(#smsPhoneGrad)"/>
@@ -101,11 +101,11 @@ export default function ChannelHeroVisual() {
         </div>
 
         {/* ── Badges ── */}
-        <div style={{ position: "absolute", right: "4%", bottom: "28%", animation: "ch-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(40,85%,48%), hsl(35,90%,35%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(200,120,20,0.38)" }}>{t("visuals.channel.badges.bulkSms")}</div>
-        <div style={{ position: "absolute", left: "2%", top: "36%", animation: "ch-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>{t("visuals.channel.badges.reach")}</div>
-        <div style={{ position: "absolute", right: "9%", top: "54%", animation: "ch-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>{t("visuals.channel.badges.automation")}</div>
-        <div style={{ position: "absolute", left: "26%", top: "3%", animation: "ch-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>{t("visuals.channel.badges.channelTalk")}</div>
-        <div style={{ position: "absolute", left: "18%", bottom: "4%", animation: "ch-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>{t("visuals.channel.badges.alimtalk")}</div>
+        <div style={{ position: "absolute", right: "8%", bottom: "30%", animation: "ch-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(40,85%,48%), hsl(35,90%,35%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(200,120,20,0.38)" }}>{t("visuals.channel.badges.bulkSms")}</div>
+        <div style={{ position: "absolute", left: "6%", top: "38%", animation: "ch-float-a 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>{t("visuals.channel.badges.reach")}</div>
+        <div style={{ position: "absolute", right: "14%", top: "56%", animation: "ch-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(280,75%,58%), hsl(280,80%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(140,50,220,0.35)" }}>{t("visuals.channel.badges.automation")}</div>
+        <div style={{ position: "absolute", left: "30%", top: "6%", animation: "ch-float-e 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(214,80%,52%), hsl(214,80%,35%))", color: "#fff", borderRadius: 10, padding: "7px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>{t("visuals.channel.badges.channelTalk")}</div>
+        <div style={{ position: "absolute", left: "22%", bottom: "6%", animation: "ch-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>{t("visuals.channel.badges.alimtalk")}</div>
       </div>
     </div>
   );
