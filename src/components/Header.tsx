@@ -75,7 +75,7 @@ export default function Header() {
                     key={s.path}
                     to={s.path}
                     className={`
-                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
+                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-normal transition-all duration-200
                       ${showBlob
                         ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
                         : isLms && location.pathname !== "/lms"
@@ -133,7 +133,7 @@ export default function Header() {
                 <Link
                   key={s.path}
                   to={s.path}
-                  className={`inline-block w-fit px-3 py-2.5 text-sm font-semibold transition-colors ${
+                  className={`inline-block w-fit px-3 py-2.5 text-sm font-normal transition-colors ${
                     isActive
                       ? "text-white shadow-sm"
                       : isLms
