@@ -129,13 +129,13 @@ export default function LmsPage() {
             {stats.map((s: any) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
                 <span
-                  className="block leading-none mb-2 text-4xl md:text-5xl tracking-tight"
-                  style={{ color: "hsl(var(--lms-primary))", fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 400 }}
+                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
+                  style={{ color: "hsl(var(--lms-primary))" }}
                 >
                   {s.value}
                 </span>
-                <span className="block text-sm text-foreground mb-0.5" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 400 }}>{s.label}</span>
-                <span className="block text-xs text-muted-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 400 }}>{s.sub}</span>
+                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
+                <span className="block text-xs text-muted-foreground">{s.sub}</span>
               </div>
             ))}
           </div>

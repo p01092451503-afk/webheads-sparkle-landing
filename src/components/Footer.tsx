@@ -25,7 +25,7 @@ function FooterServiceLink({ to, label, isActive, blobColor }: { to: string; lab
       to={to}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`text-sm font-semibold inline-block px-3 py-1 transition-all duration-200 ${
+      className={`text-sm font-normal inline-block px-3 py-1 transition-all duration-200 ${
         showBlob ? "text-white" : "text-muted-foreground"
       }`}
       style={showBlob ? {
