@@ -1,19 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Pretendard:wght@300;400;500;600;700;800&display=swap');
-
-@font-face {
-  font-family: 'Toss Product Sans';
-  src: url('https://static.toss.im/assets/homepage/tossface/font/TossProductSans-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Toss Product Sans';
-  src: url('https://static.toss.im/assets/homepage/tossface/font/TossProductSans-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
 
 @tailwind base;
 @tailwind components;
@@ -140,13 +126,13 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Toss Product Sans', 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Toss Product Sans', 'Pretendard', 'Noto Sans KR', sans-serif;
+    font-family: 'Pretendard Variable', 'Pretendard', 'Noto Sans KR', sans-serif;
     font-weight: 700;
     letter-spacing: -0.03em;
   }
