@@ -361,7 +361,7 @@ export default function LmsPage() {
             <a
               href="#contact"
               className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, hsl(145, 60%, 38%), hsl(160, 70%, 45%))" }}
+              style={{ background: "hsl(145, 60%, 38%)" }}
             >
               {t("lms.kdt.cta")}
             </a>
