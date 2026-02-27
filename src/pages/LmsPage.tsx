@@ -174,7 +174,7 @@ export default function LmsPage() {
             >
               {t("lms.deviceSection.sub")}
             </p>
-            <h2 className="font-black leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
+            <h2 className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
             <p className="mt-4 text-base text-muted-foreground">{t("lms.deviceSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
