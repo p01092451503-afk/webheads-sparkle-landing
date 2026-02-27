@@ -9,12 +9,12 @@ const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev"
 // Solid colors per service for the organic blob nav indicator
 const serviceBlobColors: Record<string, string> = {
   "/lms": "hsl(250, 55%, 52%)",
-  "/hosting": "hsl(195, 55%, 45%)",
-  "/maintenance": "hsl(195, 55%, 45%)",
+  "/hosting": "hsl(250, 55%, 52%)",
+  "/maintenance": "hsl(250, 55%, 52%)",
   "/chatbot": "hsl(192, 50%, 42%)",
   "/app-dev": "hsl(192, 50%, 42%)",
   "/drm": "hsl(235, 45%, 48%)",
-  "/channel": "hsl(195, 55%, 45%)",
+  "/channel": "hsl(192, 50%, 42%)",
   "/pg": "hsl(235, 45%, 48%)",
   "/content": "hsl(235, 45%, 48%)",
 };
