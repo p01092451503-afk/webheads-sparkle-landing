@@ -80,8 +80,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link to="/admin" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
-                  Admin
+                <Link to="/admin/login" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
+                  관리자
                 </Link>
               </li>
             </ul>
