@@ -9,14 +9,6 @@ export default function ClientMarquee() {
 
   return (
     <section className="py-10 overflow-hidden" style={{ background: "var(--lms-page-bg)" }}>
-      <div className="container mx-auto px-6 mb-6">
-        <p
-          className="text-center text-xs font-bold tracking-[0.2em] uppercase"
-          style={{ color: "hsl(var(--muted-foreground))" }}
-        >
-          {title}
-        </p>
-      </div>
 
       <div className="relative">
         {/* Left/right fade masks */}
