@@ -435,7 +435,15 @@
       { "name": "H. Jang", "role": "Dev Team Lead", "org": "S e-Learning Company", "rating": 5, "date": "2024.09", "period": "6th year", "content": "Toss Payments integration took less than a week. They even set up subscription automation, eliminating our monthly manual work." },
       { "name": "S. Moon", "role": "Finance Manager", "org": "T Cyber University", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Auto-generated settlement reports mean no more Excel work for tax invoices and VAT filing." },
       { "name": "D. Shin", "role": "Business Director", "org": "U Global Education", "rating": 4, "date": "2024.11", "period": "4th year", "content": "International students had trouble paying until we added Stripe. Global revenue has noticeably increased." }
-    ]
+    ],
+    "processSection": { "sub": "PROCESS", "title": "How PG Payment\nIntegration Works", "desc": "From merchant contracts to settlement automation, we support the entire process." },
+    "processSteps": [
+      { "title": "Business Model Analysis", "desc": "We analyze your tuition structure, payment method needs, and international payment requirements to recommend optimal PGs.", "tag": "1-2 days" },
+      { "title": "PG Selection & Contract", "desc": "Sign merchant agreements with recommended PGs. We provide document guidance and contract consulting.", "tag": "3-7 days" },
+      { "title": "Payment Integration & Testing", "desc": "Integrate payment APIs with your LMS and verify all payment methods in the test environment.", "tag": "1-2 weeks" },
+      { "title": "Settlement & Operations", "desc": "Set up automated settlement reports, tax invoice integration, and refund policies.", "tag": "Ongoing" }
+    ],
+    "plansCustom": { "title": "Request Custom Quote", "desc": "We'll provide optimal commission rates based on monthly transaction volume, PGs used, and payment methods.", "cta": "Get a Quote" }
   },
   "content": {
     "seo": { "title": "Content Development", "description": "Professional production of video lectures, interactive content, 2D/3D animation, gamification, and more for e-learning.", "keywords": "e-learning content, video lectures, interactive content, gamification, mandatory training" },
