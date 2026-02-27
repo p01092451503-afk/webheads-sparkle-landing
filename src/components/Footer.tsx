@@ -63,9 +63,9 @@ export default function Footer() {
 
               {/* Time */}
               <div className="flex flex-col gap-2">
-                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.time")}</p>
-                <p className="text-[14px] font-medium text-foreground/70">{t("footer.hours")}</p>
-                <p className="text-[14px] text-foreground/70">{t("footer.days")}</p>
+                <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.time")}</p>
+                <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.hours")}</p>
+                <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.days")}</p>
               </div>
             </div>
           </div>
