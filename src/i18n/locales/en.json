@@ -1,6 +1,8 @@
 {
   "header": {
     "services": ["LMS", "Hosting", "Maintenance", "AI Chatbot", "Apps", "DRM", "Channel/SMS", "PG", "Content"],
+    "groups": ["Core Solution", "Dev & Infra", "Content & Security", "Integrations"],
+    "allServices": "All Services",
     "cta": "Contact Us",
     "logo": "Webheads"
   },
