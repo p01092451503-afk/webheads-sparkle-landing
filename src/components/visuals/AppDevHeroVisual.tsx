@@ -103,7 +103,7 @@ export default function AppDevHeroVisual() {
 
         {/* ── Floating: iOS icon ── */}
         <div style={{
-          position: "absolute", left: "8%", top: "10%",
+          position: "absolute", left: "14%", top: "14%",
           animation: "app-float-a 3.8s ease-in-out infinite",
           filter: "drop-shadow(0 12px 20px rgba(80,50,200,0.3))",
           width: 72, height: 72, borderRadius: 18,
