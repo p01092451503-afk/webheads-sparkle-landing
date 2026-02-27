@@ -70,10 +70,9 @@ export default function AdminLogin() {
         {/* Logo / Icon Area */}
         <div className="flex flex-col items-center mb-10">
           <div
-            className="w-16 h-16 rounded-[20px] flex items-center justify-center mb-5"
+            className="w-16 h-16 rounded-[20px] flex items-center justify-center mb-5 bg-primary"
             style={{
-              background: "linear-gradient(135deg, hsl(214, 90%, 52%) 0%, hsl(192, 90%, 55%) 100%)",
-              boxShadow: "0 8px 28px -4px hsl(214 90% 52% / 0.4)",
+              boxShadow: "0 8px 28px -4px hsl(var(--primary) / 0.4)",
             }}
           >
             <Shield className="w-8 h-8 text-white" />
