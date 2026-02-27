@@ -238,7 +238,7 @@ export default function HostingHeroVisual() {
 
         {/* IDC badge */}
         <div style={{
-          position: "absolute", left: "20%", bottom: "4%",
+          position: "absolute", left: "22%", bottom: "6%",
           animation: "float-b 4.3s ease-in-out infinite",
           animationDelay: "0.9s",
           background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))",
