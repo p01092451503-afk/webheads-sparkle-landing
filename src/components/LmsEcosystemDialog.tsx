@@ -180,7 +180,7 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
         {/* Service cards with SVG illustrations */}
         <div className="px-8 pt-6 pb-2">
           <p className="text-xs font-bold text-muted-foreground tracking-widest uppercase mb-4">{t("lms.ecosystem.servicesTitle")}</p>
-          <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
             {serviceConfig.map((svc, i) => {
               const data = services?.[i];
               if (!data) return null;
@@ -189,29 +189,29 @@ export default function LmsEcosystemDialog({ open, onOpenChange }: { open: boole
                 <button
                   key={svc.key}
                   onClick={() => { onOpenChange(false); navigate(svc.path); }}
-                  className="text-left rounded-2xl p-5 bg-background border border-border/60 hover:border-border hover:shadow-md transition-all duration-200 group cursor-pointer"
+                  className="text-left rounded-2xl p-6 bg-background border border-border/60 hover:border-border hover:shadow-md transition-all duration-200 group cursor-pointer"
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-5">
                     {/* SVG illustration */}
                     <div
-                      className="w-[52px] h-[52px] rounded-2xl flex items-center justify-center shrink-0"
+                      className="w-[60px] h-[60px] rounded-2xl flex items-center justify-center shrink-0"
                       style={{ background: svc.bg }}
                     >
                       {Illustration && <Illustration color={svc.accent} />}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <h4 className="font-extrabold text-[0.95rem] text-foreground">{data.name}</h4>
+                      <div className="flex items-center gap-2 mb-2">
+                        <h4 className="font-extrabold text-[1rem] text-foreground leading-snug">{data.name}</h4>
                         <ArrowRight className="w-3.5 h-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity ml-auto shrink-0" />
                       </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
-                        <span className="font-semibold text-foreground/70">{data.problem}</span>
+                      <p className="text-[0.875rem] text-muted-foreground/80 leading-relaxed mb-2.5" style={{ wordBreak: "keep-all" }}>
+                        {data.problem}
                       </p>
-                      <p className="text-sm leading-relaxed" style={{ color: svc.accent, fontWeight: 600, wordBreak: "keep-all" }}>
+                      <p className="text-[0.875rem] leading-relaxed font-semibold" style={{ color: svc.accent, wordBreak: "keep-all" }}>
                         → {data.solution}
                       </p>
                       {data.detail && (
-                        <p className="text-[0.8rem] text-muted-foreground leading-relaxed mt-1.5" style={{ wordBreak: "keep-all" }}>
+                        <p className="text-[0.8rem] text-muted-foreground/70 leading-[1.7] mt-3 pt-3 border-t border-border/40" style={{ wordBreak: "keep-all" }}>
                           {data.detail}
                         </p>
                       )}
