@@ -91,7 +91,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           {/* Left: Contact Info — compact single column */}
           <div className="lg:col-span-2 flex flex-col gap-3">
             {/* Phone numbers — inline compact */}
-            <div className="rounded-xl p-5 bg-card border border-border hover:border-primary/20 transition-all">
+            <div className="p-5 bg-card border border-border hover:border-primary/20 transition-all">
               <div className="flex items-stretch gap-0 divide-x divide-border">
                 <div className="flex-1 pr-4 min-w-0">
                   <p className="text-[0.6rem] font-semibold mb-1.5 uppercase tracking-wider text-muted-foreground">
@@ -121,7 +121,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             </div>
 
             {/* Email — compact */}
-            <div className="rounded-xl p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
+            <div className="p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-primary/10">
                 <Mail className="w-4.5 h-4.5 text-primary" />
               </div>
@@ -142,7 +142,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             </div>
 
             {/* Business hours — compact */}
-            <div className="rounded-xl p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
+            <div className="p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-primary/10">
                 <Clock className="w-4.5 h-4.5 text-primary" />
               </div>
@@ -163,7 +163,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           {/* Right: Form — compact */}
           <div className="lg:col-span-3">
             {submitted ? (
-              <div className="rounded-2xl p-10 flex flex-col items-center justify-center text-center gap-3 min-h-[420px] bg-card border border-border shadow-sm">
+              <div className="p-10 flex flex-col items-center justify-center text-center gap-3 min-h-[420px] bg-card border border-border shadow-sm">
                 <div
                   className="w-14 h-14 rounded-xl flex items-center justify-center mb-1"
                   style={{
@@ -189,7 +189,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="rounded-2xl p-6 lg:p-8 flex flex-col gap-4 bg-card border border-border shadow-sm"
+                className="p-6 lg:p-8 flex flex-col gap-4 bg-card border border-border shadow-sm"
               >
                 {showDemo && (
                   <div className="flex rounded-lg p-1 gap-1 bg-muted">
