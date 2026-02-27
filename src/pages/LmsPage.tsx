@@ -218,7 +218,7 @@ export default function LmsPage() {
               <a
                 href="#contact"
                 className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
-                style={{ background: "linear-gradient(135deg, hsl(245, 58%, 55%), hsl(195, 80%, 50%))" }}
+                style={{ background: "hsl(245, 58%, 55%)" }}
               >
                 {t("lms.cloud.cta")}
               </a>
