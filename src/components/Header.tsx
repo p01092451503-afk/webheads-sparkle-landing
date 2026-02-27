@@ -65,24 +65,24 @@ export default function Header() {
 
             {/* Desktop Nav — all services inline */}
             <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1">
-              {services.map((s, i) => {
+              {services.map((s) => {
                 const isActive = location.pathname === s.path;
-                const isLms = i === 0;
+                const isLms = s.path === "/lms";
+                const blobColor = serviceBlobColors[s.path];
+                const showBlob = isLms || isActive;
                 return (
                   <Link
                     key={s.path}
                     to={s.path}
                     className={`
                       relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
-                      ${isLms
-                        ? "text-white shadow-sm hover:scale-[1.03] mr-3"
-                        : isActive
-                          ? "text-[hsl(230,25%,15%)] rounded-lg"
-                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                      ${showBlob
+                        ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
+                        : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                       }
                     `}
-                    style={isLms ? {
-                      background: "linear-gradient(135deg, hsl(250,55%,52%), hsl(230,70%,48%))",
+                    style={showBlob ? {
+                      background: blobColor,
                       borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
                     } : undefined}
                   >
