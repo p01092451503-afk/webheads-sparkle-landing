@@ -37,7 +37,7 @@ export default function ChannelPage() {
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("channel.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">{t("channel.hero.title")}<br /><span className="text-primary">{t("channel.hero.titleHighlight")}</span></h1>
+            <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">{t("channel.hero.title")}<br /><span className="text-primary">{t("channel.hero.titleHighlight")}</span></h1>
             <p className="text-lg leading-relaxed mb-8 max-w-md text-muted-foreground">{t("channel.hero.desc")}</p>
             <div className="flex gap-3 flex-wrap">
               <a href="#contact" className="px-7 py-3.5 rounded-2xl font-bold text-sm transition-colors hover:bg-primary/90 bg-primary text-primary-foreground">{t("channel.hero.cta1")}</a>
@@ -51,7 +51,7 @@ export default function ChannelPage() {
       <section className="py-24 bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-3 gap-0 divide-x divide-border">
-            {stats.map((s: any) => (<div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center"><span className="block font-black leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span><span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span><span className="block text-xs text-muted-foreground">{s.sub}</span></div>))}
+            {stats.map((s: any) => (<div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center"><span className="block font-bold leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span><span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span><span className="block text-xs text-muted-foreground">{s.sub}</span></div>))}
           </div>
         </div>
       </section>
@@ -61,7 +61,7 @@ export default function ChannelPage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("channel.featuresSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("channel.featuresSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("channel.featuresSection.title")}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {features.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
@@ -76,7 +76,7 @@ export default function ChannelPage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("channel.useCasesSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("channel.useCasesSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("channel.useCasesSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("channel.useCasesSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -97,7 +97,7 @@ export default function ChannelPage() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="rounded-3xl border border-border bg-secondary p-10 text-center">
-            <h3 className="font-black text-2xl text-foreground mb-3">{t("channel.plansCustom.title")}</h3>
+            <h3 className="font-bold text-2xl text-foreground mb-3">{t("channel.plansCustom.title")}</h3>
             <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">{t("channel.plansCustom.desc")}</p>
             <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("channel.plansCustom.cta")}</a>
           </div>

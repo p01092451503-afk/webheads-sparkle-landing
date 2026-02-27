@@ -78,7 +78,7 @@ export default function MaintenancePage() {
         <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("maintenance.hero.badge")}</span>
-            <h1 className="text-4xl lg:text-[3.2rem] font-black leading-tight mb-5 tracking-tight text-foreground">
+            <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">
               {t("maintenance.hero.title")}<br />
               <span className="text-primary">{t("maintenance.hero.titleHighlight")}</span>
             </h1>
@@ -99,7 +99,7 @@ export default function MaintenancePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
             {stats.map((s: any) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
-                <span className="block font-black leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span>
+                <span className="block font-bold leading-none mb-2 text-4xl md:text-5xl text-foreground tracking-tight">{s.value}</span>
                 <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
                 <span className="block text-xs text-muted-foreground">{s.sub}</span>
               </div>
@@ -114,7 +114,7 @@ export default function MaintenancePage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("maintenance.featuresSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
               {t("maintenance.featuresSection.title")}
             </h2>
             <p className="text-muted-foreground mt-4 text-base">
@@ -149,7 +149,7 @@ export default function MaintenancePage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("maintenance.plansSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
               {t("maintenance.plansSection.title")}
             </h2>
           </div>
@@ -168,12 +168,12 @@ export default function MaintenancePage() {
                 )}
                 <div className="p-8 flex flex-col gap-5 flex-1">
                   <div>
-                    <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3>
+                    <h3 className={`font-bold text-3xl tracking-tight ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.name}</h3>
                     <div className={`h-px mt-4 ${plan.highlight ? "bg-primary/20" : "bg-border"}`} />
                   </div>
                   <div>
                     <div className="flex items-end gap-1">
-                      <span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>
+                      <span className={`font-bold leading-none tracking-tight text-4xl ${plan.highlight ? "text-primary" : "text-foreground"}`}>{plan.price}</span>
                       {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
                     </div>
                     {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}

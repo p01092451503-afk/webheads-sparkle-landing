@@ -88,7 +88,7 @@ export default function LmsPage() {
               {t("lms.hero.badge")}
             </span>
             <h1
-              className="text-4xl lg:text-[3.4rem] font-black leading-[1.1] mb-5 tracking-tight"
+              className="text-4xl lg:text-[3.4rem] font-bold leading-[1.1] mb-5 tracking-tight"
               style={{ color: "hsl(var(--foreground))", wordBreak: "keep-all" }}
             >
               {t("lms.hero.title")}
@@ -145,13 +145,13 @@ export default function LmsPage() {
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--lms-gradient)" }} />
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="font-black text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
+            <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
             {stats.map((s: any) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
                 <span
-                  className="block font-black leading-none mb-2 text-4xl md:text-5xl tracking-tight bg-clip-text text-transparent"
+                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight bg-clip-text text-transparent"
                   style={{ backgroundImage: "var(--lms-gradient)" }}
                 >
                   {s.value}
@@ -174,7 +174,7 @@ export default function LmsPage() {
             >
               {t("lms.deviceSection.sub")}
             </p>
-            <h2 className="font-black leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
+            <h2 className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
             <p className="mt-4 text-base text-muted-foreground">{t("lms.deviceSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -207,7 +207,7 @@ export default function LmsPage() {
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -220,7 +220,7 @@ export default function LmsPage() {
                   <Cloud className="w-6 h-6" style={{ color: "hsl(245, 58%, 55%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
                   <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(245, 58%, 55%)" }}>{t("lms.cloud.subtitle")}</p>
                 </div>
               </div>
@@ -256,7 +256,7 @@ export default function LmsPage() {
                   <Server className="w-6 h-6" style={{ color: "hsl(215, 65%, 48%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.neo.name")}</h3>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.neo.name")}</h3>
                   <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(215, 65%, 48%)" }}>{t("lms.neo.subtitle")}</p>
                 </div>
               </div>
@@ -292,7 +292,7 @@ export default function LmsPage() {
                   <Sparkles className="w-6 h-6" style={{ color: "hsl(170, 55%, 38%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
                   <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(170, 55%, 38%)" }}>{t("lms.saas.subtitle")}</p>
                 </div>
               </div>
@@ -322,7 +322,7 @@ export default function LmsPage() {
 
           {/* HTML Comparison Table for AIO */}
           <div className="mt-12">
-            <h3 className="font-black text-foreground text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
+            <h3 className="font-bold text-foreground text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
             <p className="text-muted-foreground text-sm mb-8">{t("lms.comparisonTable.desc")}</p>
             <div className="rounded-2xl border border-border overflow-hidden bg-background">
               <div className="overflow-x-auto">
@@ -363,7 +363,7 @@ export default function LmsPage() {
                 <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
               </div>
               <div>
-                <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.kdt.name")}</h3>
+                <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.kdt.name")}</h3>
                 <p className="text-xs text-muted-foreground">{t("lms.kdt.subtitle")}</p>
               </div>
             </div>
@@ -397,7 +397,7 @@ export default function LmsPage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {allInOneFeatures.map((f: any, i: number) => {
@@ -428,7 +428,7 @@ export default function LmsPage() {
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.aiSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -453,7 +453,7 @@ export default function LmsPage() {
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.plansSection.sub")}</p>
-            <h2 className="font-black text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.plansSection.title")}</h2>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.plansSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("lms.plansSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
@@ -466,7 +466,7 @@ export default function LmsPage() {
                 )}
                 <div className="p-8 flex flex-col gap-5 flex-1">
                   <div>
-                    <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
+                    <h3 className={`font-bold text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
                     {plan.solutionType && (
                       <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide">{plan.solutionType}</p>
                     )}
@@ -474,7 +474,7 @@ export default function LmsPage() {
                   </div>
                   <div>
                     <div className="flex items-end gap-1">
-                      <span className={`font-black leading-none tracking-tight text-4xl ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.price}</span>
+                      <span className={`font-bold leading-none tracking-tight text-4xl ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.price}</span>
                       {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
                     </div>
                     {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
