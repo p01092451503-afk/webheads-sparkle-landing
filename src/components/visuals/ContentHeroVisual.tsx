@@ -101,7 +101,7 @@ export default function ContentHeroVisual() {
         </div>
 
         {/* ── Floating: 3D box ── */}
-        <div style={{ position: "absolute", left: "5%", bottom: "20%", animation: "ct-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(200,80,20,0.28))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "ct-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(200,80,20,0.28))" }}>
           <svg width="60" height="60" viewBox="0 0 60 60">
             <defs>
               <linearGradient id="box3dTop" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(25,90%,70%)"/><stop offset="100%" stopColor="hsl(25,85%,55%)"/></linearGradient>
