@@ -292,7 +292,7 @@ export default function LmsPage() {
                   <Sparkles className="w-6 h-6" style={{ color: "hsl(170, 55%, 38%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-black text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
                   <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(170, 55%, 38%)" }}>{t("lms.saas.subtitle")}</p>
                 </div>
               </div>
