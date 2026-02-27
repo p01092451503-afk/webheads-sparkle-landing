@@ -40,14 +40,13 @@ export default function LanguageSwitcher() {
             <button
               key={lang.code}
               onClick={() => { i18n.changeLanguage(lang.code); setOpen(false); }}
-              className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 transition-colors ${
+              className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                 lang.code === i18n.language
-                  ? "bg-primary/10 text-primary font-semibold"
+                  ? "bg-secondary text-foreground font-semibold"
                   : "text-muted-foreground hover:bg-secondary hover:text-foreground"
               }`}
             >
-              <span>{lang.flag}</span>
-              <span>{lang.label}</span>
+              {lang.label}
             </button>
           ))}
         </div>
