@@ -145,7 +145,7 @@ export default function LmsPage() {
         <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "var(--lms-gradient)" }} />
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="font-black text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
+            <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
             {stats.map((s: any) => (
