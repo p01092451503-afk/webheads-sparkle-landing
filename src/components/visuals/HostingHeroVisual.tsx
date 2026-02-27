@@ -225,7 +225,7 @@ export default function HostingHeroVisual() {
 
         {/* 24/7 badge */}
         <div style={{
-          position: "absolute", left: "28%", top: "4%",
+          position: "absolute", left: "30%", top: "6%",
           animation: "float-badge4 3.4s ease-in-out infinite",
           animationDelay: "0.3s",
           background: "linear-gradient(135deg, hsl(152,70%,40%), hsl(152,80%,28%))",
