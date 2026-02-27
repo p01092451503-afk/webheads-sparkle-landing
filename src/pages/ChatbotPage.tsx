@@ -28,7 +28,7 @@ export default function ChatbotPage() {
       <SEO title={t("chatbot.seo.title")} description={t("chatbot.seo.description")} keywords={t("chatbot.seo.keywords")} path="/chatbot" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("chatbot.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("chatbot.seo.description"), "areaServed": "KR", "serviceType": t("chatbot.seo.title"), "url": "https://service.webheads.co.kr/chatbot" }} faqJsonLd={faqs} />
 
       {/* Hero */}
-      <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--chatbot-hero-bg)" }}>
+      <section className="relative flex items-center pt-20 pb-6 overflow-hidden" style={{ background: "var(--chatbot-hero-bg)" }}>
         <HeroAbstractBg variant="chatbot" />
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(190, 75%, 50%, 0.18) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsl(185, 65%, 55%, 0.1) 0%, transparent 70%)" }} />
