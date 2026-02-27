@@ -81,7 +81,7 @@ export default function PgHeroVisual() {
         </div>
 
         {/* ── Floating: Globe ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "pg-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,80,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "pg-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(20,140,80,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><radialGradient id="pgGlobeGrad" cx="38%" cy="32%"><stop offset="0%" stopColor="hsl(152,80%,65%)"/><stop offset="100%" stopColor="hsl(152,70%,35%)"/></radialGradient></defs>
             <circle cx="32" cy="32" r="28" fill="url(#pgGlobeGrad)"/>
