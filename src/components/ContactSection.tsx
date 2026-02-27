@@ -142,7 +142,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             </div>
 
             {/* Business hours — compact */}
-            <div className="p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
+            <div className="rounded-lg p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-primary/10">
                 <Clock className="w-4.5 h-4.5 text-primary" />
               </div>
