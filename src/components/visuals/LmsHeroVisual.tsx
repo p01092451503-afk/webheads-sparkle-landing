@@ -103,7 +103,7 @@ export default function LmsHeroVisual() {
         </div>
 
         {/* ══ Floating: Graduation Cap ══ */}
-        <div style={{ position: "absolute", left: "16%", top: "10%", animation: "lms-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(120,60,220,0.28))" }}>
+        <div style={{ position: "absolute", left: "8%", top: "4%", animation: "lms-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(120,60,220,0.28))" }}>
           <svg width="68" height="68" viewBox="0 0 68 68">
             <defs><linearGradient id="capGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(260,80%,65%)"/><stop offset="100%" stopColor="hsl(260,80%,40%)"/></linearGradient></defs>
             <polygon points="34,12 60,28 34,44 8,28" fill="url(#capGrad)"/>
@@ -114,7 +114,7 @@ export default function LmsHeroVisual() {
         </div>
 
         {/* ══ Floating: Play Button ══ */}
-        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "lms-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(60,130,220,0.3))" }}>
+        <div style={{ position: "absolute", right: "4%", top: "6%", animation: "lms-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(60,130,220,0.3))" }}>
           <svg width="60" height="60" viewBox="0 0 60 60">
             <defs><linearGradient id="playGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(214,90%,60%)"/><stop offset="100%" stopColor="hsl(214,80%,38%)"/></linearGradient></defs>
             <rect x="4" y="8" width="52" height="36" rx="8" fill="url(#playGrad)"/>
@@ -125,7 +125,7 @@ export default function LmsHeroVisual() {
         </div>
 
         {/* ══ Floating: Book ══ */}
-        <div style={{ position: "absolute", left: "10%", bottom: "20%", animation: "lms-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(100,60,200,0.28))" }}>
+        <div style={{ position: "absolute", left: "2%", bottom: "14%", animation: "lms-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(100,60,200,0.28))" }}>
           <svg width="56" height="64" viewBox="0 0 56 64">
             <defs><linearGradient id="bookGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="hsl(45,90%,65%)"/><stop offset="100%" stopColor="hsl(35,90%,50%)"/></linearGradient></defs>
             <rect x="8" y="4" width="40" height="52" rx="4" fill="url(#bookGrad)"/>
@@ -139,11 +139,11 @@ export default function LmsHeroVisual() {
         </div>
 
         {/* ══ Badges ══ */}
-        <div style={{ position: "absolute", right: "8%", bottom: "28%", animation: "lms-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(260,80%,60%), hsl(260,70%,42%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(120,60,220,0.35)", whiteSpace: "nowrap" }}>AI <span style={{ fontSize: 9, fontWeight: 500, opacity: 0.8 }}>Tutor</span></div>
-        <div style={{ position: "absolute", left: "6%", top: "38%", animation: "lms-float-d 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(152,70%,45%), hsl(152,80%,30%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>300+</div>
-        <div style={{ position: "absolute", right: "14%", top: "54%", animation: "lms-float-a 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>{t("visuals.lms.badges.openDays")}</div>
-        <div style={{ position: "absolute", left: "30%", top: "6%", animation: "lms-float-d 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(214,90%,52%), hsl(214,80%,38%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>11 Languages</div>
-        <div style={{ position: "absolute", left: "22%", bottom: "6%", animation: "lms-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>DRM</div>
+        <div style={{ position: "absolute", right: "0%", bottom: "22%", animation: "lms-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(260,80%,60%), hsl(260,70%,42%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(120,60,220,0.35)", whiteSpace: "nowrap" }}>AI <span style={{ fontSize: 9, fontWeight: 500, opacity: 0.8 }}>Tutor</span></div>
+        <div style={{ position: "absolute", left: "-2%", top: "34%", animation: "lms-float-d 4.1s ease-in-out infinite", background: "linear-gradient(135deg, hsl(152,70%,45%), hsl(152,80%,30%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 14, boxShadow: "0 10px 24px rgba(30,160,90,0.35)" }}>300+</div>
+        <div style={{ position: "absolute", right: "6%", top: "52%", animation: "lms-float-a 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(35,90%,55%), hsl(25,90%,45%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(220,120,30,0.35)" }}>{t("visuals.lms.badges.openDays")}</div>
+        <div style={{ position: "absolute", left: "24%", top: "-2%", animation: "lms-float-d 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(214,90%,52%), hsl(214,80%,38%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 12, boxShadow: "0 10px 24px rgba(30,80,200,0.35)" }}>11 Languages</div>
+        <div style={{ position: "absolute", left: "16%", bottom: "-2%", animation: "lms-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,70%,55%), hsl(0,80%,40%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.35)" }}>DRM</div>
       </div>
     </div>
   );
