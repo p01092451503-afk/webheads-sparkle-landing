@@ -78,11 +78,16 @@ export default function Header() {
                       relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
                       ${showBlob
                         ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
-                        : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                        : isLms && location.pathname !== "/lms"
+                          ? "text-[hsl(250,30%,55%)] hover:scale-[1.03] mr-3"
+                          : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                       }
                     `}
                     style={showBlob ? {
                       background: blobColor,
+                      borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
+                    } : isLms && location.pathname !== "/lms" ? {
+                      background: "hsl(250, 20%, 82%)",
                       borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
                     } : undefined}
                   >
@@ -131,10 +136,15 @@ export default function Header() {
                   className={`inline-block w-fit px-3 py-2.5 text-sm font-semibold transition-colors ${
                     isActive
                       ? "text-white shadow-sm"
-                      : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                      : isLms
+                        ? "text-[hsl(250,30%,55%)]"
+                        : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                   }`}
                   style={isActive ? {
                     background: blobColor,
+                    borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
+                  } : isLms ? {
+                    background: "hsl(250, 20%, 82%)",
                     borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
                   } : undefined}
                 >
