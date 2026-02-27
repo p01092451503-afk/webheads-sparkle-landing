@@ -92,8 +92,20 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav — all services inline */}
-            <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1">
-              {services.map((s) => {
+            <nav ref={navRef} className="hidden lg:flex items-center justify-center gap-0.5 flex-1 relative">
+              {line && (
+                <svg className="absolute inset-0 pointer-events-none z-0" style={{ overflow: 'visible' }}>
+                  <line
+                    x1={line.x1} y1={line.y1}
+                    x2={line.x2} y2={line.y2}
+                    stroke={serviceBlobColors[location.pathname] || "hsl(250,55%,52%)"}
+                    strokeWidth={2}
+                    strokeDasharray="6 4"
+                    opacity={0.45}
+                  />
+                </svg>
+              )}
+              {services.map((s, i) => {
                 const isActive = location.pathname === s.path;
                 const isLms = s.path === "/lms";
                 const blobColor = serviceBlobColors[s.path];
@@ -102,11 +114,12 @@ export default function Header() {
                   <Link
                     key={s.path}
                     to={s.path}
+                    ref={(el) => { linkRefs.current[i] = el; }}
                     className={`
-                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
+                      relative z-10 whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-semibold transition-all duration-200
                       ${showBlob
                         ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
-                        : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                        : "text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg"
                       }
                     `}
                     style={showBlob ? {
