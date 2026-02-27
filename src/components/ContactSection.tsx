@@ -121,7 +121,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             </div>
 
             {/* Email — compact */}
-            <div className="rounded-xl p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
+            <div className="p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
               <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-primary/10">
                 <Mail className="w-4.5 h-4.5 text-primary" />
               </div>
