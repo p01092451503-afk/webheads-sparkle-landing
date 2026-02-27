@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription
 } from "@/components/ui/dialog";
-import { Server, Video, ShieldCheck, Bot, Smartphone, CreditCard, MessageSquareMore, Wrench } from "lucide-react";
+import { Server, Video, ShieldCheck, Bot, Smartphone, CreditCard, MessageSquareMore, Wrench, LayoutDashboard, Puzzle, Rocket } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
 
