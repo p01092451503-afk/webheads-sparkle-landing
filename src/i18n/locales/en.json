@@ -379,7 +379,15 @@
       { "name": "S. Baek", "role": "Education Operations Manager", "org": "J Vocational Training", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "Setting up auto-SMS for non-completers noticeably increased our completion rates." },
       { "name": "N. Kwon", "role": "CS Team Lead", "org": "K Cyber University", "rating": 5, "date": "2025.01", "period": "8th year", "content": "After Channel Talk integration, our agents can see learner enrollment status instantly. Support time was cut by more than half." },
       { "name": "J. Yoo", "role": "Marketing Lead", "org": "L e-Learning Company", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "Switching to KakaoTalk alerts significantly reduced messaging costs, and click-through rates are much higher than SMS." }
-    ]
+    ],
+    "processSection": { "sub": "PROCESS", "title": "How Channel/SMS\nIntegration Works", "desc": "From LMS integration to automation setup, our dedicated engineers support every step." },
+    "processSteps": [
+      { "title": "Requirements Analysis", "desc": "We analyze your current communication channels, learner volume, and automation needs.", "tag": "1-2 days" },
+      { "title": "Channel Setup & Integration", "desc": "Create Channel Talk account, register SMS sender numbers, and connect LMS data.", "tag": "3-5 days" },
+      { "title": "Automation Setup", "desc": "Configure auto-send scenarios for learning reminders, completion notices, and surveys.", "tag": "1-2 weeks" },
+      { "title": "Operations & Optimization", "desc": "Continuously optimize message content and delivery conditions based on performance analytics.", "tag": "Ongoing" }
+    ],
+    "plansCustom": { "title": "Request Custom Quote", "desc": "We'll provide optimal pricing based on learner count, monthly message volume, and channels used.", "cta": "Get a Quote" }
   },
   "pg": {
     "seo": { "title": "PG Payment Integration", "description": "Optimized payment integration for e-learning platforms with Toss Payments, KG Inicis, Mobilians, PayTeacher, and global PGs.", "keywords": "PG payment, e-learning payment, Toss Payments, KG Inicis, online payment integration" },
