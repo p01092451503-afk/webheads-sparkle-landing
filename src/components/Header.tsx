@@ -133,7 +133,7 @@ export default function Header() {
                 <Link
                   key={s.path}
                   to={s.path}
-                  className={`inline-block w-fit px-3 py-2.5 text-sm font-semibold transition-colors ${
+                  className={`inline-block w-fit px-3 py-2.5 text-sm font-normal transition-colors ${
                     isActive
                       ? "text-white shadow-sm"
                       : isLms
