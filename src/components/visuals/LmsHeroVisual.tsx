@@ -103,7 +103,7 @@ export default function LmsHeroVisual() {
         </div>
 
         {/* ══ Floating: Graduation Cap ══ */}
-        <div style={{ position: "absolute", left: "10%", top: "6%", animation: "lms-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(120,60,220,0.28))" }}>
+        <div style={{ position: "absolute", left: "16%", top: "10%", animation: "lms-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(120,60,220,0.28))" }}>
           <svg width="68" height="68" viewBox="0 0 68 68">
             <defs><linearGradient id="capGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(260,80%,65%)"/><stop offset="100%" stopColor="hsl(260,80%,40%)"/></linearGradient></defs>
             <polygon points="34,12 60,28 34,44 8,28" fill="url(#capGrad)"/>
