@@ -25,7 +25,7 @@ function FooterServiceLink({ to, label, isActive, blobColor }: { to: string; lab
       to={to}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`text-sm font-semibold inline-block px-3 py-1 transition-all duration-200 ${
+      className={`text-sm font-normal inline-block px-3 py-1 transition-all duration-200 ${
         showBlob ? "text-white" : "text-muted-foreground"
       }`}
       style={showBlob ? {
@@ -55,37 +55,37 @@ export default function Footer() {
             <div className="flex flex-col gap-6">
               {/* Company */}
               <div className="flex flex-col gap-2">
-                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.company")}</p>
-                <p className="text-[14px] leading-[1.7] font-medium text-foreground/70">{t("footer.address")}</p>
-                <p className="text-[14px] font-medium text-foreground/70">{t("footer.privacy")}</p>
-                <p className="text-[14px] font-medium text-foreground/70">{t("footer.phoneLabel")}</p>
+                <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.company")}</p>
+                <p className="text-[14px] leading-[1.7] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.address")}</p>
+                <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.privacy")}</p>
+                <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.phoneLabel")}</p>
               </div>
 
               {/* Time */}
               <div className="flex flex-col gap-2">
-                <p className="text-[11px] font-bold tracking-[0.15em] uppercase text-foreground/40">{t("footer.time")}</p>
-                <p className="text-[14px] font-medium text-foreground/70">{t("footer.hours")}</p>
-                <p className="text-[14px] text-foreground/70">{t("footer.days")}</p>
+                <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.time")}</p>
+                <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.hours")}</p>
+                <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.days")}</p>
               </div>
             </div>
           </div>
           <div>
-            <p className="text-xs font-bold tracking-widest uppercase mb-5 text-foreground">{t("footer.links")}</p>
+            <p className="text-xs font-normal tracking-widest uppercase mb-5 text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.links")}</p>
             <ul className="flex flex-col gap-1.5">
               <li>
-                <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
+                <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-normal flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
                   <Home className="w-3.5 h-3.5" /> HOME
                 </a>
               </li>
               <li>
-                <Link to="/admin/login" className="text-sm font-medium flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground">
+                <Link to="/admin/login" className="text-sm font-normal flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
                   <ShieldCheck className="w-3.5 h-3.5" /> 관리자
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <p className="text-xs font-bold tracking-widest uppercase mb-5 text-foreground">Services</p>
+            <p className="text-xs font-normal tracking-widest uppercase mb-5 text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>Services</p>
             <ul className="flex flex-col gap-1.5">
               {serviceLabels.map((label, i) => {
                 const isActive = location.pathname === servicePaths[i];
@@ -102,7 +102,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-border">
         <div className="container mx-auto px-6 max-w-5xl py-5 flex items-center justify-center">
-          <p className="text-xs text-muted-foreground">{t("footer.copyright")}</p>
+          <p className="text-xs text-muted-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 400 }}>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>
