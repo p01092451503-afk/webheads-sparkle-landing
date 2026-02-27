@@ -93,7 +93,7 @@ export default function PgHeroVisual() {
         </div>
 
         {/* ── Floating: PayPal-style icon ── */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", animation: "pg-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(30,80,200,0.3))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "pg-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 12px 20px rgba(30,80,200,0.3))" }}>
           <svg width="62" height="62" viewBox="0 0 62 62">
             <defs><linearGradient id="ppGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#60a5fa"/><stop offset="100%" stopColor="#1e40af"/></linearGradient></defs>
             <rect width="62" height="62" rx="16" fill="url(#ppGrad)"/>
