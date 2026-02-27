@@ -35,7 +35,7 @@ export default function AppDevPage() {
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
           <div className="relative w-full h-full max-w-[900px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><AppDevHeroVisual /></div>
         </div>
-        <div className="container mx-auto px-6 py-24 relative z-10 lg:pl-[10%]">
+        <div className="container mx-auto px-6 py-14 relative z-10 lg:pl-[10%]">
           <div className="max-w-xl">
             <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 bg-background/85 dark:bg-muted/90 backdrop-blur-sm text-primary shadow-sm">{t("appdev.hero.badge")}</span>
             <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-tight mb-5 tracking-tight text-foreground">{t("appdev.hero.title")}<br /><span className="text-primary">{t("appdev.hero.titleHighlight")}</span></h1>
