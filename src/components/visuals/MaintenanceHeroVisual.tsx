@@ -79,7 +79,7 @@ export default function MaintenanceHeroVisual() {
         </div>
 
         {/* ══ Floating Object 1: Wrench ══ */}
-        <div style={{ position: "absolute", left: "12%", top: "7%", animation: "mnt-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(60,100,220,0.30))" }}>
+        <div style={{ position: "absolute", left: "18%", top: "12%", animation: "mnt-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(60,100,220,0.30))" }}>
           <svg width="66" height="66" viewBox="0 0 66 66">
             <defs><radialGradient id="wrenchGrad" cx="35%" cy="30%"><stop offset="0%" stopColor="hsl(220,75%,72%)"/><stop offset="100%" stopColor="hsl(220,75%,42%)"/></radialGradient></defs>
             <circle cx="33" cy="33" r="28" fill="url(#wrenchGrad)"/>
