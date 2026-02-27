@@ -4,8 +4,7 @@ import SEO from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import LmsHeroVisual from "@/components/visuals/LmsHeroVisual";
-import HeroAbstractBg from "@/components/visuals/HeroAbstractBg";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
