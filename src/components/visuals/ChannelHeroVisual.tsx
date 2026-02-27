@@ -63,7 +63,7 @@ export default function ChannelHeroVisual() {
         </div>
 
         {/* ── Floating: Bell icon ── */}
-        <div style={{ position: "absolute", left: "8%", top: "8%", animation: "ch-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(200,120,20,0.3))" }}>
+        <div style={{ position: "absolute", left: "14%", top: "12%", animation: "ch-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(200,120,20,0.3))" }}>
           <svg width="64" height="64" viewBox="0 0 64 64">
             <defs><linearGradient id="bellGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#fbbf24"/><stop offset="100%" stopColor="#b45309"/></linearGradient></defs>
             <rect width="64" height="64" rx="17" fill="url(#bellGrad)"/>
