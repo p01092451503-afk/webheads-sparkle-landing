@@ -69,7 +69,7 @@ export default function Header() {
                 const isActive = location.pathname === s.path;
                 const isLms = s.path === "/lms";
                 const blobColor = serviceBlobColors[s.path];
-                const showBlob = isLms || isActive;
+                const showBlob = isActive || (isLms && location.pathname === "/lms");
                 return (
                   <Link
                     key={s.path}
