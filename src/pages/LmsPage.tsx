@@ -466,7 +466,7 @@ export default function LmsPage() {
                 )}
                 <div className="p-8 flex flex-col gap-5 flex-1">
                   <div>
-                    <h3 className={`font-black text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
+                    <h3 className={`font-bold text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
                     {plan.solutionType && (
                       <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide">{plan.solutionType}</p>
                     )}
