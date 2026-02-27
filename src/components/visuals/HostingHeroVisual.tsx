@@ -17,7 +17,7 @@ export default function HostingHeroVisual() {
       `}</style>
 
       {/* ── Container (perspective tilt) ── */}
-      <div style={{ width: 269, height: 269, position: "relative", perspective: "900px" }}>
+      <div style={{ width: 269, height: 269, position: "relative", perspective: "900px", transform: "scale(0.7)", transformOrigin: "center center" }}>
 
         {/* ══ Main Card: Server Dashboard ══ */}
         <div style={{
