@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Home, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -17,9 +17,9 @@ const serviceBlobColors: Record<string, string> = {
   "/content": "hsl(235, 45%, 48%)",
 };
 
-function FooterServiceLink({ to, label, isLms, blobColor }: { to: string; label: string; isLms: boolean; blobColor: string }) {
+function FooterServiceLink({ to, label, isActive, blobColor }: { to: string; label: string; isActive: boolean; blobColor: string }) {
   const [hovered, setHovered] = useState(false);
-  const showBlob = isLms || hovered;
+  const showBlob = isActive || hovered;
   return (
     <Link
       to={to}
@@ -40,6 +40,7 @@ function FooterServiceLink({ to, label, isLms, blobColor }: { to: string; label:
 
 export default function Footer() {
   const { t } = useTranslation();
+  const location = useLocation();
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
   return (
@@ -87,11 +88,11 @@ export default function Footer() {
             <p className="text-xs font-bold tracking-widest uppercase mb-5 text-foreground">Services</p>
             <ul className="flex flex-col gap-1.5">
               {serviceLabels.map((label, i) => {
-                const isLms = servicePaths[i] === "/lms";
+                const isActive = location.pathname === servicePaths[i];
                 const blobColor = serviceBlobColors[servicePaths[i]] || "hsl(250, 55%, 52%)";
                 return (
                   <li key={servicePaths[i]}>
-                    <FooterServiceLink to={servicePaths[i]} label={label} isLms={isLms} blobColor={blobColor} />
+                    <FooterServiceLink to={servicePaths[i]} label={label} isActive={isActive} blobColor={blobColor} />
                   </li>
                 );
               })}

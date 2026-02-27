@@ -69,7 +69,7 @@ export default function Header() {
                 const isActive = location.pathname === s.path;
                 const isLms = s.path === "/lms";
                 const blobColor = serviceBlobColors[s.path];
-                const showBlob = isLms || isActive;
+                const showBlob = isActive || (isLms && location.pathname === "/lms");
                 return (
                   <Link
                     key={s.path}
@@ -129,11 +129,11 @@ export default function Header() {
                   key={s.path}
                   to={s.path}
                   className={`px-3 py-2.5 text-sm font-semibold transition-colors ${
-                    isActive || isLms
+                    isActive
                       ? "text-white shadow-sm"
                       : "text-gray-500 hover:text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
                   }`}
-                  style={(isActive || isLms) ? {
+                  style={isActive ? {
                     background: blobColor,
                     borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
                   } : undefined}
