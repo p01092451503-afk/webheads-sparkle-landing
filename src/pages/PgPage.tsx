@@ -28,7 +28,7 @@ export default function PgPage() {
       <SEO title={t("pg.seo.title")} description={t("pg.seo.description")} keywords={t("pg.seo.keywords")} path="/pg" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("pg.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("pg.seo.description"), "areaServed": "KR", "serviceType": t("pg.seo.title"), "url": "https://service.webheads.co.kr/pg" }} faqJsonLd={faqs} />
 
       {/* Hero */}
-      <section className="relative min-h-[76vh] flex items-center pt-20 pb-14 overflow-hidden" style={{ background: "var(--pg-hero-bg)" }}>
+      <section className="relative flex items-center pt-20 pb-6 overflow-hidden" style={{ background: "var(--pg-hero-bg)" }}>
         <HeroAbstractBg variant="pg" />
         <div className="absolute pointer-events-none" style={{ width: "120%", height: "120%", top: "-10%", left: "-10%", background: "radial-gradient(ellipse 60% 50% at 65% 45%, hsl(240, 70%, 55%, 0.18) 0%, transparent 70%)" }} />
         <div className="absolute pointer-events-none" style={{ width: "80%", height: "80%", bottom: "-10%", left: "-5%", background: "radial-gradient(ellipse 50% 60% at 30% 70%, hsl(235, 60%, 50%, 0.1) 0%, transparent 70%)" }} />
