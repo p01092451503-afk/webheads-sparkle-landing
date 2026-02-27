@@ -79,7 +79,7 @@ export default function MaintenanceHeroVisual() {
         </div>
 
         {/* ══ Floating Object 1: Wrench ══ */}
-        <div style={{ position: "absolute", left: "8%", top: "4%", animation: "mnt-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(60,100,220,0.30))" }}>
+        <div style={{ position: "absolute", left: "18%", top: "12%", animation: "mnt-float-a 3.8s ease-in-out infinite", filter: "drop-shadow(0 12px 20px rgba(60,100,220,0.30))" }}>
           <svg width="66" height="66" viewBox="0 0 66 66">
             <defs><radialGradient id="wrenchGrad" cx="35%" cy="30%"><stop offset="0%" stopColor="hsl(220,75%,72%)"/><stop offset="100%" stopColor="hsl(220,75%,42%)"/></radialGradient></defs>
             <circle cx="33" cy="33" r="28" fill="url(#wrenchGrad)"/>
@@ -93,7 +93,7 @@ export default function MaintenanceHeroVisual() {
         </div>
 
         {/* ══ Floating Object 2: Shield Check ══ */}
-        <div style={{ position: "absolute", right: "2%", top: "6%", animation: "mnt-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(30,180,100,0.32))" }}>
+        <div style={{ position: "absolute", right: "12%", top: "14%", animation: "mnt-float-e 4.2s ease-in-out infinite", animationDelay: "0.7s", filter: "drop-shadow(0 14px 22px rgba(30,180,100,0.32))" }}>
           <svg width="62" height="68" viewBox="0 0 62 68">
             <defs><linearGradient id="mntShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(152,76%,52%)"/><stop offset="100%" stopColor="hsl(152,70%,30%)"/></linearGradient></defs>
             <path d="M31 4 L56 16 L56 36 Q56 55 31 64 Q6 55 6 36 L6 16 Z" fill="url(#mntShieldGrad)"/>
@@ -103,7 +103,7 @@ export default function MaintenanceHeroVisual() {
         </div>
 
         {/* ══ Floating Object 3: Gear ══ */}
-        <div style={{ position: "absolute", left: "0%", bottom: "12%", animation: "mnt-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(130,80,220,0.30))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "20%", animation: "mnt-float-c 4.5s ease-in-out infinite", animationDelay: "1.2s", filter: "drop-shadow(0 16px 24px rgba(130,80,220,0.30))" }}>
           <svg width="60" height="60" viewBox="0 0 60 60">
             <defs><linearGradient id="gearGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="hsl(260,70%,68%)"/><stop offset="100%" stopColor="hsl(260,70%,42%)"/></linearGradient></defs>
             <g transform="translate(30,30)">
@@ -119,11 +119,11 @@ export default function MaintenanceHeroVisual() {
         </div>
 
         {/* ══ Badges ══ */}
-        <div style={{ position: "absolute", right: "-2%", bottom: "22%", animation: "mnt-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(220,85%,52%), hsl(220,80%,36%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 15, letterSpacing: -0.5, boxShadow: "0 10px 24px rgba(30,60,200,0.38)", whiteSpace: "nowrap" }}>24/7 <span style={{ fontSize: 9, fontWeight: 500, opacity: 0.8 }}>{t("visuals.maintenance.badges.support")}</span></div>
-        <div style={{ position: "absolute", left: "-4%", top: "30%", animation: "mnt-float-a 4.1s ease-in-out infinite", animationDelay: "0.2s", background: "linear-gradient(135deg, hsl(35,88%,55%), hsl(25,88%,42%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(200,110,30,0.38)" }}>RCA</div>
-        <div style={{ position: "absolute", right: "4%", top: "50%", animation: "mnt-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(152,70%,38%), hsl(152,78%,26%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,160,80,0.38)", whiteSpace: "nowrap" }}>99.9% <span style={{ fontSize: 9, fontWeight: 500, opacity: 0.8 }}>SLA</span></div>
-        <div style={{ position: "absolute", left: "22%", top: "-2%", animation: "mnt-float-d 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(260,72%,58%), hsl(260,78%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(120,60,220,0.38)" }}>NOC</div>
-        <div style={{ position: "absolute", left: "14%", bottom: "-2%", animation: "mnt-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,68%,54%), hsl(0,76%,38%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.38)", whiteSpace: "nowrap" }}>{t("visuals.maintenance.badges.initial")}</div>
+        <div style={{ position: "absolute", right: "8%", bottom: "28%", animation: "mnt-float-b 3.6s ease-in-out infinite", animationDelay: "0.5s", background: "linear-gradient(135deg, hsl(220,85%,52%), hsl(220,80%,36%))", color: "#fff", borderRadius: 10, padding: "8px 14px", fontWeight: 800, fontSize: 15, letterSpacing: -0.5, boxShadow: "0 10px 24px rgba(30,60,200,0.38)", whiteSpace: "nowrap" }}>24/7 <span style={{ fontSize: 9, fontWeight: 500, opacity: 0.8 }}>{t("visuals.maintenance.badges.support")}</span></div>
+        <div style={{ position: "absolute", left: "6%", top: "36%", animation: "mnt-float-a 4.1s ease-in-out infinite", animationDelay: "0.2s", background: "linear-gradient(135deg, hsl(35,88%,55%), hsl(25,88%,42%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(200,110,30,0.38)" }}>RCA</div>
+        <div style={{ position: "absolute", right: "12%", top: "54%", animation: "mnt-float-c 4.8s ease-in-out infinite", animationDelay: "1s", background: "linear-gradient(135deg, hsl(152,70%,38%), hsl(152,78%,26%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(30,160,80,0.38)", whiteSpace: "nowrap" }}>99.9% <span style={{ fontSize: 9, fontWeight: 500, opacity: 0.8 }}>SLA</span></div>
+        <div style={{ position: "absolute", left: "30%", top: "6%", animation: "mnt-float-d 3.4s ease-in-out infinite", animationDelay: "0.3s", background: "linear-gradient(135deg, hsl(260,72%,58%), hsl(260,78%,40%))", color: "#fff", borderRadius: 10, padding: "7px 13px", fontWeight: 800, fontSize: 13, boxShadow: "0 10px 24px rgba(120,60,220,0.38)" }}>NOC</div>
+        <div style={{ position: "absolute", left: "22%", bottom: "6%", animation: "mnt-float-b 4.3s ease-in-out infinite", animationDelay: "0.9s", background: "linear-gradient(135deg, hsl(0,68%,54%), hsl(0,76%,38%))", color: "#fff", borderRadius: 10, padding: "6px 12px", fontWeight: 800, fontSize: 12, boxShadow: "0 8px 20px rgba(180,30,30,0.38)", whiteSpace: "nowrap" }}>{t("visuals.maintenance.badges.initial")}</div>
       </div>
     </div>
   );
