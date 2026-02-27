@@ -16,7 +16,7 @@ export default function ClientMarquee() {
     ));
 
   return (
-    <section className="py-4 -mt-6 overflow-hidden relative z-10" style={{ background: "var(--lms-page-bg)" }}>
+    <section className="py-4 -mt-12 overflow-hidden relative z-10" style={{ background: "var(--lms-page-bg)" }}>
       <div className="flex w-max marquee-track">
         <div className="flex shrink-0">{renderList()}</div>
         <div className="flex shrink-0">{renderList()}</div>
