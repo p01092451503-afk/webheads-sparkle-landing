@@ -87,7 +87,7 @@ export default function DrmHeroVisual() {
         </div>
 
         {/* ── Floating: Camera off ── */}
-        <div style={{ position: "absolute", left: "5%", bottom: "20%", animation: "drm-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(220,50,50,0.28))" }}>
+        <div style={{ position: "absolute", left: "10%", bottom: "22%", animation: "drm-float-c 4.5s ease-in-out infinite", animationDelay: "1.1s", filter: "drop-shadow(0 10px 18px rgba(220,50,50,0.28))" }}>
           <svg width="60" height="60" viewBox="0 0 60 60">
             <defs><linearGradient id="camGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f87171"/><stop offset="100%" stopColor="#b91c1c"/></linearGradient></defs>
             <rect width="60" height="60" rx="16" fill="url(#camGrad)"/>
