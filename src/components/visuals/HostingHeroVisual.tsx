@@ -200,7 +200,7 @@ export default function HostingHeroVisual() {
 
         {/* CDN badge */}
         <div style={{
-          position: "absolute", left: "2%", top: "34%",
+          position: "absolute", left: "6%", top: "36%",
           animation: "float-badge1 4.1s ease-in-out infinite",
           background: "linear-gradient(135deg, hsl(260,75%,60%), hsl(260,80%,42%))",
           color: "#fff",
