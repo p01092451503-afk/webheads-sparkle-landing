@@ -6,6 +6,8 @@ import { Server, Video, ShieldCheck, Bot, Smartphone, CreditCard, MessageSquareM
 import { useNavigate } from "react-router-dom";
 import type { LucideIcon } from "lucide-react";
 
+const stepIcons: LucideIcon[] = [LayoutDashboard, Puzzle, Rocket];
+
 const serviceConfig: { key: string; path: string; accent: string; icon: LucideIcon }[] = [
   { key: "hosting", path: "/hosting", accent: "hsl(215, 75%, 52%)", icon: Server },
   { key: "content", path: "/content", accent: "hsl(35, 85%, 50%)", icon: Video },
