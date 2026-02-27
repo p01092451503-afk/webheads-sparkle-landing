@@ -76,7 +76,7 @@ export default function LmsPage() {
         <div className="absolute pointer-events-none" style={{ width: "60%", height: "60%", top: "20%", left: "5%", background: "radial-gradient(ellipse 40% 40% at 30% 50%, hsl(192, 80%, 50%, 0.08) 0%, transparent 70%)" }} />
 
         <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-center" style={{ opacity: 0.85 }}>
-          <div className="relative w-full h-full max-w-[765px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%)" }}><LmsHeroVisual /></div>
+          <div className="relative w-full h-full max-w-[765px] mx-auto hidden lg:flex items-center justify-center" style={{ transform: "translateX(40%) translateY(8%)" }}><LmsHeroVisual /></div>
         </div>
         <div className="container mx-auto px-6 py-14 relative z-10 lg:pl-[10%]">
           <div className="max-w-2xl">
