@@ -38,15 +38,21 @@ i18n
     interpolation: { escapeValue: false },
   });
 
+// Preload locale before language switch so translations are ready
+const originalChangeLanguage = i18n.changeLanguage.bind(i18n);
+i18n.changeLanguage = async (lng?: string, callback?: any) => {
+  if (lng) await loadLocale(lng);
+  return originalChangeLanguage(lng, callback);
+};
+
 // If the default language is not Korean, load it immediately
 if (defaultLng !== 'ko') {
   loadLocale(defaultLng);
 }
 
-// Listen for language changes to lazy-load resources and persist
+// Persist language choice
 i18n.on('languageChanged', (lng) => {
   localStorage.setItem('i18nextLng', lng);
-  loadLocale(lng);
 });
 
 export default i18n;
