@@ -27,6 +27,13 @@ async function loadLocale(lng: string) {
   i18n.addResourceBundle(lng, 'translation', mod.default, true, true);
 }
 
+// Preload locale before language switch so translations are ready
+const originalChangeLanguage = i18n.changeLanguage.bind(i18n);
+i18n.changeLanguage = async (lng?: string, callback?: any) => {
+  if (lng) await loadLocale(lng);
+  return originalChangeLanguage(lng, callback);
+};
+
 i18n
   .use(initReactI18next)
   .init({
