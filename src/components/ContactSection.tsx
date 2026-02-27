@@ -91,28 +91,29 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           {/* Left: Contact Info — compact single column */}
           <div className="lg:col-span-2 flex flex-col gap-3">
             {/* Phone numbers — inline compact */}
-            <div className="rounded-lg p-5 bg-card border border-border hover:border-primary/20 transition-all">
-              <div className="flex items-stretch gap-0 divide-x divide-border">
-                <div className="flex-1 pr-4 min-w-0">
-                  <p className="text-[0.6rem] font-semibold mb-1.5 uppercase tracking-wider text-muted-foreground">
+            <div className="rounded-lg p-6 bg-card border border-border hover:border-primary/20 transition-all">
+              <div className="flex items-stretch gap-0">
+                <div className="flex-1 pr-5 min-w-0">
+                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
                     {t("contact.newInquiry")}
                   </p>
                   <a
                     href="tel:0233364338"
-                    className="block text-[1.2rem] tracking-tight text-foreground hover:text-primary transition-colors"
-                    style={{ fontWeight: 800 }}
+                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
+                    style={{ fontWeight: 900 }}
                   >
                     02.336.4338
                   </a>
                 </div>
-                <div className="flex-1 pl-4 min-w-0">
-                  <p className="text-[0.6rem] font-semibold mb-1.5 uppercase tracking-wider text-muted-foreground">
+                <div className="w-px bg-border self-stretch mx-1" />
+                <div className="flex-1 pl-5 min-w-0">
+                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
                     {t("contact.maintenanceInquiry")}
                   </p>
                   <a
                     href="tel:0254044337"
-                    className="block text-[1.2rem] tracking-tight text-foreground hover:text-primary transition-colors"
-                    style={{ fontWeight: 800 }}
+                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
+                    style={{ fontWeight: 900 }}
                   >
                     02.540.4337
                   </a>
