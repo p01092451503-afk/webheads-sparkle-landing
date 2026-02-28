@@ -26,6 +26,10 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyAgreed) {
+      setError(t("contact.formPrivacyRequired"));
+      return;
+    }
     setLoading(true);
     setError(null);
 
