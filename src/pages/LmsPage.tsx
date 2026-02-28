@@ -71,9 +71,10 @@ export default function LmsPage() {
 
       {/* Hero — Centered with abstract volumetric patterns */}
       <section
-        className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden"
+        className="relative flex items-center justify-center pt-36 pb-28 overflow-hidden"
       >
         <HeroPatternBg theme="blue-purple" />
+        <LmsHeroOverlay />
 
 
 
