@@ -64,32 +64,20 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav — all services inline */}
-            <nav className="hidden lg:flex items-center justify-center gap-0.5 flex-1">
+            <nav className="hidden lg:flex items-center justify-center gap-1 flex-1">
               {services.map((s) => {
                 const isActive = location.pathname === s.path;
-                const isLms = s.path === "/lms";
-                const blobColor = serviceBlobColors[s.path];
-                const showBlob = isActive || (isLms && location.pathname === "/lms");
                 return (
                   <Link
                     key={s.path}
                     to={s.path}
                     className={`
-                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-normal transition-all duration-200
-                      ${showBlob
-                        ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
-                        : isLms && location.pathname !== "/lms"
-                          ? `${scrolled ? "text-[hsl(250,30%,55%)]" : "text-white/70"} hover:scale-[1.03] mr-3`
-                          : `${scrolled ? "text-[hsl(230,25%,15%)]" : "text-white/90"} hover:bg-white/10 rounded-lg`
+                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-normal rounded-lg transition-colors duration-200
+                      ${isActive
+                        ? scrolled ? "text-[hsl(250,55%,52%)] font-medium" : "text-white font-medium"
+                        : scrolled ? "text-[hsl(230,25%,15%)] hover:bg-gray-100" : "text-white/90 hover:bg-white/10"
                       }
                     `}
-                    style={showBlob ? {
-                      background: blobColor,
-                      borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
-                    } : isLms && location.pathname !== "/lms" ? {
-                      background: "hsl(250, 20%, 82%)",
-                      borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
-                    } : undefined}
                   >
                     {s.label}
                   </Link>
