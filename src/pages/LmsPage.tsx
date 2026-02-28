@@ -380,6 +380,48 @@ export default function LmsPage() {
         </section>
       </Reveal>
 
+      {/* ═══ Device Friendly — Glassmorphism cards (LMS-exclusive) ═══ */}
+      <Reveal>
+        <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <div className="mb-16">
+              <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>
+                {t("lms.deviceSection.sub")}
+              </p>
+              <h2 className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
+              <p className="mt-4 text-base text-muted-foreground">{t("lms.deviceSection.desc")}</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { icon: Monitor, label: "PC" },
+                { icon: Tablet, label: "Tablet" },
+                { icon: Smartphone, label: "Mobile" }
+              ].map(({ icon: Icon, label }, i) => (
+                <Reveal key={label} delay={i * 120}>
+                  <div
+                    className="rounded-3xl px-8 pt-10 pb-9 flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1.5 h-full"
+                    style={{
+                      background: "hsl(var(--card))",
+                      border: "1px solid hsl(var(--border) / 0.6)",
+                      boxShadow: "0 8px 40px -12px hsl(var(--foreground) / 0.06)",
+                    }}
+                  >
+                    <div
+                      className="w-[72px] h-[72px] rounded-full flex items-center justify-center mb-6"
+                      style={{ background: "hsl(245, 40%, 93%)" }}
+                    >
+                      <Icon className="w-7 h-7" style={{ color: "hsl(245, 58%, 55%)" }} />
+                    </div>
+                    <h3 className="font-bold text-xl text-foreground mb-4 tracking-tight">{label}</h3>
+                    <p className="text-sm leading-[1.85] text-muted-foreground">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
       {/* All-in-One Management */}
       <Reveal>
         <section className="py-28">
