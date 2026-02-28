@@ -198,12 +198,12 @@ export default function EcosystemMapSection() {
                     onClick={() => navigate(svc.path)}
                   >
                     <Icon
-                      className="w-6 h-6 mb-0.5"
+                      className="w-8 h-8 mb-1"
                       style={{ color: isHovered ? "#fff" : svc.accent }}
-                      strokeWidth={2}
+                      strokeWidth={1.8}
                     />
                     <span
-                      className="text-[10px] font-bold leading-tight text-center px-1"
+                      className="text-[11px] font-bold leading-tight text-center px-1"
                       style={{ color: isHovered ? "#fff" : "var(--foreground)" }}
                     >
                       {data.name}
