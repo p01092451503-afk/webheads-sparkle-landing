@@ -72,10 +72,10 @@ export default function Header() {
                     key={s.path}
                     to={s.path}
                     className={`
-                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-normal rounded-lg transition-colors duration-200
+                      relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-medium rounded-lg transition-colors duration-200
                       ${isActive
-                        ? scrolled ? "text-[hsl(250,55%,52%)] font-medium" : "text-white font-medium"
-                        : scrolled ? "text-[hsl(230,25%,15%)] hover:bg-gray-100" : "text-white/90 hover:bg-white/10"
+                        ? scrolled ? "text-[hsl(250,55%,52%)]" : "text-white"
+                        : scrolled ? "text-[hsl(230,25%,25%)] hover:bg-gray-100" : "text-white hover:bg-white/10"
                       }
                     `}
                   >
