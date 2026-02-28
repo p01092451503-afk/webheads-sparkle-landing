@@ -62,7 +62,7 @@ export default function EcosystemMapSection() {
 
         {/* Desktop: SVG interactive map */}
         <div className="hidden md:block" ref={containerRef}>
-          <div className="relative mx-auto" style={{ width: 600, height: 600 }}>
+          <div className="relative mx-auto" style={{ width: 460, height: 460 }}>
             {/* SVG connections */}
             <svg
               viewBox="0 0 600 600"
