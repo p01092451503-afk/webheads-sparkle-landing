@@ -107,17 +107,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           </p>
         </div>
 
-        {/* ── Phone numbers ── */}
-        <div className="grid grid-cols-2 divide-x divide-border my-10">
-          <a href="tel:02-336-4338" className="flex flex-col items-center gap-2 py-6 group">
-            <span className="text-sm text-muted-foreground font-medium">신규 도입 문의</span>
-            <span className="text-2xl lg:text-3xl font-black tracking-tight text-foreground group-hover:text-primary transition-colors" style={{ fontFamily: "'Noto Sans', sans-serif" }}>02.336.4338</span>
-          </a>
-          <a href="tel:02-540-4337" className="flex flex-col items-center gap-2 py-6 group">
-            <span className="text-sm text-muted-foreground font-medium">장애 및 유지보수 문의</span>
-            <span className="text-2xl lg:text-3xl font-black tracking-tight text-foreground group-hover:text-primary transition-colors" style={{ fontFamily: "'Noto Sans', sans-serif" }}>02.540.4337</span>
-          </a>
-        </div>
 
         {/* ── Client marquee ── */}
         <ContactMarquee />
