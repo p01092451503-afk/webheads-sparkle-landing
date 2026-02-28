@@ -347,10 +347,10 @@ function FormField({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-bold tracking-wide text-foreground">
+    <div className="flex flex-col gap-2.5">
+      <label className="text-[13px] font-bold text-foreground">
         {label}
-        {required && <span className="text-primary ml-0.5">*</span>}
+        {required && <span className="text-red-500 ml-0.5">*</span>}
       </label>
       {children}
     </div>
