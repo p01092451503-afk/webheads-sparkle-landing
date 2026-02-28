@@ -33,7 +33,33 @@ export default function EcosystemMapSection() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [autoIdx, setAutoIdx] = useState<number>(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
+  const autoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Auto-rotate through services
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    autoTimerRef.current = setTimeout(() => {
+      setAutoIdx((prev) => (prev + 1) % 8);
+    }, 2200);
+    return () => { if (autoTimerRef.current) clearTimeout(autoTimerRef.current); };
+  }, [autoIdx, isAutoPlaying]);
+
+  const handleMouseEnter = useCallback((i: number) => {
+    setHoveredIdx(i);
+    setIsAutoPlaying(false);
+    if (autoTimerRef.current) clearTimeout(autoTimerRef.current);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setHoveredIdx(null);
+    setIsAutoPlaying(true);
+  }, []);
+
+  // Active index: manual hover takes priority over auto
+  const activeIdx = hoveredIdx !== null ? hoveredIdx : autoIdx;
 
   const services = t("lms.ecosystem.services", { returnObjects: true }) as {
     name: string; emoji: string; problem: string; solution: string;
