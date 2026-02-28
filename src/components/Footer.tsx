@@ -68,20 +68,6 @@ export default function Footer() {
                 <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.days")}</p>
               </div>
 
-              {/* Phone */}
-              <div className="flex flex-col gap-2">
-                <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.phone")}</p>
-                <div className="flex flex-col gap-1.5">
-                  <a href="tel:02-336-4338" className="flex items-baseline gap-2 group">
-                    <span className="text-[12px] font-medium text-foreground/50" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.newInquiry")}</span>
-                    <span className="text-[1.1rem] font-black tracking-tight text-foreground group-hover:text-primary transition-colors" style={{ fontFamily: "'Noto Sans', sans-serif" }}>02.336.4338</span>
-                  </a>
-                  <a href="tel:02-540-4337" className="flex items-baseline gap-2 group">
-                    <span className="text-[12px] font-medium text-foreground/50" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.maintenanceInquiry")}</span>
-                    <span className="text-[1.1rem] font-black tracking-tight text-foreground group-hover:text-primary transition-colors" style={{ fontFamily: "'Noto Sans', sans-serif" }}>02.540.4337</span>
-                  </a>
-                </div>
-              </div>
             </div>
           </div>
           <div>
