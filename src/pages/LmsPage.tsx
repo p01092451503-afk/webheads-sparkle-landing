@@ -389,6 +389,9 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* Learner Journey Map */}
+      <LearnerJourneyMap />
+
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
       {/* AI Features */}
