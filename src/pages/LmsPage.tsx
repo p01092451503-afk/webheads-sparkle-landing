@@ -146,8 +146,8 @@ export default function LmsPage() {
       {/* Client Reference Marquee */}
       <ClientMarquee />
 
-      {/* Ecosystem Interactive Map */}
-      <EcosystemMapSection />
+
+
 
       {/* Cloud (AI) vs On-premise (NEO) Comparison */}
       <section id="solutions" className="py-28 bg-secondary">
@@ -394,6 +394,9 @@ export default function LmsPage() {
           </div>
         </div>
       </section>
+
+      {/* Ecosystem Interactive Map */}
+      <EcosystemMapSection />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--lms-section-alt)" }}>
