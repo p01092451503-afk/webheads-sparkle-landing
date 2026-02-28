@@ -77,21 +77,73 @@ export default function EcosystemMapSection() {
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
+                {serviceConfig.map((svc, i) => (
+                  <linearGradient
+                    key={`grad-${i}`}
+                    id={`eco-flow-grad-${i}`}
+                    gradientUnits="userSpaceOnUse"
+                    x1={CENTER.x}
+                    y1={CENTER.y}
+                    x2={nodePositions[i].x}
+                    y2={nodePositions[i].y}
+                  >
+                    <stop offset="0%" stopColor={svc.accent} stopOpacity="0.15" />
+                    <stop offset="40%" stopColor={svc.accent} stopOpacity="1">
+                      <animate attributeName="offset" values="0;1" dur="1.2s" repeatCount="indefinite" />
+                    </stop>
+                    <stop offset="50%" stopColor={svc.accent} stopOpacity="1">
+                      <animate attributeName="offset" values="0.1;1.1" dur="1.2s" repeatCount="indefinite" />
+                    </stop>
+                    <stop offset="60%" stopColor={svc.accent} stopOpacity="0.15">
+                      <animate attributeName="offset" values="0.2;1.2" dur="1.2s" repeatCount="indefinite" />
+                    </stop>
+                  </linearGradient>
+                ))}
               </defs>
-              {nodePositions.map((pos, i) => (
-                <line
-                  key={i}
-                  x1={CENTER.x}
-                  y1={CENTER.y}
-                  x2={pos.x}
-                  y2={pos.y}
-                  stroke={hoveredIdx === i ? serviceConfig[i].accent : "hsl(var(--border))"}
-                  strokeWidth={hoveredIdx === i ? 2.5 : 1.5}
-                  strokeDasharray={hoveredIdx === i ? "none" : "6 4"}
-                  style={{ transition: "all 0.3s ease" }}
-                  filter={hoveredIdx === i ? "url(#eco-glow)" : undefined}
-                />
-              ))}
+              {nodePositions.map((pos, i) => {
+                const isActive = hoveredIdx === i;
+                return (
+                  <g key={i}>
+                    {/* Base line */}
+                    <line
+                      x1={CENTER.x}
+                      y1={CENTER.y}
+                      x2={pos.x}
+                      y2={pos.y}
+                      stroke={isActive ? serviceConfig[i].accent : "hsl(var(--border))"}
+                      strokeWidth={isActive ? 2.5 : 1.5}
+                      strokeDasharray={isActive ? "none" : "6 4"}
+                      style={{ transition: "all 0.3s ease" }}
+                      filter={isActive ? "url(#eco-glow)" : undefined}
+                    />
+                    {/* Animated flow overlay */}
+                    {isActive && (
+                      <line
+                        x1={CENTER.x}
+                        y1={CENTER.y}
+                        x2={pos.x}
+                        y2={pos.y}
+                        stroke={`url(#eco-flow-grad-${i})`}
+                        strokeWidth={4}
+                        strokeLinecap="round"
+                      />
+                    )}
+                    {/* Flow particle dots */}
+                    {isActive && [0, 0.4, 0.8].map((delay, di) => (
+                      <circle key={di} r="3.5" fill={serviceConfig[i].accent} opacity="0.9">
+                        <animateMotion
+                          dur="1.4s"
+                          repeatCount="indefinite"
+                          begin={`${delay}s`}
+                          path={`M${CENTER.x},${CENTER.y} L${pos.x},${pos.y}`}
+                        />
+                        <animate attributeName="opacity" values="0;0.9;0.9;0" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
+                        <animate attributeName="r" values="2;3.5;2" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
+                      </circle>
+                    ))}
+                  </g>
+                );
+              })}
             </svg>
 
             {/* Center hub */}
