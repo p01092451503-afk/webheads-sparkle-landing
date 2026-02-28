@@ -146,8 +146,8 @@ export default function LmsPage() {
       {/* Client Reference Marquee */}
       <ClientMarquee />
 
-      {/* Ecosystem Interactive Map */}
-      <EcosystemMapSection />
+
+
 
       {/* Cloud (AI) vs On-premise (NEO) Comparison */}
       <section id="solutions" className="py-28 bg-secondary">
