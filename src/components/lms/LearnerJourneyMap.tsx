@@ -34,10 +34,10 @@ export default function LearnerJourneyMap() {
         {/* Timeline */}
         <div className="relative">
           {/* Horizontal line (desktop) */}
-          <div className="hidden md:block absolute top-8 left-0 right-0 h-px bg-border" />
+          <div className="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-border" style={{ background: "linear-gradient(90deg, hsl(245,58%,55%), hsl(215,65%,48%), hsl(170,55%,38%), hsl(35,90%,50%), hsl(340,65%,50%))" }} />
 
           {/* Vertical line (mobile) */}
-          <div className="md:hidden absolute top-0 bottom-0 left-[1.6rem] w-px bg-border" />
+          <div className="md:hidden absolute top-0 bottom-0 left-[1.6rem] w-px" style={{ background: "linear-gradient(180deg, hsl(245,58%,55%), hsl(340,65%,50%))" }} />
 
           {/* Desktop: horizontal grid */}
           <div className="hidden md:grid md:grid-cols-5 md:gap-3">
