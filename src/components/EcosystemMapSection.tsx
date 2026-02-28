@@ -294,7 +294,7 @@ export default function EcosystemMapSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <a
             href="#contact"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg"
