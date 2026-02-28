@@ -1,6 +1,6 @@
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
-import SEO from "@/components/SEO";
+import SEO, { BASE_URL } from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
