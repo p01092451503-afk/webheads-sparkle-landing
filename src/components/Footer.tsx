@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, ShieldCheck, ChevronRight } from "lucide-react";
+import { Home, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
