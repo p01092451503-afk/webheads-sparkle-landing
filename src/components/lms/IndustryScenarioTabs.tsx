@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Building2, GraduationCap, Briefcase, Landmark, Rocket, CheckCircle2, ArrowRight, Zap } from "lucide-react";
+import { Building2, GraduationCap, Briefcase, Landmark, Rocket, CheckCircle2 } from "lucide-react";
 
 const tabIcons = [Building2, GraduationCap, Briefcase, Landmark, Rocket];
 
@@ -11,8 +11,6 @@ export default function IndustryScenarioTabs() {
     title: string;
     desc: string;
     points: string[];
-    services: string[];
-    caseStudy: string;
     cta: string;
   }[];
   const [active, setActive] = useState(0);
@@ -61,48 +59,20 @@ export default function IndustryScenarioTabs() {
         >
           <h3 className="font-bold text-foreground text-xl lg:text-2xl mb-3 tracking-tight">{current.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed mb-6" style={{ wordBreak: "keep-all" }}>{current.desc}</p>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
             {current.points.map((point, i) => (
               <div key={i} className="flex items-start gap-2.5">
-                <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                <CheckCircle2 className="w-4.5 h-4.5 shrink-0 mt-0.5" style={{ color: "hsl(var(--lms-primary))" }} />
                 <span className="text-sm text-foreground leading-snug">{point}</span>
               </div>
             ))}
           </div>
-
-          {/* Recommended service combo */}
-          <div className="rounded-xl p-5 mb-6" style={{ background: "var(--lms-gradient-subtle)" }}>
-            <div className="flex items-center gap-2 mb-3">
-              <Zap className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
-              <span className="text-sm font-bold text-foreground">{t("lms.industryTabs.recommendedLabel")}</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {current.services.map((svc, i) => (
-                <span
-                  key={i}
-                  className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold border"
-                  style={{ borderColor: "hsl(var(--lms-primary) / 0.2)", color: "hsl(var(--lms-primary))", background: "hsl(var(--lms-primary) / 0.06)" }}
-                >
-                  {svc}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Case study */}
-          <div className="rounded-xl border border-border p-5 mb-8 bg-muted/30">
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">{t("lms.industryTabs.caseLabel")}</p>
-            <p className="text-sm text-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>{current.caseStudy}</p>
-          </div>
-
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
             style={{ background: "hsl(var(--lms-primary))" }}
           >
             {current.cta}
-            <ArrowRight className="w-4 h-4" />
           </a>
         </div>
       </div>

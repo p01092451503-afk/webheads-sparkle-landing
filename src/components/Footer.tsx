@@ -48,7 +48,7 @@ export default function Footer() {
       <div className="container mx-auto px-6 max-w-5xl pt-16 pb-[4.4rem]">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_auto_auto] gap-12">
           <div className="flex flex-col gap-8">
-            <span className="text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 600, fontStyle: "italic", fontSize: "1.625rem", letterSpacing: "-0.04em", lineHeight: 1 }}>
+            <span className="text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 400, fontSize: "1.625rem", letterSpacing: "-0.04em", lineHeight: 1 }}>
               {t("header.logo")}
             </span>
 

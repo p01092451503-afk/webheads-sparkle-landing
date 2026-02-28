@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { CheckCircle2, XCircle, MinusCircle, ArrowRight, Clock, Users, Award } from "lucide-react";
-
-const highlightIcons = [Clock, Users, Award];
+import { CheckCircle2, XCircle, MinusCircle, ArrowRight } from "lucide-react";
 
 function StatusIcon({ value }: { value: string }) {
   if (value === "O") return <CheckCircle2 className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />;
@@ -14,7 +12,6 @@ export default function CompetitorComparison() {
   const { t } = useTranslation();
   const headers = t("lms.competitorTable.headers", { returnObjects: true }) as string[];
   const rows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
-  const highlights = t("lms.competitorTable.highlights", { returnObjects: true }) as { value: string; label: string }[];
 
   return (
     <section className="py-28">
@@ -29,20 +26,6 @@ export default function CompetitorComparison() {
           <p className="text-muted-foreground mt-4 text-base">{t("lms.competitorTable.desc")}</p>
         </div>
 
-        {/* Highlight stats */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          {highlights.map((h, i) => {
-            const Icon = highlightIcons[i] || Award;
-            return (
-              <div key={i} className="rounded-xl border border-border bg-background p-5 text-center">
-                <Icon className="w-5 h-5 mx-auto mb-2" style={{ color: "hsl(var(--lms-primary))" }} />
-                <p className="font-bold text-xl text-foreground tracking-tight" style={{ color: "hsl(var(--lms-primary))" }}>{h.value}</p>
-                <p className="text-xs text-muted-foreground mt-1">{h.label}</p>
-              </div>
-            );
-          })}
-        </div>
-
         <div className="rounded-2xl border border-border overflow-hidden bg-background">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -54,7 +37,7 @@ export default function CompetitorComparison() {
                       className={`px-6 py-4 text-left font-bold whitespace-nowrap ${
                         i === headers.length - 1 ? "text-white" : "text-foreground"
                       }`}
-                      style={i === headers.length - 1 ? { background: "hsl(var(--lms-primary))" } : undefined}
+                      style={i === headers.length - 1 ? { background: "hsl(var(--lms-primary))", borderRadius: i === headers.length - 1 ? "0" : undefined } : undefined}
                     >
                       {h}
                     </th>
@@ -85,7 +68,7 @@ export default function CompetitorComparison() {
         <div className="mt-8 text-center">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
+            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
             style={{ background: "hsl(var(--lms-primary))" }}
           >
             {t("lms.competitorTable.cta")}

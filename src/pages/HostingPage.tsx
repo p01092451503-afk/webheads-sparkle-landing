@@ -30,7 +30,7 @@ export default function HostingPage() {
 
       {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">
-        <HeroPatternBg theme="emerald-green" />
+        <HeroPatternBg theme="blue-purple" />
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "white" }}>{t("hosting.hero.badge")}</span>
           <h1 className="text-4xl lg:text-[3.2rem] font-bold leading-[1.15] mb-5 tracking-tight text-white" style={{ wordBreak: "keep-all" }}>{t("hosting.hero.title")}<br /><span style={{ opacity: 0.95 }}>{t("hosting.hero.titleHighlight")}</span></h1>
