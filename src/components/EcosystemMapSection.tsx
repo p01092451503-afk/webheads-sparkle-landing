@@ -224,7 +224,7 @@ export default function EcosystemMapSection() {
                     if (Math.abs(dx) > Math.abs(dy) * 0.5) {
                       // Left or right side
                       if (outward.x > 0) {
-                        tooltipStyle.left = 72;
+                        tooltipStyle.left = 96;
                       } else {
                         tooltipStyle.right = 72;
                       }
