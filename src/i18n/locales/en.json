@@ -733,7 +733,14 @@
       "webheadsCost": "Webheads Monthly Fee",
       "annualSavings": "Annual Estimated Savings",
       "savingsNote": "Approx. {{percent}}% savings vs self-building",
-      "cta": "Request Custom Quote"
+      "cta": "Request Custom Quote",
+      "addonsTitle": "Additional Savings with Add-on Services",
+      "addonChatbot": "AI Chatbot — support staff cost savings",
+      "addonDrm": "DRM — piracy damage prevention",
+      "addonSms": "SMS reminders — completion rate boost",
+      "chatbotSaving": "~12M KRW/year saved",
+      "drmSaving": "~20M KRW/year protected",
+      "smsSaving": "Avg. 35% completion rate increase"
     },
     "competitorTable": {
       "sub": "COMPARISON",
