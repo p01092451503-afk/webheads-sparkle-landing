@@ -22,6 +22,7 @@ const serviceBlobColors: Record<string, string> = {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
 
@@ -33,10 +34,24 @@ export default function Header() {
   }));
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 8);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+      // Find the hero section's bottom to determine when to switch to solid header
+      const hero = document.querySelector("section");
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      setPastHero(heroBottom <= 56); // 56 = header height
+    };
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location]);
+
+  // Use transparent header with white text when still in hero area
+  const solid = pastHero;
 
   useEffect(() => {
     setMobileOpen(false);
@@ -47,7 +62,7 @@ export default function Header() {
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
-          scrolled
+          solid
             ? "bg-white/98 backdrop-blur-xl shadow-sm"
             : "bg-transparent"
         }`}
@@ -57,7 +72,7 @@ export default function Header() {
             {/* Logo */}
             <Link
               to="/lms"
-              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${scrolled ? "text-[hsl(230,25%,15%)]" : "text-white"}`}
+              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${solid ? "text-[hsl(230,25%,15%)]" : "text-white"}`}
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}
@@ -79,8 +94,8 @@ export default function Header() {
                       ${showBlob
                         ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
                         : isLms && location.pathname !== "/lms"
-                          ? `${scrolled ? "text-[hsl(250,30%,55%)]" : "text-white/70"} hover:scale-[1.03] mr-3`
-                          : `${scrolled ? "text-[hsl(230,25%,15%)]" : "text-white/90"} hover:bg-white/10 rounded-lg`
+                          ? `${solid ? "text-[hsl(250,30%,55%)]" : "text-white/70"} hover:scale-[1.03] mr-3`
+                          : `${solid ? "text-[hsl(230,25%,15%)]" : "text-white/90"} hover:bg-white/10 rounded-lg`
                       }
                     `}
                     style={showBlob ? {
@@ -103,7 +118,7 @@ export default function Header() {
               <a
                 href="#contact"
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
-                  scrolled
+                  solid
                     ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
                     : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
                 }`}
@@ -114,7 +129,7 @@ export default function Header() {
 
             {/* Mobile toggle */}
             <button
-              className={`lg:hidden ml-auto p-2 transition-colors ${scrolled ? "text-gray-500 hover:text-gray-800" : "text-white/80 hover:text-white"}`}
+              className={`lg:hidden ml-auto p-2 transition-colors ${solid ? "text-gray-500 hover:text-gray-800" : "text-white/80 hover:text-white"}`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
             >
