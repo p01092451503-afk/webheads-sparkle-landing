@@ -19,8 +19,8 @@ const serviceConfig: { key: string; path: string; accent: string; icon: LucideIc
 ];
 
 // Positions for 8 nodes on a circle (desktop)
-const NODE_RADIUS = 210;
-const CENTER = { x: 300, y: 300 };
+const NODE_RADIUS = 160;
+const CENTER = { x: 230, y: 230 };
 const nodePositions = serviceConfig.map((_, i) => {
   const angle = (i * 2 * Math.PI) / 8 - Math.PI / 2;
   return {
@@ -40,9 +40,9 @@ export default function EcosystemMapSection() {
   }[];
 
   return (
-    <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
+    <section className="py-20" style={{ background: "var(--lms-section-alt)" }}>
       <div className="container mx-auto px-6 max-w-5xl">
-        <div className="mb-16">
+        <div className="mb-10">
           <p
             className="text-sm font-semibold tracking-widest uppercase mb-4"
             style={{ color: "hsl(var(--lms-primary))" }}
@@ -62,10 +62,10 @@ export default function EcosystemMapSection() {
 
         {/* Desktop: SVG interactive map */}
         <div className="hidden md:block" ref={containerRef}>
-          <div className="relative mx-auto" style={{ width: 600, height: 600 }}>
+          <div className="relative mx-auto" style={{ width: 460, height: 460 }}>
             {/* SVG connections */}
             <svg
-              viewBox="0 0 600 600"
+              viewBox="0 0 460 460"
               className="absolute inset-0 w-full h-full"
               style={{ pointerEvents: "none" }}
             >
@@ -150,10 +150,10 @@ export default function EcosystemMapSection() {
             <div
               className="absolute flex flex-col items-center justify-center rounded-full"
               style={{
-                width: 100,
-                height: 100,
-                left: CENTER.x - 50,
-                top: CENTER.y - 50,
+                width: 84,
+                height: 84,
+                left: CENTER.x - 42,
+                top: CENTER.y - 42,
                 zIndex: 20,
               }}
             >
@@ -180,13 +180,13 @@ export default function EcosystemMapSection() {
               const isHovered = hoveredIdx === i;
 
               return (
-                <div key={svc.key} style={{ position: "absolute", left: pos.x - 36, top: pos.y - 36, zIndex: isHovered ? 30 : 10 }}
+                <div key={svc.key} style={{ position: "absolute", left: pos.x - 32, top: pos.y - 32, zIndex: isHovered ? 30 : 10 }}
                   onMouseEnter={() => setHoveredIdx(i)}
                   onMouseLeave={() => setHoveredIdx(null)}
                 >
                   {/* Node */}
                   <button
-                    className="relative w-[72px] h-[72px] rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
+                    className="relative w-[64px] h-[64px] rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
                     style={{
                       background: isHovered ? svc.accent : "var(--background)",
                       border: `2px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
@@ -224,9 +224,9 @@ export default function EcosystemMapSection() {
                     if (Math.abs(dx) > Math.abs(dy) * 0.5) {
                       // Left or right side
                       if (outward.x > 0) {
-                        tooltipStyle.left = 82;
+                        tooltipStyle.left = 72;
                       } else {
-                        tooltipStyle.right = 82;
+                        tooltipStyle.right = 72;
                       }
                     } else {
                       tooltipStyle.left = -96; // center horizontally
@@ -234,9 +234,9 @@ export default function EcosystemMapSection() {
                     // Vertical positioning
                     if (Math.abs(dy) > Math.abs(dx) * 0.5) {
                       if (outward.y > 0) {
-                        tooltipStyle.top = 78;
+                        tooltipStyle.top = 68;
                       } else {
-                        tooltipStyle.bottom = 78;
+                        tooltipStyle.bottom = 68;
                       }
                     } else {
                       tooltipStyle.top = -20;
@@ -294,7 +294,7 @@ export default function EcosystemMapSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <a
             href="#contact"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg"
