@@ -150,10 +150,10 @@ export default function EcosystemMapSection() {
             <div
               className="absolute flex flex-col items-center justify-center rounded-full"
               style={{
-                width: 100,
-                height: 100,
-                left: CENTER.x - 50,
-                top: CENTER.y - 50,
+                width: 84,
+                height: 84,
+                left: CENTER.x - 42,
+                top: CENTER.y - 42,
                 zIndex: 20,
               }}
             >
