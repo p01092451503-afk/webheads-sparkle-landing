@@ -148,18 +148,27 @@ export default function EcosystemMapSection() {
 
             {/* Center hub */}
             <div
-              className="absolute flex flex-col items-center justify-center rounded-full shadow-xl"
+              className="absolute flex flex-col items-center justify-center rounded-full"
               style={{
                 width: 100,
                 height: 100,
                 left: CENTER.x - 50,
                 top: CENTER.y - 50,
-                background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
                 zIndex: 20,
               }}
             >
-              <GraduationCap className="w-8 h-8 text-white mb-1" strokeWidth={2} />
-              <span className="text-xs font-extrabold text-white tracking-wide">LMS</span>
+              {/* Pulse rings */}
+              <div className="absolute inset-0 rounded-full" style={{ background: "hsl(245, 65%, 50%)", opacity: 0.15, animation: "eco-hub-pulse 2.8s ease-out infinite" }} />
+              <div className="absolute inset-0 rounded-full" style={{ background: "hsl(245, 65%, 50%)", opacity: 0.1, animation: "eco-hub-pulse 2.8s ease-out infinite 0.9s" }} />
+              <div
+                className="absolute inset-0 rounded-full flex flex-col items-center justify-center shadow-xl"
+                style={{
+                  background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
+                }}
+              >
+                <GraduationCap className="w-8 h-8 text-white mb-1" strokeWidth={2} />
+                <span className="text-xs font-extrabold text-white tracking-wide">LMS</span>
+              </div>
             </div>
 
             {/* Service nodes */}
