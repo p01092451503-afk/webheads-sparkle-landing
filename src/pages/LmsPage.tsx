@@ -382,38 +382,38 @@ export default function LmsPage() {
 
       {/* ═══ Device Friendly — Glassmorphism cards (LMS-exclusive) ═══ */}
       <Reveal>
-        <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
+        <section className="py-16" style={{ background: "var(--lms-section-alt)" }}>
           <div className="container mx-auto px-6 max-w-5xl">
-            <div className="mb-16">
-              <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>
+            <div className="mb-10">
+              <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: `hsl(var(--lms-primary))` }}>
                 {t("lms.deviceSection.sub")}
               </p>
-              <h2 className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
-              <p className="mt-4 text-base text-muted-foreground">{t("lms.deviceSection.desc")}</p>
+              <h2 className="font-bold leading-tight text-3xl lg:text-4xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
+              <p className="mt-3 text-sm text-muted-foreground">{t("lms.deviceSection.desc")}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {[
                 { icon: Monitor, label: "PC" },
                 { icon: Tablet, label: "Tablet" },
                 { icon: Smartphone, label: "Mobile" }
               ].map(({ icon: Icon, label }, i) => (
-                <Reveal key={label} delay={i * 120}>
+                <Reveal key={label} delay={i * 100}>
                   <div
-                    className="rounded-3xl px-8 pt-10 pb-9 flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1.5 h-full"
+                    className="rounded-2xl px-6 pt-7 pb-6 flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 h-full"
                     style={{
                       background: "hsl(var(--card))",
                       border: "1px solid hsl(var(--border) / 0.6)",
-                      boxShadow: "0 8px 40px -12px hsl(var(--foreground) / 0.06)",
+                      boxShadow: "0 4px 24px -8px hsl(var(--foreground) / 0.05)",
                     }}
                   >
                     <div
-                      className="w-[72px] h-[72px] rounded-full flex items-center justify-center mb-6"
+                      className="w-14 h-14 rounded-full flex items-center justify-center mb-4"
                       style={{ background: "hsl(245, 40%, 93%)" }}
                     >
-                      <Icon className="w-7 h-7" style={{ color: "hsl(245, 58%, 55%)" }} />
+                      <Icon className="w-6 h-6" style={{ color: "hsl(245, 58%, 55%)" }} />
                     </div>
-                    <h3 className="font-bold text-xl text-foreground mb-4 tracking-tight">{label}</h3>
-                    <p className="text-sm leading-[1.85] text-muted-foreground">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
+                    <h3 className="font-bold text-lg text-foreground mb-3 tracking-tight">{label}</h3>
+                    <p className="text-[13px] leading-relaxed text-muted-foreground">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
                   </div>
                 </Reveal>
               ))}
