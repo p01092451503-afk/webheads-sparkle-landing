@@ -19,8 +19,8 @@ const serviceConfig: { key: string; path: string; accent: string; icon: LucideIc
 ];
 
 // Positions for 8 nodes on a circle (desktop)
-const NODE_RADIUS = 160;
-const CENTER = { x: 230, y: 230 };
+const NODE_RADIUS = 180;
+const CENTER = { x: 250, y: 250 };
 const nodePositions = serviceConfig.map((_, i) => {
   const angle = (i * 2 * Math.PI) / 8 - Math.PI / 2;
   return {
@@ -62,10 +62,10 @@ export default function EcosystemMapSection() {
 
         {/* Desktop: SVG interactive map */}
         <div className="hidden md:block" ref={containerRef}>
-          <div className="relative mx-auto" style={{ width: 460, height: 460 }}>
+          <div className="relative mx-auto" style={{ width: 500, height: 500 }}>
             {/* SVG connections */}
             <svg
-              viewBox="0 0 460 460"
+              viewBox="0 0 500 500"
               className="absolute inset-0 w-full h-full"
               style={{ pointerEvents: "none" }}
             >
@@ -150,10 +150,10 @@ export default function EcosystemMapSection() {
             <div
               className="absolute flex flex-col items-center justify-center rounded-full"
               style={{
-                width: 84,
-                height: 84,
-                left: CENTER.x - 42,
-                top: CENTER.y - 42,
+                width: 104,
+                height: 104,
+                left: CENTER.x - 52,
+                top: CENTER.y - 52,
                 zIndex: 20,
               }}
             >
@@ -166,8 +166,8 @@ export default function EcosystemMapSection() {
                   background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
                 }}
               >
-                <GraduationCap className="w-8 h-8 text-white mb-1" strokeWidth={2} />
-                <span className="text-xs font-extrabold text-white tracking-wide">LMS</span>
+                <GraduationCap className="w-10 h-10 text-white mb-1" strokeWidth={2} />
+                <span className="text-sm font-extrabold text-white tracking-wide">LMS</span>
               </div>
             </div>
 
@@ -180,13 +180,13 @@ export default function EcosystemMapSection() {
               const isHovered = hoveredIdx === i;
 
               return (
-                <div key={svc.key} style={{ position: "absolute", left: pos.x - 32, top: pos.y - 32, zIndex: isHovered ? 30 : 10 }}
+                <div key={svc.key} style={{ position: "absolute", left: pos.x - 44, top: pos.y - 44, zIndex: isHovered ? 30 : 10 }}
                   onMouseEnter={() => setHoveredIdx(i)}
                   onMouseLeave={() => setHoveredIdx(null)}
                 >
                   {/* Node */}
                   <button
-                    className="relative w-[64px] h-[64px] rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
+                    className="relative w-[88px] h-[88px] rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
                     style={{
                       background: isHovered ? svc.accent : "var(--background)",
                       border: `2px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
@@ -198,12 +198,12 @@ export default function EcosystemMapSection() {
                     onClick={() => navigate(svc.path)}
                   >
                     <Icon
-                      className="w-6 h-6 mb-0.5"
+                      className="w-8 h-8 mb-1"
                       style={{ color: isHovered ? "#fff" : svc.accent }}
-                      strokeWidth={2}
+                      strokeWidth={1.8}
                     />
                     <span
-                      className="text-[10px] font-bold leading-tight text-center px-1"
+                      className="text-[11px] font-bold leading-tight text-center px-1"
                       style={{ color: isHovered ? "#fff" : "var(--foreground)" }}
                     >
                       {data.name}
@@ -224,9 +224,9 @@ export default function EcosystemMapSection() {
                     if (Math.abs(dx) > Math.abs(dy) * 0.5) {
                       // Left or right side
                       if (outward.x > 0) {
-                        tooltipStyle.left = 72;
+                        tooltipStyle.left = 96;
                       } else {
-                        tooltipStyle.right = 72;
+                        tooltipStyle.right = 96;
                       }
                     } else {
                       tooltipStyle.left = -96; // center horizontally
@@ -234,9 +234,9 @@ export default function EcosystemMapSection() {
                     // Vertical positioning
                     if (Math.abs(dy) > Math.abs(dx) * 0.5) {
                       if (outward.y > 0) {
-                        tooltipStyle.top = 68;
+                        tooltipStyle.top = 94;
                       } else {
-                        tooltipStyle.bottom = 68;
+                        tooltipStyle.bottom = 94;
                       }
                     } else {
                       tooltipStyle.top = -20;
