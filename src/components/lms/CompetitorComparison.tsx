@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { CheckCircle2, XCircle, MinusCircle, ArrowRight } from "lucide-react";
+import { CheckCircle2, XCircle, MinusCircle, ArrowRight, Zap } from "lucide-react";
 
 function StatusIcon({ value }: { value: string }) {
   if (value === "O") return <CheckCircle2 className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />;
@@ -12,6 +12,11 @@ export default function CompetitorComparison() {
   const { t } = useTranslation();
   const headers = t("lms.competitorTable.headers", { returnObjects: true }) as string[];
   const rows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
+  const diffItems = t("lms.competitorTable.diffItems", { returnObjects: true }) as {
+    label: string;
+    value: string;
+    desc: string;
+  }[];
 
   return (
     <section className="py-28">
@@ -37,7 +42,7 @@ export default function CompetitorComparison() {
                       className={`px-6 py-4 text-left font-bold whitespace-nowrap ${
                         i === headers.length - 1 ? "text-white" : "text-foreground"
                       }`}
-                      style={i === headers.length - 1 ? { background: "hsl(var(--lms-primary))", borderRadius: i === headers.length - 1 ? "0" : undefined } : undefined}
+                      style={i === headers.length - 1 ? { background: "hsl(var(--lms-primary))" } : undefined}
                     >
                       {h}
                     </th>
@@ -62,6 +67,24 @@ export default function CompetitorComparison() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+
+        {/* Differentiation Cards */}
+        <div className="mt-10">
+          <h3 className="font-bold text-foreground text-xl lg:text-2xl mb-2 tracking-tight">{t("lms.competitorTable.diffTitle")}</h3>
+          <p className="text-muted-foreground text-sm mb-6">{t("lms.competitorTable.diffDesc")}</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {diffItems.map((item) => (
+              <div key={item.label} className="rounded-xl border border-border bg-background p-5 text-center hover:shadow-sm transition-shadow">
+                <div className="inline-flex items-center justify-center w-9 h-9 rounded-lg mb-3" style={{ background: "hsl(var(--lms-primary) / 0.1)" }}>
+                  <Zap className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
+                </div>
+                <p className="text-xs text-muted-foreground mb-1">{item.label}</p>
+                <p className="text-2xl font-bold tracking-tight mb-1" style={{ color: "hsl(var(--lms-primary))" }}>{item.value}</p>
+                <p className="text-xs text-muted-foreground" style={{ wordBreak: "keep-all" }}>{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
 

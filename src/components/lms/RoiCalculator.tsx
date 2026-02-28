@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare } from "lucide-react";
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
   const [students, setStudents] = useState(500);
   const [fee, setFee] = useState(100000);
 
-  // ROI calculation logic
   const monthlyRevenue = students * fee;
-  const selfBuildCost = 50000000; // 자체 구축 연간 비용 (개발+서버+인건비)
+  const selfBuildCost = 50000000;
   const selfBuildMonthly = Math.round(selfBuildCost / 12);
   const webheadsMonthlyCost = students <= 200 ? 500000 : students <= 500 ? 700000 : 1000000;
   const savingsMonthly = selfBuildMonthly - webheadsMonthlyCost;
@@ -17,6 +16,12 @@ export default function RoiCalculator() {
   const annualSavings = savingsMonthly * 12;
 
   const formatNumber = (n: number) => n.toLocaleString("ko-KR");
+
+  const addonItems = [
+    { icon: Bot, label: t("lms.roiCalc.addonChatbot"), value: t("lms.roiCalc.chatbotSaving"), color: "hsl(245, 58%, 55%)" },
+    { icon: Shield, label: t("lms.roiCalc.addonDrm"), value: t("lms.roiCalc.drmSaving"), color: "hsl(340, 65%, 50%)" },
+    { icon: MessageSquare, label: t("lms.roiCalc.addonSms"), value: t("lms.roiCalc.smsSaving"), color: "hsl(170, 55%, 38%)" },
+  ];
 
   return (
     <section className="py-28 bg-secondary">
@@ -48,21 +53,12 @@ export default function RoiCalculator() {
                 <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(students)}{t("lms.roiCalc.studentsUnit")}</span>
               </div>
               <input
-                type="range"
-                min={50}
-                max={5000}
-                step={50}
-                value={students}
+                type="range" min={50} max={5000} step={50} value={students}
                 onChange={(e) => setStudents(Number(e.target.value))}
                 className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((students - 50) / 4950) * 100}%, hsl(var(--border)) ${((students - 50) / 4950) * 100}%)`,
-                }}
+                style={{ background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((students - 50) / 4950) * 100}%, hsl(var(--border)) ${((students - 50) / 4950) * 100}%)` }}
               />
-              <div className="flex justify-between text-xs text-muted-foreground mt-1.5">
-                <span>50</span>
-                <span>5,000</span>
-              </div>
+              <div className="flex justify-between text-xs text-muted-foreground mt-1.5"><span>50</span><span>5,000</span></div>
             </div>
 
             {/* Fee slider */}
@@ -72,21 +68,12 @@ export default function RoiCalculator() {
                 <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(fee)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
               <input
-                type="range"
-                min={10000}
-                max={500000}
-                step={10000}
-                value={fee}
+                type="range" min={10000} max={500000} step={10000} value={fee}
                 onChange={(e) => setFee(Number(e.target.value))}
                 className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((fee - 10000) / 490000) * 100}%, hsl(var(--border)) ${((fee - 10000) / 490000) * 100}%)`,
-                }}
+                style={{ background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((fee - 10000) / 490000) * 100}%, hsl(var(--border)) ${((fee - 10000) / 490000) * 100}%)` }}
               />
-              <div className="flex justify-between text-xs text-muted-foreground mt-1.5">
-                <span>10,000</span>
-                <span>500,000</span>
-              </div>
+              <div className="flex justify-between text-xs text-muted-foreground mt-1.5"><span>10,000</span><span>500,000</span></div>
             </div>
           </div>
 
@@ -131,6 +118,24 @@ export default function RoiCalculator() {
               {t("lms.roiCalc.cta")}
               <ArrowRight className="w-4 h-4" />
             </a>
+          </div>
+        </div>
+
+        {/* Add-on Savings */}
+        <div className="mt-8 rounded-2xl border border-border bg-background p-8">
+          <h4 className="font-bold text-foreground text-base mb-5">{t("lms.roiCalc.addonsTitle")}</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {addonItems.map((item) => (
+              <div key={item.label} className="rounded-xl p-5 bg-secondary flex items-start gap-3">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}15` }}>
+                  <item.icon className="w-4.5 h-4.5" style={{ color: item.color }} />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-1" style={{ wordBreak: "keep-all" }}>{item.label}</p>
+                  <p className="text-sm font-bold" style={{ color: item.color }}>{item.value}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

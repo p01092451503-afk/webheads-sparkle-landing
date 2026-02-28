@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Building2, GraduationCap, Briefcase, Landmark, Rocket, CheckCircle2 } from "lucide-react";
+import { Building2, GraduationCap, Briefcase, Landmark, Rocket, CheckCircle2, Lightbulb, Puzzle } from "lucide-react";
 
 const tabIcons = [Rocket, Building2, GraduationCap, Briefcase, Landmark];
 
@@ -11,6 +11,8 @@ export default function IndustryScenarioTabs() {
     title: string;
     desc: string;
     points: string[];
+    addons: string[];
+    case: string;
     cta: string;
   }[];
   const [active, setActive] = useState(0);
@@ -59,7 +61,8 @@ export default function IndustryScenarioTabs() {
         >
           <h3 className="font-bold text-foreground text-xl lg:text-2xl mb-3 tracking-tight">{current.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed mb-6" style={{ wordBreak: "keep-all" }}>{current.desc}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
             {current.points.map((point, i) => (
               <div key={i} className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-4.5 h-4.5 shrink-0 mt-0.5" style={{ color: "hsl(var(--lms-primary))" }} />
@@ -67,6 +70,40 @@ export default function IndustryScenarioTabs() {
               </div>
             ))}
           </div>
+
+          {/* Add-ons & Case Study */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {/* Recommended Add-ons */}
+            <div className="rounded-xl p-5 bg-secondary">
+              <div className="flex items-center gap-2 mb-3">
+                <Puzzle className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
+                <span className="text-xs font-bold text-foreground tracking-wide">추천 부가서비스</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {current.addons.map((addon) => (
+                  <span
+                    key={addon}
+                    className="text-xs px-3 py-1.5 rounded-full font-semibold"
+                    style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
+                  >
+                    {addon}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Case Study */}
+            <div className="rounded-xl p-5 bg-secondary">
+              <div className="flex items-center gap-2 mb-3">
+                <Lightbulb className="w-4 h-4" style={{ color: "hsl(35, 90%, 50%)" }} />
+                <span className="text-xs font-bold text-foreground tracking-wide">도입 사례</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                {current.case}
+              </p>
+            </div>
+          </div>
+
           <a
             href="#contact"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
