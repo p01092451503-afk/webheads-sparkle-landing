@@ -70,7 +70,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
       style={{ background: "var(--contact-bg)" }}
     >
       <div className="container mx-auto px-6 max-w-5xl">
-        {/* Header — compact */}
+        {/* Header */}
         <div className="mb-10">
           <p className="text-sm font-semibold tracking-widest uppercase mb-3 text-primary">
             {t("contact.sub")}
@@ -86,6 +86,36 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           <p className="mt-3 text-sm text-muted-foreground">
             {t("contact.desc")}
           </p>
+
+          {/* Trust stats bar */}
+          <div
+            className="mt-5 inline-flex items-center flex-wrap gap-y-2 rounded-xl px-5 py-2.5"
+            style={{
+              background: "rgba(255,255,255,0.72)",
+              border: "1px solid rgba(37,99,235,0.15)",
+            }}
+          >
+            {[
+              { emoji: "✅", value: "300+", label: "도입 기업" },
+              { emoji: "⭐", value: "16년", label: "LMS 전문기업" },
+              { emoji: "🔄", value: "92.6%", label: "재계약률" },
+              { emoji: "🏆", value: "TCB", label: "기술 우수기업" },
+            ].map((item, i, arr) => (
+              <span key={i} className="flex items-center">
+                <span className="flex items-center gap-1.5 px-2.5">
+                  <span className="text-sm">{item.emoji}</span>
+                  <span className="text-sm font-extrabold text-foreground">{item.value}</span>
+                  <span className="text-xs text-muted-foreground">{item.label}</span>
+                </span>
+                {i < arr.length - 1 && (
+                  <span
+                    className="w-px h-4 shrink-0"
+                    style={{ background: "rgba(229,231,235,1)" }}
+                  />
+                )}
+              </span>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
