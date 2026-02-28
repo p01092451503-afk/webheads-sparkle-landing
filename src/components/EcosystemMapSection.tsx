@@ -166,8 +166,8 @@ export default function EcosystemMapSection() {
                   background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
                 }}
               >
-                <GraduationCap className="w-8 h-8 text-white mb-1" strokeWidth={2} />
-                <span className="text-xs font-extrabold text-white tracking-wide">LMS</span>
+                <GraduationCap className="w-10 h-10 text-white mb-1" strokeWidth={2} />
+                <span className="text-sm font-extrabold text-white tracking-wide">LMS</span>
               </div>
             </div>
 
