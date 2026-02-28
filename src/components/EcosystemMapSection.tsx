@@ -127,7 +127,7 @@ export default function EcosystemMapSection() {
                 ))}
               </defs>
               {nodePositions.map((pos, i) => {
-                const isActive = hoveredIdx === i;
+                const isActive = activeIdx === i;
                 return (
                   <g key={i}>
                     {/* Base line */}
