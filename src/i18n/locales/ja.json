@@ -726,6 +726,13 @@
       "webheadsCost": "Webheads月額利用料",
       "annualSavings": "年間予想削減額",
       "savingsNote": "自社構築比較約{{percent}}%のコスト削減",
+      "benefitsTitle": "Webheads導入の追加効果",
+      "benefits": [
+        { "label": "AIチャットボット運営費削減", "value": "運営費 80% ↓" },
+        { "label": "DRM不正コピー防止", "value": "流出 99% 遮断" },
+        { "label": "SMS受講促進完了率向上", "value": "完了率 40% ↑" },
+        { "label": "AI字幕制作時間削減", "value": "制作 90% ↓" }
+      ],
       "cta": "カスタム見積もりを依頼"
     },
     "competitorTable": {
