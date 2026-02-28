@@ -79,8 +79,8 @@ export default function Header() {
                       ${showBlob
                         ? "text-white shadow-sm hover:scale-[1.03]" + (isLms ? " mr-3" : "")
                         : isLms && location.pathname !== "/lms"
-                          ? "text-[hsl(250,30%,55%)] hover:scale-[1.03] mr-3"
-                          : "text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                          ? `${scrolled ? "text-[hsl(250,30%,55%)]" : "text-white/70"} hover:scale-[1.03] mr-3`
+                          : `${scrolled ? "text-[hsl(230,25%,15%)]" : "text-white/90"} hover:bg-white/10 rounded-lg`
                       }
                     `}
                     style={showBlob ? {
