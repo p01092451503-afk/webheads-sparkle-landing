@@ -759,7 +759,15 @@
         ["24/7 Maintenance", "In-house", "Email only", "O"],
         ["Add-on Services", "Separate contracts", "Limited", "One-stop"]
       ],
-      "cta": "Get Webheads LMS Consultation"
+      "cta": "Get Webheads LMS Consultation",
+      "diffTitle": "Why Webheads LMS?",
+      "diffDesc": "16 years of expertise and one-stop add-on integration create unmatched value",
+      "diffItems": [
+        { "label": "Setup Speed", "value": "3 Days", "desc": "Faster custom deployment than any SaaS" },
+        { "label": "Experience", "value": "16+ Years", "desc": "300+ institutions served" },
+        { "label": "Add-ons", "value": "One-Stop", "desc": "PG·DRM·SMS·AI all integrated in-house" },
+        { "label": "Support", "value": "24/7", "desc": "From incident response to feature updates" }
+      ]
     },
     "aiSection": { "sub": "AI Features", "title": "Smart & Easy Operations\nwith AI", "desc": "Leverage AI technology for a smarter digital e-learning environment." },
     "aiFeatures": [
