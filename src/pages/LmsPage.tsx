@@ -215,8 +215,8 @@ export default function LmsPage() {
                     }}
                   >
                     <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
-                      style={{ background: "hsl(245, 60%, 96%)", border: "1px solid hsl(245, 50%, 90%)" }}
+                      className="w-[72px] h-[72px] rounded-full flex items-center justify-center mb-6"
+                      style={{ background: "hsl(245, 40%, 93%)" }}
                     >
                       <Icon className="w-7 h-7" style={{ color: "hsl(245, 58%, 55%)" }} />
                     </div>
