@@ -24,10 +24,6 @@ export default function LmsHeroOverlay() {
           0% { stroke-dashoffset: -600; }
           100% { stroke-dashoffset: 200; }
         }
-        @keyframes lms-particle-float {
-          0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
-          50% { transform: translateY(-18px) scale(1.3); opacity: 0.9; }
-        }
         @keyframes lms-glow-pulse {
           0%, 100% { opacity: 0.08; }
           50% { opacity: 0.18; }
