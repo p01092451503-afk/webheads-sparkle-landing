@@ -333,6 +333,35 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                   />
                 </div>
 
+                {/* Privacy consent */}
+                <div className="rounded-[10px] px-3 py-2.5" style={{ background: "hsl(var(--muted))" }}>
+                  <label className="flex items-start gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={privacyAgreed}
+                      onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded accent-primary shrink-0"
+                    />
+                    <div className="min-w-0">
+                      <span className="text-sm text-foreground" style={{ fontWeight: 700 }}>
+                        [필수] 개인정보 수집·이용에 동의합니다
+                      </span>
+                      <p className="text-[11px] leading-relaxed mt-1 text-muted-foreground">
+                        수집 항목: 회사명·담당자명·연락처·이메일 · 이용 목적: 상담 응대 · 보유 기간: 상담 완료 후 1년
+                      </p>
+                      <a
+                        href="/privacy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] mt-0.5 inline-block underline"
+                        style={{ color: "hsl(210 100% 50%)" }}
+                      >
+                        개인정보처리방침 보기
+                      </a>
+                    </div>
+                  </label>
+                </div>
+
                 {error && (
                   <p className="text-sm text-center rounded-lg py-2 px-3 font-medium bg-destructive/10 text-destructive border border-destructive/20">
                     {error}
@@ -341,14 +370,15 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
                 <button
                   type="submit"
-                  disabled={loading}
-                  className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                  disabled={loading || !privacyAgreed}
+                  className="w-full py-3.5 rounded-xl font-bold text-sm flex flex-col items-center justify-center gap-1 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
                   style={{
                     background: "hsl(var(--primary))",
                     color: "hsl(var(--primary-foreground))",
                     boxShadow: "0 4px 14px hsl(var(--primary) / 0.25)",
                   }}
                 >
+                  <span className="flex items-center gap-2">
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -360,6 +390,10 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                       {inquiryType === "demo" ? t("contact.formSubmitDemo") : t("contact.formSubmit")}
                     </>
                   )}
+                  </span>
+                  <span className="text-[10px] font-normal" style={{ opacity: 0.65 }}>
+                    제출 후 평균 4시간 내 담당자가 연락드립니다
+                  </span>
                 </button>
               </form>
             )}
