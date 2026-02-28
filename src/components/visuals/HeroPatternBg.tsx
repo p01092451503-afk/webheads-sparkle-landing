@@ -148,6 +148,8 @@ export default function HeroPatternBg({ theme }: { theme: HeroColorTheme }) {
         {theme === "blue-purple" && <BluePurplePattern stroke={t.stroke} />}
         {theme === "teal-cyan" && <TealCyanPattern stroke={t.stroke} />}
         {theme === "indigo-deep" && <IndigoDeepPattern stroke={t.stroke} />}
+        {theme === "emerald-green" && <EmeraldGreenPattern stroke={t.stroke} />}
+        {theme === "slate-orange" && <SlateOrangePattern stroke={t.stroke} />}
 
         <defs>
           <radialGradient id={`hero-glow-${theme}`} cx="50%" cy="40%" r="50%">
