@@ -330,41 +330,24 @@ export default function LmsPage() {
             </div>
           </div>
 
-          {/* KDT Government-funded */}
-          <div
-            className="mt-6 rounded-3xl p-8 bg-background hover:shadow-lg transition-all duration-200 relative overflow-hidden"
-            style={{ border: `1px solid hsl(var(--lms-card-border))` }}
-          >
-            <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl" style={{ background: "hsl(145, 60%, 38%)" }} />
-            <div className="flex items-center gap-3 mb-4">
+          {/* KDT Summary */}
+          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 rounded-2xl border border-border p-6 bg-background">
+            <div className="flex items-center gap-3 shrink-0">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
                 <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
               </div>
-              <div>
-                <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.kdt.name")}</h3>
-                <p className="text-xs text-muted-foreground">{t("lms.kdt.subtitle")}</p>
-              </div>
+              <h4 className="font-bold text-foreground text-base">{t("lms.kdt.name")}</h4>
             </div>
-            <p className="text-muted-foreground text-sm mb-5 leading-relaxed">{t("lms.kdt.desc")}</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {kdtFeatures.map((f: any) => (
-                <div key={f.title} className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-secondary shrink-0 mt-0.5">
-                    <f.icon className="w-4 h-4" style={{ color: "hsl(145, 60%, 38%)" }} />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-foreground">{f.title}</h4>
-                    <p className="text-xs text-muted-foreground">{f.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed flex-1" style={{ wordBreak: "keep-all" }}>
+              {t("lms.kdt.summary")}
+            </p>
             <a
               href="#contact"
-              className="block text-center mt-6 py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 text-white hover:opacity-90"
+              className="shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
               style={{ background: "hsl(145, 60%, 38%)" }}
             >
-              {t("lms.kdt.cta")}
+              {t("lms.kdt.ctaShort")}
+              <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>

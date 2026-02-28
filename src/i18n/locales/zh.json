@@ -667,7 +667,7 @@
         ["SLA", "云端SLA", "99.9%可用率保障", "云端SLA"]
       ]
     },
-    "kdt": { "name": "Webheads 国费", "subtitle": "KDT · 政府补贴培训专用LMS", "desc": "专为K-Digital Training(KDT)等政府补贴培训课程优化的LMS，从HRD-Net对接到考勤·评估·结业管理，全面支持符合政府标准的系统化教务运营。", "cta": "咨询国费LMS" },
+    "kdt": { "name": "Webheads 国费", "subtitle": "KDT · 政府补贴培训专用LMS", "desc": "专为K-Digital Training(KDT)等政府补贴培训课程优化的LMS，从HRD-Net对接到考勤·评估·结业管理，全面支持符合政府标准的系统化教务运营。", "cta": "咨询国费LMS", "summary": "专为KDT等政府补贴培训优化的LMS——HRD-Net对接、考勤·评估·结业管理、NCS评分体系，全面符合政府标准。", "ctaShort": "详细咨询" },
     "kdtFeatures": [
       { "title": "HRD-Net自动对接", "desc": "通过雇佣劳动部HRD-Net API自动化学员注册和结业报告" },
       { "title": "实时考勤管理", "desc": "内置IP验证、随机身份认证等防作弊系统" },
