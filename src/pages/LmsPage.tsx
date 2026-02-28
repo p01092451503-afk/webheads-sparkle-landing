@@ -6,6 +6,10 @@ import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
+import IndustryScenarioTabs from "@/components/lms/IndustryScenarioTabs";
+import LearnerJourneyMap from "@/components/lms/LearnerJourneyMap";
+import RoiCalculator from "@/components/lms/RoiCalculator";
+import CompetitorComparison from "@/components/lms/CompetitorComparison";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
@@ -141,6 +145,9 @@ export default function LmsPage() {
 
 
 
+
+      {/* Industry Scenario Tabs */}
+      <IndustryScenarioTabs />
 
       {/* Device Friendly */}
       <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
@@ -382,6 +389,9 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* Learner Journey Map */}
+      <LearnerJourneyMap />
+
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
       {/* AI Features */}
@@ -408,6 +418,12 @@ export default function LmsPage() {
           </div>
         </div>
       </section>
+
+      {/* ROI Calculator */}
+      <RoiCalculator />
+
+      {/* Competitor Comparison */}
+      <CompetitorComparison />
 
       {/* Ecosystem Interactive Map */}
       <EcosystemMapSection />
