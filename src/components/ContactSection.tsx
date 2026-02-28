@@ -85,9 +85,9 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   };
 
   const inputBase =
-    "w-full rounded-lg px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-muted-foreground/40 bg-muted border border-border";
+    "w-full rounded-lg px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-muted-foreground/40 bg-background border border-border";
   const inputFocus =
-    "focus:border-primary focus:bg-background focus:ring-2 focus:ring-primary/10";
+    "focus:border-foreground focus:ring-1 focus:ring-foreground/10";
 
   return (
     <section id="contact" className="py-24 bg-background">
