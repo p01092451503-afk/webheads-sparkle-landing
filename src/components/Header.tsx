@@ -119,26 +119,15 @@ export default function Header() {
           <div className="container mx-auto px-6 py-4 flex flex-col gap-0.5">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
-              const isLms = s.path === "/lms";
-              const blobColor = serviceBlobColors[s.path];
               return (
                 <Link
                   key={s.path}
                   to={s.path}
-                  className={`inline-block w-fit px-3 py-2.5 text-sm font-normal transition-colors ${
+                  className={`inline-block w-fit px-3 py-2.5 text-sm font-normal rounded-lg transition-colors ${
                     isActive
-                      ? "text-white shadow-sm"
-                      : isLms
-                        ? "text-[hsl(250,30%,55%)]"
-                        : "text-[hsl(230,25%,15%)] hover:bg-gray-50 rounded-lg"
+                      ? "text-[hsl(250,55%,52%)] font-medium"
+                      : "text-[hsl(230,25%,15%)] hover:bg-gray-50"
                   }`}
-                  style={isActive ? {
-                    background: blobColor,
-                    borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
-                  } : isLms ? {
-                    background: "hsl(250, 20%, 82%)",
-                    borderRadius: "30% 70% 70% 30% / 60% 40% 60% 40%",
-                  } : undefined}
                 >
                   {s.label}
                 </Link>
