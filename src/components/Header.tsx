@@ -129,7 +129,7 @@ export default function Header() {
 
             {/* Mobile toggle */}
             <button
-              className={`lg:hidden ml-auto p-2 transition-colors ${scrolled ? "text-gray-500 hover:text-gray-800" : "text-white/80 hover:text-white"}`}
+              className={`lg:hidden ml-auto p-2 transition-colors ${solid ? "text-gray-500 hover:text-gray-800" : "text-white/80 hover:text-white"}`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
             >
