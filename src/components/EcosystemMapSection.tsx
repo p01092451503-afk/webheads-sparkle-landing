@@ -236,8 +236,8 @@ export default function EcosystemMapSection() {
                     </span>
                   </button>
 
-                  {/* Tooltip — positioned outward from center so connection lines stay visible */}
-                  {isHovered && (() => {
+                  {/* Tooltip — only on manual hover */}
+                  {hoveredIdx === i && (() => {
                     const dx = pos.x - CENTER.x;
                     const dy = pos.y - CENTER.y;
                     const outward = { x: dx / Math.abs(dx || 1), y: dy / Math.abs(dy || 1) };
