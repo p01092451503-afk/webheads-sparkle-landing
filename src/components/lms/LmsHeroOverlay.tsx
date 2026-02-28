@@ -1,100 +1,108 @@
 /**
- * LMS-exclusive animated hero overlay with floating particles, glowing orbs,
- * and subtle grid. Differentiates LMS from other service pages that use plain HeroPatternBg.
+ * LMS-exclusive animated hero overlay — concentric arcs radiating from bottom-left
+ * plus a secondary arc cluster from top-right, matching the premium reference design.
+ * Completely unique compared to other service pages.
  */
 export default function LmsHeroOverlay() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       <style>{`
-        @keyframes lms-orb-float-1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-20px) scale(1.1)} }
-        @keyframes lms-orb-float-2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-25px,15px) scale(0.9)} }
-        @keyframes lms-orb-float-3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,25px)} }
-        @keyframes lms-particle-rise { 0%{transform:translateY(0) scale(1);opacity:0.6} 100%{transform:translateY(-120px) scale(0.3);opacity:0} }
-        @keyframes lms-grid-pulse { 0%,100%{opacity:0.04} 50%{opacity:0.08} }
-        @keyframes lms-shimmer { 0%{transform:translateX(-100%) rotate(12deg)} 100%{transform:translateX(200%) rotate(12deg)} }
+        @keyframes lms-arc-pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.6; }
+        }
+        @keyframes lms-dot-drift {
+          0% { transform: translate(0, 0); opacity: 0.7; }
+          50% { transform: translate(8px, -12px); opacity: 0.3; }
+          100% { transform: translate(0, 0); opacity: 0.7; }
+        }
       `}</style>
 
-      {/* Animated grid lines — unique to LMS */}
-      <svg className="absolute inset-0 w-full h-full" style={{ animation: "lms-grid-pulse 6s ease-in-out infinite" }}>
+      {/* ── Primary concentric arcs from bottom-left ── */}
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 1440 700"
+        preserveAspectRatio="xMinYMax slice"
+        fill="none"
+      >
         <defs>
-          <pattern id="lms-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="0.5" opacity="0.15" />
-          </pattern>
+          <linearGradient id="lms-arc-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="hsla(230, 80%, 75%, 0.35)" />
+            <stop offset="100%" stopColor="hsla(250, 70%, 65%, 0.08)" />
+          </linearGradient>
         </defs>
-        <rect width="100%" height="100%" fill="url(#lms-grid)" />
+
+        {/* Bottom-left arcs — 8 concentric circles */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+          <circle
+            key={`bl-${i}`}
+            cx={-80}
+            cy={780}
+            r={200 + i * 120}
+            stroke="url(#lms-arc-grad)"
+            strokeWidth={1.2 - i * 0.06}
+            fill="none"
+            opacity={0.5 - i * 0.04}
+            style={{
+              animation: `lms-arc-pulse ${6 + i * 0.8}s ease-in-out infinite`,
+              animationDelay: `${i * 0.3}s`,
+            }}
+          />
+        ))}
       </svg>
 
-      {/* Glowing orbs */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 280, height: 280,
-          top: "10%", left: "5%",
-          background: "radial-gradient(circle, hsla(260, 80%, 70%, 0.15) 0%, transparent 70%)",
-          animation: "lms-orb-float-1 8s ease-in-out infinite",
-          filter: "blur(40px)",
-        }}
-      />
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 220, height: 220,
-          top: "20%", right: "8%",
-          background: "radial-gradient(circle, hsla(210, 90%, 65%, 0.12) 0%, transparent 70%)",
-          animation: "lms-orb-float-2 10s ease-in-out infinite",
-          filter: "blur(50px)",
-        }}
-      />
-      <div
-        className="absolute rounded-full"
-        style={{
-          width: 160, height: 160,
-          bottom: "15%", left: "30%",
-          background: "radial-gradient(circle, hsla(192, 80%, 60%, 0.1) 0%, transparent 70%)",
-          animation: "lms-orb-float-3 7s ease-in-out infinite",
-          filter: "blur(35px)",
-        }}
-      />
+      {/* ── Secondary arcs from top-right ── */}
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 1440 700"
+        preserveAspectRatio="xMaxYMin slice"
+        fill="none"
+      >
+        <defs>
+          <linearGradient id="lms-arc-grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="hsla(220, 85%, 70%, 0.25)" />
+            <stop offset="100%" stopColor="hsla(260, 60%, 60%, 0.05)" />
+          </linearGradient>
+        </defs>
 
-      {/* Rising particles */}
+        {[0, 1, 2, 3, 4, 5].map((i) => (
+          <circle
+            key={`tr-${i}`}
+            cx={1520}
+            cy={-80}
+            r={180 + i * 110}
+            stroke="url(#lms-arc-grad2)"
+            strokeWidth={1.0 - i * 0.08}
+            fill="none"
+            opacity={0.35 - i * 0.04}
+            style={{
+              animation: `lms-arc-pulse ${7 + i * 0.6}s ease-in-out infinite`,
+              animationDelay: `${i * 0.5}s`,
+            }}
+          />
+        ))}
+      </svg>
+
+      {/* ── Subtle floating dots ── */}
       {[
-        { left: "15%", delay: "0s", dur: "4s", size: 3 },
-        { left: "35%", delay: "1.2s", dur: "5s", size: 2 },
-        { left: "55%", delay: "0.6s", dur: "4.5s", size: 4 },
-        { left: "72%", delay: "2s", dur: "3.8s", size: 2.5 },
-        { left: "88%", delay: "0.8s", dur: "5.5s", size: 3 },
-        { left: "25%", delay: "3s", dur: "4.2s", size: 2 },
-        { left: "65%", delay: "1.5s", dur: "4.8s", size: 3.5 },
-        { left: "45%", delay: "2.5s", dur: "5.2s", size: 2 },
-      ].map((p, i) => (
+        { x: "65%", y: "75%", size: 3, delay: "0s", dur: "5s" },
+        { x: "80%", y: "60%", size: 2, delay: "1.5s", dur: "6s" },
+        { x: "45%", y: "85%", size: 2.5, delay: "0.8s", dur: "4.5s" },
+      ].map((d, i) => (
         <div
           key={i}
           className="absolute rounded-full"
           style={{
-            width: p.size, height: p.size,
-            bottom: "10%",
-            left: p.left,
-            background: "white",
-            animation: `lms-particle-rise ${p.dur} ease-out infinite`,
-            animationDelay: p.delay,
+            width: d.size,
+            height: d.size,
+            left: d.x,
+            top: d.y,
+            background: "hsla(0, 0%, 100%, 0.5)",
+            animation: `lms-dot-drift ${d.dur} ease-in-out infinite`,
+            animationDelay: d.delay,
           }}
         />
       ))}
-
-      {/* Shimmer line across hero */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          style={{
-            position: "absolute",
-            top: "40%",
-            left: 0,
-            width: "40%",
-            height: 1,
-            background: "linear-gradient(90deg, transparent, hsla(0,0%,100%,0.2), transparent)",
-            animation: "lms-shimmer 8s ease-in-out infinite",
-          }}
-        />
-      </div>
     </div>
   );
 }
