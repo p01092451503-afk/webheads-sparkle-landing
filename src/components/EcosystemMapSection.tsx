@@ -1,0 +1,233 @@
+import { useState, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import {
+  Server, Video, ShieldCheck, Bot, Smartphone, CreditCard,
+  MessageSquareMore, Wrench, GraduationCap, ArrowRight
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+const serviceConfig: { key: string; path: string; accent: string; icon: LucideIcon }[] = [
+  { key: "hosting", path: "/hosting", accent: "hsl(215, 75%, 52%)", icon: Server },
+  { key: "content", path: "/content", accent: "hsl(35, 85%, 50%)", icon: Video },
+  { key: "drm", path: "/drm", accent: "hsl(0, 65%, 52%)", icon: ShieldCheck },
+  { key: "chatbot", path: "/chatbot", accent: "hsl(260, 65%, 55%)", icon: Bot },
+  { key: "app", path: "/app-dev", accent: "hsl(170, 60%, 40%)", icon: Smartphone },
+  { key: "pg", path: "/pg", accent: "hsl(245, 60%, 55%)", icon: CreditCard },
+  { key: "channel", path: "/channel", accent: "hsl(195, 80%, 42%)", icon: MessageSquareMore },
+  { key: "maintenance", path: "/maintenance", accent: "hsl(150, 55%, 40%)", icon: Wrench },
+];
+
+// Positions for 8 nodes on a circle (desktop)
+const NODE_RADIUS = 210;
+const CENTER = { x: 300, y: 300 };
+const nodePositions = serviceConfig.map((_, i) => {
+  const angle = (i * 2 * Math.PI) / 8 - Math.PI / 2;
+  return {
+    x: CENTER.x + NODE_RADIUS * Math.cos(angle),
+    y: CENTER.y + NODE_RADIUS * Math.sin(angle),
+  };
+});
+
+export default function EcosystemMapSection() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const services = t("lms.ecosystem.services", { returnObjects: true }) as {
+    name: string; emoji: string; problem: string; solution: string;
+  }[];
+
+  return (
+    <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <div className="mb-16">
+          <p
+            className="text-sm font-semibold tracking-widest uppercase mb-4"
+            style={{ color: "hsl(var(--lms-primary))" }}
+          >
+            ECOSYSTEM
+          </p>
+          <h2
+            className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground"
+            style={{ wordBreak: "keep-all" }}
+          >
+            {t("lms.ecosystem.title")}
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground" style={{ wordBreak: "keep-all" }}>
+            {t("lms.ecosystem.desc")}
+          </p>
+        </div>
+
+        {/* Desktop: SVG interactive map */}
+        <div className="hidden md:block" ref={containerRef}>
+          <div className="relative mx-auto" style={{ width: 600, height: 600 }}>
+            {/* SVG connections */}
+            <svg
+              viewBox="0 0 600 600"
+              className="absolute inset-0 w-full h-full"
+              style={{ pointerEvents: "none" }}
+            >
+              <defs>
+                <filter id="eco-glow">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              {nodePositions.map((pos, i) => (
+                <line
+                  key={i}
+                  x1={CENTER.x}
+                  y1={CENTER.y}
+                  x2={pos.x}
+                  y2={pos.y}
+                  stroke={hoveredIdx === i ? serviceConfig[i].accent : "hsl(var(--border))"}
+                  strokeWidth={hoveredIdx === i ? 2.5 : 1.5}
+                  strokeDasharray={hoveredIdx === i ? "none" : "6 4"}
+                  style={{ transition: "all 0.3s ease" }}
+                  filter={hoveredIdx === i ? "url(#eco-glow)" : undefined}
+                />
+              ))}
+            </svg>
+
+            {/* Center hub */}
+            <div
+              className="absolute flex flex-col items-center justify-center rounded-full shadow-xl"
+              style={{
+                width: 100,
+                height: 100,
+                left: CENTER.x - 50,
+                top: CENTER.y - 50,
+                background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
+                zIndex: 20,
+              }}
+            >
+              <GraduationCap className="w-8 h-8 text-white mb-1" strokeWidth={2} />
+              <span className="text-xs font-extrabold text-white tracking-wide">LMS</span>
+            </div>
+
+            {/* Service nodes */}
+            {serviceConfig.map((svc, i) => {
+              const pos = nodePositions[i];
+              const data = services?.[i];
+              if (!data) return null;
+              const Icon = svc.icon;
+              const isHovered = hoveredIdx === i;
+
+              return (
+                <div key={svc.key} style={{ position: "absolute", left: pos.x - 36, top: pos.y - 36, zIndex: isHovered ? 30 : 10 }}>
+                  {/* Node */}
+                  <button
+                    className="relative w-[72px] h-[72px] rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
+                    style={{
+                      background: isHovered ? svc.accent : "var(--background)",
+                      border: `2px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
+                      boxShadow: isHovered
+                        ? `0 8px 32px -4px ${svc.accent}55`
+                        : "0 2px 8px -2px hsl(var(--foreground) / 0.06)",
+                      transform: isHovered ? "scale(1.12)" : "scale(1)",
+                    }}
+                    onClick={() => navigate(svc.path)}
+                    onMouseEnter={() => setHoveredIdx(i)}
+                    onMouseLeave={() => setHoveredIdx(null)}
+                  >
+                    <Icon
+                      className="w-6 h-6 mb-0.5"
+                      style={{ color: isHovered ? "#fff" : svc.accent }}
+                      strokeWidth={2}
+                    />
+                    <span
+                      className="text-[10px] font-bold leading-tight text-center px-1"
+                      style={{ color: isHovered ? "#fff" : "var(--foreground)" }}
+                    >
+                      {data.name}
+                    </span>
+                  </button>
+
+                  {/* Tooltip */}
+                  {isHovered && (
+                    <div
+                      className="absolute w-64 rounded-2xl p-5 shadow-2xl border border-border/50 bg-background"
+                      style={{
+                        left: pos.x > CENTER.x ? -220 : 84,
+                        top: pos.y > CENTER.y ? -120 : -20,
+                        zIndex: 50,
+                        animation: "eco-tooltip-in 0.2s ease-out",
+                      }}
+                    >
+                      <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                        Problem
+                      </p>
+                      <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                        {data.problem}
+                      </p>
+                      <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                        Solution
+                      </p>
+                      <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                        {data.solution}
+                      </p>
+                      <span
+                        className="inline-flex items-center gap-1 text-xs font-bold"
+                        style={{ color: svc.accent }}
+                      >
+                        {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
+                        <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Mobile: Card grid fallback */}
+        <div className="md:hidden grid grid-cols-2 gap-3">
+          {serviceConfig.map((svc, i) => {
+            const data = services?.[i];
+            if (!data) return null;
+            const Icon = svc.icon;
+            return (
+              <button
+                key={svc.key}
+                onClick={() => navigate(svc.path)}
+                className="text-left rounded-2xl p-5 bg-background border border-border/50 hover:shadow-lg transition-all duration-200 flex flex-col gap-3"
+              >
+                <Icon className="w-7 h-7" style={{ color: svc.accent }} strokeWidth={2} />
+                <h4 className="font-bold text-sm text-foreground leading-snug">{data.name}</h4>
+                <p className="text-xs text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                  {data.problem}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-12 text-center">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+            style={{ background: "hsl(var(--lms-primary))" }}
+          >
+            {t("lms.ecosystem.cta")}
+            <ArrowRight className="w-4 h-4" />
+          </a>
+          <p className="text-xs text-muted-foreground mt-3">{t("lms.ecosystem.ctaSub")}</p>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes eco-tooltip-in {
+          from { opacity: 0; transform: translateY(4px) scale(0.97); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+      `}</style>
+    </section>
+  );
+}

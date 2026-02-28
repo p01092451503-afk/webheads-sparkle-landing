@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import EcosystemMapSection from "@/components/EcosystemMapSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
@@ -6,7 +7,7 @@ import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import {
-  Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
+  Monitor, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
   DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
@@ -145,43 +146,8 @@ export default function LmsPage() {
       {/* Client Reference Marquee */}
       <ClientMarquee />
 
-      {/* Device Friendly */}
-      <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p
-              className="text-sm font-semibold tracking-widest uppercase mb-4"
-              style={{ color: `hsl(var(--lms-primary))` }}
-            >
-              {t("lms.deviceSection.sub")}
-            </p>
-            <h2 className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
-            <p className="mt-4 text-base text-muted-foreground">{t("lms.deviceSection.desc")}</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {[
-              { icon: Monitor, label: "PC" },
-              { icon: Tablet, label: "Tablet" },
-              { icon: Smartphone, label: "Mobile" }
-            ].map(({ icon: Icon, label }) => (
-              <div
-                key={label}
-                className="rounded-2xl p-7 flex flex-col items-center gap-4 text-center transition-all duration-200 hover:scale-[1.02] bg-background"
-                style={{ border: `1px solid hsl(var(--lms-card-border))` }}
-              >
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                  style={{ background: "var(--lms-gradient-subtle)" }}
-                >
-                  <Icon className="w-7 h-7" style={{ color: `hsl(var(--lms-primary))` }} />
-                </div>
-                <h3 className="font-bold text-lg text-foreground">{label}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Ecosystem Interactive Map */}
+      <EcosystemMapSection />
 
       {/* Cloud (AI) vs On-premise (NEO) Comparison */}
       <section id="solutions" className="py-28 bg-secondary">
