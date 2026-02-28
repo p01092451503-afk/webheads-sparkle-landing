@@ -726,6 +726,13 @@
       "webheadsCost": "Webheads Monthly Fee",
       "annualSavings": "Annual Estimated Savings",
       "savingsNote": "Approx. {{percent}}% savings vs self-building",
+      "benefitsTitle": "Additional Benefits with Webheads",
+      "benefits": [
+        { "label": "AI Chatbot ops savings", "value": "Ops cost 80% ↓" },
+        { "label": "DRM piracy prevention", "value": "99% leak blocked" },
+        { "label": "SMS completion boost", "value": "Completion 40% ↑" },
+        { "label": "AI subtitle time saved", "value": "Production 90% ↓" }
+      ],
       "cta": "Request Custom Quote"
     },
     "competitorTable": {
