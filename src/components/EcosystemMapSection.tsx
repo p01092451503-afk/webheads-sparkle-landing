@@ -203,12 +203,12 @@ export default function EcosystemMapSection() {
               const data = services?.[i];
               if (!data) return null;
               const Icon = svc.icon;
-              const isHovered = hoveredIdx === i;
+              const isHovered = activeIdx === i;
 
               return (
                 <div key={svc.key} style={{ position: "absolute", left: pos.x - 44, top: pos.y - 44, zIndex: isHovered ? 30 : 10 }}
-                  onMouseEnter={() => setHoveredIdx(i)}
-                  onMouseLeave={() => setHoveredIdx(null)}
+                  onMouseEnter={() => handleMouseEnter(i)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {/* Node */}
                   <button
