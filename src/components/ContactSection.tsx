@@ -333,6 +333,19 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                   />
                 </div>
 
+                {/* Privacy checkbox */}
+                <label className="flex items-start gap-3 cursor-pointer select-none group">
+                  <input
+                    type="checkbox"
+                    checked={privacyAgreed}
+                    onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 rounded border-border accent-primary cursor-pointer"
+                  />
+                  <span className="text-xs leading-relaxed text-muted-foreground group-hover:text-foreground transition-colors">
+                    {t("contact.formPrivacy")} <span className="text-primary">*</span>
+                  </span>
+                </label>
+
                 {error && (
                   <p className="text-sm text-center rounded-lg py-2 px-3 font-medium bg-destructive/10 text-destructive border border-destructive/20">
                     {error}
