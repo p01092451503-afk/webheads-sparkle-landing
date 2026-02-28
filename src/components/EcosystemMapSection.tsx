@@ -65,7 +65,7 @@ export default function EcosystemMapSection() {
           <div className="relative mx-auto" style={{ width: 460, height: 460 }}>
             {/* SVG connections */}
             <svg
-              viewBox="0 0 600 600"
+              viewBox="0 0 460 460"
               className="absolute inset-0 w-full h-full"
               style={{ pointerEvents: "none" }}
             >
