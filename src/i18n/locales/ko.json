@@ -430,7 +430,7 @@
       { "name": "결제선생", "category": "교육 특화 PG", "desc": "교육기관 분납·자동이체" },
       { "name": "Stripe", "category": "글로벌 PG", "desc": "글로벌 140개국 결제" },
       { "name": "PayPal", "category": "글로벌 PG", "desc": "해외 구매자 신뢰 결제" },
-      { "name": "Adyen", "category": "글로벌 PG", "desc": "엔터프라이즈 글로벌 결제" },
+      
       { "name": "WeChat Pay / Alipay", "category": "중화권 결제", "desc": "중국 사용자 결제 지원" }
     ],
     "faqs": [
