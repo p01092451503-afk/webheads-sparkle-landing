@@ -236,7 +236,7 @@ export default function EcosystemMapSection() {
                       if (outward.y > 0) {
                         tooltipStyle.top = 94;
                       } else {
-                        tooltipStyle.bottom = 68;
+                        tooltipStyle.bottom = 94;
                       }
                     } else {
                       tooltipStyle.top = -20;
