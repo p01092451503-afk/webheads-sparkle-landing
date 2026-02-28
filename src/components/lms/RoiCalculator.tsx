@@ -1,15 +1,25 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Sparkles } from "lucide-react";
+
+const benefitIcons = [Bot, Shield, MessageSquare, Sparkles];
+const benefitColors = [
+  "hsl(245, 58%, 55%)",
+  "hsl(340, 65%, 50%)",
+  "hsl(170, 55%, 38%)",
+  "hsl(35, 90%, 50%)",
+];
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
   const [students, setStudents] = useState(500);
   const [fee, setFee] = useState(100000);
 
+  const benefits = t("lms.roiCalc.benefits", { returnObjects: true }) as { label: string; value: string }[];
+
   // ROI calculation logic
   const monthlyRevenue = students * fee;
-  const selfBuildCost = 50000000; // 자체 구축 연간 비용 (개발+서버+인건비)
+  const selfBuildCost = 50000000;
   const selfBuildMonthly = Math.round(selfBuildCost / 12);
   const webheadsMonthlyCost = students <= 200 ? 500000 : students <= 500 ? 700000 : 1000000;
   const savingsMonthly = selfBuildMonthly - webheadsMonthlyCost;
@@ -48,44 +58,50 @@ export default function RoiCalculator() {
                 <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(students)}{t("lms.roiCalc.studentsUnit")}</span>
               </div>
               <input
-                type="range"
-                min={50}
-                max={5000}
-                step={50}
-                value={students}
+                type="range" min={50} max={5000} step={50} value={students}
                 onChange={(e) => setStudents(Number(e.target.value))}
                 className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((students - 50) / 4950) * 100}%, hsl(var(--border)) ${((students - 50) / 4950) * 100}%)`,
-                }}
+                style={{ background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((students - 50) / 4950) * 100}%, hsl(var(--border)) ${((students - 50) / 4950) * 100}%)` }}
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-1.5">
-                <span>50</span>
-                <span>5,000</span>
+                <span>50</span><span>5,000</span>
               </div>
             </div>
 
             {/* Fee slider */}
-            <div>
+            <div className="mb-8">
               <div className="flex justify-between items-end mb-3">
                 <label className="text-sm font-semibold text-foreground">{t("lms.roiCalc.feeLabel")}</label>
                 <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(fee)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
               <input
-                type="range"
-                min={10000}
-                max={500000}
-                step={10000}
-                value={fee}
+                type="range" min={10000} max={500000} step={10000} value={fee}
                 onChange={(e) => setFee(Number(e.target.value))}
                 className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                style={{
-                  background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((fee - 10000) / 490000) * 100}%, hsl(var(--border)) ${((fee - 10000) / 490000) * 100}%)`,
-                }}
+                style={{ background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((fee - 10000) / 490000) * 100}%, hsl(var(--border)) ${((fee - 10000) / 490000) * 100}%)` }}
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-1.5">
-                <span>10,000</span>
-                <span>500,000</span>
+                <span>10,000</span><span>500,000</span>
+              </div>
+            </div>
+
+            {/* Service-specific benefits */}
+            <div className="border-t border-border pt-6">
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">{t("lms.roiCalc.benefitsTitle")}</p>
+              <div className="grid grid-cols-2 gap-3">
+                {benefits.map((b, i) => {
+                  const Icon = benefitIcons[i] || Sparkles;
+                  const color = benefitColors[i];
+                  return (
+                    <div key={i} className="flex items-center gap-2.5 rounded-lg p-3 border border-border">
+                      <Icon className="w-4 h-4 shrink-0" style={{ color }} />
+                      <div>
+                        <p className="text-xs font-bold text-foreground">{b.value}</p>
+                        <p className="text-[10px] text-muted-foreground leading-tight">{b.label}</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -125,7 +141,7 @@ export default function RoiCalculator() {
 
             <a
               href="#contact"
-              className="mt-6 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 w-full"
+              className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 w-full"
               style={{ background: "hsl(var(--lms-primary))" }}
             >
               {t("lms.roiCalc.cta")}
