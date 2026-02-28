@@ -38,6 +38,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <main>{children}</main>
       {!isAdmin && <Footer />}
       {!isAdmin && <FloatingNav />}
+    </>
   );
 };
 
