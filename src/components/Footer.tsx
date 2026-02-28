@@ -70,9 +70,9 @@ export default function Footer() {
 
               {/* Customer Center */}
               <div className="flex flex-col gap-2">
-                <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>고객센터</p>
-                <p className="text-[1.05rem] font-black text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 900 }}>신규도입 : 02-336-4338</p>
-                <p className="text-[1.05rem] font-black text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 900 }}>장애 및 유지보수 : 02-540-4337</p>
+                <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.customerCenter")}</p>
+                <p className="text-[1.05rem] font-black text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 900 }}>{t("footer.newPhone")}</p>
+                <p className="text-[1.05rem] font-black text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 900 }}>{t("footer.maintenancePhone")}</p>
               </div>
 
             </div>
