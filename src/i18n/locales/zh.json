@@ -726,6 +726,13 @@
       "webheadsCost": "Webheads月费用",
       "annualSavings": "年预计节省金额",
       "savingsNote": "与自建相比约节省{{percent}}%",
+      "benefitsTitle": "引入Webheads的额外收益",
+      "benefits": [
+        { "label": "AI聊天机器人运营节省", "value": "运营费 80% ↓" },
+        { "label": "DRM防止盗版", "value": "泄露 99% 拦截" },
+        { "label": "SMS督促完课率提升", "value": "完课率 40% ↑" },
+        { "label": "AI字幕制作时间节省", "value": "制作 90% ↓" }
+      ],
       "cta": "申请定制报价"
     },
     "competitorTable": {
