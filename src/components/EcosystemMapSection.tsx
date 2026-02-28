@@ -180,7 +180,10 @@ export default function EcosystemMapSection() {
               const isHovered = hoveredIdx === i;
 
               return (
-                <div key={svc.key} style={{ position: "absolute", left: pos.x - 36, top: pos.y - 36, zIndex: isHovered ? 30 : 10 }}>
+                <div key={svc.key} style={{ position: "absolute", left: pos.x - 36, top: pos.y - 36, zIndex: isHovered ? 30 : 10 }}
+                  onMouseEnter={() => setHoveredIdx(i)}
+                  onMouseLeave={() => setHoveredIdx(null)}
+                >
                   {/* Node */}
                   <button
                     className="relative w-[72px] h-[72px] rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
@@ -193,8 +196,6 @@ export default function EcosystemMapSection() {
                       transform: isHovered ? "scale(1.12)" : "scale(1)",
                     }}
                     onClick={() => navigate(svc.path)}
-                    onMouseEnter={() => setHoveredIdx(i)}
-                    onMouseLeave={() => setHoveredIdx(null)}
                   >
                     <Icon
                       className="w-6 h-6 mb-0.5"
@@ -209,38 +210,61 @@ export default function EcosystemMapSection() {
                     </span>
                   </button>
 
-                  {/* Tooltip */}
-                  {isHovered && (
-                    <div
-                      className="absolute w-64 rounded-2xl p-5 shadow-2xl border border-border/50 bg-background"
-                      style={{
-                        left: pos.x > CENTER.x ? -220 : 84,
-                        top: pos.y > CENTER.y ? -120 : -20,
-                        zIndex: 50,
-                        animation: "eco-tooltip-in 0.2s ease-out",
-                      }}
-                    >
-                      <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
-                        Problem
-                      </p>
-                      <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
-                        {data.problem}
-                      </p>
-                      <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
-                        Solution
-                      </p>
-                      <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
-                        {data.solution}
-                      </p>
-                      <span
-                        className="inline-flex items-center gap-1 text-xs font-bold"
-                        style={{ color: svc.accent }}
+                  {/* Tooltip — positioned outward from center so connection lines stay visible */}
+                  {isHovered && (() => {
+                    const dx = pos.x - CENTER.x;
+                    const dy = pos.y - CENTER.y;
+                    const outward = { x: dx / Math.abs(dx || 1), y: dy / Math.abs(dy || 1) };
+                    // Place tooltip away from center
+                    const tooltipStyle: React.CSSProperties = {
+                      zIndex: 50,
+                      animation: "eco-tooltip-in 0.2s ease-out",
+                    };
+                    // Horizontal positioning
+                    if (Math.abs(dx) > Math.abs(dy) * 0.5) {
+                      // Left or right side
+                      if (outward.x > 0) {
+                        tooltipStyle.left = 82;
+                      } else {
+                        tooltipStyle.right = 82;
+                      }
+                    } else {
+                      tooltipStyle.left = -96; // center horizontally
+                    }
+                    // Vertical positioning
+                    if (Math.abs(dy) > Math.abs(dx) * 0.5) {
+                      if (outward.y > 0) {
+                        tooltipStyle.top = 78;
+                      } else {
+                        tooltipStyle.bottom = 78;
+                      }
+                    } else {
+                      tooltipStyle.top = -20;
+                    }
+                    return (
+                      <div
+                        className="absolute w-64 rounded-2xl p-5 shadow-2xl border border-border/50 bg-background"
+                        style={tooltipStyle}
                       >
-                        {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
-                        <ArrowRight className="w-3 h-3" />
-                      </span>
-                    </div>
-                  )}
+                        <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                          Problem
+                        </p>
+                        <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                          {data.problem}
+                        </p>
+                        <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                          Solution
+                        </p>
+                        <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                          {data.solution}
+                        </p>
+                        <span className="inline-flex items-center gap-1 text-xs font-bold" style={{ color: svc.accent }}>
+                          {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
+                          <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    );
+                  })()}
                 </div>
               );
             })}
