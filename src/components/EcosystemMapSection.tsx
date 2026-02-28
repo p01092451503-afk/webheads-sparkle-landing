@@ -19,8 +19,8 @@ const serviceConfig: { key: string; path: string; accent: string; icon: LucideIc
 ];
 
 // Positions for 8 nodes on a circle (desktop)
-const NODE_RADIUS = 210;
-const CENTER = { x: 300, y: 300 };
+const NODE_RADIUS = 160;
+const CENTER = { x: 230, y: 230 };
 const nodePositions = serviceConfig.map((_, i) => {
   const angle = (i * 2 * Math.PI) / 8 - Math.PI / 2;
   return {
