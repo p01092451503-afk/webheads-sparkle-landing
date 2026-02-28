@@ -22,7 +22,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
-  const [privacyAgreed, setPrivacyAgreed] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,7 +69,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
       style={{ background: "var(--contact-bg)" }}
     >
       <div className="container mx-auto px-6 max-w-5xl">
-        {/* Header */}
+        {/* Header — compact */}
         <div className="mb-10">
           <p className="text-sm font-semibold tracking-widest uppercase mb-3 text-primary">
             {t("contact.sub")}
@@ -86,112 +85,39 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           <p className="mt-3 text-sm text-muted-foreground">
             {t("contact.desc")}
           </p>
-
-          {/* Trust stats bar */}
-          <div
-            className="mt-5 inline-flex items-center flex-wrap gap-y-2 rounded-xl px-5 py-2.5"
-            style={{
-              background: "rgba(255,255,255,0.72)",
-              border: "1px solid rgba(37,99,235,0.15)",
-            }}
-          >
-            {[
-              { emoji: "✅", value: "300+", label: "도입 기업" },
-              { emoji: "⭐", value: "16년", label: "LMS 전문기업" },
-              { emoji: "🔄", value: "92.6%", label: "재계약률" },
-              { emoji: "🏆", value: "TCB", label: "기술 우수기업" },
-            ].map((item, i, arr) => (
-              <span key={i} className="flex items-center">
-                <span className="flex items-center gap-1.5 px-2.5">
-                  <span className="text-sm">{item.emoji}</span>
-                  <span className="text-sm font-extrabold text-foreground">{item.value}</span>
-                  <span className="text-xs text-muted-foreground">{item.label}</span>
-                </span>
-                {i < arr.length - 1 && (
-                  <span
-                    className="w-px h-4 shrink-0"
-                    style={{ background: "rgba(229,231,235,1)" }}
-                  />
-                )}
-              </span>
-            ))}
-          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
           {/* Left: Contact Info — compact single column */}
           <div className="lg:col-span-2 flex flex-col gap-3">
-            {/* Phone — dark card */}
-            <div
-              className="rounded-lg p-6"
-              style={{ background: "linear-gradient(135deg, #07112a, #1e3a8a)" }}
-            >
-              <p className="text-xs font-medium mb-4 tracking-wide" style={{ color: "rgba(255,255,255,0.45)" }}>
-                직통 전화 연결
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-[0.65rem] mb-1 tracking-wide" style={{ color: "rgba(255,255,255,0.45)" }}>
+            {/* Phone numbers — inline compact */}
+            <div className="rounded-lg p-6 bg-card border border-border hover:border-primary/20 transition-all">
+              <div className="flex items-stretch gap-0">
+                <div className="flex-1 pr-5 min-w-0">
+                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
                     {t("contact.newInquiry")}
                   </p>
                   <a
                     href="tel:0233364338"
-                    className="block text-[1.3rem] tracking-[-0.03em] hover:opacity-80 transition-opacity"
-                    style={{ fontWeight: 900, color: "#fff" }}
+                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
+                    style={{ fontWeight: 900 }}
                   >
                     02.336.4338
                   </a>
                 </div>
-                <div>
-                  <p className="text-[0.65rem] mb-1 tracking-wide" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <div className="w-px bg-border self-stretch mx-1" />
+                <div className="flex-1 pl-5 min-w-0">
+                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
                     {t("contact.maintenanceInquiry")}
                   </p>
                   <a
                     href="tel:0254044337"
-                    className="block text-[1.3rem] tracking-[-0.03em] hover:opacity-80 transition-opacity"
-                    style={{ fontWeight: 900, color: "#fff" }}
+                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
+                    style={{ fontWeight: 900 }}
                   >
                     02.540.4337
                   </a>
                 </div>
-              </div>
-              <div
-                className="mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold"
-                style={{
-                  background: "rgba(34,197,94,0.18)",
-                  border: "1px solid rgba(34,197,94,0.3)",
-                  color: "rgb(74,222,128)",
-                }}
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "rgb(34,197,94)" }} />
-                  <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "rgb(74,222,128)" }} />
-                </span>
-                지금 바로 통화 가능
-              </div>
-            </div>
-
-            {/* Response guarantee card */}
-            <div className="rounded-lg p-5 bg-card border border-border">
-              <p className="text-sm mb-3 text-foreground" style={{ fontWeight: 800 }}>
-                ⚡ 상담 응답 보장
-              </p>
-              <div className="flex flex-col gap-2">
-                {[
-                  { label: "전화 상담", value: "즉시 연결" },
-                  { label: "폼 제출 후 응답", value: "평균 4시간" },
-                  { label: "이메일 접수", value: "24시간 접수" },
-                ].map((row, i) => (
-                  <div key={i} className="flex items-center justify-between">
-                    <span className="text-xs text-muted-foreground">{row.label}</span>
-                    <span
-                      className="text-xs font-bold text-foreground px-3 py-0.5 rounded-full"
-                      style={{ background: "hsl(var(--muted))" }}
-                    >
-                      {row.value}
-                    </span>
-                  </div>
-                ))}
               </div>
             </div>
 
@@ -406,35 +332,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                   />
                 </div>
 
-                {/* Privacy consent */}
-                <div className="rounded-[10px] px-3 py-2.5" style={{ background: "hsl(var(--muted))" }}>
-                  <label className="flex items-start gap-2.5 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={privacyAgreed}
-                      onChange={(e) => setPrivacyAgreed(e.target.checked)}
-                      className="mt-0.5 w-4 h-4 rounded accent-primary shrink-0"
-                    />
-                    <div className="min-w-0">
-                      <span className="text-sm text-foreground" style={{ fontWeight: 700 }}>
-                        [필수] 개인정보 수집·이용에 동의합니다
-                      </span>
-                      <p className="text-[11px] leading-relaxed mt-1 text-muted-foreground">
-                        수집 항목: 회사명·담당자명·연락처·이메일 · 이용 목적: 상담 응대 · 보유 기간: 상담 완료 후 1년
-                      </p>
-                      <a
-                        href="/privacy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[11px] mt-0.5 inline-block underline"
-                        style={{ color: "hsl(210 100% 50%)" }}
-                      >
-                        개인정보처리방침 보기
-                      </a>
-                    </div>
-                  </label>
-                </div>
-
                 {error && (
                   <p className="text-sm text-center rounded-lg py-2 px-3 font-medium bg-destructive/10 text-destructive border border-destructive/20">
                     {error}
@@ -443,15 +340,14 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
                 <button
                   type="submit"
-                  disabled={loading || !privacyAgreed}
-                  className="w-full py-3.5 rounded-xl font-bold text-sm flex flex-col items-center justify-center gap-1 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
+                  disabled={loading}
+                  className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
                   style={{
                     background: "hsl(var(--primary))",
                     color: "hsl(var(--primary-foreground))",
                     boxShadow: "0 4px 14px hsl(var(--primary) / 0.25)",
                   }}
                 >
-                  <span className="flex items-center gap-2">
                   {loading ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
@@ -463,10 +359,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                       {inquiryType === "demo" ? t("contact.formSubmitDemo") : t("contact.formSubmit")}
                     </>
                   )}
-                  </span>
-                  <span className="text-[10px] font-normal" style={{ opacity: 0.65 }}>
-                    제출 후 평균 4시간 내 담당자가 연락드립니다
-                  </span>
                 </button>
               </form>
             )}
