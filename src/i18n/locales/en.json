@@ -752,6 +752,11 @@
         ["24/7 Maintenance", "In-house", "Email only", "O"],
         ["Add-on Services", "Separate contracts", "Limited", "One-stop"]
       ],
+      "highlights": [
+        { "value": "3 Days", "label": "Time to launch" },
+        { "value": "300+", "label": "Companies served" },
+        { "value": "16 Years", "label": "LMS expertise" }
+      ],
       "cta": "Get Webheads LMS Consultation"
     },
     "aiSection": { "sub": "AI Features", "title": "Smart & Easy Operations\nwith AI", "desc": "Leverage AI technology for a smarter digital e-learning environment." },
