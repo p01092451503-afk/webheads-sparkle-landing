@@ -1,6 +1,6 @@
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
-import SEO from "@/components/SEO";
+import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
@@ -24,7 +24,7 @@ export default function AppDevPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("appdev.seo.title")} description={t("appdev.seo.description")} keywords={t("appdev.seo.keywords")} path="/app-dev" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("appdev.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("appdev.seo.description"), "areaServed": "KR", "serviceType": t("appdev.seo.title"), "url": "https://service.webheads.co.kr/app-dev" }} faqJsonLd={faqs} />
+      <SEO title={t("appdev.seo.title")} description={t("appdev.seo.description")} keywords={t("appdev.seo.keywords")} path="/app-dev" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("appdev.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("appdev.seo.description"), "areaServed": "KR", "serviceType": t("appdev.seo.title"), "url": `${BASE_URL}/app-dev` }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">

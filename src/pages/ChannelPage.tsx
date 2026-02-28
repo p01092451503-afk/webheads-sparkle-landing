@@ -1,6 +1,6 @@
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
-import SEO from "@/components/SEO";
+import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
@@ -23,7 +23,7 @@ export default function ChannelPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("channel.seo.title")} description={t("channel.seo.description")} keywords={t("channel.seo.keywords")} path="/channel" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("channel.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("channel.seo.description"), "areaServed": "KR", "serviceType": t("channel.seo.title"), "url": "https://service.webheads.co.kr/channel" }} faqJsonLd={faqs} />
+      <SEO title={t("channel.seo.title")} description={t("channel.seo.description")} keywords={t("channel.seo.keywords")} path="/channel" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("channel.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("channel.seo.description"), "areaServed": "KR", "serviceType": t("channel.seo.title"), "url": `${BASE_URL}/channel` }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">

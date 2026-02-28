@@ -1,6 +1,6 @@
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
-import SEO from "@/components/SEO";
+import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
@@ -24,7 +24,7 @@ export default function ContentPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("content.seo.title")} description={t("content.seo.description")} keywords={t("content.seo.keywords")} path="/content" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("content.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("content.seo.description"), "areaServed": "KR", "serviceType": t("content.seo.title"), "url": "https://service.webheads.co.kr/content" }} faqJsonLd={faqs} />
+      <SEO title={t("content.seo.title")} description={t("content.seo.description")} keywords={t("content.seo.keywords")} path="/content" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("content.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("content.seo.description"), "areaServed": "KR", "serviceType": t("content.seo.title"), "url": `${BASE_URL}/content` }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">

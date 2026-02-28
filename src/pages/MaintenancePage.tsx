@@ -5,7 +5,7 @@ import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceExtraFeatures from "@/components/shared/ServiceExtraFeatures";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
-import SEO from "@/components/SEO";
+import SEO, { BASE_URL } from "@/components/SEO";
 import {
   Clock, Shield, PhoneCall, RefreshCw, BarChart3,
   AlertTriangle, Settings, HeadphonesIcon,
@@ -56,7 +56,7 @@ export default function MaintenancePage() {
           "description": t("maintenance.seo.description"),
           "areaServed": "KR",
           "serviceType": t("maintenance.seo.title"),
-          "url": "https://service.webheads.co.kr/maintenance"
+          "url": `${BASE_URL}/maintenance`
         }}
         faqJsonLd={faqs}
       />

@@ -1,7 +1,7 @@
 import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones, Search, FileCheck, Code, Activity } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
-import SEO from "@/components/SEO";
+import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
@@ -24,7 +24,7 @@ export default function PgPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("pg.seo.title")} description={t("pg.seo.description")} keywords={t("pg.seo.keywords")} path="/pg" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("pg.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("pg.seo.description"), "areaServed": "KR", "serviceType": t("pg.seo.title"), "url": "https://service.webheads.co.kr/pg" }} faqJsonLd={faqs} />
+      <SEO title={t("pg.seo.title")} description={t("pg.seo.description")} keywords={t("pg.seo.keywords")} path="/pg" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("pg.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("pg.seo.description"), "areaServed": "KR", "serviceType": t("pg.seo.title"), "url": `${BASE_URL}/pg` }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">
