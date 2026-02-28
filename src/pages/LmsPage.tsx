@@ -6,6 +6,10 @@ import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
+import IndustryScenarioTabs from "@/components/lms/IndustryScenarioTabs";
+import LearnerJourneyMap from "@/components/lms/LearnerJourneyMap";
+import RoiCalculator from "@/components/lms/RoiCalculator";
+import CompetitorComparison from "@/components/lms/CompetitorComparison";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
