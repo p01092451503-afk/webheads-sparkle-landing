@@ -288,6 +288,11 @@ export default function EcosystemMapSection() {
           from { opacity: 0; transform: translateY(4px) scale(0.97); }
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
+        @keyframes eco-hub-pulse {
+          0% { transform: scale(1); opacity: 0.18; }
+          70% { transform: scale(1.6); opacity: 0; }
+          100% { transform: scale(1.6); opacity: 0; }
+        }
       `}</style>
     </section>
   );
