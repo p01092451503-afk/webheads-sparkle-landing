@@ -601,7 +601,7 @@
         { "emoji": "🛠️", "name": "Maintenance", "problem": "What happens when something breaks after launch?", "solution": "Dedicated engineers monitor 24/7 and respond immediately", "detail": "Dedicated DevOps engineers monitor server health, response times, and error rates in real time. First response guaranteed within 15 minutes, with regular security patches and performance optimization to keep your platform running smoothly." }
       ]
     },
-    "statsTitle": "300+ companies are already transforming their learning",
+    "statsTitle": "A proven LMS chosen by 300+ companies",
     "stats": [
       { "value": "16yr", "label": "LMS Expertise", "sub": "Industry Leader" },
       { "value": "300+", "label": "Companies", "sub": "Cumulative Clients" },
