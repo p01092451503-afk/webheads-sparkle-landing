@@ -112,8 +112,7 @@ export default function LmsPage() {
       />
 
       {/* ═══ Hero — Premium with animated overlay (LMS-exclusive) ═══ */}
-      <section className="relative flex items-center justify-center pt-36 pb-28 overflow-hidden">
-        <HeroPatternBg theme="blue-purple" />
+      <section className="relative flex items-center justify-center pt-44 pb-36 overflow-hidden">
         <LmsHeroOverlay />
 
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
