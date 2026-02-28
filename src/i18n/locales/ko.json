@@ -408,7 +408,7 @@
       { "value": "99.9%", "label": "결제 안정성", "sub": "안정적인 결제 처리" }
     ],
     "paymentMethodsSection": { "sub": "지원 결제 수단", "title": "국내 + 해외\n결제 수단 통합 지원" },
-    "paymentMethods": ["신용카드 (국내 전 카드사)", "체크카드", "실시간 계좌이체", "가상계좌 (무통장 입금)", "휴대폰 소액결제", "카카오페이", "네이버페이", "토스페이", "Apple Pay", "Google Pay", "해외 Visa / Mastercard", "Amex / JCB / UnionPay", "WeChat Pay", "Alipay", "PayPal", "에스크로 결제"],
+    "paymentMethods": ["신용카드 (국내 전 카드사)", "체크카드", "실시간 계좌이체", "가상계좌 (무통장 입금)", "휴대폰 소액결제", "카카오페이", "네이버페이", "토스페이", "해외 Visa / Mastercard", "Amex / JCB / UnionPay", "WeChat Pay", "Alipay", "PayPal", "에스크로 결제"],
     "featuresSection": { "sub": "주요 기능", "title": "이러닝 비즈니스에\n최적화된 결제 인프라" },
     "features": [
       { "title": "토스페이먼츠(Toss Payments) 연동", "desc": "토스페이먼츠 REST API v2를 통해 신용카드, 계좌이체, 가상계좌, 휴대폰 결제 등 국내 주요 결제 수단을 통합 연동합니다.", "tags": ["REST API v2", "결제 위젯", "PCI-DSS", "간편결제"] },
