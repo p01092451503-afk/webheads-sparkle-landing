@@ -199,7 +199,7 @@ export default function LmsPage() {
               <h2 className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground">{t("lms.deviceSection.title")}</h2>
               <p className="mt-4 text-base text-muted-foreground">{t("lms.deviceSection.desc")}</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { icon: Monitor, label: "PC" },
                 { icon: Tablet, label: "Tablet" },
@@ -207,22 +207,21 @@ export default function LmsPage() {
               ].map(({ icon: Icon, label }, i) => (
                 <Reveal key={label} delay={i * 120}>
                   <div
-                    className="rounded-2xl p-7 flex flex-col items-center gap-4 text-center transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1"
+                    className="rounded-3xl px-8 pt-10 pb-9 flex flex-col items-center text-center transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1.5 h-full"
                     style={{
-                      background: "rgba(255,255,255,0.7)",
-                      backdropFilter: "blur(16px)",
-                      border: `1px solid hsl(var(--lms-card-border))`,
-                      boxShadow: "0 8px 32px -12px hsl(255 60% 50% / 0.08)",
+                      background: "hsl(var(--card))",
+                      border: "1px solid hsl(var(--border) / 0.6)",
+                      boxShadow: "0 8px 40px -12px hsl(var(--foreground) / 0.06)",
                     }}
                   >
                     <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                      style={{ background: "var(--lms-gradient-subtle)" }}
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
+                      style={{ background: "hsl(245, 60%, 96%)", border: "1px solid hsl(245, 50%, 90%)" }}
                     >
-                      <Icon className="w-7 h-7" style={{ color: `hsl(var(--lms-primary))` }} />
+                      <Icon className="w-7 h-7" style={{ color: "hsl(245, 58%, 55%)" }} />
                     </div>
-                    <h3 className="font-bold text-lg text-foreground">{label}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
+                    <h3 className="font-bold text-xl text-foreground mb-4 tracking-tight">{label}</h3>
+                    <p className="text-sm leading-[1.85] text-muted-foreground">{t(`lms.deviceSection.${label.toLowerCase()}`)}</p>
                   </div>
                 </Reveal>
               ))}
