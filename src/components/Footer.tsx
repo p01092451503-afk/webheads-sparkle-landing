@@ -21,8 +21,8 @@ function FooterServiceLink({ to, label, isActive }: { to: string; label: string;
   return (
     <Link
       to={to}
-      className={`text-[0.9rem] font-medium inline-block px-3 py-1 rounded-lg transition-colors duration-200 ${
-        isActive ? "text-foreground underline underline-offset-4 decoration-2" : "text-foreground hover:bg-gray-100"
+      className={`text-sm font-normal inline-block px-3 py-1 rounded-lg transition-colors duration-200 ${
+        isActive ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
       }`}
     >
       {label}
