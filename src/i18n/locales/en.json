@@ -433,6 +433,7 @@
       { "name": "Stripe", "category": "Global PG", "desc": "Global payments in 140+ countries" },
       { "name": "PayPal", "category": "Global PG", "desc": "Trusted international payments" },
       
+      { "name": "Kiwoom Pay", "category": "Domestic PG", "desc": "Kiwoom Securities-based quick pay" },
       { "name": "WeChat Pay / Alipay", "category": "China Payments", "desc": "Chinese user payment support" }
     ],
     "faqs": [
