@@ -3,7 +3,7 @@
  * Each color theme has a unique pattern style.
  */
 
-type HeroColorTheme = "blue-purple" | "teal-cyan" | "indigo-deep";
+type HeroColorTheme = "blue-purple" | "teal-cyan" | "indigo-deep" | "emerald-green" | "slate-orange";
 
 const themes: Record<HeroColorTheme, { bg: string; stroke: string }> = {
   "blue-purple": {
@@ -16,6 +16,14 @@ const themes: Record<HeroColorTheme, { bg: string; stroke: string }> = {
   },
   "indigo-deep": {
     bg: "linear-gradient(135deg, hsl(230, 65%, 48%) 0%, hsl(240, 70%, 42%) 50%, hsl(235, 60%, 38%) 100%)",
+    stroke: "white",
+  },
+  "emerald-green": {
+    bg: "linear-gradient(135deg, hsl(160, 60%, 38%) 0%, hsl(170, 55%, 32%) 50%, hsl(155, 65%, 28%) 100%)",
+    stroke: "white",
+  },
+  "slate-orange": {
+    bg: "linear-gradient(135deg, hsl(220, 25%, 38%) 0%, hsl(215, 30%, 32%) 50%, hsl(225, 20%, 28%) 100%)",
     stroke: "white",
   },
 };
