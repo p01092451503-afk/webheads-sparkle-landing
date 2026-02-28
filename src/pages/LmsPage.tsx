@@ -97,7 +97,7 @@ export default function LmsPage() {
               {t("lms.hero.titleHighlight")}
             </span>
           </h1>
-          <p className="text-lg leading-relaxed mb-10 max-w-xl" style={{ color: "rgba(255,255,255,0.8)" }}>
+          <p className="text-lg leading-[1.9] mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
             {t("lms.hero.desc")}
           </p>
           <div className="flex gap-4 flex-wrap justify-center">
