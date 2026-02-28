@@ -102,7 +102,11 @@ export default function Header() {
               <LanguageSwitcher />
               <a
                 href="#contact"
-                className="shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)] transition-all duration-200 hover:shadow-md whitespace-nowrap"
+                className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
+                  scrolled
+                    ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
+                    : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
+                }`}
               >
                 {t("header.cta")}
               </a>
