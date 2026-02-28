@@ -60,7 +60,7 @@ export default function Header() {
               className="shrink-0 tracking-tight text-[hsl(230,25%,15%)] mr-8"
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 600, fontStyle: "italic", fontSize: "1.625rem" }}
             >
-              {t("header.logo")}
+              {t("header.logo").replace(".", "")}<span className="text-destructive">.</span>
             </Link>
 
             {/* Desktop Nav — all services inline */}
