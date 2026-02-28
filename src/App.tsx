@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
-import FloatingContact from "./components/FloatingContact";
+
 
 import PageTracker from "./components/PageTracker";
 
@@ -36,7 +36,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {!isAdmin && <Header />}
       <main>{children}</main>
       {!isAdmin && <Footer />}
-      {!isAdmin && <FloatingContact />}
+      
     </>
   );
 };
