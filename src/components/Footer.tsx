@@ -87,7 +87,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/admin/login" className="text-sm font-normal flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
-                  <ShieldCheck className="w-3.5 h-3.5" /> 관리자
+                  <ShieldCheck className="w-3.5 h-3.5" /> {t("footer.admin")}
                 </Link>
               </li>
             </ul>
