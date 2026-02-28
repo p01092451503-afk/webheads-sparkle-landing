@@ -180,13 +180,13 @@ export default function EcosystemMapSection() {
               const isHovered = hoveredIdx === i;
 
               return (
-                <div key={svc.key} style={{ position: "absolute", left: pos.x - 36, top: pos.y - 36, zIndex: isHovered ? 30 : 10 }}
+                <div key={svc.key} style={{ position: "absolute", left: pos.x - 32, top: pos.y - 32, zIndex: isHovered ? 30 : 10 }}
                   onMouseEnter={() => setHoveredIdx(i)}
                   onMouseLeave={() => setHoveredIdx(null)}
                 >
                   {/* Node */}
                   <button
-                    className="relative w-[72px] h-[72px] rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
+                    className="relative w-[64px] h-[64px] rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
                     style={{
                       background: isHovered ? svc.accent : "var(--background)",
                       border: `2px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
