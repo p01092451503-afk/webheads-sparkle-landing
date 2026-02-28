@@ -24,10 +24,6 @@ export default function LmsHeroOverlay() {
           0% { stroke-dashoffset: -600; }
           100% { stroke-dashoffset: 200; }
         }
-        @keyframes lms-particle-float {
-          0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
-          50% { transform: translateY(-18px) scale(1.3); opacity: 0.9; }
-        }
         @keyframes lms-glow-pulse {
           0%, 100% { opacity: 0.08; }
           50% { opacity: 0.18; }
@@ -112,34 +108,8 @@ export default function LmsHeroOverlay() {
           <ellipse cx="720" cy="350" rx="500" ry="200" stroke="hsl(250, 80%, 75%)" strokeWidth="0.6" fill="none" strokeDasharray="4 12" />
         </g>
 
-        {/* ── Floating particle dots ── */}
-        {[
-          { cx: 200, cy: 150, r: 2.5, delay: 0 },
-          { cx: 450, cy: 100, r: 2, delay: 0.5 },
-          { cx: 680, cy: 200, r: 3, delay: 1 },
-          { cx: 900, cy: 120, r: 2, delay: 1.5 },
-          { cx: 1100, cy: 180, r: 2.5, delay: 0.8 },
-          { cx: 1300, cy: 250, r: 2, delay: 1.2 },
-          { cx: 350, cy: 500, r: 2.5, delay: 0.3 },
-          { cx: 600, cy: 550, r: 2, delay: 1.8 },
-          { cx: 850, cy: 480, r: 3, delay: 0.6 },
-          { cx: 1050, cy: 520, r: 2, delay: 1.4 },
-          { cx: 1250, cy: 450, r: 2.5, delay: 2 },
-          { cx: 150, cy: 350, r: 2, delay: 0.9 },
-          { cx: 1350, cy: 380, r: 2.5, delay: 1.6 },
-          { cx: 500, cy: 320, r: 1.8, delay: 2.2 },
-          { cx: 980, cy: 300, r: 2.2, delay: 0.4 },
-        ].map((p, i) => (
-          <circle
-            key={`particle-${i}`}
-            cx={p.cx} cy={p.cy} r={p.r}
-            fill="white"
-            style={{
-              animation: `lms-particle-float ${3 + (i % 3)}s ease-in-out infinite`,
-              animationDelay: `${p.delay}s`,
-            }}
-          />
-        ))}
+
+
 
         {/* ── Central glow ── */}
         <defs>
