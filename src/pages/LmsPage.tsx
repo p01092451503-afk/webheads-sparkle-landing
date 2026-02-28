@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import EcosystemMapSection from "@/components/EcosystemMapSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
