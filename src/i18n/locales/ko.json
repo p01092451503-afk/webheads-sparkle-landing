@@ -50,6 +50,8 @@
     "formMessagePlaceholder": "문의하실 내용을 자유롭게 작성해주세요.",
     "formSubmit": "무료 상담 신청하기",
     "formSubmitDemo": "데모 신청하기",
+    "formPrivacy": "개인정보 수집 및 이용에 동의합니다.",
+    "formPrivacyRequired": "개인정보 수집 동의가 필요합니다.",
     "formSending": "전송 중...",
     "formError": "이메일 발송 중 오류가 발생했습니다. 다시 시도해주세요.",
     "successTitle": "신청이 완료되었습니다",
