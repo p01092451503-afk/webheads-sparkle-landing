@@ -419,6 +419,12 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* ROI Calculator */}
+      <RoiCalculator />
+
+      {/* Competitor Comparison */}
+      <CompetitorComparison />
+
       {/* Ecosystem Interactive Map */}
       <EcosystemMapSection />
 
