@@ -1,10 +1,45 @@
 import { useState } from "react";
-import { Send, Mail, Loader2, Clock, Phone, ChevronDown, Monitor } from "lucide-react";
+import { Send, Loader2, ChevronDown, Monitor } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 
 type InquiryType = "consultation" | "demo";
 
+/* ── Inline client marquee (lightweight, no separate component needed) ── */
+function ContactMarquee() {
+  const { t } = useTranslation();
+  const clients = t("lms.clients", { returnObjects: true }) as string[];
+
+  const renderList = () =>
+    clients.map((name, i) => (
+      <span
+        key={i}
+        className="mx-5 shrink-0 text-sm font-semibold tracking-tight text-muted-foreground/50"
+      >
+        {name}
+      </span>
+    ));
+
+  return (
+    <div className="overflow-hidden py-6">
+      <div className="flex w-max contact-marquee-track">
+        <div className="flex shrink-0">{renderList()}</div>
+        <div className="flex shrink-0">{renderList()}</div>
+      </div>
+      <style>{`
+        @keyframes contact-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .contact-marquee-track {
+          animation: contact-marquee 55s linear infinite;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+/* ── Main ContactSection ── */
 export default function ContactSection({ showDemo = false }: { showDemo?: boolean }) {
   const { t } = useTranslation();
   const services = t("contact.services", { returnObjects: true }) as string[];
@@ -20,6 +55,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   });
   const [submitted, setSubmitted] = useState(false);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [marketingAgreed, setMarketingAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -38,10 +74,8 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
         "send-contact-email",
         { body: { ...form, inquiryType } }
       );
-
       if (fnError) throw new Error(fnError.message);
       if (data?.error) throw new Error(data.error);
-
       setSubmitted(true);
     } catch (err: any) {
       setError(err.message || t("contact.formError"));
@@ -50,339 +84,260 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
     }
   };
 
-  const inputClass =
-    "w-full rounded-lg px-3.5 py-3 text-sm outline-none transition-all duration-200 placeholder:text-muted-foreground/50";
-
-  const inputStyle = (field: string) => ({
-    border:
-      focusedField === field
-        ? "1.5px solid hsl(var(--primary))"
-        : "1px solid hsl(var(--border))",
-    background:
-      focusedField === field ? "hsl(var(--background))" : "hsl(var(--muted))",
-    color: "hsl(var(--foreground))",
-    boxShadow:
-      focusedField === field
-        ? "0 0 0 3px hsl(var(--primary) / 0.08)"
-        : "none",
-  });
+  const inputBase =
+    "w-full rounded-lg px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-muted-foreground/40 bg-muted border border-border";
+  const inputFocus =
+    "focus:border-primary focus:bg-background focus:ring-2 focus:ring-primary/10";
 
   return (
-    <section
-      id="contact"
-      className="py-20 border-t border-border"
-      style={{ background: "var(--contact-bg)" }}
-    >
-      <div className="container mx-auto px-6 max-w-5xl">
-        {/* Header — compact */}
-        <div className="mb-10">
-          <p className="text-sm font-semibold tracking-widest uppercase mb-3 text-primary">
-            {t("contact.sub")}
-          </p>
+    <section id="contact" className="py-24 bg-background">
+      <div className="container mx-auto px-6 max-w-3xl">
+        {/* ── Header ── */}
+        <div className="text-center mb-4">
           <h2
-            className="leading-tight text-3xl lg:text-4xl tracking-tight text-foreground"
+            className="text-3xl lg:text-4xl leading-tight tracking-tight text-primary"
             style={{ fontWeight: 900 }}
           >
-            {t("contact.title")}{" "}
-            <span className="text-primary">{t("contact.titleHighlight")}</span>
-            {t("contact.titleEnd")}
+            {t("contact.title")}
+            <br />
+            {t("contact.titleHighlight")}
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-sm text-muted-foreground">
             {t("contact.desc")}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
-          {/* Left: Contact Info — compact single column */}
-          <div className="lg:col-span-2 flex flex-col gap-3">
-            {/* Phone numbers — inline compact */}
-            <div className="rounded-lg p-6 bg-card border border-border hover:border-primary/20 transition-all">
-              <div className="flex items-stretch gap-0">
-                <div className="flex-1 pr-5 min-w-0">
-                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
-                    {t("contact.newInquiry")}
-                  </p>
-                  <a
-                    href="tel:0233364338"
-                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
-                    style={{ fontWeight: 900 }}
-                  >
-                    02.336.4338
-                  </a>
-                </div>
-                <div className="w-px bg-border self-stretch mx-1" />
-                <div className="flex-1 pl-5 min-w-0">
-                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
-                    {t("contact.maintenanceInquiry")}
-                  </p>
-                  <a
-                    href="tel:0254044337"
-                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
-                    style={{ fontWeight: 900 }}
-                  >
-                    02.540.4337
-                  </a>
-                </div>
-              </div>
-            </div>
+        {/* ── Client marquee ── */}
+        <ContactMarquee />
 
-            {/* Email — compact */}
-            <div className="rounded-lg p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-primary/10">
-                <Mail className="w-4.5 h-4.5 text-primary" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[0.6rem] font-semibold mb-0.5 uppercase tracking-wider text-muted-foreground">
-                  {t("contact.emailInquiry")}
-                </p>
-                <a
-                  href="mailto:34bus@webheads.co.kr"
-                  className="font-bold text-sm leading-snug text-foreground hover:text-primary transition-colors"
-                >
-                  34bus@webheads.co.kr
-                </a>
-                <p className="text-[0.7rem] mt-0.5 text-primary font-medium">
-                  {t("contact.emailAvailable")}
-                </p>
-              </div>
+        {/* ── Form or Success ── */}
+        {submitted ? (
+          <div className="rounded-2xl p-12 flex flex-col items-center justify-center text-center gap-4 min-h-[400px] bg-card border border-border">
+            <div
+              className="w-14 h-14 rounded-xl flex items-center justify-center"
+              style={{
+                background: "hsl(var(--primary))",
+                boxShadow: "0 6px 20px hsl(var(--primary) / 0.25)",
+              }}
+            >
+              <Send className="w-6 h-6 text-primary-foreground" />
             </div>
-
-            {/* Business hours — compact */}
-            <div className="rounded-lg p-5 flex items-center gap-4 bg-card border border-border hover:border-primary/20 transition-all">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-primary/10">
-                <Clock className="w-4.5 h-4.5 text-primary" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[0.6rem] font-semibold mb-0.5 uppercase tracking-wider text-muted-foreground">
-                  {t("contact.businessHours")}
-                </p>
-                <p className="text-sm font-bold leading-snug text-foreground">
-                  {t("contact.businessHoursValue")}
-                </p>
-                <p className="text-[0.7rem] text-muted-foreground mt-0.5">
-                  {t("contact.lunchBreak")} · {t("contact.holiday")}
-                </p>
-              </div>
-            </div>
+            <h3 className="text-xl tracking-tight text-foreground" style={{ fontWeight: 900 }}>
+              {t("contact.successTitle")}
+            </h3>
+            <p className="text-sm leading-relaxed max-w-xs whitespace-pre-line text-muted-foreground">
+              {t("contact.successDesc")}
+            </p>
+            <button
+              onClick={() => {
+                setSubmitted(false);
+                setPrivacyAgreed(false);
+                setMarketingAgreed(false);
+              }}
+              className="mt-3 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:opacity-80 bg-secondary text-foreground"
+            >
+              {t("contact.successRetry")}
+            </button>
           </div>
-
-          {/* Right: Form — compact */}
-          <div className="lg:col-span-3">
-            {submitted ? (
-              <div className="rounded-xl p-10 flex flex-col items-center justify-center text-center gap-3 min-h-[420px] bg-card border border-border shadow-sm">
-                <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-1"
-                  style={{
-                    background: "hsl(var(--primary))",
-                    boxShadow: "0 6px 20px hsl(var(--primary) / 0.25)",
-                  }}
-                >
-                  <Send className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl tracking-tight text-foreground" style={{ fontWeight: 900 }}>
-                  {t("contact.successTitle")}
-                </h3>
-                <p className="text-sm leading-relaxed max-w-xs whitespace-pre-line text-muted-foreground">
-                  {t("contact.successDesc")}
-                </p>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
+          >
+            {/* Inquiry type tabs */}
+            {showDemo && (
+              <div className="flex rounded-lg p-1 gap-1 bg-muted">
                 <button
-                  onClick={() => setSubmitted(false)}
-                  className="mt-3 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:opacity-80 bg-secondary text-foreground"
+                  type="button"
+                  onClick={() => setInquiryType("consultation")}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
+                    inquiryType === "consultation"
+                      ? "bg-background text-primary shadow-sm"
+                      : "text-muted-foreground"
+                  }`}
                 >
-                  {t("contact.successRetry")}
+                  <Send className="w-3.5 h-3.5" />
+                  {t("contact.tabConsultation")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInquiryType("demo")}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
+                    inquiryType === "demo"
+                      ? "bg-background text-primary shadow-sm"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  <Monitor className="w-3.5 h-3.5" />
+                  {t("contact.tabDemo")}
                 </button>
               </div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="rounded-xl p-6 lg:p-8 flex flex-col gap-4 bg-card border border-border shadow-sm"
-              >
-                {showDemo && (
-                  <div className="flex rounded-lg p-1 gap-1 bg-muted">
-                    <button
-                      type="button"
-                      onClick={() => setInquiryType("consultation")}
-                      className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-md text-sm font-bold transition-all duration-200 ${
-                        inquiryType === "consultation"
-                          ? "bg-background text-primary shadow-sm"
-                          : "text-muted-foreground"
-                      }`}
-                    >
-                      <Send className="w-3.5 h-3.5" />
-                      {t("contact.tabConsultation")}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setInquiryType("demo")}
-                      className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-md text-sm font-bold transition-all duration-200 ${
-                        inquiryType === "demo"
-                          ? "bg-background text-primary shadow-sm"
-                          : "text-muted-foreground"
-                      }`}
-                    >
-                      <Monitor className="w-3.5 h-3.5" />
-                      {t("contact.tabDemo")}
-                    </button>
-                  </div>
-                )}
-
-                {/* Row 1 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold tracking-wide text-foreground">
-                      {t("contact.formCompany")} <span className="text-primary">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder={t("contact.formCompanyPlaceholder")}
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      onFocus={() => setFocusedField("company")}
-                      onBlur={() => setFocusedField(null)}
-                      className={inputClass}
-                      style={inputStyle("company")}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold tracking-wide text-foreground">
-                      {t("contact.formName")} <span className="text-primary">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder={t("contact.formNamePlaceholder")}
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      onFocus={() => setFocusedField("name")}
-                      onBlur={() => setFocusedField(null)}
-                      className={inputClass}
-                      style={inputStyle("name")}
-                    />
-                  </div>
-                </div>
-
-                {/* Row 2 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold tracking-wide text-foreground">
-                      {t("contact.formPhone")} <span className="text-primary">*</span>
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder={t("contact.formPhonePlaceholder")}
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      onFocus={() => setFocusedField("phone")}
-                      onBlur={() => setFocusedField(null)}
-                      className={inputClass}
-                      style={inputStyle("phone")}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-bold tracking-wide text-foreground">
-                      {t("contact.formEmail")}
-                    </label>
-                    <input
-                      type="email"
-                      placeholder={t("contact.formEmailPlaceholder")}
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      onFocus={() => setFocusedField("email")}
-                      onBlur={() => setFocusedField(null)}
-                      className={inputClass}
-                      style={inputStyle("email")}
-                    />
-                  </div>
-                </div>
-
-                {/* Service */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold tracking-wide text-foreground">
-                    {t("contact.formService")}
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={form.service}
-                      onChange={(e) => setForm({ ...form, service: e.target.value })}
-                      onFocus={() => setFocusedField("service")}
-                      onBlur={() => setFocusedField(null)}
-                      className={`${inputClass} appearance-none pr-10 cursor-pointer`}
-                      style={inputStyle("service")}
-                    >
-                      <option value="">{t("contact.formServicePlaceholder")}</option>
-                      {services.map((s) => (
-                        <option key={s} value={s}>{s}</option>
-                      ))}
-                    </select>
-                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-xs font-bold tracking-wide text-foreground">
-                    {t("contact.formMessage")}
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder={inquiryType === "demo" ? t("contact.formMessagePlaceholderDemo") : t("contact.formMessagePlaceholder")}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    onFocus={() => setFocusedField("message")}
-                    onBlur={() => setFocusedField(null)}
-                    className={`${inputClass} resize-none`}
-                    style={inputStyle("message")}
-                  />
-                </div>
-
-                {/* Privacy checkbox */}
-                <label className="flex items-start gap-3 cursor-pointer select-none group">
-                  <input
-                    type="checkbox"
-                    checked={privacyAgreed}
-                    onChange={(e) => setPrivacyAgreed(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 rounded border-border accent-primary cursor-pointer"
-                  />
-                  <span className="text-xs leading-relaxed text-muted-foreground group-hover:text-foreground transition-colors">
-                    {t("contact.formPrivacy")} <span className="text-primary">*</span>
-                  </span>
-                </label>
-
-                {error && (
-                  <p className="text-sm text-center rounded-lg py-2 px-3 font-medium bg-destructive/10 text-destructive border border-destructive/20">
-                    {error}
-                  </p>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={loading || !privacyAgreed}
-                  className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
-                  style={{
-                    background: "hsl(var(--primary))",
-                    color: "hsl(var(--primary-foreground))",
-                    boxShadow: "0 4px 14px hsl(var(--primary) / 0.25)",
-                  }}
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      {t("contact.formSending")}
-                    </>
-                  ) : (
-                    <>
-                      {inquiryType === "demo" ? <Monitor className="w-4 h-4" /> : <Send className="w-4 h-4" />}
-                      {inquiryType === "demo" ? t("contact.formSubmitDemo") : t("contact.formSubmit")}
-                    </>
-                  )}
-                </button>
-              </form>
             )}
-          </div>
-        </div>
+
+            {/* Row 1: Company + Name */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <FormField
+                label={t("contact.formCompany")}
+                required
+              >
+                <input
+                  type="text"
+                  required
+                  placeholder={t("contact.formCompanyPlaceholder")}
+                  value={form.company}
+                  onChange={(e) => setForm({ ...form, company: e.target.value })}
+                  className={`${inputBase} ${inputFocus}`}
+                />
+              </FormField>
+              <FormField label={t("contact.formName")} required>
+                <input
+                  type="text"
+                  required
+                  placeholder={t("contact.formNamePlaceholder")}
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className={`${inputBase} ${inputFocus}`}
+                />
+              </FormField>
+            </div>
+
+            {/* Row 2: Phone + Email */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <FormField label={t("contact.formPhone")} required>
+                <input
+                  type="tel"
+                  required
+                  placeholder={t("contact.formPhonePlaceholder")}
+                  value={form.phone}
+                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  className={`${inputBase} ${inputFocus}`}
+                />
+              </FormField>
+              <FormField label={t("contact.formEmail")}>
+                <input
+                  type="email"
+                  placeholder={t("contact.formEmailPlaceholder")}
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className={`${inputBase} ${inputFocus}`}
+                />
+              </FormField>
+            </div>
+
+            {/* Service select */}
+            <FormField label={t("contact.formService")}>
+              <div className="relative">
+                <select
+                  value={form.service}
+                  onChange={(e) => setForm({ ...form, service: e.target.value })}
+                  className={`${inputBase} ${inputFocus} appearance-none pr-10 cursor-pointer`}
+                >
+                  <option value="">{t("contact.formServicePlaceholder")}</option>
+                  {services.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
+              </div>
+            </FormField>
+
+            {/* Message */}
+            <FormField label={t("contact.formMessage")}>
+              <textarea
+                rows={4}
+                placeholder={
+                  inquiryType === "demo"
+                    ? t("contact.formMessagePlaceholderDemo")
+                    : t("contact.formMessagePlaceholder")
+                }
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                className={`${inputBase} ${inputFocus} resize-none`}
+              />
+            </FormField>
+
+            {/* ── Checkboxes ── */}
+            <div className="flex flex-col gap-3 pt-2">
+              {/* Privacy (required) */}
+              <label className="flex items-center gap-3 cursor-pointer select-none group">
+                <input
+                  type="checkbox"
+                  checked={privacyAgreed}
+                  onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                  className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0"
+                />
+                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  {t("contact.formPrivacy")}
+                </span>
+              </label>
+
+              {/* Marketing (optional) */}
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={marketingAgreed}
+                  onChange={(e) => setMarketingAgreed(e.target.checked)}
+                  className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0 mt-0.5"
+                />
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-foreground cursor-pointer select-none">
+                    {t("contact.formMarketing")}
+                  </span>
+                  <span className="text-xs text-muted-foreground mt-0.5">
+                    {t("contact.formMarketingDesc")}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <p className="text-sm text-center rounded-lg py-2.5 px-4 font-medium bg-destructive/10 text-destructive border border-destructive/20">
+                {error}
+              </p>
+            )}
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={loading || !privacyAgreed}
+              className="w-full py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 bg-foreground text-background"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  {t("contact.formSending")}
+                </>
+              ) : (
+                <>
+                  {inquiryType === "demo" ? t("contact.formSubmitDemo") : t("contact.formSubmit")}
+                </>
+              )}
+            </button>
+          </form>
+        )}
       </div>
     </section>
+  );
+}
+
+/* ── Tiny helper for labels ── */
+function FormField({
+  label,
+  required,
+  children,
+}: {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="text-sm font-bold tracking-wide text-foreground">
+        {label}
+        {required && <span className="text-primary ml-0.5">*</span>}
+      </label>
+      {children}
+    </div>
   );
 }
