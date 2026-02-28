@@ -424,7 +424,7 @@
       { "name": "PayTeacher", "category": "Education PG", "desc": "Education installment & auto-transfer" },
       { "name": "Stripe", "category": "Global PG", "desc": "Global payments in 140+ countries" },
       { "name": "PayPal", "category": "Global PG", "desc": "Trusted international payments" },
-      { "name": "Adyen", "category": "Global PG", "desc": "Enterprise global payments" },
+      
       { "name": "WeChat Pay / Alipay", "category": "China Payments", "desc": "Chinese user payment support" }
     ],
     "faqs": [
