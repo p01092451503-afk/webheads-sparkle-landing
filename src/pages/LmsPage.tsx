@@ -81,35 +81,35 @@ export default function LmsPage() {
 
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
           <span
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6"
-            style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "white" }}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-8"
+            style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }}
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <Sparkles className="w-4 h-4" />
             {t("lms.hero.badge")}
           </span>
           <h1
-            className="text-4xl lg:text-[3.2rem] font-bold leading-[1.15] mb-5 tracking-tight text-white"
-            style={{ wordBreak: "keep-all" }}
+            className="text-5xl md:text-6xl lg:text-[4.2rem] font-extrabold leading-[1.1] mb-7 tracking-tight text-white"
+            style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}
           >
             {t("lms.hero.title")}
             <br />
-            <span style={{ opacity: 0.95 }}>
+            <span className="bg-clip-text" style={{ opacity: 0.95 }}>
               {t("lms.hero.titleHighlight")}
             </span>
           </h1>
-          <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: "rgba(255,255,255,0.75)" }}>
+          <p className="text-lg leading-relaxed mb-10 max-w-xl" style={{ color: "rgba(255,255,255,0.8)" }}>
             {t("lms.hero.desc")}
           </p>
-          <div className="flex gap-3 flex-wrap justify-center">
+          <div className="flex gap-4 flex-wrap justify-center">
             <a
               href="#contact"
-              className="group px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-200 hover:scale-[1.02] flex items-center gap-2"
-              style={{ background: "white", color: "hsl(245, 70%, 50%)" }}
+              className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2"
+              style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
             >
               {t("lms.hero.cta1")}
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
             </a>
-            <a href="#solutions" className="px-5 py-2.5 rounded-xl font-bold text-sm transition-colors border border-white/30 text-white hover:bg-white/10">
+            <a href="#solutions" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
               {t("lms.hero.cta2")}
             </a>
           </div>
