@@ -121,34 +121,77 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
           {/* Left: Contact Info — compact single column */}
           <div className="lg:col-span-2 flex flex-col gap-3">
-            {/* Phone numbers — inline compact */}
-            <div className="rounded-lg p-6 bg-card border border-border hover:border-primary/20 transition-all">
-              <div className="flex items-stretch gap-0">
-                <div className="flex-1 pr-5 min-w-0">
-                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
+            {/* Phone — dark card */}
+            <div
+              className="rounded-lg p-6"
+              style={{ background: "linear-gradient(135deg, #07112a, #1e3a8a)" }}
+            >
+              <p className="text-xs font-medium mb-4 tracking-wide" style={{ color: "rgba(255,255,255,0.45)" }}>
+                직통 전화 연결
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-[0.65rem] mb-1 tracking-wide" style={{ color: "rgba(255,255,255,0.45)" }}>
                     {t("contact.newInquiry")}
                   </p>
                   <a
                     href="tel:0233364338"
-                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
-                    style={{ fontWeight: 900 }}
+                    className="block text-[1.3rem] tracking-[-0.03em] hover:opacity-80 transition-opacity"
+                    style={{ fontWeight: 900, color: "#fff" }}
                   >
                     02.336.4338
                   </a>
                 </div>
-                <div className="w-px bg-border self-stretch mx-1" />
-                <div className="flex-1 pl-5 min-w-0">
-                  <p className="text-xs font-medium mb-2.5 text-muted-foreground/70 tracking-wide">
+                <div>
+                  <p className="text-[0.65rem] mb-1 tracking-wide" style={{ color: "rgba(255,255,255,0.45)" }}>
                     {t("contact.maintenanceInquiry")}
                   </p>
                   <a
                     href="tel:0254044337"
-                    className="block text-[1.45rem] tracking-[-0.03em] text-foreground hover:text-primary transition-colors"
-                    style={{ fontWeight: 900 }}
+                    className="block text-[1.3rem] tracking-[-0.03em] hover:opacity-80 transition-opacity"
+                    style={{ fontWeight: 900, color: "#fff" }}
                   >
                     02.540.4337
                   </a>
                 </div>
+              </div>
+              <div
+                className="mt-4 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-semibold"
+                style={{
+                  background: "rgba(34,197,94,0.18)",
+                  border: "1px solid rgba(34,197,94,0.3)",
+                  color: "rgb(74,222,128)",
+                }}
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "rgb(34,197,94)" }} />
+                  <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "rgb(74,222,128)" }} />
+                </span>
+                지금 바로 통화 가능
+              </div>
+            </div>
+
+            {/* Response guarantee card */}
+            <div className="rounded-lg p-5 bg-card border border-border">
+              <p className="text-sm mb-3 text-foreground" style={{ fontWeight: 800 }}>
+                ⚡ 상담 응답 보장
+              </p>
+              <div className="flex flex-col gap-2">
+                {[
+                  { label: "전화 상담", value: "즉시 연결" },
+                  { label: "폼 제출 후 응답", value: "평균 4시간" },
+                  { label: "이메일 접수", value: "24시간 접수" },
+                ].map((row, i) => (
+                  <div key={i} className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">{row.label}</span>
+                    <span
+                      className="text-xs font-bold text-foreground px-3 py-0.5 rounded-full"
+                      style={{ background: "hsl(var(--muted))" }}
+                    >
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
 
