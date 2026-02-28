@@ -22,6 +22,7 @@ const serviceBlobColors: Record<string, string> = {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
 
@@ -33,10 +34,24 @@ export default function Header() {
   }));
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 8);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 8);
+      // Find the hero section's bottom to determine when to switch to solid header
+      const hero = document.querySelector("section");
+      const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
+      setPastHero(heroBottom <= 56); // 56 = header height
+    };
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location]);
+
+  // Use transparent header with white text when still in hero area
+  const solid = pastHero;
 
   useEffect(() => {
     setMobileOpen(false);
