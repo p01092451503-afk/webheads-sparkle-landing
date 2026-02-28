@@ -402,7 +402,7 @@
       { "value": "99.9%", "label": "Payment Reliability", "sub": "Stable processing" }
     ],
     "paymentMethodsSection": { "sub": "PAYMENT METHODS", "title": "Unified Domestic +\nGlobal Payment Support" },
-    "paymentMethods": ["Credit Card (All Korean banks)", "Debit Card", "Real-time Bank Transfer", "Virtual Account", "Mobile Payment", "KakaoPay", "NaverPay", "TossPay", "Apple Pay", "Google Pay", "Visa / Mastercard", "Amex / JCB / UnionPay", "WeChat Pay", "Alipay", "PayPal", "Escrow Payment"],
+    "paymentMethods": ["Credit Card (All Korean banks)", "Debit Card", "Real-time Bank Transfer", "Virtual Account", "Mobile Payment", "KakaoPay", "NaverPay", "TossPay", "Visa / Mastercard", "Amex / JCB / UnionPay", "WeChat Pay", "Alipay", "PayPal", "Escrow Payment"],
     "featuresSection": { "sub": "KEY FEATURES", "title": "Payment Infrastructure\nOptimized for e-Learning" },
     "features": [
       { "title": "Toss Payments Integration", "desc": "Integrate all major domestic payment methods including credit cards, bank transfers, virtual accounts, and mobile payments via Toss Payments REST API v2.", "tags": ["REST API v2", "Payment Widget", "PCI-DSS", "Quick Pay"] },
