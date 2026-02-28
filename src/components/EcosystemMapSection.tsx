@@ -234,7 +234,7 @@ export default function EcosystemMapSection() {
                     // Vertical positioning
                     if (Math.abs(dy) > Math.abs(dx) * 0.5) {
                       if (outward.y > 0) {
-                        tooltipStyle.top = 78;
+                        tooltipStyle.top = 68;
                       } else {
                         tooltipStyle.bottom = 78;
                       }
