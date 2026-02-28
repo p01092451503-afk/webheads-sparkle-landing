@@ -395,6 +395,9 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* Ecosystem Interactive Map */}
+      <EcosystemMapSection />
+
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--lms-section-alt)" }}>
         <div className="container mx-auto px-6 max-w-6xl">
