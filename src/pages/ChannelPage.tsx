@@ -85,16 +85,6 @@ export default function ChannelPage() {
         description={t("channel.processSection.desc")}
       />
 
-      {/* Custom Quote CTA */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-6 max-w-3xl">
-          <div className="rounded-3xl border border-border bg-secondary p-10 text-center">
-            <h3 className="font-bold text-2xl text-foreground mb-3">{t("channel.plansCustom.title")}</h3>
-            <p className="text-muted-foreground text-sm mb-6 max-w-md mx-auto">{t("channel.plansCustom.desc")}</p>
-            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("channel.plansCustom.cta")}</a>
-          </div>
-        </div>
-      </section>
 
       <ServiceFAQ faqs={faqs} serviceName={t("channel.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
