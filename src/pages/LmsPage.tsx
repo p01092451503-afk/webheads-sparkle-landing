@@ -105,7 +105,7 @@ export default function LmsPage() {
             </a>
             <a href="#solutions" className="px-5 py-2.5 rounded-xl font-bold text-sm transition-colors border border-white/30 text-white hover:bg-white/10">
               {t("lms.hero.cta2")}
-
+            </a>
           </div>
           <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
           <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
