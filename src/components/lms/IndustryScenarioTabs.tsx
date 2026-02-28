@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Building2, GraduationCap, Briefcase, Landmark, Rocket, CheckCircle2 } from "lucide-react";
 
-const tabIcons = [Building2, GraduationCap, Briefcase, Landmark, Rocket];
+const tabIcons = [Rocket, Building2, GraduationCap, Briefcase, Landmark];
 
 export default function IndustryScenarioTabs() {
   const { t } = useTranslation();
