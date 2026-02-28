@@ -50,6 +50,8 @@
     "formMessagePlaceholder": "请填写您的咨询内容。",
     "formSubmit": "申请免费咨询",
     "formSubmitDemo": "申请演示",
+    "formPrivacy": "我同意收集和使用个人信息。",
+    "formPrivacyRequired": "请同意隐私政策。",
     "formSending": "发送中...",
     "formError": "发送失败，请重试。",
     "successTitle": "申请已提交成功",

@@ -50,6 +50,8 @@
     "formMessagePlaceholder": "お問い合わせ内容をご自由にお書きください。",
     "formSubmit": "無料相談を申請する",
     "formSubmitDemo": "デモを申請する",
+    "formPrivacy": "個人情報の収集および利用に同意します。",
+    "formPrivacyRequired": "個人情報の収集に同意してください。",
     "formSending": "送信中...",
     "formError": "送信中にエラーが発生しました。もう一度お試しください。",
     "successTitle": "お申し込みが完了しました",

@@ -50,6 +50,8 @@
     "formMessagePlaceholder": "Please describe your inquiry.",
     "formSubmit": "Request Free Consultation",
     "formSubmitDemo": "Request Demo",
+    "formPrivacy": "I agree to the collection and use of personal information.",
+    "formPrivacyRequired": "You must agree to the privacy policy.",
     "formSending": "Sending...",
     "formError": "An error occurred while sending. Please try again.",
     "successTitle": "Your request has been submitted",

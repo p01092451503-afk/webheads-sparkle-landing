@@ -19,12 +19,17 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!privacyAgreed) {
+      setError(t("contact.formPrivacyRequired"));
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -332,6 +337,19 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                   />
                 </div>
 
+                {/* Privacy checkbox */}
+                <label className="flex items-start gap-3 cursor-pointer select-none group">
+                  <input
+                    type="checkbox"
+                    checked={privacyAgreed}
+                    onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                    className="mt-0.5 w-4 h-4 rounded border-border accent-primary cursor-pointer"
+                  />
+                  <span className="text-xs leading-relaxed text-muted-foreground group-hover:text-foreground transition-colors">
+                    {t("contact.formPrivacy")} <span className="text-primary">*</span>
+                  </span>
+                </label>
+
                 {error && (
                   <p className="text-sm text-center rounded-lg py-2 px-3 font-medium bg-destructive/10 text-destructive border border-destructive/20">
                     {error}
@@ -340,7 +358,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !privacyAgreed}
                   className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
                   style={{
                     background: "hsl(var(--primary))",
