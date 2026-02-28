@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Loader2, ChevronDown, Monitor } from "lucide-react";
+import { Send, Loader2, ChevronDown, Monitor, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 
@@ -85,9 +85,9 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   };
 
   const inputBase =
-    "w-full rounded-lg px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-muted-foreground/40 bg-muted border border-border";
+    "w-full rounded-lg px-4 py-3.5 text-sm outline-none transition-all duration-200 placeholder:text-muted-foreground/40 bg-background border border-border";
   const inputFocus =
-    "focus:border-primary focus:bg-background focus:ring-2 focus:ring-primary/10";
+    "focus:border-foreground focus:ring-1 focus:ring-foreground/10";
 
   return (
     <section id="contact" className="py-24 bg-background">
@@ -257,37 +257,48 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             </FormField>
 
             {/* ── Checkboxes ── */}
-            <div className="flex flex-col gap-3 pt-2">
+            <div className="flex flex-col gap-5 pt-4">
               {/* Privacy (required) */}
-              <label className="flex items-center gap-3 cursor-pointer select-none group">
-                <input
-                  type="checkbox"
-                  checked={privacyAgreed}
-                  onChange={(e) => setPrivacyAgreed(e.target.checked)}
-                  className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0"
-                />
-                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+              <label className="flex items-center gap-3.5 cursor-pointer select-none group">
+                <span className="w-6 h-6 rounded-md border-2 border-muted-foreground/30 flex items-center justify-center shrink-0 transition-colors group-hover:border-foreground data-[checked=true]:bg-foreground data-[checked=true]:border-foreground" data-checked={privacyAgreed}>
+                  {privacyAgreed && (
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="hsl(var(--background))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  )}
+                  <input
+                    type="checkbox"
+                    checked={privacyAgreed}
+                    onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                    className="sr-only"
+                  />
+                </span>
+                <span className="text-sm font-semibold text-foreground flex items-center gap-1.5">
                   {t("contact.formPrivacy")}
+                  <ExternalLink className="w-3.5 h-3.5 text-muted-foreground" />
                 </span>
               </label>
 
               {/* Marketing (optional) */}
-              <div className="flex items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={marketingAgreed}
-                  onChange={(e) => setMarketingAgreed(e.target.checked)}
-                  className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0 mt-0.5"
-                />
+              <label className="flex items-start gap-3.5 cursor-pointer select-none group">
+                <span className="w-6 h-6 rounded-md border-2 border-muted-foreground/30 flex items-center justify-center shrink-0 mt-0.5 transition-colors group-hover:border-foreground data-[checked=true]:bg-foreground data-[checked=true]:border-foreground" data-checked={marketingAgreed}>
+                  {marketingAgreed && (
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="hsl(var(--background))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  )}
+                  <input
+                    type="checkbox"
+                    checked={marketingAgreed}
+                    onChange={(e) => setMarketingAgreed(e.target.checked)}
+                    className="sr-only"
+                  />
+                </span>
                 <div className="flex flex-col">
-                  <span className="text-sm font-medium text-foreground cursor-pointer select-none">
+                  <span className="text-sm font-semibold text-foreground">
                     {t("contact.formMarketing")}
                   </span>
-                  <span className="text-xs text-muted-foreground mt-0.5">
+                  <span className="text-xs text-muted-foreground mt-1">
                     {t("contact.formMarketingDesc")}
                   </span>
                 </div>
-              </div>
+              </label>
             </div>
 
             {/* Error */}
@@ -301,7 +312,11 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             <button
               type="submit"
               disabled={loading || !privacyAgreed}
-              className="w-full py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90 bg-foreground text-background"
+              className="w-full py-4.5 rounded-2xl font-bold text-[15px] flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 mt-2"
+              style={{
+                background: "hsl(var(--foreground))",
+                color: "hsl(var(--background))",
+              }}
             >
               {loading ? (
                 <>
@@ -332,10 +347,10 @@ function FormField({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <label className="text-sm font-bold tracking-wide text-foreground">
+    <div className="flex flex-col gap-2.5">
+      <label className="text-[13px] font-bold text-foreground">
         {label}
-        {required && <span className="text-primary ml-0.5">*</span>}
+        {required && <span className="text-destructive ml-0.5">*</span>}
       </label>
       {children}
     </div>
