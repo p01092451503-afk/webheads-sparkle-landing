@@ -358,7 +358,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !privacyAgreed}
                   className="w-full py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed hover:-translate-y-0.5"
                   style={{
                     background: "hsl(var(--primary))",
