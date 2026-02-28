@@ -133,6 +133,112 @@ function IndigoDeepPattern({ stroke }: { stroke: string }) {
   );
 }
 
+/* ── Emerald-Green: Hexagonal network + uptime pulses ── */
+function EmeraldGreenPattern({ stroke }: { stroke: string }) {
+  return (
+    <>
+      {/* Hexagonal grid pattern */}
+      <g opacity="0.14">
+        {[
+          { cx: 200, cy: 120 }, { cx: 320, cy: 80 }, { cx: 440, cy: 140 },
+          { cx: 160, cy: 260 }, { cx: 280, cy: 220 }, { cx: 400, cy: 280 },
+          { cx: 1100, cy: 100 }, { cx: 1220, cy: 160 }, { cx: 1340, cy: 120 },
+          { cx: 1060, cy: 240 }, { cx: 1180, cy: 300 }, { cx: 1300, cy: 260 },
+        ].map(({ cx, cy }, i) => {
+          const s = 28 + (i % 3) * 8;
+          const pts = Array.from({ length: 6 }, (_, j) => {
+            const a = (Math.PI / 3) * j - Math.PI / 6;
+            return `${cx + s * Math.cos(a)},${cy + s * Math.sin(a)}`;
+          }).join(" ");
+          return <polygon key={i} points={pts} stroke={stroke} strokeWidth={1.2} fill="none" />;
+        })}
+      </g>
+      {/* Connecting lines between hexagons */}
+      <g opacity="0.08">
+        {[
+          [200, 120, 320, 80], [320, 80, 440, 140], [160, 260, 280, 220],
+          [1100, 100, 1220, 160], [1220, 160, 1340, 120], [1060, 240, 1180, 300],
+        ].map(([x1, y1, x2, y2], i) => (
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={stroke} strokeWidth={1} strokeDasharray="4 4" />
+        ))}
+      </g>
+      {/* Pulse rings – bottom center */}
+      <g opacity="0.1">
+        {[80, 140, 200, 260].map((r, i) => (
+          <circle key={i} cx={720} cy={500} r={r} stroke={stroke} strokeWidth={1.5 - i * 0.2} fill="none" />
+        ))}
+      </g>
+    </>
+  );
+}
+
+/* ── Slate-Orange: Tool/gear shapes + dashed circuits ── */
+function SlateOrangePattern({ stroke }: { stroke: string }) {
+  const orangeAccent = "hsl(25, 85%, 60%)";
+  return (
+    <>
+      {/* Dashed circuit lines */}
+      <g opacity="0.12">
+        {[0, 1, 2, 3, 4].map(i => (
+          <path
+            key={`circuit-${i}`}
+            d={`M ${-20 + i * 60} 0 L ${-20 + i * 60} ${200 + i * 40} L ${180 + i * 60} ${200 + i * 40}`}
+            stroke={stroke}
+            strokeWidth={1}
+            strokeDasharray="6 4"
+            fill="none"
+          />
+        ))}
+      </g>
+      {/* Right-side angled circuits */}
+      <g opacity="0.1">
+        {[0, 1, 2, 3].map(i => (
+          <path
+            key={`rcircuit-${i}`}
+            d={`M 1460 ${80 + i * 120} L ${1260 - i * 30} ${80 + i * 120} L ${1260 - i * 30} ${180 + i * 120}`}
+            stroke={stroke}
+            strokeWidth={1}
+            strokeDasharray="6 4"
+            fill="none"
+          />
+        ))}
+      </g>
+      {/* Gear-like circles with spokes */}
+      <g opacity="0.15">
+        {[
+          { cx: 180, cy: 420, r: 35 },
+          { cx: 1280, cy: 380, r: 28 },
+          { cx: 1100, cy: 140, r: 22 },
+        ].map(({ cx, cy, r }, i) => (
+          <g key={i}>
+            <circle cx={cx} cy={cy} r={r} stroke={stroke} strokeWidth={1.5} fill="none" />
+            <circle cx={cx} cy={cy} r={r * 0.5} stroke={stroke} strokeWidth={1} fill="none" />
+            {[0, 45, 90, 135].map(deg => {
+              const rad = (deg * Math.PI) / 180;
+              return (
+                <line key={deg}
+                  x1={cx + r * 0.5 * Math.cos(rad)} y1={cy + r * 0.5 * Math.sin(rad)}
+                  x2={cx + r * Math.cos(rad)} y2={cy + r * Math.sin(rad)}
+                  stroke={stroke} strokeWidth={1.2}
+                />
+              );
+            })}
+          </g>
+        ))}
+      </g>
+      {/* Orange accent dots at circuit junctions */}
+      <g opacity="0.25">
+        {[
+          [40, 200], [100, 240], [160, 280], [220, 320],
+          [1260, 80], [1230, 200], [1200, 320], [1170, 440],
+        ].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r={3} fill={orangeAccent} />
+        ))}
+      </g>
+    </>
+  );
+}
+
 export default function HeroPatternBg({ theme }: { theme: HeroColorTheme }) {
   const t = themes[theme];
 
