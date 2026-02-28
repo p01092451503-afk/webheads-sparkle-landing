@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Send, Loader2, ChevronDown, Monitor } from "lucide-react";
+import { Send, Loader2, ChevronDown, Monitor, ExternalLink } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 
