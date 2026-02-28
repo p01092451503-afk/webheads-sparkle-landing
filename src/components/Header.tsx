@@ -49,7 +49,7 @@ export default function Header() {
         className={`transition-all duration-300 ${
           scrolled
             ? "bg-white/98 backdrop-blur-xl shadow-sm"
-            : "bg-white"
+            : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
@@ -57,7 +57,7 @@ export default function Header() {
             {/* Logo */}
             <Link
               to="/lms"
-              className="shrink-0 tracking-tight text-[hsl(230,25%,15%)] mr-8"
+              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${scrolled ? "text-[hsl(230,25%,15%)]" : "text-white"}`}
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}
