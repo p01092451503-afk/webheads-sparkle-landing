@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, ShieldCheck, ChevronRight } from "lucide-react";
+import { Home, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
@@ -105,44 +105,6 @@ export default function Footer() {
                 );
               })}
             </ul>
-          </div>
-        </div>
-
-        {/* ── Customer Center ── */}
-        <div className="mt-14 pt-10 border-t border-border flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <div className="flex items-center gap-3">
-            <span className="text-base font-bold text-foreground" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>고객센터</span>
-            <a
-              href="#contact"
-              className="w-7 h-7 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground transition-colors"
-              aria-label="문의하기"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </a>
-          </div>
-          <div className="flex flex-col gap-2 sm:border-l sm:border-border sm:pl-8">
-            <div className="flex items-baseline gap-4">
-              <a href="tel:02-336-4338" className="group flex items-baseline gap-3">
-                <span className="text-sm text-muted-foreground font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>신규 도입 문의</span>
-                <span className="text-2xl lg:text-[2rem] font-black tracking-tight text-primary group-hover:opacity-80 transition-opacity" style={{ fontFamily: "'Noto Sans', sans-serif" }}>02.336.4338</span>
-              </a>
-            </div>
-            <div className="flex items-baseline gap-4">
-              <a href="tel:02-540-4337" className="group flex items-baseline gap-3">
-                <span className="text-sm text-muted-foreground font-medium" style={{ fontFamily: "'Noto Sans KR', sans-serif" }}>장애 및 유지보수 문의</span>
-                <span className="text-2xl lg:text-[2rem] font-black tracking-tight text-primary group-hover:opacity-80 transition-opacity" style={{ fontFamily: "'Noto Sans', sans-serif" }}>02.540.4337</span>
-              </a>
-            </div>
-            <div className="flex gap-6 mt-1">
-              <div className="flex items-baseline gap-3">
-                <span className="text-xs text-muted-foreground font-medium">상담시간</span>
-                <span className="text-xs text-foreground/70">평일 09:00 ~ 17:00</span>
-              </div>
-              <div className="flex items-baseline gap-3">
-                <span className="text-xs text-muted-foreground font-medium">휴무일</span>
-                <span className="text-xs text-foreground/70">토요일, 일요일, 공휴일</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
