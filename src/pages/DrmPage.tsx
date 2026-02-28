@@ -23,7 +23,7 @@ export default function DrmPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": "https://service.webheads.co.kr/drm" }} faqJsonLd={faqs} />
+      <SEO title={t("drm.seo.title")} description={t("drm.seo.description")} keywords={t("drm.seo.keywords")} path="/drm" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("drm.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("drm.seo.description"), "areaServed": "KR", "serviceType": t("drm.seo.title"), "url": `${BASE_URL}/drm` }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">

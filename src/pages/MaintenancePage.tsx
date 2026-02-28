@@ -56,7 +56,7 @@ export default function MaintenancePage() {
           "description": t("maintenance.seo.description"),
           "areaServed": "KR",
           "serviceType": t("maintenance.seo.title"),
-          "url": "https://service.webheads.co.kr/maintenance"
+          "url": `${BASE_URL}/maintenance`
         }}
         faqJsonLd={faqs}
       />
