@@ -14,8 +14,6 @@ const defaultLng = savedLang || (isKorean ? 'ko' : 'en');
 // Lazy loaders for non-default locales
 const localeLoaders: Record<string, () => Promise<{ default: Record<string, any> }>> = {
   en: () => import('./locales/en.json'),
-  ja: () => import('./locales/ja.json'),
-  zh: () => import('./locales/zh.json'),
 };
 
 // Load a locale dynamically and add it to i18n
