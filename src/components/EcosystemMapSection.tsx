@@ -226,7 +226,7 @@ export default function EcosystemMapSection() {
                       if (outward.x > 0) {
                         tooltipStyle.left = 72;
                       } else {
-                        tooltipStyle.right = 82;
+                        tooltipStyle.right = 72;
                       }
                     } else {
                       tooltipStyle.left = -96; // center horizontally
