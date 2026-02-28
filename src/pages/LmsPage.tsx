@@ -5,7 +5,7 @@ import SEO, { BASE_URL } from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import HeroPatternBg from "@/components/visuals/HeroPatternBg";
+
 import LmsHeroOverlay from "@/components/lms/LmsHeroOverlay";
 import LmsWaveDivider from "@/components/lms/LmsWaveDivider";
 import IndustryScenarioTabs from "@/components/lms/IndustryScenarioTabs";
