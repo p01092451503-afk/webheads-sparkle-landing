@@ -444,39 +444,6 @@ export default function LmsPage() {
       <CompetitorComparison />
 
 
-      {/* Why Webheads Summary */}
-      <section id="plans" className="py-28" style={{ background: "var(--lms-section-alt)" }}>
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="mb-12">
-            <h2 className="font-bold text-foreground text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
-              {t("lms.whySection.title")}
-            </h2>
-            <p className="text-muted-foreground mt-4 text-lg">{t("lms.whySection.desc")}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
-            {(t("lms.whySection.cards", { returnObjects: true }) as any[]).map((item: any) => (
-              <div
-                key={item.label}
-                className="rounded-3xl border border-border bg-background px-8 py-9 flex flex-col items-center text-center"
-              >
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-7"
-                  style={{ background: "hsl(var(--lms-primary) / 0.12)" }}
-                >
-                  <Zap className="w-7 h-7" style={{ color: "hsl(var(--lms-primary))" }} />
-                </div>
-                <p className="text-[1.7rem] text-muted-foreground font-semibold mb-3 leading-none">{item.label}</p>
-                <p className="text-[3.2rem] font-extrabold leading-none tracking-tight mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
-                  {item.value}
-                </p>
-                <p className="text-2xl text-muted-foreground leading-relaxed">{item.sub}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Process */}
       <ServiceProcess
         steps={processSteps}
