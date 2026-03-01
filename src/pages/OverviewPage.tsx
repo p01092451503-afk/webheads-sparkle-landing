@@ -99,10 +99,10 @@ export default function OverviewPage() {
             {t("overview.hero.desc")}
           </p>
           <div className="flex flex-wrap gap-3 justify-center mt-8">
-            <a href="#lms" className="px-5 py-2.5 rounded-2xl text-sm font-bold transition-all text-white hover:opacity-90" style={{ background: "hsl(255,75%,58%)" }}>
+            <a href="#lms" className="px-6 py-3 rounded-2xl text-sm font-bold transition-all text-white hover:opacity-90" style={{ background: "hsl(0,0%,100%)", color: "hsl(255,75%,48%)" }}>
               {t("overview.hero.cta1")}
             </a>
-            <a href="#contact" className="px-5 py-2.5 rounded-2xl text-sm font-bold transition-all border text-white/80 hover:text-white" style={{ borderColor: "hsl(255,75%,58%,0.4)" }}>
+            <a href="#contact" className="px-6 py-3 rounded-2xl text-sm font-bold transition-all text-white hover:bg-white/20" style={{ background: "hsl(255,60%,70%,0.3)", border: "1px solid hsl(0,0%,100%,0.35)" }}>
               {t("overview.hero.cta2")}
             </a>
           </div>
