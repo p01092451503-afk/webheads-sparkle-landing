@@ -5,10 +5,12 @@ import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
+import ServiceProcess from "@/components/shared/ServiceProcess";
+import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users, Search, FileSearch, Code2, Rocket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Brain, MessageSquare, Zap, Globe, Link2, BarChart3, ShieldCheck, RefreshCw, Users];
+const processIcons = [Search, FileSearch, Code2, Rocket];
 
 export default function ChatbotPage() {
   const { t } = useTranslation();
