@@ -401,8 +401,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
               </button>
             ))}
           </div>
-          <button onClick={() => onRefresh(30)}
-            className="flex items-center justify-center w-9 h-9 rounded-xl bg-white border border-[hsl(220,13%,91%)] text-muted-foreground hover:bg-[hsl(220,14%,96%)] transition-colors"
+          <button onClick={() => onRefresh(Math.max(dateRange, 1))}
+            className="flex items-center justify-center w-9 h-9 rounded-xl bg-white border border-[hsl(220,13%,91%)] text-muted-foreground hover:bg-[hsl(220,14%,96%)] transition-colors active:animate-spin"
           >
             <RefreshCw className="w-3.5 h-3.5" />
           </button>
