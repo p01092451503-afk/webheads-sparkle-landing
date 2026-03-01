@@ -197,15 +197,70 @@ export default function LmsPage() {
       {/* Client Reference Marquee */}
       <ClientMarquee />
 
-
-
-
-      {/* Industry Scenario Tabs */}
+      {/* Industry Scenario Tabs — "이 서비스가 나에게 맞는가?" */}
       <IndustryScenarioTabs />
 
+      {/* All-in-One Management — 핵심 기능 개요 */}
+      <section className="py-28">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {allInOneFeatures.map((f: any, i: number) => {
+              const Icon = allInOneIcons[i] || Search;
+              return (
+                <div
+                  key={f.title}
+                  className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-all duration-200 flex flex-col gap-3 hover:shadow-md"
+                >
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"
+                  >
+                    <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
+                  </div>
+                  <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Device Friendly — 멀티 디바이스 지원 */}
       <DeviceFriendlySection />
 
-      {/* Cloud (AI) vs On-premise (NEO) Comparison */}
+      {/* AI Features — 차별화 기능 */}
+      <section className="py-28">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{t("lms.aiSection.desc")}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {aiFeatures.map((f: any, i: number) => {
+              const Icon = aiFeatureIcons[i] || Brain;
+              return (
+                <div key={f.title} className="rounded-2xl p-7 transition-all duration-200 flex flex-col gap-3 hover:shadow-md relative overflow-hidden" style={{ background: "var(--lms-gradient-subtle)", border: `1px solid hsl(var(--lms-card-border))` }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
+                    <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
+                  </div>
+                  <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Learner Journey Map — 실제 사용 흐름 */}
+      <LearnerJourneyMap />
+
+      {/* Solutions — 기능을 이해한 뒤 플랜 선택 */}
       <section id="solutions" className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="mb-16">
@@ -378,71 +433,14 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* All-in-One Management */}
-      <section className="py-28">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {allInOneFeatures.map((f: any, i: number) => {
-              const Icon = allInOneIcons[i] || Search;
-              return (
-                <div
-                  key={f.title}
-                  className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-all duration-200 flex flex-col gap-3 hover:shadow-md"
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"
-                  >
-                    <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
-                  </div>
-                  <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Learner Journey Map */}
-      <LearnerJourneyMap />
-
-      <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
-
-      {/* AI Features */}
-      <section className="py-28">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
-            <p className="text-muted-foreground mt-4 text-base">{t("lms.aiSection.desc")}</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {aiFeatures.map((f: any, i: number) => {
-              const Icon = aiFeatureIcons[i] || Brain;
-              return (
-                <div key={f.title} className="rounded-2xl p-7 transition-all duration-200 flex flex-col gap-3 hover:shadow-md relative overflow-hidden" style={{ background: "var(--lms-gradient-subtle)", border: `1px solid hsl(var(--lms-card-border))` }}>
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
-                    <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
-                  </div>
-                  <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ROI Calculator */}
+      {/* ROI Calculator — 비용 정당화 */}
       <RoiCalculator />
 
-      {/* Competitor Comparison */}
+      {/* Competitor Comparison — 왜 우리인가 */}
       <CompetitorComparison />
 
+      {/* Mid CTA — 관심 전환 */}
+      <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
       {/* Process */}
       <ServiceProcess
