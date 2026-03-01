@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+
 import {
   Server, Video, ShieldCheck, Bot, Smartphone, CreditCard,
   MessageSquareMore, Wrench, GraduationCap, ArrowRight
@@ -54,7 +54,7 @@ const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
 export default function EcosystemMapSection() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -241,7 +241,7 @@ export default function EcosystemMapSection() {
                        transform: isHovered ? "scale(1.08)" : "scale(1)",
                       transition: "all 0.25s ease",
                     }}
-                    onClick={() => navigate(svc.path)}
+                    onClick={() => {}}
                   >
                     <Icon
                       className="w-8 h-8 mb-1"
@@ -316,7 +316,7 @@ export default function EcosystemMapSection() {
             return (
               <button
                 key={svc.key}
-                onClick={() => navigate(svc.path)}
+                onClick={() => {}}
                 className="text-left rounded-2xl p-5 bg-background border border-border/50 hover:shadow-lg transition-all duration-200 flex flex-col gap-3"
               >
                 <Icon className="w-7 h-7" style={{ color: svc.accent }} strokeWidth={2} />
