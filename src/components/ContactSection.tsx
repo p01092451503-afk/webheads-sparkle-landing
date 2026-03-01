@@ -266,7 +266,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                 className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0"
               />
               <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                개인정보 수집 및 이용에 동의합니다 (필수)
+                {t("contact.formPrivacy")}
               </span>
             </label>
 
