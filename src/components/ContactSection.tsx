@@ -72,7 +72,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
     try {
       const { data, error: fnError } = await supabase.functions.invoke(
         "send-contact-email",
-        { body: { ...form, inquiryType } }
+        { body: { ...form, inquiryType, session_id: sessionStorage.getItem("_sid") || undefined } }
       );
       if (fnError) throw new Error(fnError.message);
       if (data?.error) throw new Error(data.error);
