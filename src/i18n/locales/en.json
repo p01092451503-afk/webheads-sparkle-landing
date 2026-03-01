@@ -586,6 +586,16 @@
       ],
       "cta": "Get a Free Consultation"
     },
+    "whySection": {
+      "title": "Why Webheads LMS?",
+      "desc": "Differentiated value built on 16 years of know-how and one-stop add-on integration",
+      "cards": [
+        { "label": "Time to Launch", "value": "As Fast as 3 Days", "sub": "Tailored setup faster than typical SaaS" },
+        { "label": "Operational Know-how", "value": "16+ Years", "sub": "Built from 300+ institutional rollouts" },
+        { "label": "Add-on Services", "value": "One-stop", "sub": "PG · DRM · SMS · AI fully integrated" },
+        { "label": "Technical Support", "value": "24/7", "sub": "From incident response to feature improvements" }
+      ]
+    },
     "ecosystem": {
       "title": "Wait — isn't LMS\nenough on its own?",
       "desc": "A lot of people think so. But successful e-learning businesses need a few more pieces to really work.",

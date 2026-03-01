@@ -171,6 +171,29 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* Stats — with gradient accent line */}
+      <section className="py-24 relative">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="text-center mb-12">
+            <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
+            {stats.map((s: any) => (
+              <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
+                <span
+                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
+                  style={{ color: "hsl(var(--lms-primary))" }}
+                >
+                  {s.value}
+                </span>
+                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
+                <span className="block text-xs text-muted-foreground">{s.sub}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Client Reference Marquee */}
       <ClientMarquee />
 
@@ -421,65 +444,35 @@ export default function LmsPage() {
       <CompetitorComparison />
 
 
-      {/* Plans */}
+      {/* Why Webheads Summary */}
       <section id="plans" className="py-28" style={{ background: "var(--lms-section-alt)" }}>
-        <div className="container mx-auto px-6 max-w-6xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.plansSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.plansSection.title")}</h2>
-            <p className="text-muted-foreground mt-4 text-base">{t("lms.plansSection.desc")}</p>
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="mb-12">
+            <h2 className="font-bold text-foreground text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+              {t("lms.whySection.title")}
+            </h2>
+            <p className="text-muted-foreground mt-4 text-lg">{t("lms.whySection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
-            {(t("lms.plans", { returnObjects: true }) as any[]).map((plan: any) => (
-              <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { border: `2px solid hsl(var(--lms-primary))` } : undefined}>
-                {plan.badge && (
-                  <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "hsl(var(--lms-primary))" }}>
-                    {plan.badge}
-                  </div>
-                )}
-                <div className="p-8 flex flex-col gap-5 flex-1">
-                  <div>
-                    <h3 className={`font-bold text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.name}</h3>
-                    {plan.solutionType && (
-                      <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide">{plan.solutionType}</p>
-                    )}
-                    <div className={`h-px mt-4 ${plan.highlight ? "" : "bg-border"}`} style={plan.highlight ? { background: `hsl(var(--lms-primary) / 0.2)` } : undefined} />
-                  </div>
-                  <div>
-                    <div className="flex items-end gap-1">
-                      <span className={`font-bold leading-none tracking-tight text-4xl ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: `hsl(var(--lms-primary))` } : undefined}>{plan.price}</span>
-                      {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
-                    </div>
-                    {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
-                  </div>
-                  <ul className="flex flex-col gap-3.5 flex-1">
-                    {plan.features.map((f: any) => (
-                      <li key={f.main} className="flex items-start gap-2.5">
-                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: `hsl(var(--lms-primary))` }}>✓</span>
-                        <div>
-                          <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
-                          {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="rounded-xl p-4 mt-2 bg-foreground">
-                    <p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p>
-                  </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+            {(t("lms.whySection.cards", { returnObjects: true }) as any[]).map((item: any) => (
+              <div
+                key={item.label}
+                className="rounded-3xl border border-border bg-background px-8 py-9 flex flex-col items-center text-center"
+              >
+                <div
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center mb-7"
+                  style={{ background: "hsl(var(--lms-primary) / 0.12)" }}
+                >
+                  <Zap className="w-7 h-7" style={{ color: "hsl(var(--lms-primary))" }} />
                 </div>
+                <p className="text-[1.7rem] text-muted-foreground font-semibold mb-3 leading-none">{item.label}</p>
+                <p className="text-[3.2rem] font-extrabold leading-none tracking-tight mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
+                  {item.value}
+                </p>
+                <p className="text-2xl text-muted-foreground leading-relaxed">{item.sub}</p>
               </div>
             ))}
-          </div>
-          <div className="mt-12 text-center rounded-2xl border bg-background/50 p-8" style={{ borderColor: `hsl(var(--lms-card-border))` }}>
-            <p className="text-foreground font-semibold text-lg mb-2">{t("lms.plansCustom.title")}</p>
-            <p className="text-muted-foreground text-sm mb-6">{t("lms.plansCustom.desc")}</p>
-            <a
-              href="#contact"
-              className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white hover:opacity-90 transition-all"
-              style={{ background: "hsl(var(--lms-primary))", boxShadow: "var(--lms-shadow)" }}
-            >
-              {t("lms.plansCustom.cta")}
-            </a>
           </div>
         </div>
       </section>
