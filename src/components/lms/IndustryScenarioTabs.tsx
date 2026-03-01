@@ -40,7 +40,7 @@ export default function IndustryScenarioTabs() {
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 border ${
+                className={`inline-flex items-center gap-1.5 md:gap-2 px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all duration-200 border ${
                   isActive
                     ? "text-white border-transparent shadow-md"
                     : "bg-background text-foreground border-border hover:border-muted-foreground/40"
