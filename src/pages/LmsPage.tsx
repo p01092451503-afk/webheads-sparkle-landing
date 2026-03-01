@@ -171,28 +171,8 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Stats — with gradient accent line */}
-      <section className="py-24 relative">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
-            {stats.map((s: any) => (
-              <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
-                <span
-                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
-                  style={{ color: "hsl(var(--lms-primary))" }}
-                >
-                  {s.value}
-                </span>
-                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
-                <span className="block text-xs text-muted-foreground">{s.sub}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
+
 
       {/* Client Reference Marquee */}
       <ClientMarquee />
