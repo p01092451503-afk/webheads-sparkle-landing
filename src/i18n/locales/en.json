@@ -220,12 +220,12 @@
       { "title": "Agent Escalation", "desc": "Complex inquiries are seamlessly transferred to human agents with full conversation context preserved.", "tags": ["Human Handoff", "Real-time Transfer", "Context Handover", "Collaboration"] }
     ],
     "midCTA": { "heading": "Curious about the right AI chatbot for your organization?", "description": "We'll propose a customized chatbot solution for free.", "ctaText": "Request Free Demo" },
-    "processSection": { "sub": "PROCESS", "title": "Systematic\n4-Step Process" },
-    "process": [
-      { "step": "01", "title": "Requirements Analysis & Design", "desc": "Deep analysis of organizational characteristics, learner inquiry patterns, and integration systems to design chatbot architecture.", "detail": "Intent Design · Entity Definition · Architecture" },
-      { "step": "02", "title": "Data Collection & AI Training", "desc": "Collect and refine organizational documents like FAQs and course materials, then convert to vector embeddings.", "detail": "Doc Parsing · Vector DB · RAG Pipeline" },
-      { "step": "03", "title": "Development & QA", "desc": "Develop chatbot engine and integrate with LMS/channels, then test 100+ edge case scenarios.", "detail": "Scenario Testing · Performance · Fallback" },
-      { "step": "04", "title": "Deployment & Ongoing Support", "desc": "Deploy across all channels with monthly performance reports and periodic fine-tuning.", "detail": "Multi-channel Deploy · Monthly Report · Improvements" }
+    "processSection": { "sub": "PROCESS", "heading": "Systematic AI Chatbot\nDeployment Process", "desc": "From requirements analysis to ongoing operations, our dedicated engineers are with you." },
+    "processSteps": [
+      { "title": "Requirements Analysis & Design", "desc": "Deep analysis of organizational characteristics, learner inquiry patterns, and integration systems to design chatbot architecture. Define intents and entities, and map LMS integration data (enrollment status, progress, payment history) in detail.", "tag": "1-2 weeks" },
+      { "title": "Data Collection & AI Training", "desc": "Collect and refine organizational documents like FAQs, course materials, and internal policies, then convert to vector embeddings. Build a GPT-4o/Claude 3.5 based knowledge base via RAG pipeline and verify initial learning accuracy.", "tag": "1 week" },
+      { "title": "Development & QA", "desc": "Develop chatbot engine and integrate with LMS, KakaoTalk, and web widgets. Test 100+ edge case scenarios and verify fallback flows, agent escalation, and response speed (under 500ms).", "tag": "1-2 weeks" },
+      { "title": "Deployment & Ongoing Support", "desc": "Deploy across all channels simultaneously, then provide monthly performance reports (CSAT, resolution rate, unanswered ratio) and periodic fine-tuning based on real conversation data.", "tag": "Ongoing" }
     ],
     "plansSection": { "sub": "PRICING", "title": "AI Chatbot Plans\nfor Your Scale", "desc": "All prices exclude VAT. Includes initial setup cost." },
     "plans": [
