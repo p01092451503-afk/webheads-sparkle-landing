@@ -87,7 +87,7 @@ export default function DeviceFriendlySection() {
                   />
                   {/* Pulse ring on hover */}
                   <div
-                    className="absolute inset-0 rounded-2xl"
+                    className="absolute inset-0 rounded-full"
                     style={{
                       border: "2px solid hsl(var(--lms-primary) / 0.2)",
                       opacity: isHovered ? 1 : 0,
