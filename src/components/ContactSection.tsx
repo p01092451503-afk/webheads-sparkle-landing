@@ -56,7 +56,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   });
   const [submitted, setSubmitted] = useState(false);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
-  const [marketingAgreed, setMarketingAgreed] = useState(false);
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
