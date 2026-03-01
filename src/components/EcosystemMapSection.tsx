@@ -7,40 +7,20 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-const serviceConfig: { key: string; accent: string; bgFrom: string; bgTo: string; icon: LucideIcon }[] = [
-  { key: "hosting",     accent: "hsl(215, 75%, 52%)",  bgFrom: "hsl(215, 75%, 48%)", bgTo: "hsl(215, 65%, 36%)", icon: Server },
-  { key: "content",     accent: "hsl(35, 85%, 50%)",   bgFrom: "hsl(35, 85%, 52%)",  bgTo: "hsl(35, 75%, 40%)",  icon: Video },
-  { key: "drm",         accent: "hsl(0, 65%, 52%)",    bgFrom: "hsl(0, 55%, 50%)",   bgTo: "hsl(0, 50%, 38%)",   icon: ShieldCheck },
-  { key: "chatbot",     accent: "hsl(260, 65%, 55%)",  bgFrom: "hsl(260, 55%, 52%)", bgTo: "hsl(260, 50%, 40%)", icon: Bot },
-  { key: "app",         accent: "hsl(170, 60%, 40%)",  bgFrom: "hsl(170, 55%, 42%)", bgTo: "hsl(170, 50%, 32%)", icon: Smartphone },
-  { key: "pg",          accent: "hsl(245, 60%, 55%)",  bgFrom: "hsl(245, 55%, 52%)", bgTo: "hsl(245, 50%, 40%)", icon: CreditCard },
-  { key: "channel",     accent: "hsl(195, 80%, 42%)",  bgFrom: "hsl(195, 70%, 45%)", bgTo: "hsl(195, 60%, 34%)", icon: MessageSquareMore },
-  { key: "maintenance", accent: "hsl(150, 55%, 40%)",  bgFrom: "hsl(150, 50%, 42%)", bgTo: "hsl(150, 45%, 32%)", icon: Wrench },
+const serviceConfig: { key: string; accent: string; bg: string; icon: LucideIcon }[] = [
+  { key: "hosting",     accent: "hsl(215, 75%, 52%)",  bg: "linear-gradient(135deg, hsl(215, 75%, 48%), hsl(215, 65%, 36%))", icon: Server },
+  { key: "content",     accent: "hsl(35, 85%, 50%)",   bg: "linear-gradient(135deg, hsl(35, 85%, 52%), hsl(35, 75%, 40%))",   icon: Video },
+  { key: "drm",         accent: "hsl(0, 65%, 52%)",    bg: "linear-gradient(135deg, hsl(0, 55%, 50%), hsl(0, 50%, 38%))",     icon: ShieldCheck },
+  { key: "chatbot",     accent: "hsl(260, 65%, 55%)",  bg: "linear-gradient(135deg, hsl(260, 55%, 52%), hsl(260, 50%, 40%))", icon: Bot },
+  { key: "app",         accent: "hsl(170, 60%, 40%)",  bg: "linear-gradient(135deg, hsl(170, 55%, 42%), hsl(170, 50%, 32%))", icon: Smartphone },
+  { key: "pg",          accent: "hsl(245, 60%, 55%)",  bg: "linear-gradient(135deg, hsl(245, 55%, 52%), hsl(245, 50%, 40%))", icon: CreditCard },
+  { key: "channel",     accent: "hsl(195, 80%, 42%)",  bg: "linear-gradient(135deg, hsl(195, 70%, 45%), hsl(195, 60%, 34%))", icon: MessageSquareMore },
+  { key: "maintenance", accent: "hsl(150, 55%, 40%)",  bg: "linear-gradient(135deg, hsl(150, 50%, 42%), hsl(150, 45%, 32%))", icon: Wrench },
 ];
 
-// Hexagon SVG path (pointy-top, centered at 0,0)
-function hexPath(r: number) {
-  const pts = Array.from({ length: 6 }, (_, i) => {
-    const a = (Math.PI / 3) * i - Math.PI / 2;
-    return `${r * Math.cos(a)},${r * Math.sin(a)}`;
-  });
-  return `M${pts.join("L")}Z`;
-}
-
-// Node positions on a circle (8 services)
-const VB = { w: 700, h: 700 };
-const CTR = { x: 350, y: 350 };
-const ORBIT_R = 260;
-const HEX_R = 48; // service hex radius
-const HUB_R = 62; // center hex radius
-
-const nodePositions = serviceConfig.map((_, i) => {
-  const angle = (i * 2 * Math.PI) / 8 - Math.PI / 2;
-  return {
-    x: CTR.x + ORBIT_R * Math.cos(angle),
-    y: CTR.y + ORBIT_R * Math.sin(angle),
-  };
-});
+// 8 nodes on a circle
+const ORBIT_R = 38; // percentage of container
+const nodeAngles = serviceConfig.map((_, i) => (i * 360) / 8 - 90);
 
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
@@ -96,6 +76,15 @@ export default function EcosystemMapSection() {
     name: string; emoji: string; problem: string; solution: string;
   }[];
 
+  // Compute node positions as percentages
+  const nodePositions = nodeAngles.map((deg) => {
+    const rad = (deg * Math.PI) / 180;
+    return {
+      left: 50 + ORBIT_R * Math.cos(rad),
+      top: 50 + ORBIT_R * Math.sin(rad),
+    };
+  });
+
   return (
     <section className="py-20" style={{ background: "var(--lms-section-alt)" }}>
       <div className="container mx-auto px-6 max-w-5xl">
@@ -119,57 +108,36 @@ export default function EcosystemMapSection() {
 
         {/* Desktop – Hexagonal orbit layout */}
         <div className="hidden md:block" ref={containerRef}>
-          <div className="relative mx-auto" style={{ width: "100%", maxWidth: 620, aspectRatio: "1" }}>
-            <svg
-              viewBox={`0 0 ${VB.w} ${VB.h}`}
-              className="absolute inset-0 w-full h-full"
-              style={{ overflow: "visible" }}
-            >
-              <defs>
-                {/* Gradients for each service hexagon */}
-                {serviceConfig.map((svc, i) => (
-                  <linearGradient key={`grad-${i}`} id={`hex-grad-${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor={svc.bgFrom} />
-                    <stop offset="100%" stopColor={svc.bgTo} />
-                  </linearGradient>
-                ))}
-                {/* Center hub gradient */}
-                <linearGradient id="hex-hub-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="hsl(245, 65%, 50%)" />
-                  <stop offset="100%" stopColor="hsl(245, 75%, 36%)" />
-                </linearGradient>
-                {/* Drop shadow */}
-                <filter id="hex-shadow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="hsl(0,0%,0%)" floodOpacity="0.12" />
-                </filter>
-                <filter id="hex-shadow-hover" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow dx="0" dy="6" stdDeviation="10" floodColor="hsl(0,0%,0%)" floodOpacity="0.18" />
-                </filter>
-              </defs>
+          <div className="relative mx-auto" style={{ width: "100%", maxWidth: 640, aspectRatio: "1" }}>
 
+            {/* SVG for orbit ring + connection lines */}
+            <svg
+              viewBox="0 0 100 100"
+              className="absolute inset-0 w-full h-full"
+              style={{ pointerEvents: "none", overflow: "visible" }}
+            >
               {/* Orbit ring */}
               <circle
-                cx={CTR.x} cy={CTR.y} r={ORBIT_R}
+                cx="50" cy="50" r={ORBIT_R}
                 fill="none"
                 stroke="hsl(var(--border))"
-                strokeWidth="1.2"
-                opacity={allInstalled ? 0.35 : 0.2}
+                strokeWidth="0.2"
+                opacity={allInstalled ? 0.4 : 0.2}
                 style={{ transition: "opacity 0.8s ease" }}
               />
-
-              {/* Connecting lines from hub to nodes */}
+              {/* Connection lines */}
               {nodePositions.map((pos, i) => {
                 const isInstalled = installedSet.has(i);
                 if (!isInstalled) return null;
-                const dx = pos.x - CTR.x;
-                const dy = pos.y - CTR.y;
+                const dx = pos.left - 50;
+                const dy = pos.top - 50;
                 const len = Math.sqrt(dx * dx + dy * dy);
                 const ux = dx / len;
                 const uy = dy / len;
-                const x1 = CTR.x + ux * (HUB_R + 8);
-                const y1 = CTR.y + uy * (HUB_R + 8);
-                const x2 = pos.x - ux * (HEX_R + 8);
-                const y2 = pos.y - uy * (HEX_R + 8);
+                const x1 = 50 + ux * 9;
+                const y1 = 50 + uy * 9;
+                const x2 = pos.left - ux * 7;
+                const y2 = pos.top - uy * 7;
                 const isHovered = hoveredIdx === i;
 
                 return (
@@ -177,163 +145,137 @@ export default function EcosystemMapSection() {
                     key={`conn-${i}`}
                     x1={x1} y1={y1} x2={x2} y2={y2}
                     stroke={isHovered ? serviceConfig[i].accent : "hsl(var(--border))"}
-                    strokeWidth={isHovered ? 2 : 1}
-                    opacity={isHovered ? 0.7 : allInstalled ? 0.25 : 0.15}
+                    strokeWidth={isHovered ? 0.35 : 0.15}
+                    opacity={isHovered ? 0.7 : allInstalled ? 0.3 : 0.15}
                     style={{ transition: "all 0.3s ease" }}
                   />
                 );
               })}
-
-              {/* Center LMS hexagon */}
-              <g
-                style={{
-                  opacity: phase >= 0 ? 1 : 0,
-                  transform: phase >= 0 ? "scale(1)" : "scale(0.6)",
-                  transformOrigin: `${CTR.x}px ${CTR.y}px`,
-                  transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                }}
-              >
-                <g transform={`translate(${CTR.x},${CTR.y})`} filter="url(#hex-shadow)">
-                  <path d={hexPath(HUB_R)} fill="url(#hex-hub-grad)" />
-                  <g transform="translate(-16,-20)">
-                    <foreignObject width="32" height="32">
-                      <GraduationCap width={32} height={32} strokeWidth={2} color="white" />
-                    </foreignObject>
-                  </g>
-                  <text
-                    y={22}
-                    textAnchor="middle"
-                    fill="white"
-                    fontSize="13"
-                    fontWeight="800"
-                    letterSpacing="1.5"
-                  >
-                    LMS
-                  </text>
-                </g>
-              </g>
-
-              {/* Service hexagon nodes */}
-              {serviceConfig.map((svc, i) => {
-                const pos = nodePositions[i];
-                const data = services?.[i];
-                if (!data) return null;
-                const Icon = svc.icon;
-                const isInstalled = installedSet.has(i);
-                const isHovered = hoveredIdx === i && isInstalled;
-                const scale = isHovered ? 1.1 : 1;
-
-                return (
-                  <g
-                    key={svc.key}
-                    style={{
-                      opacity: isInstalled ? 1 : 0,
-                      transform: `translate(${pos.x}px, ${pos.y}px) scale(${isInstalled ? scale : 0.5})`,
-                      transformOrigin: `${pos.x}px ${pos.y}px`,
-                      transition: "opacity 0.4s ease, transform 0.3s ease",
-                      cursor: "pointer",
-                      pointerEvents: isInstalled ? "auto" : "none",
-                    }}
-                    onMouseEnter={() => handleMouseEnter(i)}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <g transform={`translate(${pos.x},${pos.y})`}>
-                      {/* Hex bg */}
-                      <path
-                        d={hexPath(HEX_R)}
-                        fill={`url(#hex-grad-${i})`}
-                        filter={isHovered ? "url(#hex-shadow-hover)" : "url(#hex-shadow)"}
-                      />
-                      {/* Icon */}
-                      <g transform="translate(-14,-14)">
-                        <foreignObject width="28" height="28">
-                          <Icon width={28} height={28} strokeWidth={2} color="white" />
-                        </foreignObject>
-                      </g>
-                    </g>
-                    {/* Label below hex */}
-                    <text
-                      x={pos.x}
-                      y={pos.y + HEX_R + 20}
-                      textAnchor="middle"
-                      fill="currentColor"
-                      className="text-foreground"
-                      fontSize="13"
-                      fontWeight="700"
-                    >
-                      {data.name}
-                    </text>
-                  </g>
-                );
-              })}
             </svg>
 
-            {/* Tooltip overlay (HTML, positioned absolutely) */}
-            {hoveredIdx !== null && installedSet.has(hoveredIdx) && (() => {
-              const i = hoveredIdx;
+            {/* Center LMS hub (HTML) */}
+            <div
+              className="absolute flex items-center justify-center"
+              style={{
+                width: "15%",
+                aspectRatio: "1",
+                left: "42.5%",
+                top: "42.5%",
+                zIndex: 20,
+                opacity: phase >= 0 ? 1 : 0,
+                transform: phase >= 0 ? "scale(1)" : "scale(0.6)",
+                transition: "all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)",
+              }}
+            >
+              <div
+                className="w-full h-full flex flex-col items-center justify-center shadow-lg"
+                style={{
+                  background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 36%))",
+                  clipPath: "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
+                  boxShadow: allInstalled
+                    ? "0 0 24px 4px hsl(245, 65%, 55% / 0.25)"
+                    : "0 4px 12px -2px hsl(245, 65%, 40% / 0.3)",
+                }}
+              >
+                <GraduationCap className="w-7 h-7 lg:w-9 lg:h-9 text-white mb-0.5" strokeWidth={2} />
+                <span className="text-[9px] lg:text-[11px] font-extrabold text-white tracking-wider">LMS</span>
+              </div>
+            </div>
+
+            {/* Service hexagon nodes (HTML) */}
+            {serviceConfig.map((svc, i) => {
               const pos = nodePositions[i];
               const data = services?.[i];
-              const svc = serviceConfig[i];
               if (!data) return null;
-
-              // Position tooltip outward from center
-              const dx = pos.x - CTR.x;
-              const dy = pos.y - CTR.y;
-              const pctX = (pos.x / VB.w) * 100;
-              const pctY = (pos.y / VB.h) * 100;
-
-              const style: React.CSSProperties = {
-                position: "absolute",
-                width: 220,
-                zIndex: 100,
-                animation: "eco-tooltip-in 0.18s ease-out",
-              };
-
-              // Place tooltip on the outward side
-              if (Math.abs(dx) > Math.abs(dy)) {
-                // Mostly horizontal
-                style.top = `${pctY}%`;
-                style.transform = "translateY(-50%)";
-                if (dx > 0) {
-                  style.left = `calc(${pctX}% + 60px)`;
-                } else {
-                  style.right = `calc(${100 - pctX}% + 60px)`;
-                }
-              } else {
-                // Mostly vertical
-                style.left = `${pctX}%`;
-                style.transform = "translateX(-50%)";
-                if (dy > 0) {
-                  style.top = `calc(${pctY}% + 60px)`;
-                } else {
-                  style.bottom = `calc(${100 - pctY}% + 60px)`;
-                }
-              }
+              const Icon = svc.icon;
+              const isInstalled = installedSet.has(i);
+              const isHovered = hoveredIdx === i && isInstalled;
 
               return (
                 <div
-                  className="rounded-2xl p-4 shadow-2xl border border-border/50 bg-background"
-                  style={style}
+                  key={svc.key}
+                  className="absolute flex flex-col items-center"
+                  style={{
+                    left: `${pos.left}%`,
+                    top: `${pos.top}%`,
+                    transform: `translate(-50%, -50%) ${isHovered ? "scale(1.1)" : "scale(1)"}`,
+                    zIndex: isHovered ? 90 : 10,
+                    opacity: isInstalled ? 1 : 0,
+                    transition: "opacity 0.4s ease, transform 0.3s ease",
+                    cursor: "pointer",
+                    pointerEvents: isInstalled ? "auto" : "none",
+                  }}
+                  onMouseEnter={() => handleMouseEnter(i)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
-                    Problem
-                  </p>
-                  <p className="text-xs text-foreground leading-relaxed mb-2.5" style={{ wordBreak: "keep-all" }}>
-                    {data.problem}
-                  </p>
-                  <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
-                    Solution
-                  </p>
-                  <p className="text-xs text-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
-                    {data.solution}
-                  </p>
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold" style={{ color: svc.accent }}>
-                    {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
-                    <ArrowRight className="w-3 h-3" />
+                  {/* Hexagon icon */}
+                  <div
+                    className="flex items-center justify-center shadow-md"
+                    style={{
+                      width: 64,
+                      height: 64,
+                      background: svc.bg,
+                      clipPath: "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
+                      transition: "box-shadow 0.3s ease",
+                    }}
+                  >
+                    <Icon className="w-6 h-6 lg:w-7 lg:h-7 text-white" strokeWidth={2} />
+                  </div>
+                  {/* Label */}
+                  <span className="mt-2 text-[11px] lg:text-xs font-bold text-foreground text-center whitespace-nowrap">
+                    {data.name}
                   </span>
+
+                  {/* Tooltip */}
+                  {isHovered && (() => {
+                    const isTop = pos.top < 50;
+                    const isLeft = pos.left < 50;
+                    const style: React.CSSProperties = {
+                      position: "absolute",
+                      width: 220,
+                      zIndex: 100,
+                      animation: "eco-tooltip-in 0.18s ease-out",
+                    };
+                    if (isTop) {
+                      style.top = "100%";
+                      style.marginTop = 8;
+                    } else {
+                      style.bottom = "100%";
+                      style.marginBottom = 8;
+                    }
+                    if (isLeft) {
+                      style.left = 0;
+                    } else {
+                      style.right = 0;
+                    }
+
+                    return (
+                      <div
+                        className="rounded-2xl p-4 shadow-2xl border border-border/50 bg-background"
+                        style={style}
+                      >
+                        <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
+                          Problem
+                        </p>
+                        <p className="text-xs text-foreground leading-relaxed mb-2.5" style={{ wordBreak: "keep-all" }}>
+                          {data.problem}
+                        </p>
+                        <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
+                          Solution
+                        </p>
+                        <p className="text-xs text-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
+                          {data.solution}
+                        </p>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold" style={{ color: svc.accent }}>
+                          {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
+                          <ArrowRight className="w-3 h-3" />
+                        </span>
+                      </div>
+                    );
+                  })()}
                 </div>
               );
-            })()}
+            })}
           </div>
         </div>
 
@@ -349,10 +291,13 @@ export default function EcosystemMapSection() {
                 className="rounded-2xl p-5 bg-background border border-border/50 flex flex-col gap-3"
               >
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ background: `linear-gradient(135deg, ${svc.bgFrom}, ${svc.bgTo})` }}
+                  className="w-12 h-12 flex items-center justify-center"
+                  style={{
+                    background: svc.bg,
+                    clipPath: "polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%)",
+                  }}
                 >
-                  <Icon className="w-6 h-6 text-white" strokeWidth={2} />
+                  <Icon className="w-5 h-5 text-white" strokeWidth={2} />
                 </div>
                 <h4 className="font-bold text-sm text-foreground leading-snug">{data.name}</h4>
                 <p className="text-xs text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
