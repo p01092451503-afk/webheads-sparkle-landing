@@ -54,7 +54,7 @@ const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
 export default function EcosystemMapSection() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
