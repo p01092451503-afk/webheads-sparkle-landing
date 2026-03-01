@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 
 type RequestType = "sms_recharge" | "remote_support";
 
-const SMS_AMOUNTS = ["1만원", "3만원", "5만원", "10만원", "30만원", "50만원", "직접 입력"];
+const SMS_AMOUNTS = ["1만원", "3만원", "5만원", "10만원", "30만원", "50만원"];
 
 export default function ServiceRequestPage() {
   const { t } = useTranslation();
