@@ -172,22 +172,22 @@ export default function OverviewPage() {
           {/* Cloud vs NEO Features */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
             {/* Cloud AI */}
-            <div className="rounded-2xl border border-border bg-white p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(255,75%,58%,0.12)", color: "hsl(255,75%,58%)" }}>
-                  <Zap className="w-4 h-4" />
+            <div className="rounded-2xl border border-border bg-white p-7">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "hsl(255,75%,58%,0.12)", color: "hsl(255,75%,58%)" }}>
+                  <Zap className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-foreground">{t("lms.cloud.name")}</h3>
-                  <p className="text-[10px] text-muted-foreground">{t("lms.cloud.subtitle")}</p>
+                  <h3 className="font-bold text-base text-foreground">{t("lms.cloud.name")}</h3>
+                  <p className="text-xs text-muted-foreground">{t("lms.cloud.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mb-4">{t("lms.cloud.desc")}</p>
-              <div className="grid grid-cols-2 gap-2">
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{t("lms.cloud.desc")}</p>
+              <div className="grid grid-cols-2 gap-2.5">
                 {cloudFeats.map((f, i) => (
-                  <div key={i} className="flex items-start gap-1.5">
-                    <Check className="w-3 h-3 mt-0.5 shrink-0" style={{ color: "hsl(255,75%,58%)" }} />
-                    <span className="text-[11px] text-foreground font-medium">{f.title}</span>
+                  <div key={i} className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "hsl(255,75%,58%)" }} />
+                    <span className="text-sm text-foreground font-medium">{f.title}</span>
                   </div>
                 ))}
               </div>
