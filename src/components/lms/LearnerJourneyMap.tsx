@@ -47,8 +47,7 @@ export default function LearnerJourneyMap() {
               return (
                 <div key={i} className="relative flex flex-col items-center text-center group">
                   <div
-                    className="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 shadow-sm transition-transform group-hover:scale-110 relative z-10"
-                    style={{ background: withAlpha(color, 0.28) }}
+                    className="w-20 h-20 flex items-center justify-center mb-5 transition-transform group-hover:scale-110 relative z-10"
                   >
                     <Icon className="w-8 h-8" style={{ color }} />
                   </div>
@@ -78,8 +77,7 @@ export default function LearnerJourneyMap() {
               return (
                 <div key={i} className="relative flex items-start gap-4 pl-1">
                   <div
-                    className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center relative z-10 bg-background"
-                    style={{ background: withAlpha(color, 0.28) }}
+                    className="shrink-0 w-11 h-11 flex items-center justify-center relative z-10"
                   >
                     <Icon className="w-5 h-5" style={{ color }} />
                   </div>
