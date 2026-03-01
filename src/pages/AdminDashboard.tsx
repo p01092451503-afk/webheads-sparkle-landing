@@ -116,7 +116,7 @@ export default function AdminDashboard() {
     { key: "home", icon: Home, label: "홈" },
     { key: "inquiries", icon: MessageSquare, label: "문의" },
     { key: "analytics", icon: BarChart3, label: "분석" },
-    { key: "activity", icon: Shield, label: "활동" },
+    // { key: "activity", icon: Shield, label: "활동" },
     { key: "settings", icon: Settings, label: "설정" },
   ];
 
