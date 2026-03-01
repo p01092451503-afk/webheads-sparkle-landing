@@ -316,7 +316,7 @@ export default function EcosystemMapSection() {
             return (
               <button
                 key={svc.key}
-                onClick={() => navigate(svc.path)}
+                onClick={() => {}}
                 className="text-left rounded-2xl p-5 bg-background border border-border/50 hover:shadow-lg transition-all duration-200 flex flex-col gap-3"
               >
                 <Icon className="w-7 h-7" style={{ color: svc.accent }} strokeWidth={2} />
