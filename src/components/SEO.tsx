@@ -42,14 +42,13 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
 
   return (
     <Helmet>
+      <html lang={lang} />
       {/* Primary */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
       <link rel="canonical" href={canonicalUrl} />
-
-      {/* hreflang - single URL structure, x-default only */}
-      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
       {/* Open Graph */}
       <meta property="og:type" content="website" />
