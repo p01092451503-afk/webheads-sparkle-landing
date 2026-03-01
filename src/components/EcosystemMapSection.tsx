@@ -217,7 +217,7 @@ export default function EcosystemMapSection() {
                     className="relative w-[88px] h-[88px] rounded-2xl flex flex-col items-center justify-center cursor-pointer group"
                     style={{
                       background: isHovered ? svc.accent : "var(--background)",
-                      border: `2px solid ${isHovered ? svc.accent : allInstalled ? svc.accent + "44" : "hsl(var(--border))"}`,
+                      border: `1.5px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
                       boxShadow: isHovered
                         ? `0 6px 20px -4px ${svc.accent}44`
                         : "0 2px 8px -2px hsl(var(--foreground) / 0.06)",
