@@ -24,7 +24,7 @@ export default function RoiCalculator() {
   ];
 
   return (
-    <section className="py-28 bg-secondary">
+    <section className="py-28">
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="mb-12">
           <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: "hsl(var(--lms-primary))" }}>

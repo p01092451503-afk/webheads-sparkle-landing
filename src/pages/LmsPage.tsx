@@ -31,7 +31,8 @@ import ClientMarquee from "@/components/ClientMarquee";
 const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, PackageCheck];
 const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
 const saasFeatureIcons = [Rocket, CreditCard, RefreshCw, Layers, Database, Plug, HardDriveDownload, Settings];
-const aiFeatureIcons = [Brain, Subtitles, MessageSquare, FileCheck, Search];
+const aiFeatureIcons = [Brain, Subtitles, FileCheck, Search];
+const aiTutorIcons = [GraduationCap, MessageSquare, ClipboardCheck];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
@@ -45,6 +46,7 @@ export default function LmsPage() {
   const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: neoFeatureIcons[i] || Server }));
   const saasFeatures = (t("lms.saasFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: saasFeatureIcons[i] || Rocket }));
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
+  const aiTutorFeatures = t("lms.aiTutorFeatures", { returnObjects: true }) as any[];
   const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
   const kdtFeatures = (t("lms.kdtFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: kdtFeatureIcons[i] || GraduationCap }));
   const stats = t("lms.stats", { returnObjects: true }) as any[];
@@ -257,11 +259,36 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Learner Journey Map — 실제 사용 흐름 */}
+      {/* AI Tutor & Chatbot — 회색 배경 */}
+      <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiTutorSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiTutorSection.title")}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{t("lms.aiTutorSection.desc")}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {aiTutorFeatures.map((f: any, i: number) => {
+              const Icon = aiTutorIcons[i] || Brain;
+              return (
+                <div key={f.title} className="rounded-2xl p-7 transition-all duration-200 flex flex-col gap-3 hover:shadow-md bg-background" style={{ border: `1px solid hsl(var(--lms-card-border))` }}>
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm" style={{ background: "hsl(245, 60%, 95%)" }}>
+                    <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
+                  </div>
+                  <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Learner Journey Map — 흰색 배경 */}
       <LearnerJourneyMap />
 
-      {/* Solutions — 기능을 이해한 뒤 플랜 선택 */}
-      <section id="solutions" className="py-28">
+      {/* Solutions — 회색 배경 */}
+      <section id="solutions" className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>

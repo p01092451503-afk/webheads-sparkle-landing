@@ -22,7 +22,7 @@ export default function LearnerJourneyMap() {
   }[];
 
   return (
-    <section className="py-16 md:py-28" style={{ background: "var(--lms-section-alt)" }}>
+    <section className="py-16 md:py-28">
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         <div className="mb-10 md:mb-12">
           <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
