@@ -132,16 +132,16 @@ export default function LmsPage() {
 
 
 
-        <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+        <div className="container mx-auto px-5 md:px-6 relative z-10 text-center flex flex-col items-center">
           <span
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-8"
+            className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8"
             style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }}
           >
             <Sparkles className="w-4 h-4" />
             {t("lms.hero.badge")}
           </span>
           <h1
-            className="text-5xl md:text-6xl lg:text-[4.2rem] font-extrabold leading-[1.1] mb-7 tracking-tight text-white"
+            className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white"
             style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}
           >
             {t("lms.hero.title")}
