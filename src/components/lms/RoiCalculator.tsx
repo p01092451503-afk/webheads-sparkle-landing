@@ -99,12 +99,12 @@ export default function RoiCalculator() {
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
                 <span className="font-bold text-lg" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
-              <div className="rounded-xl p-5" style={{ background: "hsl(145, 70%, 93%)" }}>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-semibold" style={{ color: "hsl(145, 60%, 28%)" }}>{t("lms.roiCalc.annualSavings")}</span>
-                  <span className="font-bold text-2xl" style={{ color: "hsl(145, 60%, 28%)" }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
+              <div className="rounded-xl p-4 md:p-5" style={{ background: "hsl(145, 70%, 93%)" }}>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
+                  <span className="text-xs md:text-sm font-semibold" style={{ color: "hsl(145, 60%, 28%)" }}>{t("lms.roiCalc.annualSavings")}</span>
+                  <span className="font-bold text-xl md:text-2xl" style={{ color: "hsl(145, 60%, 28%)" }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
                 </div>
-                <p className="text-xs mt-1" style={{ color: "hsl(145, 60%, 38%)" }}>
+                <p className="text-[11px] md:text-xs mt-1" style={{ color: "hsl(145, 60%, 38%)" }}>
                   {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
                 </p>
               </div>
