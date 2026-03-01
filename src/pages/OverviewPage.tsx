@@ -94,7 +94,7 @@ export default function OverviewPage() {
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(220,50%,30%,0.08)", color: "hsl(220,50%,35%)", border: "1px solid hsl(220,40%,50%,0.15)" }}>
             {t("overview.hero.badge")}
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] tracking-tight whitespace-pre-line" style={{ fontWeight: 900, color: "hsl(220,40%,16%)", lineHeight: 1.6 }}>
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] tracking-tight whitespace-pre-line" style={{ fontWeight: 900, color: "hsl(220,40%,16%)", lineHeight: 1.48 }}>
             {t("overview.hero.title")}
           </h1>
           <p className="mt-5 text-sm sm:text-base leading-[1.9] max-w-2xl mx-auto whitespace-pre-line" style={{ color: "hsl(220,20%,45%)" }}>
