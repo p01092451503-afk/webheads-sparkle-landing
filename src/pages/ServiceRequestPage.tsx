@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 type RequestType = "sms_recharge" | "remote_support";
 
 const SMS_AMOUNTS = ["1만원", "3만원", "5만원", "10만원", "30만원", "50만원"];
+const SMS_COUNTS = ["50,000건", "100,000건", "500,000건", "1,000,000건"];
+type RechargeUnit = "amount" | "count";
 
 export default function ServiceRequestPage() {
   const { t } = useTranslation();
