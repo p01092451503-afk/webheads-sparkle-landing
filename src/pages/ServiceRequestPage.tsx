@@ -24,6 +24,7 @@ export default function ServiceRequestPage() {
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isCustomAmount, setIsCustomAmount] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
