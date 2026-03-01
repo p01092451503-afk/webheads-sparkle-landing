@@ -262,26 +262,26 @@ export default function OverviewPage() {
 
           {/* LMS Pricing */}
           <div className="rounded-2xl overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(220,45%,88%) 0%, hsl(222,40%,84%) 100%)" }}>
-            <div className="p-6">
-              <h3 className="font-bold text-sm text-foreground mb-1">{t("lms.plansSection.title").replace(/\n/g, " ")}</h3>
-              <p className="text-xs text-muted-foreground mb-5">{t("lms.plansSection.desc")}</p>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="p-7">
+              <h3 className="font-bold text-base text-foreground mb-1">{t("lms.plansSection.title").replace(/\n/g, " ")}</h3>
+              <p className="text-sm text-muted-foreground mb-5">{t("lms.plansSection.desc")}</p>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {lmsPlans.map((plan: any, i: number) => (
-                  <div key={i} className={`rounded-xl p-4 bg-white border ${plan.highlight ? "border-[hsl(255,75%,58%)] ring-1 ring-[hsl(255,75%,58%,0.3)]" : "border-border"} relative`}>
+                  <div key={i} className={`rounded-xl p-5 bg-white border ${plan.highlight ? "border-[hsl(255,75%,58%)] ring-1 ring-[hsl(255,75%,58%,0.3)]" : "border-border"} relative`}>
                     {plan.badge && (
-                      <span className="absolute -top-2.5 left-4 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ background: "hsl(255,75%,58%)" }}>{plan.badge}</span>
+                      <span className="absolute -top-2.5 left-4 px-2.5 py-0.5 rounded-full text-xs font-bold text-white" style={{ background: "hsl(255,75%,58%)" }}>{plan.badge}</span>
                     )}
-                    <p className="font-bold text-xs text-foreground">{plan.name}</p>
-                    <p className="text-[10px] text-muted-foreground mt-0.5 min-h-[28px]">{plan.solutionType}</p>
+                    <p className="font-bold text-sm text-foreground">{plan.name}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 min-h-[32px]">{plan.solutionType}</p>
                     <p className="mt-2">
-                      <span className="text-lg font-black text-foreground">{plan.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">{plan.unit}/월</span>
+                      <span className="text-xl font-black text-foreground">{plan.price}</span>
+                      <span className="text-sm text-muted-foreground ml-1">{plan.unit}/월</span>
                     </p>
-                    <ul className="mt-3 space-y-1.5">
+                    <ul className="mt-3 space-y-2">
                       {(plan.features as any[]).slice(0, 3).map((f: any, j: number) => (
                         <li key={j} className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 mt-0.5 shrink-0 text-green-600" />
-                          <span className="text-[10px] text-foreground">{f.main}</span>
+                          <Check className="w-3.5 h-3.5 mt-0.5 shrink-0 text-green-600" />
+                          <span className="text-xs text-foreground">{f.main}</span>
                         </li>
                       ))}
                     </ul>
