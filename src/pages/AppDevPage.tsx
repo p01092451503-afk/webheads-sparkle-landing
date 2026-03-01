@@ -95,6 +95,8 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      <ServiceProcess steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
+
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
