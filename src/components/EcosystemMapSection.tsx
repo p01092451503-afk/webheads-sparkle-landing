@@ -156,8 +156,6 @@ export default function EcosystemMapSection() {
                     y2={sl.y2}
                     stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
                     strokeWidth={isHovered ? 2.5 : 1.5}
-                    strokeDasharray={lineLen}
-                    strokeDashoffset={0}
                     opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
                     style={{
                       ["--line-len" as any]: lineLen,
