@@ -1,6 +1,6 @@
 import ContactSection from "@/components/ContactSection";
 
-import EcosystemMapSection from "@/components/EcosystemMapSection";
+
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
@@ -444,8 +444,6 @@ export default function LmsPage() {
       {/* Competitor Comparison */}
       <CompetitorComparison />
 
-      {/* Ecosystem Interactive Map */}
-      <EcosystemMapSection />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--lms-section-alt)" }}>
