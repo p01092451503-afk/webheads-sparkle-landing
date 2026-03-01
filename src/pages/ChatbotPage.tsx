@@ -19,8 +19,7 @@ export default function ChatbotPage() {
     ...item,
     icon: featureIcons[index] || Brain
   }));
-  const process = t("chatbot.process", { returnObjects: true }) as any[];
-  const stats = t("chatbot.stats", { returnObjects: true }) as any[];
+  const processSteps = (t("chatbot.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || Search }));
   const plans = t("chatbot.plans", { returnObjects: true }) as any[];
   const faqs = t("chatbot.faqs", { returnObjects: true }) as any[];
   const testimonials = t("chatbot.testimonials", { returnObjects: true }) as any[];
