@@ -18,7 +18,6 @@ const serviceConfig: { key: string; path: string; accent: string; icon: LucideIc
   { key: "maintenance", path: "/maintenance", accent: "hsl(150, 55%, 40%)", icon: Wrench },
 ];
 
-// Positions for 8 nodes on a circle (desktop)
 const NODE_RADIUS = 180;
 const CENTER = { x: 250, y: 250 };
 const nodePositions = serviceConfig.map((_, i) => {
@@ -29,37 +28,69 @@ const nodePositions = serviceConfig.map((_, i) => {
   };
 });
 
+// Installation order (randomised feel but deterministic)
+const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
+
 export default function EcosystemMapSection() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [autoIdx, setAutoIdx] = useState<number>(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const autoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Auto-rotate through services
+  // Animation phases: -1 = waiting, 0 = hub appearing, 1-8 = installing nodes, 9 = all done + sparkle
+  const [phase, setPhase] = useState(-1);
+  const [hasPlayed, setHasPlayed] = useState(false);
+
+  // Which node indices are "installed"
+  const installedSet = new Set<number>();
+  if (phase >= 1) {
+    for (let p = 0; p < Math.min(phase, 8); p++) {
+      installedSet.add(INSTALL_ORDER[p]);
+    }
+  }
+  const allInstalled = phase >= 9;
+
+  // Intersection observer to trigger animation
   useEffect(() => {
-    if (!isAutoPlaying) return;
-    autoTimerRef.current = setTimeout(() => {
-      setAutoIdx((prev) => (prev + 1) % 8);
-    }, 2200);
-    return () => { if (autoTimerRef.current) clearTimeout(autoTimerRef.current); };
-  }, [autoIdx, isAutoPlaying]);
+    if (hasPlayed) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPhase(0);
+          setHasPlayed(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [hasPlayed]);
+
+  // Step through phases
+  useEffect(() => {
+    if (phase < 0) return;
+    if (phase === 0) {
+      // Hub appears, then start installing nodes
+      const t = setTimeout(() => setPhase(1), 700);
+      return () => clearTimeout(t);
+    }
+    if (phase >= 1 && phase <= 8) {
+      const t = setTimeout(() => setPhase((p) => p + 1), 350);
+      return () => clearTimeout(t);
+    }
+    // phase 9+ = sparkle, stays
+  }, [phase]);
 
   const handleMouseEnter = useCallback((i: number) => {
     setHoveredIdx(i);
-    setIsAutoPlaying(false);
-    if (autoTimerRef.current) clearTimeout(autoTimerRef.current);
   }, []);
 
   const handleMouseLeave = useCallback(() => {
     setHoveredIdx(null);
-    setIsAutoPlaying(true);
   }, []);
-
-  // Active index: manual hover takes priority over auto
-  const activeIdx = hoveredIdx !== null ? hoveredIdx : autoIdx;
 
   const services = t("lms.ecosystem.services", { returnObjects: true }) as {
     name: string; emoji: string; problem: string; solution: string;
@@ -103,6 +134,15 @@ export default function EcosystemMapSection() {
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
+                {/* Sparkle filter for completed state */}
+                <filter id="eco-sparkle">
+                  <feGaussianBlur stdDeviation="6" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
                 {serviceConfig.map((svc, i) => (
                   <linearGradient
                     key={`grad-${i}`}
@@ -126,24 +166,32 @@ export default function EcosystemMapSection() {
                   </linearGradient>
                 ))}
               </defs>
+
+              {/* Connection lines — only show for installed nodes */}
               {nodePositions.map((pos, i) => {
-                const isActive = activeIdx === i;
+                const isInstalled = installedSet.has(i);
+                const isHovered = hoveredIdx === i && isInstalled;
+                if (!isInstalled) return null;
+
                 return (
                   <g key={i}>
-                    {/* Base line */}
                     <line
                       x1={CENTER.x}
                       y1={CENTER.y}
                       x2={pos.x}
                       y2={pos.y}
-                      stroke={isActive ? serviceConfig[i].accent : "hsl(var(--border))"}
-                      strokeWidth={isActive ? 2.5 : 1.5}
-                      strokeDasharray={isActive ? "none" : "6 4"}
-                      style={{ transition: "all 0.3s ease" }}
-                      filter={isActive ? "url(#eco-glow)" : undefined}
+                      stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
+                      strokeWidth={isHovered ? 2.5 : allInstalled ? 2 : 1.5}
+                      strokeDasharray={isHovered || allInstalled ? "none" : "6 4"}
+                      style={{
+                        transition: "all 0.3s ease",
+                        animation: `eco-line-draw 0.4s ease-out`,
+                      }}
+                      filter={isHovered ? "url(#eco-glow)" : undefined}
+                      opacity={allInstalled ? 0.6 : 1}
                     />
-                    {/* Animated flow overlay */}
-                    {isActive && (
+                    {/* Flow animation on hover */}
+                    {isHovered && (
                       <line
                         x1={CENTER.x}
                         y1={CENTER.y}
@@ -154,8 +202,7 @@ export default function EcosystemMapSection() {
                         strokeLinecap="round"
                       />
                     )}
-                    {/* Flow particle dots */}
-                    {isActive && [0, 0.4, 0.8].map((delay, di) => (
+                    {isHovered && [0, 0.4, 0.8].map((delay, di) => (
                       <circle key={di} r="3.5" fill={serviceConfig[i].accent} opacity="0.9">
                         <animateMotion
                           dur="1.4s"
@@ -181,15 +228,84 @@ export default function EcosystemMapSection() {
                 left: CENTER.x - 52,
                 top: CENTER.y - 52,
                 zIndex: 20,
+                opacity: phase >= 0 ? 1 : 0,
+                transform: phase >= 0 ? "scale(1)" : "scale(0.5)",
+                transition: "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)",
               }}
             >
               {/* Pulse rings */}
-              <div className="absolute inset-0 rounded-full" style={{ background: "hsl(245, 65%, 50%)", opacity: 0.15, animation: "eco-hub-pulse 2.8s ease-out infinite" }} />
-              <div className="absolute inset-0 rounded-full" style={{ background: "hsl(245, 65%, 50%)", opacity: 0.1, animation: "eco-hub-pulse 2.8s ease-out infinite 0.9s" }} />
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "hsl(245, 65%, 50%)",
+                  opacity: 0.15,
+                  animation: phase >= 0 ? "eco-hub-pulse 2.8s ease-out infinite" : "none",
+                }}
+              />
+              <div
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "hsl(245, 65%, 50%)",
+                  opacity: 0.1,
+                  animation: phase >= 0 ? "eco-hub-pulse 2.8s ease-out infinite 0.9s" : "none",
+                }}
+              />
+
+              {/* Sparkle ring — after all installed */}
+              {allInstalled && (
+                <>
+                  <div
+                    className="absolute rounded-full"
+                    style={{
+                      inset: -8,
+                      border: "2px solid hsl(245, 65%, 60%)",
+                      animation: "eco-sparkle-ring 2s ease-out infinite",
+                      opacity: 0,
+                    }}
+                  />
+                  <div
+                    className="absolute rounded-full"
+                    style={{
+                      inset: -4,
+                      border: "1.5px solid hsl(245, 65%, 70%)",
+                      animation: "eco-sparkle-ring 2s ease-out infinite 0.6s",
+                      opacity: 0,
+                    }}
+                  />
+                  {/* Star sparkles */}
+                  {[0, 60, 120, 180, 240, 300].map((angle, si) => {
+                    const rad = (angle * Math.PI) / 180;
+                    const dist = 62;
+                    return (
+                      <div
+                        key={si}
+                        className="absolute"
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: "hsl(245, 80%, 70%)",
+                          left: 52 + dist * Math.cos(rad) - 3,
+                          top: 52 + dist * Math.sin(rad) - 3,
+                          animation: `eco-star-twinkle 1.8s ease-in-out infinite ${si * 0.3}s`,
+                          boxShadow: "0 0 8px 2px hsl(245, 80%, 70%)",
+                        }}
+                      />
+                    );
+                  })}
+                </>
+              )}
+
               <div
                 className="absolute inset-0 rounded-full flex flex-col items-center justify-center shadow-xl"
                 style={{
-                  background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
+                  background: allInstalled
+                    ? "linear-gradient(135deg, hsl(245, 70%, 55%), hsl(245, 80%, 42%))"
+                    : "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
+                  boxShadow: allInstalled
+                    ? "0 0 40px 8px hsl(245, 70%, 55% / 0.35), 0 4px 20px -4px hsl(245, 65%, 40% / 0.5)"
+                    : undefined,
+                  transition: "all 0.6s ease",
                 }}
               >
                 <GraduationCap className="w-10 h-10 text-white mb-1" strokeWidth={2} />
@@ -203,19 +319,29 @@ export default function EcosystemMapSection() {
               const data = services?.[i];
               if (!data) return null;
               const Icon = svc.icon;
-              const isHovered = activeIdx === i;
+              const isInstalled = installedSet.has(i);
+              const isHovered = hoveredIdx === i && isInstalled;
 
               return (
-                <div key={svc.key} style={{ position: "absolute", left: pos.x - 44, top: pos.y - 44, zIndex: isHovered ? 30 : 10 }}
+                <div
+                  key={svc.key}
+                  style={{
+                    position: "absolute",
+                    left: pos.x - 44,
+                    top: pos.y - 44,
+                    zIndex: isHovered ? 30 : 10,
+                    opacity: isInstalled ? 1 : 0,
+                    transform: isInstalled ? "scale(1)" : "scale(0.3)",
+                    transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  }}
                   onMouseEnter={() => handleMouseEnter(i)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  {/* Node */}
                   <button
                     className="relative w-[88px] h-[88px] rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
                     style={{
                       background: isHovered ? svc.accent : "var(--background)",
-                      border: `2px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
+                      border: `2px solid ${isHovered ? svc.accent : allInstalled ? svc.accent + "44" : "hsl(var(--border))"}`,
                       boxShadow: isHovered
                         ? `0 8px 32px -4px ${svc.accent}55`
                         : "0 2px 8px -2px hsl(var(--foreground) / 0.06)",
@@ -234,36 +360,37 @@ export default function EcosystemMapSection() {
                     >
                       {data.name}
                     </span>
+
+                    {/* Install flash effect */}
+                    {isInstalled && (
+                      <div
+                        className="absolute inset-0 rounded-2xl pointer-events-none"
+                        style={{
+                          background: `radial-gradient(circle, ${svc.accent}30 0%, transparent 70%)`,
+                          animation: "eco-install-flash 0.6s ease-out forwards",
+                        }}
+                      />
+                    )}
                   </button>
 
                   {/* Tooltip — only on manual hover */}
-                  {hoveredIdx === i && (() => {
+                  {hoveredIdx === i && isInstalled && (() => {
                     const dx = pos.x - CENTER.x;
                     const dy = pos.y - CENTER.y;
                     const outward = { x: dx / Math.abs(dx || 1), y: dy / Math.abs(dy || 1) };
-                    // Place tooltip away from center
                     const tooltipStyle: React.CSSProperties = {
                       zIndex: 50,
                       animation: "eco-tooltip-in 0.2s ease-out",
                     };
-                    // Horizontal positioning
                     if (Math.abs(dx) > Math.abs(dy) * 0.5) {
-                      // Left or right side
-                      if (outward.x > 0) {
-                        tooltipStyle.left = 96;
-                      } else {
-                        tooltipStyle.right = 96;
-                      }
+                      if (outward.x > 0) tooltipStyle.left = 96;
+                      else tooltipStyle.right = 96;
                     } else {
-                      tooltipStyle.left = -96; // center horizontally
+                      tooltipStyle.left = -96;
                     }
-                    // Vertical positioning
                     if (Math.abs(dy) > Math.abs(dx) * 0.5) {
-                      if (outward.y > 0) {
-                        tooltipStyle.top = 94;
-                      } else {
-                        tooltipStyle.bottom = 94;
-                      }
+                      if (outward.y > 0) tooltipStyle.top = 94;
+                      else tooltipStyle.bottom = 94;
                     } else {
                       tooltipStyle.top = -20;
                     }
@@ -342,6 +469,22 @@ export default function EcosystemMapSection() {
           0% { transform: scale(1); opacity: 0.18; }
           70% { transform: scale(1.6); opacity: 0; }
           100% { transform: scale(1.6); opacity: 0; }
+        }
+        @keyframes eco-line-draw {
+          from { stroke-dashoffset: 200; stroke-dasharray: 200; }
+          to { stroke-dashoffset: 0; stroke-dasharray: 200; }
+        }
+        @keyframes eco-install-flash {
+          0% { opacity: 1; transform: scale(1); }
+          100% { opacity: 0; transform: scale(1.3); }
+        }
+        @keyframes eco-sparkle-ring {
+          0% { opacity: 0.6; transform: scale(1); }
+          100% { opacity: 0; transform: scale(1.8); }
+        }
+        @keyframes eco-star-twinkle {
+          0%, 100% { opacity: 0; transform: scale(0.5); }
+          50% { opacity: 1; transform: scale(1.2); }
         }
       `}</style>
     </section>
