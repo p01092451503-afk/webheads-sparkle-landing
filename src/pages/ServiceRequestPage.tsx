@@ -76,7 +76,7 @@ export default function ServiceRequestPage() {
         <title>서비스 요청 | 웹헤즈</title>
         <meta name="description" content="SMS 충전 및 카테노이드 원격지원 요청" />
       </Helmet>
-      <section className="py-24 bg-background min-h-screen">
+      <section className="pt-20 pb-24 bg-background min-h-screen">
         <div className="container mx-auto px-6 max-w-2xl">
           {/* Header */}
           <div className="text-center mb-10">
