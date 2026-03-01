@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+
 import {
   Server, Video, ShieldCheck, Bot, Smartphone, CreditCard,
   MessageSquareMore, Wrench, GraduationCap, ArrowRight
