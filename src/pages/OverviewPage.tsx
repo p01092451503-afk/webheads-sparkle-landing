@@ -56,6 +56,7 @@ export default function OverviewPage() {
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as { title: string; desc: string }[];
   const cloudFeats = (t("lms.cloudFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
   const neoFeats = (t("lms.neoFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
+  const saasFeats = (t("lms.saasFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
 
   /* ── Service data (from overview translations) ── */
   const ovServices = t("overview.services", { returnObjects: true }) as { title: string; desc: string; highlights: string[] }[];
