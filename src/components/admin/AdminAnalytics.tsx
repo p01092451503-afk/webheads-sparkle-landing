@@ -38,34 +38,33 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
 
   const visitorTypeCounts = useMemo(() => {
-    const searchBotPatterns = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|sogou|applebot|naverbot|seznambot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot/i;
-    const aiPatterns = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
-    const scraperPatterns = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot/i;
-    const seoToolPats: [RegExp, string][] = [
-      [/semrushbot/i, "SEMrush"], [/ahrefsbot/i, "Ahrefs"], [/dotbot/i, "Moz"],
-      [/serpstatbot/i, "Serpstat"], [/dataforseo/i, "DataForSEO"], [/screaming frog/i, "Screaming Frog"],
-      [/sitebulb/i, "Sitebulb"], [/mj12bot/i, "Majestic"], [/megaindex/i, "MegaIndex"],
-    ];
-    const archivePats: [RegExp, string][] = [[/ia_archiver|archive\.org/i, "Internet Archive"]];
-    const otherScraperPats: [RegExp, string][] = [
-      [/petalbot/i, "PetalBot (Huawei)"], [/blexbot/i, "BLEXBot"], [/rogerbot/i, "RogerBot"], [/exabot/i, "Exabot"],
-    ];
-    const searchBotSubPats: [RegExp, string][] = [
-      [/googlebot/i, "Google"], [/bingbot/i, "Bing"], [/yandex/i, "Yandex"],
-      [/baiduspider/i, "Baidu"], [/duckduckbot/i, "DuckDuckGo"], [/slurp/i, "Yahoo"],
-      [/naverbot/i, "Naver"], [/applebot/i, "Apple"], [/sogou/i, "Sogou"],
-      [/facebot|facebookexternalhit/i, "Facebook"], [/twitterbot/i, "Twitter/X"],
-      [/linkedinbot/i, "LinkedIn"], [/pinterestbot/i, "Pinterest"],
-      [/seznambot/i, "Seznam"], [/msnbot/i, "MSN"],
-    ];
-    const aiBotSubPats: [RegExp, string][] = [
-      [/gptbot|chatgpt|openai/i, "OpenAI (GPTBot)"], [/claude|anthropic|claudebot/i, "Anthropic (Claude)"],
-      [/bytespider/i, "ByteDance"], [/ccbot/i, "Common Crawl"],
-      [/cohere/i, "Cohere"], [/perplexity/i, "Perplexity"],
-      [/youbot/i, "You.com"], [/google-extended/i, "Google AI"],
-      [/meta-externalagent/i, "Meta AI"], [/amazonbot/i, "Amazon"],
-      [/ai2bot/i, "AI2 (Allen)"],
-    ];
+    // Display name maps for granular visitor_type from DB
+    const aiNames: Record<string, string> = {
+      ai_openai: "OpenAI (GPTBot)", ai_anthropic: "Anthropic (Claude)",
+      ai_bytedance: "ByteDance", ai_commoncrawl: "Common Crawl",
+      ai_cohere: "Cohere", ai_perplexity: "Perplexity",
+      ai_you: "You.com", ai_google: "Google AI",
+      ai_meta: "Meta AI", ai_amazon: "Amazon", ai_ai2: "AI2 (Allen)",
+    };
+    const searchNames: Record<string, string> = {
+      search_bot_google: "Google", search_bot_bing: "Bing", search_bot_yandex: "Yandex",
+      search_bot_baidu: "Baidu", search_bot_duckduckgo: "DuckDuckGo", search_bot_yahoo: "Yahoo",
+      search_bot_naver: "Naver", search_bot_apple: "Apple", search_bot_sogou: "Sogou",
+      search_bot_facebook: "Facebook", search_bot_twitter: "Twitter/X",
+      search_bot_linkedin: "LinkedIn", search_bot_pinterest: "Pinterest",
+      search_bot_seznam: "Seznam", search_bot_msn: "MSN",
+    };
+    const scraperNames: Record<string, string> = {
+      scraper_seo_semrush: "SEMrush", scraper_seo_ahrefs: "Ahrefs", scraper_seo_moz: "Moz",
+      scraper_seo_serpstat: "Serpstat", scraper_seo_dataforseo: "DataForSEO",
+      scraper_seo_screamingfrog: "Screaming Frog", scraper_seo_sitebulb: "Sitebulb",
+      scraper_seo_majestic: "Majestic", scraper_seo_megaindex: "MegaIndex",
+      scraper_archive: "Internet Archive",
+      scraper_other_petalbot: "PetalBot (Huawei)", scraper_other_blexbot: "BLEXBot",
+      scraper_other_rogerbot: "RogerBot", scraper_other_exabot: "Exabot",
+      scraper_cf: "CF 프록시", scraper_repeated: "반복접속",
+      scraper_unknown: "기타 스크래퍼",
+    };
 
     let human = 0, searchBot = 0, scraper = 0, ai = 0;
     const scraperSubCounts: Record<string, number> = {};
@@ -73,52 +72,26 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const aiBotSubCounts: Record<string, number> = {};
     const aiBotPageMap: Record<string, Record<string, number>> = {};
 
-    const classifySub = (ua: string, patterns: [RegExp, string][], counts: Record<string, number>, fallback?: string) => {
-      for (const [pat, name] of patterns) {
-        if (pat.test(ua)) { counts[name] = (counts[name] || 0) + 1; return; }
-      }
-      const fb = fallback || "기타";
-      counts[fb] = (counts[fb] || 0) + 1;
-    };
-
     filteredViews.forEach((v) => {
-      let type = v.visitor_type;
-      const ua = (v.user_agent || "");
-      if (!type || type === "bot") {
-        const uaL = ua.toLowerCase();
-        if (aiPatterns.test(uaL)) type = "ai";
-        else if (searchBotPatterns.test(uaL)) type = "search_bot";
-        else if (scraperPatterns.test(uaL)) type = "scraper";
-        else if (v.visitor_type === "bot") type = "scraper";
-        else type = "human";
-      }
-      if (type === "ai") {
+      const type = v.visitor_type || "human";
+
+      if (type.startsWith("ai")) {
         ai++;
-        classifySub(ua, aiBotSubPats, aiBotSubCounts);
-        let botName = "기타";
-        for (const [pat, name] of aiBotSubPats) {
-          if (pat.test(ua)) { botName = name; break; }
-        }
-        if (!aiBotPageMap[botName]) aiBotPageMap[botName] = {};
-        aiBotPageMap[botName][v.page_path] = (aiBotPageMap[botName][v.page_path] || 0) + 1;
-      } else if (type === "search_bot") {
+        const name = aiNames[type] || "기타";
+        aiBotSubCounts[name] = (aiBotSubCounts[name] || 0) + 1;
+        if (!aiBotPageMap[name]) aiBotPageMap[name] = {};
+        aiBotPageMap[name][v.page_path] = (aiBotPageMap[name][v.page_path] || 0) + 1;
+      } else if (type.startsWith("search_bot")) {
         searchBot++;
-        classifySub(ua, searchBotSubPats, searchBotSubCounts);
-      } else if (type === "scraper") {
+        const name = searchNames[type] || "기타";
+        searchBotSubCounts[name] = (searchBotSubCounts[name] || 0) + 1;
+      } else if (type.startsWith("scraper")) {
         scraper++;
-        const uaL = ua.toLowerCase();
-        let matched = false;
-        for (const pats of [seoToolPats, archivePats, otherScraperPats]) {
-          for (const [pat, name] of pats) {
-            if (pat.test(uaL)) { scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1; matched = true; break; }
-          }
-          if (matched) break;
-        }
-        if (!matched) {
-          if (scraperPatterns.test(uaL)) scraperSubCounts["기타 스크래퍼"] = (scraperSubCounts["기타 스크래퍼"] || 0) + 1;
-          else scraperSubCounts["반복접속/CF 프록시"] = (scraperSubCounts["반복접속/CF 프록시"] || 0) + 1;
-        }
-      } else human++;
+        const name = scraperNames[type] || "기타 스크래퍼";
+        scraperSubCounts[name] = (scraperSubCounts[name] || 0) + 1;
+      } else {
+        human++;
+      }
     });
 
     const scraperSubs = Object.entries(scraperSubCounts).sort(([, a], [, b]) => b - a);
