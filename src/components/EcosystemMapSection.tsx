@@ -335,9 +335,13 @@ export default function EcosystemMapSection() {
       </div>
 
       <style>{`
-        @keyframes eco-tooltip-in {
+       @keyframes eco-tooltip-in {
           from { opacity: 0; transform: translateY(4px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes eco-line-draw {
+          from { stroke-dashoffset: var(--line-len, 200); opacity: 0; }
+          to { stroke-dashoffset: 0; opacity: 1; }
         }
       `}</style>
     </section>
