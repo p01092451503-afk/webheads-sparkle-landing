@@ -3,11 +3,11 @@ import { ClipboardList, CreditCard, BookOpen, Award, Heart, ArrowRight } from "l
 
 const stepIcons = [ClipboardList, CreditCard, BookOpen, Award, Heart];
 const stepColors = [
-  "hsl(245, 58%, 55%)",
-  "hsl(215, 65%, 48%)",
-  "hsl(170, 55%, 38%)",
-  "hsl(35, 90%, 50%)",
-  "hsl(340, 65%, 50%)",
+  "hsl(245, 29%, 55%)",
+  "hsl(215, 33%, 48%)",
+  "hsl(170, 28%, 38%)",
+  "hsl(35, 45%, 50%)",
+  "hsl(340, 33%, 50%)",
 ];
 
 const withAlpha = (color: string, alpha: number) =>
@@ -48,7 +48,7 @@ export default function LearnerJourneyMap() {
                 <div key={i} className="relative flex flex-col items-center text-center group">
                   <div
                     className="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 shadow-sm transition-transform group-hover:scale-110 relative z-10"
-                    style={{ background: withAlpha(color, 0.28), border: `2px solid ${withAlpha(color, 0.4)}`, boxShadow: `0 2px 12px ${withAlpha(color, 0.15)}` }}
+                    style={{ background: withAlpha(color, 0.28) }}
                   >
                     <Icon className="w-8 h-8" style={{ color }} />
                   </div>
@@ -79,7 +79,7 @@ export default function LearnerJourneyMap() {
                 <div key={i} className="relative flex items-start gap-4 pl-1">
                   <div
                     className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center relative z-10 bg-background"
-                    style={{ background: withAlpha(color, 0.28), border: `1.5px solid ${withAlpha(color, 0.4)}`, boxShadow: `0 2px 8px ${withAlpha(color, 0.12)}` }}
+                    style={{ background: withAlpha(color, 0.28) }}
                   >
                     <Icon className="w-5 h-5" style={{ color }} />
                   </div>
