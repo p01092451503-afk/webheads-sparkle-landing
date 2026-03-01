@@ -261,7 +261,7 @@ export default function LmsPage() {
       <LearnerJourneyMap />
 
       {/* Solutions — 기능을 이해한 뒤 플랜 선택 */}
-      <section id="solutions" className="py-28 bg-secondary">
+      <section id="solutions" className="py-28">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
