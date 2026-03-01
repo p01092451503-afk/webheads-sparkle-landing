@@ -11,6 +11,7 @@ import IndustryScenarioTabs from "@/components/lms/IndustryScenarioTabs";
 import LearnerJourneyMap from "@/components/lms/LearnerJourneyMap";
 import RoiCalculator from "@/components/lms/RoiCalculator";
 import CompetitorComparison from "@/components/lms/CompetitorComparison";
+import DeviceFriendlySection from "@/components/lms/DeviceFriendlySection";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
