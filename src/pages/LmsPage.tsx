@@ -59,6 +59,7 @@ export default function LmsPage() {
         description={t("lms.seo.description")}
         keywords={t("lms.seo.keywords")}
         path="/lms"
+        breadcrumb={[{ name: "LMS", url: `${BASE_URL}/lms` }]}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
@@ -66,7 +67,14 @@ export default function LmsPage() {
           "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" },
           "description": t("lms.seo.description"),
           "applicationCategory": "LMS",
-          "url": `${BASE_URL}/lms`
+          "url": `${BASE_URL}/lms`,
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "300",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
         }}
         faqJsonLd={faqs}
       />

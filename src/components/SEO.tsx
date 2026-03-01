@@ -91,6 +91,11 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
           {JSON.stringify(faqSchema)}
         </script>
       )}
+      {breadcrumbSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      )}
     </Helmet>
   );
 }
