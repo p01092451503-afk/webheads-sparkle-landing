@@ -293,16 +293,16 @@ export default function OverviewPage() {
 
           {/* Competitor Comparison */}
           <div className="rounded-2xl border border-border bg-white overflow-hidden mt-8">
-            <div className="p-5 border-b border-border">
-              <h3 className="font-bold text-sm text-foreground">{t("lms.competitorTable.title").replace(/\n/g, " ")}</h3>
-              <p className="text-xs text-muted-foreground mt-1">{t("lms.competitorTable.desc")}</p>
+            <div className="p-6 border-b border-border">
+              <h3 className="font-bold text-base text-foreground">{t("lms.competitorTable.title").replace(/\n/g, " ")}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{t("lms.competitorTable.desc")}</p>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-xs">
+              <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: "hsl(250,35%,94%)" }}>
                     {competitorHeaders.map((h, i) => (
-                      <th key={i} className={`py-3 px-4 font-bold ${i === 0 ? "text-left text-foreground" : i === 3 ? "text-center" : "text-center text-foreground"}`}
+                      <th key={i} className={`py-3.5 px-5 font-bold ${i === 0 ? "text-left text-foreground" : i === 3 ? "text-center" : "text-center text-foreground"}`}
                         style={i === 3 ? { color: "hsl(255,75%,58%)" } : {}}
                       >{h}</th>
                     ))}
@@ -312,7 +312,7 @@ export default function OverviewPage() {
                   {competitorRows.map((row, i) => (
                     <tr key={i} className="border-t border-border">
                       {row.map((cell, j) => (
-                        <td key={j} className={`py-2.5 px-4 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"} ${j === 3 ? "font-semibold" : ""}`}
+                        <td key={j} className={`py-3 px-5 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"} ${j === 3 ? "font-semibold" : ""}`}
                           style={j === 3 ? { color: "hsl(255,75%,58%)" } : {}}
                         >
                           <CellIcon val={cell} />
