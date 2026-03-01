@@ -19,16 +19,16 @@ export default function IndustryScenarioTabs() {
   const current = tabs[active];
 
   return (
-    <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="mb-12">
-          <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
+    <section className="py-16 md:py-28" style={{ background: "var(--lms-section-alt)" }}>
+      <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+        <div className="mb-8 md:mb-12">
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
             {t("lms.industryTabs.sub")}
           </p>
-          <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+          <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
             {t("lms.industryTabs.title")}
           </h2>
-          <p className="text-muted-foreground mt-4 text-base">{t("lms.industryTabs.desc")}</p>
+          <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.industryTabs.desc")}</p>
         </div>
 
         {/* Tab buttons */}
