@@ -24,7 +24,8 @@
     "maintenancePhone": "Support & Maintenance : 02-540-4337",
     "homepage": "Webheads Homepage",
     "admin": "Admin",
-    "copyright": "Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved."
+    "copyright": "Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved.",
+    "serviceRequestBtn": "SMS Recharge · Remote Support"
   },
   "contact": {
     "sub": "CONTACT US",

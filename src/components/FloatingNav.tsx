@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronUp, ChevronDown, MessageSquareText } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const location = useLocation();
 
@@ -21,8 +23,8 @@ export default function FloatingNav() {
         <Link
           to="/service-request"
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
-          aria-label="SMS 충전 · 원격지원 요청"
-          title="SMS 충전 · 원격지원 요청"
+          aria-label={t("footer.serviceRequestBtn")}
+          title={t("footer.serviceRequestBtn")}
         >
           <MessageSquareText className="w-5 h-5" />
         </Link>
