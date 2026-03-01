@@ -7,12 +7,14 @@ const languages = [
   { code: "en", label: "English", flag: "🇺🇸" },
 ];
 
-export default function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  scrolled?: boolean;
+}
+
+export default function LanguageSwitcher({ scrolled = true }: LanguageSwitcherProps) {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  const current = languages.find((l) => l.code === i18n.language) || languages[0];
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -26,11 +28,14 @@ export default function LanguageSwitcher() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+        className={`flex items-center justify-center w-9 h-9 rounded-full transition-colors duration-200 ${
+          scrolled
+            ? "text-foreground hover:bg-gray-100"
+            : "text-white hover:bg-white/10"
+        }`}
         aria-label="Language"
       >
-        <Globe className="w-3.5 h-3.5" />
-        <span className="hidden sm:inline">{current.code.toUpperCase()}</span>
+        <Globe className="w-[1.15rem] h-[1.15rem]" strokeWidth={2} />
       </button>
       {open && (
         <div className="absolute right-1/2 translate-x-1/2 top-full mt-1.5 w-36 bg-background border border-border rounded-xl shadow-lg overflow-hidden z-50">
