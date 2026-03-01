@@ -59,8 +59,8 @@ export default function LmsPage() {
         title={t("lms.seo.title")}
         description={t("lms.seo.description")}
         keywords={t("lms.seo.keywords")}
-        path="/lms"
-        breadcrumb={[{ name: "LMS", url: `${BASE_URL}/lms` }]}
+        path="/"
+        breadcrumb={[{ name: "LMS", url: `${BASE_URL}/` }]}
         jsonLd={{
           "@context": "https://schema.org",
           "@graph": [
