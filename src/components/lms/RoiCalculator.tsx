@@ -123,17 +123,28 @@ export default function RoiCalculator() {
 
         {/* Add-on Savings */}
         <div className="mt-8 rounded-2xl border border-border bg-background p-8">
-          <h4 className="font-bold text-foreground text-base mb-5">{t("lms.roiCalc.addonsTitle")}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.addonsTitle")}</h4>
+          </div>
+          <p className="flex items-center gap-1.5 text-xs text-muted-foreground mb-5">
+            <Info className="w-3.5 h-3.5 shrink-0" />
+            <span>{t("lms.roiCalc.addonsSource")}</span>
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {addonItems.map((item) => (
-              <div key={item.label} className="rounded-xl p-5 bg-secondary flex items-start gap-3">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}15` }}>
-                  <item.icon className="w-4.5 h-4.5" style={{ color: item.color }} />
+              <div key={item.label} className="rounded-xl p-5 bg-secondary flex flex-col gap-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}15` }}>
+                    <item.icon className="w-4.5 h-4.5" style={{ color: item.color }} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-1" style={{ wordBreak: "keep-all" }}>{item.label}</p>
+                    <p className="text-sm font-bold" style={{ color: item.color }}>{item.value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-1" style={{ wordBreak: "keep-all" }}>{item.label}</p>
-                  <p className="text-sm font-bold" style={{ color: item.color }}>{item.value}</p>
-                </div>
+                <p className="text-[11px] text-muted-foreground/70 leading-relaxed pl-0.5 border-t border-border/50 pt-2.5" style={{ wordBreak: "keep-all" }}>
+                  * {item.basis}
+                </p>
               </div>
             ))}
           </div>
