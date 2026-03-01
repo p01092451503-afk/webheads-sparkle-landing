@@ -303,6 +303,10 @@ export default function ServiceRequestPage() {
               </button>
             </form>
           )}
+
+          <p className="text-center text-xs text-muted-foreground mt-8">
+            Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved.
+          </p>
         </div>
       </section>
     </>
