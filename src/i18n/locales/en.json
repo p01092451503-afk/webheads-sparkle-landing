@@ -1006,7 +1006,7 @@
     "stats": [
       { "value": "300+", "label": "Clients Served" },
       { "value": "16 yrs", "label": "E-learning Expertise" },
-      { "value": "84.2%", "label": "Client Retention" },
+      { "value": "92.6%", "label": "Client Retention" },
       { "value": "24/7", "label": "Tech Support" }
     ],
     "intro": {
@@ -1017,7 +1017,7 @@
     "strengthsTitle": "Why Choose Webheads",
     "strengths": [
       { "title": "One-Stop Integrated Service", "desc": "From LMS to hosting, DRM, payments, content, and apps — 9 services from a single partner. Dramatically reduce vendor management costs." },
-      { "title": "Proven Expertise & Trust", "desc": "16 years, 300+ deployments, 84.2% retention rate. Trusted by leading education organizations across Korea." },
+      { "title": "Proven Expertise & Trust", "desc": "16 years, 300+ deployments, 92.6% retention rate. Trusted by leading education organizations across Korea." },
       { "title": "Fast Launch, Flexible Scale", "desc": "Cloud LMS launches in as little as 3 days. Scale up with feature additions, plan upgrades, or on-premise migration as you grow." }
     ],
     "servicesSection": {
@@ -1042,7 +1042,7 @@
       "9 services in one place",
       "16 years of e-learning expertise",
       "300+ verified deployments",
-      "84.2% client retention rate",
+      "92.6% client retention rate",
       "Launch in as little as 3 days",
       "24/7 tech support & incident response",
       "Top-rated technology credit evaluation",
