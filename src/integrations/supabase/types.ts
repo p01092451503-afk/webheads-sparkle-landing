@@ -218,6 +218,57 @@ export type Database = {
         }
         Relationships: []
       }
+      service_requests: {
+        Row: {
+          amount: string | null
+          company: string
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string
+          preferred_datetime: string | null
+          reason: string | null
+          request_type: string
+          session_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: string | null
+          company: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone: string
+          preferred_datetime?: string | null
+          reason?: string | null
+          request_type: string
+          session_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: string | null
+          company?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string
+          preferred_datetime?: string | null
+          reason?: string | null
+          request_type?: string
+          session_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
