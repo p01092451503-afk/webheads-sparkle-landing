@@ -314,10 +314,10 @@ export default function EcosystemMapSection() {
                 >
                   {/* Icon container with accent-tinted background */}
                   <div
-                    className="flex items-center justify-center rounded-xl mb-1.5"
+                    className="flex items-center justify-center rounded-xl mb-2"
                     style={{
-                      width: 44,
-                      height: 44,
+                      width: 56,
+                      height: 56,
                       background: isHovered
                         ? `${svc.accent.replace(")", " / 0.15)")}`
                         : `${svc.accent.replace(")", " / 0.08)")}`,
