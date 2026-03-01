@@ -56,7 +56,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   });
   const [submitted, setSubmitted] = useState(false);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
-  const [marketingAgreed, setMarketingAgreed] = useState(false);
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
@@ -134,7 +134,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               onClick={() => {
                 setSubmitted(false);
                 setPrivacyAgreed(false);
-                setMarketingAgreed(false);
               }}
               className="mt-3 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:opacity-80 bg-secondary text-foreground"
             >
@@ -258,39 +257,18 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               />
             </FormField>
 
-            {/* ── Checkboxes ── */}
-            <div className="flex flex-col gap-3 pt-2">
-              {/* Privacy (required) */}
-              <label className="flex items-center gap-3 cursor-pointer select-none group">
-                <input
-                  type="checkbox"
-                  checked={privacyAgreed}
-                  onChange={(e) => setPrivacyAgreed(e.target.checked)}
-                  className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0"
-                />
-                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                  {t("contact.formPrivacy")}
-                </span>
-              </label>
-
-              {/* Marketing (optional) */}
-              <div className="flex items-start gap-3">
-                <input
-                  type="checkbox"
-                  checked={marketingAgreed}
-                  onChange={(e) => setMarketingAgreed(e.target.checked)}
-                  className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0 mt-0.5"
-                />
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-foreground cursor-pointer select-none">
-                    {t("contact.formMarketing")}
-                  </span>
-                  <span className="text-xs text-muted-foreground mt-0.5">
-                    {t("contact.formMarketingDesc")}
-                  </span>
-                </div>
-              </div>
-            </div>
+            {/* ── Privacy checkbox ── */}
+            <label className="flex items-center gap-3 cursor-pointer select-none group pt-2">
+              <input
+                type="checkbox"
+                checked={privacyAgreed}
+                onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0"
+              />
+              <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                개인정보 수집 및 이용에 동의합니다 (필수)
+              </span>
+            </label>
 
             {/* Error */}
             {error && (
