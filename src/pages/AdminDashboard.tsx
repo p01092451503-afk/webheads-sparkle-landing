@@ -2,15 +2,16 @@ import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Home, Loader2, Bell, Settings, Shield, ExternalLink
+  LogOut, MessageSquare, BarChart3, Home, Loader2, Bell, Settings, Shield, ExternalLink, Wrench
 } from "lucide-react";
 import AdminHome from "@/components/admin/AdminHome";
 import AdminInquiries from "@/components/admin/AdminInquiries";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
 import AdminSettings from "@/components/admin/AdminSettings";
 import AdminActivityLog from "@/components/admin/AdminActivityLog";
+import AdminServiceRequests from "@/components/admin/AdminServiceRequests";
 
-type Tab = "home" | "inquiries" | "analytics" | "activity" | "settings";
+type Tab = "home" | "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [inquiries, setInquiries] = useState<any[]>([]);
+  const [serviceRequests, setServiceRequests] = useState<any[]>([]);
   const [pageViews, setPageViews] = useState<any[]>([]);
   const [clickEvents, setClickEvents] = useState<any[]>([]);
   const [newInquiryAlert, setNewInquiryAlert] = useState(false);
@@ -26,6 +28,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchInquiries();
+    fetchServiceRequests();
     fetchPageViews(30);
     fetchClickEvents(30);
   }, []);
@@ -58,6 +61,11 @@ export default function AdminDashboard() {
   const fetchInquiries = async () => {
     const { data } = await supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500);
     setInquiries(data || []);
+  };
+
+  const fetchServiceRequests = async () => {
+    const { data } = await supabase.from("service_requests").select("*").order("created_at", { ascending: false }).limit(500);
+    setServiceRequests(data || []);
   };
 
   const fetchAllFromTable = async (table: "page_views" | "click_events", since: Date) => {
@@ -115,6 +123,7 @@ export default function AdminDashboard() {
   const tabs: { key: Tab; icon: any; label: string }[] = [
     { key: "home", icon: Home, label: "홈" },
     { key: "inquiries", icon: MessageSquare, label: "문의" },
+    { key: "service_requests", icon: Wrench, label: "서비스 요청" },
     { key: "analytics", icon: BarChart3, label: "분석" },
     // { key: "activity", icon: Shield, label: "활동" },
     { key: "settings", icon: Settings, label: "설정" },
@@ -205,6 +214,9 @@ export default function AdminDashboard() {
         )}
         {tab === "inquiries" && (
           <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
+        )}
+        {tab === "service_requests" && (
+          <AdminServiceRequests requests={serviceRequests} setRequests={setServiceRequests} onRefresh={fetchServiceRequests} logActivity={logActivity} />
         )}
         {tab === "analytics" && (
           <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => { fetchPageViews(days); fetchClickEvents(days); }} />
