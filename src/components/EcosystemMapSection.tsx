@@ -227,18 +227,6 @@ export default function EcosystemMapSection() {
                         strokeLinecap="round"
                       />
                     )}
-                    {isHovered && [0, 0.4, 0.8].map((delay, di) => (
-                      <circle key={di} r="3.5" fill={serviceConfig[i].accent} opacity="0.9">
-                        <animateMotion
-                          dur="1.4s"
-                          repeatCount="indefinite"
-                          begin={`${delay}s`}
-                          path={`M${sl.x1},${sl.y1} L${sl.x2},${sl.y2}`}
-                        />
-                        <animate attributeName="opacity" values="0;0.9;0.9;0" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
-                        <animate attributeName="r" values="2;3.5;2" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
-                      </circle>
-                    ))}
                   </g>
                 );
               })}
