@@ -36,9 +36,9 @@ const Divider = () => (
 function SectionHead({ sub, title, desc, light = false }: { sub: string; title: string; desc?: string; light?: boolean }) {
   return (
     <div className="text-center mb-10">
-      <p className={`text-xs font-bold tracking-[0.2em] uppercase mb-3 ${light ? "text-blue-300" : "text-[hsl(255,75%,58%)]"}`}>{sub}</p>
-      <h2 className={`text-2xl lg:text-3xl font-bold tracking-tight whitespace-pre-line ${light ? "text-white" : "text-foreground"}`}>{title}</h2>
-      {desc && <p className={`mt-3 text-sm leading-relaxed max-w-2xl mx-auto ${light ? "text-white/60" : "text-muted-foreground"}`}>{desc}</p>}
+      <p className={`text-sm font-bold tracking-[0.2em] uppercase mb-3 ${light ? "text-blue-300" : "text-[hsl(255,75%,58%)]"}`}>{sub}</p>
+      <h2 className={`text-2xl lg:text-4xl font-bold tracking-tight whitespace-pre-line ${light ? "text-white" : "text-foreground"}`}>{title}</h2>
+      {desc && <p className={`mt-3 text-base leading-relaxed max-w-2xl mx-auto ${light ? "text-white/60" : "text-muted-foreground"}`}>{desc}</p>}
     </div>
   );
 }
