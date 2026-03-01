@@ -321,7 +321,7 @@ export default function EcosystemMapSection() {
                     position: "absolute",
                     left: pos.x - 44,
                     top: pos.y - 44,
-                    zIndex: isHovered ? 30 : 10,
+                    zIndex: isHovered ? 90 : 10,
                     opacity: isInstalled ? 1 : 0,
                     transform: isInstalled ? "scale(1)" : "scale(0.3)",
                     transition: "all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -371,7 +371,7 @@ export default function EcosystemMapSection() {
                     const dy = pos.y - CENTER.y;
                     const outward = { x: dx / Math.abs(dx || 1), y: dy / Math.abs(dy || 1) };
                     const tooltipStyle: React.CSSProperties = {
-                      zIndex: 50,
+                      zIndex: 100,
                       animation: "eco-tooltip-in 0.2s ease-out",
                     };
                     if (Math.abs(dx) > Math.abs(dy) * 0.5) {
