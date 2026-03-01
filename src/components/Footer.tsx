@@ -114,7 +114,7 @@ export default function Footer() {
             </Link>
             <a
               href="tel:02-540-4337"
-              className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-muted text-foreground font-bold text-sm hover:bg-muted/80 transition-colors shadow-md"
+              className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-foreground/20 text-foreground font-bold text-sm hover:bg-foreground/30 transition-colors shadow-md"
             >
               <Phone className="w-4 h-4" />
               {t("footer.mainPhone", { defaultValue: "대표전화 02-540-4337" })}
