@@ -4,6 +4,7 @@ import { ChevronUp, ChevronDown, MessageSquareText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const location = useLocation();
 
