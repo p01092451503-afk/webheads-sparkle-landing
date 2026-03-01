@@ -79,7 +79,7 @@ export default function LearnerJourneyMap() {
                 <div key={i} className="relative flex items-start gap-4 pl-1">
                   <div
                     className="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center relative z-10 bg-background"
-                    style={{ background: `${color}28`, border: `1.5px solid ${color}40`, boxShadow: `0 2px 8px ${color}12` }}
+                    style={{ background: withAlpha(color, 0.28), border: `1.5px solid ${withAlpha(color, 0.4)}`, boxShadow: `0 2px 8px ${withAlpha(color, 0.12)}` }}
                   >
                     <Icon className="w-5 h-5" style={{ color }} />
                   </div>
