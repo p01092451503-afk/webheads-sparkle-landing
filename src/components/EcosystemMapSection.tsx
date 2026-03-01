@@ -371,7 +371,7 @@ export default function EcosystemMapSection() {
                     const dy = pos.y - CENTER.y;
                     const outward = { x: dx / Math.abs(dx || 1), y: dy / Math.abs(dy || 1) };
                     const tooltipStyle: React.CSSProperties = {
-                      zIndex: 50,
+                      zIndex: 100,
                       animation: "eco-tooltip-in 0.2s ease-out",
                     };
                     if (Math.abs(dx) > Math.abs(dy) * 0.5) {
