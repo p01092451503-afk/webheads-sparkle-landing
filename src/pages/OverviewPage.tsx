@@ -131,9 +131,9 @@ export default function OverviewPage() {
       <section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "hsl(255,75%,58%)" }}>ABOUT WEBHEADS</p>
-            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-foreground mb-5">{t("overview.intro.title")}</h2>
-            <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line max-w-2xl mx-auto">{t("overview.intro.desc")}</p>
+            <p className="text-sm font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "hsl(255,75%,58%)" }}>ABOUT WEBHEADS</p>
+            <h2 className="text-2xl lg:text-4xl font-bold tracking-tight text-foreground mb-5">{t("overview.intro.title")}</h2>
+            <p className="text-base leading-relaxed text-muted-foreground whitespace-pre-line max-w-2xl mx-auto">{t("overview.intro.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {ovStrengths.map((s, i) => (
