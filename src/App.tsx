@@ -62,6 +62,7 @@ const App = () => (
               <Route path="/channel" element={<ChannelPage />} />
               <Route path="/pg" element={<PgPage />} />
               <Route path="/maintenance" element={<MaintenancePage />} />
+              <Route path="/service-request" element={<ServiceRequestPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
               {/* <Route path="/about" element={<AboutPage />} /> */}
