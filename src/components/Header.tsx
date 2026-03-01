@@ -89,7 +89,7 @@ export default function Header() {
 
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
-              <LanguageSwitcher scrolled={scrolled} />
+              <LanguageSwitcher scrolled={effectiveScrolled} />
               {location.pathname === "/service-request" ? (
                 <Link
                   to="/"
