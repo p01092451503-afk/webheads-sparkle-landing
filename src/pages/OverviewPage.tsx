@@ -217,15 +217,15 @@ export default function OverviewPage() {
 
           {/* LMS Comparison Table */}
           <div className="rounded-2xl border border-border bg-white overflow-hidden mb-10">
-            <div className="p-5 border-b border-border">
-              <h3 className="font-bold text-sm text-foreground">{t("lms.comparisonTable.title")}</h3>
+            <div className="p-6 border-b border-border">
+              <h3 className="font-bold text-base text-foreground">{t("lms.comparisonTable.title")}</h3>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-xs">
+              <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: "hsl(250,35%,94%)" }}>
                     {compHeaders.map((h, i) => (
-                      <th key={i} className={`py-3 px-4 font-bold text-foreground ${i === 0 ? "text-left" : "text-center"}`}>{h}</th>
+                      <th key={i} className={`py-3.5 px-5 font-bold text-foreground ${i === 0 ? "text-left" : "text-center"}`}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -233,7 +233,7 @@ export default function OverviewPage() {
                   {compRows.map((row, i) => (
                     <tr key={i} className="border-t border-border">
                       {row.map((cell, j) => (
-                        <td key={j} className={`py-2.5 px-4 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"}`}>
+                        <td key={j} className={`py-3 px-5 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"}`}>
                           <CellIcon val={cell} />
                         </td>
                       ))}
