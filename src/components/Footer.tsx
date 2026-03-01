@@ -102,24 +102,21 @@ export default function Footer() {
 
       {/* Service Request Banner */}
       <div className="border-t border-border">
-        <div className="container mx-auto px-6 max-w-5xl py-5">
+        <div className="container mx-auto px-6 max-w-5xl py-5 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-between">
+          {/* Phone */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span>대표전화</span>
+            <a href="tel:02-540-4337" className="font-bold text-foreground hover:text-primary transition-colors">02-540-4337</a>
+          </div>
+
+          {/* Service request button */}
           <Link
             to="/service-request"
-            className="flex items-center justify-between gap-4 rounded-xl px-6 py-4 bg-muted/60 hover:bg-muted transition-colors group"
+            className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
           >
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5">
-                <MessageSquareText className="w-4 h-4 text-primary" />
-                <MonitorSmartphone className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <span className="text-sm font-bold text-foreground">SMS 충전 · 원격지원 요청</span>
-                <span className="hidden sm:inline text-xs text-muted-foreground ml-2">빠르게 요청하세요</span>
-              </div>
-            </div>
-            <span className="shrink-0 text-xs font-bold px-4 py-2 rounded-lg bg-foreground text-background group-hover:opacity-90 transition-opacity">
-              요청하기 →
-            </span>
+            <MessageSquareText className="w-4 h-4" />
+            SMS 충전 · 원격지원 요청
+            <span className="text-primary-foreground/70">→</span>
           </Link>
         </div>
       </div>
