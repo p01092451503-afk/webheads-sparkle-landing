@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, ShieldCheck } from "lucide-react";
+import { Home, ShieldCheck, MessageSquareText, MonitorSmartphone } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
@@ -99,6 +99,31 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Service Request Banner */}
+      <div className="border-t border-border">
+        <div className="container mx-auto px-6 max-w-5xl py-5">
+          <Link
+            to="/service-request"
+            className="flex items-center justify-between gap-4 rounded-xl px-6 py-4 bg-muted/60 hover:bg-muted transition-colors group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5">
+                <MessageSquareText className="w-4 h-4 text-primary" />
+                <MonitorSmartphone className="w-4 h-4 text-primary" />
+              </div>
+              <div>
+                <span className="text-sm font-bold text-foreground">SMS 충전 · 원격지원 요청</span>
+                <span className="hidden sm:inline text-xs text-muted-foreground ml-2">빠르게 요청하세요</span>
+              </div>
+            </div>
+            <span className="shrink-0 text-xs font-bold px-4 py-2 rounded-lg bg-foreground text-background group-hover:opacity-90 transition-opacity">
+              요청하기 →
+            </span>
+          </Link>
+        </div>
+      </div>
+
       <div className="border-t border-border">
         <div className="container mx-auto px-6 max-w-5xl py-5 flex items-center justify-center">
           <p className="text-xs text-muted-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 400 }}>{t("footer.copyright")}</p>
