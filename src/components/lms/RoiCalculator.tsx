@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
