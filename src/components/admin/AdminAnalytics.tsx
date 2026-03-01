@@ -235,7 +235,11 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const filteredInquiries = useMemo(() => {
     const since = new Date();
-    since.setDate(since.getDate() - dateRange);
+    if (dateRange === 0) {
+      since.setHours(0, 0, 0, 0);
+    } else {
+      since.setDate(since.getDate() - dateRange);
+    }
     return inquiries.filter((i) => new Date(i.created_at) >= since);
   }, [inquiries, dateRange]);
 
