@@ -10,7 +10,9 @@ export default function ScrollToTop() {
       requestAnimationFrame(() => {
         const target = document.getElementById(id);
         if (target) {
-          target.scrollIntoView({ behavior: "instant", block: "start" });
+          const headerOffset = 72;
+          const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+          window.scrollTo({ top, behavior: "instant" });
         }
       });
       return;
