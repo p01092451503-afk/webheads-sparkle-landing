@@ -37,27 +37,27 @@ export default function LearnerJourneyMap() {
 
 
           {/* Desktop: horizontal grid */}
-          <div className="hidden md:grid md:grid-cols-5 md:gap-3">
+          <div className="hidden md:grid md:grid-cols-5 md:gap-5">
             {steps.map((step, i) => {
               const Icon = stepIcons[i] || BookOpen;
               const color = stepColors[i];
               return (
                 <div key={i} className="relative flex flex-col items-center text-center group">
                   <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 shadow-sm transition-transform group-hover:scale-110 relative z-10"
+                    className="w-20 h-20 rounded-2xl flex items-center justify-center mb-5 shadow-sm transition-transform group-hover:scale-110 relative z-10"
                     style={{ background: `${color}15`, border: `2px solid ${color}40` }}
                   >
-                    <Icon className="w-6 h-6" style={{ color }} />
+                    <Icon className="w-8 h-8" style={{ color }} />
                   </div>
                   {i < steps.length - 1 && (
-                    <div className="absolute top-7 -right-2 z-20">
-                      <ArrowRight className="w-4 h-4 text-muted-foreground/40" />
+                    <div className="absolute top-9 -right-3 z-20">
+                      <ArrowRight className="w-5 h-5 text-muted-foreground/40" />
                     </div>
                   )}
-                  <h4 className="font-bold text-foreground text-sm mb-1.5">{step.label}</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                  <h4 className="font-bold text-foreground text-base mb-2">{step.label}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                   <span
-                    className="inline-block text-xs font-semibold px-3 py-1 rounded-full"
+                    className="inline-block text-sm font-semibold px-3.5 py-1.5 rounded-full"
                     style={{ background: `${color}12`, color }}
                   >
                     {step.service}
