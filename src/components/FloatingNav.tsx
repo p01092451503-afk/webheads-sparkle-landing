@@ -18,14 +18,14 @@ export default function FloatingNav() {
     <div className="fixed right-5 bottom-6 z-50 flex flex-col gap-2">
       {/* Service Request floating button — always visible, hidden on /service-request */}
       {!isServiceRequest && (
-        <a
-          href="/service-request"
+        <Link
+          to="/service-request"
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
           aria-label="SMS 충전 · 원격지원 요청"
           title="SMS 충전 · 원격지원 요청"
         >
           <MessageSquareText className="w-5 h-5" />
-        </a>
+        </Link>
       )}
 
       {visible && (
