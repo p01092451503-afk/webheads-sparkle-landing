@@ -28,6 +28,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchInquiries();
+    fetchServiceRequests();
     fetchPageViews(30);
     fetchClickEvents(30);
   }, []);
