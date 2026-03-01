@@ -16,6 +16,19 @@ Deno.serve(async (req) => {
 
     const forwarded = req.headers.get("x-forwarded-for");
     const ip = forwarded ? forwarded.split(",")[0].trim() : req.headers.get("x-real-ip") || null;
+    const userAgent = req.headers.get("user-agent") || null;
+
+    // Classify visitor type from user-agent
+    let visitorType = "human";
+    if (userAgent) {
+      const ua = userAgent.toLowerCase();
+      const aiPat = /gptbot|chatgpt|openai|claude|anthropic|bytespider|ccbot|cohere|perplexity|youbot|google-extended|meta-externalagent|amazonbot|claudebot|ai2bot/i;
+      const searchPat = /googlebot|bingbot|yandex|baiduspider|duckduckbot|slurp|msnbot|sogou|applebot|naverbot|seznambot|facebot|facebookexternalhit|twitterbot|linkedinbot|pinterestbot/i;
+      const scraperPat = /semrushbot|ahrefsbot|dotbot|petalbot|megaindex|serpstatbot|dataforseo|screaming frog|sitebulb|mj12bot|blexbot|rogerbot|ia_archiver|archive\.org|exabot|bot|spider|crawl/i;
+      if (aiPat.test(ua)) visitorType = "ai";
+      else if (searchPat.test(ua)) visitorType = "search_bot";
+      else if (scraperPat.test(ua)) visitorType = "scraper";
+    }
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -31,6 +44,8 @@ Deno.serve(async (req) => {
       ip_address: ip,
       device_type: body.device_type || null,
       browser: body.browser || null,
+      user_agent: userAgent,
+      visitor_type: visitorType,
     });
 
     if (error) {

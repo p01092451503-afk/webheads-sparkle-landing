@@ -1,0 +1,1 @@
+ALTER TABLE public.click_events ADD COLUMN user_agent TEXT, ADD COLUMN visitor_type TEXT DEFAULT 'human';
