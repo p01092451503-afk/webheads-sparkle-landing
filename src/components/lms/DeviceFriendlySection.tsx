@@ -68,17 +68,17 @@ export default function DeviceFriendlySection() {
               >
                 {/* Animated Icon */}
                 <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 relative overflow-hidden"
+                  className="w-20 h-20 rounded-full flex items-center justify-center mb-5 relative overflow-hidden"
                   style={{
                     background: isHovered
                       ? "hsl(var(--lms-primary) / 0.12)"
-                      : "var(--lms-gradient-subtle)",
+                      : "hsl(var(--lms-primary) / 0.06)",
                     transition: "background 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     transform: isHovered ? "scale(1.1)" : "scale(1)",
                   }}
                 >
                   <Icon
-                    className="w-7 h-7 relative z-10"
+                    className={`${iconSize} relative z-10`}
                     style={{
                       color: "hsl(var(--lms-primary))",
                       transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
