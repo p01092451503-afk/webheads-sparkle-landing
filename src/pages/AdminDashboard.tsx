@@ -60,18 +60,43 @@ export default function AdminDashboard() {
     setInquiries(data || []);
   };
 
+  const fetchAllRows = async (table: string, since: Date) => {
+    const allData: any[] = [];
+    const batchSize = 1000;
+    let offset = 0;
+    let hasMore = true;
+
+    while (hasMore) {
+      const { data, error } = await supabase
+        .from(table)
+        .select("*")
+        .gte("created_at", since.toISOString())
+        .order("created_at", { ascending: false })
+        .range(offset, offset + batchSize - 1);
+
+      if (error || !data || data.length === 0) {
+        hasMore = false;
+      } else {
+        allData.push(...data);
+        offset += batchSize;
+        hasMore = data.length === batchSize;
+      }
+    }
+    return allData;
+  };
+
   const fetchPageViews = async (days: number) => {
     const since = new Date();
     since.setDate(since.getDate() - days);
-    const { data } = await supabase.from("page_views").select("*").gte("created_at", since.toISOString()).order("created_at", { ascending: false }).limit(1000);
-    setPageViews(data || []);
+    const data = await fetchAllRows("page_views", since);
+    setPageViews(data);
   };
 
   const fetchClickEvents = async (days: number) => {
     const since = new Date();
     since.setDate(since.getDate() - days);
-    const { data } = await supabase.from("click_events").select("*").gte("created_at", since.toISOString()).order("created_at", { ascending: false }).limit(1000);
-    setClickEvents(data || []);
+    const data = await fetchAllRows("click_events", since);
+    setClickEvents(data);
   };
 
   const logActivity = useCallback(async (action: string, targetType?: string, targetId?: string, details?: any) => {
