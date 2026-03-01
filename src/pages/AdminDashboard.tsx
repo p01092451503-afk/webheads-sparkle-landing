@@ -63,6 +63,11 @@ export default function AdminDashboard() {
     setInquiries(data || []);
   };
 
+  const fetchServiceRequests = async () => {
+    const { data } = await supabase.from("service_requests").select("*").order("created_at", { ascending: false }).limit(500);
+    setServiceRequests(data || []);
+  };
+
   const fetchAllFromTable = async (table: "page_views" | "click_events", since: Date) => {
     const allData: any[] = [];
     const batchSize = 1000;
