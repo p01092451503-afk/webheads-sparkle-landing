@@ -97,8 +97,8 @@ export default function ChatbotPage() {
         </div>
       </section>
 
-      <ServiceFAQ faqs={faqs} serviceName={t("chatbot.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName={t("chatbot.seo.title")} />
       <ContactSection />
     </div>
   );

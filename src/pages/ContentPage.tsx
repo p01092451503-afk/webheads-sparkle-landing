@@ -82,8 +82,8 @@ export default function ContentPage() {
       <ServiceProcess steps={processSteps} heading={t("content.processSection.title")} subheading={t("content.processSection.sub")} description={t("content.processSection.desc")} />
 
 
-      <ServiceFAQ faqs={faqs} serviceName={t("content.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName={t("content.seo.title")} />
       <ContactSection />
     </div>
   );

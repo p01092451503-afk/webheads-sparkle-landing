@@ -101,8 +101,8 @@ export default function PgPage() {
       />
 
 
-      <ServiceFAQ faqs={faqs} serviceName={t("pg.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName={t("pg.seo.title")} />
       <ContactSection />
     </div>
   );

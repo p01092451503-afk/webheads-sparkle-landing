@@ -112,8 +112,8 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceFAQ faqs={faqs} serviceName={t("appdev.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName={t("appdev.seo.title")} />
       <ContactSection />
     </div>
   );
