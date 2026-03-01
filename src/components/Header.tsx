@@ -90,29 +90,16 @@ export default function Header() {
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
-              {location.pathname === "/service-request" ? (
-                <Link
-                  to="/"
-                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
-                    effectiveScrolled
-                      ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
-                      : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
-                  }`}
-                >
-                  홈으로
-                </Link>
-              ) : (
-                <a
-                  href="#contact"
-                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
-                    effectiveScrolled
-                      ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
-                      : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
-                  }`}
-                >
-                  {t("header.cta")}
-                </a>
-              )}
+              <a
+                href={location.pathname === "/service-request" ? "/#contact" : "#contact"}
+                className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
+                  effectiveScrolled
+                    ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
+                    : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
+                }`}
+              >
+                {t("header.cta")}
+              </a>
             </div>
 
             {/* Mobile toggle */}
