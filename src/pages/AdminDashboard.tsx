@@ -215,6 +215,9 @@ export default function AdminDashboard() {
         {tab === "inquiries" && (
           <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
         )}
+        {tab === "service_requests" && (
+          <AdminServiceRequests requests={serviceRequests} setRequests={setServiceRequests} onRefresh={fetchServiceRequests} logActivity={logActivity} />
+        )}
         {tab === "analytics" && (
           <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => { fetchPageViews(days); fetchClickEvents(days); }} />
         )}
