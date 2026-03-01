@@ -87,7 +87,7 @@ export default function Header() {
 
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
-              <LanguageSwitcher />
+              <LanguageSwitcher scrolled={scrolled} />
               <a
                 href="#contact"
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
