@@ -220,12 +220,12 @@
       { "title": "Agent Escalation", "desc": "Complex inquiries are seamlessly transferred to human agents with full conversation context preserved.", "tags": ["Human Handoff", "Real-time Transfer", "Context Handover", "Collaboration"] }
     ],
     "midCTA": { "heading": "Curious about the right AI chatbot for your organization?", "description": "We'll propose a customized chatbot solution for free.", "ctaText": "Request Free Demo" },
-    "processSection": { "sub": "PROCESS", "title": "Systematic\n4-Step Process" },
-    "process": [
-      { "step": "01", "title": "Requirements Analysis & Design", "desc": "Deep analysis of organizational characteristics, learner inquiry patterns, and integration systems to design chatbot architecture.", "detail": "Intent Design · Entity Definition · Architecture" },
-      { "step": "02", "title": "Data Collection & AI Training", "desc": "Collect and refine organizational documents like FAQs and course materials, then convert to vector embeddings.", "detail": "Doc Parsing · Vector DB · RAG Pipeline" },
-      { "step": "03", "title": "Development & QA", "desc": "Develop chatbot engine and integrate with LMS/channels, then test 100+ edge case scenarios.", "detail": "Scenario Testing · Performance · Fallback" },
-      { "step": "04", "title": "Deployment & Ongoing Support", "desc": "Deploy across all channels with monthly performance reports and periodic fine-tuning.", "detail": "Multi-channel Deploy · Monthly Report · Improvements" }
+    "processSection": { "sub": "PROCESS", "heading": "Systematic AI Chatbot\nDeployment Process", "desc": "From requirements analysis to ongoing operations, our dedicated engineers are with you." },
+    "processSteps": [
+      { "title": "Requirements Analysis & Design", "desc": "Deep analysis of organizational characteristics, learner inquiry patterns, and integration systems to design chatbot architecture. Define intents and entities, and map LMS integration data (enrollment status, progress, payment history) in detail.", "tag": "1-2 weeks" },
+      { "title": "Data Collection & AI Training", "desc": "Collect and refine organizational documents like FAQs, course materials, and internal policies, then convert to vector embeddings. Build a GPT-4o/Claude 3.5 based knowledge base via RAG pipeline and verify initial learning accuracy.", "tag": "1 week" },
+      { "title": "Development & QA", "desc": "Develop chatbot engine and integrate with LMS, KakaoTalk, and web widgets. Test 100+ edge case scenarios and verify fallback flows, agent escalation, and response speed (under 500ms).", "tag": "1-2 weeks" },
+      { "title": "Deployment & Ongoing Support", "desc": "Deploy across all channels simultaneously, then provide monthly performance reports (CSAT, resolution rate, unanswered ratio) and periodic fine-tuning based on real conversation data.", "tag": "Ongoing" }
     ],
     "plansSection": { "sub": "PRICING", "title": "AI Chatbot Plans\nfor Your Scale", "desc": "All prices exclude VAT. Includes initial setup cost." },
     "plans": [
@@ -279,6 +279,14 @@
       { "title": "iOS / Android Native", "desc": "Native apps with Swift (iOS) and Kotlin (Android) that fully comply with platform guidelines.", "tags": ["Swift", "Kotlin", "Native UI"] },
       { "title": "Hybrid / Cross-platform", "desc": "Build iOS and Android simultaneously from a single codebase with React Native or Flutter.", "tags": ["React Native", "Flutter", "Cost Savings"] },
       { "title": "App Store Deployment & Maintenance", "desc": "Full-service App Store and Google Play submission including review handling.", "tags": ["App Store", "Google Play", "CI/CD"] }
+    ],
+    "processSection": { "sub": "PROCESS", "heading": "Systematic App Development\nProcess", "desc": "From planning to App Store submission, our dedicated dev team is with you." },
+    "processSteps": [
+      { "title": "Requirements Analysis & Planning", "desc": "Deep analysis of service objectives, target users, and LMS integration scope to define app architecture and feature specifications. Evaluate cross-platform (React Native/Flutter) feasibility and finalize the optimal tech stack.", "tag": "1-2 weeks" },
+      { "title": "UI/UX Design", "desc": "Create wireframes and interaction prototypes following Apple HIG and Material Design guidelines. Design key screens including learning views, dashboards, and push notification UI, then finalize with client feedback.", "tag": "1-2 weeks" },
+      { "title": "Development & LMS Integration", "desc": "Build the app based on finalized designs and integrate with Webheads LMS via REST API and WebSocket. Implement core modules including FCM/APNs push, Widevine/FairPlay DRM, and offline caching with unit tests.", "tag": "3-6 weeks" },
+      { "title": "QA Testing & Store Review", "desc": "Conduct integration testing on real devices (iPhone, Galaxy, iPad, etc.) and performance benchmarking. Prepare App Store and Google Play metadata, handle submission, and manage rejection responses.", "tag": "1-2 weeks" },
+      { "title": "Deployment & Maintenance", "desc": "After store publication, provide ongoing iOS/Android OS compatibility updates, bug fixes, and performance optimization. Deliver user feedback-driven improvements and monthly app performance reports (crash rate, DAU, retention).", "tag": "Ongoing" }
     ],
     "plansSection": { "sub": "PRICING", "title": "App Development\nPlans", "desc": "All prices exclude VAT. Scope-dependent adjustments may apply." },
     "plans": [

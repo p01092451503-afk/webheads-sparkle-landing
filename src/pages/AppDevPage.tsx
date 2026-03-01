@@ -5,19 +5,21 @@ import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2 } from "lucide-react";
+import ServiceProcess from "@/components/shared/ServiceProcess";
+import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2, Search, Palette, Link2, CheckCircle, Rocket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const lmsFeatureIcons = [Tablet, Bell, Lock, Wifi, BarChart3, ShieldCheck];
 const otherAppIcons = [Globe, Zap, Smartphone, Code2];
 const devStackIcons = [Smartphone, RefreshCw, Settings2];
-
+const processIcons = [Search, Palette, Code2, CheckCircle, Rocket];
 export default function AppDevPage() {
   const { t } = useTranslation();
 
   const lmsFeatures = (t("appdev.lmsFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lmsFeatureIcons[i] || Tablet }));
   const otherApps = (t("appdev.otherApps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: otherAppIcons[i] || Globe }));
   const devStack = (t("appdev.devStack", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: devStackIcons[i] || Smartphone }));
+  const processSteps = (t("appdev.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || Search }));
   const stats = t("appdev.stats", { returnObjects: true }) as any[];
   const plans = t("appdev.plans", { returnObjects: true }) as any[];
   const faqs = t("appdev.faqs", { returnObjects: true }) as any[];
@@ -92,6 +94,8 @@ export default function AppDevPage() {
           </div>
         </div>
       </section>
+
+      <ServiceProcess steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>

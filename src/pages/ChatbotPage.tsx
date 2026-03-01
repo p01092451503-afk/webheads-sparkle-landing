@@ -5,10 +5,12 @@ import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users } from "lucide-react";
+import ServiceProcess from "@/components/shared/ServiceProcess";
+import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users, Search, FileSearch, Code2, Rocket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Brain, MessageSquare, Zap, Globe, Link2, BarChart3, ShieldCheck, RefreshCw, Users];
+const processIcons = [Search, FileSearch, Code2, Rocket];
 
 export default function ChatbotPage() {
   const { t } = useTranslation();
@@ -17,8 +19,8 @@ export default function ChatbotPage() {
     ...item,
     icon: featureIcons[index] || Brain
   }));
-  const process = t("chatbot.process", { returnObjects: true }) as any[];
   const stats = t("chatbot.stats", { returnObjects: true }) as any[];
+  const processSteps = (t("chatbot.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || Search }));
   const plans = t("chatbot.plans", { returnObjects: true }) as any[];
   const faqs = t("chatbot.faqs", { returnObjects: true }) as any[];
   const testimonials = t("chatbot.testimonials", { returnObjects: true }) as any[];
@@ -65,18 +67,7 @@ export default function ChatbotPage() {
 
       <ServiceMidCTA heading={t("chatbot.midCTA.heading")} description={t("chatbot.midCTA.description")} ctaText={t("chatbot.midCTA.ctaText")} />
 
-      {/* Process */}
-      <section id="process" className="py-28 bg-secondary">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("chatbot.processSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("chatbot.processSection.title")}</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {process.map((p: any, i: number) => (<div key={p.step} className="relative rounded-2xl p-7 bg-background border border-border hover:border-primary/30 transition-colors flex flex-col gap-3"><span className="font-bold text-5xl tracking-tight text-primary/20">{p.step}</span><h3 className="font-bold text-foreground text-base tracking-tight">{p.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{p.desc}</p><div className="pt-3 border-t border-border"><p className="text-xs text-primary font-medium">{p.detail}</p></div>{i < process.length - 1 && <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 text-primary/30"><ArrowLeft className="w-5 h-5 rotate-180" /></div>}</div>))}
-          </div>
-        </div>
-      </section>
+      <ServiceProcess steps={processSteps} subheading={t("chatbot.processSection.sub")} heading={t("chatbot.processSection.heading")} description={t("chatbot.processSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
