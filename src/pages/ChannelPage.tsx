@@ -87,8 +87,8 @@ export default function ChannelPage() {
       />
 
 
-      <ServiceFAQ faqs={faqs} serviceName={t("channel.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName={t("channel.seo.title")} />
       <ContactSection />
     </div>
   );

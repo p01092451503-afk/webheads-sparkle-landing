@@ -197,8 +197,8 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      <ServiceFAQ faqs={faqs} serviceName="유지보수 서비스" />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName="유지보수 서비스" />
       <ContactSection />
     </div>
   );

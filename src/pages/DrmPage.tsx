@@ -87,8 +87,8 @@ export default function DrmPage() {
       />
 
 
-      <ServiceFAQ faqs={faqs} serviceName={t("drm.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName={t("drm.seo.title")} />
       <ContactSection />
     </div>
   );

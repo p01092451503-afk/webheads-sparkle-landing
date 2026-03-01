@@ -88,8 +88,8 @@ export default function HostingPage() {
         </div>
       </section>
 
-      <ServiceFAQ faqs={faqs} serviceName="호스팅 서비스" />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName="호스팅 서비스" />
       <ContactSection />
     </div>
   );
