@@ -790,13 +790,9 @@
       { "title": "AI Mock Tests & Analytics", "desc": "Leave course curation, pop quizzes, and learner analysis to AI for smarter e-learning." },
       { "title": "Auto Multi-language Subtitles", "desc": "AI automatically generates multi-language subtitles so anyone can learn easily." },
       { "title": "AI Content Summarization", "desc": "AI auto-summarizes long lecture videos and materials into key takeaways for efficient review." },
-      { "title": "AI Voice Search", "desc": "Converts in-video speech to text, letting learners jump to the exact moment a keyword is mentioned." }
-    ],
-    "aiTutorSection": { "sub": "AI TUTOR & CHATBOT", "title": "24/7 Learning Support\nAI Tutor & Chatbot", "desc": "AI-powered real-time learning support system that maximizes learner engagement and outcomes." },
-    "aiTutorFeatures": [
+      { "title": "AI Voice Search", "desc": "Converts in-video speech to text, letting learners jump to the exact moment a keyword is mentioned." },
       { "title": "AI Tutor", "desc": "AI instantly answers questions during the learning process, providing personalized explanations and additional learning materials tailored to each learner's understanding." },
-      { "title": "AI Chatbot", "desc": "Automatically responds 24/7 to operational questions such as enrollment, scheduling, and assignment submissions, reducing admin workload and improving learner convenience." },
-      { "title": "Conversational Quizzes", "desc": "AI generates conversational quizzes based on learning content to naturally assess understanding and encourage review." }
+      { "title": "AI Chatbot", "desc": "Automatically responds 24/7 to operational questions such as enrollment, scheduling, and assignment submissions, reducing admin workload and improving learner convenience." }
     ],
     "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale", "desc": "Cloud (AI) LMS pricing plans. On-premise (NEO) requires a custom quote." },
     "plans": [
