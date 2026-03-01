@@ -10,7 +10,7 @@ export default function RoiCalculator() {
   const monthlyRevenue = students * fee;
   const selfBuildCost = 50000000;
   const selfBuildMonthly = Math.round(selfBuildCost / 12);
-  const webheadsMonthlyCost = students <= 200 ? 500000 : students <= 500 ? 700000 : 1000000;
+  const webheadsMonthlyCost = students <= 200 ? 500000 : students <= 500 ? 700000 : students <= 1000 ? 1000000 : students <= 2000 ? 1500000 : students <= 3000 ? 2000000 : 2500000;
   const savingsMonthly = selfBuildMonthly - webheadsMonthlyCost;
   const savingsPercent = Math.round((savingsMonthly / selfBuildMonthly) * 100);
   const annualSavings = savingsMonthly * 12;
