@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Monitor, Tablet, Smartphone, Check } from "lucide-react";
+import { Monitor, TabletSmartphone, Smartphone, Check } from "lucide-react";
 
 const devices = [
-  { icon: Monitor, label: "PC", delay: 0 },
-  { icon: Tablet, label: "Tablet", delay: 150 },
-  { icon: Smartphone, label: "Mobile", delay: 300 },
+  { icon: Monitor, label: "PC", iconSize: "w-8 h-8", delay: 0 },
+  { icon: TabletSmartphone, label: "Tablet", iconSize: "w-8 h-8", delay: 150 },
+  { icon: Smartphone, label: "Mobile", iconSize: "w-7 h-7", delay: 300 },
 ];
 
 export default function DeviceFriendlySection() {
@@ -44,7 +44,7 @@ export default function DeviceFriendlySection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-          {devices.map(({ icon: Icon, label }, i) => {
+          {devices.map(({ icon: Icon, label, iconSize }, i) => {
             const isHovered = hoveredIdx === i;
             const deviceFeatures = Array.isArray(features) && features[i] ? features[i] : [];
 
@@ -68,17 +68,17 @@ export default function DeviceFriendlySection() {
               >
                 {/* Animated Icon */}
                 <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 relative overflow-hidden"
+                  className="w-20 h-20 rounded-full flex items-center justify-center mb-5 relative overflow-hidden"
                   style={{
                     background: isHovered
                       ? "hsl(var(--lms-primary) / 0.12)"
-                      : "var(--lms-gradient-subtle)",
+                      : "hsl(var(--lms-primary) / 0.06)",
                     transition: "background 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
                     transform: isHovered ? "scale(1.1)" : "scale(1)",
                   }}
                 >
                   <Icon
-                    className="w-7 h-7 relative z-10"
+                    className={`${iconSize} relative z-10`}
                     style={{
                       color: "hsl(var(--lms-primary))",
                       transition: "transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -87,7 +87,7 @@ export default function DeviceFriendlySection() {
                   />
                   {/* Pulse ring on hover */}
                   <div
-                    className="absolute inset-0 rounded-2xl"
+                    className="absolute inset-0 rounded-full"
                     style={{
                       border: "2px solid hsl(var(--lms-primary) / 0.2)",
                       opacity: isHovered ? 1 : 0,
