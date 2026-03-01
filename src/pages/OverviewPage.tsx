@@ -161,10 +161,10 @@ export default function OverviewPage() {
           {/* LMS Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
             {lmsStats.map((s, i) => (
-              <div key={i} className="rounded-xl p-5 text-center" style={{ background: "linear-gradient(135deg, hsl(250,40%,12%), hsl(220,50%,16%))" }}>
-                <p className="text-2xl font-black text-white">{s.value}</p>
-                <p className="text-sm text-white/70 font-medium mt-1">{s.label}</p>
-                <p className="text-xs text-white/40 mt-0.5">{s.sub}</p>
+              <div key={i} className="rounded-xl p-5 text-center border border-border" style={{ background: "hsl(250,30%,96%)" }}>
+                <p className="text-2xl font-black text-foreground">{s.value}</p>
+                <p className="text-sm text-muted-foreground font-medium mt-1">{s.label}</p>
+                <p className="text-xs text-muted-foreground/60 mt-0.5">{s.sub}</p>
               </div>
             ))}
           </div>
