@@ -241,7 +241,7 @@ export default function EcosystemMapSection() {
                        transform: isHovered ? "scale(1.08)" : "scale(1)",
                       transition: "all 0.25s ease",
                     }}
-                    onClick={() => navigate(svc.path)}
+                    onClick={() => {}}
                   >
                     <Icon
                       className="w-8 h-8 mb-1"
