@@ -53,8 +53,8 @@ export default function LearnerJourneyMap() {
                     <Icon className="w-8 h-8" style={{ color }} />
                   </div>
                   {i < steps.length - 1 && (
-                    <div className="absolute top-9 -right-3 z-20">
-                      <ArrowRight className="w-5 h-5 text-muted-foreground/40" />
+                    <div className="absolute top-9 -right-4 z-20">
+                      <ArrowRight className="w-7 h-7 text-muted-foreground/40" />
                     </div>
                   )}
                   <h4 className="font-bold text-foreground text-base mb-2">{step.label}</h4>
