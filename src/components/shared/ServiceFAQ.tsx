@@ -7,7 +7,7 @@ interface ServiceFAQProps { faqs: FAQ[]; serviceName?: string; }
 export default function ServiceFAQ({ faqs, serviceName }: ServiceFAQProps) {
   const { t } = useTranslation();
   return (
-    <section className="py-28 bg-background">
+    <section className="py-28 bg-secondary">
       <div className="container mx-auto px-6 max-w-3xl">
         <div className="mb-16 text-center">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("faq.sub")}</p>
