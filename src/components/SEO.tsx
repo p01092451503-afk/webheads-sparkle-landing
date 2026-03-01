@@ -8,6 +8,7 @@ interface SEOProps {
   path?: string;
   jsonLd?: object;
   faqJsonLd?: { q: string; a: string }[];
+  breadcrumb?: { name: string; url: string }[];
 }
 
 export const BASE_URL = "https://service.webheads.co.kr";
@@ -20,7 +21,7 @@ const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string 
   zh: { og: "zh_CN", siteName: "Webheads", suffix: "Webheads" },
 };
 
-export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd }: SEOProps) {
+export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb }: SEOProps) {
   const { i18n } = useTranslation();
   const lang = i18n.language?.substring(0, 2) || "ko";
   const locale = LOCALE_MAP[lang] || LOCALE_MAP.ko;
@@ -39,6 +40,20 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
         })),
       }
     : null;
+
+  const breadcrumbSchema = breadcrumb && breadcrumb.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "홈", "item": BASE_URL },
+      ...breadcrumb.map((item, i) => ({
+        "@type": "ListItem",
+        "position": i + 2,
+        "name": item.name,
+        "item": item.url
+      }))
+    ]
+  } : null;
 
   return (
     <Helmet>
@@ -74,6 +89,11 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       {faqSchema && (
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}
+        </script>
+      )}
+      {breadcrumbSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
         </script>
       )}
     </Helmet>

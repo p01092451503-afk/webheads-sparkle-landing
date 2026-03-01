@@ -48,6 +48,7 @@ export default function MaintenancePage() {
         description={t("maintenance.seo.description")}
         keywords={t("maintenance.seo.keywords")}
         path="/maintenance"
+        breadcrumb={[{ name: t("maintenance.seo.title"), url: `${BASE_URL}/maintenance` }]}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Service",
@@ -56,7 +57,14 @@ export default function MaintenancePage() {
           "description": t("maintenance.seo.description"),
           "areaServed": "KR",
           "serviceType": t("maintenance.seo.title"),
-          "url": `${BASE_URL}/maintenance`
+          "url": `${BASE_URL}/maintenance`,
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "300",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
         }}
         faqJsonLd={faqs}
       />
