@@ -171,56 +171,26 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Stats — iOS 26 Liquid Glass */}
+      {/* Stats — with gradient accent line */}
       <section className="py-24 relative">
+        
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((s: any, i: number) => {
-              const icons = [Zap, BookOpen, Layers, Headphones];
-              const Icon = icons[i] || Zap;
-              return (
-                <div
-                  key={s.label}
-                  className="relative flex flex-col items-center text-center rounded-3xl p-6 md:p-8 overflow-hidden transition-all duration-300 hover:-translate-y-1"
-                  style={{
-                    background: "hsla(0, 0%, 100%, 0.55)",
-                    backdropFilter: "blur(40px) saturate(1.8)",
-                    WebkitBackdropFilter: "blur(40px) saturate(1.8)",
-                    border: "1px solid hsla(0, 0%, 100%, 0.7)",
-                    boxShadow: "0 2px 20px -4px hsla(0, 0%, 0%, 0.06), 0 0 0 0.5px hsla(0, 0%, 100%, 0.5) inset",
-                  }}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
+            {stats.map((s: any) => (
+              <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
+                <span
+                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
+                  style={{ color: "hsl(var(--lms-primary))" }}
                 >
-                  {/* Glass highlight */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-1/2 pointer-events-none rounded-t-3xl"
-                    style={{
-                      background: "linear-gradient(180deg, hsla(0, 0%, 100%, 0.6) 0%, transparent 100%)",
-                    }}
-                  />
-                  <div
-                    className="relative w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
-                    style={{
-                      background: "hsla(245, 60%, 96%, 0.8)",
-                      backdropFilter: "blur(12px)",
-                      border: "1px solid hsla(245, 60%, 90%, 0.6)",
-                    }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: "hsl(var(--lms-primary))" }} />
-                  </div>
-                  <span className="relative block text-xs font-medium text-muted-foreground mb-1.5 tracking-wide">{s.label}</span>
-                  <span
-                    className="relative block font-extrabold leading-none mb-1.5 text-3xl md:text-4xl tracking-tight"
-                    style={{ color: "hsl(var(--lms-primary))" }}
-                  >
-                    {s.value}
-                  </span>
-                  <span className="relative block text-xs text-muted-foreground leading-relaxed">{s.sub}</span>
-                </div>
-              );
-            })}
+                  {s.value}
+                </span>
+                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
+                <span className="block text-xs text-muted-foreground">{s.sub}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
