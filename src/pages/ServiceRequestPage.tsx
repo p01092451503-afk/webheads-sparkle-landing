@@ -28,7 +28,7 @@ export default function ServiceRequestPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isCustomAmount, setIsCustomAmount] = useState(false);
-
+  const [rechargeUnit, setRechargeUnit] = useState<RechargeUnit>("amount");
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!privacyAgreed) {
