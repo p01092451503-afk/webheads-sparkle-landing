@@ -67,7 +67,7 @@ export default function RoiCalculator() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8">
           {/* Input */}
-          <div className="rounded-2xl border border-border bg-background p-5 md:p-8">
+          <div className="rounded-2xl border border-border bg-background p-5 md:p-8 self-start">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
                 <Calculator className="w-5 h-5" style={{ color: "hsl(var(--lms-primary))" }} />
