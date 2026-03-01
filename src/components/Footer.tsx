@@ -109,7 +109,7 @@ export default function Footer() {
               className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
             >
               <MessageSquareText className="w-4 h-4" />
-              SMS 충전 · 원격지원 요청
+              {t("footer.serviceRequestBtn")}
               <span className="text-primary-foreground/70">→</span>
             </Link>
           </div>
