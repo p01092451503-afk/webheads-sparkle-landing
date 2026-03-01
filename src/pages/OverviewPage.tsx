@@ -36,9 +36,9 @@ const Divider = () => (
 function SectionHead({ sub, title, desc, light = false }: { sub: string; title: string; desc?: string; light?: boolean }) {
   return (
     <div className="text-center mb-10">
-      <p className={`text-xs font-bold tracking-[0.2em] uppercase mb-3 ${light ? "text-blue-300" : "text-[hsl(255,75%,58%)]"}`}>{sub}</p>
-      <h2 className={`text-2xl lg:text-3xl font-bold tracking-tight whitespace-pre-line ${light ? "text-white" : "text-foreground"}`}>{title}</h2>
-      {desc && <p className={`mt-3 text-sm leading-relaxed max-w-2xl mx-auto ${light ? "text-white/60" : "text-muted-foreground"}`}>{desc}</p>}
+      <p className={`text-sm font-bold tracking-[0.2em] uppercase mb-3 ${light ? "text-blue-300" : "text-[hsl(255,75%,58%)]"}`}>{sub}</p>
+      <h2 className={`text-2xl lg:text-4xl font-bold tracking-tight whitespace-pre-line ${light ? "text-white" : "text-foreground"}`}>{title}</h2>
+      {desc && <p className={`mt-3 text-base leading-relaxed max-w-2xl mx-auto ${light ? "text-white/60" : "text-muted-foreground"}`}>{desc}</p>}
     </div>
   );
 }
@@ -131,9 +131,9 @@ export default function OverviewPage() {
       <section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "hsl(255,75%,58%)" }}>ABOUT WEBHEADS</p>
-            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight text-foreground mb-5">{t("overview.intro.title")}</h2>
-            <p className="text-sm leading-relaxed text-muted-foreground whitespace-pre-line max-w-2xl mx-auto">{t("overview.intro.desc")}</p>
+            <p className="text-sm font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "hsl(255,75%,58%)" }}>ABOUT WEBHEADS</p>
+            <h2 className="text-2xl lg:text-4xl font-bold tracking-tight text-foreground mb-5">{t("overview.intro.title")}</h2>
+            <p className="text-base leading-relaxed text-muted-foreground whitespace-pre-line max-w-2xl mx-auto">{t("overview.intro.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {ovStrengths.map((s, i) => (
@@ -141,8 +141,8 @@ export default function OverviewPage() {
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm mb-3" style={{ background: "hsl(255,75%,58%,0.1)", color: "hsl(255,75%,58%)" }}>
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <h3 className="font-bold text-sm text-foreground mb-2">{s.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
+                <h3 className="font-bold text-base text-foreground mb-2">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -161,10 +161,10 @@ export default function OverviewPage() {
           {/* LMS Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
             {lmsStats.map((s, i) => (
-              <div key={i} className="rounded-xl p-4 text-center" style={{ background: "linear-gradient(135deg, hsl(250,40%,12%), hsl(220,50%,16%))" }}>
-                <p className="text-xl font-black text-white">{s.value}</p>
-                <p className="text-xs text-white/70 font-medium mt-1">{s.label}</p>
-                <p className="text-[10px] text-white/40 mt-0.5">{s.sub}</p>
+              <div key={i} className="rounded-xl p-5 text-center" style={{ background: "linear-gradient(135deg, hsl(250,40%,12%), hsl(220,50%,16%))" }}>
+                <p className="text-2xl font-black text-white">{s.value}</p>
+                <p className="text-sm text-white/70 font-medium mt-1">{s.label}</p>
+                <p className="text-xs text-white/40 mt-0.5">{s.sub}</p>
               </div>
             ))}
           </div>
@@ -172,43 +172,43 @@ export default function OverviewPage() {
           {/* Cloud vs NEO Features */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
             {/* Cloud AI */}
-            <div className="rounded-2xl border border-border bg-white p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(255,75%,58%,0.12)", color: "hsl(255,75%,58%)" }}>
-                  <Zap className="w-4 h-4" />
+            <div className="rounded-2xl border border-border bg-white p-7">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "hsl(255,75%,58%,0.12)", color: "hsl(255,75%,58%)" }}>
+                  <Zap className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-foreground">{t("lms.cloud.name")}</h3>
-                  <p className="text-[10px] text-muted-foreground">{t("lms.cloud.subtitle")}</p>
+                  <h3 className="font-bold text-base text-foreground">{t("lms.cloud.name")}</h3>
+                  <p className="text-xs text-muted-foreground">{t("lms.cloud.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mb-4">{t("lms.cloud.desc")}</p>
-              <div className="grid grid-cols-2 gap-2">
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{t("lms.cloud.desc")}</p>
+              <div className="grid grid-cols-2 gap-2.5">
                 {cloudFeats.map((f, i) => (
-                  <div key={i} className="flex items-start gap-1.5">
-                    <Check className="w-3 h-3 mt-0.5 shrink-0" style={{ color: "hsl(255,75%,58%)" }} />
-                    <span className="text-[11px] text-foreground font-medium">{f.title}</span>
+                  <div key={i} className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "hsl(255,75%,58%)" }} />
+                    <span className="text-sm text-foreground font-medium">{f.title}</span>
                   </div>
                 ))}
               </div>
             </div>
             {/* NEO */}
-            <div className="rounded-2xl border border-border bg-white p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(220,90%,56%,0.12)", color: "hsl(220,90%,56%)" }}>
-                  <ShieldCheck className="w-4 h-4" />
+            <div className="rounded-2xl border border-border bg-white p-7">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "hsl(220,90%,56%,0.12)", color: "hsl(220,90%,56%)" }}>
+                  <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-foreground">{t("lms.neo.name")}</h3>
-                  <p className="text-[10px] text-muted-foreground">{t("lms.neo.subtitle")}</p>
+                  <h3 className="font-bold text-base text-foreground">{t("lms.neo.name")}</h3>
+                  <p className="text-xs text-muted-foreground">{t("lms.neo.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mb-4">{t("lms.neo.desc")}</p>
-              <div className="grid grid-cols-2 gap-2">
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{t("lms.neo.desc")}</p>
+              <div className="grid grid-cols-2 gap-2.5">
                 {neoFeats.map((f, i) => (
-                  <div key={i} className="flex items-start gap-1.5">
-                    <Check className="w-3 h-3 mt-0.5 shrink-0" style={{ color: "hsl(220,90%,56%)" }} />
-                    <span className="text-[11px] text-foreground font-medium">{f.title}</span>
+                  <div key={i} className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "hsl(220,90%,56%)" }} />
+                    <span className="text-sm text-foreground font-medium">{f.title}</span>
                   </div>
                 ))}
               </div>
@@ -217,15 +217,15 @@ export default function OverviewPage() {
 
           {/* LMS Comparison Table */}
           <div className="rounded-2xl border border-border bg-white overflow-hidden mb-10">
-            <div className="p-5 border-b border-border">
-              <h3 className="font-bold text-sm text-foreground">{t("lms.comparisonTable.title")}</h3>
+            <div className="p-6 border-b border-border">
+              <h3 className="font-bold text-base text-foreground">{t("lms.comparisonTable.title")}</h3>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-xs">
+              <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: "hsl(250,35%,94%)" }}>
                     {compHeaders.map((h, i) => (
-                      <th key={i} className={`py-3 px-4 font-bold text-foreground ${i === 0 ? "text-left" : "text-center"}`}>{h}</th>
+                      <th key={i} className={`py-3.5 px-5 font-bold text-foreground ${i === 0 ? "text-left" : "text-center"}`}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -233,7 +233,7 @@ export default function OverviewPage() {
                   {compRows.map((row, i) => (
                     <tr key={i} className="border-t border-border">
                       {row.map((cell, j) => (
-                        <td key={j} className={`py-2.5 px-4 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"}`}>
+                        <td key={j} className={`py-3 px-5 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"}`}>
                           <CellIcon val={cell} />
                         </td>
                       ))}
@@ -246,15 +246,15 @@ export default function OverviewPage() {
 
           {/* AI Features */}
           <div className="mb-10">
-            <h3 className="font-bold text-sm text-foreground mb-4 flex items-center gap-2">
-              <Bot className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
+            <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
+              <Bot className="w-5 h-5" style={{ color: "hsl(255,75%,58%)" }} />
               {t("lms.aiSection.title").replace(/\n/g, " ")}
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {aiFeatures.map((f, i) => (
-                <div key={i} className="rounded-xl p-4 bg-white border border-border">
-                  <h4 className="font-bold text-xs text-foreground mb-1">{f.title}</h4>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">{f.desc}</p>
+                <div key={i} className="rounded-xl p-5 bg-white border border-border">
+                  <h4 className="font-bold text-sm text-foreground mb-1.5">{f.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -262,26 +262,26 @@ export default function OverviewPage() {
 
           {/* LMS Pricing */}
           <div className="rounded-2xl overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(220,45%,88%) 0%, hsl(222,40%,84%) 100%)" }}>
-            <div className="p-6">
-              <h3 className="font-bold text-sm text-foreground mb-1">{t("lms.plansSection.title").replace(/\n/g, " ")}</h3>
-              <p className="text-xs text-muted-foreground mb-5">{t("lms.plansSection.desc")}</p>
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="p-7">
+              <h3 className="font-bold text-base text-foreground mb-1">{t("lms.plansSection.title").replace(/\n/g, " ")}</h3>
+              <p className="text-sm text-muted-foreground mb-5">{t("lms.plansSection.desc")}</p>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {lmsPlans.map((plan: any, i: number) => (
-                  <div key={i} className={`rounded-xl p-4 bg-white border ${plan.highlight ? "border-[hsl(255,75%,58%)] ring-1 ring-[hsl(255,75%,58%,0.3)]" : "border-border"} relative`}>
+                  <div key={i} className={`rounded-xl p-5 bg-white border ${plan.highlight ? "border-[hsl(255,75%,58%)] ring-1 ring-[hsl(255,75%,58%,0.3)]" : "border-border"} relative`}>
                     {plan.badge && (
-                      <span className="absolute -top-2.5 left-4 px-2 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ background: "hsl(255,75%,58%)" }}>{plan.badge}</span>
+                      <span className="absolute -top-2.5 left-4 px-2.5 py-0.5 rounded-full text-xs font-bold text-white" style={{ background: "hsl(255,75%,58%)" }}>{plan.badge}</span>
                     )}
-                    <p className="font-bold text-xs text-foreground">{plan.name}</p>
-                    <p className="text-[10px] text-muted-foreground mt-0.5 min-h-[28px]">{plan.solutionType}</p>
+                    <p className="font-bold text-sm text-foreground">{plan.name}</p>
+                    <p className="text-xs text-muted-foreground mt-0.5 min-h-[32px]">{plan.solutionType}</p>
                     <p className="mt-2">
-                      <span className="text-lg font-black text-foreground">{plan.price}</span>
-                      <span className="text-xs text-muted-foreground ml-1">{plan.unit}/월</span>
+                      <span className="text-xl font-black text-foreground">{plan.price}</span>
+                      <span className="text-sm text-muted-foreground ml-1">{plan.unit}/월</span>
                     </p>
-                    <ul className="mt-3 space-y-1.5">
+                    <ul className="mt-3 space-y-2">
                       {(plan.features as any[]).slice(0, 3).map((f: any, j: number) => (
                         <li key={j} className="flex items-start gap-1.5">
-                          <Check className="w-3 h-3 mt-0.5 shrink-0 text-green-600" />
-                          <span className="text-[10px] text-foreground">{f.main}</span>
+                          <Check className="w-3.5 h-3.5 mt-0.5 shrink-0 text-green-600" />
+                          <span className="text-xs text-foreground">{f.main}</span>
                         </li>
                       ))}
                     </ul>
@@ -293,16 +293,16 @@ export default function OverviewPage() {
 
           {/* Competitor Comparison */}
           <div className="rounded-2xl border border-border bg-white overflow-hidden mt-8">
-            <div className="p-5 border-b border-border">
-              <h3 className="font-bold text-sm text-foreground">{t("lms.competitorTable.title").replace(/\n/g, " ")}</h3>
-              <p className="text-xs text-muted-foreground mt-1">{t("lms.competitorTable.desc")}</p>
+            <div className="p-6 border-b border-border">
+              <h3 className="font-bold text-base text-foreground">{t("lms.competitorTable.title").replace(/\n/g, " ")}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{t("lms.competitorTable.desc")}</p>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-xs">
+              <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: "hsl(250,35%,94%)" }}>
                     {competitorHeaders.map((h, i) => (
-                      <th key={i} className={`py-3 px-4 font-bold ${i === 0 ? "text-left text-foreground" : i === 3 ? "text-center" : "text-center text-foreground"}`}
+                      <th key={i} className={`py-3.5 px-5 font-bold ${i === 0 ? "text-left text-foreground" : i === 3 ? "text-center" : "text-center text-foreground"}`}
                         style={i === 3 ? { color: "hsl(255,75%,58%)" } : {}}
                       >{h}</th>
                     ))}
@@ -312,7 +312,7 @@ export default function OverviewPage() {
                   {competitorRows.map((row, i) => (
                     <tr key={i} className="border-t border-border">
                       {row.map((cell, j) => (
-                        <td key={j} className={`py-2.5 px-4 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"} ${j === 3 ? "font-semibold" : ""}`}
+                        <td key={j} className={`py-3 px-5 ${j === 0 ? "font-semibold text-foreground text-left" : "text-center text-muted-foreground"} ${j === 3 ? "font-semibold" : ""}`}
                           style={j === 3 ? { color: "hsl(255,75%,58%)" } : {}}
                         >
                           <CellIcon val={cell} />
