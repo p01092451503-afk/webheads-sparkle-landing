@@ -49,7 +49,7 @@ function shortenLine(
 }
 
 const HUB_RADIUS = 56;
-const NODE_HALF = 58;
+const NODE_HALF = 36;
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
 export default function EcosystemMapSection() {
