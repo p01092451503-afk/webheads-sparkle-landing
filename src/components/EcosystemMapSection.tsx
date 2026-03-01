@@ -8,17 +8,17 @@ import {
 import type { LucideIcon } from "lucide-react";
 
 const serviceConfig: { key: string; path: string; accent: string; icon: LucideIcon }[] = [
-  { key: "hosting", path: "/hosting", accent: "hsl(215, 75%, 52%)", icon: Server },
-  { key: "content", path: "/content", accent: "hsl(35, 85%, 50%)", icon: Video },
-  { key: "drm", path: "/drm", accent: "hsl(0, 65%, 52%)", icon: ShieldCheck },
-  { key: "chatbot", path: "/chatbot", accent: "hsl(260, 65%, 55%)", icon: Bot },
-  { key: "app", path: "/app-dev", accent: "hsl(170, 60%, 40%)", icon: Smartphone },
-  { key: "pg", path: "/pg", accent: "hsl(245, 60%, 55%)", icon: CreditCard },
-  { key: "channel", path: "/channel", accent: "hsl(195, 80%, 42%)", icon: MessageSquareMore },
-  { key: "maintenance", path: "/maintenance", accent: "hsl(150, 55%, 40%)", icon: Wrench },
+  { key: "hosting", path: "/hosting", accent: "hsl(215, 65%, 55%)", icon: Server },
+  { key: "content", path: "/content", accent: "hsl(35, 70%, 50%)", icon: Video },
+  { key: "drm", path: "/drm", accent: "hsl(0, 55%, 52%)", icon: ShieldCheck },
+  { key: "chatbot", path: "/chatbot", accent: "hsl(260, 55%, 55%)", icon: Bot },
+  { key: "app", path: "/app-dev", accent: "hsl(170, 50%, 42%)", icon: Smartphone },
+  { key: "pg", path: "/pg", accent: "hsl(245, 50%, 55%)", icon: CreditCard },
+  { key: "channel", path: "/channel", accent: "hsl(195, 65%, 45%)", icon: MessageSquareMore },
+  { key: "maintenance", path: "/maintenance", accent: "hsl(150, 45%, 42%)", icon: Wrench },
 ];
 
-const NODE_RADIUS = 180;
+const NODE_RADIUS = 170;
 const CENTER = { x: 250, y: 250 };
 const nodePositions = serviceConfig.map((_, i) => {
   const angle = (i * 2 * Math.PI) / 8 - Math.PI / 2;
@@ -48,8 +48,8 @@ function shortenLine(
   };
 }
 
-const HUB_RADIUS = 56;
-const NODE_HALF = 36;
+const HUB_RADIUS = 50;
+const NODE_HALF = 32;
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
 export default function EcosystemMapSection() {
@@ -58,7 +58,6 @@ export default function EcosystemMapSection() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // -1 = waiting, 0 = hub visible, 1-8 = nodes appearing, 9 = done
   const [phase, setPhase] = useState(-1);
   const [hasPlayed, setHasPlayed] = useState(false);
 
@@ -91,11 +90,11 @@ export default function EcosystemMapSection() {
   useEffect(() => {
     if (phase < 0) return;
     if (phase === 0) {
-      const t = setTimeout(() => setPhase(1), 500);
+      const t = setTimeout(() => setPhase(1), 400);
       return () => clearTimeout(t);
     }
     if (phase >= 1 && phase <= 8) {
-      const t = setTimeout(() => setPhase((p) => p + 1), 280);
+      const t = setTimeout(() => setPhase((p) => p + 1), 220);
       return () => clearTimeout(t);
     }
   }, [phase]);
@@ -108,22 +107,22 @@ export default function EcosystemMapSection() {
   }[];
 
   return (
-    <section className="py-20" style={{ background: "var(--lms-section-alt)" }}>
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-6 max-w-5xl">
-        <div className="mb-10">
+        <div className="text-center mb-14">
           <p
-            className="text-sm font-semibold tracking-widest uppercase mb-4"
+            className="text-xs font-semibold tracking-[0.2em] uppercase mb-3"
             style={{ color: "hsl(var(--lms-primary))" }}
           >
             ECOSYSTEM
           </p>
           <h2
-            className="font-bold leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line text-foreground"
+            className="font-bold leading-tight text-3xl lg:text-4xl tracking-tight whitespace-pre-line text-foreground"
             style={{ wordBreak: "keep-all" }}
           >
             {t("lms.ecosystem.title")}
           </h2>
-          <p className="mt-4 text-base text-muted-foreground" style={{ wordBreak: "keep-all" }}>
+          <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto" style={{ wordBreak: "keep-all" }}>
             {t("lms.ecosystem.desc")}
           </p>
         </div>
@@ -137,22 +136,6 @@ export default function EcosystemMapSection() {
               className="absolute inset-0 w-full h-full"
               style={{ pointerEvents: "none" }}
             >
-              <defs>
-                {serviceConfig.map((svc, i) => (
-                  <marker
-                    key={`arrow-${i}`}
-                    id={`arrow-${i}`}
-                    viewBox="0 0 10 8"
-                    refX="10"
-                    refY="4"
-                    markerWidth="8"
-                    markerHeight="6"
-                    orient="auto"
-                  >
-                    <path d="M0,0 L10,4 L0,8 Z" fill={hoveredIdx === i ? svc.accent : allInstalled ? svc.accent : "hsl(var(--border))"} opacity={hoveredIdx === i ? 1 : allInstalled ? 0.5 : 0.8} />
-                  </marker>
-                ))}
-              </defs>
               {nodePositions.map((pos, i) => {
                 const isInstalled = installedSet.has(i);
                 const isHovered = hoveredIdx === i && isInstalled;
@@ -166,14 +149,13 @@ export default function EcosystemMapSection() {
                     y1={sl.y1}
                     x2={sl.x2}
                     y2={sl.y2}
-                    stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
-                    strokeWidth={isHovered ? 2.5 : 1.5}
-                    markerEnd={`url(#arrow-${i})`}
-                    opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
-                    strokeDasharray="200"
+                    stroke={isHovered ? serviceConfig[i].accent : "hsl(var(--border))"}
+                    strokeWidth={isHovered ? 1.5 : 1}
+                    strokeDasharray={isHovered ? "none" : "4 3"}
+                    opacity={isHovered ? 0.8 : 0.5}
                     strokeDashoffset={isInstalled ? 0 : 200}
                     style={{
-                      transition: "stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease",
+                      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}
                   />
                 );
@@ -182,30 +164,27 @@ export default function EcosystemMapSection() {
 
             {/* Center hub */}
             <div
-              className="absolute flex flex-col items-center justify-center rounded-full"
+              className="absolute flex flex-col items-center justify-center"
               style={{
-                width: 104,
-                height: 104,
-                left: CENTER.x - 52,
-                top: CENTER.y - 52,
+                width: 96,
+                height: 96,
+                left: CENTER.x - 48,
+                top: CENTER.y - 48,
                 zIndex: 20,
                 opacity: phase >= 0 ? 1 : 0,
-                transform: phase >= 0 ? "scale(1)" : "scale(0.8)",
+                transform: phase >= 0 ? "scale(1)" : "scale(0.85)",
                 transition: "opacity 0.5s ease, transform 0.5s ease",
               }}
             >
               <div
-                className="absolute inset-0 rounded-full flex flex-col items-center justify-center shadow-lg"
+                className="absolute inset-0 rounded-full flex flex-col items-center justify-center"
                 style={{
-                  background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
-                  boxShadow: allInstalled
-                    ? "0 0 24px 4px hsl(245, 65%, 55% / 0.3)"
-                    : "0 4px 12px -2px hsl(245, 65%, 40% / 0.3)",
-                  transition: "box-shadow 0.8s ease",
+                  background: "hsl(245, 55%, 48%)",
+                  boxShadow: "0 2px 16px -4px hsl(245, 55%, 48% / 0.25)",
                 }}
               >
-                <GraduationCap className="w-10 h-10 text-white mb-1" strokeWidth={2} />
-                <span className="text-sm font-extrabold text-white tracking-wide">LMS</span>
+                <GraduationCap className="w-8 h-8 text-white mb-0.5" strokeWidth={1.8} />
+                <span className="text-[11px] font-bold text-white/90 tracking-wide">LMS</span>
               </div>
             </div>
 
@@ -223,30 +202,35 @@ export default function EcosystemMapSection() {
                   key={svc.key}
                   style={{
                     position: "absolute",
-                    left: pos.x - 44,
-                    top: pos.y - 44,
+                    left: pos.x - 40,
+                    top: pos.y - 40,
                     zIndex: isHovered ? 90 : 10,
                     opacity: isInstalled ? 1 : 0,
-                    transform: isInstalled ? "translateY(0)" : "translateY(12px)",
-                    transition: "opacity 0.35s ease, transform 0.35s ease",
+                    transform: isInstalled
+                      ? isHovered ? "scale(1.1)" : "scale(1)"
+                      : "scale(0.8)",
+                    transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
                   }}
                   onMouseEnter={() => handleMouseEnter(i)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div
-                    className="relative flex flex-col items-center justify-center cursor-pointer group"
-                    style={{
-                      transform: isHovered ? "scale(1.15)" : "scale(1)",
-                      transition: "transform 0.25s ease",
-                    }}
-                  >
+                  <div className="relative flex flex-col items-center justify-center cursor-pointer w-20 h-20">
+                    {/* Tinted circle background */}
+                    <div
+                      className="absolute inset-1 rounded-full"
+                      style={{
+                        background: `${svc.accent}10`,
+                        border: `1px solid ${isHovered ? svc.accent + "40" : "transparent"}`,
+                        transition: "border-color 0.25s ease",
+                      }}
+                    />
                     <Icon
-                      className="w-8 h-8 mb-1.5"
+                      className="w-6 h-6 mb-1 relative z-10"
                       style={{ color: svc.accent }}
                       strokeWidth={1.8}
                     />
                     <span
-                      className="text-[11px] font-bold leading-tight text-center px-1 text-foreground"
+                      className="text-[10px] font-semibold leading-tight text-center relative z-10 text-foreground/80"
                     >
                       {data.name}
                     </span>
@@ -259,40 +243,43 @@ export default function EcosystemMapSection() {
                     const outward = { x: dx / Math.abs(dx || 1), y: dy / Math.abs(dy || 1) };
                     const tooltipStyle: React.CSSProperties = {
                       zIndex: 100,
-                      animation: "eco-tooltip-in 0.18s ease-out",
+                      animation: "eco-tooltip-in 0.15s ease-out",
                     };
                     if (Math.abs(dx) > Math.abs(dy) * 0.5) {
-                      if (outward.x > 0) tooltipStyle.left = 96;
-                      else tooltipStyle.right = 96;
+                      if (outward.x > 0) tooltipStyle.left = 88;
+                      else tooltipStyle.right = 88;
                     } else {
-                      tooltipStyle.left = -96;
+                      tooltipStyle.left = -88;
                     }
                     if (Math.abs(dy) > Math.abs(dx) * 0.5) {
-                      if (outward.y > 0) tooltipStyle.top = 94;
-                      else tooltipStyle.bottom = 94;
+                      if (outward.y > 0) tooltipStyle.top = 84;
+                      else tooltipStyle.bottom = 84;
                     } else {
-                      tooltipStyle.top = -20;
+                      tooltipStyle.top = -16;
                     }
                     return (
                       <div
-                        className="absolute w-64 rounded-2xl p-5 shadow-2xl border border-border/50 bg-background"
-                        style={tooltipStyle}
+                        className="absolute w-56 rounded-xl p-4 bg-background border border-border/60"
+                        style={{
+                          ...tooltipStyle,
+                          boxShadow: "0 4px 24px -4px hsl(var(--foreground) / 0.08), 0 1px 4px -1px hsl(var(--foreground) / 0.04)",
+                        }}
                       >
-                        <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                        <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5 text-muted-foreground">
                           Problem
                         </p>
-                        <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                        <p className="text-xs text-foreground leading-relaxed mb-2.5" style={{ wordBreak: "keep-all" }}>
                           {data.problem}
                         </p>
-                        <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                        <p className="text-[10px] font-semibold uppercase tracking-wider mb-1.5 text-muted-foreground">
                           Solution
                         </p>
-                        <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                        <p className="text-xs text-foreground leading-relaxed mb-2.5" style={{ wordBreak: "keep-all" }}>
                           {data.solution}
                         </p>
-                        <span className="inline-flex items-center gap-1 text-xs font-bold" style={{ color: svc.accent }}>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-semibold" style={{ color: svc.accent }}>
                           {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
-                          <ArrowRight className="w-3 h-3" />
+                          <ArrowRight className="w-2.5 h-2.5" />
                         </span>
                       </div>
                     );
@@ -310,38 +297,42 @@ export default function EcosystemMapSection() {
             if (!data) return null;
             const Icon = svc.icon;
             return (
-              <button
+              <div
                 key={svc.key}
-                onClick={() => {}}
-                className="text-left rounded-2xl p-5 bg-background border border-border/50 hover:shadow-lg transition-all duration-200 flex flex-col gap-3"
+                className="rounded-xl p-4 bg-background border border-border/40 flex flex-col gap-2.5"
               >
-                <Icon className="w-7 h-7" style={{ color: svc.accent }} strokeWidth={2} />
-                <h4 className="font-bold text-sm text-foreground leading-snug">{data.name}</h4>
+                <div
+                  className="w-9 h-9 rounded-full flex items-center justify-center"
+                  style={{ background: `${svc.accent}10` }}
+                >
+                  <Icon className="w-4.5 h-4.5" style={{ color: svc.accent }} strokeWidth={1.8} />
+                </div>
+                <h4 className="font-semibold text-sm text-foreground leading-snug">{data.name}</h4>
                 <p className="text-xs text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
                   {data.problem}
                 </p>
-              </button>
+              </div>
             );
           })}
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white transition-all duration-200 hover:opacity-90"
             style={{ background: "hsl(var(--lms-primary))" }}
           >
             {t("lms.ecosystem.cta")}
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </a>
-          <p className="text-xs text-muted-foreground mt-3">{t("lms.ecosystem.ctaSub")}</p>
+          <p className="text-xs text-muted-foreground mt-2.5">{t("lms.ecosystem.ctaSub")}</p>
         </div>
       </div>
 
       <style>{`
         @keyframes eco-tooltip-in {
-          from { opacity: 0; transform: translateY(4px); }
+          from { opacity: 0; transform: translateY(3px); }
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
