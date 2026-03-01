@@ -440,7 +440,7 @@ export default function OverviewPage() {
         <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
           <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white mb-5">{t("overview.whyTitle")}</h2>
           <p className="text-base leading-relaxed text-white/70 whitespace-pre-line mb-10">{t("overview.whyDesc")}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto text-left" style={{ paddingLeft: "15%" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto text-left" style={{ paddingLeft: "9%" }}>
             {whyPoints.map((point, i) => (
               <div key={i} className="flex items-start gap-2.5">
                 <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0" style={{ color: "hsl(192,80%,55%)" }} />
