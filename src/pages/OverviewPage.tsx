@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
 import SEO from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import {
