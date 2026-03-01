@@ -1,17 +1,24 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
   LogOut, MessageSquare, BarChart3, Home, Loader2, Bell, Settings, Shield, ExternalLink, Wrench
 } from "lucide-react";
 import AdminHome from "@/components/admin/AdminHome";
-import AdminInquiries from "@/components/admin/AdminInquiries";
-import AdminAnalytics from "@/components/admin/AdminAnalytics";
-import AdminSettings from "@/components/admin/AdminSettings";
-import AdminActivityLog from "@/components/admin/AdminActivityLog";
-import AdminServiceRequests from "@/components/admin/AdminServiceRequests";
+
+const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
+const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
+const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
+const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
+const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 
 type Tab = "home" | "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
+
+const TabLoader = () => (
+  <div className="flex items-center justify-center py-20">
+    <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+  </div>
+);
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -23,16 +30,73 @@ export default function AdminDashboard() {
   const [pageViews, setPageViews] = useState<any[]>([]);
   const [clickEvents, setClickEvents] = useState<any[]>([]);
   const [newInquiryAlert, setNewInquiryAlert] = useState(false);
+  const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
 
-  useEffect(() => { checkAuth(); }, []);
-
+  // Auth check
   useEffect(() => {
-    fetchInquiries();
-    fetchServiceRequests();
-    fetchPageViews(30);
-    fetchClickEvents(30);
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) { navigate("/admin/login", { replace: true }); return; }
+      const { data } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle();
+      if (!data) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
+      setUserId(session.user.id);
+      setLoading(false);
+    };
+    checkAuth();
   }, []);
 
+  // Initial data: only inquiries, service requests, and recent page views (7 days) in parallel
+  useEffect(() => {
+    const since7d = new Date();
+    since7d.setDate(since7d.getDate() - 7);
+
+    Promise.all([
+      supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500),
+      supabase.from("service_requests").select("*").order("created_at", { ascending: false }).limit(500),
+      supabase.from("page_views").select("*").gte("created_at", since7d.toISOString()).order("created_at", { ascending: false }).limit(1000),
+    ]).then(([inqRes, srRes, pvRes]) => {
+      setInquiries(inqRes.data || []);
+      setServiceRequests(srRes.data || []);
+      setPageViews(pvRes.data || []);
+    });
+  }, []);
+
+  // Lazy load full analytics data only when analytics tab is opened or home requests more data
+  const fetchFullAnalytics = useCallback(async (days: number) => {
+    const since = new Date();
+    since.setDate(since.getDate() - days);
+    const sinceISO = since.toISOString();
+
+    const fetchAll = async (table: "page_views" | "click_events") => {
+      const allData: any[] = [];
+      let offset = 0;
+      let hasMore = true;
+      while (hasMore) {
+        const { data } = await supabase
+          .from(table).select("*")
+          .gte("created_at", sinceISO)
+          .order("created_at", { ascending: false })
+          .range(offset, offset + 999);
+        if (!data || data.length === 0) { hasMore = false; }
+        else { allData.push(...data); offset += 1000; hasMore = data.length === 1000; }
+      }
+      return allData;
+    };
+
+    const [pv, ce] = await Promise.all([fetchAll("page_views"), fetchAll("click_events")]);
+    setPageViews(pv);
+    setClickEvents(ce);
+    setAnalyticsLoaded(true);
+  }, []);
+
+  // When analytics tab is opened for the first time, load full data
+  useEffect(() => {
+    if (tab === "analytics" && !analyticsLoaded) {
+      fetchFullAnalytics(30);
+    }
+  }, [tab, analyticsLoaded, fetchFullAnalytics]);
+
+  // Realtime
   useEffect(() => {
     const channel = supabase
       .channel('inquiries-realtime')
@@ -49,63 +113,15 @@ export default function AdminDashboard() {
     return () => { supabase.removeChannel(channel); };
   }, []);
 
-  const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) { navigate("/admin/login", { replace: true }); return; }
-    const { data } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle();
-    if (!data) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
-    setUserId(session.user.id);
-    setLoading(false);
-  };
-
-  const fetchInquiries = async () => {
+  const fetchInquiries = useCallback(async () => {
     const { data } = await supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500);
     setInquiries(data || []);
-  };
+  }, []);
 
-  const fetchServiceRequests = async () => {
+  const fetchServiceRequests = useCallback(async () => {
     const { data } = await supabase.from("service_requests").select("*").order("created_at", { ascending: false }).limit(500);
     setServiceRequests(data || []);
-  };
-
-  const fetchAllFromTable = async (table: "page_views" | "click_events", since: Date) => {
-    const allData: any[] = [];
-    const batchSize = 1000;
-    let offset = 0;
-    let hasMore = true;
-
-    while (hasMore) {
-      const { data, error } = await supabase
-        .from(table)
-        .select("*")
-        .gte("created_at", since.toISOString())
-        .order("created_at", { ascending: false })
-        .range(offset, offset + batchSize - 1);
-
-      if (error || !data || data.length === 0) {
-        hasMore = false;
-      } else {
-        allData.push(...data);
-        offset += batchSize;
-        hasMore = data.length === batchSize;
-      }
-    }
-    return allData;
-  };
-
-  const fetchPageViews = async (days: number) => {
-    const since = new Date();
-    since.setDate(since.getDate() - days);
-    const data = await fetchAllFromTable("page_views", since);
-    setPageViews(data);
-  };
-
-  const fetchClickEvents = async (days: number) => {
-    const since = new Date();
-    since.setDate(since.getDate() - days);
-    const data = await fetchAllFromTable("click_events", since);
-    setClickEvents(data);
-  };
+  }, []);
 
   const logActivity = useCallback(async (action: string, targetType?: string, targetId?: string, details?: any) => {
     if (!userId) return;
@@ -125,7 +141,6 @@ export default function AdminDashboard() {
     { key: "inquiries", icon: MessageSquare, label: "문의" },
     { key: "service_requests", icon: Wrench, label: "서비스 요청" },
     { key: "analytics", icon: BarChart3, label: "분석" },
-    // { key: "activity", icon: Shield, label: "활동" },
     { key: "settings", icon: Settings, label: "설정" },
   ];
 
@@ -212,17 +227,19 @@ export default function AdminDashboard() {
         {tab === "home" && (
           <AdminHome inquiries={inquiries} pageViews={pageViews} onNavigate={setTab} />
         )}
-        {tab === "inquiries" && (
-          <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
-        )}
-        {tab === "service_requests" && (
-          <AdminServiceRequests requests={serviceRequests} setRequests={setServiceRequests} onRefresh={fetchServiceRequests} logActivity={logActivity} />
-        )}
-        {tab === "analytics" && (
-          <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => { fetchPageViews(days); fetchClickEvents(days); }} />
-        )}
-        {tab === "activity" && <AdminActivityLog />}
-        {tab === "settings" && <AdminSettings />}
+        <Suspense fallback={<TabLoader />}>
+          {tab === "inquiries" && (
+            <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
+          )}
+          {tab === "service_requests" && (
+            <AdminServiceRequests requests={serviceRequests} setRequests={setServiceRequests} onRefresh={fetchServiceRequests} logActivity={logActivity} />
+          )}
+          {tab === "analytics" && (
+            <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => fetchFullAnalytics(days)} />
+          )}
+          {tab === "activity" && <AdminActivityLog />}
+          {tab === "settings" && <AdminSettings />}
+        </Suspense>
       </div>
     </div>
   );
