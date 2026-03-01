@@ -585,40 +585,46 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           </div>
         </SectionCard>
         <SectionCard title="시간대별 트래픽 히트맵" icon={<Grid3X3 className="w-4 h-4" />}>
-          <div className="overflow-x-auto">
-            <div className="min-w-[600px]">
-              <div className="flex mb-1 ml-8">
-                {Array.from({ length: 24 }, (_, h) => (
-                  <span key={h} className="flex-1 text-center text-[9px] font-medium text-muted-foreground/40">{h}</span>
-                ))}
-              </div>
-              {hourlyData.dayNames.map((day, dayIdx) => (
-                <div key={day} className="flex items-center gap-1 mb-1">
-                  <span className="w-7 text-[11px] font-medium text-muted-foreground text-right shrink-0">{day}</span>
-                  <div className="flex flex-1 gap-0.5">
-                    {hourlyData.grid[dayIdx].map((count, hour) => {
-                      const intensity = maxHourly > 0 ? count / maxHourly : 0;
-                      return (
-                        <div key={hour} className="flex-1 rounded-sm transition-all"
-                          style={{ height: "20px", background: count === 0 ? "hsl(220, 14%, 95%)" : `hsl(221 83% 53% / ${0.12 + intensity * 0.88})` }}
-                          title={`${day} ${hour}시: ${count}건`}
-                        />
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-              <div className="flex items-center justify-end gap-2 mt-3">
-                <span className="text-[10px] text-muted-foreground/40">적음</span>
-                <div className="flex gap-0.5">
-                  {[0.12, 0.3, 0.5, 0.7, 1].map((op, i) => (
-                    <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(221 83% 53% / ${op})` }} />
+          {dateRange < 7 ? (
+            <div className="flex items-center justify-center py-8 text-[13px] text-muted-foreground">
+              7일 이상 선택 시 히트맵이 표시됩니다
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <div className="min-w-[600px]">
+                <div className="flex mb-1 ml-8">
+                  {Array.from({ length: 24 }, (_, h) => (
+                    <span key={h} className="flex-1 text-center text-[9px] font-medium text-muted-foreground/40">{h}</span>
                   ))}
                 </div>
-                <span className="text-[10px] text-muted-foreground/40">많음</span>
+                {hourlyData.dayNames.map((day, dayIdx) => (
+                  <div key={day} className="flex items-center gap-1 mb-1">
+                    <span className="w-7 text-[11px] font-medium text-muted-foreground text-right shrink-0">{day}</span>
+                    <div className="flex flex-1 gap-0.5">
+                      {hourlyData.grid[dayIdx].map((count, hour) => {
+                        const intensity = maxHourly > 0 ? count / maxHourly : 0;
+                        return (
+                          <div key={hour} className="flex-1 rounded-sm transition-all"
+                            style={{ height: "20px", background: count === 0 ? "hsl(220, 14%, 95%)" : `hsl(221 83% 53% / ${0.12 + intensity * 0.88})` }}
+                            title={`${day} ${hour}시: ${count}건`}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+                <div className="flex items-center justify-end gap-2 mt-3">
+                  <span className="text-[10px] text-muted-foreground/40">적음</span>
+                  <div className="flex gap-0.5">
+                    {[0.12, 0.3, 0.5, 0.7, 1].map((op, i) => (
+                      <div key={i} className="w-4 h-3 rounded-sm" style={{ background: `hsl(221 83% 53% / ${op})` }} />
+                    ))}
+                  </div>
+                  <span className="text-[10px] text-muted-foreground/40">많음</span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </SectionCard>
       </SectionGroup>
 
