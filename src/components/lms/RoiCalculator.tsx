@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info } from "lucide-react";
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
