@@ -122,9 +122,9 @@ export default function RoiCalculator() {
         </div>
 
         {/* Add-on Savings */}
-        <div className="mt-8 rounded-2xl border border-border bg-background p-8">
+        <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.addonsTitle")}</h4>
+            <h4 className="font-bold text-foreground text-sm md:text-base">{t("lms.roiCalc.addonsTitle")}</h4>
           </div>
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground mb-5">
             <Info className="w-3.5 h-3.5 shrink-0" />

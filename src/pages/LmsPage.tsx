@@ -411,7 +411,7 @@ export default function LmsPage() {
           </div>
 
           {/* KDT Summary */}
-          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 rounded-2xl border border-border p-6 bg-background">
+          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 rounded-2xl border border-border p-5 md:p-6 bg-background">
             <div className="flex items-center gap-3 shrink-0">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
                 <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />

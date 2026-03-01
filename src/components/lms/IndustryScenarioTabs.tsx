@@ -57,7 +57,7 @@ export default function IndustryScenarioTabs() {
         {/* Content */}
         <div
           key={active}
-          className="rounded-2xl border border-border bg-background p-8 md:p-10 animate-fade-in"
+          className="rounded-2xl border border-border bg-background p-5 md:p-10 animate-fade-in"
         >
           <h3 className="font-bold text-foreground text-xl lg:text-2xl mb-3 tracking-tight">{current.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed mb-6" style={{ wordBreak: "keep-all" }}>{current.desc}</p>
