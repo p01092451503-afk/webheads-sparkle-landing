@@ -24,7 +24,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
-  const isLightPage = location.pathname === "/service-request";
+  const isLightPage = location.pathname === "/service-request" || location.pathname === "/overview";
   const effectiveScrolled = scrolled || isLightPage;
 
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
