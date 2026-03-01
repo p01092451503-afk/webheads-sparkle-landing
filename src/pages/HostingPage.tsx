@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import RelatedServices from "@/components/shared/RelatedServices";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
@@ -89,6 +90,12 @@ export default function HostingPage() {
 
       <ServiceFAQ faqs={faqs} serviceName="호스팅 서비스" />
       <TestimonialSection testimonials={testimonials} />
+      <RelatedServices items={[
+        { emoji: "📚", title: "LMS", desc: "300+ 기업이 선택한 검증된 학습 관리 시스템", path: "/lms" },
+        { emoji: "🛠️", title: "유지보수", desc: "24/7 장애 대응, 전담 엔지니어 배정", path: "/maintenance" },
+        { emoji: "🔒", title: "DRM 솔루션", desc: "동영상 불법 복제 완전 차단", path: "/drm" },
+        { emoji: "🤖", title: "AI 챗봇", desc: "GPT-4o 기반 24시간 학습자 지원", path: "/chatbot" },
+      ]} />
       <ContactSection />
     </div>
   );
