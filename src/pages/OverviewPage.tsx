@@ -412,16 +412,16 @@ export default function OverviewPage() {
       {/* ═══════════════════════════════════════════════
           WHY WEBHEADS — Dark section
       ═══════════════════════════════════════════════ */}
-      <section className="relative py-16 overflow-hidden">
+      <section className="relative py-20 overflow-hidden">
         <HeroPatternBg theme="blue-purple" />
-        <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
-          <h2 className="text-xl lg:text-2xl font-bold tracking-tight text-white mb-4">{t("overview.whyTitle")}</h2>
-          <p className="text-sm leading-relaxed text-white/60 whitespace-pre-line mb-8">{t("overview.whyDesc")}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left max-w-xl mx-auto">
+        <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
+          <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white mb-5">{t("overview.whyTitle")}</h2>
+          <p className="text-base leading-relaxed text-white/70 whitespace-pre-line mb-10">{t("overview.whyDesc")}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left max-w-2xl mx-auto">
             {whyPoints.map((point, i) => (
-              <div key={i} className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "hsl(192,80%,55%)" }} />
-                <span className="text-xs text-white/80 font-medium">{point}</span>
+              <div key={i} className="flex items-start gap-2.5">
+                <CheckCircle2 className="w-5 h-5 mt-0.5 shrink-0" style={{ color: "hsl(192,80%,55%)" }} />
+                <span className="text-base text-white/90 font-medium">{point}</span>
               </div>
             ))}
           </div>
