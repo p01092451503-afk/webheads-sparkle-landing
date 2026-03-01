@@ -19,6 +19,7 @@ import DrmPage from "./pages/DrmPage";
 import ChannelPage from "./pages/ChannelPage";
 import PgPage from "./pages/PgPage";
 import MaintenancePage from "./pages/MaintenancePage";
+import ServiceRequestPage from "./pages/ServiceRequestPage";
 
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
