@@ -29,10 +29,11 @@ export default function ServiceRequestPage() {
   const [error, setError] = useState<string | null>(null);
   const [isCustomAmount, setIsCustomAmount] = useState(false);
   const [rechargeUnit, setRechargeUnit] = useState<RechargeUnit>("amount");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!privacyAgreed) {
-      setError("개인정보 수집 및 이용에 동의해주세요.");
+      setError(t("serviceRequest.privacyError"));
       return;
     }
     setLoading(true);
@@ -59,7 +60,7 @@ export default function ServiceRequestPage() {
       if (data?.error) throw new Error(data.error);
       setSubmitted(true);
     } catch (err: any) {
-      setError(err.message || "요청 전송 중 오류가 발생했습니다.");
+      setError(err.message || t("serviceRequest.submitError"));
     } finally {
       setLoading(false);
     }
@@ -73,8 +74,8 @@ export default function ServiceRequestPage() {
   return (
     <>
       <Helmet>
-        <title>서비스 요청 | 웹헤즈</title>
-        <meta name="description" content="SMS 충전 및 카테노이드 원격지원 요청" />
+        <title>{t("serviceRequest.pageTitle")}</title>
+        <meta name="description" content={t("serviceRequest.pageDesc")} />
       </Helmet>
       <section className="pt-20 pb-24 bg-background min-h-screen">
         <div className="container mx-auto px-6 max-w-2xl">
@@ -84,10 +85,10 @@ export default function ServiceRequestPage() {
               className="text-3xl lg:text-4xl leading-tight tracking-tight text-primary"
               style={{ fontWeight: 900 }}
             >
-              서비스 요청
+              {t("serviceRequest.heading")}
             </h1>
             <p className="mt-3 text-sm text-muted-foreground">
-              SMS 충전 또는 카테노이드 원격지원이 필요하신 경우 아래 양식을 작성해주세요.
+              {t("serviceRequest.subheading")}
             </p>
           </div>
 
@@ -103,12 +104,12 @@ export default function ServiceRequestPage() {
                 <Send className="w-6 h-6 text-primary-foreground" />
               </div>
               <h3 className="text-xl tracking-tight text-foreground" style={{ fontWeight: 900 }}>
-                요청이 접수되었습니다
+                {t("serviceRequest.successTitle")}
               </h3>
-              <p className="text-sm leading-relaxed max-w-xs text-muted-foreground">
+              <p className="text-sm leading-relaxed max-w-xs text-muted-foreground whitespace-pre-line">
                 {requestType === "sms_recharge"
-                  ? "SMS 충전 요청이 접수되었습니다.\n확인 후 빠르게 처리해드리겠습니다."
-                  : "원격지원 요청이 접수되었습니다.\n담당자가 확인 후 연락드리겠습니다."}
+                  ? t("serviceRequest.successSms")
+                  : t("serviceRequest.successRemote")}
               </p>
               <button
                 onClick={() => {
@@ -118,7 +119,7 @@ export default function ServiceRequestPage() {
                 }}
                 className="mt-3 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:opacity-80 bg-secondary text-foreground"
               >
-                추가 요청하기
+                {t("serviceRequest.retry")}
               </button>
             </div>
           ) : (
@@ -138,7 +139,7 @@ export default function ServiceRequestPage() {
                   }`}
                 >
                   <MessageSquareText className="w-3.5 h-3.5" />
-                  SMS 충전
+                  {t("serviceRequest.tabSms")}
                 </button>
                 <button
                   type="button"
@@ -150,32 +151,32 @@ export default function ServiceRequestPage() {
                   }`}
                 >
                   <MonitorSmartphone className="w-3.5 h-3.5" />
-                  원격지원 요청
+                  {t("serviceRequest.tabRemote")}
                 </button>
               </div>
               {requestType === "remote_support" && (
                 <p className="text-xs text-muted-foreground -mt-2">
-                  원격지원 요청 접수 후, 웹헤즈가 카테노이드에 지원을 재접수하는 절차를 거칩니다. 확인 완료 후 담당자가 연락드립니다.
+                  {t("serviceRequest.remoteNote")}
                 </p>
               )}
 
               {/* Company + Name */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FieldLabel label="회사명" required>
+                <FieldLabel label={t("serviceRequest.company")} required>
                   <input
                     type="text"
                     required
-                    placeholder="회사명을 입력해주세요"
+                    placeholder={t("serviceRequest.companyPlaceholder")}
                     value={form.company}
                     onChange={(e) => setForm({ ...form, company: e.target.value })}
                     className={`${inputBase} ${inputFocus}`}
                   />
                 </FieldLabel>
-                <FieldLabel label="담당자명" required>
+                <FieldLabel label={t("serviceRequest.name")} required>
                   <input
                     type="text"
                     required
-                    placeholder="담당자 성함"
+                    placeholder={t("serviceRequest.namePlaceholder")}
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className={`${inputBase} ${inputFocus}`}
@@ -185,20 +186,20 @@ export default function ServiceRequestPage() {
 
               {/* Phone + Email */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FieldLabel label="연락처" required>
+                <FieldLabel label={t("serviceRequest.phone")} required>
                   <input
                     type="tel"
                     required
-                    placeholder="010-0000-0000"
+                    placeholder={t("serviceRequest.phonePlaceholder")}
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     className={`${inputBase} ${inputFocus}`}
                   />
                 </FieldLabel>
-                <FieldLabel label="이메일">
+                <FieldLabel label={t("serviceRequest.email")}>
                   <input
                     type="email"
-                    placeholder="email@company.com"
+                    placeholder={t("serviceRequest.emailPlaceholder")}
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     className={`${inputBase} ${inputFocus}`}
@@ -218,7 +219,7 @@ export default function ServiceRequestPage() {
                         rechargeUnit === "amount" ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
                       }`}
                     >
-                      금액으로 충전
+                      {t("serviceRequest.unitAmount")}
                     </button>
                     <button
                       type="button"
@@ -227,11 +228,11 @@ export default function ServiceRequestPage() {
                         rechargeUnit === "count" ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
                       }`}
                     >
-                      건수로 충전
+                      {t("serviceRequest.unitCount")}
                     </button>
                   </div>
 
-                  <FieldLabel label={rechargeUnit === "amount" ? "충전 금액" : "충전 건수"} required>
+                  <FieldLabel label={rechargeUnit === "amount" ? t("serviceRequest.amountLabel") : t("serviceRequest.countLabel")} required>
                     <div className="relative">
                       <select
                         value={isCustomAmount ? "custom" : form.amount}
@@ -246,21 +247,21 @@ export default function ServiceRequestPage() {
                         }}
                         className={`${inputBase} ${inputFocus} appearance-none pr-10 cursor-pointer`}
                       >
-                        <option value="">{rechargeUnit === "amount" ? "충전 금액을 선택해주세요" : "충전 건수를 선택해주세요"}</option>
+                        <option value="">{rechargeUnit === "amount" ? t("serviceRequest.amountPlaceholder") : t("serviceRequest.countPlaceholder")}</option>
                         {(rechargeUnit === "amount" ? SMS_AMOUNTS : SMS_COUNTS).map((v) => (
                           <option key={v} value={v}>{v}</option>
                         ))}
-                        <option value="custom">직접 입력</option>
+                        <option value="custom">{t("serviceRequest.customOption")}</option>
                       </select>
                       <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
                     </div>
                   </FieldLabel>
                   {isCustomAmount && (
-                    <FieldLabel label={rechargeUnit === "amount" ? "금액 직접 입력" : "건수 직접 입력"} required>
+                    <FieldLabel label={rechargeUnit === "amount" ? t("serviceRequest.customAmountLabel") : t("serviceRequest.customCountLabel")} required>
                       <input
                         type="text"
                         required
-                        placeholder={rechargeUnit === "amount" ? "예: 100,000원" : "예: 200,000건"}
+                        placeholder={rechargeUnit === "amount" ? t("serviceRequest.customAmountPlaceholder") : t("serviceRequest.customCountPlaceholder")}
                         value={form.amount}
                         onChange={(e) => setForm({ ...form, amount: e.target.value })}
                         className={`${inputBase} ${inputFocus}`}
@@ -272,20 +273,20 @@ export default function ServiceRequestPage() {
 
               {requestType === "remote_support" && (
                 <>
-                  <FieldLabel label="지원 사유" required>
+                  <FieldLabel label={t("serviceRequest.reasonLabel")} required>
                     <textarea
                       required
                       rows={3}
-                      placeholder="어떤 문제로 원격지원이 필요한지 간략히 설명해주세요"
+                      placeholder={t("serviceRequest.reasonPlaceholder")}
                       value={form.reason}
                       onChange={(e) => setForm({ ...form, reason: e.target.value })}
                       className={`${inputBase} ${inputFocus} resize-none`}
                     />
                   </FieldLabel>
-                  <FieldLabel label="희망 일시">
+                  <FieldLabel label={t("serviceRequest.datetimeLabel")}>
                     <input
                       type="text"
-                      placeholder="예: 2026-03-03 오후 2시"
+                      placeholder={t("serviceRequest.datetimePlaceholder")}
                       value={form.preferred_datetime}
                       onChange={(e) => setForm({ ...form, preferred_datetime: e.target.value })}
                       className={`${inputBase} ${inputFocus}`}
@@ -303,7 +304,7 @@ export default function ServiceRequestPage() {
                   className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0"
                 />
                 <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
-                  개인정보 수집 및 이용에 동의합니다 (필수)
+                  {t("serviceRequest.privacy")}
                 </span>
               </label>
 
@@ -323,11 +324,11 @@ export default function ServiceRequestPage() {
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    전송 중...
+                    {t("serviceRequest.sending")}
                   </>
                 ) : (
                   <>
-                    {requestType === "sms_recharge" ? "SMS 충전 요청" : "원격지원 요청"}
+                    {requestType === "sms_recharge" ? t("serviceRequest.submitSms") : t("serviceRequest.submitRemote")}
                   </>
                 )}
               </button>
@@ -335,7 +336,7 @@ export default function ServiceRequestPage() {
           )}
 
           <p className="text-center text-xs text-muted-foreground mt-8">
-            Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved.
+            {t("serviceRequest.copyright")}
           </p>
         </div>
       </section>
