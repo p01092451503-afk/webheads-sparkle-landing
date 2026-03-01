@@ -261,14 +261,14 @@ export default function LmsPage() {
       <LearnerJourneyMap />
 
       {/* Solutions — 회색 배경 */}
-      <section id="solutions" className="py-28 bg-secondary">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
-            <p className="text-muted-foreground mt-4 text-base">{t("lms.solutionsSection.desc")}</p>
+      <section id="solutions" className="py-16 md:py-28 bg-secondary">
+        <div className="container mx-auto px-5 md:px-6 max-w-7xl">
+          <div className="mb-10 md:mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
+            <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
             {/* Cloud AI */}
             <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
               style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
