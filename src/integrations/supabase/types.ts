@@ -56,6 +56,8 @@ export type Database = {
           ip_address: string | null
           page_path: string
           session_id: string | null
+          user_agent: string | null
+          visitor_type: string | null
         }
         Insert: {
           browser?: string | null
@@ -68,6 +70,8 @@ export type Database = {
           ip_address?: string | null
           page_path: string
           session_id?: string | null
+          user_agent?: string | null
+          visitor_type?: string | null
         }
         Update: {
           browser?: string | null
@@ -80,6 +84,8 @@ export type Database = {
           ip_address?: string | null
           page_path?: string
           session_id?: string | null
+          user_agent?: string | null
+          visitor_type?: string | null
         }
         Relationships: []
       }
