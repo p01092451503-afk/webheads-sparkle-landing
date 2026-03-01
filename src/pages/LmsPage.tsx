@@ -46,6 +46,7 @@ export default function LmsPage() {
   const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: neoFeatureIcons[i] || Server }));
   const saasFeatures = (t("lms.saasFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: saasFeatureIcons[i] || Rocket }));
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
+  const aiTutorFeatures = t("lms.aiTutorFeatures", { returnObjects: true }) as any[];
   const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
   const kdtFeatures = (t("lms.kdtFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: kdtFeatureIcons[i] || GraduationCap }));
   const stats = t("lms.stats", { returnObjects: true }) as any[];
