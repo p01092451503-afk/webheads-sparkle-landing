@@ -53,7 +53,7 @@ const App = () => (
         <Layout>
           <Suspense fallback={<div className="min-h-screen" />}>
             <Routes>
-              <Route path="/" element={<Navigate to="/lms" replace />} />
+              <Route path="/" element={<LmsPage />} />
               <Route path="/lms" element={<LmsPage />} />
               <Route path="/hosting" element={<HostingPage />} />
               <Route path="/chatbot" element={<ChatbotPage />} />
