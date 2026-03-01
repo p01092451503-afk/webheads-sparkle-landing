@@ -439,6 +439,57 @@ export default function LmsPage() {
       {/* Competitor Comparison — 왜 우리인가 */}
       <CompetitorComparison />
 
+      {/* Plans — 요금제 */}
+      <section id="plans" className="py-16 md:py-28" style={{ background: "linear-gradient(180deg, hsl(245, 30%, 96%) 0%, hsl(245, 20%, 93%) 100%)" }}>
+        <div className="container mx-auto px-5 md:px-6 max-w-6xl">
+          <div className="mb-10 md:mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>{t("lms.plansSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.plansSection.title")}</h2>
+            <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.plansSection.desc")}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+            {(t("lms.plans", { returnObjects: true }) as any[]).map((plan: any) => (
+              <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { borderColor: "hsl(var(--lms-primary))" } : undefined}>
+                {plan.badge && <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "hsl(var(--lms-primary))" }}>{plan.badge}</div>}
+                <div className="p-8 flex flex-col gap-5 flex-1">
+                  <div>
+                    <h3 className={`font-bold text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: "hsl(var(--lms-primary))" } : undefined}>{plan.name}</h3>
+                    {plan.solutionType && <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide min-h-[32px]">{plan.solutionType}</p>}
+                    <div className={`h-px mt-4 ${plan.highlight ? "opacity-20" : "bg-border"}`} style={plan.highlight ? { background: "hsl(var(--lms-primary))" } : undefined} />
+                  </div>
+                  <div>
+                    <div className="flex items-end gap-1">
+                      <span className={`font-bold leading-none tracking-tight text-4xl ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: "hsl(var(--lms-primary))" } : undefined}>{plan.price}</span>
+                      {plan.unit && <span className="text-base font-semibold text-muted-foreground mb-1">{plan.unit}</span>}
+                    </div>
+                    {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
+                  </div>
+                  <ul className="flex flex-col gap-3.5 flex-1">
+                    {plan.features.map((f: any) => (
+                      <li key={f.main} className="flex items-start gap-2.5">
+                        <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: "hsl(var(--lms-primary))" }}>✓</span>
+                        <div>
+                          <p className="text-base font-medium text-foreground leading-tight">{f.main}</p>
+                          {f.sub && <p className="text-sm text-muted-foreground mt-0.5">{f.sub}</p>}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="rounded-xl p-4 mt-2 bg-foreground">
+                    <p className="text-sm text-background/60 leading-relaxed text-center">{plan.recommend}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-12 text-center rounded-2xl border border-border bg-background/50 p-8">
+            <p className="text-foreground font-semibold text-lg mb-2">{t("lms.plansCustom.title")}</p>
+            <p className="text-muted-foreground text-sm mb-6">{t("lms.plansCustom.desc")}</p>
+            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white transition-colors hover:opacity-90" style={{ background: "hsl(var(--lms-primary))" }}>{t("lms.plansCustom.cta")}</a>
+          </div>
+        </div>
+      </section>
+
       {/* Mid CTA — 관심 전환 */}
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
