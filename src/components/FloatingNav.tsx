@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ChevronUp, ChevronDown, MessageSquareText } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
   const [visible, setVisible] = useState(false);
