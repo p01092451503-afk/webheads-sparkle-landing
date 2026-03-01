@@ -102,14 +102,7 @@ export default function Footer() {
 
       {/* Service Request Banner */}
       <div className="border-t border-border">
-        <div className="container mx-auto px-6 max-w-5xl py-5 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 justify-between">
-          {/* Phone */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>대표전화</span>
-            <a href="tel:02-540-4337" className="font-bold text-foreground hover:text-primary transition-colors">02-540-4337</a>
-          </div>
-
-          {/* Service request button */}
+        <div className="container mx-auto px-6 max-w-5xl py-5 flex items-center justify-start">
           <Link
             to="/service-request"
             className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
