@@ -657,7 +657,8 @@
       { "title": "Scalable Storage", "desc": "Cloud storage that scales flexibly as your learners grow" },
       { "title": "Standard API", "desc": "RESTful API for seamless integration with existing systems" },
       { "title": "Real-time Backup", "desc": "Automated backups and disaster recovery for data safety" },
-      { "title": "Tech Support Included", "desc": "Dedicated support team with fast response and onboarding guidance" }
+      { "title": "Tech Support Included", "desc": "Dedicated support team with fast response and onboarding guidance" },
+      { "title": "DRM & Watermark", "desc": "Video security and anti-piracy via Catenoid, ZonePlayer, and more" }
     ],
     "comparisonTable": {
       "title": "Rental vs On-premise vs SaaS — Which LMS is Right for You?",
