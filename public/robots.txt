@@ -74,3 +74,4 @@ Disallow: /admin/
 Crawl-delay: 1
 
 Sitemap: https://service.webheads.co.kr/sitemap.xml
+LLMs: https://service.webheads.co.kr/llms.txt

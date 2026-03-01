@@ -1,23 +1,74 @@
-# 웹헤즈 (Webheads) — 이러닝 솔루션 전문 기업
+# 웹헤즈 (Webheads) - 이러닝 솔루션 전문 기업
 
-> 웹헤즈는 16년 업력의 이러닝 솔루션 전문 기업입니다.
-> LMS, 이러닝 호스팅, AI 챗봇, DRM, 콘텐츠 제작, 앱 개발,
-> PG 결제 연동, 채널톡/SMS 등 이러닝 사업에 필요한
-> 모든 솔루션을 원스톱으로 제공합니다.
-> 300+ 기업 도입 | 84.2% 재계약률 | IBK 기술우수기업 선정
+> 웹헤즈는 2009년 설립된 이러닝 플랫폼 전문 기업으로, LMS(학습 관리 시스템)를 핵심으로
+> 호스팅, AI 챗봇, 앱 개발, DRM, 콘텐츠 제작 등 온라인 교육 운영에 필요한 모든 솔루션을
+> 제공합니다. 300개 이상의 기업이 도입하였으며 고객 유지율 84.2%를 기록하고 있습니다.
 
-## 주요 서비스
-- LMS: https://service.webheads.co.kr/lms
-- 이러닝 호스팅: https://service.webheads.co.kr/hosting
-- AI 챗봇: https://service.webheads.co.kr/chatbot
-- 앱 개발: https://service.webheads.co.kr/app-dev
-- DRM 솔루션: https://service.webheads.co.kr/drm
-- 채널톡/SMS: https://service.webheads.co.kr/channel
-- PG 결제 연동: https://service.webheads.co.kr/pg
-- 콘텐츠 개발: https://service.webheads.co.kr/content
-- 유지보수: https://service.webheads.co.kr/maintenance
+## 회사 정보
 
-## 연락처
-- 신규 도입 문의: 02-336-4338
-- 유지보수 문의: 02-540-4337
-- 이메일: 34bus@webheads.co.kr
+- **회사명**: 웹헤즈 (Webheads Co., Ltd.)
+- **설립**: 2009년 (16년 운영)
+- **주요 서비스**: 이러닝 LMS, 호스팅, AI 챗봇, 앱 개발, DRM, 콘텐츠 제작, 채널톡/SMS, PG 결제
+- **고객사**: 300개 이상 기업 (교육기관, 대기업, 스타트업)
+- **고객 유지율**: 84.2%
+- **연락처**: 02-336-4338 (도입 문의), 02-540-4337 (기술 지원)
+- **이메일**: 34bus@webheads.co.kr
+- **웹사이트**: https://service.webheads.co.kr
+
+## 핵심 서비스
+
+### LMS (학습 관리 시스템)
+- URL: https://service.webheads.co.kr/lms
+- 클라우드형(AI), 구축형(NEO), 경량형(SaaS) 3가지 유형 제공
+- KDT(국민내일배움카드) 정부지원훈련 LMS 공식 지원
+- PC, 태블릿, 모바일 완전 반응형
+- 최소 3일 내 서비스 오픈 가능 (클라우드형)
+
+### 이러닝 호스팅
+- URL: https://service.webheads.co.kr/hosting
+- CDN, AWS, IDC 3가지 인프라 지원
+- 99.9% SLA 가동률, 24/7 NOC 모니터링
+- 자동 스케일링, 트래픽 급증 대응
+
+### AI 챗봇
+- URL: https://service.webheads.co.kr/chatbot
+- GPT-4o, Claude 3.5 기반 LMS 연동 챗봇
+- 24시간 학습자 문의 자동 응대, FAQ 자동 학습
+- 한국어, 영어, 중국어, 일본어 등 다국어 지원
+
+### 앱 개발 (iOS/Android)
+- URL: https://service.webheads.co.kr/app-dev
+- 웹헤즈 LMS와 완벽 연동되는 네이티브 앱 개발
+- React Native, Flutter 지원
+
+### DRM 솔루션
+- URL: https://service.webheads.co.kr/drm
+- Widevine, FairPlay, PlayReady 멀티 DRM
+- 이러닝 동영상 불법 다운로드·캡처 완전 차단
+
+### 콘텐츠 개발
+- URL: https://service.webheads.co.kr/content
+- 동영상 강의, 인터랙티브, 2D/3D 애니메이션, 게이미피케이션
+
+### 채널톡/SMS
+- URL: https://service.webheads.co.kr/channel
+- 채널톡 LMS 연동, 대량 SMS/카카오 알림톡 발송
+
+### PG 결제 연동
+- URL: https://service.webheads.co.kr/pg
+- 토스페이먼츠, KG이니시스, 해외 PG 지원
+
+### 유지보수
+- URL: https://service.webheads.co.kr/maintenance
+- 24/7 장애 대응, 전담 엔지니어 배정
+
+## 주요 특징
+
+- B2B 이러닝 전문: 기업, 교육기관, 정부기관 대상
+- 원스톱 솔루션: LMS부터 콘텐츠, 결제, 앱까지 단일 파트너
+- 16년 업력: 2009년 설립, 국내 최장수 이러닝 솔루션 업체 중 하나
+- TCB 기술신용평가 우수등급 보유
+
+## 도입 문의
+
+웹헤즈 솔루션 도입 상담은 https://service.webheads.co.kr/lms#contact 에서 가능합니다.
