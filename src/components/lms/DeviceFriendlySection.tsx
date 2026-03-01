@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Monitor, Tablet, Smartphone, Check } from "lucide-react";
+import { Monitor, TabletSmartphone, Smartphone, Check } from "lucide-react";
 
 const devices = [
-  { icon: Monitor, label: "PC", delay: 0 },
-  { icon: Tablet, label: "Tablet", delay: 150 },
-  { icon: Smartphone, label: "Mobile", delay: 300 },
+  { icon: Monitor, label: "PC", iconSize: "w-8 h-8", delay: 0 },
+  { icon: TabletSmartphone, label: "Tablet", iconSize: "w-8 h-8", delay: 150 },
+  { icon: Smartphone, label: "Mobile", iconSize: "w-7 h-7", delay: 300 },
 ];
 
 export default function DeviceFriendlySection() {
