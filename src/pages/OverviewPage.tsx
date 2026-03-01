@@ -4,7 +4,7 @@ import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import {
   GraduationCap, Server, Wrench, Bot, Smartphone, ShieldCheck,
   MessageSquare, CreditCard, Film, ArrowRight, Phone, CheckCircle2,
-  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight
+  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight, Rocket
 } from "lucide-react";
 
 /* ── Service config ── */
