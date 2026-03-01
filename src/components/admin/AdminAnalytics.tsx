@@ -115,8 +115,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           if (matched) break;
         }
         if (!matched) {
-          if (!scraperPatterns.test(uaL)) scraperSubCounts["반복접속/CF 프록시"] = (scraperSubCounts["반복접속/CF 프록시"] || 0) + 1;
-          else scraperSubCounts["기타"] = (scraperSubCounts["기타"] || 0) + 1;
+          if (scraperPatterns.test(uaL)) scraperSubCounts["기타 스크래퍼"] = (scraperSubCounts["기타 스크래퍼"] || 0) + 1;
+          else scraperSubCounts["반복접속/CF 프록시"] = (scraperSubCounts["반복접속/CF 프록시"] || 0) + 1;
         }
       } else human++;
     });
