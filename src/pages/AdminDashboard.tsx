@@ -9,8 +9,9 @@ import AdminInquiries from "@/components/admin/AdminInquiries";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
 import AdminSettings from "@/components/admin/AdminSettings";
 import AdminActivityLog from "@/components/admin/AdminActivityLog";
+import AdminServiceRequests from "@/components/admin/AdminServiceRequests";
 
-type Tab = "home" | "inquiries" | "analytics" | "activity" | "settings";
+type Tab = "home" | "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
