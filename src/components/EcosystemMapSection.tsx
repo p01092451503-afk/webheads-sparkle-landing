@@ -206,7 +206,7 @@ export default function EcosystemMapSection() {
               const isHovered = activeIdx === i;
 
               return (
-                <div key={svc.key} style={{ position: "absolute", left: pos.x - 44, top: pos.y - 44, zIndex: isHovered ? 30 : 10 }}
+                <div key={svc.key} style={{ position: "absolute", left: pos.x - 34, top: pos.y - 34, zIndex: isHovered ? 30 : 10 }}
                   onMouseEnter={() => handleMouseEnter(i)}
                   onMouseLeave={handleMouseLeave}
                 >
