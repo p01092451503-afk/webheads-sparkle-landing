@@ -137,6 +137,22 @@ export default function EcosystemMapSection() {
               className="absolute inset-0 w-full h-full"
               style={{ pointerEvents: "none" }}
             >
+              <defs>
+                {serviceConfig.map((svc, i) => (
+                  <marker
+                    key={`arrow-${i}`}
+                    id={`arrow-${i}`}
+                    viewBox="0 0 10 8"
+                    refX="10"
+                    refY="4"
+                    markerWidth="8"
+                    markerHeight="6"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L10,4 L0,8 Z" fill={hoveredIdx === i ? svc.accent : allInstalled ? svc.accent : "hsl(var(--border))"} opacity={hoveredIdx === i ? 1 : allInstalled ? 0.5 : 0.8} />
+                  </marker>
+                ))}
+              </defs>
               {nodePositions.map((pos, i) => {
                 const isInstalled = installedSet.has(i);
                 const isHovered = hoveredIdx === i && isInstalled;
