@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info } from "lucide-react";
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
@@ -18,9 +18,9 @@ export default function RoiCalculator() {
   const formatNumber = (n: number) => n.toLocaleString("ko-KR");
 
   const addonItems = [
-    { icon: Bot, label: t("lms.roiCalc.addonChatbot"), value: t("lms.roiCalc.chatbotSaving"), color: "hsl(245, 58%, 55%)" },
-    { icon: Shield, label: t("lms.roiCalc.addonDrm"), value: t("lms.roiCalc.drmSaving"), color: "hsl(340, 65%, 50%)" },
-    { icon: MessageSquare, label: t("lms.roiCalc.addonSms"), value: t("lms.roiCalc.smsSaving"), color: "hsl(170, 55%, 38%)" },
+    { icon: Bot, label: t("lms.roiCalc.addonChatbot"), value: t("lms.roiCalc.chatbotSaving"), basis: t("lms.roiCalc.chatbotBasis"), color: "hsl(245, 58%, 55%)" },
+    { icon: Shield, label: t("lms.roiCalc.addonDrm"), value: t("lms.roiCalc.drmSaving"), basis: t("lms.roiCalc.drmBasis"), color: "hsl(340, 65%, 50%)" },
+    { icon: MessageSquare, label: t("lms.roiCalc.addonSms"), value: t("lms.roiCalc.smsSaving"), basis: t("lms.roiCalc.smsBasis"), color: "hsl(170, 55%, 38%)" },
   ];
 
   return (
@@ -123,17 +123,28 @@ export default function RoiCalculator() {
 
         {/* Add-on Savings */}
         <div className="mt-8 rounded-2xl border border-border bg-background p-8">
-          <h4 className="font-bold text-foreground text-base mb-5">{t("lms.roiCalc.addonsTitle")}</h4>
+          <div className="flex items-center gap-2 mb-2">
+            <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.addonsTitle")}</h4>
+          </div>
+          <p className="flex items-center gap-1.5 text-xs text-muted-foreground mb-5">
+            <Info className="w-3.5 h-3.5 shrink-0" />
+            <span>{t("lms.roiCalc.addonsSource")}</span>
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {addonItems.map((item) => (
-              <div key={item.label} className="rounded-xl p-5 bg-secondary flex items-start gap-3">
-                <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}15` }}>
-                  <item.icon className="w-4.5 h-4.5" style={{ color: item.color }} />
+              <div key={item.label} className="rounded-xl p-5 bg-secondary flex flex-col gap-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}15` }}>
+                    <item.icon className="w-4.5 h-4.5" style={{ color: item.color }} />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground leading-relaxed mb-1" style={{ wordBreak: "keep-all" }}>{item.label}</p>
+                    <p className="text-sm font-bold" style={{ color: item.color }}>{item.value}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-1" style={{ wordBreak: "keep-all" }}>{item.label}</p>
-                  <p className="text-sm font-bold" style={{ color: item.color }}>{item.value}</p>
-                </div>
+                <p className="text-[11px] text-muted-foreground/70 leading-relaxed pl-0.5 border-t border-border/50 pt-2.5" style={{ wordBreak: "keep-all" }}>
+                  * {item.basis}
+                </p>
               </div>
             ))}
           </div>

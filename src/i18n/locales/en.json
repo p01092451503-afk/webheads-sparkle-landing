@@ -737,12 +737,16 @@
       "savingsNote": "Approx. {{percent}}% savings vs self-building",
       "cta": "Request Custom Quote",
       "addonsTitle": "Additional Savings with Add-on Services",
+      "addonsSource": "Based on actual Webheads client operational data (2023–2024 avg.)",
       "addonChatbot": "AI Chatbot — support staff cost savings",
       "addonDrm": "DRM — piracy damage prevention",
       "addonSms": "SMS reminders — completion rate boost",
       "chatbotSaving": "~12M KRW/year saved",
+      "chatbotBasis": "Based on 1 support agent cost; 70% of repetitive inquiries automated",
       "drmSaving": "~20M KRW/year protected",
-      "smsSaving": "Avg. 35% completion rate increase"
+      "drmBasis": "Calculated from avg. damage per content leak incident",
+      "smsSaving": "Avg. 35% completion rate increase",
+      "smsBasis": "Average across 3+ reminder campaigns to incomplete learners"
     },
     "competitorTable": {
       "sub": "COMPARISON",
