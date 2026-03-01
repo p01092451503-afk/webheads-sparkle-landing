@@ -171,34 +171,24 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Stats — Toss-style cards */}
-      <section className="py-24 relative" style={{ background: "hsl(220, 14%, 96%)" }}>
+      {/* Stats — with gradient accent line */}
+      <section className="py-24 relative">
+        
         <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-10">
+          <div className="text-center mb-12">
             <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
-            <p className="text-muted-foreground mt-2 text-base">{t("lms.statsDesc")}</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
             {stats.map((s: any) => (
-              <div
-                key={s.label}
-                className="flex flex-col items-center justify-center rounded-2xl bg-background py-8 px-5 text-center transition-shadow duration-200 hover:shadow-md"
-                style={{ border: "1px solid hsl(var(--border) / 0.5)" }}
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center mb-5"
-                  style={{ background: "hsl(245, 60%, 95%)" }}
-                >
-                  <Zap className="w-5 h-5" style={{ color: "hsl(245, 58%, 55%)" }} />
-                </div>
-                <span className="block text-sm text-muted-foreground mb-1.5">{s.label}</span>
+              <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
                 <span
-                  className="block font-extrabold leading-none mb-2 text-3xl md:text-4xl tracking-tight"
+                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
                   style={{ color: "hsl(var(--lms-primary))" }}
                 >
                   {s.value}
                 </span>
-                <span className="block text-xs text-muted-foreground leading-relaxed">{s.sub}</span>
+                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
+                <span className="block text-xs text-muted-foreground">{s.sub}</span>
               </div>
             ))}
           </div>
