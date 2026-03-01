@@ -186,8 +186,8 @@ export default function LmsPage() {
                 >
                   {s.value}
                 </span>
-                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
-                <span className="block text-xs text-muted-foreground">{s.sub}</span>
+                <span className="block text-xs md:text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
+                <span className="block text-[10px] md:text-xs text-muted-foreground">{s.sub}</span>
               </div>
             ))}
           </div>
