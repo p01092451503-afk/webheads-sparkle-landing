@@ -87,14 +87,14 @@ export default function OverviewPage() {
       {/* ═══════════════════════════════════════════════
           HERO — Light Gradient Theme
       ═══════════════════════════════════════════════ */}
-      <section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(210,40%,96%) 0%, hsl(220,30%,92%) 40%, hsl(210,35%,88%) 100%)" }}>
+      <section className="relative pt-44 pb-32 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(210,40%,96%) 0%, hsl(220,30%,92%) 40%, hsl(210,35%,88%) 100%)" }}>
         {/* Subtle radial glow */}
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 30%, hsl(210,60%,92%,0.6), transparent)" }} />
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(220,50%,30%,0.08)", color: "hsl(220,50%,35%)", border: "1px solid hsl(220,40%,50%,0.15)" }}>
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-8" style={{ background: "hsl(220,50%,30%,0.08)", color: "hsl(220,50%,35%)", border: "1px solid hsl(220,40%,50%,0.15)" }}>
             {t("overview.hero.badge")}
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] leading-[3.6] tracking-tight whitespace-pre-line" style={{ fontWeight: 900, color: "hsl(220,40%,16%)" }}>
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] leading-[2.2] tracking-tight whitespace-pre-line mb-6" style={{ fontWeight: 900, color: "hsl(220,40%,16%)" }}>
             {t("overview.hero.title")}
           </h1>
           <p className="mt-5 text-sm sm:text-base leading-[1.9] max-w-2xl mx-auto whitespace-pre-line" style={{ color: "hsl(220,20%,45%)" }}>
