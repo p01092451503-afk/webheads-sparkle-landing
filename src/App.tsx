@@ -64,6 +64,7 @@ const App = () => (
               <Route path="/pg" element={<PgPage />} />
               <Route path="/maintenance" element={<MaintenancePage />} />
               <Route path="/service-request" element={<ServiceRequestPage />} />
+              <Route path="/overview" element={<OverviewPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
               {/* <Route path="/about" element={<AboutPage />} /> */}
