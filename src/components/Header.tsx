@@ -22,10 +22,10 @@ const serviceBlobColors: Record<string, string> = {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const isLightPage = location.pathname === "/service-request";
-  const effectiveScrolled = scrolled || isLightPage;
   const location = useLocation();
   const { t } = useTranslation();
+  const isLightPage = location.pathname === "/service-request";
+  const effectiveScrolled = scrolled || isLightPage;
 
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
