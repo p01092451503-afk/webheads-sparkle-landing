@@ -137,11 +137,15 @@ export default function EcosystemMapSection() {
               className="absolute inset-0 w-full h-full"
               style={{ pointerEvents: "none" }}
             >
-              {nodePositions.map((pos, i) => {
+               {nodePositions.map((pos, i) => {
                 const isInstalled = installedSet.has(i);
                 const isHovered = hoveredIdx === i && isInstalled;
                 if (!isInstalled) return null;
-                const sl = shortenLine(CENTER, pos, HUB_RADIUS, NODE_HALF);
+                // Line from node → center
+                const sl = shortenLine(pos, CENTER, NODE_HALF, HUB_RADIUS);
+                const dx = sl.x2 - sl.x1;
+                const dy = sl.y2 - sl.y1;
+                const lineLen = Math.sqrt(dx * dx + dy * dy);
 
                 return (
                   <line
@@ -152,9 +156,14 @@ export default function EcosystemMapSection() {
                     y2={sl.y2}
                     stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
                     strokeWidth={isHovered ? 2.5 : 1.5}
-                    strokeDasharray={allInstalled || isHovered ? "none" : "6 4"}
                     opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
-                    style={{ transition: "all 0.3s ease" }}
+                    style={{
+                      ["--line-len" as any]: lineLen,
+                      transition: "stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease",
+                      animation: `eco-line-draw 0.5s ease-out forwards`,
+                      strokeDashoffset: 0,
+                      strokeDasharray: lineLen,
+                    }}
                   />
                 );
               })}
@@ -327,9 +336,13 @@ export default function EcosystemMapSection() {
       </div>
 
       <style>{`
-        @keyframes eco-tooltip-in {
+       @keyframes eco-tooltip-in {
           from { opacity: 0; transform: translateY(4px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes eco-line-draw {
+          from { stroke-dashoffset: var(--line-len, 200); opacity: 0; }
+          to { stroke-dashoffset: 0; opacity: 1; }
         }
       `}</style>
     </section>
