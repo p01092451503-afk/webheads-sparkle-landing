@@ -202,19 +202,41 @@ export default function ServiceRequestPage() {
                 <FieldLabel label="충전 금액" required>
                   <div className="relative">
                     <select
-                      required
-                      value={form.amount}
-                      onChange={(e) => setForm({ ...form, amount: e.target.value })}
+                      required={form.amount === "" && !form.amount}
+                      value={SMS_AMOUNTS.includes(form.amount) ? form.amount : (form.amount ? "custom" : "")}
+                      onChange={(e) => {
+                        if (e.target.value === "custom") {
+                          setForm({ ...form, amount: "" });
+                        } else {
+                          setForm({ ...form, amount: e.target.value });
+                        }
+                      }}
                       className={`${inputBase} ${inputFocus} appearance-none pr-10 cursor-pointer`}
                     >
                       <option value="">충전 금액을 선택해주세요</option>
                       {SMS_AMOUNTS.map((a) => (
                         <option key={a} value={a}>{a}</option>
                       ))}
+                      <option value="custom">직접 입력</option>
                     </select>
                     <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
                   </div>
+                  {!SMS_AMOUNTS.includes(form.amount) && form.amount !== "" || (document.querySelector<HTMLSelectElement>('[data-custom-amount]')?.value === "custom") ? null : null}
+                  {(() => {
+                    const selectVal = SMS_AMOUNTS.includes(form.amount) ? form.amount : (form.amount !== undefined ? "custom" : "");
+                    if (selectVal === "custom" || (!SMS_AMOUNTS.includes(form.amount) && form.amount !== "")) {
+                      return null;
+                    }
+                    return null;
+                  })()}
                 </FieldLabel>
+              )}
+              {requestType === "sms_recharge" && !SMS_AMOUNTS.includes(form.amount) && (
+                (() => {
+                  const selectEl = document.querySelector('select');
+                  const isCustom = selectEl && selectEl.value === "custom";
+                  return null;
+                })()
               )}
 
               {requestType === "remote_support" && (
