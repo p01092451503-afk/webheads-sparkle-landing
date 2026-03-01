@@ -89,12 +89,6 @@ export default function ChannelPage() {
 
       <ServiceFAQ faqs={faqs} serviceName={t("channel.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
-      <RelatedServices items={[
-        { emoji: "📚", title: "LMS", desc: "300+ 기업이 선택한 검증된 학습 관리 시스템", path: "/lms" },
-        { emoji: "🤖", title: "AI 챗봇", desc: "GPT-4o 기반 24시간 학습자 지원", path: "/chatbot" },
-        { emoji: "💳", title: "PG 결제", desc: "토스페이먼츠·KG이니시스 연동", path: "/pg" },
-        { emoji: "🛠️", title: "유지보수", desc: "24/7 장애 대응, 전담 엔지니어 배정", path: "/maintenance" },
-      ]} />
       <ContactSection />
     </div>
   );
