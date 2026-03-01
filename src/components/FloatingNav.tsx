@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ChevronUp, ChevronDown, MessageSquareText } from "lucide-react";
 
 export default function FloatingNav() {
