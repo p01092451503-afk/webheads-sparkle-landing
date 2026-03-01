@@ -152,6 +152,13 @@ export default function ServiceRequestPage() {
                 </button>
               </div>
 
+              {/* Remote support notice */}
+              {requestType === "remote_support" && (
+                <div className="rounded-lg px-4 py-3 bg-muted/80 border border-border text-xs leading-relaxed text-muted-foreground">
+                  💡 원격지원 요청 접수 후, 웹헤즈가 카테노이드에 지원을 재접수하는 절차를 거칩니다. 확인 완료 후 담당자가 연락드립니다.
+                </div>
+              )}
+
               {/* Company + Name */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <FieldLabel label="회사명" required>
