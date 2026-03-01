@@ -280,6 +280,14 @@
       { "title": "Hybrid / Cross-platform", "desc": "Build iOS and Android simultaneously from a single codebase with React Native or Flutter.", "tags": ["React Native", "Flutter", "Cost Savings"] },
       { "title": "App Store Deployment & Maintenance", "desc": "Full-service App Store and Google Play submission including review handling.", "tags": ["App Store", "Google Play", "CI/CD"] }
     ],
+    "processSection": { "sub": "PROCESS", "heading": "Systematic App Development\nProcess", "desc": "From planning to App Store submission, our dedicated dev team is with you." },
+    "processSteps": [
+      { "title": "Requirements Analysis & Planning", "desc": "Deep analysis of service objectives, target users, and LMS integration scope to define app architecture and feature specifications. Evaluate cross-platform (React Native/Flutter) feasibility and finalize the optimal tech stack.", "tag": "1-2 weeks" },
+      { "title": "UI/UX Design", "desc": "Create wireframes and interaction prototypes following Apple HIG and Material Design guidelines. Design key screens including learning views, dashboards, and push notification UI, then finalize with client feedback.", "tag": "1-2 weeks" },
+      { "title": "Development & LMS Integration", "desc": "Build the app based on finalized designs and integrate with Webheads LMS via REST API and WebSocket. Implement core modules including FCM/APNs push, Widevine/FairPlay DRM, and offline caching with unit tests.", "tag": "3-6 weeks" },
+      { "title": "QA Testing & Store Review", "desc": "Conduct integration testing on real devices (iPhone, Galaxy, iPad, etc.) and performance benchmarking. Prepare App Store and Google Play metadata, handle submission, and manage rejection responses.", "tag": "1-2 weeks" },
+      { "title": "Deployment & Maintenance", "desc": "After store publication, provide ongoing iOS/Android OS compatibility updates, bug fixes, and performance optimization. Deliver user feedback-driven improvements and monthly app performance reports (crash rate, DAU, retention).", "tag": "Ongoing" }
+    ],
     "plansSection": { "sub": "PRICING", "title": "App Development\nPlans", "desc": "All prices exclude VAT. Scope-dependent adjustments may apply." },
     "plans": [
       { "name": "MVP", "price": "₩1,500,000~", "unit": "", "priceNote": "One-time dev cost", "features": [{ "main": "Single Platform (iOS or Android)" }, { "main": "3-5 Core Features" }, { "main": "Basic UI/UX Design" }, { "main": "App Store Submission" }, { "main": "1-month Post-launch Bug Fix" }], "recommend": "Best for startups needing quick market validation" },

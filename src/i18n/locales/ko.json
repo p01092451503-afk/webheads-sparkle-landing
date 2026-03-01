@@ -280,6 +280,14 @@
       { "title": "하이브리드 / 크로스플랫폼", "desc": "React Native·Flutter로 단일 코드베이스에서 iOS·Android를 동시에 개발합니다.", "tags": ["React Native", "Flutter", "비용 절감"] },
       { "title": "앱스토어 배포 & 유지관리", "desc": "App Store·Google Play 심사 대응부터 배포까지 전 과정을 대행합니다.", "tags": ["App Store", "Google Play", "CI/CD"] }
     ],
+    "processSection": { "sub": "도입 과정", "heading": "체계적인 앱 개발\n도입 프로세스", "desc": "기획부터 앱스토어 등록까지, 전담 개발팀이 함께합니다." },
+    "processSteps": [
+      { "title": "요구사항 분석 & 기획", "desc": "기관의 서비스 목적, 타깃 사용자, LMS 연동 범위를 심층 분석하여 앱 아키텍처와 핵심 기능 목록(Feature Spec)을 정의합니다. iOS·Android 동시 개발 여부, 크로스플랫폼(React Native·Flutter) 적용 가능성을 검토하고 최적의 기술 스택을 확정합니다.", "tag": "1~2주" },
+      { "title": "UI/UX 디자인", "desc": "Apple HIG·Material Design 가이드라인을 준수하는 와이어프레임과 인터랙션 프로토타입을 제작합니다. 학습 화면, 대시보드, PUSH 알림 UI 등 핵심 화면을 설계하고, 고객사 피드백을 반영하여 최종 디자인을 확정합니다.", "tag": "1~2주" },
+      { "title": "개발 & LMS 연동", "desc": "확정된 설계를 기반으로 앱을 개발하고, 웹헤즈 LMS와 REST API·WebSocket으로 실시간 연동합니다. FCM·APNs PUSH 알림, Widevine·FairPlay DRM, 오프라인 캐싱 등 핵심 모듈을 구현하고 단위 테스트를 수행합니다.", "tag": "3~6주" },
+      { "title": "QA 테스트 & 심사 대응", "desc": "실기기(iPhone·Galaxy·iPad 등) 기반 통합 테스트와 성능 측정을 실시합니다. Apple App Store·Google Play 심사 기준에 맞춰 메타데이터를 작성하고, 심사 제출 및 리젝 대응까지 전 과정을 책임집니다.", "tag": "1~2주" },
+      { "title": "배포 & 유지보수", "desc": "앱스토어 등록 완료 후 iOS·Android OS 업데이트 호환성 대응, 버그 수정, 성능 최적화를 지속 지원합니다. 사용자 피드백 기반의 기능 개선과 월별 앱 성능 리포트(크래시율·DAU·리텐션)를 제공합니다.", "tag": "상시" }
+    ],
     "plansSection": { "sub": "요금제", "title": "프로젝트에 맞는\n앱 개발 플랜", "desc": "모든 요금은 VAT 별도이며, 프로젝트 범위에 따라 조정될 수 있습니다." },
     "plans": [
       { "name": "MVP", "price": "1,500,000", "unit": "원~", "priceNote": "1회 개발비", "features": [{ "main": "iOS 또는 Android 단일 플랫폼" }, { "main": "핵심 기능 3~5개" }, { "main": "기본 UI/UX 디자인" }, { "main": "앱스토어 등록 대행" }, { "main": "출시 후 1개월 버그 수정" }], "recommend": "빠르게 시장 검증이 필요한 스타트업·개인사업자께 추천드려요" },
