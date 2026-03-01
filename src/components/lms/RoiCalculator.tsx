@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
@@ -92,37 +91,14 @@ export default function RoiCalculator() {
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.monthlyRevenue")}</span>
                 <span className="font-bold text-foreground text-lg">{formatNumber(monthlyRevenue)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
-
-              {/* Bar Chart */}
-              <div className="py-2">
-                <ResponsiveContainer width="100%" height={140}>
-                  <BarChart
-                    data={[
-                      { name: t("lms.roiCalc.selfBuildCost"), value: selfBuildMonthly, color: "hsl(0, 0%, 75%)" },
-                      { name: t("lms.roiCalc.webheadsCost"), value: webheadsMonthlyCost, color: "hsl(255, 75%, 58%)" },
-                    ]}
-                    layout="vertical"
-                    margin={{ top: 0, right: 10, bottom: 0, left: 0 }}
-                    barSize={28}
-                  >
-                    <XAxis type="number" hide />
-                    <YAxis type="category" dataKey="name" width={90} tick={{ fontSize: 12, fill: "hsl(220, 10%, 50%)" }} axisLine={false} tickLine={false} />
-                    <Tooltip
-                      formatter={(value: number) => [`${formatNumber(value)}원`, ""]}
-                      contentStyle={{ borderRadius: 12, border: "1px solid hsl(220,20%,90%)", fontSize: 13 }}
-                    />
-                    <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                      {[
-                        { color: "hsl(0, 0%, 78%)" },
-                        { color: "hsl(255, 75%, 58%)" },
-                      ].map((entry, index) => (
-                        <Cell key={index} fill={entry.color} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+              <div className="flex justify-between items-center py-3 border-b border-border">
+                <span className="text-sm text-muted-foreground">{t("lms.roiCalc.selfBuildCost")}</span>
+                <span className="font-bold text-muted-foreground text-lg">{formatNumber(selfBuildMonthly)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
-
+              <div className="flex justify-between items-center py-3 border-b border-border">
+                <span className="text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
+                <span className="font-bold text-lg" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
+              </div>
               <div className="rounded-xl p-4 md:p-5" style={{ background: "hsl(145, 70%, 93%)" }}>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
                   <span className="text-xs md:text-sm font-semibold" style={{ color: "hsl(145, 60%, 28%)" }}>{t("lms.roiCalc.annualSavings")}</span>
