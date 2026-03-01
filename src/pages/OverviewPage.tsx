@@ -170,8 +170,8 @@ export default function OverviewPage() {
             ))}
           </div>
 
-          {/* Cloud vs NEO Features */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
+          {/* Cloud vs NEO vs SaaS Features */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
             {/* Cloud AI */}
             <div className="rounded-2xl border border-border bg-white p-7">
               <div className="flex items-center gap-3 mb-4">
@@ -209,6 +209,27 @@ export default function OverviewPage() {
                 {neoFeats.map((f, i) => (
                   <div key={i} className="flex items-start gap-2">
                     <Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "hsl(220,90%,56%)" }} />
+                    <span className="text-sm text-foreground font-medium">{f.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* SaaS */}
+            <div className="rounded-2xl border border-border bg-white p-7">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "hsl(150,60%,42%,0.12)", color: "hsl(150,60%,42%)" }}>
+                  <Rocket className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base text-foreground">{t("lms.saas.name")}</h3>
+                  <p className="text-xs text-muted-foreground">{t("lms.saas.subtitle")}</p>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mb-5 leading-relaxed">{t("lms.saas.desc")}</p>
+              <div className="grid grid-cols-2 gap-2.5">
+                {saasFeats.map((f, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <Check className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "hsl(150,60%,42%)" }} />
                     <span className="text-sm text-foreground font-medium">{f.title}</span>
                   </div>
                 ))}
