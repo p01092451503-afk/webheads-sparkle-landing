@@ -72,7 +72,10 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={OG_IMAGE} />
+      <meta property="og:image" content={ogImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={`${fullTitle} 대표 이미지`} />
       <meta property="og:locale" content={locale.og} />
       <meta property="og:site_name" content={locale.siteName} />
 
@@ -80,7 +83,8 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={OG_IMAGE} />
+      <meta name="twitter:image" content={ogImageUrl} />
+      <meta name="twitter:image:alt" content={`${fullTitle} 대표 이미지`} />
 
       {/* JSON-LD */}
       {jsonLd && (
