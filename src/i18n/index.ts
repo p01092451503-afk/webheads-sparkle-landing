@@ -5,7 +5,7 @@ const savedLang = localStorage.getItem('i18nextLng');
 const browserLang = navigator.language?.substring(0, 2) || 'ko';
 const defaultLng = savedLang || (browserLang === 'ko' ? 'ko' : 'en');
 
-const loadLocale = async (lng: string) => {
+export const loadLocale = async (lng: string) => {
   if (lng === 'ko') {
     const ko = await import('./locales/ko.json');
     return ko.default;
@@ -14,23 +14,26 @@ const loadLocale = async (lng: string) => {
   return en.default;
 };
 
-const translation = await loadLocale(defaultLng);
-
+// Initialize with empty resources, then load asynchronously
 i18n
   .use(initReactI18next)
   .init({
-    resources: {
-      [defaultLng]: { translation },
-    },
+    resources: {},
     lng: defaultLng,
     fallbackLng: 'en',
     interpolation: { escapeValue: false },
   });
+
+// Load default locale immediately
+loadLocale(defaultLng).then((translation) => {
+  i18n.addResourceBundle(defaultLng, 'translation', translation, true, true);
+  // Force re-render with loaded translations
+  i18n.changeLanguage(defaultLng);
+});
 
 // Persist language choice
 i18n.on('languageChanged', (lng) => {
   localStorage.setItem('i18nextLng', lng);
 });
 
-export { loadLocale };
 export default i18n;
