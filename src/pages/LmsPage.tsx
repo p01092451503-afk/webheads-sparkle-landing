@@ -380,8 +380,8 @@ export default function LmsPage() {
 
           {/* HTML Comparison Table for AIO */}
           <div className="mt-12">
-            <h3 className="font-bold text-foreground text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
-            <p className="text-muted-foreground text-sm mb-8">{t("lms.comparisonTable.desc")}</p>
+            <h3 className="font-bold text-foreground text-xl md:text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
+            <p className="text-muted-foreground text-xs md:text-sm mb-6 md:mb-8">{t("lms.comparisonTable.desc")}</p>
             <div className="rounded-2xl border border-border overflow-hidden bg-background">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
