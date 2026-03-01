@@ -1,21 +1,50 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp } from "lucide-react";
+
+/**
+ * Self-build cost model (annual, in KRW):
+ * - Server/infra: base 6M + scale factor
+ * - Developer: base 24M + scale factor  
+ * - Maintenance/security: base 4.8M + scale factor
+ * - Licenses/SSL/misc: base 3.6M + scale factor
+ * Total scales with student count to reflect realistic TCO.
+ */
+function calcSelfBuildAnnual(students: number) {
+  // Scale multiplier: 1.0x at 200, up to ~2.5x at 5000
+  const scale = 1 + Math.max(0, students - 200) / 2400;
+
+  const server = Math.round(6000000 * scale);
+  const developer = Math.round(24000000 * scale);
+  const maintenance = Math.round(4800000 * scale);
+  const license = Math.round(3600000 * scale);
+  const total = server + developer + maintenance + license;
+
+  return { server, developer, maintenance, license, total };
+}
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
   const [students, setStudents] = useState(500);
   const [fee, setFee] = useState(100000);
+  const [showBreakdown, setShowBreakdown] = useState(false);
 
   const monthlyRevenue = students * fee;
-  const selfBuildCost = 50000000;
-  const selfBuildMonthly = Math.round(selfBuildCost / 12);
+  const selfBuild = calcSelfBuildAnnual(students);
+  const selfBuildMonthly = Math.round(selfBuild.total / 12);
   const webheadsMonthlyCost = students <= 200 ? 500000 : students <= 500 ? 700000 : students <= 1000 ? 1000000 : students <= 2000 ? 1500000 : students <= 3000 ? 2000000 : 2500000;
   const savingsMonthly = selfBuildMonthly - webheadsMonthlyCost;
   const savingsPercent = Math.round((savingsMonthly / selfBuildMonthly) * 100);
   const annualSavings = savingsMonthly * 12;
 
   const formatNumber = (n: number) => n.toLocaleString("ko-KR");
+
+  const breakdownItems = [
+    { label: t("lms.roiCalc.breakdownServer"), value: selfBuild.server },
+    { label: t("lms.roiCalc.breakdownDev"), value: selfBuild.developer },
+    { label: t("lms.roiCalc.breakdownMaint"), value: selfBuild.maintenance },
+    { label: t("lms.roiCalc.breakdownLicense"), value: selfBuild.license },
+  ];
 
   const addonItems = [
     { icon: Bot, label: t("lms.roiCalc.addonChatbot"), value: t("lms.roiCalc.chatbotSaving"), basis: t("lms.roiCalc.chatbotBasis"), color: "hsl(245, 58%, 55%)" },
@@ -91,10 +120,44 @@ export default function RoiCalculator() {
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.monthlyRevenue")}</span>
                 <span className="font-bold text-foreground text-lg">{formatNumber(monthlyRevenue)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
-              <div className="flex justify-between items-center py-3 border-b border-border">
-                <span className="text-sm text-muted-foreground">{t("lms.roiCalc.selfBuildCost")}</span>
-                <span className="font-bold text-muted-foreground text-lg">{formatNumber(selfBuildMonthly)}{t("lms.roiCalc.feeUnit")}</span>
+
+              {/* Self-build cost with expandable breakdown */}
+              <div className="border-b border-border pb-3">
+                <button
+                  onClick={() => setShowBreakdown(!showBreakdown)}
+                  className="w-full flex justify-between items-center py-3 group cursor-pointer"
+                >
+                  <span className="text-sm text-muted-foreground flex items-center gap-1.5">
+                    {t("lms.roiCalc.selfBuildCost")}
+                    {showBreakdown
+                      ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground/60" />
+                      : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground/60" />
+                    }
+                  </span>
+                  <span className="font-bold text-muted-foreground text-lg">{formatNumber(selfBuildMonthly)}{t("lms.roiCalc.feeUnit")}</span>
+                </button>
+
+                {showBreakdown && (
+                  <div className="mt-1 rounded-xl p-4 space-y-2.5" style={{ background: "hsl(var(--muted) / 0.5)" }}>
+                    <p className="text-[11px] font-semibold text-muted-foreground tracking-wide uppercase mb-2">
+                      {t("lms.roiCalc.breakdownTitle")}
+                    </p>
+                    {breakdownItems.map((item) => (
+                      <div key={item.label} className="flex justify-between items-center">
+                        <span className="text-xs text-muted-foreground">{item.label}</span>
+                        <span className="text-xs font-semibold text-foreground">{formatNumber(Math.round(item.value / 12))}{t("lms.roiCalc.feeUnit")}/월</span>
+                      </div>
+                    ))}
+                    <div className="border-t border-border/60 pt-2 mt-2">
+                      <p className="text-[10px] text-muted-foreground/70 leading-relaxed flex items-start gap-1">
+                        <Info className="w-3 h-3 shrink-0 mt-0.5" />
+                        <span style={{ wordBreak: "keep-all" }}>{t("lms.roiCalc.breakdownNote")}</span>
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
+
               <div className="flex justify-between items-center py-3 border-b border-border">
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
                 <span className="font-bold text-lg" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
