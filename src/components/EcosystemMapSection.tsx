@@ -327,7 +327,7 @@ export default function EcosystemMapSection() {
                     }}
                   >
                     <Icon
-                      className="w-5 h-5 lg:w-6 lg:h-6"
+                      className="w-7 h-7 lg:w-8 lg:h-8"
                       style={{ color: svc.accent }}
                       strokeWidth={2}
                     />
