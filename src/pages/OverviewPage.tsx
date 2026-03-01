@@ -32,7 +32,7 @@ export default function OverviewPage() {
   }[];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" data-page="overview">
       <SEO
         title={t("overview.seo.title")}
         description={t("overview.seo.description")}
