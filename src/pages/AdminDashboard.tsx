@@ -60,7 +60,7 @@ export default function AdminDashboard() {
     setInquiries(data || []);
   };
 
-  const fetchAllRows = async (table: string, since: Date) => {
+  const fetchAllFromTable = async (table: "page_views" | "click_events", since: Date) => {
     const allData: any[] = [];
     const batchSize = 1000;
     let offset = 0;
@@ -88,14 +88,14 @@ export default function AdminDashboard() {
   const fetchPageViews = async (days: number) => {
     const since = new Date();
     since.setDate(since.getDate() - days);
-    const data = await fetchAllRows("page_views", since);
+    const data = await fetchAllFromTable("page_views", since);
     setPageViews(data);
   };
 
   const fetchClickEvents = async (days: number) => {
     const since = new Date();
     since.setDate(since.getDate() - days);
-    const data = await fetchAllRows("click_events", since);
+    const data = await fetchAllFromTable("click_events", since);
     setClickEvents(data);
   };
 
