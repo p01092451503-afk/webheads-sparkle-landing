@@ -5,7 +5,8 @@ import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
-import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2 } from "lucide-react";
+import ServiceProcess from "@/components/shared/ServiceProcess";
+import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2, Search, Palette, Link2, CheckCircle, Rocket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const lmsFeatureIcons = [Tablet, Bell, Lock, Wifi, BarChart3, ShieldCheck];
