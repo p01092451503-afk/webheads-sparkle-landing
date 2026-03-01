@@ -1,5 +1,4 @@
-import { useTranslation } from "react-i18next";
-import { CheckCircle2, XCircle, MinusCircle, ArrowRight, Zap } from "lucide-react";
+import { CheckCircle2, XCircle, MinusCircle } from "lucide-react";
 
 function StatusIcon({ value }: { value: string }) {
   if (value === "O") return <CheckCircle2 className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />;
@@ -12,11 +11,6 @@ export default function CompetitorComparison() {
   const { t } = useTranslation();
   const headers = t("lms.competitorTable.headers", { returnObjects: true }) as string[];
   const rows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
-  const diffItems = t("lms.competitorTable.diffItems", { returnObjects: true }) as {
-    label: string;
-    value: string;
-    desc: string;
-  }[];
 
   return (
     <section className="py-28">
