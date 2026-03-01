@@ -28,6 +28,30 @@ const nodePositions = serviceConfig.map((_, i) => {
   };
 });
 
+// Shorten a line segment so it starts `startInset` from p1 and ends `endInset` from p2
+function shortenLine(
+  p1: { x: number; y: number },
+  p2: { x: number; y: number },
+  startInset: number,
+  endInset: number
+) {
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  const len = Math.sqrt(dx * dx + dy * dy);
+  if (len === 0) return { x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y };
+  const ux = dx / len;
+  const uy = dy / len;
+  return {
+    x1: p1.x + ux * startInset,
+    y1: p1.y + uy * startInset,
+    x2: p2.x - ux * endInset,
+    y2: p2.y - uy * endInset,
+  };
+}
+
+const HUB_RADIUS = 52;
+const NODE_HALF = 44; // half of 88px node
+
 // Installation order (randomised feel but deterministic)
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
