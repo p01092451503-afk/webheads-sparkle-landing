@@ -10,6 +10,9 @@ const stepColors = [
   "hsl(340, 65%, 50%)",
 ];
 
+const withAlpha = (color: string, alpha: number) =>
+  color.replace("hsl(", "hsla(").replace(")", `, ${alpha})`);
+
 export default function LearnerJourneyMap() {
   const { t } = useTranslation();
   const steps = t("lms.journeyMap.steps", { returnObjects: true }) as {
