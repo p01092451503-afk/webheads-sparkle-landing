@@ -92,7 +92,7 @@ export default function OverviewPage() {
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(255,75%,58%,0.15)", color: "hsl(255,75%,72%)", border: "1px solid hsl(255,75%,58%,0.25)" }}>
             {t("overview.hero.badge")}
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.35] tracking-tight text-white whitespace-pre-line" style={{ fontWeight: 900 }}>
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.6] tracking-tight text-white whitespace-pre-line" style={{ fontWeight: 900 }}>
             {t("overview.hero.title")}
           </h1>
           <p className="mt-5 text-sm sm:text-base leading-[1.9] max-w-2xl mx-auto text-white/60 whitespace-pre-line">
