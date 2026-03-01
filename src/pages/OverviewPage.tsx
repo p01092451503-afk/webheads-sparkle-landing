@@ -246,15 +246,15 @@ export default function OverviewPage() {
 
           {/* AI Features */}
           <div className="mb-10">
-            <h3 className="font-bold text-sm text-foreground mb-4 flex items-center gap-2">
-              <Bot className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
+            <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
+              <Bot className="w-5 h-5" style={{ color: "hsl(255,75%,58%)" }} />
               {t("lms.aiSection.title").replace(/\n/g, " ")}
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {aiFeatures.map((f, i) => (
-                <div key={i} className="rounded-xl p-4 bg-white border border-border">
-                  <h4 className="font-bold text-xs text-foreground mb-1">{f.title}</h4>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">{f.desc}</p>
+                <div key={i} className="rounded-xl p-5 bg-white border border-border">
+                  <h4 className="font-bold text-sm text-foreground mb-1.5">{f.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
               ))}
             </div>
