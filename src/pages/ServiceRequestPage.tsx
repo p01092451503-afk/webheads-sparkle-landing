@@ -151,12 +151,10 @@ export default function ServiceRequestPage() {
                   원격지원 요청
                 </button>
               </div>
-
-              {/* Remote support notice */}
               {requestType === "remote_support" && (
-                <div className="rounded-lg px-4 py-3 bg-muted/80 border border-border text-xs leading-relaxed text-muted-foreground">
-                  💡 원격지원 요청 접수 후, 웹헤즈가 카테노이드에 지원을 재접수하는 절차를 거칩니다. 확인 완료 후 담당자가 연락드립니다.
-                </div>
+                <p className="text-xs text-muted-foreground -mt-2">
+                  원격지원 요청 접수 후, 웹헤즈가 카테노이드에 지원을 재접수하는 절차를 거칩니다. 확인 완료 후 담당자가 연락드립니다.
+                </p>
               )}
 
               {/* Company + Name */}
