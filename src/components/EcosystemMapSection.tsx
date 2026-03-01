@@ -171,7 +171,11 @@ export default function EcosystemMapSection() {
                     strokeDasharray={allInstalled || isHovered ? "none" : "6 4"}
                     opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
                     markerEnd={`url(#arrow-${i})`}
-                    style={{ transition: "all 0.3s ease" }}
+                    style={{
+                      transition: "all 0.3s ease",
+                      strokeDashoffset: isInstalled ? 0 : 200,
+                      strokeDasharray: isInstalled ? (allInstalled || isHovered ? "none" : "6 4") : "200",
+                    }}
                   />
                 );
               })}
