@@ -414,7 +414,7 @@ export default function OverviewPage() {
       ═══════════════════════════════════════════════ */}
       <section className="relative py-16 overflow-hidden">
         <HeroPatternBg theme="blue-purple" />
-        <div className="container mx-auto px-6 max-w-3xl text-center">
+        <div className="container mx-auto px-6 max-w-3xl text-center relative z-10">
           <h2 className="text-xl lg:text-2xl font-bold tracking-tight text-white mb-4">{t("overview.whyTitle")}</h2>
           <p className="text-sm leading-relaxed text-white/60 whitespace-pre-line mb-8">{t("overview.whyDesc")}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left max-w-xl mx-auto">
