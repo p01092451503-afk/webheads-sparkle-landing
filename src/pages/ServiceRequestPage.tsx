@@ -76,6 +76,16 @@ export default function ServiceRequestPage() {
       </Helmet>
       <section className="py-24 bg-background min-h-screen">
         <div className="container mx-auto px-6 max-w-2xl">
+          {/* Logo */}
+          <div className="mb-12">
+            <Link
+              to="/"
+              className="text-foreground tracking-tight"
+              style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic", letterSpacing: "-0.04em" }}
+            >
+              WEBHEADS.
+            </Link>
+          </div>
           {/* Header */}
           <div className="text-center mb-10">
             <h1
