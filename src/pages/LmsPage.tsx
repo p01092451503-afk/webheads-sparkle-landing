@@ -63,19 +63,62 @@ export default function LmsPage() {
         breadcrumb={[{ name: "LMS", url: `${BASE_URL}/lms` }]}
         jsonLd={{
           "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          "name": `${t("lms.seo.title")} - Webheads`,
-          "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" },
-          "description": t("lms.seo.description"),
-          "applicationCategory": "LMS",
-          "url": `${BASE_URL}/lms`,
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "300",
-            "bestRating": "5",
-            "worstRating": "1"
-          }
+          "@graph": [
+            {
+              "@type": "SoftwareApplication",
+              "@id": `${BASE_URL}/lms#software`,
+              "name": "웹헤즈 LMS",
+              "applicationCategory": "EducationalApplication",
+              "operatingSystem": "Web, iOS, Android",
+              "offers": [
+                {
+                  "@type": "Offer",
+                  "name": "클라우드형(AI) - Starter",
+                  "price": "0",
+                  "priceCurrency": "KRW",
+                  "description": "도입 상담 후 맞춤 견적 제공",
+                  "url": `${BASE_URL}/lms`
+                }
+              ],
+              "featureList": [
+                "멀티 디바이스 지원 (PC, 태블릿, 모바일)",
+                "AI 기반 학습 분석",
+                "다국어 지원 (11개 언어)",
+                "KDT 정부지원훈련 인증",
+                "24/7 고객 지원"
+              ],
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "reviewCount": "300"
+              },
+              "provider": {
+                "@id": `${BASE_URL}/#organization`
+              }
+            },
+            {
+              "@type": "Product",
+              "name": "웹헤즈 LMS 구독",
+              "description": "이러닝 플랫폼 구축 및 운영을 위한 학습 관리 시스템",
+              "brand": {
+                "@type": "Brand",
+                "name": "웹헤즈 (Webheads)"
+              },
+              "offers": {
+                "@type": "AggregateOffer",
+                "priceCurrency": "KRW",
+                "offerCount": "3",
+                "lowPrice": "0",
+                "description": "클라우드형, 구축형, SaaS형 3가지 요금제"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "reviewCount": "300",
+                "bestRating": "5"
+              }
+            }
+          ]
         }}
         faqJsonLd={faqs}
       />
