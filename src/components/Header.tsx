@@ -24,6 +24,8 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
+  const isLightPage = location.pathname === "/service-request";
+  const effectiveScrolled = scrolled || isLightPage;
 
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
@@ -47,7 +49,7 @@ export default function Header() {
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
-          scrolled
+          effectiveScrolled
             ? "bg-white/98 backdrop-blur-xl shadow-sm"
             : "bg-transparent"
         }`}
@@ -57,7 +59,7 @@ export default function Header() {
             {/* Logo */}
             <Link
               to="/lms"
-              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${scrolled ? "text-[hsl(230,25%,15%)]" : "text-white"}`}
+              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${effectiveScrolled ? "text-[hsl(230,25%,15%)]" : "text-white"}`}
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}
@@ -74,8 +76,8 @@ export default function Header() {
                     className={`
                       relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-medium rounded-lg transition-colors duration-200
                       ${isActive
-                        ? scrolled ? "text-foreground underline underline-offset-4 decoration-2" : "text-white underline underline-offset-4 decoration-2"
-                        : scrolled ? "text-foreground hover:bg-gray-100" : "text-white hover:bg-white/10"
+                        ? effectiveScrolled ? "text-foreground underline underline-offset-4 decoration-2" : "text-white underline underline-offset-4 decoration-2"
+                        : effectiveScrolled ? "text-foreground hover:bg-gray-100" : "text-white hover:bg-white/10"
                       }
                     `}
                   >
@@ -87,12 +89,12 @@ export default function Header() {
 
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
-              <LanguageSwitcher scrolled={scrolled} />
+              <LanguageSwitcher scrolled={effectiveScrolled} />
               {location.pathname === "/service-request" ? (
                 <Link
                   to="/"
                   className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
-                    scrolled
+                    effectiveScrolled
                       ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
                       : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
                   }`}
@@ -103,7 +105,7 @@ export default function Header() {
                 <a
                   href="#contact"
                   className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
-                    scrolled
+                    effectiveScrolled
                       ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
                       : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
                   }`}
@@ -115,7 +117,7 @@ export default function Header() {
 
             {/* Mobile toggle */}
             <button
-              className={`lg:hidden ml-auto p-2 transition-colors ${scrolled ? "text-gray-500 hover:text-gray-800" : "text-white/80 hover:text-white"}`}
+              className={`lg:hidden ml-auto p-2 transition-colors ${effectiveScrolled ? "text-gray-500 hover:text-gray-800" : "text-white/80 hover:text-white"}`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
             >
