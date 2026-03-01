@@ -64,7 +64,7 @@ export default function ChannelPage() {
       <ServiceMidCTA heading={t("channel.midCTA.heading")} description={t("channel.midCTA.description")} />
 
       {/* Use Cases */}
-      <section id="usecases" className="py-28 bg-secondary">
+      <section id="cases" className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("channel.useCasesSection.sub")}</p>
