@@ -209,7 +209,29 @@ export default function ServiceRequestPage() {
               {/* Conditional fields */}
               {requestType === "sms_recharge" && (
                 <>
-                  <FieldLabel label="충전 금액" required>
+                  {/* Unit toggle */}
+                  <div className="flex rounded-lg p-1 gap-1 bg-muted">
+                    <button
+                      type="button"
+                      onClick={() => { setRechargeUnit("amount"); setForm({ ...form, amount: "" }); setIsCustomAmount(false); }}
+                      className={`flex-1 py-2 rounded-md text-xs font-bold transition-all duration-200 ${
+                        rechargeUnit === "amount" ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
+                      }`}
+                    >
+                      금액으로 충전
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setRechargeUnit("count"); setForm({ ...form, amount: "" }); setIsCustomAmount(false); }}
+                      className={`flex-1 py-2 rounded-md text-xs font-bold transition-all duration-200 ${
+                        rechargeUnit === "count" ? "bg-background text-primary shadow-sm" : "text-muted-foreground"
+                      }`}
+                    >
+                      건수로 충전
+                    </button>
+                  </div>
+
+                  <FieldLabel label={rechargeUnit === "amount" ? "충전 금액" : "충전 건수"} required>
                     <div className="relative">
                       <select
                         value={isCustomAmount ? "custom" : form.amount}
@@ -224,9 +246,9 @@ export default function ServiceRequestPage() {
                         }}
                         className={`${inputBase} ${inputFocus} appearance-none pr-10 cursor-pointer`}
                       >
-                        <option value="">충전 금액을 선택해주세요</option>
-                        {SMS_AMOUNTS.map((a) => (
-                          <option key={a} value={a}>{a}</option>
+                        <option value="">{rechargeUnit === "amount" ? "충전 금액을 선택해주세요" : "충전 건수를 선택해주세요"}</option>
+                        {(rechargeUnit === "amount" ? SMS_AMOUNTS : SMS_COUNTS).map((v) => (
+                          <option key={v} value={v}>{v}</option>
                         ))}
                         <option value="custom">직접 입력</option>
                       </select>
@@ -234,11 +256,11 @@ export default function ServiceRequestPage() {
                     </div>
                   </FieldLabel>
                   {isCustomAmount && (
-                    <FieldLabel label="금액 직접 입력" required>
+                    <FieldLabel label={rechargeUnit === "amount" ? "금액 직접 입력" : "건수 직접 입력"} required>
                       <input
                         type="text"
                         required
-                        placeholder="예: 100,000원"
+                        placeholder={rechargeUnit === "amount" ? "예: 100,000원" : "예: 200,000건"}
                         value={form.amount}
                         onChange={(e) => setForm({ ...form, amount: e.target.value })}
                         className={`${inputBase} ${inputFocus}`}
