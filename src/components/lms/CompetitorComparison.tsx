@@ -64,34 +64,6 @@ export default function CompetitorComparison() {
           </div>
         </div>
 
-        {/* Differentiation Cards */}
-        <div className="mt-10">
-          <h3 className="font-bold text-foreground text-xl lg:text-2xl mb-2 tracking-tight">{t("lms.competitorTable.diffTitle")}</h3>
-          <p className="text-muted-foreground text-sm mb-6">{t("lms.competitorTable.diffDesc")}</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {diffItems.map((item) => (
-              <div key={item.label} className="rounded-xl border border-border bg-background p-5 text-center hover:shadow-sm transition-shadow">
-                <div className="inline-flex items-center justify-center w-9 h-9 rounded-lg mb-3" style={{ background: "hsl(var(--lms-primary) / 0.1)" }}>
-                  <Zap className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
-                </div>
-                <p className="text-xs text-muted-foreground mb-1">{item.label}</p>
-                <p className="text-2xl font-bold tracking-tight mb-1" style={{ color: "hsl(var(--lms-primary))" }}>{item.value}</p>
-                <p className="text-xs text-muted-foreground" style={{ wordBreak: "keep-all" }}>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8 text-center">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
-            style={{ background: "hsl(var(--lms-primary))" }}
-          >
-            {t("lms.competitorTable.cta")}
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
       </div>
     </section>
   );
