@@ -63,8 +63,8 @@ export default function Footer() {
               {/* Customer Center */}
               <div className="flex flex-col gap-2">
                 <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.customerCenter")}</p>
-                <p className="text-[14px] font-bold text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.newPhone")}</p>
-                <p className="text-[14px] font-bold text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.maintenancePhone")}</p>
+                <p className="text-[14px] font-normal text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.newPhone")}</p>
+                <p className="text-[14px] font-normal text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.maintenancePhone")}</p>
               </div>
 
             </div>
