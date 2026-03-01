@@ -15,6 +15,7 @@ interface ContactFormData {
   service: string;
   message: string;
   inquiryType?: "consultation" | "demo";
+  session_id?: string;
 }
 
 serve(async (req) => {
