@@ -149,6 +149,13 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, {} as Record<string, number>);
   const topReferrers = Object.entries(referrerCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
+  const maskIp = (ip: string) => {
+    if (ip === "알 수 없음") return ip;
+    const parts = ip.split(".");
+    if (parts.length === 4) return `${parts[0]}.${parts[1]}.${parts[2]}.***`;
+    return ip.replace(/:[\da-f]{1,4}$/i, ":***");
+  };
+
   const ipWithLocation = useMemo(() => {
     const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null }> = {};
     filteredViews.forEach((v) => {
@@ -160,7 +167,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (!ipMap[ip].lastVisit || v.created_at > ipMap[ip].lastVisit!) ipMap[ip].lastVisit = v.created_at;
     });
     return Object.entries(ipMap)
-      .map(([ip, d]) => ({ ip, count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
+      .map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
       .sort((a, b) => b.count - a.count);
   }, [filteredViews]);
 
