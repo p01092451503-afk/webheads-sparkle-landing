@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { CheckCircle2, XCircle, MinusCircle } from "lucide-react";
 
 function StatusIcon({ value }: { value: string }) {
