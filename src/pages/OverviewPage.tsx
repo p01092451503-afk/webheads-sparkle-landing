@@ -462,10 +462,10 @@ export default function OverviewPage() {
           </h2>
           <p className="text-sm text-muted-foreground mb-8 whitespace-pre-line">{t("overview.cta.desc")}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="/lms#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all text-white hover:opacity-90" style={{ background: "hsl(255,75%,58%)" }}>
+            <Link to="/lms#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all text-white hover:opacity-90" style={{ background: "hsl(255,75%,58%)" }}>
               {t("overview.cta.btn1")}
               <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
             <a href="tel:02-336-4338" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all border border-border text-foreground hover:bg-secondary">
               <Phone className="w-4 h-4" />
               {t("overview.cta.btn2")}
