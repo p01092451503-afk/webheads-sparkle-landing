@@ -49,7 +49,7 @@ export default function Header() {
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
-          scrolled
+          effectiveScrolled
             ? "bg-white/98 backdrop-blur-xl shadow-sm"
             : "bg-transparent"
         }`}
