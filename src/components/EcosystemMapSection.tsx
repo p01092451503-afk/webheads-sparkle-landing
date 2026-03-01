@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 
 import {
   Server, Video, ShieldCheck, Bot, Smartphone, CreditCard,
-  MessageSquareMore, Wrench, GraduationCap, ArrowRight
+  MessageSquareMore, Wrench, GraduationCap, ArrowRight,
+  BookOpen, Award, Target, Monitor, Cloud, Settings,
+  Wifi, ChevronRight, Zap, BarChart3
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -18,38 +20,54 @@ const serviceConfig: { key: string; path: string; accent: string; icon: LucideIc
   { key: "maintenance", path: "/maintenance", accent: "hsl(150, 55%, 40%)", icon: Wrench },
 ];
 
-const NODE_RADIUS = 180;
-const CENTER = { x: 250, y: 250 };
-const nodePositions = serviceConfig.map((_, i) => {
-  const angle = (i * 2 * Math.PI) / 8 - Math.PI / 2;
-  return {
-    x: CENTER.x + NODE_RADIUS * Math.cos(angle),
-    y: CENTER.y + NODE_RADIUS * Math.sin(angle),
-  };
-});
+// Scattered positions for a wide landscape layout (viewBox 900x500)
+// LMS center at 450, 250
+const VIEWBOX = { w: 900, h: 500 };
+const LMS_CENTER = { x: 450, y: 250 };
 
-function shortenLine(
-  p1: { x: number; y: number },
-  p2: { x: number; y: number },
-  startInset: number,
-  endInset: number
-) {
-  const dx = p2.x - p1.x;
-  const dy = p2.y - p1.y;
-  const len = Math.sqrt(dx * dx + dy * dy);
-  if (len === 0) return { x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y };
-  const ux = dx / len;
-  const uy = dy / len;
-  return {
-    x1: p1.x + ux * startInset,
-    y1: p1.y + uy * startInset,
-    x2: p2.x - ux * endInset,
-    y2: p2.y - uy * endInset,
-  };
-}
+// Service node positions - scattered organically around the center
+const scatteredPositions = [
+  { x: 450, y: 52 },   // hosting - top center
+  { x: 760, y: 80 },   // content - top right
+  { x: 820, y: 270 },  // drm - right
+  { x: 700, y: 420 },  // chatbot - bottom right
+  { x: 450, y: 450 },  // app - bottom center
+  { x: 200, y: 420 },  // pg - bottom left
+  { x: 80, y: 270 },   // channel - left
+  { x: 140, y: 80 },   // maintenance - top left
+];
 
-const HUB_RADIUS = 56;
-const NODE_HALF = 36;
+// Decorative icon positions (small ambient icons like in the reference)
+const decoIcons: { Icon: LucideIcon; x: number; y: number; size: number; opacity: number; rotate?: number }[] = [
+  { Icon: BookOpen, x: 100, y: 170, size: 18, opacity: 0.15 },
+  { Icon: Award, x: 780, y: 170, size: 20, opacity: 0.15 },
+  { Icon: Target, x: 310, y: 60, size: 16, opacity: 0.12 },
+  { Icon: Monitor, x: 600, y: 450, size: 18, opacity: 0.12 },
+  { Icon: Cloud, x: 320, y: 430, size: 16, opacity: 0.12 },
+  { Icon: Settings, x: 580, y: 60, size: 18, opacity: 0.15, rotate: 15 },
+  { Icon: Wifi, x: 50, y: 400, size: 14, opacity: 0.1 },
+  { Icon: BarChart3, x: 850, y: 400, size: 16, opacity: 0.1 },
+  { Icon: Zap, x: 250, y: 180, size: 14, opacity: 0.1 },
+  { Icon: ChevronRight, x: 650, y: 180, size: 14, opacity: 0.1, rotate: -45 },
+];
+
+// Dashed grid-line segments for ambient decoration
+const gridLines = [
+  // Horizontal segments
+  "M 60 120 L 280 120", "M 620 120 L 840 120",
+  "M 60 380 L 280 380", "M 620 380 L 840 380",
+  "M 200 200 L 340 200", "M 560 200 L 700 200",
+  "M 200 300 L 340 300", "M 560 300 L 700 300",
+  // Vertical segments
+  "M 200 60 L 200 160", "M 700 60 L 700 160",
+  "M 200 340 L 200 440", "M 700 340 L 700 440",
+  "M 350 100 L 350 190", "M 550 100 L 550 190",
+  "M 350 310 L 350 400", "M 550 310 L 550 400",
+  // Diagonal accents
+  "M 130 130 L 170 90", "M 730 130 L 770 90",
+  "M 130 370 L 170 410", "M 730 370 L 770 410",
+];
+
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
 export default function EcosystemMapSection() {
@@ -58,7 +76,6 @@ export default function EcosystemMapSection() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // -1 = waiting, 0 = hub visible, 1-8 = nodes appearing, 9 = done
   const [phase, setPhase] = useState(-1);
   const [hasPlayed, setHasPlayed] = useState(false);
 
@@ -109,7 +126,7 @@ export default function EcosystemMapSection() {
 
   return (
     <section className="py-20" style={{ background: "var(--lms-section-alt)" }}>
-      <div className="container mx-auto px-6 max-w-5xl">
+      <div className="container mx-auto px-6 max-w-6xl">
         <div className="mb-10">
           <p
             className="text-sm font-semibold tracking-widest uppercase mb-4"
@@ -128,90 +145,151 @@ export default function EcosystemMapSection() {
           </p>
         </div>
 
-        {/* Desktop */}
+        {/* Desktop - Scattered infographic layout */}
         <div className="hidden md:block" ref={containerRef}>
-          <div className="relative mx-auto" style={{ width: 500, height: 500 }}>
-            {/* SVG lines */}
+          <div className="relative mx-auto w-full" style={{ maxWidth: 900, aspectRatio: "900 / 500" }}>
             <svg
-              viewBox="0 0 500 500"
+              viewBox={`0 0 ${VIEWBOX.w} ${VIEWBOX.h}`}
               className="absolute inset-0 w-full h-full"
               style={{ pointerEvents: "none" }}
             >
-              <defs>
-                {serviceConfig.map((svc, i) => (
-                  <marker
-                    key={`arrow-${i}`}
-                    id={`arrow-${i}`}
-                    viewBox="0 0 10 8"
-                    refX="10"
-                    refY="4"
-                    markerWidth="8"
-                    markerHeight="6"
-                    orient="auto"
-                  >
-                    <path d="M0,0 L10,4 L0,8 Z" fill={hoveredIdx === i ? svc.accent : allInstalled ? svc.accent : "hsl(var(--border))"} opacity={hoveredIdx === i ? 1 : allInstalled ? 0.5 : 0.8} />
-                  </marker>
+              {/* Ambient grid lines (dashed, very subtle) */}
+              <g opacity={allInstalled ? 0.25 : 0.15} style={{ transition: "opacity 1s ease" }}>
+                {gridLines.map((d, i) => (
+                  <path
+                    key={`grid-${i}`}
+                    d={d}
+                    stroke="hsl(var(--border))"
+                    strokeWidth="1"
+                    strokeDasharray="6 6"
+                    fill="none"
+                  />
                 ))}
-              </defs>
-              {nodePositions.map((pos, i) => {
+              </g>
+
+              {/* Decorative small dots at intersections */}
+              {[
+                [200, 120], [700, 120], [200, 380], [700, 380],
+                [350, 200], [550, 200], [350, 300], [550, 300],
+              ].map(([cx, cy], i) => (
+                <circle
+                  key={`dot-${i}`}
+                  cx={cx} cy={cy} r={2.5}
+                  fill="hsl(var(--border))"
+                  opacity={allInstalled ? 0.4 : 0.2}
+                  style={{ transition: "opacity 1s ease" }}
+                />
+              ))}
+
+              {/* Connection lines from LMS center to each service */}
+              {scatteredPositions.map((pos, i) => {
                 const isInstalled = installedSet.has(i);
                 const isHovered = hoveredIdx === i && isInstalled;
                 if (!isInstalled) return null;
-                const sl = shortenLine(CENTER, pos, HUB_RADIUS, NODE_HALF);
+
+                const dx = pos.x - LMS_CENTER.x;
+                const dy = pos.y - LMS_CENTER.y;
+                const len = Math.sqrt(dx * dx + dy * dy);
+                const ux = dx / len;
+                const uy = dy / len;
+                const x1 = LMS_CENTER.x + ux * 52;
+                const y1 = LMS_CENTER.y + uy * 52;
+                const x2 = pos.x - ux * 28;
+                const y2 = pos.y - uy * 28;
 
                 return (
                   <line
-                    key={i}
-                    x1={sl.x1}
-                    y1={sl.y1}
-                    x2={sl.x2}
-                    y2={sl.y2}
-                    stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
-                    strokeWidth={isHovered ? 2.5 : 1.5}
-                    markerEnd={`url(#arrow-${i})`}
-                    opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
-                    strokeDasharray="200"
-                    strokeDashoffset={isInstalled ? 0 : 200}
-                    style={{
-                      transition: "stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease",
-                    }}
+                    key={`line-${i}`}
+                    x1={x1} y1={y1} x2={x2} y2={y2}
+                    stroke={isHovered ? serviceConfig[i].accent : serviceConfig[i].accent}
+                    strokeWidth={isHovered ? 2 : 1.2}
+                    strokeDasharray="8 5"
+                    opacity={isHovered ? 0.8 : 0.3}
+                    style={{ transition: "opacity 0.3s ease, stroke-width 0.3s ease" }}
                   />
+                );
+              })}
+
+              {/* Small arrow markers at line ends */}
+              <defs>
+                {serviceConfig.map((svc, i) => (
+                  <marker
+                    key={`arr-${i}`}
+                    id={`arr-${i}`}
+                    viewBox="0 0 8 6"
+                    refX="8" refY="3"
+                    markerWidth="6" markerHeight="5"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L8,3 L0,6 Z" fill={svc.accent} opacity="0.5" />
+                  </marker>
+                ))}
+              </defs>
+            </svg>
+
+            {/* Decorative ambient icons */}
+            <svg
+              viewBox={`0 0 ${VIEWBOX.w} ${VIEWBOX.h}`}
+              className="absolute inset-0 w-full h-full"
+              style={{ pointerEvents: "none" }}
+            >
+              {decoIcons.map((d, i) => {
+                const Icon = d.Icon;
+                return (
+                  <foreignObject
+                    key={`deco-${i}`}
+                    x={d.x - d.size / 2}
+                    y={d.y - d.size / 2}
+                    width={d.size}
+                    height={d.size}
+                    opacity={allInstalled ? d.opacity * 1.5 : d.opacity}
+                    style={{ transition: "opacity 1s ease" }}
+                  >
+                    <div style={{ transform: d.rotate ? `rotate(${d.rotate}deg)` : undefined }}>
+                      <Icon
+                        width={d.size}
+                        height={d.size}
+                        strokeWidth={1.5}
+                        className="text-muted-foreground"
+                      />
+                    </div>
+                  </foreignObject>
                 );
               })}
             </svg>
 
-            {/* Center hub */}
+            {/* Center LMS hub */}
             <div
-              className="absolute flex flex-col items-center justify-center rounded-full"
+              className="absolute flex items-center justify-center"
               style={{
-                width: 104,
-                height: 104,
-                left: CENTER.x - 52,
-                top: CENTER.y - 52,
+                width: "11.5%",
+                aspectRatio: "1",
+                left: `${(LMS_CENTER.x / VIEWBOX.w) * 100 - 5.75}%`,
+                top: `${(LMS_CENTER.y / VIEWBOX.h) * 100 - 5.75 * (VIEWBOX.w / VIEWBOX.h)}%`,
                 zIndex: 20,
                 opacity: phase >= 0 ? 1 : 0,
-                transform: phase >= 0 ? "scale(1)" : "scale(0.8)",
+                transform: phase >= 0 ? "scale(1)" : "scale(0.7)",
                 transition: "opacity 0.5s ease, transform 0.5s ease",
               }}
             >
               <div
-                className="absolute inset-0 rounded-full flex flex-col items-center justify-center shadow-lg"
+                className="w-full h-full rounded-full flex flex-col items-center justify-center shadow-xl"
                 style={{
                   background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 38%))",
                   boxShadow: allInstalled
-                    ? "0 0 24px 4px hsl(245, 65%, 55% / 0.3)"
-                    : "0 4px 12px -2px hsl(245, 65%, 40% / 0.3)",
+                    ? "0 0 30px 6px hsl(245, 65%, 55% / 0.25)"
+                    : "0 4px 16px -4px hsl(245, 65%, 40% / 0.3)",
                   transition: "box-shadow 0.8s ease",
                 }}
               >
-                <GraduationCap className="w-10 h-10 text-white mb-1" strokeWidth={2} />
-                <span className="text-sm font-extrabold text-white tracking-wide">LMS</span>
+                <GraduationCap className="w-8 h-8 lg:w-10 lg:h-10 text-white mb-0.5" strokeWidth={2} />
+                <span className="text-xs lg:text-sm font-extrabold text-white tracking-wider">LMS</span>
               </div>
             </div>
 
-            {/* Service nodes */}
+            {/* Service nodes - scattered with icon + label */}
             {serviceConfig.map((svc, i) => {
-              const pos = nodePositions[i];
+              const pos = scatteredPositions[i];
               const data = services?.[i];
               if (!data) return null;
               const Icon = svc.icon;
@@ -221,76 +299,89 @@ export default function EcosystemMapSection() {
               return (
                 <div
                   key={svc.key}
+                  className="absolute flex flex-col items-center"
                   style={{
-                    position: "absolute",
-                    left: pos.x - 44,
-                    top: pos.y - 44,
+                    left: `${(pos.x / VIEWBOX.w) * 100}%`,
+                    top: `${(pos.y / VIEWBOX.h) * 100}%`,
+                    transform: `translate(-50%, -50%) ${isInstalled ? "scale(1)" : "scale(0.6)"}`,
                     zIndex: isHovered ? 90 : 10,
                     opacity: isInstalled ? 1 : 0,
-                    transform: isInstalled ? "translateY(0)" : "translateY(12px)",
-                    transition: "opacity 0.35s ease, transform 0.35s ease",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                    cursor: "pointer",
                   }}
                   onMouseEnter={() => handleMouseEnter(i)}
                   onMouseLeave={handleMouseLeave}
                 >
+                  {/* Icon container with accent-tinted background */}
                   <div
-                    className="relative flex flex-col items-center justify-center cursor-pointer group"
+                    className="flex items-center justify-center rounded-xl mb-1.5"
                     style={{
-                      transform: isHovered ? "scale(1.15)" : "scale(1)",
-                      transition: "transform 0.25s ease",
+                      width: 44,
+                      height: 44,
+                      background: isHovered
+                        ? `${svc.accent.replace(")", " / 0.15)")}`
+                        : `${svc.accent.replace(")", " / 0.08)")}`,
+                      border: `1.5px solid ${svc.accent.replace(")", " / 0.25)")}`,
+                      transform: isHovered ? "scale(1.12)" : "scale(1)",
+                      transition: "all 0.25s ease",
                     }}
                   >
                     <Icon
-                      className="w-8 h-8 mb-1.5"
+                      className="w-5 h-5 lg:w-6 lg:h-6"
                       style={{ color: svc.accent }}
-                      strokeWidth={1.8}
+                      strokeWidth={2}
                     />
-                    <span
-                      className="text-[11px] font-bold leading-tight text-center px-1 text-foreground"
-                    >
-                      {data.name}
-                    </span>
                   </div>
+                  <span
+                    className="text-[11px] lg:text-xs font-bold text-foreground text-center leading-tight whitespace-nowrap"
+                  >
+                    {data.name}
+                  </span>
 
-                  {/* Tooltip */}
-                  {hoveredIdx === i && isInstalled && (() => {
-                    const dx = pos.x - CENTER.x;
-                    const dy = pos.y - CENTER.y;
-                    const outward = { x: dx / Math.abs(dx || 1), y: dy / Math.abs(dy || 1) };
+                  {/* Tooltip on hover */}
+                  {isHovered && (() => {
+                    const isTop = pos.y < LMS_CENTER.y;
+                    const isLeft = pos.x < LMS_CENTER.x;
                     const tooltipStyle: React.CSSProperties = {
+                      position: "absolute",
                       zIndex: 100,
+                      width: 240,
                       animation: "eco-tooltip-in 0.18s ease-out",
                     };
-                    if (Math.abs(dx) > Math.abs(dy) * 0.5) {
-                      if (outward.x > 0) tooltipStyle.left = 96;
-                      else tooltipStyle.right = 96;
+                    // Position tooltip away from center
+                    if (isTop) {
+                      tooltipStyle.top = "100%";
+                      tooltipStyle.marginTop = 8;
                     } else {
-                      tooltipStyle.left = -96;
+                      tooltipStyle.bottom = "100%";
+                      tooltipStyle.marginBottom = 8;
                     }
-                    if (Math.abs(dy) > Math.abs(dx) * 0.5) {
-                      if (outward.y > 0) tooltipStyle.top = 94;
-                      else tooltipStyle.bottom = 94;
+                    if (isLeft) {
+                      tooltipStyle.left = "50%";
+                      tooltipStyle.transform = "translateX(-30%)";
                     } else {
-                      tooltipStyle.top = -20;
+                      tooltipStyle.right = "50%";
+                      tooltipStyle.transform = "translateX(30%)";
                     }
+
                     return (
                       <div
-                        className="absolute w-64 rounded-2xl p-5 shadow-2xl border border-border/50 bg-background"
+                        className="rounded-2xl p-4 shadow-2xl border border-border/50 bg-background"
                         style={tooltipStyle}
                       >
-                        <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                        <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
                           Problem
                         </p>
-                        <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                        <p className="text-xs text-foreground leading-relaxed mb-2.5" style={{ wordBreak: "keep-all" }}>
                           {data.problem}
                         </p>
-                        <p className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: svc.accent }}>
+                        <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
                           Solution
                         </p>
-                        <p className="text-sm text-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>
+                        <p className="text-xs text-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
                           {data.solution}
                         </p>
-                        <span className="inline-flex items-center gap-1 text-xs font-bold" style={{ color: svc.accent }}>
+                        <span className="inline-flex items-center gap-1 text-[10px] font-bold" style={{ color: svc.accent }}>
                           {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
                           <ArrowRight className="w-3 h-3" />
                         </span>
