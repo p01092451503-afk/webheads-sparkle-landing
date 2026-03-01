@@ -200,44 +200,44 @@ export default function ServiceRequestPage() {
 
               {/* Conditional fields */}
               {requestType === "sms_recharge" && (
-                <FieldLabel label="충전 금액" required>
-                  <div className="relative">
-                    <select
-                      required={form.amount === "" && !form.amount}
-                      value={SMS_AMOUNTS.includes(form.amount) ? form.amount : (form.amount ? "custom" : "")}
-                      onChange={(e) => {
-                        if (e.target.value === "custom") {
-                          setForm({ ...form, amount: "" });
-                        } else {
-                          setForm({ ...form, amount: e.target.value });
-                        }
-                      }}
-                      className={`${inputBase} ${inputFocus} appearance-none pr-10 cursor-pointer`}
-                    >
-                      <option value="">충전 금액을 선택해주세요</option>
-                      {SMS_AMOUNTS.map((a) => (
-                        <option key={a} value={a}>{a}</option>
-                      ))}
-                      <option value="custom">직접 입력</option>
-                    </select>
-                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
-                  </div>
-                  {!SMS_AMOUNTS.includes(form.amount) && form.amount !== "" || (document.querySelector<HTMLSelectElement>('[data-custom-amount]')?.value === "custom") ? null : null}
-                  {(() => {
-                    const selectVal = SMS_AMOUNTS.includes(form.amount) ? form.amount : (form.amount !== undefined ? "custom" : "");
-                    if (selectVal === "custom" || (!SMS_AMOUNTS.includes(form.amount) && form.amount !== "")) {
-                      return null;
-                    }
-                    return null;
-                  })()}
-                </FieldLabel>
-              )}
-              {requestType === "sms_recharge" && !SMS_AMOUNTS.includes(form.amount) && (
-                (() => {
-                  const selectEl = document.querySelector('select');
-                  const isCustom = selectEl && selectEl.value === "custom";
-                  return null;
-                })()
+                <>
+                  <FieldLabel label="충전 금액" required>
+                    <div className="relative">
+                      <select
+                        value={isCustomAmount ? "custom" : form.amount}
+                        onChange={(e) => {
+                          if (e.target.value === "custom") {
+                            setIsCustomAmount(true);
+                            setForm({ ...form, amount: "" });
+                          } else {
+                            setIsCustomAmount(false);
+                            setForm({ ...form, amount: e.target.value });
+                          }
+                        }}
+                        className={`${inputBase} ${inputFocus} appearance-none pr-10 cursor-pointer`}
+                      >
+                        <option value="">충전 금액을 선택해주세요</option>
+                        {SMS_AMOUNTS.map((a) => (
+                          <option key={a} value={a}>{a}</option>
+                        ))}
+                        <option value="custom">직접 입력</option>
+                      </select>
+                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
+                    </div>
+                  </FieldLabel>
+                  {isCustomAmount && (
+                    <FieldLabel label="금액 직접 입력" required>
+                      <input
+                        type="text"
+                        required
+                        placeholder="예: 100,000원"
+                        value={form.amount}
+                        onChange={(e) => setForm({ ...form, amount: e.target.value })}
+                        className={`${inputBase} ${inputFocus}`}
+                      />
+                    </FieldLabel>
+                  )}
+                </>
               )}
 
               {requestType === "remote_support" && (
