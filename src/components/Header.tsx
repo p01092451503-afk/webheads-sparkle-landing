@@ -76,8 +76,8 @@ export default function Header() {
                     className={`
                       relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-medium rounded-lg transition-colors duration-200
                       ${isActive
-                        ? scrolled ? "text-foreground underline underline-offset-4 decoration-2" : "text-white underline underline-offset-4 decoration-2"
-                        : scrolled ? "text-foreground hover:bg-gray-100" : "text-white hover:bg-white/10"
+                        ? effectiveScrolled ? "text-foreground underline underline-offset-4 decoration-2" : "text-white underline underline-offset-4 decoration-2"
+                        : effectiveScrolled ? "text-foreground hover:bg-gray-100" : "text-white hover:bg-white/10"
                       }
                     `}
                   >
