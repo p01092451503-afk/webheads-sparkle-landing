@@ -216,14 +216,12 @@ export default function EcosystemMapSection() {
                   <button
                     className="relative w-[88px] h-[88px] rounded-2xl flex flex-col items-center justify-center cursor-pointer group"
                     style={{
-                      background: isHovered
-                        ? svc.accent
-                        : "linear-gradient(145deg, var(--background) 0%, hsl(var(--muted)) 100%)",
-                      border: `1px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
-                      boxShadow: isHovered
-                        ? `0 8px 24px -4px ${svc.accent}55, 0 2px 6px -1px ${svc.accent}30`
-                        : "0 4px 12px -3px hsl(var(--foreground) / 0.1), 0 1px 3px -1px hsl(var(--foreground) / 0.06), inset 0 1px 0 0 hsl(var(--background) / 0.8)",
-                      transform: isHovered ? "scale(1.08) translateY(-2px)" : "scale(1)",
+                       background: isHovered ? svc.accent : "var(--background)",
+                       border: `1px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
+                       boxShadow: isHovered
+                         ? `0 8px 20px -4px ${svc.accent}44, 0 2px 6px -2px ${svc.accent}30`
+                         : "0 4px 14px -4px hsl(var(--foreground) / 0.12), 0 1px 4px -1px hsl(var(--foreground) / 0.08)",
+                       transform: isHovered ? "scale(1.08)" : "scale(1)",
                       transition: "all 0.25s ease",
                     }}
                     onClick={() => navigate(svc.path)}
