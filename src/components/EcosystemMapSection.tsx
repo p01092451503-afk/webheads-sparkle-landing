@@ -168,13 +168,12 @@ export default function EcosystemMapSection() {
                     y2={sl.y2}
                     stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
                     strokeWidth={isHovered ? 2.5 : 1.5}
-                    strokeDasharray={allInstalled || isHovered ? "none" : "6 4"}
-                    opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
                     markerEnd={`url(#arrow-${i})`}
+                    opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
+                    strokeDasharray="200"
+                    strokeDashoffset={isInstalled ? 0 : 200}
                     style={{
-                      transition: "all 0.3s ease",
-                      strokeDashoffset: isInstalled ? 0 : 200,
-                      strokeDasharray: isInstalled ? (allInstalled || isHovered ? "none" : "6 4") : "200",
+                      transition: "stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease",
                     }}
                   />
                 );
