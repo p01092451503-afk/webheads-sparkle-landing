@@ -192,10 +192,10 @@ export default function EcosystemMapSection() {
                 const len = Math.sqrt(dx * dx + dy * dy);
                 const ux = dx / len;
                 const uy = dy / len;
-                const x1 = LMS_CENTER.x + ux * 52;
-                const y1 = LMS_CENTER.y + uy * 52;
-                const x2 = pos.x - ux * 28;
-                const y2 = pos.y - uy * 28;
+                const x1 = LMS_CENTER.x + ux * 58;
+                const y1 = LMS_CENTER.y + uy * 58;
+                const x2 = pos.x - ux * 42;
+                const y2 = pos.y - uy * 42;
 
                 return (
                   <line
