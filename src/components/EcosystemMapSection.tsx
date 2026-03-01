@@ -28,6 +28,30 @@ const nodePositions = serviceConfig.map((_, i) => {
   };
 });
 
+// Shorten a line segment so it starts `startInset` from p1 and ends `endInset` from p2
+function shortenLine(
+  p1: { x: number; y: number },
+  p2: { x: number; y: number },
+  startInset: number,
+  endInset: number
+) {
+  const dx = p2.x - p1.x;
+  const dy = p2.y - p1.y;
+  const len = Math.sqrt(dx * dx + dy * dy);
+  if (len === 0) return { x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y };
+  const ux = dx / len;
+  const uy = dy / len;
+  return {
+    x1: p1.x + ux * startInset,
+    y1: p1.y + uy * startInset,
+    x2: p2.x - ux * endInset,
+    y2: p2.y - uy * endInset,
+  };
+}
+
+const HUB_RADIUS = 52;
+const NODE_HALF = 44; // half of 88px node
+
 // Installation order (randomised feel but deterministic)
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
@@ -172,14 +196,15 @@ export default function EcosystemMapSection() {
                 const isInstalled = installedSet.has(i);
                 const isHovered = hoveredIdx === i && isInstalled;
                 if (!isInstalled) return null;
+                const sl = shortenLine(CENTER, pos, HUB_RADIUS, NODE_HALF);
 
                 return (
                   <g key={i}>
                     <line
-                      x1={CENTER.x}
-                      y1={CENTER.y}
-                      x2={pos.x}
-                      y2={pos.y}
+                      x1={sl.x1}
+                      y1={sl.y1}
+                      x2={sl.x2}
+                      y2={sl.y2}
                       stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
                       strokeWidth={isHovered ? 2.5 : allInstalled ? 2 : 1.5}
                       strokeDasharray={isHovered || allInstalled ? "none" : "6 4"}
@@ -193,10 +218,10 @@ export default function EcosystemMapSection() {
                     {/* Flow animation on hover */}
                     {isHovered && (
                       <line
-                        x1={CENTER.x}
-                        y1={CENTER.y}
-                        x2={pos.x}
-                        y2={pos.y}
+                        x1={sl.x1}
+                        y1={sl.y1}
+                        x2={sl.x2}
+                        y2={sl.y2}
                         stroke={`url(#eco-flow-grad-${i})`}
                         strokeWidth={4}
                         strokeLinecap="round"
@@ -208,7 +233,7 @@ export default function EcosystemMapSection() {
                           dur="1.4s"
                           repeatCount="indefinite"
                           begin={`${delay}s`}
-                          path={`M${CENTER.x},${CENTER.y} L${pos.x},${pos.y}`}
+                          path={`M${sl.x1},${sl.y1} L${sl.x2},${sl.y2}`}
                         />
                         <animate attributeName="opacity" values="0;0.9;0.9;0" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
                         <animate attributeName="r" values="2;3.5;2" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
