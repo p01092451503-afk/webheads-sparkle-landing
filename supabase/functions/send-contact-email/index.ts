@@ -46,6 +46,7 @@ serve(async (req) => {
       service: service || null,
       message: message || null,
       inquiry_type: inquiryType,
+      session_id: session_id || null,
     });
 
     if (dbError) {
