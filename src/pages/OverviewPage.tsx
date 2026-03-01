@@ -85,25 +85,26 @@ export default function OverviewPage() {
       />
 
       {/* ═══════════════════════════════════════════════
-          HERO — LMS Purple-Blue Theme
+          HERO — Light Gradient Theme
       ═══════════════════════════════════════════════ */}
-      <section className="relative pt-36 pb-24 overflow-hidden">
-        <HeroPatternBg theme="blue-purple" />
+      <section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(210,40%,96%) 0%, hsl(220,30%,92%) 40%, hsl(210,35%,88%) 100%)" }}>
+        {/* Subtle radial glow */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 30%, hsl(210,60%,92%,0.6), transparent)" }} />
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(0,0%,100%,0.15)", color: "hsl(0,0%,100%,0.9)", border: "1px solid hsl(0,0%,100%,0.25)" }}>
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(220,50%,30%,0.08)", color: "hsl(220,50%,35%)", border: "1px solid hsl(220,40%,50%,0.15)" }}>
             {t("overview.hero.badge")}
           </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.8] tracking-tight text-white whitespace-pre-line" style={{ fontWeight: 900 }}>
+          <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.8] tracking-tight whitespace-pre-line" style={{ fontWeight: 900, color: "hsl(220,40%,16%)" }}>
             {t("overview.hero.title")}
           </h1>
-          <p className="mt-5 text-sm sm:text-base leading-[1.9] max-w-2xl mx-auto text-white/60 whitespace-pre-line">
+          <p className="mt-5 text-sm sm:text-base leading-[1.9] max-w-2xl mx-auto whitespace-pre-line" style={{ color: "hsl(220,20%,45%)" }}>
             {t("overview.hero.desc")}
           </p>
           <div className="flex flex-wrap gap-3 justify-center mt-8">
-            <a href="#lms" className="px-6 py-3 rounded-2xl text-sm font-bold transition-all text-white hover:opacity-90" style={{ background: "hsl(0,0%,100%)", color: "hsl(255,75%,48%)" }}>
+            <a href="#lms" className="px-6 py-3 rounded-2xl text-sm font-bold transition-all hover:opacity-90" style={{ background: "hsl(220,40%,18%)", color: "hsl(0,0%,100%)" }}>
               {t("overview.hero.cta1")}
             </a>
-            <a href="#contact" className="px-6 py-3 rounded-2xl text-sm font-bold transition-all text-white hover:bg-white/20" style={{ background: "hsl(255,60%,70%,0.3)", border: "1px solid hsl(0,0%,100%,0.35)" }}>
+            <a href="#contact" className="px-6 py-3 rounded-2xl text-sm font-bold transition-all hover:bg-[hsl(220,30%,92%)]" style={{ background: "hsl(0,0%,100%)", color: "hsl(220,40%,18%)", border: "1px solid hsl(220,30%,80%)" }}>
               {t("overview.hero.cta2")}
             </a>
           </div>
