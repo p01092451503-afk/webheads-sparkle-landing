@@ -444,8 +444,6 @@ export default function LmsPage() {
       {/* Competitor Comparison */}
       <CompetitorComparison />
 
-      {/* Ecosystem Interactive Map */}
-      <EcosystemMapSection />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--lms-section-alt)" }}>
