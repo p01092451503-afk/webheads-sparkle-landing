@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 const lmsFeatureIcons = [Tablet, Bell, Lock, Wifi, BarChart3, ShieldCheck];
 const otherAppIcons = [Globe, Zap, Smartphone, Code2];
 const devStackIcons = [Smartphone, RefreshCw, Settings2];
-
+const processIcons = [Search, Palette, Code2, CheckCircle, Rocket];
 export default function AppDevPage() {
   const { t } = useTranslation();
 
