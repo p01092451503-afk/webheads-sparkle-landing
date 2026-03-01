@@ -212,24 +212,24 @@ export default function EcosystemMapSection() {
                 >
                   {/* Node */}
                   <button
-                    className="relative w-[88px] h-[88px] rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
+                    className="relative w-[68px] h-[68px] rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group"
                     style={{
                       background: isHovered ? svc.accent : "var(--background)",
-                      border: `2px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
+                      border: `1.5px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
                       boxShadow: isHovered
-                        ? `0 8px 32px -4px ${svc.accent}55`
-                        : "0 2px 8px -2px hsl(var(--foreground) / 0.06)",
+                        ? `0 6px 24px -4px ${svc.accent}55`
+                        : "0 1px 6px -2px hsl(var(--foreground) / 0.06)",
                       transform: isHovered ? "scale(1.12)" : "scale(1)",
                     }}
                     onClick={() => navigate(svc.path)}
                   >
                     <Icon
-                      className="w-8 h-8 mb-1"
+                      className="w-5.5 h-5.5 mb-0.5"
                       style={{ color: isHovered ? "#fff" : svc.accent }}
                       strokeWidth={1.8}
                     />
                     <span
-                      className="text-[11px] font-bold leading-tight text-center px-1"
+                      className="text-[9px] font-bold leading-tight text-center px-0.5"
                       style={{ color: isHovered ? "#fff" : "var(--foreground)" }}
                     >
                       {data.name}
