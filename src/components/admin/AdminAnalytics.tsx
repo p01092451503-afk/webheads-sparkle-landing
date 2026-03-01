@@ -310,23 +310,21 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const sessions = new Set(filteredViews.map((v) => v.session_id).filter(Boolean));
     const landingSessions = new Set<string>();
     const serviceSessions = new Set<string>();
-    const contactSessions = new Set<string>();
     const servicePages = ["/lms", "/hosting", "/drm", "/content", "/chatbot", "/channel", "/maintenance", "/app-dev", "/pg"];
     filteredViews.forEach((v) => {
       if (!v.session_id) return;
       if (v.page_path === "/") landingSessions.add(v.session_id);
       if (servicePages.some((p) => v.page_path.startsWith(p))) serviceSessions.add(v.session_id);
-      if (v.page_path === "/about" || v.page_path.includes("contact")) contactSessions.add(v.session_id);
     });
-    const inquirySessions = new Set(filteredInquiries.map((i: any) => i.session_id).filter(Boolean));
+    const ctaSessions = new Set(filteredClicks.filter((c) => c.session_id).map((c) => c.session_id!));
     return [
       { label: "전체 방문", count: sessions.size },
       { label: "랜딩 페이지", count: landingSessions.size },
       { label: "서비스 페이지", count: serviceSessions.size },
-      { label: "문의/소개 페이지", count: contactSessions.size },
+      { label: "CTA 클릭", count: ctaSessions.size },
       { label: "문의 제출", count: filteredInquiries.length },
     ];
-  }, [filteredViews, filteredInquiries]);
+  }, [filteredViews, filteredInquiries, filteredClicks]);
 
   const hourlyData = useMemo(() => {
     const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
