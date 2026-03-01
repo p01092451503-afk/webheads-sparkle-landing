@@ -21,17 +21,12 @@ const serviceConfig: { key: string; accent: string; icon: LucideIcon }[] = [
 export default function EcosystemMapSection() {
   const { t } = useTranslation();
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
   const handleMouseEnter = useCallback((i: number) => setHoveredIdx(i), []);
   const handleMouseLeave = useCallback(() => setHoveredIdx(null), []);
 
   const services = t("lms.ecosystem.services", { returnObjects: true }) as {
     name: string; emoji: string; problem: string; solution: string;
   }[];
-
-  // Split into two rows: top 4, bottom 4
-  const topRow = serviceConfig.slice(0, 4);
-  const bottomRow = serviceConfig.slice(4, 8);
 
   return (
     <section className="py-20" style={{ background: "var(--lms-section-alt)" }}>
@@ -54,135 +49,153 @@ export default function EcosystemMapSection() {
           </p>
         </div>
 
-        {/* Desktop: Hub-spoke compact grid */}
-        <div className="hidden md:block">
-          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-0 gap-y-5">
+        {/* Desktop: LMS hub top + 8 services below */}
+        <div className="hidden md:flex flex-col items-center gap-6">
+          {/* LMS Hub */}
+          <div
+            className="flex flex-col items-center justify-center rounded-full shadow-lg"
+            style={{
+              width: 120,
+              height: 120,
+              background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 36%))",
+              boxShadow: "0 0 28px 4px hsl(245, 65%, 55% / 0.2)",
+            }}
+          >
+            <GraduationCap className="w-11 h-11 text-white mb-1" strokeWidth={2} />
+            <span className="text-xs font-extrabold text-white tracking-wider">LMS</span>
+          </div>
 
-            {/* Top row: 4 services spanning full width */}
-            <div className="col-span-3 grid grid-cols-4 gap-3 mb-2">
-              {topRow.map((svc, idx) => {
-                const i = idx;
-                const data = services?.[i];
-                if (!data) return null;
-                const Icon = svc.icon;
-                const isHovered = hoveredIdx === i;
-                return (
-                  <ServiceCard
-                    key={svc.key}
-                    icon={Icon}
-                    accent={svc.accent}
-                    name={data.name}
-                    problem={data.problem}
-                    solution={data.solution}
-                    isHovered={isHovered}
-                    onMouseEnter={() => handleMouseEnter(i)}
-                    onMouseLeave={handleMouseLeave}
-                    t={t}
-                  />
-                );
-              })}
-            </div>
+          {/* Connection lines visual */}
+          <svg width="100%" height="32" viewBox="0 0 800 32" className="max-w-4xl" style={{ overflow: "visible" }}>
+            {/* Vertical line from center */}
+            <line x1="400" y1="0" x2="400" y2="16" stroke="hsl(var(--border))" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.4" />
+            {/* Horizontal line */}
+            <line x1="50" y1="16" x2="750" y2="16" stroke="hsl(var(--border))" strokeWidth="1.5" strokeDasharray="4 3" opacity="0.4" />
+            {/* Branch lines down to each service */}
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => {
+              const x = 50 + (700 / 7) * i;
+              return (
+                <line
+                  key={i}
+                  x1={x} y1="16" x2={x} y2="32"
+                  stroke={hoveredIdx === i ? serviceConfig[i].accent : "hsl(var(--border))"}
+                  strokeWidth={hoveredIdx === i ? 2 : 1.5}
+                  strokeDasharray="4 3"
+                  opacity={hoveredIdx === i ? 0.7 : 0.4}
+                  style={{ transition: "all 0.3s ease" }}
+                />
+              );
+            })}
+          </svg>
 
-            {/* Middle row: left 2 | LMS hub | right 2 (not used, we use single center row) */}
+          {/* 8 service cards in a row */}
+          <div className="grid grid-cols-8 gap-3 w-full max-w-4xl">
+            {serviceConfig.map((svc, i) => {
+              const data = services?.[i];
+              if (!data) return null;
+              const Icon = svc.icon;
+              const isHovered = hoveredIdx === i;
 
-            {/* Center hub row */}
-            <div className="col-span-3 flex items-center justify-center gap-3 my-2">
-              {/* Left 2 services */}
-              <div className="flex gap-3 flex-1 justify-end">
-                {[6, 7].map((i) => {
-                  const svc = serviceConfig[i];
-                  const data = services?.[i];
-                  if (!data) return null;
-                  const Icon = svc.icon;
-                  const isHovered = hoveredIdx === i;
-                  return (
-                    <ServiceCard
-                      key={svc.key}
-                      icon={Icon}
-                      accent={svc.accent}
-                      name={data.name}
-                      problem={data.problem}
-                      solution={data.solution}
-                      isHovered={isHovered}
-                      onMouseEnter={() => handleMouseEnter(i)}
-                      onMouseLeave={handleMouseLeave}
-                      compact
-                      t={t}
+              return (
+                <div
+                  key={svc.key}
+                  className="relative flex flex-col items-center"
+                  onMouseEnter={() => handleMouseEnter(i)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div
+                    className="rounded-2xl border cursor-pointer transition-all duration-200 flex flex-col items-center justify-center text-center w-full py-5 px-2"
+                    style={{
+                      background: isHovered
+                        ? svc.accent.replace(")", " / 0.08)")
+                        : "hsl(var(--background) / 0.6)",
+                      borderColor: isHovered
+                        ? svc.accent.replace(")", " / 0.35)")
+                        : "hsl(var(--border) / 0.4)",
+                      boxShadow: isHovered
+                        ? `0 6px 20px -4px ${svc.accent.replace(")", " / 0.15)")}`
+                        : "0 1px 4px -1px hsl(0 0% 0% / 0.04)",
+                      transform: isHovered ? "translateY(-3px)" : "translateY(0)",
+                    }}
+                  >
+                    <Icon
+                      className="w-8 h-8 lg:w-9 lg:h-9 mb-2.5"
+                      style={{ color: svc.accent }}
+                      strokeWidth={1.8}
                     />
-                  );
-                })}
-              </div>
+                    <span className="text-[11px] lg:text-xs font-bold text-foreground whitespace-nowrap leading-tight">
+                      {data.name}
+                    </span>
+                  </div>
 
-              {/* Center LMS Hub */}
-              <div
-                className="shrink-0 flex flex-col items-center justify-center rounded-full shadow-lg"
-                style={{
-                  width: 100,
-                  height: 100,
-                  background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 36%))",
-                  boxShadow: "0 0 24px 4px hsl(245, 65%, 55% / 0.2)",
-                }}
-              >
-                <GraduationCap className="w-8 h-8 text-white mb-0.5" strokeWidth={2} />
-                <span className="text-[10px] font-extrabold text-white tracking-wider">LMS</span>
-              </div>
-
-              {/* Right 2 services */}
-              <div className="flex gap-3 flex-1 justify-start">
-                {[4, 5].map((i) => {
-                  const svc = serviceConfig[i];
-                  const data = services?.[i];
-                  if (!data) return null;
-                  const Icon = svc.icon;
-                  const isHovered = hoveredIdx === i;
-                  return (
-                    <ServiceCard
-                      key={svc.key}
-                      icon={Icon}
-                      accent={svc.accent}
-                      name={data.name}
-                      problem={data.problem}
-                      solution={data.solution}
-                      isHovered={isHovered}
-                      onMouseEnter={() => handleMouseEnter(i)}
-                      onMouseLeave={handleMouseLeave}
-                      compact
-                      t={t}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+                  {/* Tooltip */}
+                  {isHovered && (
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 w-52 rounded-2xl p-4 shadow-2xl border border-border/50 bg-background"
+                      style={{
+                        top: "calc(100% + 8px)",
+                        zIndex: 100,
+                        animation: "eco-tooltip-in 0.18s ease-out",
+                      }}
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
+                        Problem
+                      </p>
+                      <p className="text-xs text-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
+                        {data.problem}
+                      </p>
+                      <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: svc.accent }}>
+                        Solution
+                      </p>
+                      <p className="text-xs text-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
+                        {data.solution}
+                      </p>
+                      <span className="inline-flex items-center gap-1 text-[10px] font-bold" style={{ color: svc.accent }}>
+                        {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
+                        <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* Mobile */}
-        <div className="md:hidden grid grid-cols-2 gap-3">
-          {serviceConfig.map((svc, i) => {
-            const data = services?.[i];
-            if (!data) return null;
-            const Icon = svc.icon;
-            return (
-              <div
-                key={svc.key}
-                className="rounded-2xl p-4 bg-background border border-border/50 flex flex-col gap-2.5"
-              >
+        {/* Mobile: 2-col grid */}
+        <div className="md:hidden">
+          <div className="flex justify-center mb-5">
+            <div
+              className="flex flex-col items-center justify-center rounded-full shadow-lg"
+              style={{
+                width: 80,
+                height: 80,
+                background: "linear-gradient(135deg, hsl(245, 65%, 50%), hsl(245, 75%, 36%))",
+              }}
+            >
+              <GraduationCap className="w-8 h-8 text-white mb-0.5" strokeWidth={2} />
+              <span className="text-[9px] font-extrabold text-white tracking-wider">LMS</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {serviceConfig.map((svc, i) => {
+              const data = services?.[i];
+              if (!data) return null;
+              const Icon = svc.icon;
+              return (
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center"
-                  style={{
-                    background: svc.accent.replace(")", " / 0.1)"),
-                    border: `1.5px solid ${svc.accent.replace(")", " / 0.25)")}`,
-                  }}
+                  key={svc.key}
+                  className="rounded-2xl p-4 bg-background border border-border/50 flex flex-col items-center gap-2 text-center"
                 >
-                  <Icon className="w-5 h-5" style={{ color: svc.accent }} strokeWidth={2} />
+                  <Icon className="w-7 h-7" style={{ color: svc.accent }} strokeWidth={2} />
+                  <h4 className="font-bold text-sm text-foreground leading-snug">{data.name}</h4>
+                  <p className="text-xs text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                    {data.problem}
+                  </p>
                 </div>
-                <h4 className="font-bold text-sm text-foreground leading-snug">{data.name}</h4>
-                <p className="text-xs text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
-                  {data.problem}
-                </p>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         {/* Bottom CTA */}
@@ -206,96 +219,5 @@ export default function EcosystemMapSection() {
         }
       `}</style>
     </section>
-  );
-}
-
-/* ── Service Card Component ── */
-function ServiceCard({
-  icon: Icon,
-  accent,
-  name,
-  problem,
-  solution,
-  isHovered,
-  onMouseEnter,
-  onMouseLeave,
-  compact,
-  t,
-}: {
-  icon: LucideIcon;
-  accent: string;
-  name: string;
-  problem: string;
-  solution: string;
-  isHovered: boolean;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
-  compact?: boolean;
-  t: (key: string) => string;
-}) {
-  return (
-    <div
-      className="relative group"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      <div
-        className={`rounded-2xl border cursor-pointer transition-all duration-200 flex flex-col items-center justify-center text-center ${
-          compact ? "p-4 w-[140px]" : "p-5"
-        }`}
-        style={{
-          background: isHovered
-            ? accent.replace(")", " / 0.08)")
-            : "hsl(var(--background) / 0.6)",
-          borderColor: isHovered
-            ? accent.replace(")", " / 0.35)")
-            : "hsl(var(--border) / 0.4)",
-          boxShadow: isHovered
-            ? `0 6px 20px -4px ${accent.replace(")", " / 0.15)")}`
-            : "0 1px 4px -1px hsl(0 0% 0% / 0.04)",
-          transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-        }}
-      >
-        <div
-          className="w-11 h-11 rounded-xl flex items-center justify-center mb-2"
-          style={{
-            background: accent.replace(")", " / 0.1)"),
-            border: `1.5px solid ${accent.replace(")", " / 0.2)")}`,
-          }}
-        >
-          <Icon className="w-5 h-5" style={{ color: accent }} strokeWidth={2} />
-        </div>
-        <span className="text-xs font-bold text-foreground whitespace-nowrap">{name}</span>
-      </div>
-
-      {/* Tooltip */}
-      {isHovered && (
-        <div
-          className="absolute left-1/2 -translate-x-1/2 w-56 rounded-2xl p-4 shadow-2xl border border-border/50 bg-background"
-          style={{
-            bottom: "calc(100% + 8px)",
-            zIndex: 100,
-            animation: "eco-tooltip-in 0.18s ease-out",
-          }}
-        >
-          <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: accent }}>
-            Problem
-          </p>
-          <p className="text-xs text-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
-            {problem}
-          </p>
-          <p className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: accent }}>
-            Solution
-          </p>
-          <p className="text-xs text-foreground leading-relaxed mb-2" style={{ wordBreak: "keep-all" }}>
-            {solution}
-          </p>
-          <span className="inline-flex items-center gap-1 text-[10px] font-bold" style={{ color: accent }}>
-            {t("lms.ecosystem.servicesTitle") || "자세히 보기"}
-            <ArrowRight className="w-3 h-3" />
-          </span>
-        </div>
-      )}
-    </div>
   );
 }
