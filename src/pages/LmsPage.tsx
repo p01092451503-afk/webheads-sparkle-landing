@@ -450,8 +450,8 @@ export default function LmsPage() {
         description={t("lms.processSection.desc")}
       />
 
-      <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
+      <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
       <ContactSection showDemo />
     </div>
   );
