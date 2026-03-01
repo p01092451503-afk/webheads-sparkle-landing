@@ -9,6 +9,7 @@ interface SEOProps {
   jsonLd?: object;
   faqJsonLd?: { q: string; a: string }[];
   breadcrumb?: { name: string; url: string }[];
+  ogImage?: string;
 }
 
 export const BASE_URL = "https://service.webheads.co.kr";
