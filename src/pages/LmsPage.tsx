@@ -233,14 +233,14 @@ export default function LmsPage() {
       <DeviceFriendlySection />
 
       {/* AI Features — 차별화 기능 */}
-      <section className="py-28">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
-            <p className="text-muted-foreground mt-4 text-base">{t("lms.aiSection.desc")}</p>
+      <section className="py-16 md:py-28">
+        <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+          <div className="mb-10 md:mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
+            <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.aiSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {aiFeatures.map((f: any, i: number) => {
               const Icon = aiFeatureIcons[i] || Brain;
               return (
