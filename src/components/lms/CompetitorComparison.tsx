@@ -14,7 +14,7 @@ export default function CompetitorComparison() {
   const rows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
 
   return (
-    <section className="py-28">
+    <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="mb-12">
           <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
