@@ -90,8 +90,8 @@ export default function Header() {
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
-              <a
-                href={location.pathname === "/service-request" ? "/#contact" : "#contact"}
+              <Link
+                to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
                     ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
@@ -99,7 +99,7 @@ export default function Header() {
                 }`}
               >
                 {t("header.cta")}
-              </a>
+              </Link>
             </div>
 
             {/* Mobile toggle */}
@@ -139,12 +139,12 @@ export default function Header() {
             <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
               <LanguageSwitcher />
             </div>
-            <a
-              href={location.pathname === "/service-request" ? "/#contact" : "#contact"}
+            <Link
+              to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
               className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-[hsl(230,25%,15%)] text-white text-center"
             >
               {t("header.cta")}
-            </a>
+            </Link>
           </div>
         </div>
       )}
