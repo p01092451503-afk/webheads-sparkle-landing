@@ -3,11 +3,11 @@ import { ClipboardList, CreditCard, BookOpen, Award, Heart, ArrowRight } from "l
 
 const stepIcons = [ClipboardList, CreditCard, BookOpen, Award, Heart];
 const stepColors = [
-  "hsl(245, 18%, 55%)",
-  "hsl(215, 21%, 48%)",
-  "hsl(170, 18%, 38%)",
-  "hsl(35, 29%, 50%)",
-  "hsl(340, 21%, 50%)",
+  "hsl(245, 29%, 55%)",
+  "hsl(215, 33%, 48%)",
+  "hsl(170, 28%, 38%)",
+  "hsl(35, 45%, 50%)",
+  "hsl(340, 33%, 50%)",
 ];
 
 const withAlpha = (color: string, alpha: number) =>
