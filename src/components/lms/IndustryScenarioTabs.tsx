@@ -19,20 +19,20 @@ export default function IndustryScenarioTabs() {
   const current = tabs[active];
 
   return (
-    <section className="py-28" style={{ background: "var(--lms-section-alt)" }}>
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="mb-12">
-          <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
+    <section className="py-16 md:py-28" style={{ background: "var(--lms-section-alt)" }}>
+      <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+        <div className="mb-8 md:mb-12">
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
             {t("lms.industryTabs.sub")}
           </p>
-          <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+          <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
             {t("lms.industryTabs.title")}
           </h2>
-          <p className="text-muted-foreground mt-4 text-base">{t("lms.industryTabs.desc")}</p>
+          <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.industryTabs.desc")}</p>
         </div>
 
         {/* Tab buttons */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-6 md:mb-8">
           {tabs.map((tab, i) => {
             const Icon = tabIcons[i] || Building2;
             const isActive = active === i;
@@ -40,7 +40,7 @@ export default function IndustryScenarioTabs() {
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 border ${
+                className={`inline-flex items-center gap-1.5 md:gap-2 px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl text-xs md:text-sm font-bold transition-all duration-200 border ${
                   isActive
                     ? "text-white border-transparent shadow-md"
                     : "bg-background text-foreground border-border hover:border-muted-foreground/40"
@@ -57,7 +57,7 @@ export default function IndustryScenarioTabs() {
         {/* Content */}
         <div
           key={active}
-          className="rounded-2xl border border-border bg-background p-8 md:p-10 animate-fade-in"
+          className="rounded-2xl border border-border bg-background p-5 md:p-10 animate-fade-in"
         >
           <h3 className="font-bold text-foreground text-xl lg:text-2xl mb-3 tracking-tight">{current.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed mb-6" style={{ wordBreak: "keep-all" }}>{current.desc}</p>

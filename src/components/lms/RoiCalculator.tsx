@@ -24,21 +24,21 @@ export default function RoiCalculator() {
   ];
 
   return (
-    <section className="py-28">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="mb-12">
-          <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
+    <section className="py-16 md:py-28">
+      <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+        <div className="mb-8 md:mb-12">
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
             {t("lms.roiCalc.sub")}
           </p>
-          <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+          <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
             {t("lms.roiCalc.title")}
           </h2>
-          <p className="text-muted-foreground mt-4 text-base">{t("lms.roiCalc.desc")}</p>
+          <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.roiCalc.desc")}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8">
           {/* Input */}
-          <div className="rounded-2xl border border-border bg-background p-8">
+          <div className="rounded-2xl border border-border bg-background p-5 md:p-8">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
                 <Calculator className="w-5 h-5" style={{ color: "hsl(var(--lms-primary))" }} />
@@ -78,7 +78,7 @@ export default function RoiCalculator() {
           </div>
 
           {/* Result */}
-          <div className="rounded-2xl border border-border bg-background p-8 flex flex-col">
+          <div className="rounded-2xl border border-border bg-background p-5 md:p-8 flex flex-col">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
                 <TrendingUp className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
@@ -99,12 +99,12 @@ export default function RoiCalculator() {
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
                 <span className="font-bold text-lg" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
-              <div className="rounded-xl p-5" style={{ background: "hsl(145, 70%, 93%)" }}>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-semibold" style={{ color: "hsl(145, 60%, 28%)" }}>{t("lms.roiCalc.annualSavings")}</span>
-                  <span className="font-bold text-2xl" style={{ color: "hsl(145, 60%, 28%)" }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
+              <div className="rounded-xl p-4 md:p-5" style={{ background: "hsl(145, 70%, 93%)" }}>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
+                  <span className="text-xs md:text-sm font-semibold" style={{ color: "hsl(145, 60%, 28%)" }}>{t("lms.roiCalc.annualSavings")}</span>
+                  <span className="font-bold text-xl md:text-2xl" style={{ color: "hsl(145, 60%, 28%)" }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
                 </div>
-                <p className="text-xs mt-1" style={{ color: "hsl(145, 60%, 38%)" }}>
+                <p className="text-[11px] md:text-xs mt-1" style={{ color: "hsl(145, 60%, 38%)" }}>
                   {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
                 </p>
               </div>
@@ -122,9 +122,9 @@ export default function RoiCalculator() {
         </div>
 
         {/* Add-on Savings */}
-        <div className="mt-8 rounded-2xl border border-border bg-background p-8">
+        <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.addonsTitle")}</h4>
+            <h4 className="font-bold text-foreground text-sm md:text-base">{t("lms.roiCalc.addonsTitle")}</h4>
           </div>
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground mb-5">
             <Info className="w-3.5 h-3.5 shrink-0" />

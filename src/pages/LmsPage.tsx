@@ -125,23 +125,23 @@ export default function LmsPage() {
 
       {/* Hero — Centered with abstract volumetric patterns */}
       <section
-        className="relative flex items-center justify-center pt-44 pb-44 overflow-hidden"
+        className="relative flex items-center justify-center pt-28 pb-28 md:pt-44 md:pb-44 overflow-hidden"
       >
         <HeroPatternBg theme="blue-purple" />
         <LmsHeroOverlay />
 
 
 
-        <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+        <div className="container mx-auto px-5 md:px-6 relative z-10 text-center flex flex-col items-center">
           <span
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold tracking-widest uppercase mb-8"
+            className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8"
             style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }}
           >
             <Sparkles className="w-4 h-4" />
             {t("lms.hero.badge")}
           </span>
           <h1
-            className="text-5xl md:text-6xl lg:text-[4.2rem] font-extrabold leading-[1.1] mb-7 tracking-tight text-white"
+            className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white"
             style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}
           >
             {t("lms.hero.title")}
@@ -150,10 +150,10 @@ export default function LmsPage() {
               {t("lms.hero.titleHighlight")}
             </span>
           </h1>
-          <p className="text-lg leading-[1.9] mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
+          <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
             {t("lms.hero.desc")}
           </p>
-          <div className="flex gap-4 flex-wrap justify-center">
+          <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
             <a
               href="#contact"
               className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2"
@@ -172,22 +172,22 @@ export default function LmsPage() {
       </section>
 
       {/* Stats — with gradient accent line */}
-      <section className="py-24 relative">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="font-bold text-foreground text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
+      <section className="py-14 md:py-24 relative">
+        <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="font-bold text-foreground text-2xl md:text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
-            {stats.map((s: any) => (
-              <div key={s.label} className="flex flex-col items-center justify-center py-8 px-4 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 md:divide-x divide-border">
+            {stats.map((s: any, idx: number) => (
+              <div key={s.label} className={`flex flex-col items-center justify-center py-5 md:py-8 px-3 md:px-4 text-center ${idx < 2 ? "border-b md:border-b-0 border-border" : ""} ${idx % 2 === 0 ? "border-r md:border-r-0 border-border" : ""}`}>
                 <span
-                  className="block font-bold leading-none mb-2 text-4xl md:text-5xl tracking-tight"
+                  className="block font-bold leading-none mb-1.5 md:mb-2 text-2xl md:text-5xl tracking-tight"
                   style={{ color: "hsl(var(--lms-primary))" }}
                 >
                   {s.value}
                 </span>
-                <span className="block text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
-                <span className="block text-xs text-muted-foreground">{s.sub}</span>
+                <span className="block text-xs md:text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
+                <span className="block text-[10px] md:text-xs text-muted-foreground">{s.sub}</span>
               </div>
             ))}
           </div>
@@ -201,13 +201,13 @@ export default function LmsPage() {
       <IndustryScenarioTabs />
 
       {/* All-in-One Management — 핵심 기능 개요 */}
-      <section className="py-28">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
+      <section className="py-16 md:py-28">
+        <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+          <div className="mb-10 md:mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {allInOneFeatures.map((f: any, i: number) => {
               const Icon = allInOneIcons[i] || Search;
               return (
@@ -233,14 +233,14 @@ export default function LmsPage() {
       <DeviceFriendlySection />
 
       {/* AI Features — 차별화 기능 */}
-      <section className="py-28">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
-            <p className="text-muted-foreground mt-4 text-base">{t("lms.aiSection.desc")}</p>
+      <section className="py-16 md:py-28">
+        <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+          <div className="mb-10 md:mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
+            <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.aiSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {aiFeatures.map((f: any, i: number) => {
               const Icon = aiFeatureIcons[i] || Brain;
               return (
@@ -261,14 +261,14 @@ export default function LmsPage() {
       <LearnerJourneyMap />
 
       {/* Solutions — 회색 배경 */}
-      <section id="solutions" className="py-28 bg-secondary">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
-            <p className="text-muted-foreground mt-4 text-base">{t("lms.solutionsSection.desc")}</p>
+      <section id="solutions" className="py-16 md:py-28 bg-secondary">
+        <div className="container mx-auto px-5 md:px-6 max-w-7xl">
+          <div className="mb-10 md:mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
+            <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
             {/* Cloud AI */}
             <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
               style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
@@ -380,8 +380,8 @@ export default function LmsPage() {
 
           {/* HTML Comparison Table for AIO */}
           <div className="mt-12">
-            <h3 className="font-bold text-foreground text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
-            <p className="text-muted-foreground text-sm mb-8">{t("lms.comparisonTable.desc")}</p>
+            <h3 className="font-bold text-foreground text-xl md:text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
+            <p className="text-muted-foreground text-xs md:text-sm mb-6 md:mb-8">{t("lms.comparisonTable.desc")}</p>
             <div className="rounded-2xl border border-border overflow-hidden bg-background">
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
@@ -411,7 +411,7 @@ export default function LmsPage() {
           </div>
 
           {/* KDT Summary */}
-          <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 rounded-2xl border border-border p-6 bg-background">
+          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 rounded-2xl border border-border p-5 md:p-6 bg-background">
             <div className="flex items-center gap-3 shrink-0">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
                 <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
