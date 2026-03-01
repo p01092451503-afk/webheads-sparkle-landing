@@ -160,8 +160,11 @@ export default function EcosystemMapSection() {
                     strokeDashoffset={0}
                     opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
                     style={{
+                      ["--line-len" as any]: lineLen,
                       transition: "stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease",
                       animation: `eco-line-draw 0.5s ease-out forwards`,
+                      strokeDashoffset: 0,
+                      strokeDasharray: lineLen,
                     }}
                   />
                 );
