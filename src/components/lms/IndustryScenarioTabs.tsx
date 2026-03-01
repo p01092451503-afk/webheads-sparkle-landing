@@ -32,7 +32,7 @@ export default function IndustryScenarioTabs() {
         </div>
 
         {/* Tab buttons */}
-        <div className="flex flex-wrap gap-2 mb-8">
+        <div className="flex flex-wrap gap-1.5 md:gap-2 mb-6 md:mb-8">
           {tabs.map((tab, i) => {
             const Icon = tabIcons[i] || Building2;
             const isActive = active === i;
