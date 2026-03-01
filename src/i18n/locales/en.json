@@ -993,5 +993,67 @@
     "successRemote": "Your remote support request has been submitted.\nA representative will contact you shortly.",
     "retry": "Submit Another Request",
     "copyright": "Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved."
+  },
+  "overview": {
+    "seo": { "title": "Webheads Service Overview", "description": "From LMS to hosting, AI chatbot, app development, DRM, content creation, PG payment, and Channel/SMS — explore all Webheads services at a glance.", "keywords": "Webheads, e-learning, LMS, hosting, AI chatbot, app development, DRM, PG payment, content, Channel" },
+    "hero": {
+      "badge": "WEBHEADS SERVICE OVERVIEW",
+      "title": "Everything for E-learning,\nAll in One Partner",
+      "desc": "From LMS platform to hosting, AI chatbot, app development, DRM, content creation,\nPG payment, and Channel/SMS — 9 core services for online education\ndelivered by a single trusted partner.",
+      "cta1": "View Services",
+      "cta2": "Get a Consultation"
+    },
+    "stats": [
+      { "value": "300+", "label": "Clients Served" },
+      { "value": "16 yrs", "label": "E-learning Expertise" },
+      { "value": "84.2%", "label": "Client Retention" },
+      { "value": "24/7", "label": "Tech Support" }
+    ],
+    "intro": {
+      "sub": "ABOUT WEBHEADS",
+      "title": "Founded in 2009 — 16 Years of E-learning Focus",
+      "desc": "Webheads is a specialized e-learning solutions company that has grown alongside Korea's online education industry.\nWe serve 300+ organizations including corporations, cyber universities, vocational institutions, and associations.\n\nBeyond LMS, we provide a full technology stack — hosting, security, payments, content, and marketing automation — all in one place."
+    },
+    "strengthsTitle": "Why Choose Webheads",
+    "strengths": [
+      { "title": "One-Stop Integrated Service", "desc": "From LMS to hosting, DRM, payments, content, and apps — 9 services from a single partner. Dramatically reduce vendor management costs." },
+      { "title": "Proven Expertise & Trust", "desc": "16 years, 300+ deployments, 84.2% retention rate. Trusted by leading education organizations across Korea." },
+      { "title": "Fast Launch, Flexible Scale", "desc": "Cloud LMS launches in as little as 3 days. Scale up with feature additions, plan upgrades, or on-premise migration as you grow." }
+    ],
+    "servicesSection": {
+      "sub": "ALL SERVICES",
+      "title": "Complete Service Lineup"
+    },
+    "services": [
+      { "title": "LMS (Learning Management System)", "desc": "Three LMS types: Cloud AI, On-premise NEO, and lightweight SaaS. Manage courses, learners, assessments, and analytics in one platform. Launch in as little as 3 days.", "highlights": ["Cloud·On-premise·SaaS", "Government Training Support", "AI Subtitles·Chatbot·Quiz", "3-Day Launch"] },
+      { "title": "E-learning Hosting", "desc": "CDN, AWS, IDC infrastructure with 99.9% SLA uptime and 24/7 NOC monitoring. Auto-scaling for traffic surges, DDoS protection, WAF, and SSL included.", "highlights": ["99.9% SLA Uptime", "CDN·AWS·IDC", "Auto Scaling", "24/7 Monitoring"] },
+      { "title": "Maintenance", "desc": "Dedicated engineers handle incident response, security patches, performance optimization, and feature improvements. Average 10-minute initial response time.", "highlights": ["24/7 Incident Response", "10-min First Response", "Monthly Reports", "Feature Updates"] },
+      { "title": "AI Chatbot", "desc": "GPT-4o and Claude 3.5 powered LMS-integrated chatbot. Handles 80% of learner inquiries automatically with multi-language support and multi-channel deployment.", "highlights": ["GPT-4o·Claude 3.5", "80% Auto-resolution", "Multi-language", "LMS Integration"] },
+      { "title": "App Development (iOS/Android)", "desc": "Native and hybrid apps fully integrated with Webheads LMS. Built with React Native and Flutter for simultaneous iOS/Android development.", "highlights": ["React Native·Flutter", "iOS + Android", "Push Notifications", "4-Week MVP"] },
+      { "title": "DRM Solution", "desc": "Multi-DRM support with Widevine, FairPlay, and PlayReady to completely block illegal downloads and screen capture of e-learning content.", "highlights": ["Multi-DRM", "Capture Blocking", "Forensic Watermark", "Concurrent Limits"] },
+      { "title": "Channel/SMS", "desc": "Channel Talk LMS integration for real-time support, bulk SMS and KakaoTalk notifications for learning reminders, completion notices, and payment alerts.", "highlights": ["Channel Talk Integration", "Bulk SMS", "KakaoTalk Alerts", "98% Delivery Rate"] },
+      { "title": "PG Payment Integration", "desc": "Integrated payment with Toss Payments, KG Inicis, Stripe, PayPal and 16+ payment methods. Recurring billing, refund processing, and revenue dashboard included.", "highlights": ["Toss·KG Inicis", "Stripe·PayPal", "Recurring Billing", "140+ Countries"] },
+      { "title": "Content Production", "desc": "One-stop production of video lectures, interactive H5P, 2D/3D animation, and gamification content. SCORM/xAPI packaging for instant LMS deployment.", "highlights": ["Video·Interactive·3D", "SCORM/xAPI", "AI TTS Narration", "Compliance Content"] }
+    ],
+    "viewMore": "Learn More",
+    "whyTitle": "Why Webheads?",
+    "whyDesc": "When one partner handles LMS and all supporting services,\noperational efficiency goes up while costs and communication overhead go down.",
+    "whyPoints": [
+      "9 services in one place",
+      "16 years of e-learning expertise",
+      "300+ verified deployments",
+      "84.2% client retention rate",
+      "Launch in as little as 3 days",
+      "24/7 tech support & incident response",
+      "Top-rated technology credit evaluation",
+      "Flexible cloud or on-premise options"
+    ],
+    "cta": {
+      "title": "Start Your Consultation",
+      "desc": "Have questions about Webheads solutions?\nReach out anytime — our consultants will respond promptly.",
+      "btn1": "Free Consultation",
+      "btn2": "02-336-4338",
+      "note": "Weekdays 10:00–18:00 · Lunch 12:00–13:00"
+    }
   }
 }
