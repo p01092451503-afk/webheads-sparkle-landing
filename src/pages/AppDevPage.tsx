@@ -19,6 +19,7 @@ export default function AppDevPage() {
   const lmsFeatures = (t("appdev.lmsFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lmsFeatureIcons[i] || Tablet }));
   const otherApps = (t("appdev.otherApps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: otherAppIcons[i] || Globe }));
   const devStack = (t("appdev.devStack", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: devStackIcons[i] || Smartphone }));
+  const processSteps = (t("appdev.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || Search }));
   const stats = t("appdev.stats", { returnObjects: true }) as any[];
   const plans = t("appdev.plans", { returnObjects: true }) as any[];
   const faqs = t("appdev.faqs", { returnObjects: true }) as any[];
