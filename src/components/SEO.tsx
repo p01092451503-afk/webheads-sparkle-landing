@@ -18,8 +18,6 @@ const OG_IMAGE = `${BASE_URL}/og-image.png`;
 const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string }> = {
   ko: { og: "ko_KR", siteName: "웹헤즈", suffix: "웹헤즈" },
   en: { og: "en_US", siteName: "Webheads", suffix: "Webheads" },
-  ja: { og: "ja_JP", siteName: "ウェブヘッズ", suffix: "Webheads" },
-  zh: { og: "zh_CN", siteName: "Webheads", suffix: "Webheads" },
 };
 
 export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb, ogImage }: SEOProps) {

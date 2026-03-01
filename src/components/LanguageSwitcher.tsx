@@ -37,7 +37,13 @@ export default function LanguageSwitcher() {
           {languages.map((lang) => (
             <button
               key={lang.code}
-              onClick={async () => { await i18n.changeLanguage(lang.code); setOpen(false); }}
+              onClick={async () => {
+                const { loadLocale } = await import("@/i18n/index");
+                const data = await loadLocale(lang.code);
+                i18n.addResourceBundle(lang.code, 'translation', data, true, true);
+                i18n.changeLanguage(lang.code);
+                setOpen(false);
+              }}
               className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-2.5 transition-colors ${
                 lang.code === i18n.language
                   ? "bg-primary/10 text-primary font-semibold"
