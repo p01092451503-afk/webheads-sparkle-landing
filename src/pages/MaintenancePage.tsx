@@ -199,6 +199,12 @@ export default function MaintenancePage() {
 
       <ServiceFAQ faqs={faqs} serviceName="유지보수 서비스" />
       <TestimonialSection testimonials={testimonials} />
+      <RelatedServices items={[
+        { emoji: "📚", title: "LMS", desc: "300+ 기업이 선택한 검증된 학습 관리 시스템", path: "/lms" },
+        { emoji: "🖥️", title: "이러닝 호스팅", desc: "99.9% SLA, CDN·AWS·IDC 지원", path: "/hosting" },
+        { emoji: "🤖", title: "AI 챗봇", desc: "GPT-4o 기반 24시간 학습자 지원", path: "/chatbot" },
+        { emoji: "📱", title: "앱 개발", desc: "LMS 완벽 연동 iOS·Android 앱", path: "/app-dev" },
+      ]} />
       <ContactSection />
     </div>
   );
