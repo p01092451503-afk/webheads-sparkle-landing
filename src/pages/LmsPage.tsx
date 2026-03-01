@@ -201,13 +201,13 @@ export default function LmsPage() {
       <IndustryScenarioTabs />
 
       {/* All-in-One Management — 핵심 기능 개요 */}
-      <section className="py-28">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-16">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
+      <section className="py-16 md:py-28">
+        <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+          <div className="mb-10 md:mb-16">
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.allInOneSection.title")}</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
             {allInOneFeatures.map((f: any, i: number) => {
               const Icon = allInOneIcons[i] || Search;
               return (
