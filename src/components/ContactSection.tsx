@@ -94,7 +94,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
     <section id="contact" className="py-24 bg-background">
       <div className="container mx-auto px-6 max-w-3xl">
         {/* ── Header ── */}
-        <div className="text-center mb-4">
+        <div className="text-center mb-10">
           <h2
             className="text-3xl lg:text-4xl leading-tight tracking-tight text-primary"
             style={{ fontWeight: 900 }}
