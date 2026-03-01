@@ -86,8 +86,8 @@ export default function OverviewPage() {
       {/* ═══════════════════════════════════════════════
           HERO — LMS Purple-Blue Theme
       ═══════════════════════════════════════════════ */}
-      <section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(250,40%,12%) 0%, hsl(240,45%,16%) 30%, hsl(220,50%,14%) 60%, hsl(255,40%,18%) 100%)" }}>
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
+      <section className="relative pt-36 pb-24 overflow-hidden">
+        <HeroPatternBg theme="blue-purple" />
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(255,75%,58%,0.15)", color: "hsl(255,75%,72%)", border: "1px solid hsl(255,75%,58%,0.25)" }}>
             {t("overview.hero.badge")}
