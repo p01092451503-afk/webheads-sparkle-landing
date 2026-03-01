@@ -89,7 +89,7 @@ export default function OverviewPage() {
       <section className="relative pt-36 pb-24 overflow-hidden">
         <HeroPatternBg theme="blue-purple" />
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(255,75%,58%,0.15)", color: "hsl(255,75%,72%)", border: "1px solid hsl(255,75%,58%,0.25)" }}>
+          <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(0,0%,100%,0.15)", color: "hsl(0,0%,100%,0.9)", border: "1px solid hsl(0,0%,100%,0.25)" }}>
             {t("overview.hero.badge")}
           </span>
           <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] leading-[1.6] tracking-tight text-white whitespace-pre-line" style={{ fontWeight: 900 }}>
