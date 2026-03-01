@@ -192,10 +192,10 @@ export default function EcosystemMapSection() {
                 const len = Math.sqrt(dx * dx + dy * dy);
                 const ux = dx / len;
                 const uy = dy / len;
-                const x1 = LMS_CENTER.x + ux * 52;
-                const y1 = LMS_CENTER.y + uy * 52;
-                const x2 = pos.x - ux * 28;
-                const y2 = pos.y - uy * 28;
+                const x1 = LMS_CENTER.x + ux * 58;
+                const y1 = LMS_CENTER.y + uy * 58;
+                const x2 = pos.x - ux * 42;
+                const y2 = pos.y - uy * 42;
 
                 return (
                   <line
@@ -314,10 +314,10 @@ export default function EcosystemMapSection() {
                 >
                   {/* Icon container with accent-tinted background */}
                   <div
-                    className="flex items-center justify-center rounded-xl mb-1.5"
+                    className="flex items-center justify-center rounded-xl mb-2"
                     style={{
-                      width: 44,
-                      height: 44,
+                      width: 56,
+                      height: 56,
                       background: isHovered
                         ? `${svc.accent.replace(")", " / 0.15)")}`
                         : `${svc.accent.replace(")", " / 0.08)")}`,
@@ -327,7 +327,7 @@ export default function EcosystemMapSection() {
                     }}
                   >
                     <Icon
-                      className="w-5 h-5 lg:w-6 lg:h-6"
+                      className="w-7 h-7 lg:w-8 lg:h-8"
                       style={{ color: svc.accent }}
                       strokeWidth={2}
                     />
