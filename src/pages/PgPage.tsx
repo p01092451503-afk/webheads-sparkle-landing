@@ -1,6 +1,6 @@
 import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones, Search, FileCheck, Code, Activity } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
-import RelatedServices from "@/components/shared/RelatedServices";
+
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
@@ -103,12 +103,6 @@ export default function PgPage() {
 
       <ServiceFAQ faqs={faqs} serviceName={t("pg.seo.title")} />
       <TestimonialSection testimonials={testimonials} />
-      <RelatedServices items={[
-        { emoji: "📚", title: "LMS", desc: "300+ 기업이 선택한 검증된 학습 관리 시스템", path: "/lms" },
-        { emoji: "💬", title: "채널톡/SMS", desc: "채널톡 LMS 연동, 대량 알림톡 발송", path: "/channel" },
-        { emoji: "🖥️", title: "이러닝 호스팅", desc: "99.9% SLA, CDN·AWS·IDC 지원", path: "/hosting" },
-        { emoji: "🛠️", title: "유지보수", desc: "24/7 장애 대응, 전담 엔지니어 배정", path: "/maintenance" },
-      ]} />
       <ContactSection />
     </div>
   );
