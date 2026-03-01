@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import {
   GraduationCap, Server, Wrench, Bot, Smartphone, ShieldCheck,
   MessageSquare, CreditCard, Film, ArrowRight, Phone, CheckCircle2,
