@@ -285,27 +285,6 @@ export default function EcosystemMapSection() {
                       opacity: 0,
                     }}
                   />
-                  {/* Star sparkles */}
-                  {[0, 60, 120, 180, 240, 300].map((angle, si) => {
-                    const rad = (angle * Math.PI) / 180;
-                    const dist = 62;
-                    return (
-                      <div
-                        key={si}
-                        className="absolute"
-                        style={{
-                          width: 6,
-                          height: 6,
-                          borderRadius: "50%",
-                          background: "hsl(245, 80%, 70%)",
-                          left: 52 + dist * Math.cos(rad) - 3,
-                          top: 52 + dist * Math.sin(rad) - 3,
-                          animation: `eco-star-twinkle 1.8s ease-in-out infinite ${si * 0.3}s`,
-                          boxShadow: "0 0 8px 2px hsl(245, 80%, 70%)",
-                        }}
-                      />
-                    );
-                  })}
                 </>
               )}
 
