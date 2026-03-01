@@ -44,7 +44,7 @@ export default function DeviceFriendlySection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
-          {devices.map(({ icon: Icon, label }, i) => {
+          {devices.map(({ icon: Icon, label, iconSize }, i) => {
             const isHovered = hoveredIdx === i;
             const deviceFeatures = Array.isArray(features) && features[i] ? features[i] : [];
 
