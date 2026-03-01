@@ -49,7 +49,7 @@ function shortenLine(
 }
 
 const HUB_RADIUS = 56;
-const NODE_HALF = 58;
+const NODE_HALF = 36;
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
 
 export default function EcosystemMapSection() {
@@ -233,31 +233,24 @@ export default function EcosystemMapSection() {
                   onMouseEnter={() => handleMouseEnter(i)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <button
-                    className="relative w-[88px] h-[88px] rounded-2xl flex flex-col items-center justify-center cursor-pointer group"
+                  <div
+                    className="relative flex flex-col items-center justify-center cursor-pointer group"
                     style={{
-                       background: isHovered ? svc.accent : "var(--background)",
-                       border: `1px solid ${isHovered ? svc.accent : "hsl(var(--border))"}`,
-                       boxShadow: isHovered
-                         ? `0 8px 20px -4px ${svc.accent}44, 0 2px 6px -2px ${svc.accent}30`
-                         : "0 4px 14px -4px hsl(var(--foreground) / 0.12), 0 1px 4px -1px hsl(var(--foreground) / 0.08)",
-                       transform: isHovered ? "scale(1.08)" : "scale(1)",
-                      transition: "all 0.25s ease",
+                      transform: isHovered ? "scale(1.15)" : "scale(1)",
+                      transition: "transform 0.25s ease",
                     }}
-                    onClick={() => {}}
                   >
                     <Icon
-                      className="w-8 h-8 mb-1"
-                      style={{ color: isHovered ? "#fff" : svc.accent }}
+                      className="w-8 h-8 mb-1.5"
+                      style={{ color: svc.accent }}
                       strokeWidth={1.8}
                     />
                     <span
-                      className="text-[11px] font-bold leading-tight text-center px-1"
-                      style={{ color: isHovered ? "#fff" : "var(--foreground)" }}
+                      className="text-[11px] font-bold leading-tight text-center px-1 text-foreground"
                     >
                       {data.name}
                     </span>
-                  </button>
+                  </div>
 
                   {/* Tooltip */}
                   {hoveredIdx === i && isInstalled && (() => {
