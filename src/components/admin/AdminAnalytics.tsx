@@ -18,7 +18,7 @@ interface AdminAnalyticsProps {
 }
 
 export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRefresh }: AdminAnalyticsProps) {
-  const [dateRange, setDateRange] = useState(7);
+  const [dateRange, setDateRange] = useState(0);
 
   const filteredViews = useMemo(() => {
     const since = new Date();
