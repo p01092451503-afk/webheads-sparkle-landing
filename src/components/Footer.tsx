@@ -22,7 +22,7 @@ function FooterServiceLink({ to, label, isActive }: { to: string; label: string;
     <Link
       to={to}
       className={`text-sm font-normal inline-block px-3 py-1 rounded-lg transition-colors duration-200 ${
-        isActive ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
+        isActive ? "text-foreground font-medium underline underline-offset-4 decoration-2" : "text-muted-foreground hover:text-foreground"
       }`}
     >
       {label}
