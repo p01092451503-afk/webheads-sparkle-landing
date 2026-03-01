@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import {
   GraduationCap, Server, Wrench, Bot, Smartphone, ShieldCheck,
   MessageSquare, CreditCard, Film, ArrowRight, Phone, CheckCircle2,
@@ -85,8 +86,8 @@ export default function OverviewPage() {
       {/* ═══════════════════════════════════════════════
           HERO — LMS Purple-Blue Theme
       ═══════════════════════════════════════════════ */}
-      <section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(250,40%,12%) 0%, hsl(240,45%,16%) 30%, hsl(220,50%,14%) 60%, hsl(255,40%,18%) 100%)" }}>
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.03]" />
+      <section className="relative pt-36 pb-24 overflow-hidden">
+        <HeroPatternBg theme="blue-purple" />
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(255,75%,58%,0.15)", color: "hsl(255,75%,72%)", border: "1px solid hsl(255,75%,58%,0.25)" }}>
             {t("overview.hero.badge")}
@@ -411,7 +412,8 @@ export default function OverviewPage() {
       {/* ═══════════════════════════════════════════════
           WHY WEBHEADS — Dark section
       ═══════════════════════════════════════════════ */}
-      <section className="py-16" style={{ background: "linear-gradient(160deg, hsl(250,40%,12%) 0%, hsl(240,45%,16%) 50%, hsl(220,50%,14%) 100%)" }}>
+      <section className="relative py-16 overflow-hidden">
+        <HeroPatternBg theme="blue-purple" />
         <div className="container mx-auto px-6 max-w-3xl text-center">
           <h2 className="text-xl lg:text-2xl font-bold tracking-tight text-white mb-4">{t("overview.whyTitle")}</h2>
           <p className="text-sm leading-relaxed text-white/60 whitespace-pre-line mb-8">{t("overview.whyDesc")}</p>
