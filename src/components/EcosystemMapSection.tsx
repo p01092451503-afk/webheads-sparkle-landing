@@ -196,14 +196,15 @@ export default function EcosystemMapSection() {
                 const isInstalled = installedSet.has(i);
                 const isHovered = hoveredIdx === i && isInstalled;
                 if (!isInstalled) return null;
+                const sl = shortenLine(CENTER, pos, HUB_RADIUS, NODE_HALF);
 
                 return (
                   <g key={i}>
                     <line
-                      x1={CENTER.x}
-                      y1={CENTER.y}
-                      x2={pos.x}
-                      y2={pos.y}
+                      x1={sl.x1}
+                      y1={sl.y1}
+                      x2={sl.x2}
+                      y2={sl.y2}
                       stroke={isHovered ? serviceConfig[i].accent : allInstalled ? serviceConfig[i].accent : "hsl(var(--border))"}
                       strokeWidth={isHovered ? 2.5 : allInstalled ? 2 : 1.5}
                       strokeDasharray={isHovered || allInstalled ? "none" : "6 4"}
@@ -217,10 +218,10 @@ export default function EcosystemMapSection() {
                     {/* Flow animation on hover */}
                     {isHovered && (
                       <line
-                        x1={CENTER.x}
-                        y1={CENTER.y}
-                        x2={pos.x}
-                        y2={pos.y}
+                        x1={sl.x1}
+                        y1={sl.y1}
+                        x2={sl.x2}
+                        y2={sl.y2}
                         stroke={`url(#eco-flow-grad-${i})`}
                         strokeWidth={4}
                         strokeLinecap="round"
@@ -232,7 +233,7 @@ export default function EcosystemMapSection() {
                           dur="1.4s"
                           repeatCount="indefinite"
                           begin={`${delay}s`}
-                          path={`M${CENTER.x},${CENTER.y} L${pos.x},${pos.y}`}
+                          path={`M${sl.x1},${sl.y1} L${sl.x2},${sl.y2}`}
                         />
                         <animate attributeName="opacity" values="0;0.9;0.9;0" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
                         <animate attributeName="r" values="2;3.5;2" dur="1.4s" repeatCount="indefinite" begin={`${delay}s`} />
