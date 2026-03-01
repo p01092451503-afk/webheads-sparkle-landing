@@ -701,7 +701,7 @@
         ["SLA", "클라우드 SLA", "99.9% 가동률 보장", "클라우드 SLA"]
       ]
     },
-    "kdt": { "name": "웹헤즈 국비", "subtitle": "KDT · 국비환급 과정 전용 LMS", "desc": "K-Digital Training(KDT), 내일배움카드 등 국비환급 교육 과정 운영에 최적화된 LMS로, HRD-Net 연동부터 출결·평가·수료 관리까지 정부 기준에 맞는 체계적인 학사 운영을 지원합니다.", "cta": "국비 LMS 문의", "summary": "KDT·내일배움카드 등 국비환급 과정에 최적화된 LMS — HRD-Net 연동, 출결·평가·수료 관리, NCS 기반 채점까지 정부 기준에 맞춰 운영할 수 있습니다.", "ctaShort": "자세한 문의하기" },
+    "kdt": { "name": "웹헤즈 환급", "subtitle": "KDT · 국비환급 과정 전용 LMS", "desc": "K-Digital Training(KDT), 내일배움카드 등 국비환급 교육 과정 운영에 최적화된 LMS로, HRD-Net 연동부터 출결·평가·수료 관리까지 정부 기준에 맞는 체계적인 학사 운영을 지원합니다.", "cta": "환급 LMS 문의", "summary": "KDT·내일배움카드 등 국비환급 과정에 최적화된 LMS — HRD-Net 연동, 출결·평가·수료 관리, NCS 기반 채점까지 정부 기준에 맞춰 운영할 수 있습니다.", "ctaShort": "자세한 문의하기" },
     "kdtFeatures": [
       { "title": "HRD-Net 자동 연동", "desc": "고용노동부 HRD-Net API 연동으로 훈련생 등록·수료 보고 자동화" },
       { "title": "실시간 출결 관리", "desc": "IP 확인, 랜덤 본인인증 등 부정수강 방지 시스템 내장" },
