@@ -170,6 +170,7 @@ export default function EcosystemMapSection() {
                     strokeWidth={isHovered ? 2.5 : 1.5}
                     strokeDasharray={allInstalled || isHovered ? "none" : "6 4"}
                     opacity={isHovered ? 1 : allInstalled ? 0.5 : 0.8}
+                    markerEnd={`url(#arrow-${i})`}
                     style={{ transition: "all 0.3s ease" }}
                   />
                 );
