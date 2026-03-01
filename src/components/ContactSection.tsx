@@ -319,6 +319,52 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           </form>
         )}
       </div>
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": "https://service.webheads.co.kr/#localbusiness",
+            "name": "웹헤즈 (Webheads)",
+            "url": "https://service.webheads.co.kr",
+            "telephone": "+82-2-336-4338",
+            "email": "34bus@webheads.co.kr",
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "KR",
+              "addressLocality": "서울특별시"
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                "opens": "09:00",
+                "closes": "18:00"
+              }
+            ],
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "telephone": "+82-2-336-4338",
+                "contactType": "sales",
+                "availableLanguage": "Korean",
+                "hoursAvailable": {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                  "opens": "09:00",
+                  "closes": "18:00"
+                }
+              },
+              {
+                "@type": "ContactPoint",
+                "telephone": "+82-2-540-4337",
+                "contactType": "technical support",
+                "availableLanguage": "Korean"
+              }
+            ]
+          })}
+        </script>
+      </Helmet>
     </section>
   );
 }
