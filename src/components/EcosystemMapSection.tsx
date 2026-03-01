@@ -49,8 +49,8 @@ function shortenLine(
   };
 }
 
-const HUB_RADIUS = 52;
-const NODE_HALF = 44; // half of 88px node
+const HUB_RADIUS = 56;
+const NODE_HALF = 48;
 
 // Installation order (randomised feel but deterministic)
 const INSTALL_ORDER = [0, 4, 1, 5, 2, 6, 3, 7];
