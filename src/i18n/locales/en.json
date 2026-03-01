@@ -629,7 +629,7 @@
       { "title": "Quick Launch", "desc": "Build your education site with the most features in just 3 days" },
       { "title": "Trendy Templates", "desc": "Design templates that enable easy management without experts" },
       { "title": "Multi-language", "desc": "Support for 11 languages including English, Chinese, and Japanese" },
-      { "title": "DRM & Watermark", "desc": "Video security and anti-piracy via Catenoid, ZonePlayer, and more" },
+      { "title": "DRM & Watermark", "desc": "Video security and anti-piracy via Catenoid (Kollus) only" },
       { "title": "API Integration", "desc": "RESTful APIs for seamless data integration with external systems" },
       { "title": "Auto Updates", "desc": "Latest features and security patches applied automatically" },
       { "title": "Learning Analytics", "desc": "Real-time dashboard for learner progress, completion rates, and performance" },
