@@ -811,7 +811,7 @@
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your business scale — for free.", "cta": "Request Custom Quote" },
     "processSection": { "sub": "Process", "heading": "One-Stop Consulting\nfrom Planning to Launch", "desc": "We design solutions tailored to your business and learning goals through thorough consultation." },
     "processSteps": [
-      { "title": "Planning", "desc": "Diagnose your current education system, deeply analyze requirements including learner volume, course types, and security needs, then determine the optimal solution (Webheads Light or PRO) and build a strategic roadmap.", "tag": "Analysis" },
+      { "title": "Planning", "desc": "Diagnose your current education system, deeply analyze requirements including learner volume, course types, and security needs, then determine the optimal solution (WEBHEADS Light or PRO) and build a strategic roadmap.", "tag": "Analysis" },
       { "title": "Design", "desc": "Create custom UI mockups reflecting your brand identity, and engineer responsive layouts with polished interactions that deliver a consistent experience across PC, tablet, and mobile.", "tag": "UI·UX" },
       { "title": "Development", "desc": "Run agile 2-week sprints to build core LMS modules, integrate external APIs (PG, DRM, Channel Talk), design databases, and perform performance optimization — all executed systematically.", "tag": "Build" },
       { "title": "QA", "desc": "A rigorous 4-phase QA process covering functional testing, cross-browser compatibility, load testing (concurrent user simulation), and security vulnerability scans to ensure stability before launch.", "tag": "Testing" },
