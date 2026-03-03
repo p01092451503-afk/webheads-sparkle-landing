@@ -708,6 +708,8 @@
       "sub": "USE CASES",
       "title": "LMS Solutions\nfor Every Industry",
       "desc": "Discover how Webheads LMS is used across different industries.",
+      "addonsLabel": "Recommended Add-ons",
+      "caseLabel": "Case Study",
       "tabs": [
         { "label": "Startups", "title": "Startups & Solo Instructors", "desc": "Launch your education site in 3 days with zero upfront cost and start monetizing your content immediately.", "points": ["Cloud plan from 300K KRW/month", "Site launch in as fast as 3 days", "PG payment for instant monetization", "AI subtitles & chatbot automation"], "addons": ["PG Payment", "AI Chatbot", "Content Dev"], "case": "Solo instructor A — launched in 3 days, reached 5M KRW monthly revenue", "cta": "Inquire for Startups" },
         { "label": "Corporate", "title": "Corporate Training & HRD", "desc": "From onboarding to leadership training — manage all employee education systematically on one platform.", "points": ["ERP/HR system integration", "Department & role-based curricula", "Real-time learning analytics dashboard", "Mobile app for on-the-go learning"], "addons": ["DRM Security", "SMS Alerts", "Maintenance"], "case": "Mid-size company B — training completion 40% → 92%", "cta": "Inquire for Corporate" },

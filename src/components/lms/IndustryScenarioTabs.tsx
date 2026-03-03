@@ -96,7 +96,7 @@ export default function IndustryScenarioTabs() {
             <div className="rounded-xl p-5 bg-secondary">
               <div className="flex items-center gap-2 mb-3">
                 <Lightbulb className="w-4 h-4" style={{ color: "hsl(35, 90%, 50%)" }} />
-                <span className="text-xs font-bold text-foreground tracking-wide">도입 사례</span>
+                <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.caseLabel")}</span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
                 {current.case}
