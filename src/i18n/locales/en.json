@@ -897,8 +897,8 @@
     }
   },
   "about": {
-    "seo": { "title": "About Webheads", "description": "Webheads — 16 years of e-learning expertise. LMS development, hosting, AI, DRM, and content creation for 300+ enterprises.", "keywords": "Webheads, about, e-learning company, LMS development, Korea" },
-    "hero": { "sub": "ABOUT US", "title1": "Building the Future", "title2": "of ", "title3": "e-Learning", "desc": "Since 2010, Webheads has been delivering enterprise-grade LMS solutions, hosting, AI, and content services to 300+ organizations across Korea." },
+    "seo": { "title": "About WEBHEADS", "description": "WEBHEADS — 16 years of e-learning expertise. LMS development, hosting, AI, DRM, and content creation for 300+ enterprises.", "keywords": "WEBHEADS, about, e-learning company, LMS development, Korea" },
+    "hero": { "sub": "ABOUT US", "title1": "Building the Future", "title2": "of ", "title3": "e-Learning", "desc": "Since 2010, WEBHEADS has been delivering enterprise-grade LMS solutions, hosting, AI, and content services to 300+ organizations across Korea." },
     "heroStats": [{ "value": "2010", "label": "Founded" }, { "value": "300+", "label": "Clients" }, { "value": "15", "label": "Team Members" }],
     "overviewSub": "COMPANY OVERVIEW",
     "overviewTitle": "Webheads Inc.",
