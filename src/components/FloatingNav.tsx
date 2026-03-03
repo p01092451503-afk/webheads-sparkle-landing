@@ -35,9 +35,9 @@ export default function FloatingNav() {
           <Link
             to="/sms-kakao"
             className="group relative w-10 h-10 rounded-full bg-[hsl(45,93%,55%)] text-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
-            aria-label="SMS · 카카오"
+            aria-label={t("floatingNav.smsKakao")}
           >
-            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">SMS · 카카오</span>
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.smsKakao")}</span>
             <Send className="w-5 h-5" />
           </Link>
         )}
