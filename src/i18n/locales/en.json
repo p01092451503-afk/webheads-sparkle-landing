@@ -143,7 +143,7 @@
     ]
   },
   "maintenance": {
-    "seo": { "title": "Maintenance", "description": "Professional maintenance service for LMS and Webheads solutions. 24/7 incident response, security patches, performance optimization, and feature improvements by dedicated engineers.", "keywords": "e-learning maintenance, LMS maintenance, server maintenance, 24/7 incident response, e-learning operations" },
+    "seo": { "title": "Maintenance", "description": "Professional maintenance service for LMS and WEBHEADS solutions. 24/7 incident response, security patches, performance optimization, and feature improvements by dedicated engineers.", "keywords": "e-learning maintenance, LMS maintenance, server maintenance, 24/7 incident response, e-learning operations" },
     "hero": { "badge": "Maintenance", "title": "For Stable Operations", "titleHighlight": "Maintenance Service", "desc": "From incident response and security patches to performance optimization and feature improvements — our dedicated engineers manage it all.", "cta1": "Request Consultation", "cta2": "View Plans" },
     "stats": [
       { "value": "10 min", "label": "Avg. Initial Response", "sub": "After detection" },
