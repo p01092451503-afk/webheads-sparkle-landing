@@ -196,11 +196,11 @@ export default function LmsPage() {
       <ClientMarquee />
 
       {/* Demo CTA Banner — compact & desaturated */}
-      <section className="py-12" style={{ background: "hsl(245, 12%, 62%)" }}>
+      <section className="py-12" style={{ background: "hsl(245, 30%, 40%)" }}>
         <div className="container mx-auto px-6 max-w-3xl text-center">
           <h3 className="font-bold text-white text-xl lg:text-2xl tracking-tight mb-2">{t("lms.demoCTA.heading")}</h3>
-          <p className="text-white/70 text-sm mb-6 max-w-md mx-auto">{t("lms.demoCTA.description")}</p>
-          <a href="#contact" className="inline-flex px-7 py-3 rounded-2xl font-bold text-sm bg-white hover:bg-white/90 transition-colors" style={{ color: "hsl(245, 20%, 45%)" }}>{t("lms.demoCTA.ctaText")}</a>
+          <p className="text-white/65 text-sm mb-6 max-w-md mx-auto">{t("lms.demoCTA.description")}</p>
+          <a href="#contact" className="inline-flex px-7 py-3 rounded-2xl font-bold text-sm bg-white hover:bg-white/90 transition-colors" style={{ color: "hsl(245, 30%, 40%)" }}>{t("lms.demoCTA.ctaText")}</a>
         </div>
       </section>
 
