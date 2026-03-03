@@ -129,8 +129,8 @@ export default function ServiceRequestPage() {
               onSubmit={handleSubmit}
               className="rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
             >
-              {/* Type tabs — hide when remote-only */}
-              {!remoteOnly && (
+              {/* Type tabs */}
+              {(
                 <div className="flex rounded-lg p-1 gap-1 bg-muted">
                   <button
                     type="button"
