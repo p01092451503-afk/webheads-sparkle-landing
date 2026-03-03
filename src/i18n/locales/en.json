@@ -665,6 +665,7 @@
       { "title": "White Labeling", "desc": "Full UI/UX customization to match your brand identity" },
       { "title": "On-premise Deploy", "desc": "Install and operate directly on your own IDC, AWS, or cloud environment" },
       { "title": "SSO & LDAP", "desc": "Unified authentication with your corporate account system" },
+      { "title": "Standard API", "desc": "RESTful API for seamless integration with existing systems" },
       { "title": "SLA Guarantee", "desc": "99.9% uptime guarantee with emergency response protocols" }
     ],
     "comparisonTable": {
