@@ -12,7 +12,7 @@ export default function IndustryScenarioTabs() {
     desc: string;
     points: string[];
     addons: string[];
-    cases: string[];
+    case: string;
     cta: string;
   }[];
   const [active, setActive] = useState(0);
@@ -98,13 +98,9 @@ export default function IndustryScenarioTabs() {
                 <Lightbulb className="w-4 h-4" style={{ color: "hsl(35, 90%, 50%)" }} />
                 <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.caseLabel")}</span>
               </div>
-              <div className="space-y-2">
-                {current.cases.map((c, i) => (
-                  <p key={i} className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
-                    {c}
-                  </p>
-                ))}
-              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                {current.case}
+              </p>
             </div>
           </div>
 
