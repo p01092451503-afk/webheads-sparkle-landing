@@ -219,13 +219,6 @@ function SmsContent() {
               유지보수 신청 게시판에 사용할 대표번호/업체명을 남겨주시면
               사전등록 절차를 도와드립니다.
             </p>
-            <Link
-              to="/service-request?type=remote"
-              className="inline-flex items-center gap-1.5 mt-3 text-sm font-bold text-primary hover:underline"
-            >
-              원격지원 요청하기
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
           </div>
         </div>
       </div>
