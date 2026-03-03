@@ -57,9 +57,8 @@ function LmsDetailSection() {
   const competitorHeaders = t("lms.competitorTable.headers", { returnObjects: true }) as string[];
   const competitorRows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as { title: string; desc: string }[];
-  const cloudFeats = (t("lms.cloudFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
-  const neoFeats = (t("lms.neoFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
-  const saasFeats = (t("lms.saasFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
+  const lightFeats = (t("lms.lightFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
+  const proFeats = (t("lms.proFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
 
   return (
     <section id="lms" className="py-16">
