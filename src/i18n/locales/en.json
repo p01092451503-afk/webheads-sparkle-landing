@@ -5,7 +5,8 @@
     "groups": ["Core Solution", "Dev & Infra", "Content & Security", "Integrations"],
     "allServices": "All Services",
     "cta": "Contact Us",
-    "logo": "WEBHEADS."
+    "logo": "WEBHEADS.",
+    "customerSupport": "Support"
   },
   "footer": {
     "company": "Company",

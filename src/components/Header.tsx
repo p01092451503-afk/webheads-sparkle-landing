@@ -155,7 +155,7 @@ export default function Header() {
               className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground text-center flex items-center justify-center gap-1.5"
             >
               <Headset className="w-4 h-4" />
-              고객지원
+              {t("header.customerSupport")}
             </Link>
             <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
