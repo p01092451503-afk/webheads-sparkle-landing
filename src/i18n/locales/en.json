@@ -1058,5 +1058,10 @@
       "btn2": "02-336-4338",
       "note": "Weekdays 10:00–18:00 · Lunch 12:00–13:00"
     }
+  },
+  "floatingNav": {
+    "pricing": "Pricing",
+    "smsKakao": "SMS · Kakao",
+    "support": "Support"
   }
 }

@@ -46,9 +46,9 @@ export default function FloatingNav() {
           <Link
             to="/service-request"
             className="group relative w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
-            aria-label="고객지원"
+            aria-label={t("floatingNav.support")}
           >
-            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">고객지원</span>
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.support")}</span>
             <MessageSquareText className="w-5 h-5" />
           </Link>
         )}
