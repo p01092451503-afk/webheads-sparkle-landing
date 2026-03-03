@@ -39,6 +39,7 @@ export default function LmsPage() {
   const { t } = useTranslation();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
+  const [defaultDemo, setDefaultDemo] = useState(false);
 
   const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
   const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
@@ -201,9 +202,17 @@ export default function LmsPage() {
           <p className="text-sm font-medium" style={{ color: "hsl(220, 30%, 35%)" }}>
             {t("lms.demoCTA.description")}
           </p>
-          <a href="#contact" className="inline-flex px-5 py-2 rounded-lg font-bold text-xs text-white whitespace-nowrap hover:opacity-90 transition-opacity" style={{ background: "hsl(220, 50%, 45%)" }}>
+          <button
+            onClick={() => {
+              const el = document.getElementById("contact");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+              setDefaultDemo(true);
+            }}
+            className="inline-flex px-5 py-2 rounded-lg font-bold text-xs text-white whitespace-nowrap hover:opacity-90 transition-opacity"
+            style={{ background: "hsl(220, 50%, 45%)" }}
+          >
             {t("lms.demoCTA.ctaText")}
-          </a>
+          </button>
         </div>
       </section>
 
@@ -477,7 +486,7 @@ export default function LmsPage() {
 
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
-      <ContactSection showDemo />
+      <ContactSection showDemo defaultDemo={defaultDemo} />
     </div>
   );
 }
