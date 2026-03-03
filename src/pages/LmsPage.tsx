@@ -201,9 +201,17 @@ export default function LmsPage() {
           <p className="text-sm font-medium" style={{ color: "hsl(220, 30%, 35%)" }}>
             {t("lms.demoCTA.description")}
           </p>
-          <a href="#contact" className="inline-flex px-5 py-2 rounded-lg font-bold text-xs text-white whitespace-nowrap hover:opacity-90 transition-opacity" style={{ background: "hsl(220, 50%, 45%)" }}>
+          <button
+            onClick={() => {
+              const el = document.getElementById("contact");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+              setDefaultDemo(true);
+            }}
+            className="inline-flex px-5 py-2 rounded-lg font-bold text-xs text-white whitespace-nowrap hover:opacity-90 transition-opacity"
+            style={{ background: "hsl(220, 50%, 45%)" }}
+          >
             {t("lms.demoCTA.ctaText")}
-          </a>
+          </button>
         </div>
       </section>
 
