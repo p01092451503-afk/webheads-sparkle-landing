@@ -109,7 +109,7 @@
       { "title": "DB Replication & Failover", "desc": "Master-Slave database replication with automatic failover for maximum data reliability.", "tags": ["Master-Slave", "Auto Failover", "Data Reliability"] },
       { "title": "Large-scale Storage Expansion", "desc": "Elastically expand S3 and NAS storage as your video and document content grows.", "tags": ["S3 Storage", "NAS", "Unlimited Expansion"] },
       { "title": "VPN & Dedicated Network", "desc": "Site-to-Site VPN and dedicated lines for enterprise and public sector internal network integration.", "tags": ["Site-to-Site VPN", "Dedicated Lines", "Internal Network"] },
-      { "title": "Zero-downtime Server Migration", "desc": "Safely migrate servers from other hosting providers to Webheads without service interruption.", "tags": ["Zero-downtime", "Data Migration", "DNS Switchover"] },
+      { "title": "Zero-downtime Server Migration", "desc": "Safely migrate servers from other hosting providers to WEBHEADS without service interruption.", "tags": ["Zero-downtime", "Data Migration", "DNS Switchover"] },
       { "title": "Dedicated Infra Consulting", "desc": "Consulting on traffic pattern analysis, cost optimization, and architecture improvements.", "tags": ["Cost Optimization", "Architecture Design", "Traffic Analysis"] },
       { "title": "Real-time Performance Dashboard", "desc": "Monitor CPU, memory, network, and disk usage in real-time with a dedicated dashboard.", "tags": ["Real-time Monitoring", "Alert Settings", "Resource Analysis"] }
     ],
