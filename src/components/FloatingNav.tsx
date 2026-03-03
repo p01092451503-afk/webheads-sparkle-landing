@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronUp, ChevronDown, MessageSquareText } from "lucide-react";
+import { ChevronUp, ChevronDown, MessageSquareText, CreditCard } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
@@ -18,6 +18,18 @@ export default function FloatingNav() {
 
   return (
     <div className="fixed right-5 bottom-6 z-50 flex flex-col gap-2">
+      {/* Pricing floating button — hidden on /pricing and /service-request */}
+      {!isServiceRequest && location.pathname !== "/pricing" && (
+        <Link
+          to="/pricing"
+          className="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
+          aria-label="요금제"
+          title="요금제"
+        >
+          <CreditCard className="w-5 h-5" />
+        </Link>
+      )}
+
       {/* Service Request floating button — always visible, hidden on /service-request */}
       {!isServiceRequest && (
         <Link
