@@ -78,18 +78,29 @@ export default function SmsKakaoPage() {
       <section className="py-16 bg-muted/50">
         <div className="container mx-auto px-6 max-w-3xl text-center">
           <h2 className="text-2xl lg:text-3xl font-black text-foreground tracking-tight">
-            SMS 충전이 필요하신가요?
+            서비스 요청이 필요하신가요?
           </h2>
           <p className="mt-3 text-muted-foreground leading-relaxed">
-            아래 이메일로 충전 요청을 보내주시면 빠르게 처리해드립니다.
+            SMS 충전 또는 카테노이드 원격지원이 필요하신 경우 아래 양식을 작성해주세요.
           </p>
-          <Link
-            to="/service-request"
-            className="inline-flex items-center gap-2 mt-8 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
-          >
-            SMS 충전 요청
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <Link
+              to="/service-request?type=sms"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
+            >
+              <MessageSquareText className="w-4 h-4" />
+              SMS 충전 요청
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/service-request?type=remote"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
+            >
+              <Bell className="w-4 h-4" />
+              원격지원 요청
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
