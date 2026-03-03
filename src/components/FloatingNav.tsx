@@ -38,6 +38,7 @@ export default function FloatingNav() {
           aria-label="고객지원"
           title="고객지원"
         >
+          <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">고객지원</span>
           <MessageSquareText className="w-5 h-5" />
         </Link>
       )}
