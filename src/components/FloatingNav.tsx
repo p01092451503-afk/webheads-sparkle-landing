@@ -22,11 +22,25 @@ export default function FloatingNav() {
       {!isServiceRequest && location.pathname !== "/pricing" && (
         <Link
           to="/pricing"
-          className="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
+          className="group relative w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
           aria-label="요금제"
           title="요금제"
         >
+          <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">요금제</span>
           <CreditCard className="w-5 h-5" />
+        </Link>
+      )}
+
+      {/* SMS/Kakao floating button */}
+      {!isServiceRequest && location.pathname !== "/sms-kakao" && (
+        <Link
+          to="/sms-kakao"
+          className="group relative w-10 h-10 rounded-full bg-[hsl(45,93%,55%)] text-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
+          aria-label="SMS · 카카오"
+          title="SMS · 카카오"
+        >
+          <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">SMS · 카카오</span>
+          <Send className="w-5 h-5" />
         </Link>
       )}
 
