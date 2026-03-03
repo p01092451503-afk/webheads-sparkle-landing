@@ -21,6 +21,7 @@ import PgPage from "./pages/PgPage";
 import MaintenancePage from "./pages/MaintenancePage";
 import ServiceRequestPage from "./pages/ServiceRequestPage";
 import PricingPage from "./pages/PricingPage";
+import SmsKakaoPage from "./pages/SmsKakaoPage";
 const OverviewPage = lazy(() => import("./pages/OverviewPage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
@@ -65,6 +66,7 @@ const App = () => (
               <Route path="/maintenance" element={<MaintenancePage />} />
               <Route path="/service-request" element={<ServiceRequestPage />} />
               <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/sms-kakao" element={<SmsKakaoPage />} />
               <Route path="/overview" element={<OverviewPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
