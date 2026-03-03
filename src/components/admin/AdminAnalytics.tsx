@@ -430,7 +430,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     newVisitors.forEach((v) => { browsers[v.browser || "Unknown"] = (browsers[v.browser || "Unknown"] || 0) + 1; });
     const topBrowsers = Object.entries(browsers).sort(([, a], [, b]) => b - a);
 
-    return { totalNew, uniqueNewSessions, dailyNewArr, topLandingPages, topDevices, topLocations, topReferrers, topBrowsers };
+    return { totalNew, uniqueNewSessions, uniqueNewIPs, dailyNewArr, topLandingPages, topDevices, topLocations, topReferrers, topBrowsers };
   }, [pageViews]);
 
   return (
