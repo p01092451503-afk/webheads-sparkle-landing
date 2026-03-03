@@ -129,33 +129,35 @@ export default function ServiceRequestPage() {
               onSubmit={handleSubmit}
               className="rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
             >
-              {/* Type tabs */}
-              <div className="flex rounded-lg p-1 gap-1 bg-muted">
-                <button
-                  type="button"
-                  onClick={() => setRequestType("sms_recharge")}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
-                    requestType === "sms_recharge"
-                      ? "bg-background text-primary shadow-sm"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  <MessageSquareText className="w-3.5 h-3.5" />
-                  {t("serviceRequest.tabSms")}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setRequestType("remote_support")}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
-                    requestType === "remote_support"
-                      ? "bg-background text-primary shadow-sm"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  <MonitorSmartphone className="w-3.5 h-3.5" />
-                  {t("serviceRequest.tabRemote")}
-                </button>
-              </div>
+              {/* Type tabs — hide when remote-only */}
+              {!remoteOnly && (
+                <div className="flex rounded-lg p-1 gap-1 bg-muted">
+                  <button
+                    type="button"
+                    onClick={() => setRequestType("sms_recharge")}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
+                      requestType === "sms_recharge"
+                        ? "bg-background text-primary shadow-sm"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    <MessageSquareText className="w-3.5 h-3.5" />
+                    {t("serviceRequest.tabSms")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRequestType("remote_support")}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
+                      requestType === "remote_support"
+                        ? "bg-background text-primary shadow-sm"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    <MonitorSmartphone className="w-3.5 h-3.5" />
+                    {t("serviceRequest.tabRemote")}
+                  </button>
+                </div>
+              )}
               {requestType === "remote_support" && (
                 <p className="text-xs text-muted-foreground -mt-2">
                   {t("serviceRequest.remoteNote")}
