@@ -358,6 +358,64 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
+  // 신규 방문자 분석 (3월 4일 이후, is_first_visit === true)
+  const newVisitorCutoff = new Date("2026-03-04T00:00:00");
+
+  const newVisitorData = useMemo(() => {
+    const newVisitors = pageViews.filter(
+      (v) => v.is_first_visit === true && new Date(v.created_at) >= newVisitorCutoff
+    );
+
+    const totalNew = newVisitors.length;
+    const uniqueNewSessions = new Set(newVisitors.map((v) => v.session_id)).size;
+
+    // 일별 추이
+    const dailyNew: Record<string, number> = {};
+    newVisitors.forEach((v) => {
+      const key = toLocalDateKey(new Date(v.created_at));
+      dailyNew[key] = (dailyNew[key] || 0) + 1;
+    });
+    const dailyNewArr = Object.entries(dailyNew)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, count]) => ({
+        date,
+        label: new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" }),
+        count,
+      }));
+
+    // 랜딩 페이지
+    const landingPages: Record<string, number> = {};
+    newVisitors.forEach((v) => { landingPages[v.page_path] = (landingPages[v.page_path] || 0) + 1; });
+    const topLandingPages = Object.entries(landingPages).sort(([, a], [, b]) => b - a);
+
+    // 디바이스
+    const devices: Record<string, number> = {};
+    newVisitors.forEach((v) => { devices[v.device_type || "unknown"] = (devices[v.device_type || "unknown"] || 0) + 1; });
+    const topDevices = Object.entries(devices).sort(([, a], [, b]) => b - a);
+
+    // 지역
+    const locations: Record<string, number> = {};
+    newVisitors.forEach((v) => {
+      const loc = v.city || v.country || "알 수 없음";
+      locations[loc] = (locations[loc] || 0) + 1;
+    });
+    const topLocations = Object.entries(locations).sort(([, a], [, b]) => b - a);
+
+    // 유입 경로
+    const referrers: Record<string, number> = {};
+    newVisitors.forEach((v) => {
+      try { const ref = v.referrer ? new URL(v.referrer).hostname : "직접 방문"; referrers[ref] = (referrers[ref] || 0) + 1; } catch { referrers["기타"] = (referrers["기타"] || 0) + 1; }
+    });
+    const topReferrers = Object.entries(referrers).sort(([, a], [, b]) => b - a);
+
+    // 브라우저
+    const browsers: Record<string, number> = {};
+    newVisitors.forEach((v) => { browsers[v.browser || "Unknown"] = (browsers[v.browser || "Unknown"] || 0) + 1; });
+    const topBrowsers = Object.entries(browsers).sort(([, a], [, b]) => b - a);
+
+    return { totalNew, uniqueNewSessions, dailyNewArr, topLandingPages, topDevices, topLocations, topReferrers, topBrowsers };
+  }, [pageViews]);
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
