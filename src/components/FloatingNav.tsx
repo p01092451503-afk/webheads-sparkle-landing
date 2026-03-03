@@ -21,7 +21,7 @@ export default function FloatingNav() {
       {/* Service Request floating button — always visible, hidden on /service-request */}
       {!isServiceRequest && (
         <Link
-          to="/service-request"
+          to="/service-request?type=remote"
           className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
           aria-label={t("footer.serviceRequestBtn")}
           title={t("footer.serviceRequestBtn")}
