@@ -710,6 +710,58 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           </ChartCard>
         </div>
       </SectionGroup>
+
+      <SectionGroup title="신규 방문자 분석 (3/4~)" number={9}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip="3월 4일 이후 최초 접속한 방문자의 페이지뷰 수입니다." />
+          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip="3월 4일 이후 최초 접속한 고유 세션 수입니다." />
+        </div>
+        {newVisitorData.dailyNewArr.length > 0 && (
+          <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5 mt-3">
+            <p className="text-[12px] font-semibold text-muted-foreground mb-3">일별 신규 방문자 추이</p>
+            <ResponsiveContainer width="100%" height={160}>
+              <AreaChart data={newVisitorData.dailyNewArr} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="newVisitorGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="hsl(37, 90%, 51%)" stopOpacity={0.2} />
+                    <stop offset="100%" stopColor="hsl(37, 90%, 51%)" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 13%, 93%)" vertical={false} />
+                <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(220, 9%, 60%)" }} axisLine={false} tickLine={false}
+                  interval={newVisitorData.dailyNewArr.length > 14 ? Math.floor(newVisitorData.dailyNewArr.length / 7) : 0} />
+                <YAxis tick={{ fontSize: 11, fill: "hsl(220, 9%, 60%)" }} axisLine={false} tickLine={false} allowDecimals={false} />
+                <RechartsTooltip
+                  contentStyle={{ background: "white", border: "1px solid hsl(220, 13%, 91%)", borderRadius: "12px", fontSize: "12px", boxShadow: "0 4px 16px hsl(0 0% 0% / 0.06)" }}
+                  labelStyle={{ fontWeight: 600, marginBottom: 4 }}
+                />
+                <Area type="monotone" dataKey="count" name="신규 방문" stroke="hsl(37, 90%, 51%)" strokeWidth={2} fill="url(#newVisitorGrad)"
+                  dot={{ r: 2.5, fill: "hsl(37, 90%, 51%)", strokeWidth: 0 }} activeDot={{ r: 4, fill: "hsl(37, 90%, 51%)", strokeWidth: 2, stroke: "white" }} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+          <ChartCard title="신규 방문자 랜딩 페이지" icon={<Eye className="w-4 h-4" />}>
+            {newVisitorData.topLandingPages.length === 0 ? <Empty msg="신규 방문자 데이터 수집 중..." /> : newVisitorData.topLandingPages.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={newVisitorData.topLandingPages[0][1]} color="hsl(37, 90%, 51%)" />)}
+          </ChartCard>
+          <ChartCard title="신규 방문자 유입 경로" icon={<ArrowUpRight className="w-4 h-4" />}>
+            {newVisitorData.topReferrers.length === 0 ? <Empty /> : newVisitorData.topReferrers.map(([r, c], i) => <BarRow key={r} rank={i+1} label={r} value={c} max={newVisitorData.topReferrers[0][1]} color="hsl(152, 57%, 42%)" />)}
+          </ChartCard>
+          <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />}>
+            {newVisitorData.topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : newVisitorData.topLocations.map(([l, c], i) => <BarRow key={l} rank={i+1} label={l} value={c} max={newVisitorData.topLocations[0][1]} color="hsl(340, 65%, 55%)" />)}
+          </ChartCard>
+          <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />}>
+            {newVisitorData.topDevices.length === 0 ? <Empty /> : (
+              <>
+                {newVisitorData.topDevices.map(([d, c], i) => <BarRow key={d} rank={i+1} label={d} value={c} max={newVisitorData.topDevices[0][1]} color="hsl(262, 60%, 55%)" />)}
+                <div className="border-t border-[hsl(220,13%,95%)] my-2" />
+                {newVisitorData.topBrowsers.map(([b, c], i) => <BarRow key={b} rank={i+1} label={b} value={c} max={newVisitorData.topBrowsers[0][1]} color="hsl(199, 89%, 48%)" />)}
+              </>
+            )}
+          </ChartCard>
+        </div>
+      </SectionGroup>
     </div>
   );
 }
