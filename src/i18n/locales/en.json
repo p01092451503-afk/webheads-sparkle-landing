@@ -256,7 +256,7 @@
     "stats": [
       { "value": "iOS+AOS", "label": "Simultaneous Dev", "sub": "Single team delivery" },
       { "value": "90%+", "label": "Native Performance", "sub": "vs. cross-platform" },
-      { "value": "Perfect", "label": "LMS Integration", "sub": "Webheads solution based" },
+      { "value": "Perfect", "label": "LMS Integration", "sub": "WEBHEADS solution based" },
       { "value": "4 wks", "label": "Avg. Dev Time", "sub": "MVP basis" }
     ],
     "lmsFeaturesSection": { "sub": "LMS APPS", "title": "Perfectly Integrated with\nWebheads e-Learning", "desc": "If you're already using Webheads LMS, deliver the same learning experience in your app without additional setup." },
