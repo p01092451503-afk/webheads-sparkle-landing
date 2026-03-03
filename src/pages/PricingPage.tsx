@@ -95,8 +95,8 @@ export default function PricingPage() {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-16 overflow-hidden bg-foreground text-primary-foreground">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-accent/10" />
+      <section className="relative pt-32 pb-16 overflow-hidden text-primary-foreground" style={{ background: "linear-gradient(135deg, hsl(220 30% 18%), hsl(225 35% 24%), hsl(220 25% 20%))" }}>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-accent/8" />
         <div className="container mx-auto px-6 max-w-6xl relative z-10 text-center">
           <h1 className="text-4xl lg:text-5xl font-black tracking-tight leading-tight">
             다양한 옵션과<br />합리적인 요금제를 제공합니다
