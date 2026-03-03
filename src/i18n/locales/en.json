@@ -955,9 +955,9 @@
     ]
   },
   "serviceRequest": {
-    "pageTitle": "Service Request | Webheads",
+    "pageTitle": "Customer Support | Webheads",
     "pageDesc": "SMS recharge and Kollus remote support request",
-    "heading": "Service Request",
+    "heading": "Customer Support",
     "subheading": "Please fill out the form below if you need SMS recharge or Kollus remote support.",
     "tabSms": "SMS Recharge",
     "tabRemote": "Remote Support",

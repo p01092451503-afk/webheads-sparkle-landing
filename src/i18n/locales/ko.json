@@ -967,9 +967,9 @@
     ]
   },
   "serviceRequest": {
-    "pageTitle": "서비스 요청 | 웹헤즈",
+    "pageTitle": "고객지원 | 웹헤즈",
     "pageDesc": "SMS 충전 및 카테노이드 원격지원 요청",
-    "heading": "서비스 요청",
+    "heading": "고객지원",
     "subheading": "SMS 충전 또는 카테노이드 원격지원이 필요하신 경우 아래 양식을 작성해주세요.",
     "tabSms": "SMS 충전",
     "tabRemote": "원격지원 요청",
