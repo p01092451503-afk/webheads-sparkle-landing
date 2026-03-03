@@ -104,11 +104,19 @@ export default function Footer() {
       {location.pathname !== "/service-request" && (
         <div className="border-t border-border">
           <div className="container mx-auto px-6 max-w-5xl py-5 flex items-center justify-start gap-3 flex-wrap">
+            <a
+              href="mailto:help@webheads.co.kr"
+              className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
+            >
+              <Mail className="w-4 h-4" />
+              {t("footer.smsRechargeBtn")}
+              <span className="text-primary-foreground/70">→</span>
+            </a>
             <Link
               to="/service-request"
               className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
             >
-              <MessageSquareText className="w-4 h-4" />
+              <MonitorSmartphone className="w-4 h-4" />
               {t("footer.serviceRequestBtn")}
               <span className="text-primary-foreground/70">→</span>
             </Link>
