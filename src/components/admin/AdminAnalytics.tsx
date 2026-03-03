@@ -732,6 +732,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip="3월 4일 이후 최초 접속한 방문자의 페이지뷰 수입니다." />
           <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip="3월 4일 이후 최초 접속한 고유 세션 수입니다." />
+          <MetricCard icon={<Wifi className="w-[18px] h-[18px]" />} label="고유 IP" value={newVisitorData.uniqueNewIPs} color="hsl(199, 89%, 48%)" tooltip="3월 4일 이후 신규 방문자의 중복 제거된 고유 IP 수입니다." />
         </div>
         {newVisitorData.dailyNewArr.length > 0 && (
           <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5 mt-3">
