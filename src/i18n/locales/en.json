@@ -261,7 +261,7 @@
     ],
     "lmsFeaturesSection": { "sub": "LMS APPS", "title": "Perfectly Integrated with\nWEBHEADS e-Learning", "desc": "If you're already using WEBHEADS LMS, deliver the same learning experience in your app without additional setup." },
     "lmsFeatures": [
-      { "title": "Webheads LMS Integration", "desc": "Real-time bidirectional integration with Webheads via REST API and WebSocket.", "tags": ["REST API", "WebSocket", "Real-time Sync"] },
+      { "title": "WEBHEADS LMS Integration", "desc": "Real-time bidirectional integration with WEBHEADS via REST API and WebSocket.", "tags": ["REST API", "WebSocket", "Real-time Sync"] },
       { "title": "Learning Push Notifications", "desc": "Auto-send study reminders and assignment deadlines via FCM/APNs at optimal timing per learner.", "tags": ["FCM", "APNs", "Personalized Alerts"] },
       { "title": "Mobile DRM Video Security", "desc": "Block illegal recording and capture with Widevine (Android) and FairPlay (iOS) DRM.", "tags": ["Widevine", "FairPlay", "AES-128"] },
       { "title": "Offline Learning Support", "desc": "Local caching enables uninterrupted learning even in unstable network environments.", "tags": ["Local Caching", "Offline Mode", "Auto Sync"] },
