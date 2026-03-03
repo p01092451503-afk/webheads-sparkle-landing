@@ -111,7 +111,6 @@ export default function Header() {
               >
                 {t("header.cta")}
               </Link>
-              </Link>
             </div>
 
             {/* Mobile toggle */}
