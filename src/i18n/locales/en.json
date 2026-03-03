@@ -767,9 +767,9 @@
     },
     "competitorTable": {
       "sub": "COMPARISON",
-      "title": "Self-Build vs Generic SaaS vs\nWebheads LMS",
+      "title": "Self-Build vs Generic SaaS vs\nWEBHEADS LMS",
       "desc": "Compare the key differences between LMS deployment options at a glance.",
-      "headers": ["Category", "Self-Build", "Generic SaaS", "Webheads LMS"],
+      "headers": ["Category", "Self-Build", "Generic SaaS", "WEBHEADS LMS"],
       "rows": [
         ["Initial Cost", "$50K+", "None", "None"],
         ["Setup Time", "6 months~1 year", "Instant", "As fast as 3 days"],
