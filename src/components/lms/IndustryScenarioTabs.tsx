@@ -12,7 +12,7 @@ export default function IndustryScenarioTabs() {
     desc: string;
     points: string[];
     addons: string[];
-    case: string;
+    cases: string[];
     cta: string;
   }[];
   const [active, setActive] = useState(0);
