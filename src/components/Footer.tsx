@@ -70,21 +70,6 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <p className="text-xs font-normal tracking-widest uppercase mb-5 text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.links")}</p>
-            <ul className="flex flex-col gap-1.5">
-              <li>
-                <a href="https://webheads.co.kr" target="_blank" rel="noopener noreferrer" className="text-sm font-normal flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
-                  <Home className="w-3.5 h-3.5" /> HOME
-                </a>
-              </li>
-              <li>
-                <Link to="/admin/login" className="text-sm font-normal flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
-                  <ShieldCheck className="w-3.5 h-3.5" /> {t("footer.admin")}
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
             <p className="text-xs font-normal tracking-widest uppercase mb-5 text-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>Services</p>
             <ul className="flex flex-col gap-1.5">
               {serviceLabels.map((label, i) => {
