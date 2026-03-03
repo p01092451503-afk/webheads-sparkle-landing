@@ -901,9 +901,9 @@
     "hero": { "sub": "ABOUT US", "title1": "Building the Future", "title2": "of ", "title3": "e-Learning", "desc": "Since 2010, WEBHEADS has been delivering enterprise-grade LMS solutions, hosting, AI, and content services to 300+ organizations across Korea." },
     "heroStats": [{ "value": "2010", "label": "Founded" }, { "value": "300+", "label": "Clients" }, { "value": "15", "label": "Team Members" }],
     "overviewSub": "COMPANY OVERVIEW",
-    "overviewTitle": "Webheads Inc.",
+    "overviewTitle": "WEBHEADS Inc.",
     "overview": [
-      { "label": "Company", "value": "Webheads Inc. (주식회사 웹헤즈)" },
+      { "label": "Company", "value": "WEBHEADS Inc. (주식회사 웹헤즈)" },
       { "label": "Established", "value": "April 2, 2010 (16th year)" },
       { "label": "Headquarters", "value": "3F, 114 World Cup-ro, Mapo-gu, Seoul" },
       { "label": "IDC Center", "value": "LG U+ Gasan Digital Center, Geumcheon-gu" },
