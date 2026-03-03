@@ -358,13 +358,29 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
   }, [filteredViews]);
 
-  // 신규 방문자 분석 (3월 4일 이후, is_first_visit === true)
+  // 신규 방문자 분석: 3/4 이전에 한 번이라도 접속한 IP/session은 제외
   const newVisitorCutoff = new Date("2026-03-04T00:00:00");
 
   const newVisitorData = useMemo(() => {
-    const newVisitors = pageViews.filter(
-      (v) => v.is_first_visit === true && new Date(v.created_at) >= newVisitorCutoff
-    );
+    // 3월 3일까지의 모든 기존 방문자 식별자(IP + session_id) 수집
+    const oldVisitorIds = new Set<string>();
+    pageViews.forEach((v) => {
+      if (new Date(v.created_at) < newVisitorCutoff) {
+        if (v.ip_address) oldVisitorIds.add(`ip:${v.ip_address}`);
+        if (v.session_id) oldVisitorIds.add(`sid:${v.session_id}`);
+      }
+    });
+
+    // 3/4 이후 접속 중, 기존 방문자가 아닌 것만 필터
+    const newVisitors = pageViews.filter((v) => {
+      if (new Date(v.created_at) < newVisitorCutoff) return false;
+      const ipKey = v.ip_address ? `ip:${v.ip_address}` : null;
+      const sidKey = v.session_id ? `sid:${v.session_id}` : null;
+      // IP 또는 session_id가 기존에 존재하면 제외
+      if (ipKey && oldVisitorIds.has(ipKey)) return false;
+      if (sidKey && oldVisitorIds.has(sidKey)) return false;
+      return true;
+    });
 
     const totalNew = newVisitors.length;
     const uniqueNewSessions = new Set(newVisitors.map((v) => v.session_id)).size;
