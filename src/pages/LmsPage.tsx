@@ -195,6 +195,9 @@ export default function LmsPage() {
       {/* Client Reference Marquee */}
       <ClientMarquee />
 
+      {/* Demo CTA Banner */}
+      <ServiceMidCTA heading={t("lms.demoCTA.heading")} description={t("lms.demoCTA.description")} ctaText={t("lms.demoCTA.ctaText")} />
+
       {/* Industry Scenario Tabs — "이 서비스가 나에게 맞는가?" */}
       <IndustryScenarioTabs />
 
