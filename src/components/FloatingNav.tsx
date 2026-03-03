@@ -56,20 +56,20 @@ export default function FloatingNav() {
 
       {/* Scroll buttons — bottom right */}
       {visible && (
-        <div className="fixed right-5 bottom-6 z-50 flex flex-col gap-2 md:bottom-6 bottom-20">
+        <div className="fixed right-3 md:right-5 bottom-4 md:bottom-6 z-50 flex flex-col gap-1.5 md:gap-2">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="w-10 h-10 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors"
+            className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors"
             aria-label="Scroll to top"
           >
-            <ChevronUp className="w-5 h-5" />
+            <ChevronUp className="w-4 h-4 md:w-5 md:h-5" />
           </button>
           <button
             onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })}
-            className="w-10 h-10 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors"
+            className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors"
             aria-label="Scroll to bottom"
           >
-            <ChevronDown className="w-5 h-5" />
+            <ChevronDown className="w-4 h-4 md:w-5 md:h-5" />
           </button>
         </div>
       )}
