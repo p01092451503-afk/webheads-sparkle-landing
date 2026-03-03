@@ -757,7 +757,7 @@
       "drmSaving": "~20M KRW/year protected",
       "drmBasis": "Per Korea Copyright Protection Agency data, avg. damage per illegal distribution of e-learning content is ~5M KRW; calculated at 4+ incidents/year (5M × 4 = 20M KRW)",
       "smsSaving": "Avg. 35% completion rate increase",
-      "smsBasis": "Comparison across 42 Webheads client companies: completion rate gap between non-SMS group vs. 3+ reminder SMS group (H1 2024 aggregate)",
+      "smsBasis": "Comparison across 42 WEBHEADS client companies: completion rate gap between non-SMS group vs. 3+ reminder SMS group (H1 2024 aggregate)",
       "breakdownTitle": "Self-build cost breakdown (monthly)",
       "breakdownServer": "Server · Infrastructure (AWS/IDC)",
       "breakdownDev": "Developer salary (1 FTE)",
