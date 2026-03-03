@@ -875,7 +875,7 @@
       "badges": { "bulkSms": "Bulk SMS", "reach": "98% Reach", "automation": "Automation", "channelTalk": "Channel Talk", "alimtalk": "Alim Talk" }
     },
     "chatbot": {
-      "botName": "Webheads AI Chatbot",
+      "botName": "WEBHEADS AI Chatbot",
       "responding": "● Responding",
       "userMsg1": "What's my course progress?",
       "botMsg1": "You've completed <strong style=\"color: hsl(192,80%,65%)\">68%</strong> of the course. 32% left to reach your goal! 💪",
