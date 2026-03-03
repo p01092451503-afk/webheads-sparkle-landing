@@ -524,8 +524,8 @@
     ]
   },
   "landing": {
-    "seo": { "title": "Webheads Services", "description": "Everything for e-Learning with Webheads. Hosting, AI chatbot, app development, DRM, PG payment, and content creation — all in one place.", "keywords": "e-learning, LMS, Webheads, hosting, AI chatbot, app development, DRM, PG payment, content creation, maintenance" },
-    "hero": { "sub": "Webheads Services", "title1": "Everything for e-Learning", "title2": "All in One Place", "desc": "From hosting to AI chatbots, app development, DRM, and payment integration.\nAll the services you need for e-learning, in one place.", "cta1": "Explore Services", "cta2": "Free Consultation" },
+    "seo": { "title": "WEBHEADS Services", "description": "Everything for e-Learning with WEBHEADS. Hosting, AI chatbot, app development, DRM, PG payment, and content creation — all in one place.", "keywords": "e-learning, LMS, WEBHEADS, hosting, AI chatbot, app development, DRM, PG payment, content creation, maintenance" },
+    "hero": { "sub": "WEBHEADS Services", "title1": "Everything for e-Learning", "title2": "All in One Place", "desc": "From hosting to AI chatbots, app development, DRM, and payment integration.\nAll the services you need for e-learning, in one place.", "cta1": "Explore Services", "cta2": "Free Consultation" },
     "stats": [{ "value": "500+", "label": "Clients" }, { "value": "15+", "label": "Years Experience" }, { "value": "99.9%", "label": "Uptime" }, { "value": "24/7", "label": "Tech Support" }],
     "servicesSub": "SERVICES",
     "servicesTitle": "All Services\nfor e-Learning",
