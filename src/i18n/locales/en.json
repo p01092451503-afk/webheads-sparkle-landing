@@ -251,8 +251,8 @@
     ]
   },
   "appdev": {
-    "seo": { "title": "Application Development", "description": "iOS and Android app development perfectly integrated with Webheads LMS.", "keywords": "e-learning app, LMS app, iOS app, Android app, React Native, Flutter" },
-    "hero": { "badge": "Applications", "title": "From Perfect LMS Integration to", "titleHighlight": "Versatile App Development", "desc": "Build learning apps perfectly integrated with Webheads e-learning solutions, plus commerce, booking, internal tools, and more.", "cta1": "Request Consultation", "cta2": "View App Types" },
+    "seo": { "title": "Application Development", "description": "iOS and Android app development perfectly integrated with WEBHEADS LMS.", "keywords": "e-learning app, LMS app, iOS app, Android app, React Native, Flutter" },
+    "hero": { "badge": "Applications", "title": "From Perfect LMS Integration to", "titleHighlight": "Versatile App Development", "desc": "Build learning apps perfectly integrated with WEBHEADS e-learning solutions, plus commerce, booking, internal tools, and more.", "cta1": "Request Consultation", "cta2": "View App Types" },
     "stats": [
       { "value": "iOS+AOS", "label": "Simultaneous Dev", "sub": "Single team delivery" },
       { "value": "90%+", "label": "Native Performance", "sub": "vs. cross-platform" },
