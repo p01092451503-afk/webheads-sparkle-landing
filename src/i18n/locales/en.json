@@ -685,7 +685,7 @@
         ["SLA", "Cloud SLA", "99.9% uptime guarantee"]
       ]
     },
-    "kdt": { "name": "Webheads KDT", "subtitle": "KDT · Government-funded Training LMS", "desc": "An LMS optimized for K-Digital Training (KDT) and government-subsidized courses, supporting HRD-Net integration, attendance tracking, assessments, and completion management in full compliance with government standards.", "cta": "Inquire about KDT", "summary": "LMS optimized for KDT and government-subsidized training — HRD-Net integration, attendance tracking, NCS-based assessments, and completion management, all compliant with government standards.", "ctaShort": "Learn More" },
+    "kdt": { "name": "Webheads KDT", "subtitle": "KDT · Government-funded Training LMS", "desc": "An LMS optimized for K-Digital Training (KDT) and government-subsidized courses, supporting HRD-Net integration, attendance tracking, assessments, and completion management in full compliance with government standards.", "cta": "Inquire about KDT", "summary": "Government-subsidized training-optimized LMS — HRD-Net integration, attendance tracking, NCS-based assessments, and completion management, all compliant with government standards.", "ctaShort": "Learn More" },
     "kdtFeatures": [
       { "title": "HRD-Net Auto Sync", "desc": "Automated trainee registration and completion reporting via HRD-Net API" },
       { "title": "Real-time Attendance", "desc": "Built-in anti-fraud system with IP verification and random identity checks" },
