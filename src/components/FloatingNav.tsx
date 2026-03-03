@@ -34,9 +34,9 @@ export default function FloatingNav() {
       {!isServiceRequest && (
         <Link
           to="/service-request"
-          className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
-          aria-label={t("footer.serviceRequestBtn")}
-          title={t("footer.serviceRequestBtn")}
+          className="group relative w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
+          aria-label="고객지원"
+          title="고객지원"
         >
           <MessageSquareText className="w-5 h-5" />
         </Link>
