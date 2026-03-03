@@ -63,7 +63,7 @@ function LmsDetailSection() {
   return (
     <section id="lms" className="py-16">
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light와 웹헤즈 PRO — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
+        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Starter와 웹헤즈 PRO — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
         {/* LMS Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
