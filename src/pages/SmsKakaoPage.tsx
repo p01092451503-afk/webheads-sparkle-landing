@@ -83,13 +83,13 @@ export default function SmsKakaoPage() {
           <p className="mt-3 text-muted-foreground leading-relaxed">
             아래 이메일로 충전 요청을 보내주시면 빠르게 처리해드립니다.
           </p>
-          <a
-            href="mailto:help@webheads.co.kr"
+          <Link
+            to="/service-request"
             className="inline-flex items-center gap-2 mt-8 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
           >
             SMS 충전 요청
             <ArrowRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
       </section>
 
