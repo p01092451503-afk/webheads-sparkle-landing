@@ -743,7 +743,7 @@
       "resultTitle": "Estimated Savings",
       "monthlyRevenue": "Est. Monthly Revenue",
       "selfBuildCost": "Self-Build Monthly Cost (Est.)",
-      "webheadsCost": "Webheads Monthly Fee",
+      "webheadsCost": "WEBHEADS Monthly Fee",
       "annualSavings": "Annual Estimated Savings",
       "savingsNote": "Approx. {{percent}}% savings vs self-building",
       "cta": "Request Custom Quote",
