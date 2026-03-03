@@ -199,9 +199,9 @@ export default function PricingPage() {
                 {/* Recommended */}
                 <tr className="border-b border-border">
                   <td className="px-5 py-4 font-semibold text-foreground">추천 대상</td>
-                  {RECOMMENDED.map((list, i) => (
+                  {(plans as any[]).map((plan: any, i: number) => (
                     <td key={i} className={`text-center px-4 py-4 text-sm text-muted-foreground leading-relaxed ${i === 2 ? "bg-primary/5" : ""}`}>
-                      {list.join(", ")}
+                      {plan.recommend}
                     </td>
                   ))}
                 </tr>
