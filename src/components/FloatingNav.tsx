@@ -24,9 +24,9 @@ export default function FloatingNav() {
           <Link
             to="/pricing"
             className="group relative w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity"
-            aria-label="요금제"
+            aria-label={t("floatingNav.pricing")}
           >
-            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">요금제</span>
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.pricing")}</span>
             <CreditCard className="w-5 h-5" />
           </Link>
         )}
