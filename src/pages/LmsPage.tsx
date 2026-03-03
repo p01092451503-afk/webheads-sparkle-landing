@@ -28,9 +28,8 @@ import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 import ClientMarquee from "@/components/ClientMarquee";
 
-const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, PackageCheck];
-const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
-const saasFeatureIcons = [Rocket, CreditCard, RefreshCw, Layers, Database, Plug, HardDriveDownload, Settings];
+const lightFeatureIcons = [Zap, DollarSign, Palette, Languages, ShieldCheck, RefreshCw, LineChart, MonitorSmartphone, Plug, PackageCheck];
+const proFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
 const aiFeatureIcons = [Brain, Subtitles, FileCheck, Search, GraduationCap, MessageSquare];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
