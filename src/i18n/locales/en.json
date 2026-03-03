@@ -669,9 +669,9 @@
       { "title": "SLA Guarantee", "desc": "99.9% uptime guarantee with emergency response protocols" }
     ],
     "comparisonTable": {
-      "title": "Webheads Light vs PRO — Which LMS is Right for You?",
-      "desc": "Quick-start Light or fully customizable PRO — compare the key differences below.",
-      "headers": ["Comparison", "Webheads Light", "Webheads PRO"],
+      "title": "Webheads Starter vs PRO — Which LMS is Right for You?",
+      "desc": "Quick-start Starter or fully customizable PRO — compare the key differences below.",
+      "headers": ["Comparison", "Webheads Starter", "Webheads PRO"],
       "rows": [
         ["Deployment", "Rental · SaaS", "On-premise · SaaS"],
         ["Time to Launch", "As fast as 3 days", "4–12 weeks"],
