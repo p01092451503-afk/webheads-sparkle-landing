@@ -14,8 +14,8 @@ type RechargeUnit = "amount" | "count";
 export default function ServiceRequestPage() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const remoteOnly = searchParams.get("type") === "remote";
-  const [requestType, setRequestType] = useState<RequestType>(remoteOnly ? "remote_support" : "sms_recharge");
+  const initialType = searchParams.get("type");
+  const [requestType, setRequestType] = useState<RequestType>(initialType === "remote" ? "remote_support" : "sms_recharge");
   const [form, setForm] = useState({
     company: "",
     name: "",
