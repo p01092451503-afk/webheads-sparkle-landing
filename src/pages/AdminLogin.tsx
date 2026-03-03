@@ -204,7 +204,7 @@ export default function AdminLogin() {
 
         {/* Footer text */}
         <p className="text-center text-[12px] text-muted-foreground/60 mt-8" style={{ letterSpacing: "-0.01em" }}>
-          Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved.
+          Copyright ⓒ 2010 - 2026 WEBHEADS, Inc. All rights reserved.
         </p>
       </div>
     </div>

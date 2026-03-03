@@ -23,9 +23,9 @@
     "customerCenter": "Customer Center",
     "newPhone": "New Inquiry : 02-336-4338",
     "maintenancePhone": "Support & Maintenance : 02-540-4337",
-    "homepage": "Webheads Homepage",
+    "homepage": "WEBHEADS Homepage",
     "admin": "Admin",
-    "copyright": "Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved.",
+    "copyright": "Copyright ⓒ 2010 - 2026 WEBHEADS, Inc. All rights reserved.",
     "serviceRequestBtn": "Remote Support",
     "smsRechargeBtn": "SMS Recharge",
     "mainPhone": "Main Line 02-540-4337"
@@ -33,7 +33,7 @@
   "contact": {
     "sub": "CONTACT US",
     "title": "Start your e-Learning journey",
-    "titleHighlight": "with Webheads",
+    "titleHighlight": "with WEBHEADS",
     "titleEnd": "",
     "desc": "Leave an inquiry and a representative will guide you promptly.",
     "newInquiry": "New Business Inquiry",
@@ -109,7 +109,7 @@
       { "title": "DB Replication & Failover", "desc": "Master-Slave database replication with automatic failover for maximum data reliability.", "tags": ["Master-Slave", "Auto Failover", "Data Reliability"] },
       { "title": "Large-scale Storage Expansion", "desc": "Elastically expand S3 and NAS storage as your video and document content grows.", "tags": ["S3 Storage", "NAS", "Unlimited Expansion"] },
       { "title": "VPN & Dedicated Network", "desc": "Site-to-Site VPN and dedicated lines for enterprise and public sector internal network integration.", "tags": ["Site-to-Site VPN", "Dedicated Lines", "Internal Network"] },
-      { "title": "Zero-downtime Server Migration", "desc": "Safely migrate servers from other hosting providers to Webheads without service interruption.", "tags": ["Zero-downtime", "Data Migration", "DNS Switchover"] },
+      { "title": "Zero-downtime Server Migration", "desc": "Safely migrate servers from other hosting providers to WEBHEADS without service interruption.", "tags": ["Zero-downtime", "Data Migration", "DNS Switchover"] },
       { "title": "Dedicated Infra Consulting", "desc": "Consulting on traffic pattern analysis, cost optimization, and architecture improvements.", "tags": ["Cost Optimization", "Architecture Design", "Traffic Analysis"] },
       { "title": "Real-time Performance Dashboard", "desc": "Monitor CPU, memory, network, and disk usage in real-time with a dedicated dashboard.", "tags": ["Real-time Monitoring", "Alert Settings", "Resource Analysis"] }
     ],
@@ -131,9 +131,9 @@
     "plansCustom": { "title": "Need a custom quote?", "desc": "For high-traffic or special security requirements, we provide tailored infrastructure proposals.", "cta": "Request Custom Quote" },
     "faqs": [
       { "q": "Are there extra charges if traffic suddenly increases?", "a": "There's no need to worry. AWS-based hosting uses Auto Scaling to automatically expand server capacity during traffic spikes, so your service will never go down. Excess transfer is billed transparently at per-plan rates (e.g., 400 KRW/GB on the Plus plan), and we have a pre-alert system to prevent unexpected high charges. If you let us know about peak periods like semester starts or exam seasons in advance, our dedicated engineers will recommend the optimal plan and cost-saving strategies." },
-      { "q": "Can I migrate from my current hosting?", "a": "Yes, absolutely. Webheads specializes in zero-downtime migration from other hosting providers. The process follows a systematic approach: ① Analysis of existing server environment and migration planning → ② Replication of data, content, and databases → ③ New server testing and verification → ④ DNS switchover and stabilization monitoring. Since we conduct thorough testing before the DNS switchover, learners experience zero service interruption. Our dedicated engineers also provide 72-hour intensive monitoring after migration is complete." },
-      { "q": "How is the SSL certificate provided?", "a": "All hosting plans include a free Let's Encrypt SSL certificate that auto-renews before expiration, so you don't need to manage it manually. HTTPS ensures that learner personal data and payment information are securely encrypted during transmission. If your organization requires enterprise-grade paid certificates (EV SSL, OV SSL, etc.) — common for financial institutions or government agencies — Webheads handles the entire process from purchase to installation and renewal." },
-      { "q": "What's the incident response process?", "a": "Webheads operates a 24/7/365 NOC (Network Operations Center) team that monitors server, network, and application status in real-time. When an incident is detected, the assigned engineer is immediately notified, and initial response begins within 10 minutes on average. After recovery, we prepare and share a Root Cause Analysis (RCA) report, and implement follow-up measures to prevent the same incident from recurring. Throughout the process, we keep you updated in real-time via KakaoTalk, email, and phone." },
+      { "q": "Can I migrate from my current hosting?", "a": "Yes, absolutely. WEBHEADS specializes in zero-downtime migration from other hosting providers. The process follows a systematic approach: ① Analysis of existing server environment and migration planning → ② Replication of data, content, and databases → ③ New server testing and verification → ④ DNS switchover and stabilization monitoring. Since we conduct thorough testing before the DNS switchover, learners experience zero service interruption. Our dedicated engineers also provide 72-hour intensive monitoring after migration is complete." },
+      { "q": "How is the SSL certificate provided?", "a": "All hosting plans include a free Let's Encrypt SSL certificate that auto-renews before expiration, so you don't need to manage it manually. HTTPS ensures that learner personal data and payment information are securely encrypted during transmission. If your organization requires enterprise-grade paid certificates (EV SSL, OV SSL, etc.) — common for financial institutions or government agencies — WEBHEADS handles the entire process from purchase to installation and renewal." },
+      { "q": "What's the incident response process?", "a": "WEBHEADS operates a 24/7/365 NOC (Network Operations Center) team that monitors server, network, and application status in real-time. When an incident is detected, the assigned engineer is immediately notified, and initial response begins within 10 minutes on average. After recovery, we prepare and share a Root Cause Analysis (RCA) report, and implement follow-up measures to prevent the same incident from recurring. Throughout the process, we keep you updated in real-time via KakaoTalk, email, and phone." },
       { "q": "What if I run out of video storage?", "a": "Running out of your plan's base storage does not cause any service interruption. You can expand storage unlimitedly at per-GB rates (e.g., 800 KRW/GB on the Plus plan). We send pre-alerts when your storage usage reaches 80%, and for organizations with large volumes of content, we also offer cost-effective alternatives such as dedicated S3 storage plans or NAS integration. Feel free to reach out anytime and we'll recommend the optimal solution for your needs." }
     ],
     "testimonials": [
@@ -143,7 +143,7 @@
     ]
   },
   "maintenance": {
-    "seo": { "title": "Maintenance", "description": "Professional maintenance service for LMS and Webheads solutions. 24/7 incident response, security patches, performance optimization, and feature improvements by dedicated engineers.", "keywords": "e-learning maintenance, LMS maintenance, server maintenance, 24/7 incident response, e-learning operations" },
+    "seo": { "title": "Maintenance", "description": "Professional maintenance service for LMS and WEBHEADS solutions. 24/7 incident response, security patches, performance optimization, and feature improvements by dedicated engineers.", "keywords": "e-learning maintenance, LMS maintenance, server maintenance, 24/7 incident response, e-learning operations" },
     "hero": { "badge": "Maintenance", "title": "For Stable Operations", "titleHighlight": "Maintenance Service", "desc": "From incident response and security patches to performance optimization and feature improvements — our dedicated engineers manage it all.", "cta1": "Request Consultation", "cta2": "View Plans" },
     "stats": [
       { "value": "10 min", "label": "Avg. Initial Response", "sub": "After detection" },
@@ -189,7 +189,7 @@
     "plansCustom": { "title": "Need a custom quote?", "desc": "For complex environments or special requirements, we provide tailored maintenance proposals.", "cta": "Request Custom Quote" },
     "faqs": [
       { "q": "Can I request additional development during a maintenance contract?", "a": "Yes, absolutely. Standard plans include up to 6 minor feature improvements per month, while Premium plans offer unlimited requests. Examples include adding bulletin board fields, design modifications, or new popup banners. For larger-scope work like new feature development or major redesigns, we provide a separate quote with priority scheduling and discounts for maintenance clients." },
-      { "q": "What's the incident response process?", "a": "Webheads' dedicated NOC team monitors servers and networks 24/7/365. When an incident is detected, the process follows: ① Automatic alert to the assigned engineer → ② Initial response within 5 minutes on average → ③ Real-time progress updates shared with the client (via KakaoTalk/email) → ④ Incident recovery → ⑤ Root Cause Analysis (RCA) report preparation and sharing. We take full responsibility for follow-up measures to eliminate the root cause and prevent recurrence." },
+      { "q": "What's the incident response process?", "a": "WEBHEADS' dedicated NOC team monitors servers and networks 24/7/365. When an incident is detected, the process follows: ① Automatic alert to the assigned engineer → ② Initial response within 5 minutes on average → ③ Real-time progress updates shared with the client (via KakaoTalk/email) → ④ Incident recovery → ⑤ Root Cause Analysis (RCA) report preparation and sharing. We take full responsibility for follow-up measures to eliminate the root cause and prevent recurrence." },
       { "q": "Can I switch from another provider?", "a": "Yes, absolutely. We start by thoroughly analyzing your existing server environment, source code, and database structure, then develop a zero-downtime transition plan. After migration, we conduct 72-hour intensive monitoring to confirm stabilization, and we also assist with the handover process from your previous provider. We've successfully completed dozens of hosting transitions, so you can trust us with the process." },
       { "q": "What's included in the monthly report?", "a": "Monthly reports include detailed information on server uptime, daily/hourly traffic analysis, incident occurrence and resolution history, security vulnerability scan results, performance metrics (CPU, memory, disk), and a summary of all patches, updates, and feature improvements performed during the month. Reports are delivered in PDF format via email at the beginning of each month, and we can also schedule video meetings to discuss the report contents if needed." },
       { "q": "What are the contract terms and cancellation conditions?", "a": "The minimum contract period is 3 months, after which it automatically extends on a month-to-month basis. To cancel, simply provide written notice (including email) at least 1 month in advance. Upon cancellation, we safely hand over all server data and source code. Plan changes (upgrades or downgrades) are also freely available during the contract period, so you can flexibly adjust based on your operational needs." },
@@ -240,7 +240,7 @@
     "faqs": [
       { "q": "Can I use existing FAQs right after chatbot deployment?", "a": "Yes, you can use them immediately. Simply upload your existing FAQ documents (Excel, Word, PDF, etc.) through the admin page, and the AI will automatically analyze the content and index it using vector embeddings. Within about 30 minutes of upload, the chatbot will begin providing natural conversational answers based on that content. When new FAQs are added, they're reflected in real-time without any retraining process, so your chatbot always has the latest information." },
       { "q": "How are unanswered questions handled?", "a": "When the chatbot detects a low-confidence answer, the fallback scenario automatically activates. It politely suggests 'Connect to Agent' or 'Submit Inquiry' options to the learner, ensuring no question goes unanswered. Additionally, unanswered questions are automatically collected in the admin dashboard, which allows for periodic supplementation of chatbot training data to continuously expand the range of answerable questions." },
-      { "q": "Can it be applied to both KakaoTalk and website?", "a": "Yes, absolutely. The Webheads AI chatbot is designed to deploy from a single engine to multiple channels simultaneously — KakaoTalk, website, and mobile app. When you update FAQs in one place, changes are instantly reflected across all channels, reducing management burden. You can even customize the response tone and greetings differently for each channel. Adding new channels requires no additional development — just a simple admin setting." },
+      { "q": "Can it be applied to both KakaoTalk and website?", "a": "Yes, absolutely. The WEBHEADS AI chatbot is designed to deploy from a single engine to multiple channels simultaneously — KakaoTalk, website, and mobile app. When you update FAQs in one place, changes are instantly reflected across all channels, reducing management burden. You can even customize the response tone and greetings differently for each channel. Adding new channels requires no additional development — just a simple admin setting." },
       { "q": "Is learner personal information protected?", "a": "Learner privacy protection is our top priority. All conversation data is encrypted using TLS 1.3 protocol, and sensitive information such as social security numbers and phone numbers is automatically masked. We comply with privacy laws and GDPR guidelines by collecting conversation logs only on a consent basis, and data past its retention period is automatically deleted. We also conduct regular security audits to verify the appropriateness of personal data handling procedures." },
       { "q": "How is chatbot response accuracy managed?", "a": "Chatbot response accuracy is continuously improved through a multi-layered quality management system. Monthly fine-tuning sessions incorporate the latest educational information and policy changes, while a feedback loop analyzes learner reactions (like/dislike). The admin dashboard provides real-time monitoring of key metrics including response accuracy, satisfaction scores, and unanswered question rates. When inaccurate responses are identified, they are immediately corrected and reflected in retraining." }
     ],
@@ -251,22 +251,22 @@
     ]
   },
   "appdev": {
-    "seo": { "title": "Application Development", "description": "iOS and Android app development perfectly integrated with Webheads LMS.", "keywords": "e-learning app, LMS app, iOS app, Android app, React Native, Flutter" },
-    "hero": { "badge": "Applications", "title": "From Perfect LMS Integration to", "titleHighlight": "Versatile App Development", "desc": "Build learning apps perfectly integrated with Webheads e-learning solutions, plus commerce, booking, internal tools, and more.", "cta1": "Request Consultation", "cta2": "View App Types" },
+    "seo": { "title": "Application Development", "description": "iOS and Android app development perfectly integrated with WEBHEADS LMS.", "keywords": "e-learning app, LMS app, iOS app, Android app, React Native, Flutter" },
+    "hero": { "badge": "Applications", "title": "From Perfect LMS Integration to", "titleHighlight": "Versatile App Development", "desc": "Build learning apps perfectly integrated with WEBHEADS e-learning solutions, plus commerce, booking, internal tools, and more.", "cta1": "Request Consultation", "cta2": "View App Types" },
     "stats": [
       { "value": "iOS+AOS", "label": "Simultaneous Dev", "sub": "Single team delivery" },
       { "value": "90%+", "label": "Native Performance", "sub": "vs. cross-platform" },
-      { "value": "Perfect", "label": "LMS Integration", "sub": "Webheads solution based" },
+      { "value": "Perfect", "label": "LMS Integration", "sub": "WEBHEADS solution based" },
       { "value": "4 wks", "label": "Avg. Dev Time", "sub": "MVP basis" }
     ],
-    "lmsFeaturesSection": { "sub": "LMS APPS", "title": "Perfectly Integrated with\nWebheads e-Learning", "desc": "If you're already using Webheads LMS, deliver the same learning experience in your app without additional setup." },
+    "lmsFeaturesSection": { "sub": "LMS APPS", "title": "Perfectly Integrated with\nWEBHEADS e-Learning", "desc": "If you're already using WEBHEADS LMS, deliver the same learning experience in your app without additional setup." },
     "lmsFeatures": [
-      { "title": "Webheads LMS Integration", "desc": "Real-time bidirectional integration with Webheads via REST API and WebSocket.", "tags": ["REST API", "WebSocket", "Real-time Sync"] },
+      { "title": "WEBHEADS LMS Integration", "desc": "Real-time bidirectional integration with WEBHEADS via REST API and WebSocket.", "tags": ["REST API", "WebSocket", "Real-time Sync"] },
       { "title": "Learning Push Notifications", "desc": "Auto-send study reminders and assignment deadlines via FCM/APNs at optimal timing per learner.", "tags": ["FCM", "APNs", "Personalized Alerts"] },
       { "title": "Mobile DRM Video Security", "desc": "Block illegal recording and capture with Widevine (Android) and FairPlay (iOS) DRM.", "tags": ["Widevine", "FairPlay", "AES-128"] },
       { "title": "Offline Learning Support", "desc": "Local caching enables uninterrupted learning even in unstable network environments.", "tags": ["Local Caching", "Offline Mode", "Auto Sync"] },
       { "title": "Learning Analytics & Progress", "desc": "Visualize 30+ metrics including study time, progress rate, and quiz scores in the app dashboard.", "tags": ["30+ Metrics", "Real-time Charts", "Admin Dashboard"] },
-      { "title": "Security & SSO", "desc": "OAuth 2.0/SAML 2.0 based SSO for instant app login with a single Webheads LMS account.", "tags": ["OAuth 2.0", "SAML SSO", "Root Detection"] }
+      { "title": "Security & SSO", "desc": "OAuth 2.0/SAML 2.0 based SSO for instant app login with a single WEBHEADS LMS account.", "tags": ["OAuth 2.0", "SAML SSO", "Root Detection"] }
     ],
     "midCTA": { "heading": "Wondering what app your organization needs?", "description": "We'll propose a customized app development plan for free.", "ctaText": "Request Consultation" },
     "otherAppsSection": { "sub": "VARIOUS APPS", "title": "Beyond e-Learning,\nWe Build All Kinds of Apps", "desc": "Custom apps for commerce, booking, internal tools, community, and more — built for iOS and Android simultaneously." },
@@ -286,21 +286,21 @@
     "processSteps": [
       { "title": "Requirements Analysis & Planning", "desc": "Deep analysis of service objectives, target users, and LMS integration scope to define app architecture and feature specifications. Evaluate cross-platform (React Native/Flutter) feasibility and finalize the optimal tech stack.", "tag": "1-2 weeks" },
       { "title": "UI/UX Design", "desc": "Create wireframes and interaction prototypes following Apple HIG and Material Design guidelines. Design key screens including learning views, dashboards, and push notification UI, then finalize with client feedback.", "tag": "1-2 weeks" },
-      { "title": "Development & LMS Integration", "desc": "Build the app based on finalized designs and integrate with Webheads LMS via REST API and WebSocket. Implement core modules including FCM/APNs push, Widevine/FairPlay DRM, and offline caching with unit tests.", "tag": "3-6 weeks" },
+      { "title": "Development & LMS Integration", "desc": "Build the app based on finalized designs and integrate with WEBHEADS LMS via REST API and WebSocket. Implement core modules including FCM/APNs push, Widevine/FairPlay DRM, and offline caching with unit tests.", "tag": "3-6 weeks" },
       { "title": "QA Testing & Store Review", "desc": "Conduct integration testing on real devices (iPhone, Galaxy, iPad, etc.) and performance benchmarking. Prepare App Store and Google Play metadata, handle submission, and manage rejection responses.", "tag": "1-2 weeks" },
       { "title": "Deployment & Maintenance", "desc": "After store publication, provide ongoing iOS/Android OS compatibility updates, bug fixes, and performance optimization. Deliver user feedback-driven improvements and monthly app performance reports (crash rate, DAU, retention).", "tag": "Ongoing" }
     ],
     "plansSection": { "sub": "PRICING", "title": "App Development\nPlans", "desc": "All prices exclude VAT. Scope-dependent adjustments may apply." },
     "plans": [
       { "name": "MVP", "price": "₩1,500,000~", "unit": "", "priceNote": "One-time dev cost", "features": [{ "main": "Single Platform (iOS or Android)" }, { "main": "3-5 Core Features" }, { "main": "Basic UI/UX Design" }, { "main": "App Store Submission" }, { "main": "1-month Post-launch Bug Fix" }], "recommend": "Best for startups needing quick market validation" },
-      { "name": "Standard", "price": "₩2,500,000~", "unit": "", "priceNote": "One-time dev cost", "features": [{ "main": "iOS + Android Simultaneous" }, { "main": "Webheads LMS Basic Integration" }, { "main": "Push Notifications + Offline Mode" }, { "main": "Custom UI/UX Design" }, { "main": "App Store + Review Handling" }, { "main": "3-month Post-launch Maintenance" }], "recommend": "Best for mid-size institutions needing LMS integration", "highlight": true, "badge": "Most Popular" },
+      { "name": "Standard", "price": "₩2,500,000~", "unit": "", "priceNote": "One-time dev cost", "features": [{ "main": "iOS + Android Simultaneous" }, { "main": "WEBHEADS LMS Basic Integration" }, { "main": "Push Notifications + Offline Mode" }, { "main": "Custom UI/UX Design" }, { "main": "App Store + Review Handling" }, { "main": "3-month Post-launch Maintenance" }], "recommend": "Best for mid-size institutions needing LMS integration", "highlight": true, "badge": "Most Popular" },
       { "name": "Enterprise", "price": "Custom", "unit": "", "priceNote": "Custom quote", "features": [{ "main": "iOS + Android + Tablet Optimized" }, { "main": "Full LMS Integration + SSO + DRM" }, { "main": "Advanced Learning Analytics Dashboard" }, { "main": "Custom Native Module Development" }, { "main": "App Store + Continuous Updates" }, { "main": "Dedicated PM + Annual Maintenance" }], "recommend": "Best for large institutions, cyber universities, corporate training" }
     ],
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your project scope.", "cta": "Request Custom Quote" },
     "faqs": [
-      { "q": "Does developing for both iOS and Android cost double?", "a": "No, it doesn't. Webheads uses React Native or Flutter cross-platform frameworks to develop iOS and Android apps simultaneously from a single codebase. This saves approximately 30-40% in development costs compared to separate native development. Maintenance is also more cost-effective since a single modification applies to both platforms at once. Of course, when platform-specific features (Face ID, NFC, etc.) are needed, we add native modules to ensure the optimal user experience." },
+      { "q": "Does developing for both iOS and Android cost double?", "a": "No, it doesn't. WEBHEADS uses React Native or Flutter cross-platform frameworks to develop iOS and Android apps simultaneously from a single codebase. This saves approximately 30-40% in development costs compared to separate native development. Maintenance is also more cost-effective since a single modification applies to both platforms at once. Of course, when platform-specific features (Face ID, NFC, etc.) are needed, we add native modules to ensure the optimal user experience." },
       { "q": "Do you handle App Store/Google Play submission?", "a": "Yes, we handle the entire Apple App Store and Google Play Store submission process. From developer account setup guidance to app metadata (screenshots, descriptions, keywords) creation, review submission, and rejection response — we take care of everything. With extensive experience navigating Apple's stringent review criteria, we minimize rejection rates. We continue to support the re-review process for app updates after initial publication as well." },
-      { "q": "Can an existing web LMS be converted to an app?", "a": "Yes, if you're already using Webheads LMS, we can quickly build an app by integrating existing learning data, member information, and content via REST API. Learners can log in with the same account on both web and app, with progress and learning history syncing in real-time. App-exclusive features like push notifications and offline learning can also be added. All existing operational data is preserved 100% without any loss, so you can transition with confidence." },
+      { "q": "Can an existing web LMS be converted to an app?", "a": "Yes, if you're already using WEBHEADS LMS, we can quickly build an app by integrating existing learning data, member information, and content via REST API. Learners can log in with the same account on both web and app, with progress and learning history syncing in real-time. App-exclusive features like push notifications and offline learning can also be added. All existing operational data is preserved 100% without any loss, so you can transition with confidence." },
       { "q": "Is post-launch maintenance available?", "a": "Yes, we provide continuous maintenance services after app launch. This includes iOS/Android OS update compatibility responses, bug fixes, and performance optimization on an ongoing basis. We also support feature improvements based on user feedback and new feature additions. Monthly maintenance reports transparently share app performance metrics, crash rates, and user statistics. For urgent issues, we guarantee hotfix deployment within 24 hours." },
       { "q": "Does offline learning work for all content?", "a": "Offline learning can be flexibly configured per content item based on DRM (Digital Rights Management) policies. Learners can pre-download content over Wi-Fi and continue learning without an internet connection for items that the administrator has allowed for offline download. Downloaded content remains DRM-protected, making unauthorized copying or redistribution impossible. Content is automatically deleted when the enrollment period expires, ensuring thorough copyright protection." }
     ],
@@ -326,7 +326,7 @@
       { "title": "Screen Capture & Recording Prevention", "desc": "Real-time detection and instant playback stop for OBS, capture tools, and screen recorders across all platforms.", "tags": ["OBS Block", "Real-time Detection", "HDMI Block", "All Platforms"] },
       { "title": "Personal ID Watermark", "desc": "Real-time insertion of learner name, ID, IP address, and other unique identifiers as visible or invisible watermarks.", "tags": ["Invisible Watermark", "Real-time Insert", "Leak Tracing", "IP Logging"] },
       { "title": "Multi-platform & Browser Support", "desc": "Works without plugins on all OS (Windows, macOS, Linux, iOS, Android) and browsers (Chrome, Firefox, Safari, Edge).", "tags": ["EME Standard", "No Plugins", "All OS", "All Browsers"] },
-      { "title": "Full LMS API Integration", "desc": "Integrates with Webheads LMS and third-party LMS via REST API for real-time access policy control.", "tags": ["REST API", "Moodle Integration", "Access Control", "Violation Logs"] },
+      { "title": "Full LMS API Integration", "desc": "Integrates with WEBHEADS LMS and third-party LMS via REST API for real-time access policy control.", "tags": ["REST API", "Moodle Integration", "Access Control", "Violation Logs"] },
       { "title": "Device Registration & Concurrent Limits", "desc": "Set per-account device limits and automatically block playback from excess devices.", "tags": ["Device Limits", "Concurrent Block", "Account Sharing Prevention", "Session Mgmt"] },
       { "title": "Offline Playback Protection", "desc": "DRM encryption is maintained even when content is downloaded for offline learning.", "tags": ["Offline DRM", "Playback Expiry", "Play Limits", "License Mgmt"] },
       { "title": "Threat Detection & Monitoring", "desc": "Real-time detection of abnormal playback patterns, repeated license errors, and foreign IP access.", "tags": ["Real-time Detection", "Anomaly Detection", "Admin Dashboard", "Block History"] }
@@ -338,11 +338,11 @@
       { "name": "ZonePlayer DRM", "desc": "Provides both pre-packaging and real-time encryption. Proven stability in large-scale services like EBS.", "features": ["Real-time & Per-user Encryption", "Secure Server Encrypted Transmission", "Recorder Detection & Packet Capture Block (zone@GUARD)", "Concurrent Access & Device Limits", "Virtual Drive Based (Linux/Windows Server)", "Download Monitoring & Admin Dashboard"], "ctaText": "Inquire" }
     ],
     "faqs": [
-      { "q": "Do learners need to install any software for DRM?", "a": "No, they don't. Webheads DRM solutions are based on the EME (Encrypted Media Extensions) web standard, so learners don't need to install any plugins or programs. Content plays directly in major browsers including Chrome, Safari, Edge, and Firefox, and works the same on mobile browsers. Unlike legacy ActiveX-based DRM, there's virtually no learner inconvenience, which dramatically reduces support complaints — the biggest advantage." },
+      { "q": "Do learners need to install any software for DRM?", "a": "No, they don't. WEBHEADS DRM solutions are based on the EME (Encrypted Media Extensions) web standard, so learners don't need to install any plugins or programs. Content plays directly in major browsers including Chrome, Safari, Edge, and Firefox, and works the same on mobile browsers. Unlike legacy ActiveX-based DRM, there's virtually no learner inconvenience, which dramatically reduces support complaints — the biggest advantage." },
       { "q": "Which is better, Catenoid or ZonePlayer?", "a": "Both are proven DRM solutions, but with different strengths. Catenoid (Kollus) excels at large-scale traffic handling and global content distribution through tight CDN integration, making it ideal for organizations with high concurrent users or international learners. ZonePlayer (ZONE) specializes in content protection features like screen capture prevention, forensic watermarking, and screen recording detection, making it recommended for organizations with high-value premium content. If you're unsure which solution fits best, schedule a free consultation for a personalized recommendation." },
-      { "q": "Can DRM be added to an existing LMS?", "a": "Yes, absolutely. Webheads DRM solutions are designed with REST APIs, allowing flexible integration with not only Webheads LMS but also third-party LMS platforms. It's also possible to batch-apply DRM to previously uploaded video content. The integration is carried out in phases to ensure no disruption to your existing service. Typically, integration takes about 1-2 weeks to complete, with a dedicated engineer supporting you throughout the entire process." },
+      { "q": "Can DRM be added to an existing LMS?", "a": "Yes, absolutely. WEBHEADS DRM solutions are designed with REST APIs, allowing flexible integration with not only WEBHEADS LMS but also third-party LMS platforms. It's also possible to batch-apply DRM to previously uploaded video content. The integration is carried out in phases to ensure no disruption to your existing service. Typically, integration takes about 1-2 weeks to complete, with a dedicated engineer supporting you throughout the entire process." },
       { "q": "Does DRM work on mobile apps?", "a": "Yes, it works perfectly in mobile environments. We apply Apple FairPlay Streaming for iOS and Google Widevine DRM for Android, providing platform-optimized content protection. Through dedicated SDKs, content can be securely played within the app, and screen recording prevention and screenshot blocking features work identically in mobile environments. Learners simply launch the app and DRM-protected content plays automatically without any additional setup." },
-      { "q": "Does DRM affect video playback speed?", "a": "There is virtually no perceivable speed degradation. Webheads DRM solutions use Hardware-Accelerated Decryption to decrypt video in real-time, maintaining the same quality and playback speed as non-DRM content. There is a license authentication process of a few hundred milliseconds during initial loading, but this is imperceptible to users. Even 4K high-definition content plays smoothly without any buffering." }
+      { "q": "Does DRM affect video playback speed?", "a": "There is virtually no perceivable speed degradation. WEBHEADS DRM solutions use Hardware-Accelerated Decryption to decrypt video in real-time, maintaining the same quality and playback speed as non-DRM content. There is a license authentication process of a few hundred milliseconds during initial loading, but this is imperceptible to users. Even 4K high-definition content plays smoothly without any buffering." }
     ],
     "testimonials": [
       { "name": "H. Lim", "role": "Content Security", "org": "G Online Education", "rating": 5, "date": "2024.08", "period": "6th year", "content": "Before DRM, leaked videos were everywhere. After applying it, not a single one has appeared." },
@@ -396,7 +396,7 @@
       { "q": "How is SMS pricing structured?", "a": "SMS pricing is transparently billed per message. Short SMS costs approximately 15 KRW per message, long LMS approximately 40 KRW, and KakaoTalk Alert approximately 8 KRW. Volume discounts apply for bulk sending, and monthly usage reports provide detailed breakdowns of message counts and costs. Failed deliveries are never charged, so you can send with confidence." },
       { "q": "What conditions trigger automated learning reminders?", "a": "You can freely configure various conditions using a no-code interface. Common triggers include progress rate thresholds (e.g., below 50% progress), inactive days (e.g., 3+ days without login), remaining enrollment period (e.g., 7 days before completion deadline), and assignment/exam non-submission. You can also specify delivery time windows to avoid disturbing learners at inconvenient hours, and all configured rules can be modified or deleted at any time." },
       { "q": "How is opt-out processed?", "a": "In compliance with telecommunications regulations, we provide a free 080 opt-out number by default. When a learner requests opt-out, they are immediately and automatically excluded from future marketing messages. However, informational messages such as enrollment confirmations and mandatory training notices may still be sent regardless of opt-out status. Opt-out processing status can be monitored in real-time through the admin dashboard." },
-      { "q": "Can it integrate with my existing LMS?", "a": "If you're using Webheads LMS, integration is instant with no additional development required — simply enable Channel Talk and SMS features in the admin settings, and learner data and enrollment information connect automatically. For third-party LMS platforms, flexible integration is available via REST API and Webhook, with our dedicated engineers providing technical support throughout the integration process. Integration typically takes about 3-5 business days to complete." }
+      { "q": "Can it integrate with my existing LMS?", "a": "If you're using WEBHEADS LMS, integration is instant with no additional development required — simply enable Channel Talk and SMS features in the admin settings, and learner data and enrollment information connect automatically. For third-party LMS platforms, flexible integration is available via REST API and Webhook, with our dedicated engineers providing technical support throughout the integration process. Integration typically takes about 3-5 business days to complete." }
     ],
     "testimonials": [
       { "name": "S. Baek", "role": "Education Operations Manager", "org": "J Vocational Training", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "Setting up auto-SMS for non-completers noticeably increased our completion rates." },
@@ -449,7 +449,7 @@
       { "name": "WeChat Pay / Alipay", "category": "China Payments", "desc": "Chinese user payment support" }
     ],
     "faqs": [
-      { "q": "How long does PG integration take?", "a": "On average, integration is completed within 1-2 weeks per PG provider. The process follows: ① PG merchant agreement signing → ② Test environment integration and payment testing → ③ Production environment switchover. While the merchant agreement must be completed by your organization, Webheads provides document guidance and contract process consulting. For multiple simultaneous PG integrations, we work in parallel to minimize total timeline." },
+      { "q": "How long does PG integration take?", "a": "On average, integration is completed within 1-2 weeks per PG provider. The process follows: ① PG merchant agreement signing → ② Test environment integration and payment testing → ③ Production environment switchover. While the merchant agreement must be completed by your organization, WEBHEADS provides document guidance and contract process consulting. For multiple simultaneous PG integrations, we work in parallel to minimize total timeline." },
       { "q": "Can multiple PGs be used simultaneously?", "a": "Yes, absolutely. You can integrate domestic PGs (KG Inicis, Toss Payments, NHN KCP, etc.) and global PGs (Stripe, PayPal, etc.) simultaneously, with automatic routing to the optimal PG per payment method. For example, domestic credit card payments route to the lowest-fee PG, while international payments automatically connect to Stripe. If one PG experiences an outage, automatic failover to another PG maximizes payment success rates." },
       { "q": "How are subscriptions configured?", "a": "You can easily set up subscription products through the admin panel. Freely configure payment cycles (monthly, quarterly, annual) and set auto-retry counts and intervals for failed payments. Learners automatically receive pre-payment date notifications, payment success/failure alerts, and the system supports subscription cancellation, pause, and resume features by default. The admin dashboard provides a comprehensive view of subscription status, churn rates, and revenue trends." },
       { "q": "How is exchange rate applied for international payments?", "a": "Real-time exchange rates are automatically applied through global PGs like Stripe and PayPal. Learners can view and pay in their local currency on the checkout screen, supporting over 140 currencies. Exchange fees are approximately 1-3% depending on the PG's policy, and settlements are converted and deposited in KRW. We also offer fixed exchange rate options to reduce currency fluctuation risk." },
@@ -515,7 +515,7 @@
       { "q": "Can content be made from existing PPT materials?", "a": "Yes, we can create various types of e-learning content based on your existing PPT materials. Options include slide-based lectures, screen recording lectures, narrated animation lectures, and quiz/branching interactive content. Send us your PPT and our instructional design experts will analyze the content and recommend the optimal content type to maximize learning effectiveness. We'll also suggest design improvements and interactive elements to enhance engagement." },
       { "q": "Is mandatory training content updated with law changes?", "a": "Yes, with an annual license agreement, we provide free content updates for regulatory amendments. We maintain content for all major mandatory training categories including sexual harassment prevention, privacy protection, occupational safety, disability awareness, and workplace bullying prevention. When relevant laws are amended, we complete updates before the effective date so your organization can conduct training without any legal risk. Training completion records and certificate issuance are also managed automatically." },
       { "q": "AI voice or professional voice actor — which is better?", "a": "Both options have their advantages, and the best choice depends on your content's nature. AI TTS (Text-to-Speech) is ideal for bulk production or fast delivery needs, saving approximately 60-70% compared to professional voice actors. Modern AI voices offer natural intonation and emotional expression that are more than sufficient for standard educational content. For premium content where brand image or emotional delivery is critical — such as CEO messages or promotional videos — professional voice actors are recommended. Mixing both approaches is also a popular option." },
-      { "q": "Is WCAG accessibility compliance required?", "a": "For public institutions, universities, and local governments, web accessibility compliance is a legal requirement under disability discrimination and e-government laws. While not legally mandatory for private companies, Webheads applies WCAG 2.1 AA standards by default in all content production. This includes captions, alternative text, keyboard navigation support, and proper color contrast ratios, ensuring learners with visual or hearing impairments can learn without barriers. We also support accessibility certification audit preparation." }
+      { "q": "Is WCAG accessibility compliance required?", "a": "For public institutions, universities, and local governments, web accessibility compliance is a legal requirement under disability discrimination and e-government laws. While not legally mandatory for private companies, WEBHEADS applies WCAG 2.1 AA standards by default in all content production. This includes captions, alternative text, keyboard navigation support, and proper color contrast ratios, ensuring learners with visual or hearing impairments can learn without barriers. We also support accessibility certification audit preparation." }
     ],
     "testimonials": [
       { "name": "M. Song", "role": "HRD Manager", "org": "P Enterprise", "rating": 4, "date": "2024.10", "period": "4th year", "content": "The video quality is clearly different. Employees keep asking if these are external training videos." },
@@ -524,8 +524,8 @@
     ]
   },
   "landing": {
-    "seo": { "title": "Webheads Services", "description": "Everything for e-Learning with Webheads. Hosting, AI chatbot, app development, DRM, PG payment, and content creation — all in one place.", "keywords": "e-learning, LMS, Webheads, hosting, AI chatbot, app development, DRM, PG payment, content creation, maintenance" },
-    "hero": { "sub": "Webheads Services", "title1": "Everything for e-Learning", "title2": "All in One Place", "desc": "From hosting to AI chatbots, app development, DRM, and payment integration.\nAll the services you need for e-learning, in one place.", "cta1": "Explore Services", "cta2": "Free Consultation" },
+    "seo": { "title": "WEBHEADS Services", "description": "Everything for e-Learning with WEBHEADS. Hosting, AI chatbot, app development, DRM, PG payment, and content creation — all in one place.", "keywords": "e-learning, LMS, WEBHEADS, hosting, AI chatbot, app development, DRM, PG payment, content creation, maintenance" },
+    "hero": { "sub": "WEBHEADS Services", "title1": "Everything for e-Learning", "title2": "All in One Place", "desc": "From hosting to AI chatbots, app development, DRM, and payment integration.\nAll the services you need for e-learning, in one place.", "cta1": "Explore Services", "cta2": "Free Consultation" },
     "stats": [{ "value": "500+", "label": "Clients" }, { "value": "15+", "label": "Years Experience" }, { "value": "99.9%", "label": "Uptime" }, { "value": "24/7", "label": "Tech Support" }],
     "servicesSub": "SERVICES",
     "servicesTitle": "All Services\nfor e-Learning",
@@ -541,7 +541,7 @@
     ],
     "viewMore": "Learn More",
     "whyUsSub": "WHY WEBHEADS",
-    "whyUsTitle": "Why choose\nWebheads?",
+    "whyUsTitle": "Why choose\nWEBHEADS?",
     "whyUs": [
       { "num": "01", "title": "15+ Years of e-Learning Expertise", "desc": "We have built and operated LMS platforms for hundreds of enterprises in Korea." },
       { "num": "02", "title": "One-Stop Integrated Service", "desc": "From LMS to add-on services, a single provider for maximum operational efficiency." },
@@ -549,19 +549,19 @@
     ]
   },
   "index": {
-    "heroBadge": "Webheads Add-on Services Portal",
+    "heroBadge": "WEBHEADS Add-on Services Portal",
     "heroTitle1": "Everything for e-Learning",
-    "heroTitle2": "with Webheads",
+    "heroTitle2": "with WEBHEADS",
     "heroDesc": "From LMS solutions to hosting, AI chatbots, app development, content creation, DRM, and Channel Talk/SMS — all e-learning services in one place.",
     "heroCta1": "Explore Services",
     "heroCta2": "Free Consultation",
     "servicesSub": "SERVICES",
-    "servicesTitle": "Webheads",
+    "servicesTitle": "WEBHEADS",
     "servicesTitleHighlight": "Add-on Services",
-    "servicesDesc": "All the technical services you need for e-learning platform operation, solved with Webheads.",
+    "servicesDesc": "All the technical services you need for e-learning platform operation, solved with WEBHEADS.",
     "viewMore": "Learn More",
     "whyTitle": "Why choose",
-    "whyTitleHighlight": "Webheads",
+    "whyTitleHighlight": "WEBHEADS",
     "whyTitleEnd": "?",
     "whyItems": [
       { "title": "15+ Years of e-Learning Experience", "desc": "We have extensive LMS development and operation know-how across hundreds of enterprises.", "num": "01" },
@@ -580,25 +580,25 @@
     "stats": [{ "value": "500+", "label": "Clients" }, { "value": "15+", "label": "Years Experience" }, { "value": "99.9%", "label": "Uptime" }, { "value": "24/7", "label": "Tech Support" }]
   },
   "lms": {
-    "seo": { "title": "Webheads LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 300+ companies.", "keywords": "LMS, e-learning solution, Webheads, online education, learning management system" },
-    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "Webheads LMS", "desc": "Webheads LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Add-on services matter too", "ctaWhy": "Why Webheads LMS?" },
+    "seo": { "title": "WEBHEADS LMS", "description": "An integrated e-learning solution that unifies course creation, management, and operations into a single platform. Trusted by 300+ companies.", "keywords": "LMS, e-learning solution, WEBHEADS, online education, learning management system" },
+    "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "WEBHEADS LMS", "desc": "WEBHEADS LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Add-on services matter too", "ctaWhy": "Why WEBHEADS LMS?" },
     "whyWebheads": {
-      "title": "Why Choose\nWebheads LMS?",
-      "desc": "Trusted by 300+ companies over 16 years — discover what makes Webheads the proven leader in e-learning.",
+      "title": "Why Choose\nWEBHEADS LMS?",
+      "desc": "Trusted by 300+ companies over 16 years — discover what makes WEBHEADS the proven leader in e-learning.",
       "highlight": "16 years of expertise · 300+ clients · 92.6% renewal rate — trust backed by numbers",
       "reasonsTitle": "Our Advantages",
       "reasons": [
         { "title": "Launch in Just 3 Days", "desc": "Skip months of server setup and development. With pre-built templates and modular architecture, your education platform goes live in as little as 3 days — dramatically reducing time-to-market." },
         { "title": "All-in-One Revenue Engine", "desc": "LMS, payment gateway, DRM security, content production, and marketing automation — everything your education business needs, unified in one platform. From enrollment to certification, run it all without juggling multiple vendors." },
         { "title": "Industry-Leading Security", "desc": "Multi-layered protection with Catenoid/ZonePlayer DRM, forensic watermarking, screen recording detection, and concurrent login limits. Safeguard your premium content and intellectual property from day one." },
-        { "title": "Proven by 300+ Organizations", "desc": "Yanadu, Korea Energy Foundation, Incheon Airport, KAIST — enterprises, government agencies, and startups across industries trust Webheads. Our 92.6% five-year renewal rate speaks for itself." },
-        { "title": "Flexible Solution Lineup", "desc": "Want a quick start? Go with Webheads Light. Need security & full customization? Choose Webheads PRO. Both solutions support rental and SaaS deployment options." },
+        { "title": "Proven by 300+ Organizations", "desc": "Yanadu, Korea Energy Foundation, Incheon Airport, KAIST — enterprises, government agencies, and startups across industries trust WEBHEADS. Our 92.6% five-year renewal rate speaks for itself." },
+        { "title": "Flexible Solution Lineup", "desc": "Want a quick start? Go with WEBHEADS Light. Need security & full customization? Choose WEBHEADS PRO. Both solutions support rental and SaaS deployment options." },
         { "title": "Dedicated Support & 24/7 Maintenance", "desc": "From onboarding to incident response, a dedicated manager and DevOps engineers have your back. 24/7 server monitoring, 15-minute first response SLA, regular security patches, and performance tuning included." }
       ],
       "cta": "Get a Free Consultation"
     },
     "whySection": {
-      "title": "Why Webheads LMS?",
+      "title": "Why WEBHEADS LMS?",
       "desc": "Differentiated value built on 16 years of know-how and one-stop add-on integration",
       "cards": [
         { "label": "Time to Launch", "value": "As Fast as 3 Days", "sub": "Tailored setup faster than typical SaaS" },
@@ -644,8 +644,8 @@
     "clientsTitle": "Trusted by 300+ organizations",
     "clients": ["Incheon International Airport Corp.", "Korea Association of Property Appraisers", "Yanadu", "KG Eduwon", "Wolgeupjaengi Bujadeul", "KAIT", "Visang Education", "Gyeonggi Fire & Disaster HQ", "Youngrimwon Softlab", "Yangcheon-gu Office", "Korea Admissions Officers Association", "Sunmoon University", "Sungkyunkwan University", "Korea University", "Aviation Safety Technology Center", "SK hynix", "Catholic Diocese of Incheon", "KTR Chemical Regulation Center", "KEPCO KPS", "Kolmar Korea", "Korea Anti-Drug Campaign HQ", "Pulmuone Foundation", "Korea Education Development & Evaluation", "Altoran Ventures", "Samyang Foods", "Korea Childcare Promotion Institute", "Transcosmos Korea", "KMAC", "Seoul Metropolitan Police Agency", "Korea Vocational Development Institute", "Korea Energy Foundation", "Bom Academy", "Korea Disabled People's Development Institute", "Korea IT Education Foundation", "MOA Education Group", "Hidden Bay Hotel", "The Shilla Hotels", "Korea Aviation Service", "Kongju National University", "Ministry of Health and Welfare", "Far East University", "WEC Korea Committee", "Hanssem", "Gangneung-Wonju National University", "Korea Securities Finance Corp.", "Dongguk University", "Hankuk University of Foreign Studies", "Duksung Women's University", "Chungbuk National University", "Kangwon National University", "Kyungpook National University", "Kookmin University", "Korea National University of Science and Technology", "Genewon Science", "Lotte.com", "Keimyung University", "Daegu Catholic University", "VTW", "Korea Student Aid Foundation", "Korea Internet & Security Agency", "Cleantopia", "Yakup Shinmun", "Wise Education"],
     "deviceSection": { "sub": "Responsive Design", "title": "User-Friendly for\nLearners and Admins", "desc": "Optimized responsive design across all devices — PC, tablet, and mobile.", "pc": "Multi-panel dashboards, batch student management, and statistical reports are efficiently laid out on large screens to maximize admin productivity.", "tablet": "A UI optimized for 10–12\" touch displays provides immersive learning through gesture-based interactions — from video lectures to quizzes and note-taking.", "mobile": "Native-level responsiveness with offline caching lets you continue learning seamlessly on the subway or at a café, with push notifications for study reminders.", "features": [["Dashboard", "Batch Mgmt", "Reports"], ["Touch UI", "Quiz", "Notes"], ["Offline", "Push", "PWA"]] },
-    "solutionsSection": { "sub": "Solutions", "title": "Choose the Right\nLMS for You", "desc": "Webheads Light and Webheads PRO — pick the LMS that fits your business." },
-    "light": { "name": "Webheads Light", "subtitle": "Rental · SaaS | Quick & Easy Start", "desc": "Launch your education site quickly with no complex setup. Operate reliably with pre-configured standard features, and choose between rental or SaaS deployment.", "cta": "Inquire about Light" },
+    "solutionsSection": { "sub": "Solutions", "title": "Choose the Right\nLMS for You", "desc": "WEBHEADS Light and WEBHEADS PRO — pick the LMS that fits your business." },
+    "light": { "name": "WEBHEADS Light", "subtitle": "Rental · SaaS | Quick & Easy Start", "desc": "Launch your education site quickly with no complex setup. Operate reliably with pre-configured standard features, and choose between rental or SaaS deployment.", "cta": "Inquire about Light" },
     "lightFeatures": [
       { "title": "Launch in 3 Days", "desc": "Quick setup to launch your education site in as few as 3 days" },
       { "title": "Flexible Pricing", "desc": "Monthly subscription plans tailored to various business sizes" },
@@ -657,7 +657,7 @@
       { "title": "Mobile Optimized", "desc": "Responsive UI across PC, tablet, and mobile for seamless learning" },
       { "title": "Pre-set Features Only", "desc": "Operate quickly and reliably using the pre-configured standard feature set" }
     ],
-    "pro": { "name": "Webheads PRO", "subtitle": "On-premise · SaaS | Strong Security & Customization", "desc": "A premium solution for organizations that need full customization and robust security. Choose between on-premise or SaaS deployment, with complete freedom to customize every feature.", "cta": "Inquire about PRO" },
+    "pro": { "name": "WEBHEADS PRO", "subtitle": "On-premise · SaaS | Strong Security & Customization", "desc": "A premium solution for organizations that need full customization and robust security. Choose between on-premise or SaaS deployment, with complete freedom to customize every feature.", "cta": "Inquire about PRO" },
     "proFeatures": [
       { "title": "DRM & Watermark", "desc": "Video security and anti-piracy via Catenoid, ZonePlayer, and more" },
       { "title": "ERP·CRM Integration", "desc": "Data process integration for effective value creation" },
@@ -671,9 +671,9 @@
       { "title": "SLA Guarantee", "desc": "99.9% uptime guarantee with emergency response protocols" }
     ],
     "comparisonTable": {
-      "title": "Webheads Light vs PRO — Which LMS is Right for You?",
+      "title": "WEBHEADS Light vs PRO — Which LMS is Right for You?",
       "desc": "Quick-start Light or fully customizable PRO — compare the key differences below.",
-      "headers": ["Comparison", "Webheads Light", "Webheads PRO"],
+      "headers": ["Comparison", "WEBHEADS Light", "WEBHEADS PRO"],
       "rows": [
         ["Deployment", "Rental · SaaS", "On-premise · SaaS"],
         ["Time to Launch", "As fast as 3 days", "4–12 weeks"],
@@ -687,14 +687,14 @@
         ["SLA", "Cloud SLA", "99.9% uptime guarantee"]
       ]
     },
-    "kdt": { "name": "Webheads Refundable LMS", "subtitle": "Refundable · Government-funded Training LMS", "desc": "An LMS optimized for government-subsidized refundable courses, supporting HRD-Net integration, attendance tracking, assessments, and completion management in full compliance with government standards.", "cta": "Inquire about Refundable LMS", "summary": "Government-subsidized training-optimized LMS — HRD-Net integration, attendance tracking, NCS-based assessments, and completion management, all compliant with government standards.", "ctaShort": "Learn More" },
+    "kdt": { "name": "WEBHEADS Refundable LMS", "subtitle": "Refundable · Government-funded Training LMS", "desc": "An LMS optimized for government-subsidized refundable courses, supporting HRD-Net integration, attendance tracking, assessments, and completion management in full compliance with government standards.", "cta": "Inquire about Refundable LMS", "summary": "Government-subsidized training-optimized LMS — HRD-Net integration, attendance tracking, NCS-based assessments, and completion management, all compliant with government standards.", "ctaShort": "Learn More" },
     "kdtFeatures": [
       { "title": "HRD-Net Auto Sync", "desc": "Automated trainee registration and completion reporting via HRD-Net API" },
       { "title": "Real-time Attendance", "desc": "Built-in anti-fraud system with IP verification and random identity checks" },
       { "title": "NCS-based Assessment", "desc": "NCS competency-unit evaluation framework with auto-grading" },
       { "title": "Training Fee Settlement", "desc": "Integrated dashboard for course billing, settlement, and reimbursement tracking" }
     ],
-    "allInOneSection": { "sub": "All-in-One", "title": "Tired of Complex Management?\nWebheads All-in-One!" },
+    "allInOneSection": { "sub": "All-in-One", "title": "Tired of Complex Management?\nWEBHEADS All-in-One!" },
     "allInOne": [
       { "title": "SEO Optimization", "desc": "Insert Google/Naver ad scripts, configure meta tags (Title, Description, OG), and auto-generate sitemaps — all without a marketing team. Drive higher search rankings and conversion rates on your own." },
       { "title": "Multiple Video Players", "desc": "Stream via built-in CDN or embed YouTube, Vimeo, Zoom recordings, and HLS/DASH protocols. Adaptive bitrate (ABR) streaming ensures buffer-free playback regardless of network conditions." },
@@ -707,7 +707,7 @@
     "industryTabs": {
       "sub": "USE CASES",
       "title": "LMS Solutions\nfor Every Industry",
-      "desc": "Discover how Webheads LMS is used across different industries.",
+      "desc": "Discover how WEBHEADS LMS is used across different industries.",
       "addonsLabel": "Recommended Add-ons",
       "caseLabel": "Case Study",
       "tabs": [
@@ -721,7 +721,7 @@
     "journeyMap": {
       "sub": "LEARNER JOURNEY",
       "title": "One-Stop Experience\nfrom Enrollment to Retention",
-      "desc": "Webheads services seamlessly connect across the entire learner journey.",
+      "desc": "WEBHEADS services seamlessly connect across the entire learner journey.",
       "steps": [
         { "label": "Enrollment", "desc": "SEO and marketing automation drive learners to easy sign-up", "service": "LMS · SEO" },
         { "label": "Payment", "desc": "Multiple payment options including Toss, cards, and international payments", "service": "PG Payment" },
@@ -733,7 +733,7 @@
     },
     "roiCalc": {
       "sub": "ROI CALCULATOR",
-      "title": "Estimated Savings\nwith Webheads",
+      "title": "Estimated Savings\nwith WEBHEADS",
       "desc": "Enter your student count and average tuition to see estimated ROI compared to self-building.",
       "inputTitle": "Your Education Business Scale",
       "studentsLabel": "Monthly Students",
@@ -743,12 +743,12 @@
       "resultTitle": "Estimated Savings",
       "monthlyRevenue": "Est. Monthly Revenue",
       "selfBuildCost": "Self-Build Monthly Cost (Est.)",
-      "webheadsCost": "Webheads Monthly Fee",
+      "webheadsCost": "WEBHEADS Monthly Fee",
       "annualSavings": "Annual Estimated Savings",
       "savingsNote": "Approx. {{percent}}% savings vs self-building",
       "cta": "Request Custom Quote",
       "addonsTitle": "Additional Savings with Add-on Services",
-      "addonsSource": "Based on actual Webheads client operational data (2023–2024 avg.)",
+      "addonsSource": "Based on actual WEBHEADS client operational data (2023–2024 avg.)",
       "addonChatbot": "AI Chatbot — support staff cost savings",
       "addonDrm": "DRM — piracy damage prevention",
       "addonSms": "SMS reminders — completion rate boost",
@@ -757,7 +757,7 @@
       "drmSaving": "~20M KRW/year protected",
       "drmBasis": "Per Korea Copyright Protection Agency data, avg. damage per illegal distribution of e-learning content is ~5M KRW; calculated at 4+ incidents/year (5M × 4 = 20M KRW)",
       "smsSaving": "Avg. 35% completion rate increase",
-      "smsBasis": "Comparison across 42 Webheads client companies: completion rate gap between non-SMS group vs. 3+ reminder SMS group (H1 2024 aggregate)",
+      "smsBasis": "Comparison across 42 WEBHEADS client companies: completion rate gap between non-SMS group vs. 3+ reminder SMS group (H1 2024 aggregate)",
       "breakdownTitle": "Self-build cost breakdown (monthly)",
       "breakdownServer": "Server · Infrastructure (AWS/IDC)",
       "breakdownDev": "Developer salary (1 FTE)",
@@ -767,9 +767,9 @@
     },
     "competitorTable": {
       "sub": "COMPARISON",
-      "title": "Self-Build vs Generic SaaS vs\nWebheads LMS",
+      "title": "Self-Build vs Generic SaaS vs\nWEBHEADS LMS",
       "desc": "Compare the key differences between LMS deployment options at a glance.",
-      "headers": ["Category", "Self-Build", "Generic SaaS", "Webheads LMS"],
+      "headers": ["Category", "Self-Build", "Generic SaaS", "WEBHEADS LMS"],
       "rows": [
         ["Initial Cost", "$50K+", "None", "None"],
         ["Setup Time", "6 months~1 year", "Instant", "As fast as 3 days"],
@@ -782,8 +782,8 @@
         ["24/7 Maintenance", "In-house", "Email only", "O"],
         ["Add-on Services", "Separate contracts", "Limited", "One-stop"]
       ],
-      "cta": "Get Webheads LMS Consultation",
-      "diffTitle": "Why Webheads LMS?",
+      "cta": "Get WEBHEADS LMS Consultation",
+      "diffTitle": "Why WEBHEADS LMS?",
       "diffDesc": "16 years of expertise and one-stop add-on integration create unmatched value",
       "diffItems": [
         { "label": "Setup Speed", "value": "3 Days", "desc": "Faster custom deployment than any SaaS" },
@@ -801,7 +801,7 @@
       { "title": "AI Tutor", "desc": "AI instantly answers questions during the learning process, providing personalized explanations and additional learning materials tailored to each learner's understanding." },
       { "title": "AI Chatbot", "desc": "Automatically responds 24/7 to operational questions such as enrollment, scheduling, and assignment submissions, reducing admin workload and improving learner convenience." }
     ],
-    "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale", "desc": "Webheads Light LMS pricing plans. PRO requires a custom quote." },
+    "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale", "desc": "WEBHEADS Light LMS pricing plans. PRO requires a custom quote." },
     "plans": [
       { "name": "Starter", "price": "300,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "No CDN (YouTube/Vimeo)", "sub": "Upload videos to external platforms and link in LMS" }, { "main": "Unlimited Members", "sub": "" }, { "main": "Free Design Templates", "sub": "" }, { "main": "SSL Certificate Included", "sub": "" }, { "main": "Hybrid App Development (Extra Cost)", "sub": "" }], "recommend": "Recommended for small educators looking to minimize video hosting costs" },
       { "name": "Basic", "price": "500,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "Video Transfer 500GB/mo", "sub": "Excess: 500 KRW/GB" }, { "main": "Video Storage 100GB total", "sub": "Excess: 1,000 KRW/GB" }, { "main": "Unlimited Members", "sub": "" }, { "main": "Free Design Templates", "sub": "" }, { "main": "SSL Certificate Included", "sub": "" }, { "main": "Hybrid App Development (Extra Cost)", "sub": "" }], "recommend": "Recommended for individual instructors, small businesses, and small academies" },
@@ -811,21 +811,21 @@
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your business scale — for free.", "cta": "Request Custom Quote" },
     "processSection": { "sub": "Process", "heading": "One-Stop Consulting\nfrom Planning to Launch", "desc": "We design solutions tailored to your business and learning goals through thorough consultation." },
     "processSteps": [
-      { "title": "Planning", "desc": "Diagnose your current education system, deeply analyze requirements including learner volume, course types, and security needs, then determine the optimal solution (Webheads Light or PRO) and build a strategic roadmap.", "tag": "Analysis" },
+      { "title": "Planning", "desc": "Diagnose your current education system, deeply analyze requirements including learner volume, course types, and security needs, then determine the optimal solution (WEBHEADS Light or PRO) and build a strategic roadmap.", "tag": "Analysis" },
       { "title": "Design", "desc": "Create custom UI mockups reflecting your brand identity, and engineer responsive layouts with polished interactions that deliver a consistent experience across PC, tablet, and mobile.", "tag": "UI·UX" },
       { "title": "Development", "desc": "Run agile 2-week sprints to build core LMS modules, integrate external APIs (PG, DRM, Channel Talk), design databases, and perform performance optimization — all executed systematically.", "tag": "Build" },
       { "title": "QA", "desc": "A rigorous 4-phase QA process covering functional testing, cross-browser compatibility, load testing (concurrent user simulation), and security vulnerability scans to ensure stability before launch.", "tag": "Testing" },
       { "title": "Maintenance", "desc": "Post-launch 24/7/365 real-time server monitoring, instant incident response (avg. recovery under 10 min), monthly performance reports, and continuous feature updates and security patches.", "tag": "Ongoing" }
     ],
     "faqs": [
-      { "q": "What's the difference between Light and PRO?", "a": "Webheads Light's biggest advantages are rapid deployment (site launch in as few as 3 days) and a reasonable subscription-based pricing model. Choose between rental or SaaS deployment, and operate with pre-configured standard features. Webheads PRO offers on-premise or SaaS deployment with complete freedom to customize UI/UX, features, and workflows. Full integration with ERP, CRM, and HR systems plus robust security (SSO/LDAP, air-gap) are included. We recommend the optimal option based on your business scale, security requirements, and budget — feel free to schedule a consultation." },
+      { "q": "What's the difference between Light and PRO?", "a": "WEBHEADS Light's biggest advantages are rapid deployment (site launch in as few as 3 days) and a reasonable subscription-based pricing model. Choose between rental or SaaS deployment, and operate with pre-configured standard features. WEBHEADS PRO offers on-premise or SaaS deployment with complete freedom to customize UI/UX, features, and workflows. Full integration with ERP, CRM, and HR systems plus robust security (SSO/LDAP, air-gap) are included. We recommend the optimal option based on your business scale, security requirements, and budget — feel free to schedule a consultation." },
       { "q": "Can we migrate from our existing LMS?", "a": "Yes, absolutely. We safely migrate all data including member information, learning history, content, and assessment results from your existing LMS. The process follows a systematic approach: ① Existing system analysis and data mapping → ② Data migration and verification in test environment → ③ Production environment switchover and stabilization monitoring. Migration is performed with zero downtime, and a dedicated engineer takes responsibility for the entire process. With dozens of successful LMS migrations completed, you can trust us completely." },
-      { "q": "Do you support multiple languages?", "a": "Yes, Webheads LMS natively supports 11 languages including Korean, English, Chinese, Japanese, and Vietnamese. Both admin and learner interfaces can switch between languages, and AI auto-translation features allow quick conversion of content subtitles and descriptions into multiple languages. Additional languages beyond the default set can be added upon request, making our solution ideal for global education operations." },
+      { "q": "Do you support multiple languages?", "a": "Yes, WEBHEADS LMS natively supports 11 languages including Korean, English, Chinese, Japanese, and Vietnamese. Both admin and learner interfaces can switch between languages, and AI auto-translation features allow quick conversion of content subtitles and descriptions into multiple languages. Additional languages beyond the default set can be added upon request, making our solution ideal for global education operations." },
       { "q": "How long does implementation take?", "a": "Webheads Light can launch a site in as few as 3 days using base templates, or about 1-2 weeks including custom design and additional feature configuration. Webheads PRO takes approximately 4-12 weeks depending on project scope and customization requirements, following a systematic 5-stage process of planning, design, development, QA, and launch. Detailed timelines are provided after assessing project scope during a free consultation." },
       { "q": "Is a mobile app available?", "a": "Yes, we offer hybrid apps supporting both iOS and Android. Fully integrated with the LMS, learners can continue learning across PC and mobile using the same account, with progress and learning history syncing in real-time. App-exclusive features include push notification-based learning reminders, offline content download over Wi-Fi, and mobile-optimized UI/UX. The app design can be customized to match your organization's brand identity." },
-      { "q": "How much does it cost?", "a": "Webheads Light operates on a monthly subscription model with minimal upfront investment. Choose from Light, Basic, Plus, or Premium plans based on your learner count and feature needs, with all plans including basic hosting and maintenance. Webheads PRO pricing varies by project scope, customization range, and number of integrated systems. Schedule a free consultation and we'll provide a detailed custom quote after understanding your requirements." },
+      { "q": "How much does it cost?", "a": "WEBHEADS Light operates on a monthly subscription model with minimal upfront investment. Choose from Light, Basic, Plus, or Premium plans based on your learner count and feature needs, with all plans including basic hosting and maintenance. WEBHEADS PRO pricing varies by project scope, customization range, and number of integrated systems. Schedule a free consultation and we'll provide a detailed custom quote after understanding your requirements." },
       { "q": "Are learning analytics available?", "a": "Yes, we offer powerful learning data analytics. View learning progress rates, completion rates, assessment results, access patterns, per-content viewing completion rates, and study time distribution all in a real-time dashboard. Monthly reports are auto-generated and emailed, and AI-powered analysis can identify learners at high risk of dropping out and automatically send personalized encouragement messages. Data-driven education management can significantly improve completion rates and learning outcomes." },
-      { "q": "Is there a limit on concurrent users?", "a": "Webheads Light uses AWS Auto Scaling technology to automatically expand servers to handle thousands of concurrent users. The platform remains stable with no speed degradation or service interruption even during peak periods. Webheads PRO scales flexibly based on server specifications — share your expected concurrent user volume in advance and we'll design the optimal server configuration. After peak seasons, servers automatically scale down to prevent unnecessary costs." }
+      { "q": "Is there a limit on concurrent users?", "a": "WEBHEADS Light uses AWS Auto Scaling technology to automatically expand servers to handle thousands of concurrent users. The platform remains stable with no speed degradation or service interruption even during peak periods. WEBHEADS PRO scales flexibly based on server specifications — share your expected concurrent user volume in advance and we'll design the optimal server configuration. After peak seasons, servers automatically scale down to prevent unnecessary costs." }
     ],
     "testimonials": [
       { "name": "Hyunwoo Jung", "role": "Training Team Lead", "org": "Corp A Education Center", "rating": 5, "date": "2024.11", "period": "5th year user", "content": "We started with Cloud and transitioned to On-premise — the migration was seamless. You can feel the 16 years of expertise in their stable service." },
@@ -875,7 +875,7 @@
       "badges": { "bulkSms": "Bulk SMS", "reach": "98% Reach", "automation": "Automation", "channelTalk": "Channel Talk", "alimtalk": "Alim Talk" }
     },
     "chatbot": {
-      "botName": "Webheads AI Chatbot",
+      "botName": "WEBHEADS AI Chatbot",
       "responding": "● Responding",
       "userMsg1": "What's my course progress?",
       "botMsg1": "You've completed <strong style=\"color: hsl(192,80%,65%)\">68%</strong> of the course. 32% left to reach your goal! 💪",
@@ -897,13 +897,13 @@
     }
   },
   "about": {
-    "seo": { "title": "About Webheads", "description": "Webheads — 16 years of e-learning expertise. LMS development, hosting, AI, DRM, and content creation for 300+ enterprises.", "keywords": "Webheads, about, e-learning company, LMS development, Korea" },
-    "hero": { "sub": "ABOUT US", "title1": "Building the Future", "title2": "of ", "title3": "e-Learning", "desc": "Since 2010, Webheads has been delivering enterprise-grade LMS solutions, hosting, AI, and content services to 300+ organizations across Korea." },
+    "seo": { "title": "About WEBHEADS", "description": "WEBHEADS — 16 years of e-learning expertise. LMS development, hosting, AI, DRM, and content creation for 300+ enterprises.", "keywords": "WEBHEADS, about, e-learning company, LMS development, Korea" },
+    "hero": { "sub": "ABOUT US", "title1": "Building the Future", "title2": "of ", "title3": "e-Learning", "desc": "Since 2010, WEBHEADS has been delivering enterprise-grade LMS solutions, hosting, AI, and content services to 300+ organizations across Korea." },
     "heroStats": [{ "value": "2010", "label": "Founded" }, { "value": "300+", "label": "Clients" }, { "value": "15", "label": "Team Members" }],
     "overviewSub": "COMPANY OVERVIEW",
-    "overviewTitle": "Webheads Inc.",
+    "overviewTitle": "WEBHEADS Inc.",
     "overview": [
-      { "label": "Company", "value": "Webheads Inc. (주식회사 웹헤즈)" },
+      { "label": "Company", "value": "WEBHEADS Inc. (주식회사 웹헤즈)" },
       { "label": "Established", "value": "April 2, 2010 (16th year)" },
       { "label": "Headquarters", "value": "3F, 114 World Cup-ro, Mapo-gu, Seoul" },
       { "label": "IDC Center", "value": "LG U+ Gasan Digital Center, Geumcheon-gu" },
@@ -958,13 +958,13 @@
     ]
   },
   "serviceRequest": {
-    "pageTitle": "Customer Support | Webheads",
+    "pageTitle": "Customer Support | WEBHEADS",
     "pageDesc": "SMS recharge and Kollus remote support request",
     "heading": "Customer Support",
     "subheading": "Please fill out the form below if you need SMS recharge or Kollus remote support.",
     "tabSms": "SMS Recharge",
     "tabRemote": "Remote Support",
-    "remoteNote": "After submitting a remote support request, Webheads will forward it to Kollus. A representative will contact you once confirmed.",
+    "remoteNote": "After submitting a remote support request, WEBHEADS will forward it to Kollus. A representative will contact you once confirmed.",
     "company": "Company",
     "companyPlaceholder": "Enter company name",
     "name": "Contact Name",
@@ -998,10 +998,10 @@
     "successSms": "Your SMS recharge request has been submitted.\nWe will process it as soon as possible.",
     "successRemote": "Your remote support request has been submitted.\nA representative will contact you shortly.",
     "retry": "Submit Another Request",
-    "copyright": "Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved."
+    "copyright": "Copyright ⓒ 2010 - 2026 WEBHEADS, Inc. All rights reserved."
   },
   "overview": {
-    "seo": { "title": "Webheads Service Overview", "description": "From LMS to hosting, AI chatbot, app development, DRM, content creation, PG payment, and Channel/SMS — explore all Webheads services at a glance.", "keywords": "Webheads, e-learning, LMS, hosting, AI chatbot, app development, DRM, PG payment, content, Channel" },
+    "seo": { "title": "WEBHEADS Service Overview", "description": "From LMS to hosting, AI chatbot, app development, DRM, content creation, PG payment, and Channel/SMS — explore all WEBHEADS services at a glance.", "keywords": "WEBHEADS, e-learning, LMS, hosting, AI chatbot, app development, DRM, PG payment, content, Channel" },
     "hero": {
       "badge": "WEBHEADS SERVICE OVERVIEW",
       "title": "Everything for E-learning,\nAll in One Partner",
@@ -1018,9 +1018,9 @@
     "intro": {
       "sub": "ABOUT WEBHEADS",
       "title": "Founded in 2010 — 16 Years of E-learning Focus",
-      "desc": "Webheads is a specialized e-learning solutions company that has grown alongside Korea's online education industry.\nWe serve 300+ organizations including corporations, cyber universities, vocational institutions, and associations.\n\nBeyond LMS, we provide a full technology stack — hosting, security, payments, content, and marketing automation — all in one place."
+      "desc": "WEBHEADS is a specialized e-learning solutions company that has grown alongside Korea's online education industry.\nWe serve 300+ organizations including corporations, cyber universities, vocational institutions, and associations.\n\nBeyond LMS, we provide a full technology stack — hosting, security, payments, content, and marketing automation — all in one place."
     },
-    "strengthsTitle": "Why Choose Webheads",
+    "strengthsTitle": "Why Choose WEBHEADS",
     "strengths": [
       { "title": "One-Stop Integrated Service", "desc": "From LMS to hosting, DRM, payments, content, and apps — 9 services from a single partner. Dramatically reduce vendor management costs." },
       { "title": "Proven Expertise & Trust", "desc": "16 years, 300+ deployments, 92.6% retention rate. Trusted by leading education organizations across Korea." },
@@ -1035,14 +1035,14 @@
       { "title": "E-learning Hosting", "desc": "CDN, AWS, IDC infrastructure with 99.9% SLA uptime and 24/7 NOC monitoring. Auto-scaling for traffic surges, DDoS protection, WAF, and SSL included.", "highlights": ["99.9% SLA Uptime", "CDN·AWS·IDC", "Auto Scaling", "24/7 Monitoring"] },
       { "title": "Maintenance", "desc": "Dedicated engineers handle incident response, security patches, performance optimization, and feature improvements. Average 10-minute initial response time.", "highlights": ["24/7 Incident Response", "10-min First Response", "Monthly Reports", "Feature Updates"] },
       { "title": "AI Chatbot", "desc": "GPT-4o and Claude 3.5 powered LMS-integrated chatbot. Handles 80% of learner inquiries automatically with multi-language support and multi-channel deployment.", "highlights": ["GPT-4o·Claude 3.5", "80% Auto-resolution", "Multi-language", "LMS Integration"] },
-      { "title": "App Development (iOS/Android)", "desc": "Native and hybrid apps fully integrated with Webheads LMS. Built with React Native and Flutter for simultaneous iOS/Android development.", "highlights": ["React Native·Flutter", "iOS + Android", "Push Notifications", "4-Week MVP"] },
+      { "title": "App Development (iOS/Android)", "desc": "Native and hybrid apps fully integrated with WEBHEADS LMS. Built with React Native and Flutter for simultaneous iOS/Android development.", "highlights": ["React Native·Flutter", "iOS + Android", "Push Notifications", "4-Week MVP"] },
       { "title": "DRM Solution", "desc": "Multi-DRM support with Widevine, FairPlay, and PlayReady to completely block illegal downloads and screen capture of e-learning content.", "highlights": ["Multi-DRM", "Capture Blocking", "Forensic Watermark", "Concurrent Limits"] },
       { "title": "Channel/SMS", "desc": "Channel Talk LMS integration for real-time support, bulk SMS and KakaoTalk notifications for learning reminders, completion notices, and payment alerts.", "highlights": ["Channel Talk Integration", "Bulk SMS", "KakaoTalk Alerts", "98% Delivery Rate"] },
       { "title": "PG Payment Integration", "desc": "Integrated payment with Toss Payments, KG Inicis, Stripe, PayPal and 16+ payment methods. Recurring billing, refund processing, and revenue dashboard included.", "highlights": ["Toss·KG Inicis", "Stripe·PayPal", "Recurring Billing", "140+ Countries"] },
       { "title": "Content Production", "desc": "One-stop production of video lectures, interactive H5P, 2D/3D animation, and gamification content. SCORM/xAPI packaging for instant LMS deployment.", "highlights": ["Video·Interactive·3D", "SCORM/xAPI", "AI TTS Narration", "Compliance Content"] }
     ],
     "viewMore": "Learn More",
-    "whyTitle": "Why Webheads?",
+    "whyTitle": "Why WEBHEADS?",
     "whyDesc": "When one partner handles LMS and all supporting services,\noperational efficiency goes up while costs and communication overhead go down.",
     "whyPoints": [
       "9 services in one place",
@@ -1056,7 +1056,7 @@
     ],
     "cta": {
       "title": "Start Your Consultation",
-      "desc": "Have questions about Webheads solutions?\nReach out anytime — our consultants will respond promptly.",
+      "desc": "Have questions about WEBHEADS solutions?\nReach out anytime — our consultants will respond promptly.",
       "btn1": "Free Consultation",
       "btn2": "02-336-4338",
       "note": "Weekdays 10:00–18:00 · Lunch 12:00–13:00"
