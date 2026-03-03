@@ -703,7 +703,6 @@
       { "title": "Community & Forums", "desc": "Built-in Q&A boards, announcements, resource libraries, and learner discussion forums with comments, likes, and file attachments boost interaction and increase platform engagement time." },
       { "title": "Automated Notifications", "desc": "Auto-send enrollment confirmations, assignment reminders, completion notices, and payment alerts via email, SMS, or KakaoTalk throughout the entire learning lifecycle — no ops staff required." }
     ],
-    "freeTrialBanner": { "badge": "🎉 Limited-Time Offer", "heading": "Sign up now and get 1 month free!", "desc": "Experience all WEBHEADS LMS features risk-free. Start instantly — no credit card required.", "cta": "Start Free Trial" },
     "midCTA": { "heading": "Looking for the perfect e-learning solution?", "description": "We'll recommend the optimal LMS based on your business goals and scale — for free.", "ctaText": "Free Consultation" },
     "industryTabs": {
       "sub": "USE CASES",
