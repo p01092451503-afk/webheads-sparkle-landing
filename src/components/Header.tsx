@@ -91,14 +91,26 @@ export default function Header() {
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
               <Link
+                to="/service-request"
+                className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap flex items-center gap-1.5 ${
+                  effectiveScrolled
+                    ? "bg-primary text-primary-foreground hover:opacity-90"
+                    : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
+                }`}
+              >
+                <Headset className="w-4 h-4" />
+                고객지원
+              </Link>
+              <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
                     ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
-                    : "bg-white text-[hsl(230,25%,15%)] hover:bg-white/90"
+                    : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
                 }`}
               >
                 {t("header.cta")}
+              </Link>
               </Link>
             </div>
 
