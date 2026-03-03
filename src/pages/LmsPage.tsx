@@ -196,7 +196,7 @@ export default function LmsPage() {
       <ClientMarquee />
 
       {/* Demo CTA Banner — compact & desaturated */}
-      <section className="py-4" style={{ background: "hsl(220, 60%, 92%)" }}>
+      <section className="py-4" style={{ background: "hsl(220, 90%, 88%)" }}>
         <div className="container mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
           <p className="text-sm font-medium" style={{ color: "hsl(220, 30%, 35%)" }}>
             {t("lms.demoCTA.description")}
