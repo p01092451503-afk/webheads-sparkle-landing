@@ -259,7 +259,7 @@
       { "value": "Perfect", "label": "LMS Integration", "sub": "WEBHEADS solution based" },
       { "value": "4 wks", "label": "Avg. Dev Time", "sub": "MVP basis" }
     ],
-    "lmsFeaturesSection": { "sub": "LMS APPS", "title": "Perfectly Integrated with\nWebheads e-Learning", "desc": "If you're already using Webheads LMS, deliver the same learning experience in your app without additional setup." },
+    "lmsFeaturesSection": { "sub": "LMS APPS", "title": "Perfectly Integrated with\nWEBHEADS e-Learning", "desc": "If you're already using WEBHEADS LMS, deliver the same learning experience in your app without additional setup." },
     "lmsFeatures": [
       { "title": "Webheads LMS Integration", "desc": "Real-time bidirectional integration with Webheads via REST API and WebSocket.", "tags": ["REST API", "WebSocket", "Real-time Sync"] },
       { "title": "Learning Push Notifications", "desc": "Auto-send study reminders and assignment deadlines via FCM/APNs at optimal timing per learner.", "tags": ["FCM", "APNs", "Personalized Alerts"] },
