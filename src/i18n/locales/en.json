@@ -266,7 +266,7 @@
       { "title": "Mobile DRM Video Security", "desc": "Block illegal recording and capture with Widevine (Android) and FairPlay (iOS) DRM.", "tags": ["Widevine", "FairPlay", "AES-128"] },
       { "title": "Offline Learning Support", "desc": "Local caching enables uninterrupted learning even in unstable network environments.", "tags": ["Local Caching", "Offline Mode", "Auto Sync"] },
       { "title": "Learning Analytics & Progress", "desc": "Visualize 30+ metrics including study time, progress rate, and quiz scores in the app dashboard.", "tags": ["30+ Metrics", "Real-time Charts", "Admin Dashboard"] },
-      { "title": "Security & SSO", "desc": "OAuth 2.0/SAML 2.0 based SSO for instant app login with a single Webheads LMS account.", "tags": ["OAuth 2.0", "SAML SSO", "Root Detection"] }
+      { "title": "Security & SSO", "desc": "OAuth 2.0/SAML 2.0 based SSO for instant app login with a single WEBHEADS LMS account.", "tags": ["OAuth 2.0", "SAML SSO", "Root Detection"] }
     ],
     "midCTA": { "heading": "Wondering what app your organization needs?", "description": "We'll propose a customized app development plan for free.", "ctaText": "Request Consultation" },
     "otherAppsSection": { "sub": "VARIOUS APPS", "title": "Beyond e-Learning,\nWe Build All Kinds of Apps", "desc": "Custom apps for commerce, booking, internal tools, community, and more — built for iOS and Android simultaneously." },
