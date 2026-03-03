@@ -384,6 +384,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
     const totalNew = newVisitors.length;
     const uniqueNewSessions = new Set(newVisitors.map((v) => v.session_id)).size;
+    const uniqueNewIPs = new Set(newVisitors.filter((v) => v.ip_address).map((v) => v.ip_address)).size;
 
     // 일별 추이
     const dailyNew: Record<string, number> = {};
