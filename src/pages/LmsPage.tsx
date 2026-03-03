@@ -195,6 +195,31 @@ export default function LmsPage() {
       {/* Client Reference Marquee */}
       <ClientMarquee />
 
+      {/* Free Trial CTA Banner */}
+      <section className="py-10 md:py-14" style={{ background: "linear-gradient(135deg, hsl(var(--lms-primary) / 0.06) 0%, hsl(var(--lms-primary) / 0.12) 100%)" }}>
+        <div className="container mx-auto px-5 md:px-6 max-w-4xl text-center">
+          <span
+            className="inline-block text-xs font-bold px-4 py-1.5 rounded-full mb-4"
+            style={{ background: "hsl(var(--lms-primary) / 0.15)", color: "hsl(var(--lms-primary))" }}
+          >
+            {t("lms.freeTrialBanner.badge")}
+          </span>
+          <h3 className="font-bold text-foreground text-xl md:text-2xl lg:text-3xl tracking-tight mb-2">
+            {t("lms.freeTrialBanner.heading")}
+          </h3>
+          <p className="text-muted-foreground text-sm md:text-base mb-6 max-w-lg mx-auto">
+            {t("lms.freeTrialBanner.desc")}
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex px-6 py-2.5 rounded-2xl font-bold text-sm text-white hover:opacity-90 transition-opacity"
+            style={{ background: "hsl(var(--lms-primary))" }}
+          >
+            {t("lms.freeTrialBanner.cta")}
+          </a>
+        </div>
+      </section>
+
       {/* Industry Scenario Tabs — "이 서비스가 나에게 맞는가?" */}
       <IndustryScenarioTabs />
 
