@@ -46,6 +46,10 @@ export default function ContactSection({ showDemo = false, defaultDemo = false }
   const services = t("contact.services", { returnObjects: true }) as string[];
 
   const [inquiryType, setInquiryType] = useState<InquiryType>(defaultDemo ? "demo" : "consultation");
+
+  useEffect(() => {
+    if (defaultDemo) setInquiryType("demo");
+  }, [defaultDemo]);
   const [form, setForm] = useState({
     company: "",
     name: "",
