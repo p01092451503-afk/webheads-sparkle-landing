@@ -721,7 +721,7 @@
     "journeyMap": {
       "sub": "LEARNER JOURNEY",
       "title": "One-Stop Experience\nfrom Enrollment to Retention",
-      "desc": "Webheads services seamlessly connect across the entire learner journey.",
+      "desc": "WEBHEADS services seamlessly connect across the entire learner journey.",
       "steps": [
         { "label": "Enrollment", "desc": "SEO and marketing automation drive learners to easy sign-up", "service": "LMS · SEO" },
         { "label": "Payment", "desc": "Multiple payment options including Toss, cards, and international payments", "service": "PG Payment" },
