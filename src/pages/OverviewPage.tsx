@@ -76,12 +76,11 @@ function LmsDetailSection() {
           ))}
         </div>
 
-        {/* Cloud vs NEO vs SaaS Features */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
+        {/* Light vs PRO Features */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
           {[
-            { name: "cloud", icon: Zap, color: "hsl(255,75%,58%)", feats: cloudFeats },
-            { name: "neo", icon: ShieldCheck, color: "hsl(220,90%,56%)", feats: neoFeats },
-            { name: "saas", icon: Rocket, color: "hsl(150,60%,42%)", feats: saasFeats },
+            { name: "light", icon: Zap, color: "hsl(255,75%,58%)", feats: lightFeats },
+            { name: "pro", icon: ShieldCheck, color: "hsl(220,90%,56%)", feats: proFeats },
           ].map(({ name, icon: Icon, color, feats }) => (
             <div key={name} className="rounded-2xl border border-border bg-white p-7">
               <div className="flex items-center gap-3 mb-4">
