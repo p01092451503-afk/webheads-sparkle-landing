@@ -105,9 +105,9 @@ export default function LmsPage() {
               "offers": {
                 "@type": "AggregateOffer",
                 "priceCurrency": "KRW",
-                "offerCount": "3",
+                "offerCount": "2",
                 "lowPrice": "0",
-                "description": "클라우드형, 구축형, SaaS형 3가지 요금제"
+                "description": "웹헤즈 Light, 웹헤즈 PRO 2가지 솔루션"
               },
               "aggregateRating": {
                 "@type": "AggregateRating",
