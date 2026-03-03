@@ -292,8 +292,8 @@ export default function PricingPage() {
 
 function TableSection({ title }: { title: string }) {
   return (
-    <tr className="bg-muted/60">
-      <td colSpan={5} className="px-5 py-3 text-xs font-bold tracking-widest uppercase text-muted-foreground">
+    <tr style={{ background: "hsl(220 40% 94%)" }}>
+      <td colSpan={5} className="px-5 py-3.5 text-sm font-bold tracking-wide text-primary text-center">
         {title}
       </td>
     </tr>
