@@ -57,14 +57,13 @@ function LmsDetailSection() {
   const competitorHeaders = t("lms.competitorTable.headers", { returnObjects: true }) as string[];
   const competitorRows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as { title: string; desc: string }[];
-  const cloudFeats = (t("lms.cloudFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
-  const neoFeats = (t("lms.neoFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
-  const saasFeats = (t("lms.saasFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
+  const lightFeats = (t("lms.lightFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
+  const proFeats = (t("lms.proFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
 
   return (
     <section id="lms" className="py-16">
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="클라우드형(AI), 구축형(NEO), SaaS형 — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
+        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light와 웹헤즈 PRO — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
         {/* LMS Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
@@ -77,12 +76,11 @@ function LmsDetailSection() {
           ))}
         </div>
 
-        {/* Cloud vs NEO vs SaaS Features */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-10">
+        {/* Light vs PRO Features */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
           {[
-            { name: "cloud", icon: Zap, color: "hsl(255,75%,58%)", feats: cloudFeats },
-            { name: "neo", icon: ShieldCheck, color: "hsl(220,90%,56%)", feats: neoFeats },
-            { name: "saas", icon: Rocket, color: "hsl(150,60%,42%)", feats: saasFeats },
+            { name: "light", icon: Zap, color: "hsl(255,75%,58%)", feats: lightFeats },
+            { name: "pro", icon: ShieldCheck, color: "hsl(220,90%,56%)", feats: proFeats },
           ].map(({ name, icon: Icon, color, feats }) => (
             <div key={name} className="rounded-2xl border border-border bg-white p-7">
               <div className="flex items-center gap-3 mb-4">

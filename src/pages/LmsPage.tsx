@@ -28,9 +28,8 @@ import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 import ClientMarquee from "@/components/ClientMarquee";
 
-const featureIcons = [Cloud, Zap, Palette, Languages, ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, PackageCheck];
-const neoFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
-const saasFeatureIcons = [Rocket, CreditCard, RefreshCw, Layers, Database, Plug, HardDriveDownload, Settings];
+const lightFeatureIcons = [Zap, DollarSign, Palette, Languages, ShieldCheck, RefreshCw, LineChart, MonitorSmartphone, Plug, PackageCheck];
+const proFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
 const aiFeatureIcons = [Brain, Subtitles, FileCheck, Search, GraduationCap, MessageSquare];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
@@ -41,9 +40,8 @@ export default function LmsPage() {
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
 
-  const cloudFeatures = (t("lms.cloudFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: featureIcons[i] || Cloud }));
-  const neoFeatures = (t("lms.neoFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: neoFeatureIcons[i] || Server }));
-  const saasFeatures = (t("lms.saasFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: saasFeatureIcons[i] || Rocket }));
+  const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
+  const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
   const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
   const kdtFeatures = (t("lms.kdtFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: kdtFeatureIcons[i] || GraduationCap }));
@@ -107,9 +105,9 @@ export default function LmsPage() {
               "offers": {
                 "@type": "AggregateOffer",
                 "priceCurrency": "KRW",
-                "offerCount": "3",
+                "offerCount": "2",
                 "lowPrice": "0",
-                "description": "클라우드형, 구축형, SaaS형 3가지 요금제"
+                "description": "웹헤즈 Light, 웹헤즈 PRO 2가지 솔루션"
               },
               "aggregateRating": {
                 "@type": "AggregateRating",
@@ -268,8 +266,8 @@ export default function LmsPage() {
             <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.solutionsSection.title")}</h2>
             <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.solutionsSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-            {/* Cloud AI */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            {/* Webheads Light */}
             <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
               style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
             >
@@ -278,13 +276,13 @@ export default function LmsPage() {
                   <Cloud className="w-6 h-6" style={{ color: "hsl(245, 58%, 55%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.cloud.name")}</h3>
-                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(245, 58%, 55%)" }}>{t("lms.cloud.subtitle")}</p>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.light.name")}</h3>
+                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(245, 58%, 55%)" }}>{t("lms.light.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.cloud.desc")}</p>
+              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.light.desc")}</p>
               <div className="flex flex-col gap-4 flex-1">
-                {cloudFeatures.map((f: any) => (
+                {lightFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
                     <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(245, 60%, 95%)" }}>
                       <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(245, 58%, 55%)" }} />
@@ -301,11 +299,11 @@ export default function LmsPage() {
                 className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
                 style={{ background: "hsl(245, 58%, 55%)" }}
               >
-                {t("lms.cloud.cta")}
+                {t("lms.light.cta")}
               </a>
             </div>
 
-            {/* NEO On-premise */}
+            {/* Webheads PRO */}
             <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
               style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
             >
@@ -314,13 +312,13 @@ export default function LmsPage() {
                   <Server className="w-6 h-6" style={{ color: "hsl(215, 65%, 48%)" }} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.neo.name")}</h3>
-                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(215, 65%, 48%)" }}>{t("lms.neo.subtitle")}</p>
+                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.pro.name")}</h3>
+                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(215, 65%, 48%)" }}>{t("lms.pro.subtitle")}</p>
                 </div>
               </div>
-              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.neo.desc")}</p>
+              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.pro.desc")}</p>
               <div className="flex flex-col gap-4 flex-1">
-                {neoFeatures.map((f: any) => (
+                {proFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
                     <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(215, 70%, 94%)" }}>
                       <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(215, 65%, 48%)" }} />
@@ -337,43 +335,7 @@ export default function LmsPage() {
                 className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
                 style={{ background: "hsl(215, 65%, 48%)" }}
               >
-                {t("lms.neo.cta")}
-              </a>
-            </div>
-
-            {/* SaaS */}
-            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
-              style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
-            >
-              <div className="flex items-center gap-3.5 mb-5">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(170, 55%, 93%)" }}>
-                  <Sparkles className="w-6 h-6" style={{ color: "hsl(170, 55%, 38%)" }} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.saas.name")}</h3>
-                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(170, 55%, 38%)" }}>{t("lms.saas.subtitle")}</p>
-                </div>
-              </div>
-              <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.saas.desc")}</p>
-              <div className="flex flex-col gap-4 flex-1">
-                {saasFeatures.map((f: any) => (
-                  <div key={f.title} className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(170, 55%, 93%)" }}>
-                      <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(170, 55%, 38%)" }} />
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-foreground leading-snug">{f.title}</h4>
-                      <p className="text-xs text-muted-foreground leading-relaxed">{f.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <a
-                href="#contact"
-                className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
-                style={{ background: "hsl(170, 55%, 38%)" }}
-              >
-                {t("lms.saas.cta")}
+                {t("lms.pro.cta")}
               </a>
             </div>
            </div>
