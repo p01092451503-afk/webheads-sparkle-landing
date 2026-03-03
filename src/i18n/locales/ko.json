@@ -1010,7 +1010,7 @@
     "successSms": "SMS 충전 요청이 접수되었습니다.\n확인 후 빠르게 처리해드리겠습니다.",
     "successRemote": "원격지원 요청이 접수되었습니다.\n담당자가 확인 후 연락드리겠습니다.",
     "retry": "추가 요청하기",
-    "copyright": "Copyright ⓒ 2010 - 2026 Webheads, Inc. All rights reserved."
+    "copyright": "Copyright ⓒ 2010 - 2026 WEBHEADS, Inc. All rights reserved."
   },
   "overview": {
     "seo": { "title": "웹헤즈 전체 서비스 소개", "description": "이러닝 LMS부터 호스팅, AI 챗봇, 앱 개발, DRM, 콘텐츠 제작, PG 결제, 채널톡/SMS까지. 웹헤즈의 모든 서비스를 한눈에 확인하세요.", "keywords": "웹헤즈, 이러닝, LMS, 호스팅, AI챗봇, 앱개발, DRM, PG결제, 콘텐츠, 채널톡" },
