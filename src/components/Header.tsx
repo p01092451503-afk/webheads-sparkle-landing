@@ -99,7 +99,7 @@ export default function Header() {
                 }`}
               >
                 <Headset className="w-4 h-4" />
-                고객지원
+                {t("header.customerSupport")}
               </Link>
               <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
