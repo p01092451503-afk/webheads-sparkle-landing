@@ -5,5 +5,5 @@
       text { fill: #ffffff; }
     }
   </style>
-  <text x="16" y="16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans, sans-serif" font-weight="700" font-style="italic" font-size="22">W</text>
+  <text x="16" y="22" text-anchor="middle" font-family="'Noto Sans', sans-serif" font-weight="700" font-style="italic" font-size="24">W</text>
 </svg>
