@@ -782,8 +782,8 @@
         ["24/7 Maintenance", "In-house", "Email only", "O"],
         ["Add-on Services", "Separate contracts", "Limited", "One-stop"]
       ],
-      "cta": "Get Webheads LMS Consultation",
-      "diffTitle": "Why Webheads LMS?",
+      "cta": "Get WEBHEADS LMS Consultation",
+      "diffTitle": "Why WEBHEADS LMS?",
       "diffDesc": "16 years of expertise and one-stop add-on integration create unmatched value",
       "diffItems": [
         { "label": "Setup Speed", "value": "3 Days", "desc": "Faster custom deployment than any SaaS" },
