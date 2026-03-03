@@ -39,7 +39,6 @@ export default function LmsPage() {
   const { t } = useTranslation();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
-  const [defaultDemo, setDefaultDemo] = useState(false);
 
   const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
   const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
@@ -195,26 +194,6 @@ export default function LmsPage() {
 
       {/* Client Reference Marquee */}
       <ClientMarquee />
-
-      {/* Demo CTA Banner — compact & desaturated */}
-      <section className="py-4" style={{ background: "hsl(220, 90%, 88%)" }}>
-        <div className="container mx-auto px-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
-          <p className="text-sm font-medium" style={{ color: "hsl(220, 30%, 35%)" }}>
-            {t("lms.demoCTA.description")}
-          </p>
-          <button
-            onClick={() => {
-              const el = document.getElementById("contact");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-              setDefaultDemo(true);
-            }}
-            className="inline-flex px-5 py-2 rounded-lg font-bold text-xs text-white whitespace-nowrap hover:opacity-90 transition-opacity"
-            style={{ background: "hsl(220, 50%, 45%)" }}
-          >
-            {t("lms.demoCTA.ctaText")}
-          </button>
-        </div>
-      </section>
 
       {/* Industry Scenario Tabs — "이 서비스가 나에게 맞는가?" */}
       <IndustryScenarioTabs />
@@ -486,7 +465,7 @@ export default function LmsPage() {
 
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
-      <ContactSection showDemo defaultDemo={defaultDemo} />
+      <ContactSection showDemo />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Send, Loader2, ChevronDown, Monitor } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -41,15 +41,11 @@ function ContactMarquee() {
 }
 
 /* ── Main ContactSection ── */
-export default function ContactSection({ showDemo = false, defaultDemo = false }: { showDemo?: boolean; defaultDemo?: boolean }) {
+export default function ContactSection({ showDemo = false }: { showDemo?: boolean }) {
   const { t } = useTranslation();
   const services = t("contact.services", { returnObjects: true }) as string[];
 
-  const [inquiryType, setInquiryType] = useState<InquiryType>(defaultDemo ? "demo" : "consultation");
-
-  useEffect(() => {
-    if (defaultDemo) setInquiryType("demo");
-  }, [defaultDemo]);
+  const [inquiryType, setInquiryType] = useState<InquiryType>("consultation");
   const [form, setForm] = useState({
     company: "",
     name: "",
