@@ -72,20 +72,13 @@ export default function Header() {
           aria-label={t("banner.text")}
         >
           <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1400 44" aria-hidden="true">
-            {/* Thin arc lines */}
-            <path d="M -20 35 Q 200 -10 400 30 T 800 20 T 1200 32 T 1450 15" stroke="hsl(270, 50%, 72%)" strokeWidth="1.2" fill="none" opacity="0.5" />
-            <path d="M -10 10 Q 150 40 350 12 T 750 35 T 1100 10 T 1440 28" stroke="hsl(300, 40%, 75%)" strokeWidth="0.9" fill="none" opacity="0.4" />
-            <path d="M 0 22 Q 300 -5 600 25 T 1000 18 T 1420 30" stroke="hsl(250, 55%, 70%)" strokeWidth="1.05" fill="none" opacity="0.45" />
-            {/* Thin circles */}
-            <circle cx="120" cy="22" r="60" stroke="hsl(280, 45%, 75%)" strokeWidth="0.9" fill="none" opacity="0.35" />
-            <circle cx="500" cy="20" r="40" stroke="hsl(260, 50%, 73%)" strokeWidth="0.75" fill="none" opacity="0.3" />
-            <circle cx="900" cy="24" r="55" stroke="hsl(310, 40%, 77%)" strokeWidth="0.9" fill="none" opacity="0.3" />
-            <circle cx="1250" cy="18" r="45" stroke="hsl(270, 45%, 74%)" strokeWidth="0.75" fill="none" opacity="0.35" />
-            {/* Small dots */}
-            <circle cx="280" cy="12" r="2" fill="hsl(270, 50%, 72%)" opacity="0.4" />
-            <circle cx="650" cy="32" r="1.5" fill="hsl(300, 40%, 75%)" opacity="0.35" />
-            <circle cx="1050" cy="8" r="2" fill="hsl(260, 50%, 73%)" opacity="0.4" />
-            <circle cx="1380" cy="30" r="1.5" fill="hsl(280, 45%, 75%)" opacity="0.35" />
+            {/* Bold filled circles */}
+            <circle cx="80" cy="22" r="80" fill="hsl(280, 55%, 78%)" opacity="0.7" />
+            <circle cx="350" cy="10" r="50" fill="hsl(260, 50%, 80%)" opacity="0.6" />
+            <circle cx="600" cy="30" r="70" fill="hsl(300, 45%, 82%)" opacity="0.55" />
+            <circle cx="850" cy="15" r="60" fill="hsl(270, 50%, 79%)" opacity="0.65" />
+            <circle cx="1100" cy="25" r="75" fill="hsl(250, 55%, 81%)" opacity="0.6" />
+            <circle cx="1300" cy="18" r="55" fill="hsl(290, 45%, 80%)" opacity="0.65" />
           </svg>
           <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2 relative z-10">
