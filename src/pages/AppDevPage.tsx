@@ -103,8 +103,8 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceProcess steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
+      <ServiceProcess bg="bg-secondary" steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
+      <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
