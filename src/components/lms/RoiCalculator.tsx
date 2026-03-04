@@ -205,55 +205,68 @@ export default function RoiCalculator() {
             </div>
 
             <div className="space-y-4 flex-1">
+              {/* 1. 예상 월 매출 */}
               <div className="flex justify-between items-center py-3 border-b border-border">
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.monthlyRevenue")}</span>
                 <span className="font-bold text-foreground text-lg">{formatNumber(monthlyRevenue)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
 
-              {/* Self-build cost with expandable breakdown */}
-              <div className="border-b border-border pb-3">
-                <button
-                  onClick={() => setShowBreakdown(!showBreakdown)}
-                  className="w-full flex justify-between items-center py-3 group cursor-pointer"
-                >
-                  <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-                    {t("lms.roiCalc.selfBuildCost")}
-                    {showBreakdown ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground/60" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground/60" />}
-                  </span>
-                  <span className="font-bold text-muted-foreground text-lg">{formatNumber(selfBuildMonthly)}{t("lms.roiCalc.feeUnit")}</span>
-                </button>
-
-                {showBreakdown && (
-                  <div className="mt-1 rounded-xl p-4 space-y-2.5" style={{ background: "hsl(var(--muted) / 0.5)" }}>
-                    <p className="text-[11px] font-semibold text-muted-foreground tracking-wide uppercase mb-2">
-                      {t("lms.roiCalc.breakdownTitle")}
-                    </p>
-                    {breakdownItems.map((item) => (
-                      <div key={item.label} className="flex justify-between items-center">
-                        <span className="text-xs text-muted-foreground">{item.label}</span>
-                        <span className="text-xs font-semibold text-foreground">{formatNumber(Math.round(item.value / 12))}{t("lms.roiCalc.feeUnit")}/월</span>
+              {/* 2. 월 비용 비교 */}
+              <div className="rounded-xl p-4 md:p-5" style={{ background: "hsl(var(--muted) / 0.35)" }}>
+                <p className="text-[11px] font-semibold text-muted-foreground tracking-wide uppercase mb-3">{t("lms.roiCalc.monthlyComparison", "월 비용 비교")}</p>
+                <div className="space-y-3">
+                  {/* Self-build monthly with expandable breakdown */}
+                  <div>
+                    <button
+                      onClick={() => setShowBreakdown(!showBreakdown)}
+                      className="w-full flex justify-between items-center group cursor-pointer"
+                    >
+                      <span className="text-xs md:text-sm text-muted-foreground flex items-center gap-1.5">
+                        {t("lms.roiCalc.selfBuildCost")}
+                        {showBreakdown ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground/60" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground/60" />}
+                      </span>
+                      <span className="font-bold text-muted-foreground text-base">{formatNumber(selfBuildMonthly)}{t("lms.roiCalc.feeUnit")}</span>
+                    </button>
+                    {showBreakdown && (
+                      <div className="mt-2 rounded-lg p-3 space-y-2" style={{ background: "hsl(var(--muted) / 0.5)" }}>
+                        {breakdownItems.map((item) => (
+                          <div key={item.label} className="flex justify-between items-center">
+                            <span className="text-xs text-muted-foreground">{item.label}</span>
+                            <span className="text-xs font-semibold text-foreground">{formatNumber(Math.round(item.value / 12))}{t("lms.roiCalc.feeUnit")}</span>
+                          </div>
+                        ))}
+                        <div className="border-t border-border/60 pt-2 mt-1">
+                          <p className="text-[10px] text-muted-foreground/70 leading-relaxed flex items-start gap-1">
+                            <Info className="w-3 h-3 shrink-0 mt-0.5" />
+                            <span style={{ wordBreak: "keep-all" }}>{t("lms.roiCalc.breakdownNote")}</span>
+                          </p>
+                        </div>
                       </div>
-                    ))}
-                    <div className="border-t border-border/60 pt-2 mt-2">
-                      <p className="text-[10px] text-muted-foreground/70 leading-relaxed flex items-start gap-1">
-                        <Info className="w-3 h-3 shrink-0 mt-0.5" />
-                        <span style={{ wordBreak: "keep-all" }}>{t("lms.roiCalc.breakdownNote")}</span>
-                      </p>
-                    </div>
+                    )}
                   </div>
-                )}
-              </div>
-
-              <div className="flex justify-between items-center py-3 border-b border-border">
-                <span className="text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
-                <span className="font-bold text-lg" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
-              </div>
-              <div className="rounded-xl p-4 md:p-5 border border-border/60" style={{ background: "hsl(145, 70%, 96%)" }}>
-                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
-                  <span className="text-xs md:text-sm font-semibold" style={{ color: GREEN_ACCENT }}>{t("lms.roiCalc.monthlySavings", "월 절감액")}</span>
-                  <span className="font-bold text-lg md:text-xl" style={{ color: GREEN_ACCENT }}>{formatNumber(savingsMonthly)}{t("lms.roiCalc.feeUnit")}</span>
+                  <div className="border-t border-border/40 pt-3 flex justify-between items-center">
+                    <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
+                    <span className="font-bold text-base" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
+                  </div>
                 </div>
               </div>
+
+              {/* 3. 연간 비용 비교 */}
+              <div className="rounded-xl p-4 md:p-5" style={{ background: "hsl(var(--muted) / 0.35)" }}>
+                <p className="text-[11px] font-semibold text-muted-foreground tracking-wide uppercase mb-3">{t("lms.roiCalc.annualComparison", "연간 비용 비교")}</p>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.selfBuildAnnual", "자체 구축 연간 비용")}</span>
+                    <span className="font-bold text-muted-foreground text-base">{formatNumber(selfBuild.total)}{t("lms.roiCalc.feeUnit")}</span>
+                  </div>
+                  <div className="border-t border-border/40 pt-3 flex justify-between items-center">
+                    <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.webheadsAnnual", "웹헤즈 연간 비용")}</span>
+                    <span className="font-bold text-base" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost * 12)}{t("lms.roiCalc.feeUnit")}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. 연간 절감액 */}
               <div className="rounded-xl p-4 md:p-5" style={{ background: GREEN_BG }}>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
                   <span className="text-xs md:text-sm font-semibold" style={{ color: GREEN_TEXT }}>{t("lms.roiCalc.annualSavings")}</span>
