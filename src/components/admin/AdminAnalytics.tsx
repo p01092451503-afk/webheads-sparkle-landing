@@ -823,13 +823,13 @@ function MetricCard({ icon, label, value, color, sub, tooltip }: {
   );
 }
 
-function ChartCard({ title, icon, children, maxItems = 10 }: { title: string; icon: React.ReactNode; children: React.ReactNode; maxItems?: number }) {
+function ChartCard({ title, icon, children, maxItems = 10, className }: { title: string; icon: React.ReactNode; children: React.ReactNode; maxItems?: number; className?: string }) {
   const [expanded, setExpanded] = useState(false);
   const childArray = React.Children.toArray(children);
   const hasMore = childArray.length > maxItems;
   const visibleChildren = expanded ? childArray : childArray.slice(0, maxItems);
   return (
-    <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-4">
+    <div className={`rounded-2xl border border-[hsl(220,13%,91%)] p-4 ${className || "bg-white"}`}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[13px] font-semibold text-foreground flex-1">{title}</h4>
