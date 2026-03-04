@@ -56,20 +56,7 @@ export default function FloatingNav() {
 
       {/* Mobile — action buttons, bottom right above scroll buttons */}
       <div className="fixed right-3 bottom-32 z-50 md:hidden flex flex-col items-center gap-2">
-        {mobileButtons.map((btn) => {
-          if (btn.onClick) {
-            return (
-              <button
-                key={btn.to}
-                onClick={btn.onClick}
-                className={`w-9 h-9 rounded-full flex items-center justify-center shadow-lg ${btn.className}`}
-                aria-label={btn.label}
-              >
-                <btn.icon className="w-4 h-4" />
-              </button>
-            );
-          }
-          return (
+        {mobileButtons.map((btn) => (
             <Link
               key={btn.to}
               to={btn.to}
@@ -78,8 +65,7 @@ export default function FloatingNav() {
             >
               <btn.icon className="w-4 h-4" />
             </Link>
-          );
-        })}
+        ))}
       </div>
 
       {/* Mobile scroll buttons — fixed at very bottom */}
