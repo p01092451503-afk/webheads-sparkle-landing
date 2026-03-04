@@ -28,7 +28,7 @@ const searchBotMap: [RegExp, string][] = [
   [/baiduspider/i, "search_bot_baidu"],
   [/duckduckbot/i, "search_bot_duckduckgo"],
   [/slurp/i, "search_bot_yahoo"],
-  [/naverbot/i, "search_bot_naver"],
+  [/naverbot|yeti\//i, "search_bot_naver"],
   [/applebot/i, "search_bot_apple"],
   [/sogou/i, "search_bot_sogou"],
   [/facebot|facebookexternalhit/i, "search_bot_facebook"],
