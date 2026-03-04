@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquareText, Bell, ArrowRight, Info } from "lucide-react";
+import { MessageSquareText, Bell, ArrowRight, Info, MonitorSmartphone } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
 
 type TabType = "sms" | "kakao";
@@ -92,6 +92,16 @@ export default function SmsKakaoPage() {
             >
               <MessageSquareText className="w-4 h-4" />
               SMS 충전 요청
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="https://help.webheads.co.kr/kolluscrm.php"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent text-accent-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
+            >
+              <MonitorSmartphone className="w-4 h-4" />
+              원격지원 요청
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
