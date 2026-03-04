@@ -51,7 +51,7 @@ function CellContent({
 
   if (value === "O") {
     return (
-      <span className="font-semibold" style={{ color: isWebheads ? "hsl(258, 70%, 52%)" : "hsl(145, 60%, 38%)" }}>
+      <span className={`font-semibold ${isWebheads ? "text-primary" : "text-green-600"}`}>
         {lang === "ko" ? "기본 제공" : "Included"}
       </span>
     );
@@ -65,7 +65,7 @@ function CellContent({
   }
   if (value === "△") {
     return (
-      <span className="text-xs" style={{ color: "hsl(35, 90%, 45%)" }}>
+      <span className="text-xs text-amber-600">
         {lang === "ko" ? "제한적" : "Limited"}
       </span>
     );
@@ -73,11 +73,11 @@ function CellContent({
 
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className={`font-semibold text-sm ${isWebheads ? "" : "text-foreground"}`} style={isWebheads ? { color: "hsl(258, 70%, 52%)" } : undefined}>
+      <span className={`font-semibold text-sm ${isWebheads ? "text-primary" : "text-foreground"}`}>
         {value}
       </span>
       {sub && (
-        <span className="text-[11px] font-medium" style={{ color: "hsl(258, 50%, 60%)" }}>{sub}</span>
+        <span className="text-[11px] font-medium text-primary/60">{sub}</span>
       )}
     </div>
   );
@@ -97,11 +97,11 @@ export default function CompetitorComparison() {
   });
 
   return (
-    <section className="py-16 md:py-28" style={{ background: "hsl(220, 14%, 96%)" }}>
+    <section className="py-16 md:py-28 bg-secondary">
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         {/* Header */}
         <div className="mb-8 md:mb-12">
-          <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "hsl(258, 70%, 52%)" }}>
+          <p className="text-xs font-semibold tracking-widest uppercase mb-3 text-primary">
             {t("lms.competitorTable.sub")}
           </p>
           <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl tracking-tight whitespace-pre-line">
@@ -111,11 +111,11 @@ export default function CompetitorComparison() {
         </div>
 
         {/* Table card */}
-        <div className="rounded-2xl bg-background overflow-hidden" style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04)" }}>
+        <div className="rounded-2xl bg-background overflow-hidden shadow-sm border border-border">
           <div className="overflow-x-auto">
             <table className="w-full text-[13px]">
               <thead>
-                <tr style={{ borderBottom: "1px solid hsl(220, 13%, 91%)" }}>
+                <tr className="border-b border-border">
                   <th className="px-5 md:px-6 py-4 text-left text-xs font-semibold text-muted-foreground w-[28%]">
                     {headers[0]}
                   </th>
@@ -125,14 +125,8 @@ export default function CompetitorComparison() {
                   <th className="px-4 py-4 text-center text-xs font-semibold text-muted-foreground">
                     {headers[2]}
                   </th>
-                  <th
-                    className="px-4 py-4 text-center text-xs font-bold text-white relative"
-                    style={{ background: "hsl(258, 70%, 52%)" }}
-                  >
-                    <span
-                      className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap"
-                      style={{ background: "hsl(258, 70%, 42%)", color: "hsl(258, 80%, 90%)" }}
-                    >
+                  <th className="px-4 py-4 text-center text-xs font-bold text-primary-foreground bg-primary relative">
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap bg-primary/80 text-primary-foreground/80">
                       Best Choice
                     </span>
                     {headers[3]}
@@ -143,7 +137,7 @@ export default function CompetitorComparison() {
                 {rows.map((row, ri) => {
                   const winnerCol = winners[ri];
                   return (
-                    <tr key={ri} style={{ borderBottom: ri < rows.length - 1 ? "1px solid hsl(220, 13%, 93%)" : "none" }}>
+                    <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
                       <td className="px-5 md:px-6 py-3.5 font-medium text-foreground text-sm">{row[0]}</td>
                       <td className="px-4 py-3.5 text-center">
                         <CellContent value={row[1]} isWebheads={false} lang={lang} />
@@ -151,10 +145,7 @@ export default function CompetitorComparison() {
                       <td className="px-4 py-3.5 text-center">
                         <CellContent value={row[2]} isWebheads={false} lang={lang} />
                       </td>
-                      <td
-                        className="px-4 py-3.5 text-center"
-                        style={{ background: winnerCol === 2 ? "hsl(258, 60%, 97%)" : "hsl(258, 30%, 99%)" }}
-                      >
+                      <td className={`px-4 py-3.5 text-center ${winnerCol === 2 ? "bg-primary/5" : "bg-primary/[0.02]"}`}>
                         <CellContent value={row[3]} isWebheads={true} lang={lang} />
                       </td>
                     </tr>
@@ -174,12 +165,11 @@ export default function CompetitorComparison() {
           ].map((item) => (
             <div
               key={item.label}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold"
-              style={{
-                background: item.isWh ? "hsl(258, 60%, 97%)" : "hsl(220, 14%, 96%)",
-                color: item.isWh ? "hsl(258, 70%, 52%)" : "hsl(220, 8%, 50%)",
-                border: item.isWh ? "1px solid hsl(258, 60%, 88%)" : "1px solid hsl(220, 13%, 90%)",
-              }}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border ${
+                item.isWh
+                  ? "bg-primary/5 text-primary border-primary/20"
+                  : "bg-muted text-muted-foreground border-border"
+              }`}
             >
               <span>{item.label}</span>
               <span className="text-base font-bold">{item.count}{lang === "ko" ? "승" : "W"}</span>
