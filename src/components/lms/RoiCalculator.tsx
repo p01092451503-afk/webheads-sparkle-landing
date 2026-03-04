@@ -231,6 +231,7 @@ export default function RoiCalculator() {
                 <div className="rounded-xl p-4 md:p-5 border-2" style={{ borderColor: LMS_PRIMARY, background: "hsl(var(--lms-primary) / 0.06)" }}>
                   <h4 className="font-bold text-xs md:text-sm mb-3" style={{ color: LMS_PRIMARY }}>{t("lms.roiCalc.webheadsAnnual")}</h4>
                   <div>
+                    <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mb-0.5">{t("lms.roiCalc.annualLabel")}</p>
                     <span className="font-bold text-base md:text-xl" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost * 12)}{t("lms.roiCalc.feeUnit")}</span>
                     <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mt-0.5">{t("lms.roiCalc.perMonth", { cost: formatNumber(webheadsMonthlyCost) })}</p>
                   </div>
