@@ -167,7 +167,7 @@ export default function RoiCalculator() {
   const chartTooltipFormatter = (value: number) => `${formatNumber(value)}원`;
 
   return (
-    <section className="py-16 md:py-28" ref={reportRef}>
+    <section className="py-16 md:py-28" ref={reportRef} id="roi-calculator">
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         <div className="mb-8 md:mb-12">
           <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: LMS_PRIMARY }}>
