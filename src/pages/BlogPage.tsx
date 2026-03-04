@@ -179,6 +179,7 @@ const blogPosts: BlogPost[] = [
     ],
     date: "2026-01-15",
     readTime: "7분",
+    keywords: ["사내교육 시스템", "기업교육 LMS", "HRD 교육시스템 구축", "학습관리시스템", "맞춤형 LMS 개발"],
   },
   {
     id: "global-lms-landscape-2026",
