@@ -270,7 +270,7 @@ export default function LmsPage() {
           <div className="text-center mb-8 md:mb-12">
             <h2 className="font-bold text-foreground text-2xl md:text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 md:divide-x divide-border">
+          <div className="grid grid-cols-2 gap-0 divide-x divide-border">
             {stats.map((s: any, idx: number) => (
               <div key={s.label} className={`flex flex-col items-center justify-center py-5 md:py-8 px-3 md:px-4 text-center ${idx < 2 ? "border-b md:border-b-0 border-border" : ""} ${idx % 2 === 0 ? "border-r md:border-r-0 border-border" : ""}`}>
                 <span
