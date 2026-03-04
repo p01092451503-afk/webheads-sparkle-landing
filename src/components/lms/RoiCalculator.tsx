@@ -223,7 +223,7 @@ export default function RoiCalculator() {
 
               {/* 2. 연간 비용 비교 */}
               <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                <h4 className="font-bold text-foreground text-sm md:text-base mb-3">{t("lms.roiCalc.annualComparison")}</h4>
+                <h4 className="font-bold text-foreground text-sm md:text-base mb-3"><span className="text-muted-foreground mr-1.5">B.</span>{t("lms.roiCalc.annualComparison")}</h4>
                 <div className="space-y-3">
                   <div>
                     <button
