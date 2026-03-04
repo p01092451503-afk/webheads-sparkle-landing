@@ -73,14 +73,14 @@ export default function Header() {
         >
           <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1400 44" aria-hidden="true">
             {/* Thin arc lines */}
-            <path d="M -20 35 Q 200 -10 400 30 T 800 20 T 1200 32 T 1450 15" stroke="hsl(270, 50%, 72%)" strokeWidth="0.8" fill="none" opacity="0.5" />
-            <path d="M -10 10 Q 150 40 350 12 T 750 35 T 1100 10 T 1440 28" stroke="hsl(300, 40%, 75%)" strokeWidth="0.6" fill="none" opacity="0.4" />
-            <path d="M 0 22 Q 300 -5 600 25 T 1000 18 T 1420 30" stroke="hsl(250, 55%, 70%)" strokeWidth="0.7" fill="none" opacity="0.45" />
+            <path d="M -20 35 Q 200 -10 400 30 T 800 20 T 1200 32 T 1450 15" stroke="hsl(270, 50%, 72%)" strokeWidth="1.2" fill="none" opacity="0.5" />
+            <path d="M -10 10 Q 150 40 350 12 T 750 35 T 1100 10 T 1440 28" stroke="hsl(300, 40%, 75%)" strokeWidth="0.9" fill="none" opacity="0.4" />
+            <path d="M 0 22 Q 300 -5 600 25 T 1000 18 T 1420 30" stroke="hsl(250, 55%, 70%)" strokeWidth="1.05" fill="none" opacity="0.45" />
             {/* Thin circles */}
-            <circle cx="120" cy="22" r="60" stroke="hsl(280, 45%, 75%)" strokeWidth="0.6" fill="none" opacity="0.35" />
-            <circle cx="500" cy="20" r="40" stroke="hsl(260, 50%, 73%)" strokeWidth="0.5" fill="none" opacity="0.3" />
-            <circle cx="900" cy="24" r="55" stroke="hsl(310, 40%, 77%)" strokeWidth="0.6" fill="none" opacity="0.3" />
-            <circle cx="1250" cy="18" r="45" stroke="hsl(270, 45%, 74%)" strokeWidth="0.5" fill="none" opacity="0.35" />
+            <circle cx="120" cy="22" r="60" stroke="hsl(280, 45%, 75%)" strokeWidth="0.9" fill="none" opacity="0.35" />
+            <circle cx="500" cy="20" r="40" stroke="hsl(260, 50%, 73%)" strokeWidth="0.75" fill="none" opacity="0.3" />
+            <circle cx="900" cy="24" r="55" stroke="hsl(310, 40%, 77%)" strokeWidth="0.9" fill="none" opacity="0.3" />
+            <circle cx="1250" cy="18" r="45" stroke="hsl(270, 45%, 74%)" strokeWidth="0.75" fill="none" opacity="0.35" />
             {/* Small dots */}
             <circle cx="280" cy="12" r="2" fill="hsl(270, 50%, 72%)" opacity="0.4" />
             <circle cx="650" cy="32" r="1.5" fill="hsl(300, 40%, 75%)" opacity="0.35" />
