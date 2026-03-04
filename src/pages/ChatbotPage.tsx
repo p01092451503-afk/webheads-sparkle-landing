@@ -67,6 +67,63 @@ export default function ChatbotPage() {
         </div>
       </section>
 
+      {/* Tech Specs */}
+      <section className="py-28 bg-secondary">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{techSpecsSection.sub}</p>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{techSpecsSection.title}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{techSpecsSection.desc}</p>
+          </div>
+
+          {/* LLM Models */}
+          <div className="mb-12">
+            <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Cpu className="w-5 h-5 text-primary" />{techSpecs.llmModels.title}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {techSpecs.llmModels.items.map((model: any) => (
+                <div key={model.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 transition-colors duration-200">
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <span className="font-bold text-foreground text-lg">{model.name}</span>
+                      <span className="text-muted-foreground text-sm ml-2">by {model.provider}</span>
+                    </div>
+                    <span className="text-xs px-3 py-1 rounded-full font-semibold bg-primary/10 text-primary">{model.badge}</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{model.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Architecture */}
+          <div className="mb-12">
+            <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Server className="w-5 h-5 text-primary" />{techSpecs.architecture.title}</h3>
+            <div className="rounded-2xl bg-background border border-border overflow-hidden divide-y divide-border">
+              {techSpecs.architecture.items.map((item: any) => (
+                <div key={item.label} className="flex flex-col sm:flex-row gap-2 sm:gap-6 px-6 py-4">
+                  <span className="font-semibold text-foreground text-sm whitespace-nowrap min-w-[140px]">{item.label}</span>
+                  <span className="text-muted-foreground text-sm leading-relaxed">{item.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Performance */}
+          <div>
+            <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Gauge className="w-5 h-5 text-primary" />{techSpecs.performance.title}</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {techSpecs.performance.items.map((item: any) => (
+                <div key={item.metric} className="rounded-2xl p-6 bg-background border border-border text-center">
+                  <span className="block font-bold text-3xl text-primary mb-1">{item.value}</span>
+                  <span className="block font-semibold text-foreground text-sm mb-0.5">{item.metric}</span>
+                  <span className="block text-xs text-muted-foreground">{item.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <ServiceMidCTA heading={t("chatbot.midCTA.heading")} description={t("chatbot.midCTA.description")} ctaText={t("chatbot.midCTA.ctaText")} />
 
       <ServiceProcess steps={processSteps} subheading={t("chatbot.processSection.sub")} heading={t("chatbot.processSection.heading")} description={t("chatbot.processSection.desc")} />
