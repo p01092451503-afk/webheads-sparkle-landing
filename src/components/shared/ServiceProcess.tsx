@@ -1,7 +1,7 @@
 import { LucideIcon } from "lucide-react";
 
 interface Step { icon: LucideIcon; title: string; desc: string; tag: string; }
-interface ServiceProcessProps { steps: Step[]; heading: string; subheading: string; description: string; }
+interface ServiceProcessProps { steps: Step[]; heading: string; subheading: string; description: string; bg?: string; }
 
 const stepColors = [
   { bg: "hsl(215, 80%, 95%)", text: "hsl(215, 70%, 48%)", badge: "hsl(215, 75%, 50%)" },
@@ -11,9 +11,9 @@ const stepColors = [
   { bg: "hsl(340, 60%, 94%)", text: "hsl(340, 50%, 48%)", badge: "hsl(340, 55%, 50%)" },
 ];
 
-export default function ServiceProcess({ steps, heading, subheading, description }: ServiceProcessProps) {
+export default function ServiceProcess({ steps, heading, subheading, description, bg = "bg-secondary" }: ServiceProcessProps) {
   return (
-    <section className="py-16 md:py-28 bg-secondary">
+    <section className={`py-16 md:py-28 ${bg}`}>
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         <div className="mb-10 md:mb-16">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3 md:mb-4">{subheading}</p>

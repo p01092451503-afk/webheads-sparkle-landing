@@ -16,11 +16,12 @@ interface ServiceCaseStudyProps {
   subheading: string;
   heading: string;
   description: string;
+  bg?: string;
 }
 
-export default function ServiceCaseStudy({ cases, subheading, heading, description }: ServiceCaseStudyProps) {
+export default function ServiceCaseStudy({ cases, subheading, heading, description, bg = "bg-background" }: ServiceCaseStudyProps) {
   return (
-    <section className="py-28 bg-background">
+    <section className={`py-28 ${bg}`}>
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="mb-16">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{subheading}</p>

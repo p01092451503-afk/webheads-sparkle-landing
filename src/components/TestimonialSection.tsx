@@ -5,12 +5,12 @@ interface Testimonial {
   name: string; role: string; org: string; content: string; rating?: number; date?: string; period?: string;
 }
 
-interface TestimonialSectionProps { testimonials: Testimonial[]; }
+interface TestimonialSectionProps { testimonials: Testimonial[]; bg?: string; }
 
-export default function TestimonialSection({ testimonials }: TestimonialSectionProps) {
+export default function TestimonialSection({ testimonials, bg = "bg-background" }: TestimonialSectionProps) {
   const { t } = useTranslation();
   return (
-    <section className="py-28 bg-background">
+    <section className={`py-28 ${bg}`}>
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="mb-16">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("testimonial.sub")}</p>
