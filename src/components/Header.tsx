@@ -183,7 +183,7 @@ export default function Header() {
               );
             })}
 
-            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
+            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
               <LanguageSwitcher />
             </div>
             <Link
