@@ -156,26 +156,6 @@ export default function CompetitorComparison() {
           </div>
         </div>
 
-        {/* Score summary */}
-        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          {[
-            { label: headers[1], count: winCounts[0], isWh: false },
-            { label: headers[2], count: winCounts[1], isWh: false },
-            { label: headers[3], count: winCounts[2], isWh: true },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border ${
-                item.isWh
-                  ? "bg-primary/5 text-primary border-primary/20"
-                  : "bg-muted text-muted-foreground border-border"
-              }`}
-            >
-              <span>{item.label}</span>
-              <span className="text-base font-bold">{item.count}{lang === "ko" ? "승" : "W"}</span>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
