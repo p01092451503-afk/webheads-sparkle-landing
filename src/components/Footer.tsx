@@ -57,7 +57,7 @@ export default function Footer() {
                   className="text-[13px] font-medium text-primary underline underline-offset-2 hover:opacity-80 transition-opacity text-left"
                   style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}
                 >
-                  개인정보처리방침
+                  {t("footer.privacyPolicy")}
                 </button>
               </div>
 
@@ -94,7 +94,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity duration-200"
                 >
                   <BookOpen className="w-4 h-4" />
-                  LMS 인사이트
+                  {t("footer.lmsInsight")}
                 </Link>
               </li>
             </ul>
@@ -113,7 +113,7 @@ export default function Footer() {
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-primary text-primary-foreground font-semibold text-xs hover:opacity-90 transition-opacity"
             >
               <Mail className="w-3.5 h-3.5" />
-              SMS 충전
+              {t("footer.smsRechargeBtn")}
               <span className="text-primary-foreground/70">→</span>
             </a>
             <a
@@ -123,7 +123,7 @@ export default function Footer() {
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-accent text-accent-foreground font-semibold text-xs hover:opacity-90 transition-opacity"
             >
               <MonitorSmartphone className="w-3.5 h-3.5" />
-              원격지원 요청
+              {t("footer.serviceRequestBtn")}
               <span className="text-accent-foreground/70">→</span>
             </a>
             <a
@@ -131,7 +131,7 @@ export default function Footer() {
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-muted text-foreground font-semibold text-xs hover:bg-muted-foreground/10 transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
-              대표전화 02-540-4337
+              {t("footer.mainPhone")}
               <span className="text-foreground/50">→</span>
             </a>
           </div>
