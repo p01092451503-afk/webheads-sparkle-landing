@@ -221,6 +221,42 @@
       { "title": "Continuous Learning", "desc": "Periodic fine-tuning based on real conversation data improves response accuracy over time.", "tags": ["Fine-tuning", "RLHF", "Feedback Loop", "Auto Improvement"] },
       { "title": "Agent Escalation", "desc": "Complex inquiries are seamlessly transferred to human agents with full conversation context preserved.", "tags": ["Human Handoff", "Real-time Transfer", "Context Handover", "Collaboration"] }
     ],
+    "techSpecsSection": {
+      "sub": "TECH SPECS",
+      "title": "Battle-tested AI Engines &\nEnterprise Architecture",
+      "desc": "Accurate and fast responses powered by the latest large language models and reliable infrastructure."
+    },
+    "techSpecs": {
+      "llmModels": {
+        "title": "Supported LLM Models",
+        "items": [
+          { "name": "GPT-4o", "provider": "OpenAI", "desc": "Latest multimodal model that understands both text and images, providing accurate context-aware responses even for complex educational inquiries.", "badge": "Default" },
+          { "name": "GPT-4o mini", "provider": "OpenAI", "desc": "Lightweight version of GPT-4o, cost-effective for simple FAQ responses and high-volume traffic processing.", "badge": "Cost Optimized" },
+          { "name": "Claude 3.5 Sonnet", "provider": "Anthropic", "desc": "Excels at analyzing long documents (up to 200K tokens), ideal for syllabus and policy document-based responses.", "badge": "Long Doc Expert" },
+          { "name": "Custom Model", "provider": "Custom Build", "desc": "Fine-tuned proprietary models built with your organization's data, ensuring optimized response quality for your specific domain.", "badge": "Enterprise" }
+        ]
+      },
+      "architecture": {
+        "title": "System Architecture",
+        "items": [
+          { "label": "RAG Pipeline", "value": "Real-time document retrieval & context-augmented generation via Vector DB (Pinecone/Weaviate)" },
+          { "label": "Embedding Model", "value": "OpenAI text-embedding-3-large (3,072 dim) / Korean-optimized KoSimCSE" },
+          { "label": "Orchestration", "value": "LangChain-based multi-step agents · Tool Calling · Function Calling support" },
+          { "label": "Infrastructure", "value": "AWS/GCP auto-scaling · Container (Docker/K8s) · 99.9% SLA guaranteed" },
+          { "label": "Response Speed", "value": "Avg. first token under 500ms · Streaming real-time output" },
+          { "label": "Concurrency", "value": "Up to 10,000 simultaneous conversations · Queue-based load balancing" }
+        ]
+      },
+      "performance": {
+        "title": "Performance Metrics",
+        "items": [
+          { "metric": "Response Accuracy", "value": "92%+", "desc": "With RAG + Fine-tuning" },
+          { "metric": "First Token", "value": "<500ms", "desc": "Streaming basis" },
+          { "metric": "Uptime", "value": "99.9%", "desc": "SLA guaranteed" },
+          { "metric": "Context Window", "value": "128K", "desc": "Tokens (GPT-4o)" }
+        ]
+      }
+    },
     "midCTA": { "heading": "Curious about the right AI chatbot for your organization?", "description": "We'll propose a customized chatbot solution for free.", "ctaText": "Request Free Demo" },
     "processSection": { "sub": "PROCESS", "heading": "Systematic AI Chatbot\nDeployment Process", "desc": "From requirements analysis to ongoing operations, our dedicated engineers are with you." },
     "processSteps": [

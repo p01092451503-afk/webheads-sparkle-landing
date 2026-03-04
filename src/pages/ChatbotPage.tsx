@@ -6,7 +6,7 @@ import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
-import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users, Search, FileSearch, Code2, Rocket } from "lucide-react";
+import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users, Search, FileSearch, Code2, Rocket, Cpu, Server, Gauge, Layers } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Brain, MessageSquare, Zap, Globe, Link2, BarChart3, ShieldCheck, RefreshCw, Users];

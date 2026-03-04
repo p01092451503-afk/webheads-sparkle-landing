@@ -221,6 +221,42 @@
       { "title": "지속 학습 & 모델 고도화", "desc": "실제 대화 데이터를 기반으로 주기적 파인튜닝을 수행하여 시간이 지날수록 응답 정확도가 향상됩니다.", "tags": ["Fine-tuning", "RLHF", "피드백 루프", "자동 고도화"] },
       { "title": "상담원 에스컬레이션 & 협업", "desc": "챗봇이 처리하기 어려운 복잡한 문의는 실시간으로 상담원에게 전환하며, 이전 대화 맥락을 그대로 인계합니다.", "tags": ["Human Handoff", "실시간 전환", "맥락 인계", "협업"] }
     ],
+    "techSpecsSection": {
+      "sub": "기술 사양",
+      "title": "검증된 AI 엔진과\n엔터프라이즈급 아키텍처",
+      "desc": "최신 대형 언어 모델과 안정적인 인프라를 기반으로 정확하고 빠른 응답을 제공합니다."
+    },
+    "techSpecs": {
+      "llmModels": {
+        "title": "지원 LLM 모델",
+        "items": [
+          { "name": "GPT-4o", "provider": "OpenAI", "desc": "최신 멀티모달 모델로 텍스트·이미지를 동시에 이해하며, 복잡한 교육 문의에도 정확한 맥락 파악과 응답을 제공합니다.", "badge": "기본 탑재" },
+          { "name": "GPT-4o mini", "provider": "OpenAI", "desc": "GPT-4o 대비 경량화된 모델로, 단순 FAQ 응답이나 대량 트래픽 처리 시 비용 효율적으로 운영할 수 있습니다.", "badge": "비용 최적화" },
+          { "name": "Claude 3.5 Sonnet", "provider": "Anthropic", "desc": "긴 문서(최대 200K 토큰) 분석에 강점을 가진 모델로, 강의계획서·규정집 등 대용량 문서 기반 응답에 적합합니다.", "badge": "장문서 특화" },
+          { "name": "커스텀 모델", "provider": "맞춤 개발", "desc": "기관 전용 데이터로 파인튜닝된 전용 모델을 구축하여, 특정 도메인에 최적화된 응답 품질을 보장합니다.", "badge": "Enterprise" }
+        ]
+      },
+      "architecture": {
+        "title": "시스템 아키텍처",
+        "items": [
+          { "label": "RAG 파이프라인", "value": "벡터 DB(Pinecone/Weaviate) 기반 실시간 문서 검색 및 컨텍스트 증강 생성" },
+          { "label": "임베딩 모델", "value": "OpenAI text-embedding-3-large (3,072차원) / 한국어 특화 KoSimCSE" },
+          { "label": "오케스트레이션", "value": "LangChain 기반 멀티스텝 에이전트 · Tool Calling · Function Calling 지원" },
+          { "label": "인프라", "value": "AWS/GCP 기반 오토스케일링 · 컨테이너(Docker/K8s) · 99.9% SLA 보장" },
+          { "label": "응답 속도", "value": "평균 500ms 이내 첫 토큰 응답 · 스트리밍 방식 실시간 출력" },
+          { "label": "동시 접속", "value": "최대 10,000명 동시 대화 처리 · 큐 기반 부하 분산" }
+        ]
+      },
+      "performance": {
+        "title": "성능 지표",
+        "items": [
+          { "metric": "응답 정확도", "value": "92%+", "desc": "RAG + 파인튜닝 적용 시" },
+          { "metric": "첫 응답 속도", "value": "<500ms", "desc": "스트리밍 기준" },
+          { "metric": "가동률", "value": "99.9%", "desc": "SLA 보장" },
+          { "metric": "컨텍스트 윈도우", "value": "128K", "desc": "토큰 기준 (GPT-4o)" }
+        ]
+      }
+    },
     "midCTA": { "heading": "우리 기관에 맞는 AI 챗봇이 궁금하신가요?", "description": "기관 특성에 맞는 챗봇 구축 방안을 무료로 제안드립니다.", "ctaText": "무료 데모 신청하기" },
     "processSection": { "sub": "도입 과정", "heading": "체계적인 AI 챗봇\n도입 프로세스", "desc": "요구사항 분석부터 지속 운영까지, 전담 엔지니어가 함께합니다." },
     "processSteps": [
