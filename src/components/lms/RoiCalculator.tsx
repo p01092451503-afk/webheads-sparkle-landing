@@ -211,7 +211,7 @@ export default function RoiCalculator() {
             <div className="space-y-3 flex-1">
               {/* 1. 예상 연 매출 */}
               <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                <h4 className="font-bold text-foreground text-sm md:text-base mb-3">{t("lms.roiCalc.annualRevenue")}</h4>
+                <h4 className="font-bold text-foreground text-sm md:text-base mb-3"><span className="text-muted-foreground mr-1.5">A.</span>{t("lms.roiCalc.annualRevenue")}</h4>
                 <div className="flex justify-between items-center">
                   <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.annualRevenue")}</span>
                   <div className="text-right">
