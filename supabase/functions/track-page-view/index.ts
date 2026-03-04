@@ -161,6 +161,7 @@ async function handleBotPixel(req: Request): Promise<Response> {
   }
 
   const { country, city } = await geoLookup(ip);
+  const finalType = classifyWithGeo(visitor_type, country, city);
   const referer = req.headers.get("referer") || null;
 
   const supabase = createClient(
