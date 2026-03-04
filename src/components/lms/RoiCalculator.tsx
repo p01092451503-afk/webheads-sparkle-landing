@@ -248,6 +248,12 @@ export default function RoiCalculator() {
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
                 <span className="font-bold text-lg" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
+              <div className="rounded-xl p-4 md:p-5 border border-border/60" style={{ background: "hsl(145, 70%, 96%)" }}>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
+                  <span className="text-xs md:text-sm font-semibold" style={{ color: GREEN_ACCENT }}>{t("lms.roiCalc.monthlySavings", "월 절감액")}</span>
+                  <span className="font-bold text-lg md:text-xl" style={{ color: GREEN_ACCENT }}>{formatNumber(savingsMonthly)}{t("lms.roiCalc.feeUnit")}</span>
+                </div>
+              </div>
               <div className="rounded-xl p-4 md:p-5" style={{ background: GREEN_BG }}>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
                   <span className="text-xs md:text-sm font-semibold" style={{ color: GREEN_TEXT }}>{t("lms.roiCalc.annualSavings")}</span>
