@@ -1,0 +1,1 @@
+UPDATE page_views SET visitor_type = 'scraper_headless' WHERE user_agent ILIKE '%HeadlessChrome%' AND visitor_type = 'human';
