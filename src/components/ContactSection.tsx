@@ -153,7 +153,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               return (
                 <div className="relative overflow-hidden flex items-center justify-between gap-3 rounded-xl bg-primary px-5 py-4">
                   {/* Shimmer effect */}
-                  <div className="absolute inset-0 -translate-x-full animate-[shimmer_2.5s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+                  <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/15 to-transparent" />
                   <div className="flex items-center gap-3 relative z-10">
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-foreground/20 text-primary-foreground text-sm font-black shrink-0">%</span>
                     <span className="text-base font-bold text-primary-foreground tracking-tight">
