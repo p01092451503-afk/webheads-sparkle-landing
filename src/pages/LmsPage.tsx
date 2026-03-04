@@ -490,8 +490,6 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* ROI Calculator — 비용 정당화 */}
-      <RoiCalculator />
 
       {/* Competitor Comparison — 왜 우리인가 */}
       <CompetitorComparison />
