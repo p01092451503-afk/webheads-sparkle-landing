@@ -27,6 +27,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return pageViews.filter((v) => new Date(v.created_at) >= since);
   }, [pageViews, dateRange]);
 
+  const humanViews = useMemo(() => filteredViews.filter((v) => (v.visitor_type || "human") === "human"), [filteredViews]);
+
   const filteredClicks = useMemo(() => {
     const since = new Date();
     if (dateRange === 0) since.setHours(0, 0, 0, 0);
@@ -34,8 +36,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return clickEvents.filter((v) => new Date(v.created_at) >= since);
   }, [clickEvents, dateRange]);
 
-  const totalViews = filteredViews.length;
-  const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
+  const totalViews = humanViews.length;
+  const uniqueSessions = new Set(humanViews.map((v) => v.session_id)).size;
 
   const visitorTypeCounts = useMemo(() => {
     // Display name maps for granular visitor_type from DB
@@ -103,20 +105,20 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs, searchBotSubs, aiBotSubs, aiBotPages };
   }, [filteredViews]);
 
-  const deviceCounts = filteredViews.reduce((acc, v) => {
+  const deviceCounts = humanViews.reduce((acc, v) => {
     acc[v.device_type || "unknown"] = (acc[v.device_type || "unknown"] || 0) + 1; return acc;
   }, {} as Record<string, number>);
 
-  const pageCounts = filteredViews.reduce((acc, v) => { acc[v.page_path] = (acc[v.page_path] || 0) + 1; return acc; }, {} as Record<string, number>);
+  const pageCounts = humanViews.reduce((acc, v) => { acc[v.page_path] = (acc[v.page_path] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topPages = Object.entries(pageCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
-  const browserCounts = filteredViews.reduce((acc, v) => { acc[v.browser || "Unknown"] = (acc[v.browser || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
+  const browserCounts = humanViews.reduce((acc, v) => { acc[v.browser || "Unknown"] = (acc[v.browser || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topBrowsers = Object.entries(browserCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
-  const osCounts = filteredViews.reduce((acc, v) => { acc[v.os || "Unknown"] = (acc[v.os || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
+  const osCounts = humanViews.reduce((acc, v) => { acc[v.os || "Unknown"] = (acc[v.os || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topOS = Object.entries(osCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
-  const referrerCounts = filteredViews.reduce((acc, v) => {
+  const referrerCounts = humanViews.reduce((acc, v) => {
     try { const ref = v.referrer ? new URL(v.referrer).hostname : "직접 방문"; acc[ref] = (acc[ref] || 0) + 1; } catch { acc["기타"] = (acc["기타"] || 0) + 1; }
     return acc;
   }, {} as Record<string, number>);
@@ -129,7 +131,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return ip.replace(/:[\da-f]{1,4}$/i, ":***");
   };
 
-  const humanViews = useMemo(() => filteredViews.filter((v) => (v.visitor_type || "human") === "human"), [filteredViews]);
 
   const ipWithLocation = useMemo(() => {
     const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null }> = {};
@@ -157,7 +158,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const pageDwellTimes = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (v.duration_seconds && v.duration_seconds > 0) {
         if (!acc[v.page_path]) acc[v.page_path] = { total: 0, count: 0 };
         acc[v.page_path].total += v.duration_seconds;
@@ -167,13 +168,13 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
       .sort((a, b) => b.avg - a.avg);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const overallAvgDwell = useMemo(() => {
-    const withDuration = filteredViews.filter((v) => v.duration_seconds && v.duration_seconds > 0);
+    const withDuration = humanViews.filter((v) => v.duration_seconds && v.duration_seconds > 0);
     if (withDuration.length === 0) return 0;
     return Math.round(withDuration.reduce((s, v) => s + v.duration_seconds, 0) / withDuration.length);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const toLocalDateKey = (date: Date) => {
     const y = date.getFullYear();
@@ -188,7 +189,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     if (isToday) {
       const hours: Record<number, { views: number; sessions: Set<string> }> = {};
       for (let h = 0; h < 24; h++) hours[h] = { views: 0, sessions: new Set() };
-      filteredViews.forEach((v) => {
+      humanViews.forEach((v) => {
         const d = new Date(v.created_at);
         const h = d.getHours();
         hours[h].views++;
@@ -206,14 +207,14 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       const key = toLocalDateKey(d);
       days[key] = { views: 0, sessions: new Set() };
     }
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       const key = toLocalDateKey(new Date(v.created_at));
       if (days[key]) { days[key].views++; if (v.session_id) days[key].sessions.add(v.session_id); }
     });
     return Object.entries(days).map(([date, d]) => ({
       date, label: new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" }), views: d.views, sessions: d.sessions.size,
     }));
-  }, [filteredViews, dateRange, isToday]);
+  }, [humanViews, dateRange, isToday]);
 
   const filteredInquiries = useMemo(() => {
     const since = new Date();
@@ -229,21 +230,21 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const utmSourceCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => { if (v.utm_source) acc[v.utm_source] = (acc[v.utm_source] || 0) + 1; });
+    humanViews.forEach((v) => { if (v.utm_source) acc[v.utm_source] = (acc[v.utm_source] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const utmCampaignCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => { if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1; });
+    humanViews.forEach((v) => { if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const utmMediumCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => { if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1; });
+    humanViews.forEach((v) => { if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const ctaClickCounts = useMemo(() => {
     const acc: Record<string, number> = {};
@@ -259,7 +260,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const scrollDepthStats = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (typeof v.scroll_depth === "number" && v.scroll_depth > 0) {
         if (!acc[v.page_path]) acc[v.page_path] = { total: 0, count: 0 };
         acc[v.page_path].total += v.scroll_depth;
@@ -269,16 +270,16 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
       .sort((a, b) => b.avg - a.avg);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const visitStats = useMemo(() => {
-    const first = filteredViews.filter((v) => v.is_first_visit === true).length;
-    return { first, returning: filteredViews.length - first };
-  }, [filteredViews]);
+    const first = humanViews.filter((v) => v.is_first_visit === true).length;
+    return { first, returning: humanViews.length - first };
+  }, [humanViews]);
 
   const exitPages = useMemo(() => {
     const sessionPages: Record<string, { path: string; time: string }> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (!v.session_id) return;
       if (!sessionPages[v.session_id] || v.created_at > sessionPages[v.session_id].time)
         sessionPages[v.session_id] = { path: v.page_path, time: v.created_at };
@@ -286,14 +287,14 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const acc: Record<string, number> = {};
     Object.values(sessionPages).forEach((s) => { acc[s.path] = (acc[s.path] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const funnelData = useMemo(() => {
-    const sessions = new Set(filteredViews.map((v) => v.session_id).filter(Boolean));
+    const sessions = new Set(humanViews.map((v) => v.session_id).filter(Boolean));
     const landingSessions = new Set<string>();
     const serviceSessions = new Set<string>();
     const servicePages = ["/lms", "/hosting", "/drm", "/content", "/chatbot", "/channel", "/maintenance", "/app-dev", "/pg"];
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (!v.session_id) return;
       if (v.page_path === "/") landingSessions.add(v.session_id);
       if (servicePages.some((p) => v.page_path.startsWith(p))) serviceSessions.add(v.session_id);
@@ -306,23 +307,23 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       { label: "CTA 클릭", count: ctaSessions.size },
       { label: "문의 제출", count: filteredInquiries.length },
     ];
-  }, [filteredViews, filteredInquiries, filteredClicks]);
+  }, [humanViews, filteredInquiries, filteredClicks]);
 
   const hourlyData = useMemo(() => {
     const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
     const grid: number[][] = Array.from({ length: 7 }, () => Array(24).fill(0));
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       const d = new Date(v.created_at);
       grid[d.getDay()][d.getHours()]++;
     });
     return { grid, dayNames };
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const maxHourly = useMemo(() => Math.max(...hourlyData.grid.flat(), 1), [hourlyData]);
 
   const pageFlows = useMemo(() => {
     const sessionViews: Record<string, { path: string; time: string }[]> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (!v.session_id) return;
       if (!sessionViews[v.session_id]) sessionViews[v.session_id] = [];
       sessionViews[v.session_id].push({ path: v.page_path, time: v.created_at });
@@ -338,27 +339,27 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       }
     });
     return Object.entries(flows).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const resolutionCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (v.screen_width && v.screen_height) {
         const res = `${v.screen_width}×${v.screen_height}`;
         acc[res] = (acc[res] || 0) + 1;
       }
     });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const languageCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       const lang = v.language || "Unknown";
       acc[lang] = (acc[lang] || 0) + 1;
     });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   // 신규 방문자 분석: 3/4 이전에 한 번이라도 접속한 IP/session은 제외
   const newVisitorCutoff = new Date("2026-03-04T00:00:00");
