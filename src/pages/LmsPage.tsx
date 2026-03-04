@@ -23,7 +23,8 @@ import {
   BookOpen
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 import ClientMarquee from "@/components/ClientMarquee";
@@ -35,10 +36,73 @@ const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
 
+// ── Industry-specific Hero variants (Korean only) ──
+// Usage: /lms?industry=university | enterprise | government
+const industryVariants: Record<string, {
+  badge: string;
+  title: string;
+  titleHighlight: string;
+  desc: string;
+  cta1: string;
+  highlightBadge: string | null;
+}> = {
+  default: {
+    badge: "AI-POWERED LMS PLATFORM",
+    title: "기업의 성장을\n이끄는 LMS",
+    titleHighlight: "웹헤즈와 함께하세요",
+    desc: "300개 이상의 기업이 선택한 이러닝 솔루션. 3일 만에 시작하는 클라우드 LMS부터 완전 맞춤형 구축까지.",
+    cta1: "무료 상담 신청",
+    highlightBadge: null,
+  },
+  university: {
+    badge: "대학 · 교육기관 전용",
+    title: "대학 온라인 교육의\n새로운 기준",
+    titleHighlight: "평생교육원 LMS",
+    desc: "KDT 정부지원훈련 공식 인증. 수강생 관리부터 수료증 발급, PG 결제까지 원스톱.",
+    cta1: "대학 도입 상담",
+    highlightBadge: "KDT 공식 인증",
+  },
+  enterprise: {
+    badge: "기업 HRD · 사내교육",
+    title: "사내교육 운영비\n40% 절감",
+    titleHighlight: "기업교육 LMS",
+    desc: "AI 학습 독려, 자동 수료 처리, 인사시스템(ERP) 연동. 대기업부터 스타트업까지.",
+    cta1: "기업 도입 상담",
+    highlightBadge: "평균 40% 비용 절감",
+  },
+  government: {
+    badge: "정부기관 · 공공기관",
+    title: "공공기관 인증\n이러닝 플랫폼",
+    titleHighlight: "HRD 전문 LMS",
+    desc: "조달청 등록 업체. 보안 인프라, 개인정보보호법 완전 준수, HRD-Net 자동 연동.",
+    cta1: "공공기관 도입 상담",
+    highlightBadge: "조달청 등록",
+  },
+};
+
 export default function LmsPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [searchParams] = useSearchParams();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
+
+  // Resolve industry variant from URL param → sessionStorage → default
+  const variant = useMemo(() => {
+    const paramIndustry = searchParams.get("industry");
+    if (paramIndustry && industryVariants[paramIndustry]) {
+      try { sessionStorage.setItem("lms_industry", paramIndustry); } catch {}
+      return industryVariants[paramIndustry];
+    }
+    try {
+      const stored = sessionStorage.getItem("lms_industry");
+      if (stored && industryVariants[stored]) return industryVariants[stored];
+    } catch {}
+    return industryVariants.default;
+  }, [searchParams]);
+
+  // Use variant only in Korean mode
+  const isKorean = i18n.language?.startsWith("ko") ?? true;
+  const useVariant = isKorean && variant !== industryVariants.default;
 
   const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
   const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
@@ -137,25 +201,35 @@ export default function LmsPage() {
 
 
         <div className="container mx-auto px-5 md:px-6 relative z-10 text-center flex flex-col items-center">
+          {/* Highlight badge (industry variant) */}
+          {useVariant && variant.highlightBadge && (
+            <span
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold mb-4"
+              style={{ background: "hsl(45, 95%, 55%)", color: "hsl(30, 60%, 15%)" }}
+            >
+              <Award className="w-3.5 h-3.5" />
+              {variant.highlightBadge}
+            </span>
+          )}
           <span
             className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8"
             style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }}
           >
             <Sparkles className="w-4 h-4" />
-            {t("lms.hero.badge")}
+            {useVariant ? variant.badge : t("lms.hero.badge")}
           </span>
           <h1
-            className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white"
+            className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white whitespace-pre-line"
             style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}
           >
-            {t("lms.hero.title")}
+            {useVariant ? variant.title : t("lms.hero.title")}
             <br />
             <span className="bg-clip-text" style={{ opacity: 0.95 }}>
-              {t("lms.hero.titleHighlight")}
+              {useVariant ? variant.titleHighlight : t("lms.hero.titleHighlight")}
             </span>
           </h1>
           <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
-            {t("lms.hero.desc")}
+            {useVariant ? variant.desc : t("lms.hero.desc")}
           </p>
           <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
             <a
@@ -163,7 +237,7 @@ export default function LmsPage() {
               className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2"
               style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
             >
-              {t("lms.hero.cta1")}
+              {useVariant ? variant.cta1 : t("lms.hero.cta1")}
               <ArrowRight className="w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a href="#solutions" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
