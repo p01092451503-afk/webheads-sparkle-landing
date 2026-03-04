@@ -85,11 +85,11 @@ export default function ChannelPage() {
         </div>
       </section>
 
-      <ServiceProcess steps={processSteps} heading={t("channel.processSection.title")} subheading={t("channel.processSection.sub")} description={t("channel.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("channel.comparisonSection.sub")} heading={t("channel.comparisonSection.heading")} description={t("channel.comparisonSection.desc")} />
-      <ServiceCaseStudy cases={caseStudies} subheading={t("channel.caseStudySection.sub")} heading={t("channel.caseStudySection.heading")} description={t("channel.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("channel.seo.title")} />
+      <ServiceProcess bg="bg-secondary" steps={processSteps} heading={t("channel.processSection.title")} subheading={t("channel.processSection.sub")} description={t("channel.processSection.desc")} />
+      <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("channel.comparisonSection.sub")} heading={t("channel.comparisonSection.heading")} description={t("channel.comparisonSection.desc")} />
+      <ServiceCaseStudy bg="bg-secondary" cases={caseStudies} subheading={t("channel.caseStudySection.sub")} heading={t("channel.caseStudySection.heading")} description={t("channel.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("channel.seo.title")} />
       <ContactSection />
     </div>
   );

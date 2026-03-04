@@ -92,17 +92,15 @@ export default function PgPage() {
         </div>
       </section>
 
-      {/* Process */}
-      <ServiceProcess
+      <ServiceProcess bg="bg-secondary" 
         steps={processSteps}
         heading={t("pg.processSection.title")}
         subheading={t("pg.processSection.sub")}
         description={t("pg.processSection.desc")}
       />
 
-
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("pg.seo.title")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("pg.seo.title")} />
       <ContactSection />
     </div>
   );

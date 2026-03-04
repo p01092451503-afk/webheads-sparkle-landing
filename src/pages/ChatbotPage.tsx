@@ -163,9 +163,9 @@ export default function ChatbotPage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("chatbot.caseStudySection.sub")} heading={t("chatbot.caseStudySection.heading")} description={t("chatbot.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("chatbot.seo.title")} />
+      <ServiceCaseStudy bg="bg-background" cases={caseStudies} subheading={t("chatbot.caseStudySection.sub")} heading={t("chatbot.caseStudySection.heading")} description={t("chatbot.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-secondary" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-background" faqs={faqs} serviceName={t("chatbot.seo.title")} />
       <ContactSection />
     </div>
   );

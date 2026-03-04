@@ -94,9 +94,9 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("maintenance.caseStudySection.sub")} heading={t("maintenance.caseStudySection.heading")} description={t("maintenance.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName="유지보수 서비스" />
+      <ServiceCaseStudy bg="bg-background" cases={caseStudies} subheading={t("maintenance.caseStudySection.sub")} heading={t("maintenance.caseStudySection.heading")} description={t("maintenance.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-secondary" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-background" faqs={faqs} serviceName="유지보수 서비스" />
       <ContactSection />
     </div>
   );

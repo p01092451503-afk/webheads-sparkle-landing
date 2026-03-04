@@ -96,9 +96,9 @@ export default function HostingPage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("hosting.caseStudySection.sub")} heading={t("hosting.caseStudySection.heading")} description={t("hosting.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName="호스팅 서비스" />
+      <ServiceCaseStudy bg="bg-secondary" cases={caseStudies} subheading={t("hosting.caseStudySection.sub")} heading={t("hosting.caseStudySection.heading")} description={t("hosting.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName="호스팅 서비스" />
       <ContactSection />
     </div>
   );

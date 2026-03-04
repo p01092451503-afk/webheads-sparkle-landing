@@ -124,9 +124,9 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("appdev.caseStudySection.sub")} heading={t("appdev.caseStudySection.heading")} description={t("appdev.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("appdev.seo.title")} />
+      <ServiceCaseStudy bg="bg-secondary" cases={caseStudies} subheading={t("appdev.caseStudySection.sub")} heading={t("appdev.caseStudySection.heading")} description={t("appdev.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("appdev.seo.title")} />
       <ContactSection />
     </div>
   );
