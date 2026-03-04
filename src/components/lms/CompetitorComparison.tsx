@@ -79,7 +79,6 @@ export default function CompetitorComparison() {
                   <th className="px-4 py-5 text-center text-sm font-bold text-primary-foreground bg-primary">
                     {headers[3]}
                   </th>
-                  </th>
                 </tr>
               </thead>
               <tbody>
