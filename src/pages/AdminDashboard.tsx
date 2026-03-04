@@ -136,7 +136,6 @@ export default function AdminDashboard() {
   };
 
   const tabs: { key: Tab; icon: any; label: string }[] = [
-    { key: "home", icon: Home, label: "홈" },
     { key: "inquiries", icon: MessageSquare, label: "문의" },
     { key: "service_requests", icon: Wrench, label: "서비스 요청" },
     { key: "analytics", icon: BarChart3, label: "분석" },
