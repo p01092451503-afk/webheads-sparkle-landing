@@ -140,13 +140,6 @@ export default function Header() {
               <LanguageSwitcher />
             </div>
             <Link
-              to="/service-request"
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-primary text-primary-foreground text-center flex items-center justify-center gap-1.5"
-            >
-              <Headset className="w-4 h-4" />
-              {t("header.customerSupport")}
-            </Link>
-            <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
               className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-[hsl(230,25%,15%)] text-white text-center"
             >
