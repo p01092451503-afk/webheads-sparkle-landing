@@ -26,8 +26,8 @@ export default function Header() {
       const dismissed = localStorage.getItem("promo_banner_dismissed");
       if (!dismissed) return false;
       const dismissedAt = new Date(dismissed).getTime();
-      const sevenDays = 7 * 24 * 60 * 60 * 1000;
-      return Date.now() - dismissedAt < sevenDays;
+      const oneDay = 24 * 60 * 60 * 1000;
+      return Date.now() - dismissedAt < oneDay;
     } catch { return false; }
   });
   const [scrolled, setScrolled] = useState(false);
