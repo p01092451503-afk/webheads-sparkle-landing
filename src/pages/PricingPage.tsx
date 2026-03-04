@@ -12,10 +12,12 @@ interface SpecRow {
 
 const TIERS = ["Starter", "Basic", "Plus", "Premium"] as const;
 
-const PRICES = ["300,000원", "500,000원", "700,000원", "1,000,000원"];
-const PRICE_SUB = ["/월(VAT 별도)", "/월(VAT 별도)", "/월(VAT 별도)", "/월(VAT 별도)"];
+const PRICES_KO = ["300,000원", "500,000원", "700,000원", "1,000,000원"];
+const PRICES_EN = ["300,000 KRW", "500,000 KRW", "700,000 KRW", "1,000,000 KRW"];
+const PRICE_SUB_KO = ["/월(VAT 별도)", "/월(VAT 별도)", "/월(VAT 별도)", "/월(VAT 별도)"];
+const PRICE_SUB_EN = ["/mo (excl. VAT)", "/mo (excl. VAT)", "/mo (excl. VAT)", "/mo (excl. VAT)"];
 
-const MAIN_SPECS: SpecRow[] = [
+const MAIN_SPECS_KO: SpecRow[] = [
   {
     label: "월 전송량",
     values: ["CDN 미사용", "500GB", "1,500GB", "2,000GB"],
@@ -28,7 +30,20 @@ const MAIN_SPECS: SpecRow[] = [
   },
 ];
 
-const ADDITIONAL_SPECS: SpecRow[] = [
+const MAIN_SPECS_EN: SpecRow[] = [
+  {
+    label: "Monthly Transfer",
+    values: ["No CDN", "500GB", "1,500GB", "2,000GB"],
+    sub: ["YouTube/Vimeo integration", "~1,700 views of 30-min lectures", "~5,100 views of 30-min lectures", "~6,800 views of 30-min lectures"],
+  },
+  {
+    label: "Storage",
+    values: ["—", "100GB", "200GB", "250GB"],
+    sub: ["", "~332 SD 30-min lectures", "~664 SD 30-min lectures", "~830 SD 30-min lectures"],
+  },
+];
+
+const ADDITIONAL_SPECS_KO: SpecRow[] = [
   { label: "회원 수", values: ["무제한", "무제한", "무제한", "무제한"] },
   { label: "트랜스코딩", values: ["—", "20GB", "20GB", "20GB"] },
   { label: "담당자", values: ["LMS 전문 담당자 배정", "LMS 전문 담당자 배정", "LMS 전문 담당자 배정", "LMS 전문 담당자 배정"] },
@@ -36,7 +51,15 @@ const ADDITIONAL_SPECS: SpecRow[] = [
   { label: "관리자 계정", values: ["무제한", "무제한", "무제한", "무제한"] },
 ];
 
-const SPECIAL_FEATURES = [
+const ADDITIONAL_SPECS_EN: SpecRow[] = [
+  { label: "Members", values: ["Unlimited", "Unlimited", "Unlimited", "Unlimited"] },
+  { label: "Transcoding", values: ["—", "20GB", "20GB", "20GB"] },
+  { label: "Account Manager", values: ["Dedicated LMS Manager", "Dedicated LMS Manager", "Dedicated LMS Manager", "Dedicated LMS Manager"] },
+  { label: "Support", values: ["Regular Updates", "Regular Updates", "Regular Updates", "Regular Updates, Security Reports"] },
+  { label: "Admin Accounts", values: ["Unlimited", "Unlimited", "Unlimited", "Unlimited"] },
+];
+
+const SPECIAL_FEATURES_KO = [
   "라이브(ZOOM)",
   "SMS/카카오 알림톡 발송 API 연동",
   "검색엔진 최적화",
@@ -49,36 +72,92 @@ const SPECIAL_FEATURES = [
   "소셜 로그인(구글, 카카오, 네이버, 페이스북)",
 ];
 
-const INFRA_SPECS: SpecRow[] = [
+const SPECIAL_FEATURES_EN = [
+  "Live (ZOOM)",
+  "SMS/KakaoTalk API Integration",
+  "Search Engine Optimization",
+  "Free Design Templates",
+  "AI Learning Encouragement",
+  "Admin Dashboard",
+  "Regular Updates",
+  "Certificate Templates",
+  "Mobile Web Service",
+  "Social Login (Google, Kakao, Naver, Facebook)",
+];
+
+const INFRA_SPECS_KO: SpecRow[] = [
   { label: "개발 도메인", values: ["1개 제공", "1개 제공", "1개 제공", "1개 제공"] },
   {
     label: "보안 서비스",
-    values: [
-      "기본 보안, SSL",
-      "기본 보안, WAF & Shield, FireWall 등",
-      "기본 보안, WAF & Shield, FireWall 등",
-      "별도 문의",
-    ],
+    values: ["기본 보안, SSL", "기본 보안, WAF & Shield, FireWall 등", "기본 보안, WAF & Shield, FireWall 등", "별도 문의"],
   },
   { label: "통계 페이지", values: ["✓", "✓", "✓", "✓"] },
 ];
 
-const OVERAGE_SPECS: { label: string; unit: string; values: string[] }[] = [
+const INFRA_SPECS_EN: SpecRow[] = [
+  { label: "Dev Domain", values: ["1 Included", "1 Included", "1 Included", "1 Included"] },
+  {
+    label: "Security",
+    values: ["Basic Security, SSL", "Basic Security, WAF & Shield, Firewall, etc.", "Basic Security, WAF & Shield, Firewall, etc.", "Contact Us"],
+  },
+  { label: "Analytics Page", values: ["✓", "✓", "✓", "✓"] },
+];
+
+const OVERAGE_SPECS_KO: { label: string; unit: string; values: string[] }[] = [
   { label: "전송량", unit: "1GB당", values: ["—", "500원", "400원", "300원"] },
   { label: "저장공간", unit: "1GB당", values: ["—", "1,000원", "800원", "500원"] },
   { label: "트랜스코딩", unit: "1GB당", values: ["—", "2,200원", "2,000원", "2,000원"] },
   { label: "보안 플레이어", unit: "월", values: ["—", "300,000원", "300,000원", "300,000원"] },
 ];
 
+const OVERAGE_SPECS_EN: { label: string; unit: string; values: string[] }[] = [
+  { label: "Transfer", unit: "per GB", values: ["—", "500 KRW", "400 KRW", "300 KRW"] },
+  { label: "Storage", unit: "per GB", values: ["—", "1,000 KRW", "800 KRW", "500 KRW"] },
+  { label: "Transcoding", unit: "per GB", values: ["—", "2,200 KRW", "2,000 KRW", "2,000 KRW"] },
+  { label: "Secure Player", unit: "monthly", values: ["—", "300,000 KRW", "300,000 KRW", "300,000 KRW"] },
+];
+
 export default function PricingPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language?.startsWith("en") ? "en" : "ko";
   const plans = t("lms.plans", { returnObjects: true }) as any[];
+
+  const PRICES = lang === "en" ? PRICES_EN : PRICES_KO;
+  const PRICE_SUB = lang === "en" ? PRICE_SUB_EN : PRICE_SUB_KO;
+  const MAIN_SPECS = lang === "en" ? MAIN_SPECS_EN : MAIN_SPECS_KO;
+  const ADDITIONAL_SPECS = lang === "en" ? ADDITIONAL_SPECS_EN : ADDITIONAL_SPECS_KO;
+  const SPECIAL_FEATURES = lang === "en" ? SPECIAL_FEATURES_EN : SPECIAL_FEATURES_KO;
+  const INFRA_SPECS = lang === "en" ? INFRA_SPECS_EN : INFRA_SPECS_KO;
+  const OVERAGE_SPECS = lang === "en" ? OVERAGE_SPECS_EN : OVERAGE_SPECS_KO;
+
+  const sectionTitles = lang === "en"
+    ? { monthly: "Monthly Fee", basic: "Base Specs", recommend: "Recommended For", additional: "Additional Features", special: "Special Features", infra: "Infrastructure & Security", overage: "Overage Charges", item: "Item" }
+    : { monthly: "월 이용료", basic: "기본 사양", recommend: "추천 대상", additional: "추가 제공", special: "특별 제공", infra: "인프라 · 보안", overage: "초과 사용 요금", item: "항목" };
+
+  const heroTitle = lang === "en"
+    ? <>Flexible Plans,<br />Transparent Pricing</>
+    : <>다양한 옵션과<br />합리적인 요금제를 제공합니다</>;
+  const heroDesc = lang === "en"
+    ? "Start at an affordable price with no hidden fees."
+    : "합리적인 가격으로 부담없이 시작하세요";
+  const heroCta = lang === "en" ? "Contact Us" : "문의하기";
+  const detailTitle = lang === "en" ? "Detailed Plan Comparison" : "요금제 상세 비교";
+  const monthlyLabel = lang === "en" ? "Monthly Fee" : "월 금액";
+  const ctaTitle = lang === "en" ? "Need a custom quote?" : "맞춤 견적이 필요하신가요?";
+  const ctaDesc = lang === "en"
+    ? "We'll recommend the best plan based on your organization's size and requirements."
+    : "기관의 규모와 요구사항에 맞는 최적의 요금제를 안내해드립니다.";
+  const ctaCta = lang === "en" ? "Request Custom Quote" : "맞춤 견적 요청";
+  const seoTitle = lang === "en" ? "Pricing — WEBHEADS LMS" : "요금제 — 웹헤즈 LMS";
+  const seoDesc = lang === "en"
+    ? "Compare WEBHEADS LMS plans and choose the right one for your organization. From Starter to Premium."
+    : "웹헤즈 LMS 요금제를 비교하고 기관에 맞는 플랜을 선택하세요. Starter부터 Premium까지 다양한 옵션을 제공합니다.";
 
   return (
     <>
       <Helmet>
-        <title>요금제 — 웹헤즈 LMS</title>
-        <meta name="description" content="웹헤즈 LMS 요금제를 비교하고 기관에 맞는 플랜을 선택하세요. Starter부터 Premium까지 다양한 옵션을 제공합니다." />
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDesc} />
       </Helmet>
 
       {/* Hero */}
@@ -86,22 +165,22 @@ export default function PricingPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/15 via-transparent to-accent/8" />
         <div className="container mx-auto px-6 max-w-6xl relative z-10 text-center">
           <h1 className="text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-            다양한 옵션과<br />합리적인 요금제를 제공합니다
+            {heroTitle}
           </h1>
           <p className="mt-4 text-lg text-primary-foreground/70">
-            합리적인 가격으로 부담없이 시작하세요
+            {heroDesc}
           </p>
           <Link
             to="/#contact"
             className="inline-flex items-center gap-2 mt-8 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
           >
-            문의하기
+            {heroCta}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>
 
-      {/* Pricing Cards — same design as LMS */}
+      {/* Pricing Cards */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6 max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
@@ -151,15 +230,14 @@ export default function PricingPage() {
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-6 max-w-6xl">
           <h2 className="text-2xl lg:text-3xl font-black text-foreground text-center mb-12 tracking-tight">
-            요금제 상세 비교
+            {detailTitle}
           </h2>
 
           <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-sm">
             <table className="w-full min-w-[700px] text-sm">
-              {/* Header */}
               <thead>
                 <tr className="border-b border-border bg-foreground text-primary-foreground">
-                  <th className="text-left px-5 py-4 font-bold w-[180px]">항목</th>
+                  <th className="text-left px-5 py-4 font-bold w-[180px]">{sectionTitles.item}</th>
                   {TIERS.map((tier, i) => (
                     <th key={tier} className={`text-center px-4 py-4 font-bold ${i === 2 ? "bg-primary/20" : ""}`}>
                       {tier}
@@ -168,10 +246,9 @@ export default function PricingPage() {
                 </tr>
               </thead>
               <tbody>
-                {/* Price Row */}
-                <TableSection title="월 이용료" />
+                <TableSection title={sectionTitles.monthly} />
                 <tr className="border-b border-border">
-                  <td className="px-5 py-4 font-semibold text-foreground">월 금액</td>
+                  <td className="px-5 py-4 font-semibold text-foreground">{monthlyLabel}</td>
                   {PRICES.map((p, i) => (
                     <td key={i} className={`text-center px-4 py-4 font-bold text-foreground ${i === 2 ? "bg-primary/5" : ""}`}>
                       {p}
@@ -180,8 +257,7 @@ export default function PricingPage() {
                   ))}
                 </tr>
 
-                {/* Main Specs */}
-                <TableSection title="기본 사양" />
+                <TableSection title={sectionTitles.basic} />
                 {MAIN_SPECS.map((spec) => (
                   <tr key={spec.label} className="border-b border-border">
                     <td className="px-5 py-4 font-semibold text-foreground">{spec.label}</td>
@@ -196,9 +272,8 @@ export default function PricingPage() {
                   </tr>
                 ))}
 
-                {/* Recommended */}
                 <tr className="border-b border-border">
-                  <td className="px-5 py-4 font-semibold text-foreground">추천 대상</td>
+                  <td className="px-5 py-4 font-semibold text-foreground">{sectionTitles.recommend}</td>
                   {(plans as any[]).map((plan: any, i: number) => (
                     <td key={i} className={`text-center px-4 py-4 text-sm text-muted-foreground leading-relaxed ${i === 2 ? "bg-primary/5" : ""}`}>
                       {plan.recommend}
@@ -206,8 +281,7 @@ export default function PricingPage() {
                   ))}
                 </tr>
 
-                {/* Additional */}
-                <TableSection title="추가 제공" />
+                <TableSection title={sectionTitles.additional} />
                 {ADDITIONAL_SPECS.map((spec) => (
                   <tr key={spec.label} className="border-b border-border">
                     <td className="px-5 py-4 font-semibold text-foreground">{spec.label}</td>
@@ -219,8 +293,7 @@ export default function PricingPage() {
                   </tr>
                 ))}
 
-                {/* Special Features */}
-                <TableSection title="특별 제공" />
+                <TableSection title={sectionTitles.special} />
                 {SPECIAL_FEATURES.map((feat) => (
                   <tr key={feat} className="border-b border-border">
                     <td className="px-5 py-3 font-semibold text-foreground">{feat}</td>
@@ -232,8 +305,7 @@ export default function PricingPage() {
                   </tr>
                 ))}
 
-                {/* Infra */}
-                <TableSection title="인프라 · 보안" />
+                <TableSection title={sectionTitles.infra} />
                 {INFRA_SPECS.map((spec) => (
                   <tr key={spec.label} className="border-b border-border">
                     <td className="px-5 py-4 font-semibold text-foreground">{spec.label}</td>
@@ -245,8 +317,7 @@ export default function PricingPage() {
                   </tr>
                 ))}
 
-                {/* Overage */}
-                <TableSection title="초과 사용 요금" />
+                <TableSection title={sectionTitles.overage} />
                 {OVERAGE_SPECS.map((spec) => (
                   <tr key={spec.label} className="border-b border-border last:border-b-0">
                     <td className="px-5 py-4 font-semibold text-foreground">
@@ -270,16 +341,16 @@ export default function PricingPage() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6 max-w-3xl text-center">
           <h2 className="text-2xl lg:text-3xl font-black text-foreground tracking-tight">
-            맞춤 견적이 필요하신가요?
+            {ctaTitle}
           </h2>
           <p className="mt-3 text-muted-foreground leading-relaxed">
-            기관의 규모와 요구사항에 맞는 최적의 요금제를 안내해드립니다.
+            {ctaDesc}
           </p>
           <Link
             to="/#contact"
             className="inline-flex items-center gap-2 mt-8 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
           >
-            맞춤 견적 요청
+            {ctaCta}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
