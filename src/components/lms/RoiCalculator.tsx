@@ -183,7 +183,7 @@ export default function RoiCalculator() {
                     {fmt(SELF_BUILD_COST)}<span className="text-sm">원</span>
                   </p>
                   {/* Bar */}
-                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#FEE2E2" }}>
+                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#E5E7EB" }}>
                     <div className="h-full rounded-full" style={{ width: "100%", background: "#EF4444" }} />
                   </div>
                 </div>
