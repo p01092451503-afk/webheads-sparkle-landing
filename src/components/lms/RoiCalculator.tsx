@@ -213,7 +213,7 @@ export default function RoiCalculator() {
                   </p>
                 </div>
               ) : (
-                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#FFF7ED" }}>
+                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#fff", border: "1px solid #D97706" }}>
                   <p className="font-bold text-lg" style={{ color: "#D97706" }}>
                     자체 구축이 유리합니다
                   </p>
