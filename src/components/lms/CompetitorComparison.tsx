@@ -76,8 +76,8 @@ export default function CompetitorComparison() {
                   <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
                     {headers[2]}
                   </th>
-                  <th className="px-4 py-4 text-center text-xs font-bold text-primary-foreground bg-primary relative">
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap bg-primary/80 text-primary-foreground/80">
+                  <th className="px-4 py-5 text-center text-sm font-bold text-primary-foreground bg-primary relative">
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 rounded-full whitespace-nowrap bg-primary/80 text-primary-foreground/80">
                       Best Choice
                     </span>
                     {headers[3]}
