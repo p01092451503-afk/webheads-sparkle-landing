@@ -86,7 +86,7 @@ export default function ChatbotArchDiagram() {
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded bg-card border border-border" />
-          <span className="text-xs text-muted-foreground">{d.legendModule}</span>
+          <span className="text-base text-muted-foreground">{d.legendModule}</span>
         </div>
       </div>
     </div>
