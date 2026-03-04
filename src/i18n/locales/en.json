@@ -131,10 +131,10 @@
     "plansCustom": { "title": "Need a custom quote?", "desc": "For high-traffic or special security requirements, we provide tailored infrastructure proposals.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Switching", "desc": "Real operational metrics before and after adopting WEBHEADS hosting." },
     "beforeAfter": [
-      { "label": "Incident Recovery Time", "before": "Avg. 4+ hours", "after": "Avg. under 30 min" },
-      { "label": "Video Loading Speed", "before": "12 sec (frequent buffering)", "after": "Under 2 sec (CDN applied)" },
-      { "label": "Monthly Downtime", "before": "6+ hours", "after": "0 hours (99.9% SLA)" },
-      { "label": "Infrastructure Cost", "before": "₩2M+/mo (self-managed)", "after": "₩700K~/mo (managed)" }
+      { "label": "Incident Recovery Time", "before": "Avg. 4+ hours", "after": "Avg. under 30 min", "measure": "24/7 NOC monitoring + auto-detection system deployed. Instant alerts trigger remote response by dedicated engineers." },
+      { "label": "Video Loading Speed", "before": "12 sec (frequent buffering)", "after": "Under 2 sec", "measure": "Global CDN (CloudFront) edge deployment + Adaptive Bitrate (ABR) streaming for automatic quality adjustment based on network conditions." },
+      { "label": "Monthly Downtime", "before": "6+ hours", "after": "0 hours (99.9% SLA)", "measure": "Active-Standby redundancy architecture + automatic failover. Server failures trigger auto-switch to backup within 30 seconds." },
+      { "label": "Infrastructure Cost", "before": "₩2M+/mo (self-managed)", "after": "₩700K~/mo", "measure": "Migrated from in-house server rooms to managed cloud. WEBHEADS handles server management, security, and backups — eliminating staffing and equipment costs." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual operational outcomes from organizations that switched to WEBHEADS hosting." },
     "caseStudies": [
