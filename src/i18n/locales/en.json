@@ -129,6 +129,30 @@
       { "name": "Premium", "price": "1,000,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "Video Transfer 2,000GB/mo", "sub": "Excess: 300 KRW/GB" }, { "main": "Video Storage 250GB total", "sub": "Excess: 500 KRW/GB" }, { "main": "Unlimited Members", "sub": "" }, { "main": "Free Design Templates", "sub": "" }, { "main": "SSL Certificate Included", "sub": "" }, { "main": "Hybrid App Development (Extra Cost)", "sub": "" }], "recommend": "Recommended for large academies, SMEs, continuing education centers" }
     ],
     "plansCustom": { "title": "Need a custom quote?", "desc": "For high-traffic or special security requirements, we provide tailored infrastructure proposals.", "cta": "Request Custom Quote" },
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Switching", "desc": "Real operational metrics before and after adopting WEBHEADS hosting." },
+    "beforeAfter": [
+      { "label": "Incident Recovery Time", "before": "Avg. 4+ hours", "after": "Avg. under 30 min" },
+      { "label": "Video Loading Speed", "before": "12 sec (frequent buffering)", "after": "Under 2 sec (CDN applied)" },
+      { "label": "Monthly Downtime", "before": "6+ hours", "after": "0 hours (99.9% SLA)" },
+      { "label": "Infrastructure Cost", "before": "₩2M+/mo (self-managed)", "after": "₩700K~/mo (managed)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual operational outcomes from organizations that switched to WEBHEADS hosting." },
+    "caseStudies": [
+      { "org": "A Cyber University", "industry": "Cyber University", "challenge": "Server crashes during 3,000+ concurrent users at semester start caused serious learner attrition.", "result": "After applying AWS Auto Scaling, zero-downtime service was maintained even during peak traffic, reducing incidents by 98%.", "metrics": [{ "label": "Incident Reduction", "value": "98%" }, { "label": "Concurrent Users", "value": "5,000+" }, { "label": "Years Active", "value": "7" }] },
+      { "org": "B Vocational Training", "industry": "Vocational", "challenge": "Previous hosting had 2-3 outages per month, causing constant learner complaints.", "result": "With CDN and 24/7 monitoring, monthly incidents dropped to zero and complaint calls decreased by 80%.", "metrics": [{ "label": "Monthly Incidents", "value": "0", "desc": "" }, { "label": "Complaints Down", "value": "80%" }, { "label": "Years Active", "value": "3" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS Hosting vs\nSelf-managed vs Generic", "desc": "See what sets e-learning-specialized hosting apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS", "Self-managed", "Generic Hosting"],
+    "comparisonRows": [
+      { "label": "24/7 NOC Monitoring", "values": ["O", "△", "X"] },
+      { "label": "e-Learning Optimized", "values": ["O", "△", "X"] },
+      { "label": "Auto Scaling", "values": ["O", "X", "△"] },
+      { "label": "Global CDN", "values": ["O", "X", "△"] },
+      { "label": "DRM Integration", "values": ["O", "X", "X"] },
+      { "label": "Dedicated LMS Engineer", "values": ["O", "X", "X"] },
+      { "label": "10-min Incident Response", "values": ["O", "X", "X"] },
+      { "label": "Monthly Performance Report", "values": ["O", "X", "△"] }
+    ],
     "faqs": [
       { "q": "Are there extra charges if traffic suddenly increases?", "a": "There's no need to worry. AWS-based hosting uses Auto Scaling to automatically expand server capacity during traffic spikes, so your service will never go down. Excess transfer is billed transparently at per-plan rates (e.g., 400 KRW/GB on the Plus plan), and we have a pre-alert system to prevent unexpected high charges. If you let us know about peak periods like semester starts or exam seasons in advance, our dedicated engineers will recommend the optimal plan and cost-saving strategies." },
       { "q": "Can I migrate from my current hosting?", "a": "Yes, absolutely. WEBHEADS specializes in zero-downtime migration from other hosting providers. The process follows a systematic approach: ① Analysis of existing server environment and migration planning → ② Replication of data, content, and databases → ③ New server testing and verification → ④ DNS switchover and stabilization monitoring. Since we conduct thorough testing before the DNS switchover, learners experience zero service interruption. Our dedicated engineers also provide 72-hour intensive monitoring after migration is complete." },
