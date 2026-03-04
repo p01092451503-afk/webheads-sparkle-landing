@@ -16,15 +16,6 @@ export default function FloatingNav() {
   }, []);
 
   const isServiceRequest = location.pathname === "/service-request";
-  const isLmsPage = location.pathname === "/lms";
-
-  const handleRoiClick = () => {
-    if (isLmsPage) {
-      const el = document.getElementById("roi-calculator");
-      if (el) { el.scrollIntoView({ behavior: "smooth" }); return; }
-    }
-    navigate("/lms", { state: { scrollTo: "roi-calculator" } });
-  };
 
   const mobileButtons = [
     ...(!isServiceRequest && location.pathname !== "/pricing"
