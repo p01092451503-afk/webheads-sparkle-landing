@@ -148,8 +148,8 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             {/* Urgency banner — bold Toss style */}
             {/* Quick response badge */}
             <div className="flex items-center gap-2 px-1">
-              <span className="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-[11px] font-semibold text-muted-foreground tracking-tight">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-bold text-foreground tracking-tight shadow-sm border border-border">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
                 평균 2시간 이내 응답
               </span>
             </div>
