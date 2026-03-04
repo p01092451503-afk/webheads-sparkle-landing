@@ -289,7 +289,7 @@ export default function RoiCalculator() {
             <div className="flex gap-3 mt-6">
               <a
                 href="#contact"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 shadow-md"
                 style={{ background: LMS_PRIMARY }}
               >
                 {t("lms.roiCalc.cta")}
@@ -297,7 +297,7 @@ export default function RoiCalculator() {
               </a>
               <button
                 onClick={handlePdfExport}
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm border-2 border-border text-foreground hover:bg-secondary transition-all"
                 title={t("lms.roiCalc.pdfExport")}
               >
                 <Download className="w-4 h-4" />
