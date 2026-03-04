@@ -331,11 +331,21 @@ export default function RoiCalculator() {
                   웹헤즈 LMS (연간)
                 </p>
                 <p className="font-bold text-xl md:text-2xl" style={{ color: PURPLE }}>
-                  {fmt(webheadsAnnual)}<span className="text-sm font-normal ml-0.5">원</span>
+                  {fmt(webheadsResult.baseFee)}<span className="text-sm font-normal ml-0.5">원</span>
                 </p>
                 <p className="text-[11px] mt-1" style={{ color: PURPLE, opacity: 0.6 }}>
-                  월 {fmt(webheadsMonthly)}원
+                  기본료 월 700,000원 × 12개월
                 </p>
+                {hasOverage && (
+                  <div className="mt-2 pt-2 border-t" style={{ borderColor: PURPLE_LIGHT }}>
+                    <p className="text-[11px] font-medium" style={{ color: "#EF4444" }}>
+                      + 초과 비용 {fmt(webheadsResult.transferOverageCost + webheadsResult.storageOverageCost)}원
+                    </p>
+                    <p className="text-[11px] font-bold mt-1" style={{ color: PURPLE }}>
+                      합계: {fmt(webheadsAnnual)}원 <span className="font-normal opacity-60">(월 {fmt(webheadsMonthly)}원)</span>
+                    </p>
+                  </div>
+                )}
 
                 {/* Infra usage indicators */}
                 <div className="mt-4 space-y-3">
