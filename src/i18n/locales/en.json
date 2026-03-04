@@ -468,6 +468,29 @@
       { "name": "Catenoid DRM", "desc": "Korea's leading DRM solution with Kollus player-based 5-level content security system and dominant market share in the e-learning industry.", "features": ["5-level Security (OTU Auth·Duplicate Block·Multi-DRM·Kollus DRM·Recorder Block)", "Audio & Video Watermarking (Korea's first)", "Dedicated Player + HTML5 + Mobile SDK", "Offline Download & Play Support", "AI Speed Playback (Android/iOS)", "Player Skin Customization API"], "ctaText": "Inquire" },
       { "name": "ZonePlayer DRM", "desc": "Provides both pre-packaging and real-time encryption. Proven stability in large-scale services like EBS.", "features": ["Real-time & Per-user Encryption", "Secure Server Encrypted Transmission", "Recorder Detection & Packet Capture Block (zone@GUARD)", "Concurrent Access & Device Limits", "Virtual Drive Based (Linux/Windows Server)", "Download Monitoring & Admin Dashboard"], "ctaText": "Inquire" }
     ],
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter DRM", "desc": "Real content security changes before and after DRM adoption." },
+    "beforeAfter": [
+      { "label": "Video Leaks", "before": "10+/month (illegal sharing)", "after": "0 (completely blocked)" },
+      { "label": "Capture/Recording Block", "before": "Impossible (unprotected)", "after": "All-platform real-time block" },
+      { "label": "Leak Tracing", "before": "Untraceable", "after": "Watermark-based instant ID" },
+      { "label": "Learner UX (Plugins)", "before": "ActiveX required", "after": "Browser-native (EME)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual security outcomes from organizations using DRM." },
+    "caseStudies": [
+      { "org": "G Online Education", "industry": "Online Education", "challenge": "Premium lecture videos were being leaked to piracy sites, directly impacting revenue.", "result": "After Catenoid DRM, leaked videos disappeared completely and paid enrollment conversion increased by 25%.", "metrics": [{ "label": "Leak Block", "value": "100%" }, { "label": "Conversion Up", "value": "25%" }, { "label": "Years Active", "value": "6" }] },
+      { "org": "I Finance Institute", "industry": "Finance", "challenge": "Regulatory security audit flagged insufficient content protection, requiring urgent DRM adoption.", "result": "Multi-DRM + watermark achieved 100% audit pass and full compliance.", "metrics": [{ "label": "Audit Pass", "value": "100%" }, { "label": "Watermark", "value": "All Content" }, { "label": "Years Active", "value": "4" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS DRM vs\nNo Protection vs DIY", "desc": "See what sets professional DRM apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS DRM", "No Protection", "Self-built"],
+    "comparisonRows": [
+      { "label": "Multi-DRM Standards", "values": ["O", "X", "△"] },
+      { "label": "Screen Capture/Record Block", "values": ["O", "X", "△"] },
+      { "label": "Personal ID Watermark", "values": ["O", "X", "X"] },
+      { "label": "EME Web Standard (No Plugin)", "values": ["O", "X", "△"] },
+      { "label": "LMS Integration API", "values": ["O", "X", "△"] },
+      { "label": "Device & Concurrent Limits", "values": ["O", "X", "△"] },
+      { "label": "Real-time Threat Monitoring", "values": ["O", "X", "X"] }
+    ],
     "faqs": [
       { "q": "Do learners need to install any software for DRM?", "a": "No, they don't. WEBHEADS DRM solutions are based on the EME (Encrypted Media Extensions) web standard, so learners don't need to install any plugins or programs. Content plays directly in major browsers including Chrome, Safari, Edge, and Firefox, and works the same on mobile browsers. Unlike legacy ActiveX-based DRM, there's virtually no learner inconvenience, which dramatically reduces support complaints — the biggest advantage." },
       { "q": "Which is better, Catenoid or ZonePlayer?", "a": "Both are proven DRM solutions, but with different strengths. Catenoid (Kollus) excels at large-scale traffic handling and global content distribution through tight CDN integration, making it ideal for organizations with high concurrent users or international learners. ZonePlayer (ZONE) specializes in content protection features like screen capture prevention, forensic watermarking, and screen recording detection, making it recommended for organizations with high-value premium content. If you're unsure which solution fits best, schedule a free consultation for a personalized recommendation." },
