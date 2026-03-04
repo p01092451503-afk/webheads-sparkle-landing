@@ -273,9 +273,9 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, [humanViews]);
 
   const visitStats = useMemo(() => {
-    const first = filteredViews.filter((v) => v.is_first_visit === true).length;
-    return { first, returning: filteredViews.length - first };
-  }, [filteredViews]);
+    const first = humanViews.filter((v) => v.is_first_visit === true).length;
+    return { first, returning: humanViews.length - first };
+  }, [humanViews]);
 
   const exitPages = useMemo(() => {
     const sessionPages: Record<string, { path: string; time: string }> = {};
