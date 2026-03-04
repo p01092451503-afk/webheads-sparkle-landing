@@ -7,7 +7,7 @@ export default function FloatingNav() {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 300);
