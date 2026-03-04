@@ -305,6 +305,23 @@
         ]
       }
     },
+    "archDiagram": {
+      "title": "Request Processing Flow",
+      "user": "User",
+      "userSub": "Query Input",
+      "channel": "Channel",
+      "channelSub": "Web/Kakao/App",
+      "orchestrator": "LangChain",
+      "orchestratorSub": "Orchestration",
+      "rag": "Vector DB",
+      "ragSub": "RAG Search",
+      "llm": "LLM",
+      "llmSub": "GPT-4o / Claude",
+      "response": "AI Response",
+      "responseSub": "Streaming Output",
+      "legendCore": "Core Engine",
+      "legendModule": "Integration Module"
+    },
     "midCTA": { "heading": "Curious about the right AI chatbot for your organization?", "description": "We'll propose a customized chatbot solution for free.", "ctaText": "Request Free Demo" },
     "processSection": { "sub": "PROCESS", "heading": "Systematic AI Chatbot\nDeployment Process", "desc": "From requirements analysis to ongoing operations, our dedicated engineers are with you." },
     "processSteps": [
