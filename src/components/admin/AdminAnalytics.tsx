@@ -103,20 +103,20 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs, searchBotSubs, aiBotSubs, aiBotPages };
   }, [filteredViews]);
 
-  const deviceCounts = filteredViews.reduce((acc, v) => {
+  const deviceCounts = humanViews.reduce((acc, v) => {
     acc[v.device_type || "unknown"] = (acc[v.device_type || "unknown"] || 0) + 1; return acc;
   }, {} as Record<string, number>);
 
-  const pageCounts = filteredViews.reduce((acc, v) => { acc[v.page_path] = (acc[v.page_path] || 0) + 1; return acc; }, {} as Record<string, number>);
+  const pageCounts = humanViews.reduce((acc, v) => { acc[v.page_path] = (acc[v.page_path] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topPages = Object.entries(pageCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
-  const browserCounts = filteredViews.reduce((acc, v) => { acc[v.browser || "Unknown"] = (acc[v.browser || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
+  const browserCounts = humanViews.reduce((acc, v) => { acc[v.browser || "Unknown"] = (acc[v.browser || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topBrowsers = Object.entries(browserCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
-  const osCounts = filteredViews.reduce((acc, v) => { acc[v.os || "Unknown"] = (acc[v.os || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
+  const osCounts = humanViews.reduce((acc, v) => { acc[v.os || "Unknown"] = (acc[v.os || "Unknown"] || 0) + 1; return acc; }, {} as Record<string, number>);
   const topOS = Object.entries(osCounts).sort(([, a], [, b]) => (b as number) - (a as number));
 
-  const referrerCounts = filteredViews.reduce((acc, v) => {
+  const referrerCounts = humanViews.reduce((acc, v) => {
     try { const ref = v.referrer ? new URL(v.referrer).hostname : "직접 방문"; acc[ref] = (acc[ref] || 0) + 1; } catch { acc["기타"] = (acc["기타"] || 0) + 1; }
     return acc;
   }, {} as Record<string, number>);
