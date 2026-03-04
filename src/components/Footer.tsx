@@ -51,7 +51,13 @@ export default function Footer() {
                 <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.company")}</p>
                 <p className="text-[14px] leading-[1.7] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.address")}</p>
                 <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.privacy")}</p>
-                
+                <button
+                  onClick={() => setPrivacyOpen(true)}
+                  className="text-[13px] font-medium text-primary underline underline-offset-2 hover:opacity-80 transition-opacity text-left"
+                  style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}
+                >
+                  개인정보처리방침
+                </button>
               </div>
 
               {/* Time */}
