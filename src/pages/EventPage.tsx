@@ -178,18 +178,19 @@ export default function EventPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 lg:py-20 bg-foreground">
+      <section className="py-16 lg:py-20" style={{ background: "linear-gradient(135deg, hsl(350, 55%, 90%) 0%, hsl(330, 45%, 88%) 100%)" }}>
         <div className="container mx-auto px-6 max-w-3xl text-center">
-          <CalendarDays className="w-10 h-10 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl lg:text-3xl font-black text-primary-foreground mb-4">
+          <CalendarDays className="w-10 h-10 mx-auto mb-4" style={{ color: "hsl(340, 50%, 45%)" }} />
+          <h2 className="text-2xl lg:text-3xl font-black mb-4" style={{ color: "hsl(340, 40%, 20%)" }}>
             지금 신청하고 110만원 상당 혜택 받으세요
           </h2>
-          <p className="text-primary-foreground/60 mb-8">
+          <p className="mb-8" style={{ color: "hsl(340, 20%, 40%)" }}>
             프로모션은 2026년 3월 31일에 종료됩니다. 서둘러 신청하세요!
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity text-white"
+            style={{ background: "hsl(340, 50%, 45%)" }}
           >
             무료 상담 신청
             <ArrowRight className="w-5 h-5" />
