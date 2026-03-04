@@ -260,7 +260,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const scrollDepthStats = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (typeof v.scroll_depth === "number" && v.scroll_depth > 0) {
         if (!acc[v.page_path]) acc[v.page_path] = { total: 0, count: 0 };
         acc[v.page_path].total += v.scroll_depth;
@@ -270,7 +270,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
       .sort((a, b) => b.avg - a.avg);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const visitStats = useMemo(() => {
     const first = filteredViews.filter((v) => v.is_first_visit === true).length;
