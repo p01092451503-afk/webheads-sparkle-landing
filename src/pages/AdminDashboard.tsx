@@ -2,9 +2,8 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Home, Loader2, Bell, Settings, Shield, ExternalLink, Wrench
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench
 } from "lucide-react";
-import AdminHome from "@/components/admin/AdminHome";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
 const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
