@@ -79,7 +79,7 @@ export default function PgPage() {
       <ServiceMidCTA heading={t("pg.midCTA.heading")} description={t("pg.midCTA.description")} />
 
       {/* PG Partners */}
-      <section id="partners" className="py-28 bg-secondary">
+      <section id="partners" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.partnersSection.sub")}</p>
