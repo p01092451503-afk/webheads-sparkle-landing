@@ -60,7 +60,7 @@ export default function AppDevPage() {
       </section>
 
       {/* LMS Features */}
-      <section className="py-28 bg-background">
+      <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("appdev.lmsFeaturesSection.sub")}</p>
