@@ -181,9 +181,9 @@ export default function Footer() {
 
             <h3 className="font-bold text-foreground mt-4">6. 개인정보 보호 책임자</h3>
             <ul className="list-none space-y-1">
-              <li>책임자: 웹헤즈 대표</li>
+              <li>책임자: 강성일</li>
               <li>연락처: 02-540-4337</li>
-              <li>이메일: webheads@webheads.co.kr</li>
+              <li>이메일: elise75@webheads.co.kr</li>
             </ul>
 
             <h3 className="font-bold text-foreground mt-4">7. 개인정보 처리방침의 변경</h3>
