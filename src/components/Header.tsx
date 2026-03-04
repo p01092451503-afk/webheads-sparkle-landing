@@ -21,7 +21,15 @@ const serviceBlobColors: Record<string, string> = {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [bannerDismissed, setBannerDismissed] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(() => {
+    try {
+      const dismissed = localStorage.getItem("promo_banner_dismissed");
+      if (!dismissed) return false;
+      const dismissedAt = new Date(dismissed).getTime();
+      const sevenDays = 7 * 24 * 60 * 60 * 1000;
+      return Date.now() - dismissedAt < sevenDays;
+    } catch { return false; }
+  });
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
@@ -68,7 +76,10 @@ export default function Header() {
             </Link>
           </div>
           <button
-            onClick={() => setBannerDismissed(true)}
+            onClick={() => {
+              setBannerDismissed(true);
+              try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
+            }}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1 z-20 text-foreground/50 hover:text-foreground transition-colors"
             aria-label="배너 닫기"
           >
