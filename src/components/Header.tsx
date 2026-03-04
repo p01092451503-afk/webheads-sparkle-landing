@@ -72,7 +72,7 @@ export default function Header() {
         >
           <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2 relative z-10">
-            <p className="text-xs sm:text-base font-bold tracking-tight text-foreground leading-snug text-center">
+            <p className="text-xs sm:text-base font-medium tracking-tight text-foreground leading-snug text-center">
               <span className="sm:hidden">{t("banner.textShort")}</span>
               <span className="hidden sm:inline">{t("banner.text")}</span>
             </p>
