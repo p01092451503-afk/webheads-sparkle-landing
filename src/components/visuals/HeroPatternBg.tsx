@@ -129,6 +129,51 @@ function IndigoDeepPattern({ stroke }: { stroke: string }) {
   );
 }
 
+/* ── Rose-Spring: Soft petal arcs + floating circles ── */
+function RoseSpringPattern({ stroke }: { stroke: string }) {
+  return (
+    <>
+      {/* Flowing petal curves – left */}
+      <g opacity="0.12">
+        {[0, 1, 2, 3, 4, 5].map(i => (
+          <path
+            key={`petal-l-${i}`}
+            d={`M -30 ${100 + i * 80} C ${150 + i * 20} ${60 + i * 80} ${300 - i * 10} ${140 + i * 80} ${450 + i * 30} ${100 + i * 80}`}
+            stroke={stroke}
+            strokeWidth={1.8 - i * 0.15}
+            fill="none"
+          />
+        ))}
+      </g>
+      {/* Concentric arcs – right side */}
+      <g opacity="0.10">
+        {[0, 1, 2, 3, 4].map(i => (
+          <circle key={`arc-r-${i}`} cx={1400} cy={300} r={80 + i * 60} stroke={stroke} strokeWidth={1.5 - i * 0.1} fill="none" />
+        ))}
+      </g>
+      {/* Soft floating circles */}
+      <g opacity="0.08">
+        {[
+          [200, 120, 40], [350, 450, 55], [100, 500, 30],
+          [1100, 100, 45], [1250, 400, 35], [1350, 200, 25],
+          [700, 80, 20], [900, 500, 30], [600, 450, 15],
+        ].map(([cx, cy, r], i) => (
+          <circle key={`fc-${i}`} cx={cx} cy={cy} r={r} stroke={stroke} strokeWidth={1.2} fill="none" />
+        ))}
+      </g>
+      {/* Scattered petals – small dots */}
+      <g opacity="0.10">
+        {[
+          [180, 350], [320, 200], [480, 480], [650, 150], [820, 400],
+          [1000, 250], [1150, 500], [1300, 120], [50, 250], [750, 520],
+        ].map(([cx, cy], i) => (
+          <circle key={`dot-${i}`} cx={cx} cy={cy} r={2.5 + (i % 3)} fill={stroke} />
+        ))}
+      </g>
+    </>
+  );
+}
+
 export default function HeroPatternBg({ theme }: { theme: HeroColorTheme }) {
   const t = themes[theme];
 
@@ -144,6 +189,7 @@ export default function HeroPatternBg({ theme }: { theme: HeroColorTheme }) {
         {theme === "blue-purple" && <BluePurplePattern stroke={t.stroke} />}
         {theme === "teal-cyan" && <TealCyanPattern stroke={t.stroke} />}
         {theme === "indigo-deep" && <IndigoDeepPattern stroke={t.stroke} />}
+        {theme === "rose-spring" && <RoseSpringPattern stroke={t.stroke} />}
 
         <defs>
           <radialGradient id={`hero-glow-${theme}`} cx="50%" cy="40%" r="50%">
