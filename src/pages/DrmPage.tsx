@@ -79,7 +79,7 @@ export default function DrmPage() {
             <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight">{t("drm.solutionsSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("drm.solutionsSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto">
             {solutions.map((sol: any) => (<div key={sol.name} className="relative rounded-3xl p-8 flex flex-col gap-5 transition-all duration-200 bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"><div><h3 className="font-bold leading-none text-3xl tracking-tight text-foreground">{sol.name}</h3><p className="text-sm mt-2 leading-relaxed text-muted-foreground">{sol.desc}</p></div><div className="h-px bg-border" /><ul className="flex flex-col gap-3 flex-1">{sol.features.map((feat: string) => (<li key={feat} className="flex items-center gap-2.5 text-sm text-muted-foreground"><span className="w-1.5 h-1.5 rounded-full shrink-0 bg-primary" />{feat}</li>))}</ul><a href="#contact" className="block text-center py-3.5 rounded-2xl font-bold text-sm transition-all duration-150 bg-primary text-primary-foreground hover:bg-primary/90">{sol.ctaText}</a></div>))}
           </div>
         </div>
