@@ -951,6 +951,7 @@
       "annualComparison": "Annual Cost Comparison",
       "selfBuildAnnual": "Self-Build Cost",
       "webheadsAnnual": "WEBHEADS LMS Cost",
+      "annualLabel": "Annual",
       "perMonth": "{{cost}} KRW/mo",
       "annualSavings": "Annual Estimated Savings",
       "savingsNote": "Approx. {{percent}}% savings vs self-building",
