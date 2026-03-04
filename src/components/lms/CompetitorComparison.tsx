@@ -109,8 +109,8 @@ export default function CompetitorComparison() {
   const rows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
 
   // Count wins per column
-  const winCounts = [0, 0, 0]; // self-build, saas, webheads
-  const winners = rows.map((row) => {
+  const winCounts: number[] = [0, 0, 0]; // self-build, saas, webheads
+  const winners: number[] = rows.map((row) => {
     const w = getWinner(row);
     winCounts[w]++;
     return w;
