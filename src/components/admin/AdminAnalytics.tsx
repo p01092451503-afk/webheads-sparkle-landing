@@ -214,7 +214,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(days).map(([date, d]) => ({
       date, label: new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" }), views: d.views, sessions: d.sessions.size,
     }));
-  }, [filteredViews, dateRange, isToday]);
+  }, [humanViews, dateRange, isToday]);
 
   const filteredInquiries = useMemo(() => {
     const since = new Date();
