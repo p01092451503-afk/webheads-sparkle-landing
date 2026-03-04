@@ -66,7 +66,7 @@ export default function CompetitorComparison() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border">
+                <tr className="border-b border-border bg-muted">
                   <th className="px-4 md:px-5 py-3 text-left text-base font-bold text-muted-foreground w-[26%] border-r border-border">
                     {headers[0]}
                   </th>
