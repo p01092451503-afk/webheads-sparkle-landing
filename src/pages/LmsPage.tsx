@@ -65,8 +65,8 @@ export default function LmsPage() {
             {
               "@type": "SoftwareApplication",
               "@id": `${BASE_URL}/lms#software`,
-              "name": "웹헤즈 LMS",
-              "applicationCategory": "EducationalApplication",
+              "name": "웹헤즈 LMS - 이러닝 솔루션 · 학습관리시스템",
+              "alternateName": ["Webheads LMS", "웹헤즈 학습관리시스템", "AI LMS"],
               "operatingSystem": "Web, iOS, Android",
               "offers": [
                 {
@@ -79,10 +79,16 @@ export default function LmsPage() {
                 }
               ],
               "featureList": [
+                "LMS 구축 · 학습관리시스템",
+                "클라우드 LMS · 교육용 SaaS 솔루션",
+                "AI 기반 학습관리 · AI LMS",
+                "기업교육 LMS · 사내교육 시스템",
                 "멀티 디바이스 지원 (PC, 태블릿, 모바일)",
-                "AI 기반 학습 분석",
+                "비대면 교육 플랫폼",
                 "다국어 지원 (11개 언어)",
-                "KDT 정부지원훈련 인증",
+                "KDT 정부지원훈련 인증 · HRD 교육시스템",
+                "맞춤형 LMS 개발 · 교육플랫폼 개발",
+                "B2B 교육 플랫폼",
                 "24/7 고객 지원"
               ],
               "aggregateRating": {
@@ -97,7 +103,7 @@ export default function LmsPage() {
             {
               "@type": "Product",
               "name": "웹헤즈 LMS 구독",
-              "description": "이러닝 플랫폼 구축 및 운영을 위한 학습 관리 시스템",
+              "description": "이러닝 솔루션 · 온라인 교육 플랫폼 구축 및 운영을 위한 학습관리시스템 (LMS). 클라우드 LMS, AI 기반 학습관리, 맞춤형 LMS 개발.",
               "brand": {
                 "@type": "Brand",
                 "name": "웹헤즈 (Webheads)"
