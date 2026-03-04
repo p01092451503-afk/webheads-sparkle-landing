@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp, Download, BookOpen, Users, BarChart3 } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp, Download, BookOpen, Users, BarChart3, BarChart2 } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, Legend } from "recharts";
 
 /**
@@ -43,6 +44,7 @@ export default function RoiCalculator() {
   const [courses, setCourses] = useState(10);
   const [instructors, setInstructors] = useState(5);
   const [showBreakdown, setShowBreakdown] = useState(false);
+  const [showCharts, setShowCharts] = useState(false);
   const reportRef = useRef<HTMLDivElement>(null);
 
   const monthlyRevenue = students * fee;
@@ -277,83 +279,96 @@ export default function RoiCalculator() {
           </div>
         </div>
 
-        {/* Cost Comparison Bar Chart */}
-        <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
-              <BarChart3 className="w-5 h-5" style={{ color: LMS_PRIMARY }} />
-            </div>
-            <div>
-              <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.pdfCostComparison")}</h4>
-              <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.selfBuildCost")} vs {t("lms.roiCalc.webheadsCost")}</p>
-            </div>
-          </div>
-          <div className="h-[260px] md:h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={comparisonData} layout="vertical" margin={{ left: 0, right: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-                <XAxis type="number" tickFormatter={(v) => `${(v / 10000).toFixed(0)}만`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                <YAxis type="category" dataKey="name" width={100} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                <Tooltip formatter={(v: number) => `${formatNumber(v)}원`} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                <Bar dataKey="self" name={t("lms.roiCalc.selfBuildCost")} fill="hsl(0, 70%, 65%)" radius={[0, 6, 6, 0]} />
-                <Bar dataKey="wh" name={t("lms.roiCalc.webheadsCost")} fill="hsl(245, 58%, 55%)" radius={[0, 6, 6, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+        {/* Collapsible Charts Section */}
+        <Collapsible open={showCharts} onOpenChange={setShowCharts}>
+          <CollapsibleTrigger asChild>
+            <button className="w-full mt-5 md:mt-8 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl border border-border bg-background font-semibold text-sm text-foreground hover:bg-secondary transition-all group cursor-pointer">
+              <BarChart2 className="w-4.5 h-4.5 text-muted-foreground" />
+              <span>{showCharts ? t("lms.roiCalc.hideCharts", "상세 비용 비교 & 장기 절감 시뮬레이션 닫기") : t("lms.roiCalc.showCharts", "상세 비용 비교 & 장기 절감 시뮬레이션 보기")}</span>
+              {showCharts ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+            </button>
+          </CollapsibleTrigger>
 
-        {/* 5-Year Projection Chart */}
-        <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: GREEN_BG }}>
-              <TrendingUp className="w-5 h-5" style={{ color: GREEN_ACCENT }} />
-            </div>
-            <div>
-              <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.scenarioTitle")}</h4>
-              <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.scenarioDesc")}</p>
-            </div>
-          </div>
-
-          {/* Summary cards */}
-          <div className="grid grid-cols-3 gap-3 my-6">
-            {[0, 2, 4].map((idx) => {
-              const d = projectionData[idx];
-              return (
-                <div key={idx} className="rounded-xl p-3 md:p-4 text-center" style={{ background: idx === 4 ? GREEN_BG : "hsl(var(--muted) / 0.5)" }}>
-                  <p className="text-[11px] md:text-xs text-muted-foreground font-medium">{d.name}</p>
-                  <p className="font-bold text-sm md:text-lg mt-1" style={{ color: idx === 4 ? GREEN_TEXT : "hsl(var(--foreground))" }}>
-                    {formatNumber(d.savings)}
-                    <span className="text-[10px] md:text-xs font-normal">{t("lms.roiCalc.feeUnit")}</span>
-                  </p>
+          <CollapsibleContent className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 overflow-hidden">
+            {/* Cost Comparison Bar Chart */}
+            <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
+                  <BarChart3 className="w-5 h-5" style={{ color: LMS_PRIMARY }} />
                 </div>
-              );
-            })}
-          </div>
+                <div>
+                  <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.pdfCostComparison")}</h4>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.selfBuildCost")} vs {t("lms.roiCalc.webheadsCost")}</p>
+                </div>
+              </div>
+              <div className="h-[260px] md:h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={comparisonData} layout="vertical" margin={{ left: 0, right: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
+                    <XAxis type="number" tickFormatter={(v) => `${(v / 10000).toFixed(0)}만`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                    <YAxis type="category" dataKey="name" width={100} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                    <Tooltip formatter={(v: number) => `${formatNumber(v)}원`} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
+                    <Bar dataKey="self" name={t("lms.roiCalc.selfBuildCost")} fill="hsl(0, 70%, 65%)" radius={[0, 6, 6, 0]} />
+                    <Bar dataKey="wh" name={t("lms.roiCalc.webheadsCost")} fill="hsl(245, 58%, 55%)" radius={[0, 6, 6, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
 
-          <div className="h-[280px] md:h-[320px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={projectionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="selfGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0.15} />
-                    <stop offset="95%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0} />
-                  </linearGradient>
-                  <linearGradient id="whGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0.15} />
-                    <stop offset="95%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis dataKey="name" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                <YAxis tickFormatter={(v) => `${(v / 100000000).toFixed(1)}억`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                <Tooltip formatter={chartTooltipFormatter} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Area type="monotone" dataKey="selfBuild" name={t("lms.roiCalc.chartSelfBuild")} stroke="hsl(0, 70%, 65%)" fill="url(#selfGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(0, 70%, 65%)" }} />
-                <Area type="monotone" dataKey="webheads" name={t("lms.roiCalc.chartWebheads")} stroke="hsl(245, 58%, 55%)" fill="url(#whGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(245, 58%, 55%)" }} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
+            {/* 5-Year Projection Chart */}
+            <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: GREEN_BG }}>
+                  <TrendingUp className="w-5 h-5" style={{ color: GREEN_ACCENT }} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.scenarioTitle")}</h4>
+                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.scenarioDesc")}</p>
+                </div>
+              </div>
+
+              {/* Summary cards */}
+              <div className="grid grid-cols-3 gap-3 my-6">
+                {[0, 2, 4].map((idx) => {
+                  const d = projectionData[idx];
+                  return (
+                    <div key={idx} className="rounded-xl p-3 md:p-4 text-center" style={{ background: idx === 4 ? GREEN_BG : "hsl(var(--muted) / 0.5)" }}>
+                      <p className="text-[11px] md:text-xs text-muted-foreground font-medium">{d.name}</p>
+                      <p className="font-bold text-sm md:text-lg mt-1" style={{ color: idx === 4 ? GREEN_TEXT : "hsl(var(--foreground))" }}>
+                        {formatNumber(d.savings)}
+                        <span className="text-[10px] md:text-xs font-normal">{t("lms.roiCalc.feeUnit")}</span>
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="h-[280px] md:h-[320px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={projectionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="selfGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0.15} />
+                        <stop offset="95%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0} />
+                      </linearGradient>
+                      <linearGradient id="whGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0.15} />
+                        <stop offset="95%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                    <YAxis tickFormatter={(v) => `${(v / 100000000).toFixed(1)}억`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                    <Tooltip formatter={chartTooltipFormatter} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
+                    <Legend wrapperStyle={{ fontSize: 12 }} />
+                    <Area type="monotone" dataKey="selfBuild" name={t("lms.roiCalc.chartSelfBuild")} stroke="hsl(0, 70%, 65%)" fill="url(#selfGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(0, 70%, 65%)" }} />
+                    <Area type="monotone" dataKey="webheads" name={t("lms.roiCalc.chartWebheads")} stroke="hsl(245, 58%, 55%)" fill="url(#whGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(245, 58%, 55%)" }} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
 
         {/* Add-on Savings */}
         <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
