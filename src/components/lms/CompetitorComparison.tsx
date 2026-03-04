@@ -41,7 +41,8 @@ function getWinner(row: string[]): number {
   // Prefer Webheads (last) if tied
   const lastIdx = scores.length - 1;
   if (scores[lastIdx] === max) return lastIdx;
-  return scores.indexOf(max);
+  const first = scores.indexOf(max);
+  return first;
 }
 
 function CellContent({
