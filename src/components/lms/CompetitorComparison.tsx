@@ -32,7 +32,7 @@ function CellContent({
 
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className="font-semibold text-base text-foreground">{display}</span>
+      <span className="font-normal text-xs text-foreground">{display}</span>
       {sub && (
         <span className="text-xs font-medium text-muted-foreground">{sub}</span>
       )}
