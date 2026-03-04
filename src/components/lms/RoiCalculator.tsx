@@ -64,6 +64,7 @@ export default function RoiCalculator() {
   const [courses, setCourses] = useState(10);
   const [instructors, setInstructors] = useState(5);
   const [showBreakdown, setShowBreakdown] = useState(false);
+  const [showWhBreakdown, setShowWhBreakdown] = useState(false);
   const [showCharts, setShowCharts] = useState(false);
   const reportRef = useRef<HTMLDivElement>(null);
 
@@ -74,6 +75,13 @@ export default function RoiCalculator() {
   const webheadsResult = useMemo(() => calcWebheadsAnnual(students, courses), [students, courses]);
   const webheadsAnnual = webheadsResult.total;
   const webheadsMonthly = Math.round(webheadsAnnual / 12);
+  const hasTransferOverage = webheadsResult.transferOverageCost > 0;
+  const hasStorageOverage = webheadsResult.storageOverageCost > 0;
+  const hasOverage = hasTransferOverage || hasStorageOverage;
+  const monthlyTransferUsed = Math.round(students * 1.5);
+  const storageUsed = Math.round(courses * 2);
+  const transferUsagePercent = Math.min(100, Math.round((monthlyTransferUsed / 1500) * 100));
+  const storageUsagePercent = Math.min(100, Math.round((storageUsed / 200) * 100));
   const savingsAmount = selfBuild.total - webheadsAnnual;
   const savingsPercent = selfBuild.total > 0 ? ((savingsAmount / selfBuild.total) * 100).toFixed(1) : "0";
   const lmsCostRatio = annualRevenue > 0 ? Math.min(100, Math.round((webheadsAnnual / annualRevenue) * 100)) : 0;
@@ -277,6 +285,104 @@ export default function RoiCalculator() {
                 <p className="text-[11px] mt-1" style={{ color: PURPLE, opacity: 0.6 }}>
                   {t("lms.roiCalc.perMonth", { cost: fmt(webheadsMonthly) })}
                 </p>
+
+                {/* Infra usage indicators */}
+                <div className="mt-4 space-y-3">
+                  {/* Transfer usage bar */}
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-[10px] font-medium" style={{ color: "#6B7280" }}>
+                        월 전송량
+                      </span>
+                      <span className="text-[10px] font-semibold" style={{ color: hasTransferOverage ? "#EF4444" : PURPLE }}>
+                        {fmt(monthlyTransferUsed)}GB / 1,500GB
+                      </span>
+                    </div>
+                    <div className="w-full h-1.5 rounded-full" style={{ background: "#E5E7EB" }}>
+                      <div
+                        className="h-1.5 rounded-full transition-all duration-500"
+                        style={{
+                          width: `${Math.min(transferUsagePercent, 100)}%`,
+                          background: hasTransferOverage
+                            ? "linear-gradient(90deg, #7C3AED, #EF4444)"
+                            : `linear-gradient(90deg, ${PURPLE}, #A855F7)`,
+                        }}
+                      />
+                    </div>
+                    {hasTransferOverage && (
+                      <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
+                        ⚠ 포함량 초과 +{fmt(monthlyTransferUsed - 1500)}GB → 연 +{fmt(webheadsResult.transferOverageCost)}원
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Storage usage bar */}
+                  <div>
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-[10px] font-medium" style={{ color: "#6B7280" }}>
+                        저장공간
+                      </span>
+                      <span className="text-[10px] font-semibold" style={{ color: hasStorageOverage ? "#EF4444" : PURPLE }}>
+                        {fmt(storageUsed)}GB / 200GB
+                      </span>
+                    </div>
+                    <div className="w-full h-1.5 rounded-full" style={{ background: "#E5E7EB" }}>
+                      <div
+                        className="h-1.5 rounded-full transition-all duration-500"
+                        style={{
+                          width: `${Math.min(storageUsagePercent, 100)}%`,
+                          background: hasStorageOverage
+                            ? "linear-gradient(90deg, #7C3AED, #EF4444)"
+                            : `linear-gradient(90deg, ${PURPLE}, #A855F7)`,
+                        }}
+                      />
+                    </div>
+                    {hasStorageOverage && (
+                      <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
+                        ⚠ 포함량 초과 +{fmt(storageUsed - 200)}GB → 연 +{fmt(webheadsResult.storageOverageCost)}원
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Breakdown toggle */}
+                <button
+                  onClick={() => setShowWhBreakdown(!showWhBreakdown)}
+                  className="mt-3 text-[11px] md:text-xs flex items-center gap-1 hover:opacity-80 transition-opacity cursor-pointer"
+                  style={{ color: PURPLE, opacity: 0.6 }}
+                >
+                  산출 근거 보기
+                  {showWhBreakdown ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                </button>
+                {showWhBreakdown && (
+                  <div className="mt-3 pt-3 space-y-2 border-t" style={{ borderColor: PURPLE_LIGHT }}>
+                    <div className="flex justify-between items-center">
+                      <span className="text-[11px]" style={{ color: "#6B7280" }}>기본료 (월 700,000 × 12)</span>
+                      <span className="text-[11px] font-semibold" style={{ color: PURPLE }}>{fmt(webheadsResult.baseFee)}원</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-[11px]" style={{ color: "#6B7280" }}>전송량 초과 비용</span>
+                      <span className="text-[11px] font-semibold" style={{ color: hasTransferOverage ? "#EF4444" : PURPLE }}>
+                        {hasTransferOverage ? `+${fmt(webheadsResult.transferOverageCost)}원` : "포함"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-[11px]" style={{ color: "#6B7280" }}>저장공간 초과 비용</span>
+                      <span className="text-[11px] font-semibold" style={{ color: hasStorageOverage ? "#EF4444" : PURPLE }}>
+                        {hasStorageOverage ? `+${fmt(webheadsResult.storageOverageCost)}원` : "포함"}
+                      </span>
+                    </div>
+                    <div className="pt-2 mt-1 border-t flex justify-between items-center" style={{ borderColor: PURPLE_LIGHT }}>
+                      <span className="text-[11px] font-bold" style={{ color: PURPLE }}>연간 합계</span>
+                      <span className="text-[11px] font-bold" style={{ color: PURPLE }}>{fmt(webheadsAnnual)}원</span>
+                    </div>
+                    {hasOverage && (
+                      <p className="text-[9px] mt-1 leading-relaxed rounded-lg p-2" style={{ color: "#6B7280", background: PURPLE_LIGHT }}>
+                        💡 수강생 수와 콘텐츠가 늘어나면 전송량·저장공간 사용이 증가하여 Plus 요금제 포함량을 초과할 수 있습니다. 초과분은 전송량 400원/GB, 저장공간 800원/GB 단가로 과금됩니다.
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
 
