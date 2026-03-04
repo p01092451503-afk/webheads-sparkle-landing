@@ -120,11 +120,11 @@ export default function Footer() {
               href="https://help.webheads.co.kr/kolluscrm.php"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
+              className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 bg-accent text-accent-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
             >
               <MonitorSmartphone className="w-4 h-4" />
               {t("footer.serviceRequestBtn")}
-              <span className="text-primary-foreground/70">→</span>
+              <span className="text-accent-foreground/70">→</span>
             </a>
             <a
               href="tel:02-540-4337"
