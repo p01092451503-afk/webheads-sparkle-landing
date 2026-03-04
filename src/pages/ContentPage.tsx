@@ -66,7 +66,7 @@ export default function ContentPage() {
       <ServiceMidCTA heading={t("content.midCTA.heading")} description={t("content.midCTA.description")} ctaText={t("content.midCTA.ctaText")} />
 
       {/* Content Types */}
-      <section id="types" className="py-28 bg-secondary">
+      <section id="types" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("content.contentTypesSection.sub")}</p>
