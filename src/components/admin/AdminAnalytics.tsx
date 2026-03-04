@@ -27,6 +27,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return pageViews.filter((v) => new Date(v.created_at) >= since);
   }, [pageViews, dateRange]);
 
+  const humanViews = useMemo(() => filteredViews.filter((v) => (v.visitor_type || "human") === "human"), [filteredViews]);
+
   const filteredClicks = useMemo(() => {
     const since = new Date();
     if (dateRange === 0) since.setHours(0, 0, 0, 0);
