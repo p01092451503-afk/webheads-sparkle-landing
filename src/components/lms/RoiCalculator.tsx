@@ -44,6 +44,7 @@ export default function RoiCalculator() {
   const [courses, setCourses] = useState(10);
   const [instructors, setInstructors] = useState(5);
   const [showBreakdown, setShowBreakdown] = useState(false);
+  const [showCharts, setShowCharts] = useState(false);
   const reportRef = useRef<HTMLDivElement>(null);
 
   const monthlyRevenue = students * fee;
