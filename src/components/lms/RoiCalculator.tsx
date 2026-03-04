@@ -267,15 +267,13 @@ export default function RoiCalculator() {
               </div>
 
               {/* 3. 연간 절감액 */}
-              <div className="rounded-xl p-4 md:p-5 border" style={{ background: GREEN_BG, borderColor: "hsl(145, 50%, 80%)" }}>
-                <h4 className="font-bold text-sm md:text-base mb-3" style={{ color: GREEN_TEXT }}><span className="opacity-60 mr-1.5">C.</span>{t("lms.roiCalc.annualSavings")}</h4>
-                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
-                  <span className="text-xs md:text-sm" style={{ color: GREEN_ACCENT }}>
+              <div className="rounded-xl p-3.5 md:p-4 border" style={{ background: GREEN_BG, borderColor: "hsl(145, 50%, 80%)" }}>
+                <h4 className="font-bold text-xs md:text-sm mb-2" style={{ color: GREEN_TEXT }}><span className="opacity-60 mr-1.5">C.</span>{t("lms.roiCalc.annualSavings")}</h4>
+                <div className="flex justify-between items-center">
+                  <span className="text-[11px] md:text-xs" style={{ color: GREEN_ACCENT }}>
                     {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
                   </span>
-                  <div className="text-right">
-                    <span className="font-bold text-xl sm:text-2xl md:text-3xl whitespace-nowrap" style={{ color: GREEN_TEXT }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
-                  </div>
+                  <span className="font-bold text-base md:text-lg whitespace-nowrap" style={{ color: GREEN_TEXT }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
                 </div>
               </div>
             </div>
