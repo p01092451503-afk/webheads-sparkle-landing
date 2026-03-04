@@ -279,7 +279,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const exitPages = useMemo(() => {
     const sessionPages: Record<string, { path: string; time: string }> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (!v.session_id) return;
       if (!sessionPages[v.session_id] || v.created_at > sessionPages[v.session_id].time)
         sessionPages[v.session_id] = { path: v.page_path, time: v.created_at };
@@ -287,7 +287,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const acc: Record<string, number> = {};
     Object.values(sessionPages).forEach((s) => { acc[s.path] = (acc[s.path] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const funnelData = useMemo(() => {
     const sessions = new Set(filteredViews.map((v) => v.session_id).filter(Boolean));
