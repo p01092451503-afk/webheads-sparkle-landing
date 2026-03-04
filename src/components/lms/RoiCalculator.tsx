@@ -193,7 +193,7 @@ export default function RoiCalculator() {
                     {fmt(displayThreeYearWh)}<span className="text-sm">원</span>
                   </p>
                   {/* Bar */}
-                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#EDE9FE" }}>
+                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#E5E7EB" }}>
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{
