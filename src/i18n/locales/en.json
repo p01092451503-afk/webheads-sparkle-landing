@@ -834,8 +834,7 @@
     "stats": [
       { "value": "16yr", "label": "LMS Expertise", "sub": "Industry Leader" },
       { "value": "300+", "label": "Companies", "sub": "Cumulative Clients" },
-      { "value": "92.6%", "label": "5yr+ Retention", "sub": "Renewal Rate" },
-      { "value": "TCB", "label": "Tech Excellence", "sub": "IBK Certified" }
+      { "value": "92.6%", "label": "5yr+ Retention", "sub": "Renewal Rate" }
     ],
     "partnersTitle": "Trusted By",
     "partners": ["Yanadu", "Wolgeupjaengi", "Korea Energy Foundation", "Transcosmos", "KAPAAS", "MOHW", "Incheon Airport", "KAIST"],
