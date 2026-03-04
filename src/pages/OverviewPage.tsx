@@ -68,7 +68,7 @@ function LmsDetailSection() {
         {/* LMS Stats */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {lmsStats.map((s, i) => (
-            <div key={i} className="rounded-xl p-5 text-center border border-border" style={{ background: "hsl(250,30%,96%)" }}>
+            <div key={i} className="rounded-xl p-5 text-center border border-border w-[calc(50%-6px)] md:w-[220px]" style={{ background: "hsl(250,30%,96%)" }}>
               <p className="text-2xl font-black text-foreground">{s.value}</p>
               <p className="text-sm text-muted-foreground font-medium mt-1">{s.label}</p>
               <p className="text-xs text-muted-foreground/60 mt-0.5">{s.sub}</p>
