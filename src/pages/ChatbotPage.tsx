@@ -99,7 +99,26 @@ export default function ChatbotPage() {
           <div className="mb-12">
             <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Cpu className="w-5 h-5 text-primary" />{techSpecs.llmModels.title}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {techSpecs.llmModels.items.map((model: any) => (<div key={model.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 transition-colors duration-200"><div className="flex items-center justify-between mb-3"><div><span className="font-bold text-foreground text-lg">{model.name}</span><span className="text-muted-foreground text-sm ml-2">by {model.provider}</span></div><span className="text-xs px-3 py-1 rounded-full font-semibold bg-primary/10 text-primary">{model.badge}</span></div><p className="text-muted-foreground text-sm leading-relaxed">{model.desc}</p></div>))}
+              {techSpecs.llmModels.items.map((model: any) => {
+                const LogoComponent = modelLogos[model.name];
+                return (
+                  <div key={model.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 transition-colors duration-200">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-secondary">
+                          {LogoComponent ? <LogoComponent className="w-5 h-5 text-foreground" /> : <Settings2 className="w-5 h-5 text-primary" />}
+                        </div>
+                        <div>
+                          <span className="font-bold text-foreground text-lg">{model.name}</span>
+                          <span className="text-muted-foreground text-sm ml-2">by {model.provider}</span>
+                        </div>
+                      </div>
+                      <span className="text-xs px-3 py-1 rounded-full font-semibold bg-primary/10 text-primary">{model.badge}</span>
+                    </div>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{model.desc}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="mb-12">
