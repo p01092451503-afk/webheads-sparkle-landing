@@ -22,7 +22,7 @@ function ContactMarquee() {
     ));
 
   return (
-    <div className="overflow-hidden py-6">
+    <div className="overflow-hidden py-6 scrollbar-hide">
       <div className="flex w-max contact-marquee-track">
         <div className="flex shrink-0">{renderList()}</div>
         <div className="flex shrink-0">{renderList()}</div>
