@@ -106,7 +106,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <TossMetric label="문의" value={filteredInquiries.length} sub={`신규 ${newInquiries.length}건`} icon={<MessageSquare className="w-[18px] h-[18px]" />} color="hsl(221, 83%, 53%)" />
-        <TossMetric label="방문" value={filteredViews.length} sub={`${uniqueSessions} 세션`} icon={<Eye className="w-[18px] h-[18px]" />} color="hsl(152, 57%, 42%)" />
+        <TossMetric label="방문" value={humanViews.length} sub={`${uniqueSessions} 세션`} icon={<Eye className="w-[18px] h-[18px]" />} color="hsl(152, 57%, 42%)" />
         <TossMetric label="전환율" value={`${conversionRate}%`} sub="방문 → 문의" icon={<TrendingUp className="w-[18px] h-[18px]" />} color="hsl(37, 90%, 51%)" />
         <TossMetric label="총 문의" value={inquiries.length} sub="전체 누적" icon={<Building2 className="w-[18px] h-[18px]" />} color="hsl(262, 60%, 55%)" />
       </div>
