@@ -170,10 +170,10 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, [humanViews]);
 
   const overallAvgDwell = useMemo(() => {
-    const withDuration = filteredViews.filter((v) => v.duration_seconds && v.duration_seconds > 0);
+    const withDuration = humanViews.filter((v) => v.duration_seconds && v.duration_seconds > 0);
     if (withDuration.length === 0) return 0;
     return Math.round(withDuration.reduce((s, v) => s + v.duration_seconds, 0) / withDuration.length);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const toLocalDateKey = (date: Date) => {
     const y = date.getFullYear();
