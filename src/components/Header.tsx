@@ -164,7 +164,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
+        <div className="lg:hidden bg-background border-t border-border shadow-lg">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-0.5">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
