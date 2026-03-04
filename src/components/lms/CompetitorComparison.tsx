@@ -11,31 +11,6 @@ const WH_SUB_EN: Record<string, string> = {
   "One-stop": "PG·DRM·SMS·AI integrated in-house",
 };
 
-function getWinner(row: string[]): number {
-  const vals = row.slice(1);
-  const score = (v: string): number => {
-    if (v === "O") return 3;
-    if (v === "△") return 1;
-    if (v === "X") return 0;
-    if (v === "없음" || v === "None") return 3;
-    if (v === "즉시" || v === "Instant") return 3;
-    if (v === "원스톱" || v === "One-stop") return 3;
-    if (v === "최소 3일" || v === "As fast as 3 days") return 2;
-    if (v.includes("별도") || v.includes("Custom")) return 1;
-    if (v.includes("자체") || v.includes("In-house")) return 1;
-    if (v.includes("제한") || v.includes("Limited")) return 1;
-    if (v.includes("이메일") || v.includes("Email")) return 1;
-    if (v.includes("개별") || v.includes("Separate")) return 1;
-    if (v.includes("만원") || v.includes("$")) return 0;
-    if (v.includes("개월") || v.includes("month") || v.includes("year")) return 0;
-    return 2;
-  };
-  const scores = vals.map(score);
-  const max = Math.max(...scores);
-  const lastIdx = scores.length - 1;
-  if (scores[lastIdx] === max) return lastIdx;
-  return scores.indexOf(max);
-}
 
 function CellContent({
   value,
