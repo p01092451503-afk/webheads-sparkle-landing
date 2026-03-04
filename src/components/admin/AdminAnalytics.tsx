@@ -803,11 +803,11 @@ function HelpTooltip({ text }: { text: string }) {
   );
 }
 
-function MetricCard({ icon, label, value, color, sub, tooltip }: {
-  icon: React.ReactNode; label: string; value: number | string; color: string; sub?: string; tooltip?: string;
+function MetricCard({ icon, label, value, color, sub, tooltip, className }: {
+  icon: React.ReactNode; label: string; value: number | string; color: string; sub?: string; tooltip?: string; className?: string;
 }) {
   return (
-    <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3 flex items-center gap-3">
+    <div className={`rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3 flex items-center gap-3 ${className || "bg-white"}`}>
       <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${color}12`, color }}>{icon}</div>
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
