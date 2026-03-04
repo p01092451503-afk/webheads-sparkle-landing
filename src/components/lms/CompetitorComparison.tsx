@@ -67,7 +67,7 @@ export default function CompetitorComparison() {
             <table className="w-full text-base">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="px-5 md:px-6 py-4 text-left text-xs font-semibold text-muted-foreground w-[28%]">
+                  <th className="px-5 md:px-6 py-5 text-left text-sm font-semibold text-muted-foreground w-[28%]">
                     {headers[0]}
                   </th>
                   <th className="px-4 py-4 text-center text-xs font-semibold text-muted-foreground">
