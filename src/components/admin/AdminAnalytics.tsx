@@ -769,7 +769,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           <ChartCard title="신규 방문자 랜딩 페이지" icon={<Eye className="w-4 h-4" />} className="bg-[hsl(40,35%,90%)]">
             {newVisitorData.topLandingPages.length === 0 ? <Empty msg="신규 방문자 데이터 수집 중..." /> : newVisitorData.topLandingPages.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={newVisitorData.topLandingPages[0][1]} color="hsl(37, 90%, 51%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} className="bg-[hsl(150,20%,96%)]">
+          <ChartCard title="신규 방문자 유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} className="bg-[hsl(150,25%,90%)]">
             {newVisitorData.topReferrers.length === 0 ? <Empty /> : newVisitorData.topReferrers.map(([r, c], i) => <BarRow key={r} rank={i+1} label={r} value={c} max={newVisitorData.topReferrers[0][1]} color="hsl(152, 57%, 42%)" />)}
           </ChartCard>
           <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />} className="bg-[hsl(340,20%,96%)]">
