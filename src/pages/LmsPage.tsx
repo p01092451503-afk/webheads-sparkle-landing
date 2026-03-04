@@ -10,7 +10,7 @@ import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
 import IndustryScenarioTabs from "@/components/lms/IndustryScenarioTabs";
 import LearnerJourneyMap from "@/components/lms/LearnerJourneyMap";
-import RoiCalculator from "@/components/lms/RoiCalculator";
+
 import CompetitorComparison from "@/components/lms/CompetitorComparison";
 import DeviceFriendlySection from "@/components/lms/DeviceFriendlySection";
 import {
