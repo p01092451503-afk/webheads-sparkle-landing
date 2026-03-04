@@ -17,7 +17,7 @@ function calcSelfBuildAnnual(students: number, courses: number, instructors: num
 }
 
 function calcWebheadsAnnual(students: number, courses: number) {
-  const baseFee = 300000 * 12;
+  const baseFee = 700000 * 12;
   const studentFee = students * 200 * 12;
   const courseFee = courses * 10000 * 12;
   return baseFee + studentFee + courseFee;
