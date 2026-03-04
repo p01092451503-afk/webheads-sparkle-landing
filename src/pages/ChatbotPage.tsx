@@ -140,10 +140,10 @@ export default function ChatbotPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("chatbot.beforeAfterSection.sub")} heading={t("chatbot.beforeAfterSection.heading")} description={t("chatbot.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-secondary" items={beforeAfter} subheading={t("chatbot.beforeAfterSection.sub")} heading={t("chatbot.beforeAfterSection.heading")} description={t("chatbot.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("chatbot.midCTA.heading")} description={t("chatbot.midCTA.description")} ctaText={t("chatbot.midCTA.ctaText")} />
-      <ServiceProcess steps={processSteps} subheading={t("chatbot.processSection.sub")} heading={t("chatbot.processSection.heading")} description={t("chatbot.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("chatbot.comparisonSection.sub")} heading={t("chatbot.comparisonSection.heading")} description={t("chatbot.comparisonSection.desc")} />
+      <ServiceProcess bg="bg-background" steps={processSteps} subheading={t("chatbot.processSection.sub")} heading={t("chatbot.processSection.heading")} description={t("chatbot.processSection.desc")} />
+      <ServiceComparison bg="bg-secondary" headers={comparisonHeaders} rows={comparisonRows} subheading={t("chatbot.comparisonSection.sub")} heading={t("chatbot.comparisonSection.heading")} description={t("chatbot.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
