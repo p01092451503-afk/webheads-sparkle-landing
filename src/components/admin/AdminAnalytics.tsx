@@ -371,9 +371,10 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       }
     });
 
-    // 3/4 이후 접속 중, 기존 방문자가 아닌 것만 필터
+    // 3/4 이후 접속 중, 기존 방문자가 아닌 것 + 사람만 필터
     const newVisitors = pageViews.filter((v) => {
       if (new Date(v.created_at) < newVisitorCutoff) return false;
+      if (v.visitor_type && v.visitor_type !== "human") return false;
       const ipKey = v.ip_address ? `ip:${v.ip_address}` : null;
       const sidKey = v.session_id ? `sid:${v.session_id}` : null;
       // IP 또는 session_id가 기존에 존재하면 제외
