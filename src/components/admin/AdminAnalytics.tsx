@@ -33,7 +33,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const since = new Date();
     if (dateRange === 0) since.setHours(0, 0, 0, 0);
     else since.setDate(since.getDate() - dateRange);
-    return clickEvents.filter((v) => new Date(v.created_at) >= since);
+    return clickEvents.filter((v) => new Date(v.created_at) >= since && (v.visitor_type || "human") === "human");
   }, [clickEvents, dateRange]);
 
   const totalViews = humanViews.length;

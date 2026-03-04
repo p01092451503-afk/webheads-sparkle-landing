@@ -28,8 +28,10 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     return pageViews.filter((v) => new Date(v.created_at) >= since);
   }, [pageViews, dateRange]);
 
+  const humanViews = useMemo(() => filteredViews.filter((v) => (v.visitor_type || "human") === "human"), [filteredViews]);
+
   const newInquiries = filteredInquiries.filter((i) => i.status === "new");
-  const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
+  const uniqueSessions = new Set(humanViews.map((v) => v.session_id)).size;
   const conversionRate = uniqueSessions > 0 ? ((filteredInquiries.length / uniqueSessions) * 100).toFixed(1) : "0.0";
   const recentInquiries = filteredInquiries.slice(0, 5);
 
@@ -40,7 +42,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     const locationCounts: Record<string, number> = {};
     let totalDwell = 0, dwellCount = 0, totalScroll = 0, scrollCount = 0, firstVisit = 0, returning = 0;
 
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (v.device_type) deviceCounts[v.device_type] = (deviceCounts[v.device_type] || 0) + 1;
       if (v.browser) browserCounts[v.browser] = (browserCounts[v.browser] || 0) + 1;
       if (v.page_path) topPages[v.page_path] = (topPages[v.page_path] || 0) + 1;
@@ -61,7 +63,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     const mobileRate = total > 0 ? Math.round((mobileCount / total) * 100) : 0;
 
     return { avgDwell: dwellCount > 0 ? Math.round(totalDwell / dwellCount) : 0, avgScroll: scrollCount > 0 ? Math.round(totalScroll / scrollCount) : 0, mobileRate, mobileCount, desktopCount, firstVisit, returning, topBrowsers, topPagesList, topLocList };
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const formatDuration = (s: number) => {
     if (s < 60) return `${s}초`;
@@ -104,7 +106,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <TossMetric label="문의" value={filteredInquiries.length} sub={`신규 ${newInquiries.length}건`} icon={<MessageSquare className="w-[18px] h-[18px]" />} color="hsl(221, 83%, 53%)" />
-        <TossMetric label="방문" value={filteredViews.length} sub={`${uniqueSessions} 세션`} icon={<Eye className="w-[18px] h-[18px]" />} color="hsl(152, 57%, 42%)" />
+        <TossMetric label="방문" value={humanViews.length} sub={`${uniqueSessions} 세션`} icon={<Eye className="w-[18px] h-[18px]" />} color="hsl(152, 57%, 42%)" />
         <TossMetric label="전환율" value={`${conversionRate}%`} sub="방문 → 문의" icon={<TrendingUp className="w-[18px] h-[18px]" />} color="hsl(37, 90%, 51%)" />
         <TossMetric label="총 문의" value={inquiries.length} sub="전체 누적" icon={<Building2 className="w-[18px] h-[18px]" />} color="hsl(262, 60%, 55%)" />
       </div>
