@@ -118,23 +118,21 @@ export default function EventPage() {
         </div>
       </section>
 
-      {/* Conditions */}
-      <section className="py-16 lg:py-20 bg-muted">
-        <div className="container mx-auto px-6 max-w-3xl text-center">
-          <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-foreground mb-8">
-            지원 조건
-          </h2>
-          <div className="bg-card rounded-2xl border border-border p-8 lg:p-10 text-left space-y-4">
+      {/* Conditions — compact inline */}
+      <section className="py-8 bg-muted">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 justify-center text-sm text-muted-foreground">
+            <span className="font-semibold text-foreground mr-1">지원 조건</span>
             {[
-              "LMS 1년 이용 계약 체결 (신규 계약 고객 대상)",
-              "2026년 3월 31일까지 신청 완료",
-              "웹헤즈 Light 버전 기준 적용",
-              "타 프로모션과 중복 적용 불가",
+              "LMS 1년 이용 계약 (신규 고객)",
+              "2026.3.31까지 신청",
+              "Light 버전 기준",
+              "타 프로모션 중복 불가",
             ].map((item) => (
-              <div key={item} className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                <span className="text-foreground font-medium">{item}</span>
-              </div>
+              <span key={item} className="inline-flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-primary shrink-0" />
+                {item}
+              </span>
             ))}
           </div>
         </div>
