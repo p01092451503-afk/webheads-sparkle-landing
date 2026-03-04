@@ -43,18 +43,18 @@ export default function ChatbotArchDiagram() {
   const d = t("chatbot.archDiagram", { returnObjects: true }) as any;
 
   return (
-    <div className="rounded-3xl bg-card border border-border p-6 md:p-10 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-      <h4 className="text-lg md:text-2xl font-extrabold text-foreground mb-8 text-center tracking-tight">{d.title}</h4>
+    <div className="rounded-2xl bg-card border border-border p-6 md:p-8 overflow-x-auto">
+      <h4 className="text-base font-bold text-foreground mb-6 text-center tracking-tight">{d.title}</h4>
 
       {/* Desktop flow - horizontal */}
-      <div className="hidden md:flex items-center justify-center gap-4 px-2 flex-wrap lg:flex-nowrap">
+      <div className="hidden md:flex items-center justify-center gap-3">
         <NodeBox icon={MessageSquare} label={d.user} sub={d.userSub} />
         <Arrow />
         <NodeBox icon={Monitor} label={d.channel} sub={d.channelSub} />
         <Arrow />
         <NodeBox icon={Server} label={d.orchestrator} sub={d.orchestratorSub} highlight />
         <Arrow />
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           <NodeBox icon={Database} label={d.rag} sub={d.ragSub} />
           <NodeBox icon={Brain} label={d.llm} sub={d.llmSub} highlight />
         </div>
@@ -63,14 +63,14 @@ export default function ChatbotArchDiagram() {
       </div>
 
       {/* Mobile flow - vertical */}
-      <div className="flex md:hidden flex-col items-center gap-4">
+      <div className="flex md:hidden flex-col items-center gap-3">
         <NodeBox icon={MessageSquare} label={d.user} sub={d.userSub} />
         <Arrow direction="down" />
         <NodeBox icon={Monitor} label={d.channel} sub={d.channelSub} />
         <Arrow direction="down" />
         <NodeBox icon={Server} label={d.orchestrator} sub={d.orchestratorSub} highlight />
         <Arrow direction="down" />
-        <div className="flex gap-3 w-full justify-center">
+        <div className="flex gap-3">
           <NodeBox icon={Database} label={d.rag} sub={d.ragSub} />
           <NodeBox icon={Brain} label={d.llm} sub={d.llmSub} highlight />
         </div>
@@ -79,14 +79,14 @@ export default function ChatbotArchDiagram() {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center justify-center gap-8 mt-8 pt-5 border-t border-border">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded bg-primary/20 border border-primary/30" />
-          <span className="text-sm md:text-base text-muted-foreground font-medium">{d.legendCore}</span>
+      <div className="flex items-center justify-center gap-6 mt-6 pt-4 border-t border-border">
+        <div className="flex items-center gap-1.5">
+          <div className="w-3 h-3 rounded bg-primary/20 border border-primary/30" />
+          <span className="text-xs text-muted-foreground">{d.legendCore}</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded bg-card border border-border" />
-          <span className="text-sm md:text-base text-muted-foreground font-medium">{d.legendModule}</span>
+        <div className="flex items-center gap-1.5">
+          <div className="w-3 h-3 rounded bg-card border border-border" />
+          <span className="text-xs text-muted-foreground">{d.legendModule}</span>
         </div>
       </div>
     </div>
