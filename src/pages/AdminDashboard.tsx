@@ -222,9 +222,6 @@ export default function AdminDashboard() {
       </header>
 
       <div className="max-w-[1120px] mx-auto px-5 sm:px-6 py-6">
-        {tab === "home" && (
-          <AdminHome inquiries={inquiries} pageViews={pageViews} onNavigate={setTab} />
-        )}
         <Suspense fallback={<TabLoader />}>
           {tab === "inquiries" && (
             <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
