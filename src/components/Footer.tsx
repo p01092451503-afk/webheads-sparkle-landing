@@ -113,7 +113,7 @@ export default function Footer() {
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-primary text-primary-foreground font-semibold text-xs hover:opacity-90 transition-opacity"
             >
               <Mail className="w-3.5 h-3.5" />
-              SMS 충전
+              {t("footer.smsRechargeBtn")}
               <span className="text-primary-foreground/70">→</span>
             </a>
             <a
