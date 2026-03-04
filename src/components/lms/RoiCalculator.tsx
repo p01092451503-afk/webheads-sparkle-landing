@@ -75,6 +75,13 @@ export default function RoiCalculator() {
   const webheadsResult = useMemo(() => calcWebheadsAnnual(students, courses), [students, courses]);
   const webheadsAnnual = webheadsResult.total;
   const webheadsMonthly = Math.round(webheadsAnnual / 12);
+  const hasTransferOverage = webheadsResult.transferOverageCost > 0;
+  const hasStorageOverage = webheadsResult.storageOverageCost > 0;
+  const hasOverage = hasTransferOverage || hasStorageOverage;
+  const monthlyTransferUsed = Math.round(students * 1.5);
+  const storageUsed = Math.round(courses * 2);
+  const transferUsagePercent = Math.min(100, Math.round((monthlyTransferUsed / 1500) * 100));
+  const storageUsagePercent = Math.min(100, Math.round((storageUsed / 200) * 100));
   const savingsAmount = selfBuild.total - webheadsAnnual;
   const savingsPercent = selfBuild.total > 0 ? ((savingsAmount / selfBuild.total) * 100).toFixed(1) : "0";
   const lmsCostRatio = annualRevenue > 0 ? Math.min(100, Math.round((webheadsAnnual / annualRevenue) * 100)) : 0;
