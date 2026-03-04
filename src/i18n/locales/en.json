@@ -213,10 +213,10 @@
     "plansCustom": { "title": "Need a custom quote?", "desc": "For complex environments or special requirements, we provide tailored maintenance proposals.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Adopting Maintenance", "desc": "Real operational metrics before and after adopting WEBHEADS maintenance." },
     "beforeAfter": [
-      { "label": "Incident Response Time", "before": "Avg. 2+ hours (manual contact)", "after": "Avg. under 10 min (NOC auto-detect)" },
-      { "label": "Security Patch Cycle", "before": "Quarterly (manual)", "after": "Critical 24hr, Regular 2x/mo" },
-      { "label": "Feature Request Turnaround", "before": "Avg. 2-3 weeks", "after": "Avg. 1-3 business days" },
-      { "label": "Operational Visibility", "before": "Post-incident awareness", "after": "Real-time monitoring + monthly reports" }
+      { "label": "Incident Response Time", "before": "Avg. 2+ hours (manual contact)", "after": "Avg. under 10 min", "measure": "Zabbix/Grafana-based NOC monitoring — anomaly auto-detection triggers Slack/SMS alerts for immediate remote engineer response." },
+      { "label": "Security Patch Cycle", "before": "Quarterly (manual)", "after": "Critical 24hr, Regular 2x/mo", "measure": "Weekly CVE vulnerability scanning + emergency patch SLA. OS, middleware, and CMS patches verified in staging before production deployment." },
+      { "label": "Feature Request Turnaround", "before": "Avg. 2-3 weeks", "after": "Avg. 1-3 business days", "measure": "Dedicated issue tracker (Jira) + assigned PM. Standardized pipeline: request → impact analysis → dev/QA → deployment." },
+      { "label": "Operational Visibility", "before": "Post-incident awareness", "after": "Real-time monitoring + monthly reports", "measure": "Real-time dashboard for CPU, memory, and traffic metrics + monthly operations report (uptime, incident history, performance trends)." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using WEBHEADS maintenance." },
     "caseStudies": [
