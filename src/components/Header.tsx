@@ -21,6 +21,7 @@ const serviceBlobColors: Record<string, string> = {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ export default function Header() {
     setMobileOpen(false);
   }, [location]);
 
-  const showBanner = new Date() <= new Date("2026-03-31T23:59:59+09:00");
+  const showBanner = !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
   return (
     <>
@@ -54,7 +55,7 @@ export default function Header() {
           className="fixed top-0 left-0 right-0 z-[60] overflow-hidden bg-muted border-b border-border"
         >
           <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-          <div className="container mx-auto px-4 max-w-7xl flex items-center justify-center gap-3 py-2 relative z-10">
+          <div className="container mx-auto px-4 max-w-7xl flex items-center justify-center gap-3 py-2 relative z-10 pr-10">
             <p className="text-sm sm:text-base font-bold tracking-tight text-foreground">
               3월 내 신청 시 LMS 2개월 무료 이용권 증정!
             </p>
@@ -66,6 +67,13 @@ export default function Header() {
               신청하기
             </a>
           </div>
+          <button
+            onClick={() => setBannerDismissed(true)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-foreground/50 hover:text-foreground transition-colors"
+            aria-label="배너 닫기"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
         </div>
       )}
     <header className={`fixed left-0 right-0 z-50 ${showBanner ? "top-[44px]" : "top-0"}`}>
