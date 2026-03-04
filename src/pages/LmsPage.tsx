@@ -65,8 +65,8 @@ export default function LmsPage() {
             {
               "@type": "SoftwareApplication",
               "@id": `${BASE_URL}/lms#software`,
-              "name": "웹헤즈 LMS",
-              "applicationCategory": "EducationalApplication",
+              "name": "웹헤즈 LMS - 이러닝 솔루션 · 학습관리시스템",
+              "alternateName": ["Webheads LMS", "웹헤즈 학습관리시스템", "AI LMS"],
               "operatingSystem": "Web, iOS, Android",
               "offers": [
                 {
