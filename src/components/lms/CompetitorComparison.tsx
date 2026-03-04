@@ -89,12 +89,6 @@ export default function CompetitorComparison() {
   const headers = t("lms.competitorTable.headers", { returnObjects: true }) as string[];
   const rows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
 
-  const winCounts: number[] = [0, 0, 0];
-  const winners: number[] = rows.map((row) => {
-    const w = getWinner(row);
-    winCounts[w]++;
-    return w;
-  });
 
   return (
     <section className="py-16 md:py-28 bg-background">
