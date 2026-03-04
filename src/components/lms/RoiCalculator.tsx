@@ -211,7 +211,7 @@ export default function RoiCalculator() {
             <div className="space-y-3 flex-1">
               {/* 1. 예상 연 매출 */}
               <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                <h4 className="font-bold text-foreground text-sm md:text-base mb-3">{t("lms.roiCalc.annualRevenue")}</h4>
+                <h4 className="font-bold text-foreground text-sm md:text-base mb-3"><span className="text-muted-foreground mr-1.5">A.</span>{t("lms.roiCalc.annualRevenue")}</h4>
                 <div className="flex justify-between items-center">
                   <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.annualRevenue")}</span>
                   <div className="text-right">
@@ -223,7 +223,7 @@ export default function RoiCalculator() {
 
               {/* 2. 연간 비용 비교 */}
               <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                <h4 className="font-bold text-foreground text-sm md:text-base mb-3">{t("lms.roiCalc.annualComparison")}</h4>
+                <h4 className="font-bold text-foreground text-sm md:text-base mb-3"><span className="text-muted-foreground mr-1.5">B.</span>{t("lms.roiCalc.annualComparison")}</h4>
                 <div className="space-y-3">
                   <div>
                     <button
@@ -268,7 +268,7 @@ export default function RoiCalculator() {
 
               {/* 3. 연간 절감액 */}
               <div className="rounded-xl p-4 md:p-5 border" style={{ background: GREEN_BG, borderColor: "hsl(145, 50%, 80%)" }}>
-                <h4 className="font-bold text-sm md:text-base mb-3" style={{ color: GREEN_TEXT }}>{t("lms.roiCalc.annualSavings")}</h4>
+                <h4 className="font-bold text-sm md:text-base mb-3" style={{ color: GREEN_TEXT }}><span className="opacity-60 mr-1.5">C.</span>{t("lms.roiCalc.annualSavings")}</h4>
                 <div className="flex justify-between items-center">
                   <span className="text-xs md:text-sm" style={{ color: GREEN_ACCENT }}>
                     {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
