@@ -64,9 +64,9 @@ export default function Header() {
   return (
     <>
       {/* Top promo banner */}
-      {showBanner && (
+      {(!bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
         <div
-          className="fixed top-0 left-0 right-0 z-[60] overflow-hidden bg-muted border-b border-border"
+          className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden bg-muted border-b border-border transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
           role="banner"
           aria-label={t("banner.text")}
         >
