@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { BookOpen, TrendingUp, Lightbulb, ArrowRight, Calendar, Clock } from "lucide-react";
