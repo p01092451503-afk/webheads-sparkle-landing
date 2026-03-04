@@ -67,7 +67,8 @@ export default function Header() {
           <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-between sm:justify-center gap-2 sm:gap-3 py-2 relative z-10 pr-[90px] sm:pr-[120px]">
             <p className="text-xs sm:text-base font-bold tracking-tight text-foreground leading-snug">
-              {t("banner.text")}
+              <span className="sm:hidden">{t("banner.textShort")}</span>
+              <span className="hidden sm:inline">{t("banner.text")}</span>
             </p>
             <Link
               to="/event"
