@@ -440,44 +440,95 @@ export default function RoiCalculator() {
                 )}
 
                 {/* Infra usage indicators */}
-                <div className="mt-4 space-y-3">
+                <div className="mt-4 space-y-5">
+                  {/* Transfer usage */}
                   <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-[10px] font-medium" style={{ color: "#6B7280" }}>월 전송량</span>
-                      <span className="text-[10px] font-semibold" style={{ color: hasTransferOverage ? "#EF4444" : PURPLE }}>
-                        {fmt(monthlyTransferUsed)}GB / 1,500GB
+                    <div className="flex justify-between items-center mb-1.5">
+                      <span className="flex items-center gap-1 text-[13px] font-medium" style={{ color: "#6B7280" }}>
+                        월 전송량
+                        <span className="relative group">
+                          <Info className="w-4 h-4 cursor-help" style={{ color: "#D1D5DB" }} />
+                          <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-lg text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50" style={{ background: "#1F2937" }}>
+                            수강생 수 × 평균 강의 용량으로 산출된 예상치입니다
+                            <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-4 border-transparent" style={{ borderTopColor: "#1F2937" }} />
+                          </span>
+                        </span>
+                      </span>
+                      <span className="text-[13px] font-bold" style={{ color: transferUsagePercent > 100 ? "#EF4444" : transferUsagePercent > 80 ? "#F59E0B" : PURPLE }}>
+                        {fmt(monthlyTransferUsed)}GB 사용 / 1,500GB 제공
                       </span>
                     </div>
-                    <div className="w-full h-1.5 rounded-full" style={{ background: "#E5E7EB" }}>
-                      <div className="h-1.5 rounded-full transition-all duration-500" style={{
-                        width: `${Math.min(transferUsagePercent, 100)}%`,
-                        background: hasTransferOverage ? "linear-gradient(90deg, #7C3AED, #EF4444)" : `linear-gradient(90deg, ${PURPLE}, #A855F7)`,
-                      }} />
+                    <div className="w-full rounded" style={{ height: 8, background: PURPLE_LIGHT }}>
+                      <div
+                        className="rounded transition-all duration-500"
+                        style={{
+                          height: 8,
+                          width: `${Math.min(transferUsagePercent, 100)}%`,
+                          background: transferUsagePercent > 100 ? "#EF4444" : transferUsagePercent > 80 ? "#F59E0B" : PURPLE,
+                        }}
+                      />
                     </div>
-                    {hasTransferOverage && (
-                      <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
-                        ⚠ 기본량 초과 +{fmt(monthlyTransferUsed - 1500)}GB → 연 +{fmt(webheadsResult.transferOverageCost)}원
-                      </p>
-                    )}
+                    <div className="flex justify-between items-center mt-1.5">
+                      <span className="text-[11px]" style={{ color: "#9CA3AF" }}>현재 수강생 기준 예상 사용량</span>
+                      {transferUsagePercent > 100 ? (
+                        <button
+                          onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                          className="text-[11px] font-semibold cursor-pointer hover:underline"
+                          style={{ color: "#EF4444" }}
+                        >
+                          용량 초과 — 플랜 업그레이드 문의
+                        </button>
+                      ) : transferUsagePercent > 80 ? (
+                        <span className="text-[11px] font-semibold" style={{ color: "#F59E0B" }}>⚠ 용량 확인 필요</span>
+                      ) : (
+                        <span className="text-[11px] font-semibold" style={{ color: "#10B981" }}>여유 {fmt(1500 - monthlyTransferUsed)}GB ✓</span>
+                      )}
+                    </div>
                   </div>
+
+                  {/* Storage usage */}
                   <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-[10px] font-medium" style={{ color: "#6B7280" }}>저장공간</span>
-                      <span className="text-[10px] font-semibold" style={{ color: hasStorageOverage ? "#EF4444" : PURPLE }}>
-                        {fmt(storageUsed)}GB / 200GB
+                    <div className="flex justify-between items-center mb-1.5">
+                      <span className="flex items-center gap-1 text-[13px] font-medium" style={{ color: "#6B7280" }}>
+                        저장공간
+                        <span className="relative group">
+                          <Info className="w-4 h-4 cursor-help" style={{ color: "#D1D5DB" }} />
+                          <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-lg text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-50" style={{ background: "#1F2937" }}>
+                            업로드 콘텐츠 기준 예상 사용량입니다
+                            <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-4 border-transparent" style={{ borderTopColor: "#1F2937" }} />
+                          </span>
+                        </span>
+                      </span>
+                      <span className="text-[13px] font-bold" style={{ color: storageUsagePercent > 100 ? "#EF4444" : storageUsagePercent > 80 ? "#F59E0B" : PURPLE }}>
+                        {fmt(storageUsed)}GB 사용 / 200GB 제공
                       </span>
                     </div>
-                    <div className="w-full h-1.5 rounded-full" style={{ background: "#E5E7EB" }}>
-                      <div className="h-1.5 rounded-full transition-all duration-500" style={{
-                        width: `${Math.min(storageUsagePercent, 100)}%`,
-                        background: hasStorageOverage ? "linear-gradient(90deg, #7C3AED, #EF4444)" : `linear-gradient(90deg, ${PURPLE}, #A855F7)`,
-                      }} />
+                    <div className="w-full rounded" style={{ height: 8, background: PURPLE_LIGHT }}>
+                      <div
+                        className="rounded transition-all duration-500"
+                        style={{
+                          height: 8,
+                          width: `${Math.min(storageUsagePercent, 100)}%`,
+                          background: storageUsagePercent > 100 ? "#EF4444" : storageUsagePercent > 80 ? "#F59E0B" : "#A855F7",
+                        }}
+                      />
                     </div>
-                    {hasStorageOverage && (
-                      <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
-                        ⚠ 기본량 초과 +{fmt(storageUsed - 200)}GB → 연 +{fmt(webheadsResult.storageOverageCost)}원
-                      </p>
-                    )}
+                    <div className="flex justify-between items-center mt-1.5">
+                      <span className="text-[11px]" style={{ color: "#9CA3AF" }}>콘텐츠·영상 자료 기준</span>
+                      {storageUsagePercent > 100 ? (
+                        <button
+                          onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                          className="text-[11px] font-semibold cursor-pointer hover:underline"
+                          style={{ color: "#EF4444" }}
+                        >
+                          용량 초과 — 플랜 업그레이드 문의
+                        </button>
+                      ) : storageUsagePercent > 80 ? (
+                        <span className="text-[11px] font-semibold" style={{ color: "#F59E0B" }}>⚠ 용량 확인 필요</span>
+                      ) : (
+                        <span className="text-[11px] font-semibold" style={{ color: "#10B981" }}>여유 충분 ✓</span>
+                      )}
+                    </div>
                   </div>
                 </div>
 
