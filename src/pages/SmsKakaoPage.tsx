@@ -81,7 +81,7 @@ export default function SmsKakaoPage() {
             서비스 요청이 필요하신가요?
           </h2>
           <p className="mt-3 text-muted-foreground leading-relaxed">
-            SMS 충전 또는 카테노이드 원격지원이 필요하신 경우 아래 양식을 작성해주세요.
+            SMS 충전이 필요하신 경우 아래 버튼을 클릭해주세요.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
             <a
@@ -94,14 +94,6 @@ export default function SmsKakaoPage() {
               SMS 충전 요청
               <ArrowRight className="w-4 h-4" />
             </a>
-            <Link
-              to="/service-request?type=remote"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
-            >
-              <Bell className="w-4 h-4" />
-              원격지원 요청
-              <ArrowRight className="w-4 h-4" />
-            </Link>
           </div>
         </div>
       </section>
