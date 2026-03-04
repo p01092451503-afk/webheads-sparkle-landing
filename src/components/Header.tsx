@@ -44,26 +44,30 @@ export default function Header() {
     setMobileOpen(false);
   }, [location]);
 
+  const showBanner = new Date() <= new Date("2025-03-31T23:59:59+09:00");
+
   return (
     <>
       {/* Top promo banner */}
-      <div
-        className="fixed top-0 left-0 right-0 z-[60] overflow-hidden bg-muted border-b border-border"
-      >
-        <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-        <div className="container mx-auto px-4 max-w-7xl flex items-center justify-center gap-3 py-2 relative z-10">
-          <p className="text-sm sm:text-base font-bold tracking-tight text-foreground">
-            막막한 교육 플랫폼 구축, 3월 내 신청 시 2개월 LMS 무료 이용권 증정! (~3/31)
-          </p>
-          <a
-            href="#contact"
-            className="shrink-0 rounded-full px-4 py-1.5 text-xs font-bold transition-opacity hover:opacity-80 text-foreground"
-            style={{ backgroundColor: "hsl(50, 100%, 50%)" }}
-          >
-            신청하기
-          </a>
+      {showBanner && (
+        <div
+          className="fixed top-0 left-0 right-0 z-[60] overflow-hidden bg-muted border-b border-border"
+        >
+          <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+          <div className="container mx-auto px-4 max-w-7xl flex items-center justify-center gap-3 py-2 relative z-10">
+            <p className="text-sm sm:text-base font-bold tracking-tight text-foreground">
+              막막한 교육 플랫폼 구축, 3월 내 신청 시 2개월 LMS 무료 이용권 증정! (~3/31)
+            </p>
+            <a
+              href="#contact"
+              className="shrink-0 rounded-full px-4 py-1.5 text-xs font-bold transition-opacity hover:opacity-80 text-foreground"
+              style={{ backgroundColor: "hsl(50, 100%, 50%)" }}
+            >
+              신청하기
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     <header className="fixed top-[44px] left-0 right-0 z-50">
       {/* Main bar */}
       <div
