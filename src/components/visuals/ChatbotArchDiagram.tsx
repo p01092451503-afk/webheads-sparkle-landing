@@ -10,36 +10,32 @@ type NodeBoxProps = {
 
 const NodeBox = ({ icon: Icon, label, sub, highlight }: NodeBoxProps) => (
   <div
-    className={`group flex flex-col items-center gap-2.5 px-5 py-5 rounded-2xl border text-center min-w-[146px] md:min-w-[180px] transition-all duration-200 ${
+    className={`flex flex-col items-center gap-1.5 px-4 py-3 rounded-xl border text-center min-w-[100px] transition-all duration-200 ${
       highlight
-        ? "bg-primary/10 border-primary/30 shadow-md"
-        : "bg-card border-border hover:bg-secondary/40"
+        ? "bg-primary/10 border-primary/30"
+        : "bg-card border-border"
     }`}
   >
     <div
-      className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center transition-transform duration-200 group-hover:scale-105 ${
+      className={`w-10 h-10 rounded-xl flex items-center justify-center ${
         highlight ? "bg-primary/20" : "bg-secondary"
       }`}
     >
-      <Icon className={`w-6 h-6 ${highlight ? "text-primary" : "text-muted-foreground"}`} strokeWidth={2} />
+      <Icon className={`w-5 h-5 ${highlight ? "text-primary" : "text-muted-foreground"}`} strokeWidth={2} />
     </div>
 
-    <span className={`text-base md:text-lg font-extrabold leading-tight ${highlight ? "text-primary" : "text-foreground"}`}>
+    <span className={`text-sm font-bold leading-tight ${highlight ? "text-primary" : "text-foreground"}`}>
       {label}
     </span>
 
-    {sub && <span className="text-sm md:text-base text-muted-foreground leading-snug">{sub}</span>}
+    {sub && <span className="text-xs text-muted-foreground leading-snug">{sub}</span>}
   </div>
 );
 
 const Arrow = ({ direction = "right" }: { direction?: "right" | "down" }) => (
-  <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-secondary border border-border flex items-center justify-center shrink-0">
-    {direction === "right" ? (
-      <ArrowRight className="w-5 h-5 text-muted-foreground" />
-    ) : (
-      <ArrowDown className="w-5 h-5 text-muted-foreground" />
-    )}
-  </div>
+  direction === "right"
+    ? <ArrowRight className="w-4 h-4 text-muted-foreground shrink-0" />
+    : <ArrowDown className="w-4 h-4 text-muted-foreground shrink-0" />
 );
 
 export default function ChatbotArchDiagram() {
