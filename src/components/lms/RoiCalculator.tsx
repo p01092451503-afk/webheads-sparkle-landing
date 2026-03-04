@@ -205,10 +205,13 @@ export default function RoiCalculator() {
             </div>
 
             <div className="space-y-4 flex-1">
-              {/* 1. 예상 월 매출 */}
+              {/* 1. 예상 연 매출 */}
               <div className="flex justify-between items-center py-3 border-b border-border">
-                <span className="text-sm text-muted-foreground">{t("lms.roiCalc.monthlyRevenue")}</span>
-                <span className="font-bold text-foreground text-lg">{formatNumber(monthlyRevenue)}{t("lms.roiCalc.feeUnit")}</span>
+                <span className="text-sm text-muted-foreground">{t("lms.roiCalc.annualRevenue")}</span>
+                <div className="text-right">
+                  <span className="font-bold text-foreground text-lg">{formatNumber(monthlyRevenue * 12)}{t("lms.roiCalc.feeUnit")}</span>
+                  <p className="text-[11px] text-muted-foreground/60">{t("lms.roiCalc.perMonth", { cost: formatNumber(monthlyRevenue) })}</p>
+                </div>
               </div>
 
               {/* 2. 연간 비용 비교 (월 비용 포함) */}

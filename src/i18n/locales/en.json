@@ -944,6 +944,7 @@
       "feeUnit": " KRW",
       "resultTitle": "Estimated Savings",
       "monthlyRevenue": "Est. Monthly Revenue",
+      "annualRevenue": "Est. Annual Revenue",
       "selfBuildCost": "Self-Build Monthly Cost (Est.)",
       "webheadsCost": "WEBHEADS Monthly Fee",
       "monthlySavings": "Monthly Savings",
