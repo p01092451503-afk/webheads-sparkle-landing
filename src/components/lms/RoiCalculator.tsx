@@ -16,11 +16,36 @@ function calcSelfBuildAnnual(students: number, courses: number, instructors: num
   return { devCost, serverCost, maintCost, staffCost, miscCost, total };
 }
 
+/**
+ * 웹헤즈 LMS 비용 (연간) — Plus 요금제(월 700,000원) 기준
+ * 포함량: 전송 1,500GB/월, 저장 200GB
+ * 초과 단가: 전송 400원/GB, 저장 800원/GB
+ * 가중치: 수강생 1명당 월 ~0.3GB 전송, 과정 1개당 ~0.3GB 저장
+ */
 function calcWebheadsAnnual(students: number, courses: number) {
   const baseFee = 700000 * 12;
-  const studentFee = students * 200 * 12;
-  const courseFee = courses * 10000 * 12;
-  return baseFee + studentFee + courseFee;
+  const INCLUDED_TRANSFER_GB = 1500; // 월 포함 전송량
+  const INCLUDED_STORAGE_GB = 200;   // 포함 저장공간
+  const TRANSFER_OVERAGE_PER_GB = 400;
+  const STORAGE_OVERAGE_PER_GB = 800;
+  const GB_PER_STUDENT = 0.3;  // 수강생 1명당 월 전송량 (30분 강의 기준)
+  const GB_PER_COURSE = 0.3;   // 과정 1개당 저장공간 (30분 강의 기준)
+
+  const monthlyTransferGB = students * GB_PER_STUDENT;
+  const storageGB = courses * GB_PER_COURSE;
+
+  const transferOverageGB = Math.max(0, monthlyTransferGB - INCLUDED_TRANSFER_GB);
+  const storageOverageGB = Math.max(0, storageGB - INCLUDED_STORAGE_GB);
+
+  const transferOverageCost = transferOverageGB * TRANSFER_OVERAGE_PER_GB * 12;
+  const storageOverageCost = storageOverageGB * STORAGE_OVERAGE_PER_GB;  // 저장공간은 누적이므로 연 1회
+
+  return {
+    baseFee,
+    transferOverageCost: Math.round(transferOverageCost),
+    storageOverageCost: Math.round(storageOverageCost),
+    total: Math.round(baseFee + transferOverageCost + storageOverageCost),
+  };
 }
 
 const PURPLE = "#7C3AED";
