@@ -323,7 +323,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const pageFlows = useMemo(() => {
     const sessionViews: Record<string, { path: string; time: string }[]> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (!v.session_id) return;
       if (!sessionViews[v.session_id]) sessionViews[v.session_id] = [];
       sessionViews[v.session_id].push({ path: v.page_path, time: v.created_at });
@@ -339,7 +339,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       }
     });
     return Object.entries(flows).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const resolutionCounts = useMemo(() => {
     const acc: Record<string, number> = {};
