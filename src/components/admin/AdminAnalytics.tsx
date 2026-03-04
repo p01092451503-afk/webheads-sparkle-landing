@@ -736,12 +736,12 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           </span>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip="3월 4일 이후 최초 접속한 사람 방문자의 페이지뷰 수입니다." className="bg-[hsl(40,30%,96%)]" />
-          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip="3월 4일 이후 최초 접속한 고유 세션 수입니다." className="bg-[hsl(150,20%,96%)]" />
-          <MetricCard icon={<Wifi className="w-[18px] h-[18px]" />} label="고유 IP" value={newVisitorData.uniqueNewIPs} color="hsl(199, 89%, 48%)" tooltip="3월 4일 이후 신규 방문자의 중복 제거된 고유 IP 수입니다." className="bg-[hsl(200,25%,96%)]" />
+          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip="3월 4일 이후 최초 접속한 사람 방문자의 페이지뷰 수입니다." className="bg-[hsl(40,35%,90%)]" />
+          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip="3월 4일 이후 최초 접속한 고유 세션 수입니다." className="bg-[hsl(150,25%,90%)]" />
+          <MetricCard icon={<Wifi className="w-[18px] h-[18px]" />} label="고유 IP" value={newVisitorData.uniqueNewIPs} color="hsl(199, 89%, 48%)" tooltip="3월 4일 이후 신규 방문자의 중복 제거된 고유 IP 수입니다." className="bg-[hsl(200,30%,90%)]" />
         </div>
         {newVisitorData.dailyNewArr.length > 0 && (
-          <div className="bg-[hsl(40,20%,96%)] rounded-2xl border border-[hsl(220,13%,91%)] p-5 mt-3">
+          <div className="bg-[hsl(40,25%,90%)] rounded-2xl border border-[hsl(220,13%,91%)] p-5 mt-3">
             <p className="text-[12px] font-semibold text-muted-foreground mb-3">일별 신규 방문자 추이</p>
             <ResponsiveContainer width="100%" height={160}>
               <AreaChart data={newVisitorData.dailyNewArr} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
@@ -766,16 +766,16 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-          <ChartCard title="신규 방문자 랜딩 페이지" icon={<Eye className="w-4 h-4" />} className="bg-[hsl(40,30%,96%)]">
+          <ChartCard title="신규 방문자 랜딩 페이지" icon={<Eye className="w-4 h-4" />} className="bg-[hsl(40,35%,90%)]">
             {newVisitorData.topLandingPages.length === 0 ? <Empty msg="신규 방문자 데이터 수집 중..." /> : newVisitorData.topLandingPages.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={newVisitorData.topLandingPages[0][1]} color="hsl(37, 90%, 51%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} className="bg-[hsl(150,20%,96%)]">
+          <ChartCard title="신규 방문자 유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} className="bg-[hsl(150,25%,90%)]">
             {newVisitorData.topReferrers.length === 0 ? <Empty /> : newVisitorData.topReferrers.map(([r, c], i) => <BarRow key={r} rank={i+1} label={r} value={c} max={newVisitorData.topReferrers[0][1]} color="hsl(152, 57%, 42%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />} className="bg-[hsl(340,20%,96%)]">
+          <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />} className="bg-[hsl(340,25%,90%)]">
             {newVisitorData.topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : newVisitorData.topLocations.map(([l, c], i) => <BarRow key={l} rank={i+1} label={l} value={c} max={newVisitorData.topLocations[0][1]} color="hsl(340, 65%, 55%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />} className="bg-[hsl(260,20%,96%)]">
+          <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />} className="bg-[hsl(260,25%,90%)]">
             {newVisitorData.topDevices.length === 0 ? <Empty /> : (
               <>
                 {newVisitorData.topDevices.map(([d, c], i) => <BarRow key={d} rank={i+1} label={d} value={c} max={newVisitorData.topDevices[0][1]} color="hsl(262, 60%, 55%)" />)}
