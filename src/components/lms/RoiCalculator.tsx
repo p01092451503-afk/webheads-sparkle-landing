@@ -208,74 +208,82 @@ export default function RoiCalculator() {
               <h3 className="font-bold text-foreground text-lg">{t("lms.roiCalc.resultTitle")}</h3>
             </div>
 
-            <div className="space-y-3 flex-1">
-              {/* 1. 예상 연 매출 */}
-              <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                <h4 className="font-bold text-foreground text-sm md:text-base mb-3"><span className="text-muted-foreground mr-1.5">A.</span>{t("lms.roiCalc.annualRevenue")}</h4>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.annualRevenue")}</span>
-                  <div className="text-right">
-                    <span className="font-bold text-foreground text-lg md:text-xl">{formatNumber(monthlyRevenue * 12)}{t("lms.roiCalc.feeUnit")}</span>
-                    <p className="text-[11px] text-muted-foreground/60">{t("lms.roiCalc.perMonth", { cost: formatNumber(monthlyRevenue) })}</p>
+            <div className="space-y-4 flex-1">
+              {/* 1. 비용 비교: 2단 비교형 */}
+              <div className="grid grid-cols-2 gap-3">
+                {/* 자체 구축 */}
+                <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
+                  <h4 className="font-bold text-foreground text-xs md:text-sm mb-3">{t("lms.roiCalc.selfBuildAnnual")}</h4>
+                  <div>
+                    <span className="font-bold text-muted-foreground text-base md:text-xl">{formatNumber(selfBuild.total)}{t("lms.roiCalc.feeUnit")}</span>
+                    <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mt-0.5">{t("lms.roiCalc.perMonth", { cost: formatNumber(selfBuildMonthly) })}</p>
+                  </div>
+                  <button
+                    onClick={() => setShowBreakdown(!showBreakdown)}
+                    className="mt-2 text-[10px] md:text-xs text-muted-foreground/70 flex items-center gap-1 hover:text-muted-foreground transition-colors cursor-pointer"
+                  >
+                    {t("lms.roiCalc.breakdownTitle")}
+                    {showBreakdown ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                  </button>
+                </div>
+                {/* 웹헤즈 LMS */}
+                <div className="rounded-xl p-4 md:p-5 border-2" style={{ borderColor: LMS_PRIMARY, background: "hsl(var(--lms-primary) / 0.06)" }}>
+                  <h4 className="font-bold text-xs md:text-sm mb-3" style={{ color: LMS_PRIMARY }}>{t("lms.roiCalc.webheadsAnnual")}</h4>
+                  <div>
+                    <span className="font-bold text-base md:text-xl" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost * 12)}{t("lms.roiCalc.feeUnit")}</span>
+                    <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mt-0.5">{t("lms.roiCalc.perMonth", { cost: formatNumber(webheadsMonthlyCost) })}</p>
                   </div>
                 </div>
               </div>
 
-              {/* 2. 연간 비용 비교 */}
-              <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                <h4 className="font-bold text-foreground text-sm md:text-base mb-3"><span className="text-muted-foreground mr-1.5">B.</span>{t("lms.roiCalc.annualComparison")}</h4>
-                <div className="space-y-3">
-                  <div>
-                    <button
-                      onClick={() => setShowBreakdown(!showBreakdown)}
-                      className="w-full flex justify-between items-center group cursor-pointer"
-                    >
-                      <span className="text-xs md:text-sm text-muted-foreground flex items-center gap-1.5">
-                        {t("lms.roiCalc.selfBuildAnnual")}
-                        {showBreakdown ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground/60" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground/60" />}
-                      </span>
-                      <div className="text-right">
-                        <span className="font-bold text-muted-foreground text-lg md:text-xl">{formatNumber(selfBuild.total)}{t("lms.roiCalc.feeUnit")}</span>
-                        <p className="text-[11px] text-muted-foreground/60">{t("lms.roiCalc.perMonth", { cost: formatNumber(selfBuildMonthly) })}</p>
-                      </div>
-                    </button>
-                    {showBreakdown && (
-                      <div className="mt-3 rounded-lg p-3 space-y-2 bg-background/80 border border-border/40">
-                        {breakdownItems.map((item) => (
-                          <div key={item.label} className="flex justify-between items-center">
-                            <span className="text-xs text-muted-foreground">{item.label}</span>
-                            <span className="text-xs font-semibold text-foreground">{formatNumber(Math.round(item.value / 12))}{t("lms.roiCalc.feeUnit")}/월</span>
-                          </div>
-                        ))}
-                        <div className="border-t border-border/60 pt-2 mt-1">
-                          <p className="text-[10px] text-muted-foreground/70 leading-relaxed flex items-start gap-1">
-                            <Info className="w-3 h-3 shrink-0 mt-0.5" />
-                            <span style={{ wordBreak: "keep-all" }}>{t("lms.roiCalc.breakdownNote")}</span>
-                          </p>
-                        </div>
-                      </div>
-                    )}
+              {/* 자체 구축 내역 (접기) */}
+              {showBreakdown && (
+                <div className="rounded-lg p-3 space-y-2 bg-secondary/40 border border-border/40">
+                  {breakdownItems.map((item) => (
+                    <div key={item.label} className="flex justify-between items-center">
+                      <span className="text-xs text-muted-foreground">{item.label}</span>
+                      <span className="text-xs font-semibold text-foreground">{formatNumber(Math.round(item.value / 12))}{t("lms.roiCalc.feeUnit")}/월</span>
+                    </div>
+                  ))}
+                  <div className="border-t border-border/60 pt-2 mt-1">
+                    <p className="text-[10px] text-muted-foreground/70 leading-relaxed flex items-start gap-1">
+                      <Info className="w-3 h-3 shrink-0 mt-0.5" />
+                      <span style={{ wordBreak: "keep-all" }}>{t("lms.roiCalc.breakdownNote")}</span>
+                    </p>
                   </div>
-                  <div className="border-t border-border/40 pt-3 flex justify-between items-center">
-                    <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.webheadsAnnual")}</span>
-                    <div className="text-right">
-                      <span className="font-bold text-lg md:text-xl" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost * 12)}{t("lms.roiCalc.feeUnit")}</span>
-                      <p className="text-[11px] text-muted-foreground/60">{t("lms.roiCalc.perMonth", { cost: formatNumber(webheadsMonthlyCost) })}</p>
+                </div>
+              )}
+
+              {/* 2. 절감액 강조 배너 */}
+              <div className="rounded-xl p-4 md:p-5 text-center" style={{ background: LMS_PRIMARY }}>
+                <p className="text-white/80 text-xs md:text-sm mb-1">{t("lms.roiCalc.annualSavings")}</p>
+                <div className="flex items-center justify-center gap-2 md:gap-3">
+                  <span className="font-extrabold text-white text-2xl md:text-3xl">{savingsPercent > 0 ? savingsPercent : 0}%</span>
+                  <span className="text-white/60 text-sm">|</span>
+                  <span className="font-bold text-white text-lg md:text-xl">{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
+                </div>
+                <p className="text-white/60 text-[10px] md:text-xs mt-1.5">
+                  {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
+                </p>
+              </div>
+
+              {/* 3. 예상 연 매출 (접기) */}
+              <Collapsible>
+                <CollapsibleTrigger asChild>
+                  <button className="w-full flex justify-between items-center rounded-lg px-4 py-2.5 bg-secondary/50 border border-border/40 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                    <span>{t("lms.roiCalc.annualRevenue")}</span>
+                    <span className="font-semibold text-foreground">{formatNumber(monthlyRevenue * 12)}{t("lms.roiCalc.feeUnit")}</span>
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="rounded-lg px-4 py-3 mt-1 bg-secondary/30 border border-border/30">
+                    <div className="flex justify-between items-center text-xs text-muted-foreground">
+                      <span>{t("lms.roiCalc.monthlyRevenue")}</span>
+                      <span className="font-semibold text-foreground">{formatNumber(monthlyRevenue)}{t("lms.roiCalc.feeUnit")}</span>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* 3. 연간 절감액 */}
-              <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                <h4 className="font-bold text-foreground text-sm md:text-base mb-3"><span className="text-muted-foreground mr-1.5">C.</span>{t("lms.roiCalc.annualSavings")}</h4>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs md:text-sm text-muted-foreground">
-                    {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
-                  </span>
-                  <span className="font-bold text-lg md:text-xl whitespace-nowrap text-foreground">{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
-                </div>
-              </div>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
 
             <div className="flex gap-3 mt-6">
