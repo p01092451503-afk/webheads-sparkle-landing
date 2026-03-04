@@ -91,7 +91,7 @@ export default function Footer() {
               <li className="mt-3 pt-3 border-t border-border">
                 <Link
                   to="/blog"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold hover:bg-primary/20 transition-colors duration-200"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity duration-200"
                 >
                   <BookOpen className="w-4 h-4" />
                   LMS 인사이트
