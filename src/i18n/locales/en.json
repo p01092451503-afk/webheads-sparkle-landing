@@ -951,6 +951,7 @@
       "annualComparison": "Annual Cost Comparison",
       "selfBuildAnnual": "Self-Build Annual Cost",
       "webheadsAnnual": "WEBHEADS Annual Cost",
+      "perMonth": "{{cost}} KRW/mo",
       "annualSavings": "Annual Estimated Savings",
       "savingsNote": "Approx. {{percent}}% savings vs self-building",
       "cta": "Request Custom Quote",
