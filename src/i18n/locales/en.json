@@ -547,10 +547,10 @@
     ],
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Channel/SMS", "desc": "Real operational changes before and after automated messaging." },
     "beforeAfter": [
-      { "label": "Learning Reminders", "before": "Manual calls/emails", "after": "Condition-based auto-send" },
-      { "label": "Completion Rate", "before": "60% (insufficient nudging)", "after": "85%+ (auto-reminder effect)" },
-      { "label": "Learner Context in Support", "before": "Separate system lookup (3min+)", "after": "Instant display in Channel Talk" },
-      { "label": "Messaging Cost", "before": "SMS ₩15/msg", "after": "KakaoTalk ₩8/msg (47% savings)" }
+      { "label": "Learning Reminders", "before": "Manual calls/emails", "after": "Condition-based auto-send", "measure": "LMS data (progress, inactive days) integrated with Channel Talk API. Auto-triggers KakaoTalk alerts on conditions like '7 days inactive'." },
+      { "label": "Completion Rate", "before": "60% (insufficient nudging)", "after": "85%+", "measure": "Automated D-7/D-3/D-1 deadline reminders + personalized nudges with course name and remaining lectures for non-completers." },
+      { "label": "Learner Context in Support", "before": "Separate system lookup (3min+)", "after": "Instant display in Channel Talk", "measure": "LMS enrollment data (courses, progress, last login) synced to Channel Talk custom profile fields for instant agent visibility." },
+      { "label": "Messaging Cost", "before": "SMS ₩15/msg", "after": "KakaoTalk ₩8/msg (47% savings)", "measure": "Migrated simple notifications from SMS to KakaoTalk AlimTalk. Pre-approved templates reduce per-message cost by 47% with higher delivery rates." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using Channel Talk/SMS automation." },
     "caseStudies": [
