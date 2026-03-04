@@ -522,20 +522,47 @@ export default function RoiCalculator() {
               </div>
             </div>
 
-            {/* Savings banner — 연간 운영비 기준 */}
+            {/* Savings banner — 메인 + 서브 2층 구조 */}
             <div
-              className="rounded-[16px] p-6 md:p-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
-              style={{ background: "linear-gradient(135deg, #7C3AED, #A855F7)" }}
+              className="transition-transform duration-200"
+              style={{ transform: isPulsing ? "scale(1.02)" : "scale(1)" }}
             >
-              <div className="text-center sm:text-right">
-                <p className="text-white/70 text-xs mb-1">연간 운영비 절감</p>
-                <p className="text-white font-extrabold text-5xl md:text-6xl leading-none">{savingsPercent}%</p>
+              {/* 메인 배너 */}
+              <div
+                className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8"
+                style={{
+                  background: "linear-gradient(135deg, #7C3AED, #A855F7)",
+                  borderRadius: "20px 20px 0 0",
+                  padding: "36px 40px",
+                }}
+              >
+                <div className="text-center sm:text-right">
+                  <p className="text-white mb-2" style={{ fontSize: 14, opacity: 0.85 }}>연간 운영비 절감</p>
+                  <p className="text-white leading-none" style={{ fontWeight: 800 }}>
+                    <span style={{ fontSize: 80 }}>{displayPercent.toFixed(1)}</span>
+                    <span style={{ fontSize: 48 }}>%</span>
+                  </p>
+                </div>
+                <div className="hidden sm:block bg-white/30" style={{ width: 1, height: "70%", minHeight: 60, alignSelf: "center" }} />
+                <div className="text-center sm:text-left">
+                  <p className="text-white mb-2" style={{ fontSize: 14, opacity: 0.85 }}>절감 금액</p>
+                  <p className="text-white" style={{ fontSize: 40, fontWeight: 700, lineHeight: 1 }}>
+                    {fmt(displayAmount)}<span style={{ fontSize: 24, fontWeight: 400, marginLeft: 2 }}>원</span>
+                  </p>
+                </div>
               </div>
-              <div className="hidden sm:block w-px h-16 bg-white/20" />
-              <div className="text-center sm:text-left">
-                <p className="text-white font-bold text-2xl md:text-3xl">{fmt(savingsAmount)}<span className="text-base font-normal ml-0.5">원</span></p>
-                <p className="text-white/60 text-[11px] md:text-xs mt-1">
-                  초기 개발비 {fmt(SELF_BUILD_INIT_DEV)}원 추가 절감 (1회성)
+              {/* 서브 정보 바 */}
+              <div
+                className="flex flex-col sm:flex-row items-center justify-between gap-2"
+                style={{
+                  background: "#5B21B6",
+                  borderRadius: "0 0 20px 20px",
+                  padding: "16px 40px",
+                }}
+              >
+                <p className="text-white text-[13px]" style={{ opacity: 0.9 }}>🎁 초기 개발비 추가 절감 (1회성)</p>
+                <p className="text-white" style={{ fontSize: 18, fontWeight: 700 }}>
+                  + {fmt(SELF_BUILD_INIT_DEV)}원 <span className="text-sm font-normal" style={{ opacity: 0.7 }}>(1회성)</span>
                 </p>
               </div>
             </div>
