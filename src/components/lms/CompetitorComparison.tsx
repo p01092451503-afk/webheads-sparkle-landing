@@ -70,7 +70,7 @@ export default function CompetitorComparison() {
                   <th className="px-5 md:px-6 py-5 text-left text-sm font-semibold text-muted-foreground w-[28%]">
                     {headers[0]}
                   </th>
-                  <th className="px-4 py-4 text-center text-xs font-semibold text-muted-foreground">
+                  <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
                     {headers[1]}
                   </th>
                   <th className="px-4 py-4 text-center text-xs font-semibold text-muted-foreground">
