@@ -71,7 +71,8 @@ export default function RoiCalculator() {
   const annualRevenue = monthlyRevenue * 12;
   const selfBuild = useMemo(() => calcSelfBuildAnnual(students, courses, instructors), [students, courses, instructors]);
   const selfBuildMonthly = Math.round(selfBuild.total / 12);
-  const webheadsAnnual = useMemo(() => calcWebheadsAnnual(students, courses), [students, courses]);
+  const webheadsResult = useMemo(() => calcWebheadsAnnual(students, courses), [students, courses]);
+  const webheadsAnnual = webheadsResult.total;
   const webheadsMonthly = Math.round(webheadsAnnual / 12);
   const savingsAmount = selfBuild.total - webheadsAnnual;
   const savingsPercent = selfBuild.total > 0 ? ((savingsAmount / selfBuild.total) * 100).toFixed(1) : "0";
