@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronUp, ChevronDown, MessageSquareText, CreditCard, Send, BookOpen } from "lucide-react";
+import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
@@ -23,9 +23,6 @@ export default function FloatingNav() {
     ...(!isServiceRequest && location.pathname !== "/sms-kakao"
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
       : []),
-    ...(!isServiceRequest
-      ? [{ to: "/service-request", icon: MessageSquareText, label: t("floatingNav.support"), className: "bg-primary text-primary-foreground" }]
-      : []),
     ...(location.pathname !== "/blog"
       ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
       : []),
@@ -45,12 +42,6 @@ export default function FloatingNav() {
           <Link to="/sms-kakao" className="group relative w-10 h-10 rounded-full bg-[hsl(45,93%,55%)] text-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.smsKakao")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.smsKakao")}</span>
             <Send className="w-5 h-5" />
-          </Link>
-        )}
-        {!isServiceRequest && (
-          <Link to="/service-request" className="group relative w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.support")}>
-            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.support")}</span>
-            <MessageSquareText className="w-5 h-5" />
           </Link>
         )}
         {location.pathname !== "/blog" && (
