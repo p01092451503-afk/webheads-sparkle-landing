@@ -82,11 +82,11 @@ export default function ChatbotArchDiagram() {
       <div className="flex items-center justify-center gap-6 mt-6 pt-4 border-t border-border">
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded bg-primary/20 border border-primary/30" />
-          <span className="text-xs text-muted-foreground">{d.legendCore}</span>
+          <span className="text-base text-muted-foreground">{d.legendCore}</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded bg-card border border-border" />
-          <span className="text-xs text-muted-foreground">{d.legendModule}</span>
+          <span className="text-base text-muted-foreground">{d.legendModule}</span>
         </div>
       </div>
     </div>
