@@ -2,9 +2,24 @@ import { useTranslation } from "react-i18next";
 import { CheckCircle2, XCircle, MinusCircle } from "lucide-react";
 
 function StatusIcon({ value }: { value: string }) {
-  if (value === "O") return <CheckCircle2 className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />;
-  if (value === "X") return <XCircle className="w-5 h-5 text-muted-foreground/40" />;
-  if (value === "△") return <MinusCircle className="w-5 h-5" style={{ color: "hsl(35, 90%, 50%)" }} />;
+  if (value === "O")
+    return (
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2" style={{ borderColor: "hsl(145, 60%, 38%)", color: "hsl(145, 60%, 38%)" }}>
+        <CheckCircle2 className="w-5 h-5" />
+      </span>
+    );
+  if (value === "X")
+    return (
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2" style={{ borderColor: "hsl(230, 15%, 82%)", color: "hsl(230, 15%, 78%)" }}>
+        <XCircle className="w-5 h-5" />
+      </span>
+    );
+  if (value === "△")
+    return (
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2" style={{ borderColor: "hsl(35, 90%, 50%)", color: "hsl(35, 90%, 50%)" }}>
+        <MinusCircle className="w-5 h-5" />
+      </span>
+    );
   return <span className="text-sm text-muted-foreground">{value}</span>;
 }
 
