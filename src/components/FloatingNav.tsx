@@ -92,9 +92,11 @@ export default function FloatingNav() {
             <btn.icon className="w-4 h-4" />
           </Link>
         ))}
+      </div>
 
-        {visible && (
-          <>
+      {/* Mobile scroll buttons — separate group below */}
+      {visible && (
+        <div className="fixed right-3 bottom-4 z-40 md:hidden flex flex-col items-center gap-1.5">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="w-8 h-8 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors"
