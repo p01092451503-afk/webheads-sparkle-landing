@@ -495,7 +495,7 @@ export default function BlogPage() {
       />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 bg-gradient-to-b from-primary/5 to-background">
+      <section className="relative pt-24 pb-12 md:pt-28 md:pb-14 bg-gradient-to-b from-primary/5 to-background">
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <span className="inline-block px-4 py-1.5 mb-5 rounded-full text-xs font-semibold tracking-wider uppercase bg-primary/10 text-primary">
             Blog & Insights
