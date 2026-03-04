@@ -545,6 +545,29 @@
       { "title": "Certificate Expiry Notice", "desc": "Auto-send renewal reminder SMS based on certificate expiration dates." },
       { "title": "Pre-class Reminder", "desc": "Automatically send access links and preparation details before scheduled events." }
     ],
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Channel/SMS", "desc": "Real operational changes before and after automated messaging." },
+    "beforeAfter": [
+      { "label": "Learning Reminders", "before": "Manual calls/emails", "after": "Condition-based auto-send" },
+      { "label": "Completion Rate", "before": "60% (insufficient nudging)", "after": "85%+ (auto-reminder effect)" },
+      { "label": "Learner Context in Support", "before": "Separate system lookup (3min+)", "after": "Instant display in Channel Talk" },
+      { "label": "Messaging Cost", "before": "SMS ₩15/msg", "after": "KakaoTalk ₩8/msg (47% savings)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using Channel Talk/SMS automation." },
+    "caseStudies": [
+      { "org": "J Vocational Training", "industry": "Vocational", "challenge": "Manually contacting mandatory training non-completers consumed excessive staff resources.", "result": "Auto-reminder SMS improved completion rates by 40% and cut staff allocation in half.", "metrics": [{ "label": "Completion Up", "value": "40%" }, { "label": "Staff Savings", "value": "50%" }, { "label": "Years Active", "value": "3" }] },
+      { "org": "K Cyber University", "industry": "Cyber University", "challenge": "Looking up learner enrollment status during support took time, averaging 15 min per session.", "result": "Channel Talk LMS integration enabled instant learner info display, cutting support time by 50%.", "metrics": [{ "label": "Support Time Down", "value": "50%" }, { "label": "Satisfaction", "value": "92%" }, { "label": "Years Active", "value": "8" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS Channel/SMS vs\nManual vs Others", "desc": "See what sets LMS-integrated automation apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS", "Manual Ops", "Other Solutions"],
+    "comparisonRows": [
+      { "label": "LMS Real-time Integration", "values": ["O", "X", "X"] },
+      { "label": "Condition-based Auto-send", "values": ["O", "X", "△"] },
+      { "label": "KakaoTalk + SMS Unified", "values": ["O", "X", "O"] },
+      { "label": "Learner Info in Channel Talk", "values": ["O", "X", "X"] },
+      { "label": "Auto Fallback on Failure", "values": ["O", "X", "△"] },
+      { "label": "Consent/Opt-out Management", "values": ["O", "△", "O"] },
+      { "label": "Analytics Dashboard", "values": ["O", "X", "△"] }
+    ],
     "faqs": [
       { "q": "Can Channel Talk and SMS be used simultaneously?", "a": "Yes, absolutely. Channel Talk for real-time 1:1 support and SMS/KakaoTalk automated messaging operate independently while sharing LMS data. For example, you can set up learning reminder notifications via KakaoTalk alerts while handling direct learner inquiries through Channel Talk in real-time — dividing channel roles for efficient operations." },
       { "q": "How is SMS pricing structured?", "a": "SMS pricing is transparently billed per message. Short SMS costs approximately 15 KRW per message, long LMS approximately 40 KRW, and KakaoTalk Alert approximately 8 KRW. Volume discounts apply for bulk sending, and monthly usage reports provide detailed breakdowns of message counts and costs. Failed deliveries are never charged, so you can send with confidence." },
