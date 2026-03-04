@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen, Calculator } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -7,6 +7,7 @@ export default function FloatingNav() {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 300);
@@ -22,7 +23,7 @@ export default function FloatingNav() {
       const el = document.getElementById("roi-calculator");
       if (el) { el.scrollIntoView({ behavior: "smooth" }); return; }
     }
-    window.location.href = "/lms#roi-calculator";
+    navigate("/lms", { state: { scrollTo: "roi-calculator" } });
   };
 
   const mobileButtons = [
