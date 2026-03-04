@@ -36,6 +36,50 @@ const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
 
+// ── Industry-specific Hero variants (Korean only) ──
+// Usage: /lms?industry=university | enterprise | government
+const industryVariants: Record<string, {
+  badge: string;
+  title: string;
+  titleHighlight: string;
+  desc: string;
+  cta1: string;
+  highlightBadge: string | null;
+}> = {
+  default: {
+    badge: "AI-POWERED LMS PLATFORM",
+    title: "기업의 성장을\n이끄는 LMS",
+    titleHighlight: "웹헤즈와 함께하세요",
+    desc: "300개 이상의 기업이 선택한 이러닝 솔루션. 3일 만에 시작하는 클라우드 LMS부터 완전 맞춤형 구축까지.",
+    cta1: "무료 상담 신청",
+    highlightBadge: null,
+  },
+  university: {
+    badge: "대학 · 교육기관 전용",
+    title: "대학 온라인 교육의\n새로운 기준",
+    titleHighlight: "평생교육원 LMS",
+    desc: "KDT 정부지원훈련 공식 인증. 수강생 관리부터 수료증 발급, PG 결제까지 원스톱.",
+    cta1: "대학 도입 상담",
+    highlightBadge: "KDT 공식 인증",
+  },
+  enterprise: {
+    badge: "기업 HRD · 사내교육",
+    title: "사내교육 운영비\n40% 절감",
+    titleHighlight: "기업교육 LMS",
+    desc: "AI 학습 독려, 자동 수료 처리, 인사시스템(ERP) 연동. 대기업부터 스타트업까지.",
+    cta1: "기업 도입 상담",
+    highlightBadge: "평균 40% 비용 절감",
+  },
+  government: {
+    badge: "정부기관 · 공공기관",
+    title: "공공기관 인증\n이러닝 플랫폼",
+    titleHighlight: "HRD 전문 LMS",
+    desc: "조달청 등록 업체. 보안 인프라, 개인정보보호법 완전 준수, HRD-Net 자동 연동.",
+    cta1: "공공기관 도입 상담",
+    highlightBadge: "조달청 등록",
+  },
+};
+
 export default function LmsPage() {
   const { t } = useTranslation();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
