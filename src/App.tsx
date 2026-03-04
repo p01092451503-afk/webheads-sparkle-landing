@@ -68,6 +68,7 @@ const App = () => (
               <Route path="/service-request" element={<ServiceRequestPage />} />
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/sms-kakao" element={<SmsKakaoPage />} />
+              <Route path="/blog" element={<BlogPage />} />
               <Route path="/overview" element={<OverviewPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
