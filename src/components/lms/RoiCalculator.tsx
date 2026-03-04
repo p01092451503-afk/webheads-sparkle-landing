@@ -223,21 +223,45 @@ export default function RoiCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 md:gap-6 items-start">
 
           {/* ── LEFT: Input Panel (40%) ── */}
-          <div className="lg:col-span-2 rounded-[20px] bg-white border border-gray-100 shadow-sm px-6 py-8 md:px-8 md:py-10">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PURPLE_LIGHT }}>
-                <Calculator className="w-5 h-5" style={{ color: PURPLE }} />
+          <div
+            className="lg:col-span-2 lg:sticky lg:top-6 rounded-[20px] bg-white border border-gray-100 shadow-sm px-6 py-8 md:px-8 md:py-10 flex flex-col justify-between"
+            style={{ maxHeight: "calc(100vh - 48px)", overflowY: "auto" }}
+          >
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PURPLE_LIGHT }}>
+                  <Calculator className="w-5 h-5" style={{ color: PURPLE }} />
+                </div>
+                <h3 className="font-bold text-lg" style={{ color: TEXT_DARK }}>{t("lms.roiCalc.inputTitle")}</h3>
               </div>
-              <h3 className="font-bold text-lg" style={{ color: TEXT_DARK }}>{t("lms.roiCalc.inputTitle")}</h3>
+
+              <SliderInput label={t("lms.roiCalc.studentsLabel")} unit={t("lms.roiCalc.studentsUnit")} value={students} min={50} max={5000} step={50} onChange={setStudents} icon={Users} />
+              <SliderInput label={t("lms.roiCalc.feeLabel")} unit={t("lms.roiCalc.feeUnit")} value={fee} min={10000} max={500000} step={5000} onChange={setFee} icon={TrendingUp} />
+              <SliderInput label={t("lms.roiCalc.coursesLabel")} unit={t("lms.roiCalc.coursesUnit")} value={courses} min={1} max={100} step={1} onChange={setCourses} icon={BookOpen} />
+
+              {/* 인건비 제외 안내 */}
+              <div className="mt-4 p-3 rounded-xl text-[11px] leading-relaxed" style={{ background: PURPLE_LIGHT, color: "#6B7280" }}>
+                💡 운영 인건비는 자체 구축과 웹헤즈 모두 동일하게 발생하므로 비교에서 제외했습니다.
+              </div>
             </div>
 
-            <SliderInput label={t("lms.roiCalc.studentsLabel")} unit={t("lms.roiCalc.studentsUnit")} value={students} min={50} max={5000} step={50} onChange={setStudents} icon={Users} />
-            <SliderInput label={t("lms.roiCalc.feeLabel")} unit={t("lms.roiCalc.feeUnit")} value={fee} min={10000} max={500000} step={5000} onChange={setFee} icon={TrendingUp} />
-            <SliderInput label={t("lms.roiCalc.coursesLabel")} unit={t("lms.roiCalc.coursesUnit")} value={courses} min={1} max={100} step={1} onChange={setCourses} icon={BookOpen} />
-
-            {/* 인건비 제외 안내 */}
-            <div className="mt-4 p-3 rounded-xl text-[11px] leading-relaxed" style={{ background: PURPLE_LIGHT, color: "#6B7280" }}>
-              💡 운영 인건비는 자체 구축과 웹헤즈 모두 동일하게 발생하므로 비교에서 제외했습니다.
+            {/* 이런 분께 추천 블록 */}
+            <div className="mt-6 rounded-[16px] p-5" style={{ background: "linear-gradient(135deg, #F5F3FF, #EDE9FE)" }}>
+              <p className="text-[13px] font-semibold mb-3" style={{ color: PURPLE }}>💡 이런 분께 추천드려요</p>
+              <ul className="space-y-0.5 text-[13px] leading-8" style={{ color: "#4B5563" }}>
+                <li>✔ 교육 플랫폼 직접 구축을 고민 중인 기관</li>
+                <li>✔ 기존 LMS 유지비가 부담스러운 사업자</li>
+                <li>✔ 빠른 런칭이 필요한 스타트업·학원</li>
+              </ul>
+              <div className="mt-4 pt-3 border-t" style={{ borderColor: "#D8D0F0" }}>
+                <button
+                  onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                  className="text-[13px] font-semibold cursor-pointer hover:opacity-80 transition-opacity"
+                  style={{ color: PURPLE }}
+                >
+                  📞 지금 바로 상담받기 →
+                </button>
+              </div>
             </div>
           </div>
 
