@@ -213,9 +213,8 @@ export default function RoiCalculator() {
               <div className="grid grid-cols-2 gap-3">
                 {/* 자체 구축 */}
                 <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                  <h4 className="font-bold text-foreground text-xs md:text-sm mb-3">{t("lms.roiCalc.selfBuildAnnual")}</h4>
+                  <h4 className="font-bold text-foreground text-xs md:text-sm mb-3">{t("lms.roiCalc.selfBuildAnnual")} <span className="font-normal text-muted-foreground">({t("lms.roiCalc.annualLabel")})</span></h4>
                   <div>
-                    <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mb-0.5">{t("lms.roiCalc.annualLabel")}</p>
                     <span className="font-bold text-muted-foreground text-base md:text-xl">{formatNumber(selfBuild.total)}{t("lms.roiCalc.feeUnit")}</span>
                     <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mt-0.5">{t("lms.roiCalc.perMonth", { cost: formatNumber(selfBuildMonthly) })}</p>
                   </div>
