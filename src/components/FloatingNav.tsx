@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen, Calculator } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 300);
@@ -16,15 +16,6 @@ export default function FloatingNav() {
   }, []);
 
   const isServiceRequest = location.pathname === "/service-request";
-  const isLmsPage = location.pathname === "/lms";
-
-  const handleRoiClick = () => {
-    if (isLmsPage) {
-      const el = document.getElementById("roi-calculator");
-      if (el) { el.scrollIntoView({ behavior: "smooth" }); return; }
-    }
-    navigate("/lms", { state: { scrollTo: "roi-calculator" } });
-  };
 
   const mobileButtons = [
     ...(!isServiceRequest && location.pathname !== "/pricing"
@@ -33,7 +24,7 @@ export default function FloatingNav() {
     ...(!isServiceRequest && location.pathname !== "/sms-kakao"
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
       : []),
-    { to: "#roi", icon: Calculator, label: "ROI 계산기", className: "bg-primary text-primary-foreground", onClick: handleRoiClick },
+    
     ...(location.pathname !== "/blog"
       ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
       : []),
@@ -55,10 +46,6 @@ export default function FloatingNav() {
             <Send className="w-5 h-5" />
           </Link>
         )}
-        <button onClick={handleRoiClick} className="group relative w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label="ROI 계산기">
-          <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">ROI 계산기</span>
-          <Calculator className="w-5 h-5" />
-        </button>
         {location.pathname !== "/blog" && (
           <Link to="/blog" className="group relative w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity border-2 border-primary/40" aria-label="LMS 인사이트">
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">LMS 인사이트</span>
@@ -69,20 +56,7 @@ export default function FloatingNav() {
 
       {/* Mobile — action buttons, bottom right above scroll buttons */}
       <div className="fixed right-3 bottom-32 z-50 md:hidden flex flex-col items-center gap-2">
-        {mobileButtons.map((btn) => {
-          if (btn.onClick) {
-            return (
-              <button
-                key={btn.to}
-                onClick={btn.onClick}
-                className={`w-9 h-9 rounded-full flex items-center justify-center shadow-lg ${btn.className}`}
-                aria-label={btn.label}
-              >
-                <btn.icon className="w-4 h-4" />
-              </button>
-            );
-          }
-          return (
+        {mobileButtons.map((btn) => (
             <Link
               key={btn.to}
               to={btn.to}
@@ -91,8 +65,7 @@ export default function FloatingNav() {
             >
               <btn.icon className="w-4 h-4" />
             </Link>
-          );
-        })}
+        ))}
       </div>
 
       {/* Mobile scroll buttons — fixed at very bottom */}
