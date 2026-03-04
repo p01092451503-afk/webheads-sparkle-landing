@@ -57,8 +57,7 @@ export default function Header() {
           </p>
           <a
             href="#contact"
-            className="shrink-0 rounded-full px-4 py-1.5 text-xs font-bold transition-opacity hover:opacity-80"
-            style={{ backgroundColor: "#F9A825", color: "#fff" }}
+            className="shrink-0 rounded-full px-4 py-1.5 text-xs font-bold transition-opacity hover:opacity-80 bg-foreground text-background"
           >
             신청하기
           </a>
