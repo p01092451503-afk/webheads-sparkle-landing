@@ -272,7 +272,7 @@ export default function LmsPage() {
           </div>
           <div className="grid grid-cols-3 gap-0 divide-x divide-border">
             {stats.map((s: any, idx: number) => (
-              <div key={s.label} className="flex flex-col items-center justify-center py-4 md:py-7 px-2.5 md:px-3 text-center">
+              <div key={s.label} className="flex flex-col items-center justify-center py-4 md:py-7 px-2 md:px-2.5 text-center">
                 <span
                   className="block font-bold leading-none mb-1.5 md:mb-2 text-2xl md:text-5xl tracking-tight"
                   style={{ color: "hsl(var(--lms-primary))" }}
