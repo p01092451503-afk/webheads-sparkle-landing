@@ -179,7 +179,7 @@ async function handleBotPixel(req: Request): Promise<Response> {
     ip_address: ip,
     country,
     city,
-    visitor_type,
+    visitor_type: finalType,
     is_first_visit: false,
   });
 
