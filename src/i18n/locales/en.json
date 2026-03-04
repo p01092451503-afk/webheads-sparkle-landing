@@ -407,10 +407,10 @@
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your project scope.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter App Launch", "desc": "Real performance changes before and after mobile app adoption." },
     "beforeAfter": [
-      { "label": "Learning Accessibility", "before": "PC only (poor mobile UX)", "after": "Native iOS + Android app" },
-      { "label": "Learning Retention", "before": "30% 7-day return rate", "after": "65% with push notifications" },
-      { "label": "Offline Learning", "before": "Not available", "after": "Download via Wi-Fi & study offline" },
-      { "label": "Dev Timeline & Cost", "before": "6+ months / ₩50M+", "after": "4 weeks~ / ₩1.5M~ (MVP)" }
+      { "label": "Learning Accessibility", "before": "PC only (poor mobile UX)", "after": "Native iOS + Android app", "measure": "React Native cross-platform development for simultaneous iOS/Android launch. Integrated with existing LMS APIs for seamless content access." },
+      { "label": "Learning Retention", "before": "30% 7-day return rate", "after": "65%", "measure": "Firebase Cloud Messaging push notification system. Personalized alerts for incomplete courses and assignment deadlines." },
+      { "label": "Offline Learning", "before": "Not available", "after": "Download via Wi-Fi & study offline", "measure": "DRM-encrypted local storage + offline progress sync. Enables learning in subways, airplanes, and other offline environments." },
+      { "label": "Dev Timeline & Cost", "before": "6+ months / ₩50M+", "after": "4 weeks~ / ₩1.5M~ (MVP)", "measure": "Pre-built LMS app templates (auth, player, push) + institution branding customization dramatically reduces timeline and cost." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations that launched mobile apps." },
     "caseStudies": [
