@@ -59,27 +59,29 @@ export default function EventPage() {
       />
 
       {/* Hero */}
-      <section className="relative pt-36 pb-20 lg:pt-44 lg:pb-28 overflow-hidden bg-foreground">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-primary blur-[120px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-accent blur-[100px]" />
+      <section className="relative pt-36 pb-20 lg:pt-44 lg:pb-28 overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(350, 60%, 92%) 0%, hsl(340, 50%, 88%) 30%, hsl(320, 40%, 90%) 60%, hsl(280, 35%, 92%) 100%)" }}>
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[120px]" style={{ background: "hsl(350, 70%, 85%)" }} />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[100px]" style={{ background: "hsl(320, 50%, 88%)" }} />
+          <div className="absolute top-1/2 right-1/3 w-64 h-64 rounded-full blur-[100px]" style={{ background: "hsl(30, 60%, 90%)" }} />
         </div>
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 text-primary-foreground mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8" style={{ background: "hsl(350, 60%, 82%)", color: "hsl(350, 50%, 30%)" }}>
             <Clock className="w-4 h-4" />
             <span className="text-sm font-semibold">~2026.3.31 마감</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-primary-foreground leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-6" style={{ color: "hsl(340, 40%, 20%)" }}>
             3월 신청시<br />
             LMS 2개월 무료 이용권 증정!
           </h1>
-          <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "hsl(340, 20%, 40%)" }}>
             막막한 교육플랫폼 구축, 웹헤즈와 함께 시작하세요.<br />
-            1년 이용 계약 시 <strong className="text-primary-foreground">총 110만원 상당</strong>의 혜택을 드립니다.
+            1년 이용 계약 시 <strong style={{ color: "hsl(340, 40%, 20%)" }}>총 110만원 상당</strong>의 혜택을 드립니다.
           </p>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-bold text-lg hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-lg hover:opacity-90 transition-opacity text-white"
+            style={{ background: "hsl(340, 50%, 45%)" }}
           >
             지금 바로 신청하기
             <ArrowRight className="w-5 h-5" />
