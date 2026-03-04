@@ -47,7 +47,7 @@ export default function ChatbotArchDiagram() {
   const d = t("chatbot.archDiagram", { returnObjects: true }) as any;
 
   return (
-    <div className="rounded-3xl bg-card border border-border p-6 md:p-10 overflow-x-auto">
+    <div className="rounded-3xl bg-card border border-border p-6 md:p-10 overflow-x-auto [&::-webkit-scrollbar]:hidden">
       <h4 className="text-lg md:text-2xl font-extrabold text-foreground mb-8 text-center tracking-tight">{d.title}</h4>
 
       {/* Desktop flow - horizontal */}
