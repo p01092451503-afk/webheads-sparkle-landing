@@ -242,9 +242,9 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const utmMediumCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => { if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1; });
+    humanViews.forEach((v) => { if (v.utm_medium) acc[v.utm_medium] = (acc[v.utm_medium] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const ctaClickCounts = useMemo(() => {
     const acc: Record<string, number> = {};
