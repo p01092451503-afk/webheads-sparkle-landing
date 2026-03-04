@@ -321,6 +321,30 @@
     ],
     "plansNote": { "title": "Monthly operations fee separate", "desc": "After initial setup, monthly operations (server, API, maintenance) range from ₩100K-500K depending on plan." },
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your organization.", "cta": "Request Custom Quote" },
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter AI Chatbot", "desc": "Real operational metrics before and after adopting an AI chatbot." },
+    "beforeAfter": [
+      { "label": "Repetitive Inquiry Handling", "before": "100% manual by agents", "after": "80% auto-resolved by AI" },
+      { "label": "After-hours Support", "before": "No response (off-hours)", "after": "24/7 instant response" },
+      { "label": "Average Response Time", "before": "Avg. 30 min – 1 hour", "after": "Avg. under 2 seconds" },
+      { "label": "Monthly Support Cost", "before": "₩3M+/mo (2 agents)", "after": "₩100K-500K/mo (AI ops)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using AI chatbots." },
+    "caseStudies": [
+      { "org": "M Cyber University", "industry": "Cyber University", "challenge": "200+ identical enrollment/credit inquiries daily during semester start caused long wait times.", "result": "AI chatbot auto-resolved 80% of repetitive inquiries, cutting agent workload by more than half.", "metrics": [{ "label": "Auto-resolve Rate", "value": "80%" }, { "label": "Wait Time Down", "value": "90%" }, { "label": "Years Active", "value": "3" }] },
+      { "org": "N Corporate Training", "industry": "Corporate", "challenge": "40% of learner questions came after hours, but no support was available outside business hours.", "result": "24/7 chatbot support greatly improved after-hours satisfaction and increased completion rates by 15%.", "metrics": [{ "label": "Completion Rate Up", "value": "15%" }, { "label": "After-hours Support", "value": "24/7" }, { "label": "Years Active", "value": "5" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS AI Chatbot vs\nTraditional vs Generic", "desc": "See what sets an e-learning-specialized AI chatbot apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS AI", "Traditional Support", "Generic Chatbot"],
+    "comparisonRows": [
+      { "label": "LMS Real-time Integration", "values": ["O", "X", "X"] },
+      { "label": "24/7 Non-stop Response", "values": ["O", "X", "O"] },
+      { "label": "RAG-based Accuracy", "values": ["O", "X", "△"] },
+      { "label": "e-Learning Domain Expertise", "values": ["O", "O", "X"] },
+      { "label": "Auto FAQ Learning", "values": ["O", "X", "△"] },
+      { "label": "Multi-channel Deployment", "values": ["O", "X", "△"] },
+      { "label": "Agent Escalation", "values": ["O", "O", "X"] },
+      { "label": "Monthly Fine-tuning", "values": ["O", "X", "X"] }
+    ],
     "faqs": [
       { "q": "Can I use existing FAQs right after chatbot deployment?", "a": "Yes, you can use them immediately. Simply upload your existing FAQ documents (Excel, Word, PDF, etc.) through the admin page, and the AI will automatically analyze the content and index it using vector embeddings. Within about 30 minutes of upload, the chatbot will begin providing natural conversational answers based on that content. When new FAQs are added, they're reflected in real-time without any retraining process, so your chatbot always has the latest information." },
       { "q": "How are unanswered questions handled?", "a": "When the chatbot detects a low-confidence answer, the fallback scenario automatically activates. It politely suggests 'Connect to Agent' or 'Submit Inquiry' options to the learner, ensuring no question goes unanswered. Additionally, unanswered questions are automatically collected in the admin dashboard, which allows for periodic supplementation of chatbot training data to continuously expand the range of answerable questions." },
