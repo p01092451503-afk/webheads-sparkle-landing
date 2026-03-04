@@ -20,7 +20,7 @@ const themes: Record<HeroColorTheme, { bg: string; stroke: string }> = {
   },
   "rose-spring": {
     bg: "linear-gradient(160deg, hsl(350, 65%, 94%) 0%, hsl(340, 55%, 90%) 25%, hsl(320, 45%, 91%) 50%, hsl(280, 40%, 93%) 75%, hsl(300, 35%, 95%) 100%)",
-    stroke: "hsl(340, 40%, 60%)",
+    stroke: "hsl(340, 45%, 45%)",
   },
 };
 
