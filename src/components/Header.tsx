@@ -30,6 +30,7 @@ export default function Header() {
       return Date.now() - dismissedAt < oneDay;
     } catch { return false; }
   });
+  const [bannerReady, setBannerReady] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
@@ -53,7 +54,12 @@ export default function Header() {
     setMobileOpen(false);
   }, [location]);
 
-  const showBanner = !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
+  useEffect(() => {
+    const timer = setTimeout(() => setBannerReady(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const showBanner = bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
   return (
     <>
