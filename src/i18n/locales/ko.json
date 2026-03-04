@@ -28,7 +28,9 @@
     "copyright": "Copyright ⓒ 2010 - 2026 WEBHEADS, Inc. All rights reserved.",
     "serviceRequestBtn": "원격지원 요청",
     "smsRechargeBtn": "SMS 충전",
-    "mainPhone": "대표전화 02-540-4337"
+    "mainPhone": "대표전화 02-540-4337",
+    "privacyPolicy": "개인정보처리방침",
+    "lmsInsight": "LMS 인사이트"
   },
   "contact": {
     "sub": "CONTACT US",

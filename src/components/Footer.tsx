@@ -131,7 +131,7 @@ export default function Footer() {
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-muted text-foreground font-semibold text-xs hover:bg-muted-foreground/10 transition-colors"
             >
               <Phone className="w-3.5 h-3.5" />
-              대표전화 02-540-4337
+              {t("footer.mainPhone")}
               <span className="text-foreground/50">→</span>
             </a>
           </div>
