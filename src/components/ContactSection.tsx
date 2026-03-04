@@ -145,21 +145,23 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             onSubmit={handleSubmit}
             className="relative rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
           >
-            {/* Urgency banner — Toss style */}
+            {/* Urgency banner — bold Toss style */}
             {(() => {
               const now = new Date();
               const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
               const month = now.getMonth() + 1;
               return (
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 rounded-xl bg-primary/[0.04] px-5 py-3.5">
-                  <div className="flex items-center gap-2.5">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-black">%</span>
-                    <span className="text-sm font-semibold text-foreground tracking-tight">
+                <div className="relative overflow-hidden flex items-center justify-between gap-3 rounded-xl bg-primary px-5 py-4">
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+                  <div className="flex items-center gap-3 relative z-10">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-foreground/20 text-primary-foreground text-sm font-black shrink-0">%</span>
+                    <span className="text-base font-bold text-primary-foreground tracking-tight">
                       {month}월 무료 컨설팅 진행 중
                     </span>
                   </div>
-                  <span className="text-xs font-medium text-muted-foreground tabular-nums">
-                    {month}월 {lastDay}일까지
+                  <span className="relative z-10 text-sm font-semibold text-primary-foreground/80 tabular-nums shrink-0">
+                    {month}월 {lastDay}일 마감
                   </span>
                 </div>
               );
