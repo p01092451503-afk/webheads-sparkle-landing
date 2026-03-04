@@ -88,6 +88,16 @@ export default function Footer() {
                   </li>
                 );
               })}
+              <li className="mt-3 pt-3 border-t border-border">
+                <Link
+                  to="/blog"
+                  className={`text-sm font-normal inline-block px-3 py-1 rounded-lg transition-colors duration-200 ${
+                    location.pathname === "/blog" ? "text-foreground font-medium underline underline-offset-4 decoration-2" : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  LMS 인사이트
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
