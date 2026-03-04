@@ -88,13 +88,13 @@ export default function CompetitorComparison() {
                 {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
                       <td className="px-5 md:px-6 py-5 font-medium text-foreground text-base">{row[0]}</td>
-                      <td className="px-4 py-3.5 text-center">
+                      <td className="px-4 py-5 text-center">
                         <CellContent value={row[1]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className="px-4 py-3.5 text-center">
+                      <td className="px-4 py-5 text-center">
                         <CellContent value={row[2]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className="px-4 py-3.5 text-center bg-primary/5">
+                      <td className="px-4 py-5 text-center bg-primary/5">
                         <CellContent value={row[3]} isWebheads={true} lang={lang} />
                       </td>
                     </tr>
