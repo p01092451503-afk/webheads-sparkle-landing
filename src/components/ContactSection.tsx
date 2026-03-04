@@ -148,21 +148,28 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             {/* Urgency banner — bold Toss style */}
             {(() => {
               const now = new Date();
-              const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
               const month = now.getMonth() + 1;
               return (
-                <div className="relative overflow-hidden flex items-center justify-between gap-3 rounded-xl bg-primary px-5 py-4">
+                <div
+                  className="relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-3 rounded-xl px-5 py-4"
+                  style={{ backgroundColor: "#FFF9C4" }}
+                >
                   {/* Shimmer effect */}
-                  <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-                  <div className="flex items-center gap-3 relative z-10">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-foreground/20 text-primary-foreground text-sm font-black shrink-0">%</span>
-                    <span className="text-base font-bold text-primary-foreground tracking-tight">
-                      {month}월 무료 컨설팅 진행 중
-                    </span>
-                  </div>
-                  <span className="relative z-10 text-sm font-semibold text-primary-foreground/80 tabular-nums shrink-0">
-                    {month}월 {lastDay}일 마감
-                  </span>
+                  <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                  <p className="relative z-10 text-sm sm:text-base font-bold tracking-tight text-center sm:text-left" style={{ color: "#5D4E00" }}>
+                    🌸 막막한 교육사이트 구축, {month}월 한달 웹헤즈의 무료 컨설팅 기회를 잡으세요!
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById("contact");
+                      el?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="relative z-10 shrink-0 rounded-lg px-4 py-2 text-sm font-bold transition-opacity hover:opacity-80"
+                    style={{ backgroundColor: "#F9A825", color: "#fff" }}
+                  >
+                    신청하기
+                  </button>
                 </div>
               );
             })()}
