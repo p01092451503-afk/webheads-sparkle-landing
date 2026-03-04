@@ -312,12 +312,12 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   const hourlyData = useMemo(() => {
     const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
     const grid: number[][] = Array.from({ length: 7 }, () => Array(24).fill(0));
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       const d = new Date(v.created_at);
       grid[d.getDay()][d.getHours()]++;
     });
     return { grid, dayNames };
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const maxHourly = useMemo(() => Math.max(...hourlyData.grid.flat(), 1), [hourlyData]);
 
