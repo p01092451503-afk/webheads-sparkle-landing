@@ -188,7 +188,7 @@ export default function Header() {
             </div>
             <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-[hsl(230,25%,15%)] text-white text-center"
+              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
             >
               {t("header.cta")}
             </Link>
