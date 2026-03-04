@@ -127,6 +127,9 @@ export default function ChatbotPage() {
             <div className="rounded-2xl bg-background border border-border overflow-hidden divide-y divide-border">
               {techSpecs.architecture.items.map((item: any) => (<div key={item.label} className="flex flex-col sm:flex-row gap-2 sm:gap-6 px-6 py-4"><span className="font-semibold text-foreground text-sm whitespace-nowrap min-w-[140px]">{item.label}</span><span className="text-muted-foreground text-sm leading-relaxed">{item.value}</span></div>))}
             </div>
+            <div className="mt-8">
+              <ChatbotArchDiagram />
+            </div>
           </div>
           <div>
             <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Gauge className="w-5 h-5 text-primary" />{techSpecs.performance.title}</h3>
