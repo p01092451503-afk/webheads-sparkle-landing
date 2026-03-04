@@ -81,9 +81,28 @@ const industryVariants: Record<string, {
 };
 
 export default function LmsPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [searchParams] = useSearchParams();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
+
+  // Resolve industry variant from URL param → sessionStorage → default
+  const variant = useMemo(() => {
+    const paramIndustry = searchParams.get("industry");
+    if (paramIndustry && industryVariants[paramIndustry]) {
+      try { sessionStorage.setItem("lms_industry", paramIndustry); } catch {}
+      return industryVariants[paramIndustry];
+    }
+    try {
+      const stored = sessionStorage.getItem("lms_industry");
+      if (stored && industryVariants[stored]) return industryVariants[stored];
+    } catch {}
+    return industryVariants.default;
+  }, [searchParams]);
+
+  // Use variant only in Korean mode
+  const isKorean = i18n.language?.startsWith("ko") ?? true;
+  const useVariant = isKorean && variant !== industryVariants.default;
 
   const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
   const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
