@@ -24,35 +24,17 @@ function CellContent({
   const subMap = lang === "ko" ? WH_SUB_KO : WH_SUB_EN;
   const sub = isWebheads ? subMap[value] : undefined;
 
-  if (value === "O") {
-    return (
-      <span className={`font-semibold ${isWebheads ? "text-primary" : "text-green-600"}`}>
-        {lang === "ko" ? "기본 제공" : "Included"}
-      </span>
-    );
-  }
-  if (value === "X") {
-    return (
-      <span className="text-muted-foreground/40 line-through text-xs">
-        {lang === "ko" ? "불가" : "N/A"}
-      </span>
-    );
-  }
-  if (value === "△") {
-    return (
-      <span className="text-xs text-amber-600">
-        {lang === "ko" ? "제한적" : "Limited"}
-      </span>
-    );
-  }
+  // Convert symbols to readable text
+  let display = value;
+  if (value === "O") display = lang === "ko" ? "기본 제공" : "Included";
+  else if (value === "X") display = lang === "ko" ? "불가" : "N/A";
+  else if (value === "△") display = lang === "ko" ? "제한적" : "Limited";
 
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className={`font-semibold text-sm ${isWebheads ? "text-primary" : "text-foreground"}`}>
-        {value}
-      </span>
+      <span className="font-semibold text-sm text-foreground">{display}</span>
       {sub && (
-        <span className="text-[11px] font-medium text-primary/60">{sub}</span>
+        <span className="text-[11px] font-medium text-muted-foreground">{sub}</span>
       )}
     </div>
   );
