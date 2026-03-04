@@ -285,7 +285,7 @@ export default function RoiCalculator() {
                 />
               </div>
               <p className="text-[10px] mt-1.5" style={{ color: "#9CA3AF" }}>
-                {t("lms.roiCalc.costRatio", `매출 대비 LMS 비용 비율: ${lmsCostRatio}%`)}
+                {t("lms.roiCalc.costRatio", { ratio: lmsCostRatio, defaultValue: `매출 대비 LMS 비용 비율: ${lmsCostRatio}%` })}
               </p>
             </div>
 
