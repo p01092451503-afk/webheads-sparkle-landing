@@ -323,10 +323,10 @@
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your organization.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter AI Chatbot", "desc": "Real operational metrics before and after adopting an AI chatbot." },
     "beforeAfter": [
-      { "label": "Repetitive Inquiry Handling", "before": "100% manual by agents", "after": "80% auto-resolved by AI" },
-      { "label": "After-hours Support", "before": "No response (off-hours)", "after": "24/7 instant response" },
-      { "label": "Average Response Time", "before": "Avg. 30 min – 1 hour", "after": "Avg. under 2 seconds" },
-      { "label": "Monthly Support Cost", "before": "₩3M+/mo (2 agents)", "after": "₩100K-500K/mo (AI ops)" }
+      { "label": "Repetitive Inquiry Handling", "before": "100% manual by agents", "after": "80% auto-resolved by AI", "measure": "FAQ, policies, and curriculum data trained via RAG pipeline. GPT-4o auto-responds to standardized inquiries." },
+      { "label": "After-hours Support", "before": "No response (off-hours)", "after": "24/7 instant response", "measure": "Cloud-based AI chatbot operates 365 days non-stop. Only complex inquiries escalate to human agents." },
+      { "label": "Average Response Time", "before": "Avg. 30 min – 1 hour", "after": "Avg. under 2 seconds", "measure": "Vector DB (Pinecone) semantic search + LLM streaming response. Similar query caching for instant repeat answers." },
+      { "label": "Monthly Support Cost", "before": "₩3M+/mo (2 agents)", "after": "₩100K-500K/mo", "measure": "Replaced 2 full-time agents with AI chatbot API + monthly model tuning costs. Agents focus only on complex cases." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using AI chatbots." },
     "caseStudies": [
