@@ -91,7 +91,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
     "focus:border-primary focus:bg-background focus:ring-2 focus:ring-primary/10";
 
   return (
-    <section id="contact" className="pt-8 pb-14 bg-background">
+    <section id="contact" className="pt-8 pb-14 bg-background scroll-mt-28">
       <div className="container mx-auto px-6 max-w-3xl">
         {/* ── Header ── */}
         <div className="text-center mb-10">
