@@ -57,7 +57,7 @@ export default function Footer() {
                   className="text-[13px] font-medium text-primary underline underline-offset-2 hover:opacity-80 transition-opacity text-left"
                   style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}
                 >
-                  개인정보처리방침
+                  {t("footer.privacyPolicy")}
                 </button>
               </div>
 
