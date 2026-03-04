@@ -66,8 +66,8 @@ const cloudflareRanges = [
 
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
-  // Headless browsers are automated bots
-  if (/headlesschrome|phantomjs|puppeteer|playwright|selenium/i.test(ua)) return "scraper_headless";
+  // Headless browsers & automated tools
+  if (/headlesschrome|phantomjs|puppeteer|playwright|selenium|pageburst/i.test(ua)) return "scraper_headless";
   for (const [pat, type] of aiBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of searchBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of scraperMap) { if (pat.test(lowerUA)) return type; }

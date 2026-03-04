@@ -1,0 +1,2 @@
+UPDATE page_views SET visitor_type = 'search_bot_naver' WHERE user_agent ILIKE '%Yeti/%' AND visitor_type = 'human';
+UPDATE page_views SET visitor_type = 'scraper_headless' WHERE user_agent ILIKE '%pageburst%' AND visitor_type = 'human';
