@@ -18,11 +18,10 @@ function getWinner(row: string[]): number {
   const vals = row.slice(1);
   // Webheads (last col) wins unless self-build is strictly better
   // Simple heuristic: O > △ > X, text values are contextual
-  const score = (v: string) => {
+  const score = (v: string): number => {
     if (v === "O") return 3;
     if (v === "△") return 1;
     if (v === "X") return 0;
-    // Text-based scoring
     if (v === "없음" || v === "None") return 3;
     if (v === "즉시" || v === "Instant") return 3;
     if (v === "원스톱" || v === "One-stop") return 3;
