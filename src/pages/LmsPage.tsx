@@ -265,14 +265,14 @@ export default function LmsPage() {
       </section>
 
       {/* Stats — with gradient accent line */}
-      <section className="py-14 md:py-24 relative">
+      <section className="py-12 md:py-20 relative">
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
-          <div className="text-center mb-8 md:mb-12">
+          <div className="text-center mb-7 md:mb-10">
             <h2 className="font-bold text-foreground text-2xl md:text-3xl lg:text-4xl tracking-tight">{t("lms.statsTitle")}</h2>
           </div>
           <div className="grid grid-cols-3 gap-0 divide-x divide-border">
             {stats.map((s: any, idx: number) => (
-              <div key={s.label} className="flex flex-col items-center justify-center py-5 md:py-8 px-3 md:px-4 text-center">
+              <div key={s.label} className="flex flex-col items-center justify-center py-4 md:py-7 px-3 md:px-4 text-center">
                 <span
                   className="block font-bold leading-none mb-1.5 md:mb-2 text-2xl md:text-5xl tracking-tight"
                   style={{ color: "hsl(var(--lms-primary))" }}
