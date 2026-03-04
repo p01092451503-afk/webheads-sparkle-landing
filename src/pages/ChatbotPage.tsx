@@ -1,12 +1,14 @@
 import ContactSection from "@/components/ContactSection";
-
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
-import { ArrowLeft, Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Settings2, Users, Search, FileSearch, Code2, Rocket, Cpu, Server, Gauge, Layers } from "lucide-react";
+import ServiceBeforeAfter from "@/components/shared/ServiceBeforeAfter";
+import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
+import ServiceComparison from "@/components/shared/ServiceComparison";
+import { Bot, Brain, MessageSquare, BarChart3, Link2, Globe, Zap, ShieldCheck, RefreshCw, Users, Search, FileSearch, Code2, Rocket, Cpu, Server, Gauge } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const featureIcons = [Brain, MessageSquare, Zap, Globe, Link2, BarChart3, ShieldCheck, RefreshCw, Users];
@@ -15,10 +17,7 @@ const processIcons = [Search, FileSearch, Code2, Rocket];
 export default function ChatbotPage() {
   const { t } = useTranslation();
 
-  const features = (t("chatbot.features", { returnObjects: true }) as any[]).map((item: any, index: number) => ({
-    ...item,
-    icon: featureIcons[index] || Brain
-  }));
+  const features = (t("chatbot.features", { returnObjects: true }) as any[]).map((item: any, index: number) => ({ ...item, icon: featureIcons[index] || Brain }));
   const stats = t("chatbot.stats", { returnObjects: true }) as any[];
   const processSteps = (t("chatbot.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || Search }));
   const plans = t("chatbot.plans", { returnObjects: true }) as any[];
@@ -26,6 +25,10 @@ export default function ChatbotPage() {
   const testimonials = t("chatbot.testimonials", { returnObjects: true }) as any[];
   const techSpecs = t("chatbot.techSpecs", { returnObjects: true }) as any;
   const techSpecsSection = t("chatbot.techSpecsSection", { returnObjects: true }) as any;
+  const beforeAfter = t("chatbot.beforeAfter", { returnObjects: true }) as any[];
+  const caseStudies = t("chatbot.caseStudies", { returnObjects: true }) as any[];
+  const comparisonHeaders = t("chatbot.comparisonHeaders", { returnObjects: true }) as string[];
+  const comparisonRows = t("chatbot.comparisonRows", { returnObjects: true }) as any[];
 
   return (
     <div className="min-h-screen bg-background">
@@ -75,58 +78,31 @@ export default function ChatbotPage() {
             <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{techSpecsSection.title}</h2>
             <p className="text-muted-foreground mt-4 text-base">{techSpecsSection.desc}</p>
           </div>
-
-          {/* LLM Models */}
           <div className="mb-12">
             <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Cpu className="w-5 h-5 text-primary" />{techSpecs.llmModels.title}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {techSpecs.llmModels.items.map((model: any) => (
-                <div key={model.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 transition-colors duration-200">
-                  <div className="flex items-center justify-between mb-3">
-                    <div>
-                      <span className="font-bold text-foreground text-lg">{model.name}</span>
-                      <span className="text-muted-foreground text-sm ml-2">by {model.provider}</span>
-                    </div>
-                    <span className="text-xs px-3 py-1 rounded-full font-semibold bg-primary/10 text-primary">{model.badge}</span>
-                  </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{model.desc}</p>
-                </div>
-              ))}
+              {techSpecs.llmModels.items.map((model: any) => (<div key={model.name} className="rounded-2xl p-6 bg-background border border-border hover:border-primary/30 transition-colors duration-200"><div className="flex items-center justify-between mb-3"><div><span className="font-bold text-foreground text-lg">{model.name}</span><span className="text-muted-foreground text-sm ml-2">by {model.provider}</span></div><span className="text-xs px-3 py-1 rounded-full font-semibold bg-primary/10 text-primary">{model.badge}</span></div><p className="text-muted-foreground text-sm leading-relaxed">{model.desc}</p></div>))}
             </div>
           </div>
-
-          {/* Architecture */}
           <div className="mb-12">
             <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Server className="w-5 h-5 text-primary" />{techSpecs.architecture.title}</h3>
             <div className="rounded-2xl bg-background border border-border overflow-hidden divide-y divide-border">
-              {techSpecs.architecture.items.map((item: any) => (
-                <div key={item.label} className="flex flex-col sm:flex-row gap-2 sm:gap-6 px-6 py-4">
-                  <span className="font-semibold text-foreground text-sm whitespace-nowrap min-w-[140px]">{item.label}</span>
-                  <span className="text-muted-foreground text-sm leading-relaxed">{item.value}</span>
-                </div>
-              ))}
+              {techSpecs.architecture.items.map((item: any) => (<div key={item.label} className="flex flex-col sm:flex-row gap-2 sm:gap-6 px-6 py-4"><span className="font-semibold text-foreground text-sm whitespace-nowrap min-w-[140px]">{item.label}</span><span className="text-muted-foreground text-sm leading-relaxed">{item.value}</span></div>))}
             </div>
           </div>
-
-          {/* Performance */}
           <div>
             <h3 className="font-bold text-foreground text-xl mb-6 flex items-center gap-2"><Gauge className="w-5 h-5 text-primary" />{techSpecs.performance.title}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {techSpecs.performance.items.map((item: any) => (
-                <div key={item.metric} className="rounded-2xl p-6 bg-background border border-border text-center">
-                  <span className="block font-bold text-3xl text-primary mb-1">{item.value}</span>
-                  <span className="block font-semibold text-foreground text-sm mb-0.5">{item.metric}</span>
-                  <span className="block text-xs text-muted-foreground">{item.desc}</span>
-                </div>
-              ))}
+              {techSpecs.performance.items.map((item: any) => (<div key={item.metric} className="rounded-2xl p-6 bg-background border border-border text-center"><span className="block font-bold text-3xl text-primary mb-1">{item.value}</span><span className="block font-semibold text-foreground text-sm mb-0.5">{item.metric}</span><span className="block text-xs text-muted-foreground">{item.desc}</span></div>))}
             </div>
           </div>
         </div>
       </section>
 
+      <ServiceBeforeAfter items={beforeAfter} subheading={t("chatbot.beforeAfterSection.sub")} heading={t("chatbot.beforeAfterSection.heading")} description={t("chatbot.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("chatbot.midCTA.heading")} description={t("chatbot.midCTA.description")} ctaText={t("chatbot.midCTA.ctaText")} />
-
       <ServiceProcess steps={processSteps} subheading={t("chatbot.processSection.sub")} heading={t("chatbot.processSection.heading")} description={t("chatbot.processSection.desc")} />
+      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("chatbot.comparisonSection.sub")} heading={t("chatbot.comparisonSection.heading")} description={t("chatbot.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
@@ -147,6 +123,7 @@ export default function ChatbotPage() {
         </div>
       </section>
 
+      <ServiceCaseStudy cases={caseStudies} subheading={t("chatbot.caseStudySection.sub")} heading={t("chatbot.caseStudySection.heading")} description={t("chatbot.caseStudySection.desc")} />
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName={t("chatbot.seo.title")} />
       <ContactSection />

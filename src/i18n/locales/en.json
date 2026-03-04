@@ -129,6 +129,30 @@
       { "name": "Premium", "price": "1,000,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "Video Transfer 2,000GB/mo", "sub": "Excess: 300 KRW/GB" }, { "main": "Video Storage 250GB total", "sub": "Excess: 500 KRW/GB" }, { "main": "Unlimited Members", "sub": "" }, { "main": "Free Design Templates", "sub": "" }, { "main": "SSL Certificate Included", "sub": "" }, { "main": "Hybrid App Development (Extra Cost)", "sub": "" }], "recommend": "Recommended for large academies, SMEs, continuing education centers" }
     ],
     "plansCustom": { "title": "Need a custom quote?", "desc": "For high-traffic or special security requirements, we provide tailored infrastructure proposals.", "cta": "Request Custom Quote" },
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Switching", "desc": "Real operational metrics before and after adopting WEBHEADS hosting." },
+    "beforeAfter": [
+      { "label": "Incident Recovery Time", "before": "Avg. 4+ hours", "after": "Avg. under 30 min" },
+      { "label": "Video Loading Speed", "before": "12 sec (frequent buffering)", "after": "Under 2 sec (CDN applied)" },
+      { "label": "Monthly Downtime", "before": "6+ hours", "after": "0 hours (99.9% SLA)" },
+      { "label": "Infrastructure Cost", "before": "₩2M+/mo (self-managed)", "after": "₩700K~/mo (managed)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual operational outcomes from organizations that switched to WEBHEADS hosting." },
+    "caseStudies": [
+      { "org": "A Cyber University", "industry": "Cyber University", "challenge": "Server crashes during 3,000+ concurrent users at semester start caused serious learner attrition.", "result": "After applying AWS Auto Scaling, zero-downtime service was maintained even during peak traffic, reducing incidents by 98%.", "metrics": [{ "label": "Incident Reduction", "value": "98%" }, { "label": "Concurrent Users", "value": "5,000+" }, { "label": "Years Active", "value": "7" }] },
+      { "org": "B Vocational Training", "industry": "Vocational", "challenge": "Previous hosting had 2-3 outages per month, causing constant learner complaints.", "result": "With CDN and 24/7 monitoring, monthly incidents dropped to zero and complaint calls decreased by 80%.", "metrics": [{ "label": "Monthly Incidents", "value": "0", "desc": "" }, { "label": "Complaints Down", "value": "80%" }, { "label": "Years Active", "value": "3" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS Hosting vs\nSelf-managed vs Generic", "desc": "See what sets e-learning-specialized hosting apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS", "Self-managed", "Generic Hosting"],
+    "comparisonRows": [
+      { "label": "24/7 NOC Monitoring", "values": ["O", "△", "X"] },
+      { "label": "e-Learning Optimized", "values": ["O", "△", "X"] },
+      { "label": "Auto Scaling", "values": ["O", "X", "△"] },
+      { "label": "Global CDN", "values": ["O", "X", "△"] },
+      { "label": "DRM Integration", "values": ["O", "X", "X"] },
+      { "label": "Dedicated LMS Engineer", "values": ["O", "X", "X"] },
+      { "label": "10-min Incident Response", "values": ["O", "X", "X"] },
+      { "label": "Monthly Performance Report", "values": ["O", "X", "△"] }
+    ],
     "faqs": [
       { "q": "Are there extra charges if traffic suddenly increases?", "a": "There's no need to worry. AWS-based hosting uses Auto Scaling to automatically expand server capacity during traffic spikes, so your service will never go down. Excess transfer is billed transparently at per-plan rates (e.g., 400 KRW/GB on the Plus plan), and we have a pre-alert system to prevent unexpected high charges. If you let us know about peak periods like semester starts or exam seasons in advance, our dedicated engineers will recommend the optimal plan and cost-saving strategies." },
       { "q": "Can I migrate from my current hosting?", "a": "Yes, absolutely. WEBHEADS specializes in zero-downtime migration from other hosting providers. The process follows a systematic approach: ① Analysis of existing server environment and migration planning → ② Replication of data, content, and databases → ③ New server testing and verification → ④ DNS switchover and stabilization monitoring. Since we conduct thorough testing before the DNS switchover, learners experience zero service interruption. Our dedicated engineers also provide 72-hour intensive monitoring after migration is complete." },
@@ -187,6 +211,30 @@
       { "name": "Premium", "price": "1,200,000", "unit": "KRW", "priceNote": "Monthly (excl. VAT)", "features": [{ "main": "8x Monthly Regular Checkups", "sub": "" }, { "main": "24/7 Dedicated Incident Team", "sub": "SLA 99.9% Guaranteed" }, { "main": "Comprehensive Security, Performance & DB Optimization", "sub": "" }, { "main": "Weekly + Monthly Comprehensive Reports", "sub": "" }, { "main": "Phone, Email & KakaoTalk Dedicated Channel", "sub": "" }, { "main": "Unlimited Feature Improvements", "sub": "Priority Processing" }, { "main": "Annual Security Audit", "sub": "1 included" }], "recommend": "Recommended for large educational institutions, public sector, finance, and enterprise clients" }
     ],
     "plansCustom": { "title": "Need a custom quote?", "desc": "For complex environments or special requirements, we provide tailored maintenance proposals.", "cta": "Request Custom Quote" },
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Adopting Maintenance", "desc": "Real operational metrics before and after adopting WEBHEADS maintenance." },
+    "beforeAfter": [
+      { "label": "Incident Response Time", "before": "Avg. 2+ hours (manual contact)", "after": "Avg. under 10 min (NOC auto-detect)" },
+      { "label": "Security Patch Cycle", "before": "Quarterly (manual)", "after": "Critical 24hr, Regular 2x/mo" },
+      { "label": "Feature Request Turnaround", "before": "Avg. 2-3 weeks", "after": "Avg. 1-3 business days" },
+      { "label": "Operational Visibility", "before": "Post-incident awareness", "after": "Real-time monitoring + monthly reports" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using WEBHEADS maintenance." },
+    "caseStudies": [
+      { "org": "D EdTech", "industry": "EdTech", "challenge": "Without in-house developers, security updates and incident response were significantly delayed.", "result": "24/7 dedicated monitoring and regular patches reduced annual downtime by 95% and achieved 100% security audit pass rate.", "metrics": [{ "label": "Downtime Reduction", "value": "95%" }, { "label": "Audit Pass Rate", "value": "100%" }, { "label": "Years Active", "value": "5" }] },
+      { "org": "E Cyber University", "industry": "Cyber University", "challenge": "Late-night and weekend incidents went unaddressed, leading to accumulated learner complaints.", "result": "NOC team's 5-minute initial response reduced learner complaints by 70%.", "metrics": [{ "label": "Initial Response", "value": "5 min" }, { "label": "Complaints Down", "value": "70%" }, { "label": "Years Active", "value": "9" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS Maintenance vs\nSelf-managed vs Others", "desc": "See what sets e-learning-specialized maintenance apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS", "Self-managed", "Other Providers"],
+    "comparisonRows": [
+      { "label": "24/7 Incident Response", "values": ["O", "X", "△"] },
+      { "label": "e-Learning/LMS Expertise", "values": ["O", "X", "X"] },
+      { "label": "Regular Security Scanning", "values": ["O", "△", "△"] },
+      { "label": "Feature Improvements", "values": ["O", "X", "△"] },
+      { "label": "RCA Reports", "values": ["O", "X", "X"] },
+      { "label": "Dedicated Engineer", "values": ["O", "X", "△"] },
+      { "label": "Monthly Performance Report", "values": ["O", "X", "△"] },
+      { "label": "User Inquiry Handling", "values": ["O", "X", "X"] }
+    ],
     "faqs": [
       { "q": "Can I request additional development during a maintenance contract?", "a": "Yes, absolutely. Standard plans include up to 6 minor feature improvements per month, while Premium plans offer unlimited requests. Examples include adding bulletin board fields, design modifications, or new popup banners. For larger-scope work like new feature development or major redesigns, we provide a separate quote with priority scheduling and discounts for maintenance clients." },
       { "q": "What's the incident response process?", "a": "WEBHEADS' dedicated NOC team monitors servers and networks 24/7/365. When an incident is detected, the process follows: ① Automatic alert to the assigned engineer → ② Initial response within 5 minutes on average → ③ Real-time progress updates shared with the client (via KakaoTalk/email) → ④ Incident recovery → ⑤ Root Cause Analysis (RCA) report preparation and sharing. We take full responsibility for follow-up measures to eliminate the root cause and prevent recurrence." },
@@ -273,6 +321,30 @@
     ],
     "plansNote": { "title": "Monthly operations fee separate", "desc": "After initial setup, monthly operations (server, API, maintenance) range from ₩100K-500K depending on plan." },
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your organization.", "cta": "Request Custom Quote" },
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter AI Chatbot", "desc": "Real operational metrics before and after adopting an AI chatbot." },
+    "beforeAfter": [
+      { "label": "Repetitive Inquiry Handling", "before": "100% manual by agents", "after": "80% auto-resolved by AI" },
+      { "label": "After-hours Support", "before": "No response (off-hours)", "after": "24/7 instant response" },
+      { "label": "Average Response Time", "before": "Avg. 30 min – 1 hour", "after": "Avg. under 2 seconds" },
+      { "label": "Monthly Support Cost", "before": "₩3M+/mo (2 agents)", "after": "₩100K-500K/mo (AI ops)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using AI chatbots." },
+    "caseStudies": [
+      { "org": "M Cyber University", "industry": "Cyber University", "challenge": "200+ identical enrollment/credit inquiries daily during semester start caused long wait times.", "result": "AI chatbot auto-resolved 80% of repetitive inquiries, cutting agent workload by more than half.", "metrics": [{ "label": "Auto-resolve Rate", "value": "80%" }, { "label": "Wait Time Down", "value": "90%" }, { "label": "Years Active", "value": "3" }] },
+      { "org": "N Corporate Training", "industry": "Corporate", "challenge": "40% of learner questions came after hours, but no support was available outside business hours.", "result": "24/7 chatbot support greatly improved after-hours satisfaction and increased completion rates by 15%.", "metrics": [{ "label": "Completion Rate Up", "value": "15%" }, { "label": "After-hours Support", "value": "24/7" }, { "label": "Years Active", "value": "5" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS AI Chatbot vs\nTraditional vs Generic", "desc": "See what sets an e-learning-specialized AI chatbot apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS AI", "Traditional Support", "Generic Chatbot"],
+    "comparisonRows": [
+      { "label": "LMS Real-time Integration", "values": ["O", "X", "X"] },
+      { "label": "24/7 Non-stop Response", "values": ["O", "X", "O"] },
+      { "label": "RAG-based Accuracy", "values": ["O", "X", "△"] },
+      { "label": "e-Learning Domain Expertise", "values": ["O", "O", "X"] },
+      { "label": "Auto FAQ Learning", "values": ["O", "X", "△"] },
+      { "label": "Multi-channel Deployment", "values": ["O", "X", "△"] },
+      { "label": "Agent Escalation", "values": ["O", "O", "X"] },
+      { "label": "Monthly Fine-tuning", "values": ["O", "X", "X"] }
+    ],
     "faqs": [
       { "q": "Can I use existing FAQs right after chatbot deployment?", "a": "Yes, you can use them immediately. Simply upload your existing FAQ documents (Excel, Word, PDF, etc.) through the admin page, and the AI will automatically analyze the content and index it using vector embeddings. Within about 30 minutes of upload, the chatbot will begin providing natural conversational answers based on that content. When new FAQs are added, they're reflected in real-time without any retraining process, so your chatbot always has the latest information." },
       { "q": "How are unanswered questions handled?", "a": "When the chatbot detects a low-confidence answer, the fallback scenario automatically activates. It politely suggests 'Connect to Agent' or 'Submit Inquiry' options to the learner, ensuring no question goes unanswered. Additionally, unanswered questions are automatically collected in the admin dashboard, which allows for periodic supplementation of chatbot training data to continuously expand the range of answerable questions." },
@@ -333,6 +405,29 @@
       { "name": "Enterprise", "price": "Custom", "unit": "", "priceNote": "Custom quote", "features": [{ "main": "iOS + Android + Tablet Optimized" }, { "main": "Full LMS Integration + SSO + DRM" }, { "main": "Advanced Learning Analytics Dashboard" }, { "main": "Custom Native Module Development" }, { "main": "App Store + Continuous Updates" }, { "main": "Dedicated PM + Annual Maintenance" }], "recommend": "Best for large institutions, cyber universities, corporate training" }
     ],
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your project scope.", "cta": "Request Custom Quote" },
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter App Launch", "desc": "Real performance changes before and after mobile app adoption." },
+    "beforeAfter": [
+      { "label": "Learning Accessibility", "before": "PC only (poor mobile UX)", "after": "Native iOS + Android app" },
+      { "label": "Learning Retention", "before": "30% 7-day return rate", "after": "65% with push notifications" },
+      { "label": "Offline Learning", "before": "Not available", "after": "Download via Wi-Fi & study offline" },
+      { "label": "Dev Timeline & Cost", "before": "6+ months / ₩50M+", "after": "4 weeks~ / ₩1.5M~ (MVP)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations that launched mobile apps." },
+    "caseStudies": [
+      { "org": "V Cyber University", "industry": "Cyber University", "challenge": "PC-only LMS couldn't meet learner demand for mobile study during commute hours.", "result": "After iOS/Android launch, mobile learning rose to 45% and progress rates improved by 20%.", "metrics": [{ "label": "Mobile Learning", "value": "45%" }, { "label": "Progress Up", "value": "20%" }, { "label": "Years Active", "value": "2" }] },
+      { "org": "W Corporate Training", "industry": "Corporate", "challenge": "Relying solely on email for learning reminders resulted in low open rates and completion.", "result": "Push notifications doubled app return rates and annual completion improved by 30%.", "metrics": [{ "label": "Return Rate Up", "value": "2x+" }, { "label": "Completion Up", "value": "30%" }, { "label": "Years Active", "value": "5" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS App Dev vs\nIn-house vs Generic", "desc": "See what sets e-learning-specialized app development apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS", "In-house Dev", "Generic Agency"],
+    "comparisonRows": [
+      { "label": "Perfect LMS Integration", "values": ["O", "△", "X"] },
+      { "label": "iOS + Android Simultaneous", "values": ["O", "O", "O"] },
+      { "label": "Built-in DRM Security", "values": ["O", "X", "X"] },
+      { "label": "App Store Review Handling", "values": ["O", "X", "△"] },
+      { "label": "e-Learning UX Expertise", "values": ["O", "X", "X"] },
+      { "label": "Post-launch Maintenance", "values": ["O", "△", "△"] },
+      { "label": "Offline Learning Support", "values": ["O", "X", "X"] }
+    ],
     "faqs": [
       { "q": "Does developing for both iOS and Android cost double?", "a": "No, it doesn't. WEBHEADS uses React Native or Flutter cross-platform frameworks to develop iOS and Android apps simultaneously from a single codebase. This saves approximately 30-40% in development costs compared to separate native development. Maintenance is also more cost-effective since a single modification applies to both platforms at once. Of course, when platform-specific features (Face ID, NFC, etc.) are needed, we add native modules to ensure the optimal user experience." },
       { "q": "Do you handle App Store/Google Play submission?", "a": "Yes, we handle the entire Apple App Store and Google Play Store submission process. From developer account setup guidance to app metadata (screenshots, descriptions, keywords) creation, review submission, and rejection response — we take care of everything. With extensive experience navigating Apple's stringent review criteria, we minimize rejection rates. We continue to support the re-review process for app updates after initial publication as well." },
@@ -372,6 +467,29 @@
     "solutions": [
       { "name": "Catenoid DRM", "desc": "Korea's leading DRM solution with Kollus player-based 5-level content security system and dominant market share in the e-learning industry.", "features": ["5-level Security (OTU Auth·Duplicate Block·Multi-DRM·Kollus DRM·Recorder Block)", "Audio & Video Watermarking (Korea's first)", "Dedicated Player + HTML5 + Mobile SDK", "Offline Download & Play Support", "AI Speed Playback (Android/iOS)", "Player Skin Customization API"], "ctaText": "Inquire" },
       { "name": "ZonePlayer DRM", "desc": "Provides both pre-packaging and real-time encryption. Proven stability in large-scale services like EBS.", "features": ["Real-time & Per-user Encryption", "Secure Server Encrypted Transmission", "Recorder Detection & Packet Capture Block (zone@GUARD)", "Concurrent Access & Device Limits", "Virtual Drive Based (Linux/Windows Server)", "Download Monitoring & Admin Dashboard"], "ctaText": "Inquire" }
+    ],
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter DRM", "desc": "Real content security changes before and after DRM adoption." },
+    "beforeAfter": [
+      { "label": "Video Leaks", "before": "10+/month (illegal sharing)", "after": "0 (completely blocked)" },
+      { "label": "Capture/Recording Block", "before": "Impossible (unprotected)", "after": "All-platform real-time block" },
+      { "label": "Leak Tracing", "before": "Untraceable", "after": "Watermark-based instant ID" },
+      { "label": "Learner UX (Plugins)", "before": "ActiveX required", "after": "Browser-native (EME)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual security outcomes from organizations using DRM." },
+    "caseStudies": [
+      { "org": "G Online Education", "industry": "Online Education", "challenge": "Premium lecture videos were being leaked to piracy sites, directly impacting revenue.", "result": "After Catenoid DRM, leaked videos disappeared completely and paid enrollment conversion increased by 25%.", "metrics": [{ "label": "Leak Block", "value": "100%" }, { "label": "Conversion Up", "value": "25%" }, { "label": "Years Active", "value": "6" }] },
+      { "org": "I Finance Institute", "industry": "Finance", "challenge": "Regulatory security audit flagged insufficient content protection, requiring urgent DRM adoption.", "result": "Multi-DRM + watermark achieved 100% audit pass and full compliance.", "metrics": [{ "label": "Audit Pass", "value": "100%" }, { "label": "Watermark", "value": "All Content" }, { "label": "Years Active", "value": "4" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS DRM vs\nNo Protection vs DIY", "desc": "See what sets professional DRM apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS DRM", "No Protection", "Self-built"],
+    "comparisonRows": [
+      { "label": "Multi-DRM Standards", "values": ["O", "X", "△"] },
+      { "label": "Screen Capture/Record Block", "values": ["O", "X", "△"] },
+      { "label": "Personal ID Watermark", "values": ["O", "X", "X"] },
+      { "label": "EME Web Standard (No Plugin)", "values": ["O", "X", "△"] },
+      { "label": "LMS Integration API", "values": ["O", "X", "△"] },
+      { "label": "Device & Concurrent Limits", "values": ["O", "X", "△"] },
+      { "label": "Real-time Threat Monitoring", "values": ["O", "X", "X"] }
     ],
     "faqs": [
       { "q": "Do learners need to install any software for DRM?", "a": "No, they don't. WEBHEADS DRM solutions are based on the EME (Encrypted Media Extensions) web standard, so learners don't need to install any plugins or programs. Content plays directly in major browsers including Chrome, Safari, Edge, and Firefox, and works the same on mobile browsers. Unlike legacy ActiveX-based DRM, there's virtually no learner inconvenience, which dramatically reduces support complaints — the biggest advantage." },
@@ -426,6 +544,29 @@
       { "title": "Mandatory Training Management", "desc": "Auto-extract mandatory training targets and send step-by-step reminder SMS to non-completers." },
       { "title": "Certificate Expiry Notice", "desc": "Auto-send renewal reminder SMS based on certificate expiration dates." },
       { "title": "Pre-class Reminder", "desc": "Automatically send access links and preparation details before scheduled events." }
+    ],
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Channel/SMS", "desc": "Real operational changes before and after automated messaging." },
+    "beforeAfter": [
+      { "label": "Learning Reminders", "before": "Manual calls/emails", "after": "Condition-based auto-send" },
+      { "label": "Completion Rate", "before": "60% (insufficient nudging)", "after": "85%+ (auto-reminder effect)" },
+      { "label": "Learner Context in Support", "before": "Separate system lookup (3min+)", "after": "Instant display in Channel Talk" },
+      { "label": "Messaging Cost", "before": "SMS ₩15/msg", "after": "KakaoTalk ₩8/msg (47% savings)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using Channel Talk/SMS automation." },
+    "caseStudies": [
+      { "org": "J Vocational Training", "industry": "Vocational", "challenge": "Manually contacting mandatory training non-completers consumed excessive staff resources.", "result": "Auto-reminder SMS improved completion rates by 40% and cut staff allocation in half.", "metrics": [{ "label": "Completion Up", "value": "40%" }, { "label": "Staff Savings", "value": "50%" }, { "label": "Years Active", "value": "3" }] },
+      { "org": "K Cyber University", "industry": "Cyber University", "challenge": "Looking up learner enrollment status during support took time, averaging 15 min per session.", "result": "Channel Talk LMS integration enabled instant learner info display, cutting support time by 50%.", "metrics": [{ "label": "Support Time Down", "value": "50%" }, { "label": "Satisfaction", "value": "92%" }, { "label": "Years Active", "value": "8" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS Channel/SMS vs\nManual vs Others", "desc": "See what sets LMS-integrated automation apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS", "Manual Ops", "Other Solutions"],
+    "comparisonRows": [
+      { "label": "LMS Real-time Integration", "values": ["O", "X", "X"] },
+      { "label": "Condition-based Auto-send", "values": ["O", "X", "△"] },
+      { "label": "KakaoTalk + SMS Unified", "values": ["O", "X", "O"] },
+      { "label": "Learner Info in Channel Talk", "values": ["O", "X", "X"] },
+      { "label": "Auto Fallback on Failure", "values": ["O", "X", "△"] },
+      { "label": "Consent/Opt-out Management", "values": ["O", "△", "O"] },
+      { "label": "Analytics Dashboard", "values": ["O", "X", "△"] }
     ],
     "faqs": [
       { "q": "Can Channel Talk and SMS be used simultaneously?", "a": "Yes, absolutely. Channel Talk for real-time 1:1 support and SMS/KakaoTalk automated messaging operate independently while sharing LMS data. For example, you can set up learning reminder notifications via KakaoTalk alerts while handling direct learner inquiries through Channel Talk in real-time — dividing channel roles for efficient operations." },

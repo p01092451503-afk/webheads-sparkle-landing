@@ -1,11 +1,13 @@
 import ContactSection from "@/components/ContactSection";
-
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
+import ServiceBeforeAfter from "@/components/shared/ServiceBeforeAfter";
+import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
+import ServiceComparison from "@/components/shared/ServiceComparison";
 import { ShieldCheck, Video, Camera, Fingerprint, Globe, MonitorSmartphone, Lock, KeyRound, BarChart3, Search, FileCheck, Settings, Activity } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -21,6 +23,10 @@ export default function DrmPage() {
   const faqs = t("drm.faqs", { returnObjects: true }) as any[];
   const testimonials = t("drm.testimonials", { returnObjects: true }) as any[];
   const processSteps = (t("drm.processSteps", { returnObjects: true }) as any[]).map((step: any, i: number) => ({ ...step, icon: processIcons[i] || Search }));
+  const beforeAfter = t("drm.beforeAfter", { returnObjects: true }) as any[];
+  const caseStudies = t("drm.caseStudies", { returnObjects: true }) as any[];
+  const comparisonHeaders = t("drm.comparisonHeaders", { returnObjects: true }) as string[];
+  const comparisonRows = t("drm.comparisonRows", { returnObjects: true }) as any[];
 
   return (
     <div className="min-h-screen bg-background">
@@ -62,6 +68,7 @@ export default function DrmPage() {
         </div>
       </section>
 
+      <ServiceBeforeAfter items={beforeAfter} subheading={t("drm.beforeAfterSection.sub")} heading={t("drm.beforeAfterSection.heading")} description={t("drm.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("drm.midCTA.heading")} description={t("drm.midCTA.description")} ctaText={t("drm.midCTA.ctaText")} />
 
       {/* Solutions */}
@@ -78,15 +85,9 @@ export default function DrmPage() {
         </div>
       </section>
 
-      {/* Process */}
-      <ServiceProcess
-        steps={processSteps}
-        heading={t("drm.processSection.title")}
-        subheading={t("drm.processSection.sub")}
-        description={t("drm.processSection.desc")}
-      />
-
-
+      <ServiceProcess steps={processSteps} heading={t("drm.processSection.title")} subheading={t("drm.processSection.sub")} description={t("drm.processSection.desc")} />
+      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("drm.comparisonSection.sub")} heading={t("drm.comparisonSection.heading")} description={t("drm.comparisonSection.desc")} />
+      <ServiceCaseStudy cases={caseStudies} subheading={t("drm.caseStudySection.sub")} heading={t("drm.caseStudySection.heading")} description={t("drm.caseStudySection.desc")} />
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName={t("drm.seo.title")} />
       <ContactSection />
