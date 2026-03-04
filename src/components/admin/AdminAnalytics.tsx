@@ -153,7 +153,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       return acc;
     }, {} as Record<string, number>);
     return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number));
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const pageDwellTimes = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
