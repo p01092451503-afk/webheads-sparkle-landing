@@ -1,37 +1,32 @@
 import { useState, useMemo, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp, Download, BookOpen, Users, BarChart3, BarChart2 } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp, Download, BookOpen, Users, BarChart3, BarChart2, Sparkles } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, Legend } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from "recharts";
 
-/**
- * Self-build cost model (annual, in KRW):
- * Scales with student count, courses, and instructors for more accurate TCO.
- */
+/* ── New cost model per spec ── */
 function calcSelfBuildAnnual(students: number, courses: number, instructors: number) {
-  const scale = 1 + Math.max(0, students - 200) / 2400;
-  const courseScale = 1 + Math.max(0, courses - 5) / 30;
-  const staffScale = 1 + Math.max(0, instructors - 3) / 15;
-
-  const server = Math.round(6000000 * scale * courseScale);
-  const developer = Math.round(24000000 * scale);
-  const maintenance = Math.round(4800000 * scale * courseScale);
-  const license = Math.round(3600000 * scale);
-  const staffCost = Math.round(2400000 * staffScale * (instructors > 5 ? 1.3 : 1));
-  const total = server + developer + maintenance + license + staffCost;
-
-  return { server, developer, maintenance, license, staffCost, total };
+  const devCost = (students * 8000 + courses * 500000); // one-time, amortized 12mo
+  const serverCost = students * 500 * 12;
+  const maintCost = devCost * 0.2;
+  const staffCost = instructors * 3500000 * 12;
+  const subtotal = devCost + serverCost + maintCost + staffCost;
+  const miscCost = Math.round(subtotal * 0.1);
+  const total = subtotal + miscCost;
+  return { devCost, serverCost, maintCost, staffCost, miscCost, total };
 }
 
-function getWebheadsMonthlyCost(students: number): number {
-  if (students <= 200) return 500000;
-  if (students <= 500) return 700000;
-  if (students <= 1000) return 1000000;
-  if (students <= 2000) return 1500000;
-  if (students <= 3000) return 2000000;
-  return 2500000;
+function calcWebheadsAnnual(students: number, courses: number) {
+  const baseFee = 300000 * 12;
+  const studentFee = students * 200 * 12;
+  const courseFee = courses * 10000 * 12;
+  return baseFee + studentFee + courseFee;
 }
 
+const PURPLE = "#7C3AED";
+const PURPLE_LIGHT = "#EDE9FE";
+const PURPLE_BG = "#F8F7FF";
+const TEXT_DARK = "#1E1B4B";
 const LMS_PRIMARY = "hsl(var(--lms-primary))";
 const GREEN_BG = "hsl(145, 70%, 93%)";
 const GREEN_TEXT = "hsl(145, 60%, 28%)";
@@ -48,59 +43,52 @@ export default function RoiCalculator() {
   const reportRef = useRef<HTMLDivElement>(null);
 
   const monthlyRevenue = students * fee;
+  const annualRevenue = monthlyRevenue * 12;
   const selfBuild = useMemo(() => calcSelfBuildAnnual(students, courses, instructors), [students, courses, instructors]);
   const selfBuildMonthly = Math.round(selfBuild.total / 12);
-  const webheadsMonthlyCost = getWebheadsMonthlyCost(students);
-  const savingsMonthly = selfBuildMonthly - webheadsMonthlyCost;
-  const savingsPercent = selfBuildMonthly > 0 ? Math.round((savingsMonthly / selfBuildMonthly) * 100) : 0;
-  const annualSavings = savingsMonthly * 12;
+  const webheadsAnnual = useMemo(() => calcWebheadsAnnual(students, courses), [students, courses]);
+  const webheadsMonthly = Math.round(webheadsAnnual / 12);
+  const savingsAmount = selfBuild.total - webheadsAnnual;
+  const savingsPercent = selfBuild.total > 0 ? ((savingsAmount / selfBuild.total) * 100).toFixed(1) : "0";
+  const lmsCostRatio = annualRevenue > 0 ? Math.min(100, Math.round((webheadsAnnual / annualRevenue) * 100)) : 0;
 
-  const formatNumber = (n: number) => n.toLocaleString("ko-KR");
+  const fmt = (n: number) => n.toLocaleString("ko-KR");
 
-  // 5-year projection data
+  // Chart data (kept for collapsible charts)
+  const comparisonData = useMemo(() => [
+    { name: t("lms.roiCalc.breakdownDev", "개발비"), self: Math.round(selfBuild.devCost / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownServer", "서버/인프라"), self: Math.round(selfBuild.serverCost / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownMaint", "유지보수"), self: Math.round(selfBuild.maintCost / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownStaff", "인건비"), self: Math.round(selfBuild.staffCost / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownMisc", "기타운영비"), self: Math.round(selfBuild.miscCost / 12), wh: 0 },
+    { name: t("lms.roiCalc.webheadsCost", "웹헤즈 LMS"), self: 0, wh: webheadsMonthly },
+  ], [selfBuild, webheadsMonthly, t]);
+
   const projectionData = useMemo(() => {
     const selfAnnual = selfBuild.total;
-    const whAnnual = webheadsMonthlyCost * 12;
+    const whAnnual = webheadsAnnual;
     return Array.from({ length: 5 }, (_, i) => {
       const year = i + 1;
-      // Self-build has ~5% annual increase (inflation, scaling)
       const selfCum = Array.from({ length: year }, (_, y) => Math.round(selfAnnual * Math.pow(1.05, y))).reduce((a, b) => a + b, 0);
-      // Webheads stays relatively stable
       const whCum = whAnnual * year;
-      return {
-        name: t("lms.roiCalc.year", { n: year }),
-        selfBuild: selfCum,
-        webheads: whCum,
-        savings: selfCum - whCum,
-      };
+      return { name: t("lms.roiCalc.year", { n: year }), selfBuild: selfCum, webheads: whCum, savings: selfCum - whCum };
     });
-  }, [selfBuild.total, webheadsMonthlyCost, t]);
-
-  // Bar chart data for cost comparison
-  const comparisonData = useMemo(() => [
-    { name: t("lms.roiCalc.breakdownServer"), self: Math.round(selfBuild.server / 12), wh: 0 },
-    { name: t("lms.roiCalc.breakdownDev"), self: Math.round(selfBuild.developer / 12), wh: 0 },
-    { name: t("lms.roiCalc.breakdownMaint"), self: Math.round(selfBuild.maintenance / 12), wh: 0 },
-    { name: t("lms.roiCalc.breakdownLicense"), self: Math.round(selfBuild.license / 12), wh: 0 },
-    { name: t("lms.roiCalc.breakdownStaff"), self: Math.round(selfBuild.staffCost / 12), wh: 0 },
-    { name: t("lms.roiCalc.webheadsCost"), self: 0, wh: webheadsMonthlyCost },
-  ], [selfBuild, webheadsMonthlyCost, t]);
+  }, [selfBuild.total, webheadsAnnual, t]);
 
   const breakdownItems = [
-    { label: t("lms.roiCalc.breakdownServer"), value: selfBuild.server },
-    { label: t("lms.roiCalc.breakdownDev"), value: selfBuild.developer },
-    { label: t("lms.roiCalc.breakdownMaint"), value: selfBuild.maintenance },
-    { label: t("lms.roiCalc.breakdownLicense"), value: selfBuild.license },
-    { label: t("lms.roiCalc.breakdownStaff"), value: selfBuild.staffCost },
+    { label: t("lms.roiCalc.breakdownDev", "개발비"), value: selfBuild.devCost },
+    { label: t("lms.roiCalc.breakdownServer", "서버/인프라"), value: selfBuild.serverCost },
+    { label: t("lms.roiCalc.breakdownMaint", "유지보수"), value: selfBuild.maintCost },
+    { label: t("lms.roiCalc.breakdownStaff", "인건비"), value: selfBuild.staffCost },
+    { label: t("lms.roiCalc.breakdownMisc", "기타운영비"), value: selfBuild.miscCost },
   ];
 
   const addonItems = [
-    { icon: Bot, label: t("lms.roiCalc.addonChatbot"), value: t("lms.roiCalc.chatbotSaving"), basis: t("lms.roiCalc.chatbotBasis"), color: "hsl(245, 58%, 55%)" },
-    { icon: Shield, label: t("lms.roiCalc.addonDrm"), value: t("lms.roiCalc.drmSaving"), basis: t("lms.roiCalc.drmBasis"), color: "hsl(340, 65%, 50%)" },
-    { icon: MessageSquare, label: t("lms.roiCalc.addonSms"), value: t("lms.roiCalc.smsSaving"), basis: t("lms.roiCalc.smsBasis"), color: "hsl(170, 55%, 38%)" },
+    { icon: Bot, label: t("lms.roiCalc.addonChatbot"), value: t("lms.roiCalc.chatbotSaving"), basis: t("lms.roiCalc.chatbotBasis"), color: "#7C3AED" },
+    { icon: Shield, label: t("lms.roiCalc.addonDrm"), value: t("lms.roiCalc.drmSaving"), basis: t("lms.roiCalc.drmBasis"), color: "#EC4899" },
+    { icon: MessageSquare, label: t("lms.roiCalc.addonSms"), value: t("lms.roiCalc.smsSaving"), basis: t("lms.roiCalc.smsBasis"), color: "#10B981" },
   ];
 
-  // PDF export
   const handlePdfExport = useCallback(() => {
     const now = new Date().toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric" });
     const lines = [
@@ -110,34 +98,29 @@ export default function RoiCalculator() {
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
       ``,
       `■ ${t("lms.roiCalc.pdfConditions")}`,
-      `  • ${t("lms.roiCalc.studentsLabel")}: ${formatNumber(students)}${t("lms.roiCalc.studentsUnit")}`,
-      `  • ${t("lms.roiCalc.coursesLabel")}: ${formatNumber(courses)}${t("lms.roiCalc.coursesUnit")}`,
-      `  • ${t("lms.roiCalc.instructorsLabel")}: ${formatNumber(instructors)}${t("lms.roiCalc.instructorsUnit")}`,
-      `  • ${t("lms.roiCalc.feeLabel")}: ${formatNumber(fee)}${t("lms.roiCalc.feeUnit")}`,
+      `  • ${t("lms.roiCalc.studentsLabel")}: ${fmt(students)}${t("lms.roiCalc.studentsUnit")}`,
+      `  • ${t("lms.roiCalc.coursesLabel")}: ${fmt(courses)}${t("lms.roiCalc.coursesUnit")}`,
+      `  • ${t("lms.roiCalc.instructorsLabel")}: ${fmt(instructors)}${t("lms.roiCalc.instructorsUnit")}`,
+      `  • ${t("lms.roiCalc.feeLabel")}: ${fmt(fee)}${t("lms.roiCalc.feeUnit")}`,
       ``,
       `■ ${t("lms.roiCalc.annualRevenue")}`,
-      `  • ${t("lms.roiCalc.annualRevenue")}: ${formatNumber(monthlyRevenue * 12)}${t("lms.roiCalc.feeUnit")} (${t("lms.roiCalc.perMonth", { cost: formatNumber(monthlyRevenue) })})`,
+      `  • ${fmt(annualRevenue)}${t("lms.roiCalc.feeUnit")}`,
       ``,
       `■ ${t("lms.roiCalc.annualComparison")}`,
-      `  • ${t("lms.roiCalc.selfBuildAnnual")}: ${formatNumber(selfBuild.total)}${t("lms.roiCalc.feeUnit")} (${t("lms.roiCalc.perMonth", { cost: formatNumber(selfBuildMonthly) })})`,
-      ``,
-      `    [${t("lms.roiCalc.breakdownTitle")}]`,
-      ...breakdownItems.map(i => `    - ${i.label}: ${formatNumber(Math.round(i.value / 12))}${t("lms.roiCalc.feeUnit")}`),
-      ``,
-      `  • ${t("lms.roiCalc.webheadsAnnual")}: ${formatNumber(webheadsMonthlyCost * 12)}${t("lms.roiCalc.feeUnit")} (${t("lms.roiCalc.perMonth", { cost: formatNumber(webheadsMonthlyCost) })})`,
+      `  • ${t("lms.roiCalc.selfBuildAnnual")}: ${fmt(selfBuild.total)}${t("lms.roiCalc.feeUnit")}`,
+      ...breakdownItems.map(i => `    - ${i.label}: ${fmt(i.value)}${t("lms.roiCalc.feeUnit")}`),
+      `  • ${t("lms.roiCalc.webheadsAnnual")}: ${fmt(webheadsAnnual)}${t("lms.roiCalc.feeUnit")}`,
       ``,
       `■ ${t("lms.roiCalc.annualSavings")}`,
-      `  • ${formatNumber(annualSavings)}${t("lms.roiCalc.feeUnit")}`,
-      `  • ${t("lms.roiCalc.savingsNote", { percent: Math.max(0, savingsPercent) })}`,
+      `  • ${fmt(savingsAmount)}${t("lms.roiCalc.feeUnit")} (${savingsPercent}%)`,
       ``,
       `■ ${t("lms.roiCalc.pdfProjection")}`,
-      ...projectionData.map(d => `  • ${d.name}: ${t("lms.roiCalc.cumulativeSavings")} ${formatNumber(d.savings)}${t("lms.roiCalc.feeUnit")}`),
+      ...projectionData.map(d => `  • ${d.name}: ${fmt(d.savings)}${t("lms.roiCalc.feeUnit")}`),
       ``,
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
       t("lms.roiCalc.pdfDisclaimer"),
       `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
     ];
-
     const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -145,224 +128,245 @@ export default function RoiCalculator() {
     a.download = `WEBHEADS_ROI_Report_${students}students.txt`;
     a.click();
     URL.revokeObjectURL(url);
-  }, [students, courses, instructors, fee, monthlyRevenue, selfBuildMonthly, webheadsMonthlyCost, annualSavings, savingsPercent, breakdownItems, projectionData, t]);
+  }, [students, courses, instructors, fee, annualRevenue, selfBuild, webheadsAnnual, savingsAmount, savingsPercent, breakdownItems, projectionData, t]);
 
+  const chartTooltipFormatter = (value: number) => `${fmt(value)}원`;
+
+  /* ── Slider component ── */
   const SliderInput = ({ label, unit, value, min, max, step, onChange, icon: Icon }: {
     label: string; unit: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; icon: any;
   }) => (
-    <div className="mb-6 last:mb-0">
-      <div className="flex justify-between items-end mb-2.5">
-        <label className="text-sm font-semibold text-foreground flex items-center gap-1.5">
-          <Icon className="w-3.5 h-3.5 text-muted-foreground" />
+    <div className="mb-7 last:mb-0">
+      <div className="flex justify-between items-end mb-3">
+        <label className="text-sm font-semibold flex items-center gap-1.5" style={{ color: TEXT_DARK }}>
+          <Icon className="w-4 h-4" style={{ color: PURPLE }} />
           {label}
         </label>
-        <span className="text-lg font-bold" style={{ color: LMS_PRIMARY }}>{formatNumber(value)}{unit}</span>
+        <div className="text-right">
+          <span className="text-xl font-bold" style={{ color: PURPLE }}>{fmt(value)}</span>
+          <span className="text-xs ml-0.5" style={{ color: PURPLE }}>{unit}</span>
+        </div>
       </div>
       <input
         type="range" min={min} max={max} step={step} value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         className="w-full h-2 rounded-full appearance-none cursor-pointer"
-        style={{ background: `linear-gradient(to right, ${LMS_PRIMARY} ${((value - min) / (max - min)) * 100}%, hsl(var(--border)) ${((value - min) / (max - min)) * 100}%)` }}
+        style={{
+          background: `linear-gradient(to right, ${PURPLE} ${((value - min) / (max - min)) * 100}%, #E5E7EB ${((value - min) / (max - min)) * 100}%)`,
+        }}
       />
-      <div className="flex justify-between text-xs text-muted-foreground mt-1"><span>{formatNumber(min)}</span><span>{formatNumber(max)}</span></div>
+      <div className="flex justify-between text-[11px] mt-1.5" style={{ color: "#9CA3AF" }}>
+        <span>{fmt(min)}</span>
+        <span>{fmt(max)}</span>
+      </div>
     </div>
   );
 
-  const chartTooltipFormatter = (value: number) => `${formatNumber(value)}원`;
-
   return (
-    <section className="py-16 md:py-28" ref={reportRef} id="roi-calculator">
-      <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+    <section className="py-16 md:py-28" ref={reportRef} id="roi-calculator" style={{ background: PURPLE_BG }}>
+      <div className="container mx-auto px-5 md:px-6 max-w-6xl">
+        {/* Header */}
         <div className="mb-8 md:mb-12">
-          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: LMS_PRIMARY }}>
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: PURPLE }}>
             {t("lms.roiCalc.sub")}
           </p>
-          <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
+          <h2 className="font-bold leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line" style={{ color: TEXT_DARK }}>
             {t("lms.roiCalc.title")}
           </h2>
-          <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.roiCalc.desc")}</p>
+          <p className="mt-3 md:mt-4 text-sm md:text-base" style={{ color: "#6B7280" }}>{t("lms.roiCalc.desc")}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8">
-          {/* Input */}
-          <div className="rounded-2xl border border-border bg-background p-5 md:p-8 self-start">
+        {/* Main 2-column grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-5 md:gap-6 items-start">
+
+          {/* ── LEFT: Input Panel (40%) ── */}
+          <div className="lg:col-span-2 rounded-[20px] bg-white border border-gray-100 shadow-sm px-6 py-8 md:px-8 md:py-10">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
-                <Calculator className="w-5 h-5" style={{ color: LMS_PRIMARY }} />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PURPLE_LIGHT }}>
+                <Calculator className="w-5 h-5" style={{ color: PURPLE }} />
               </div>
-              <h3 className="font-bold text-foreground text-lg">{t("lms.roiCalc.inputTitle")}</h3>
+              <h3 className="font-bold text-lg" style={{ color: TEXT_DARK }}>{t("lms.roiCalc.inputTitle")}</h3>
             </div>
 
             <SliderInput label={t("lms.roiCalc.studentsLabel")} unit={t("lms.roiCalc.studentsUnit")} value={students} min={50} max={5000} step={50} onChange={setStudents} icon={Users} />
-            <SliderInput label={t("lms.roiCalc.feeLabel")} unit={t("lms.roiCalc.feeUnit")} value={fee} min={10000} max={500000} step={10000} onChange={setFee} icon={TrendingUp} />
+            <SliderInput label={t("lms.roiCalc.feeLabel")} unit={t("lms.roiCalc.feeUnit")} value={fee} min={10000} max={500000} step={5000} onChange={setFee} icon={TrendingUp} />
             <SliderInput label={t("lms.roiCalc.coursesLabel")} unit={t("lms.roiCalc.coursesUnit")} value={courses} min={1} max={100} step={1} onChange={setCourses} icon={BookOpen} />
             <SliderInput label={t("lms.roiCalc.instructorsLabel")} unit={t("lms.roiCalc.instructorsUnit")} value={instructors} min={1} max={30} step={1} onChange={setInstructors} icon={Users} />
           </div>
 
-          {/* Result */}
-          <div className="rounded-2xl border border-border bg-background p-5 md:p-8 flex flex-col">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.08)" }}>
-                <TrendingUp className="w-5 h-5" style={{ color: LMS_PRIMARY }} />
+          {/* ── RIGHT: Result Panel (60%) ── */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            {/* Result header */}
+            <div className="flex items-center gap-3 mb-1">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PURPLE_LIGHT }}>
+                <TrendingUp className="w-5 h-5" style={{ color: PURPLE }} />
               </div>
-              <h3 className="font-bold text-foreground text-lg">{t("lms.roiCalc.resultTitle")}</h3>
+              <h3 className="font-bold text-lg" style={{ color: TEXT_DARK }}>{t("lms.roiCalc.resultTitle", "예상 절감 효과")}</h3>
             </div>
 
-            <div className="space-y-4 flex-1">
-              {/* 1. 비용 비교: 2단 비교형 */}
-              <div className="grid grid-cols-2 gap-3">
-                {/* 자체 구축 */}
-                <div className="rounded-xl p-4 md:p-5 bg-secondary/70 border border-border/50">
-                  <h4 className="font-bold text-foreground text-xs md:text-sm mb-3">{t("lms.roiCalc.selfBuildAnnual")} <span className="font-normal text-muted-foreground">({t("lms.roiCalc.annualLabel")})</span></h4>
-                  <div>
-                    <span className="font-bold text-muted-foreground text-base md:text-xl">{formatNumber(selfBuild.total)}{t("lms.roiCalc.feeUnit")}</span>
-                    <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mt-0.5">{t("lms.roiCalc.perMonth", { cost: formatNumber(selfBuildMonthly) })}</p>
+            {/* Cost comparison cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Self-build card */}
+              <div className="rounded-[16px] p-5 md:p-6" style={{ background: "#F3F4F6" }}>
+                <p className="text-xs font-medium mb-3" style={{ color: "#6B7280" }}>
+                  {t("lms.roiCalc.selfBuildAnnual")} ({t("lms.roiCalc.annualLabel")})
+                </p>
+                <p className="font-bold text-xl md:text-2xl" style={{ color: "#4B5563" }}>
+                  {fmt(selfBuild.total)}<span className="text-sm font-normal ml-0.5">{t("lms.roiCalc.feeUnit")}</span>
+                </p>
+                <p className="text-[11px] mt-1" style={{ color: "#9CA3AF" }}>
+                  {t("lms.roiCalc.perMonth", { cost: fmt(selfBuildMonthly) })}
+                </p>
+                <button
+                  onClick={() => setShowBreakdown(!showBreakdown)}
+                  className="mt-3 text-[11px] md:text-xs flex items-center gap-1 hover:opacity-80 transition-opacity cursor-pointer"
+                  style={{ color: "#9CA3AF" }}
+                >
+                  {t("lms.roiCalc.breakdownTitle", "산출 근거 보기")}
+                  {showBreakdown ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                </button>
+                {showBreakdown && (
+                  <div className="mt-3 pt-3 space-y-2 border-t" style={{ borderColor: "#E5E7EB" }}>
+                    {breakdownItems.map((item) => (
+                      <div key={item.label} className="flex justify-between items-center">
+                        <span className="text-[11px]" style={{ color: "#6B7280" }}>{item.label}</span>
+                        <span className="text-[11px] font-semibold" style={{ color: "#4B5563" }}>{fmt(item.value)}{t("lms.roiCalc.feeUnit")}</span>
+                      </div>
+                    ))}
                   </div>
-                  <button
-                    onClick={() => setShowBreakdown(!showBreakdown)}
-                    className="mt-2 text-[10px] md:text-xs text-muted-foreground/70 flex items-center gap-1 hover:text-muted-foreground transition-colors cursor-pointer"
-                  >
-                    {t("lms.roiCalc.breakdownTitle")}
-                    {showBreakdown ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-                  </button>
-                </div>
-                {/* 웹헤즈 LMS */}
-                <div className="rounded-xl p-4 md:p-5 border-2" style={{ borderColor: LMS_PRIMARY, background: "hsl(var(--lms-primary) / 0.06)" }}>
-                  <h4 className="font-bold text-xs md:text-sm mb-3" style={{ color: LMS_PRIMARY }}>{t("lms.roiCalc.webheadsAnnual")} <span className="font-normal opacity-70">({t("lms.roiCalc.annualLabel")})</span></h4>
-                  <div>
-                    <span className="font-bold text-base md:text-xl" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost * 12)}{t("lms.roiCalc.feeUnit")}</span>
-                    <p className="text-[10px] md:text-[11px] text-muted-foreground/60 mt-0.5">{t("lms.roiCalc.perMonth", { cost: formatNumber(webheadsMonthlyCost) })}</p>
-                  </div>
-                </div>
+                )}
               </div>
 
-              {/* 자체 구축 내역 (접기) */}
-              {showBreakdown && (
-                <div className="rounded-lg p-3 space-y-2 bg-secondary/40 border border-border/40">
-                  {breakdownItems.map((item) => (
-                    <div key={item.label} className="flex justify-between items-center">
-                      <span className="text-xs text-muted-foreground">{item.label}</span>
-                      <span className="text-xs font-semibold text-foreground">{formatNumber(Math.round(item.value / 12))}{t("lms.roiCalc.feeUnit")}/월</span>
-                    </div>
-                  ))}
-                  <div className="border-t border-border/60 pt-2 mt-1">
-                    <p className="text-[10px] text-muted-foreground/70 leading-relaxed flex items-start gap-1">
-                      <Info className="w-3 h-3 shrink-0 mt-0.5" />
-                      <span style={{ wordBreak: "keep-all" }}>{t("lms.roiCalc.breakdownNote")}</span>
-                    </p>
-                  </div>
+              {/* Webheads card */}
+              <div className="rounded-[16px] p-5 md:p-6 bg-white shadow-md relative" style={{ border: `2px solid ${PURPLE}` }}>
+                <div className="absolute top-4 right-4 px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white" style={{ background: PURPLE }}>
+                  {t("lms.roiCalc.recommended", "추천")}
                 </div>
-              )}
-
-              {/* 2. 절감액 강조 배너 */}
-              <div className="rounded-xl p-4 md:p-5 text-center" style={{ background: LMS_PRIMARY }}>
-                <p className="text-white/80 text-xs md:text-sm mb-1">{t("lms.roiCalc.annualSavings")}</p>
-                <div className="flex items-center justify-center gap-2 md:gap-3">
-                  <span className="font-extrabold text-white text-2xl md:text-3xl">{savingsPercent > 0 ? savingsPercent : 0}%</span>
-                  <span className="text-white/60 text-sm">|</span>
-                  <span className="font-bold text-white text-lg md:text-xl">{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
-                </div>
-                <p className="text-white/60 text-[10px] md:text-xs mt-1.5">
-                  {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
+                <p className="text-xs font-medium mb-3" style={{ color: PURPLE }}>
+                  {t("lms.roiCalc.webheadsAnnual")} ({t("lms.roiCalc.annualLabel")})
+                </p>
+                <p className="font-bold text-xl md:text-2xl" style={{ color: PURPLE }}>
+                  {fmt(webheadsAnnual)}<span className="text-sm font-normal ml-0.5">{t("lms.roiCalc.feeUnit")}</span>
+                </p>
+                <p className="text-[11px] mt-1" style={{ color: PURPLE, opacity: 0.6 }}>
+                  {t("lms.roiCalc.perMonth", { cost: fmt(webheadsMonthly) })}
                 </p>
               </div>
-
-              {/* 3. 예상 연 매출 (접기) */}
-              <Collapsible>
-                <CollapsibleTrigger asChild>
-                  <button className="w-full flex justify-between items-center rounded-lg px-4 py-2.5 bg-secondary/50 border border-border/40 text-xs md:text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                    <span>{t("lms.roiCalc.annualRevenue")}</span>
-                    <span className="font-semibold text-foreground">{formatNumber(monthlyRevenue * 12)}{t("lms.roiCalc.feeUnit")}</span>
-                  </button>
-                </CollapsibleTrigger>
-                <CollapsibleContent>
-                  <div className="rounded-lg px-4 py-3 mt-1 bg-secondary/30 border border-border/30">
-                    <div className="flex justify-between items-center text-xs text-muted-foreground">
-                      <span>{t("lms.roiCalc.monthlyRevenue")}</span>
-                      <span className="font-semibold text-foreground">{formatNumber(monthlyRevenue)}{t("lms.roiCalc.feeUnit")}</span>
-                    </div>
-                  </div>
-                </CollapsibleContent>
-              </Collapsible>
             </div>
 
-            <div className="flex gap-3 mt-6">
+            {/* Savings banner */}
+            <div
+              className="rounded-[16px] p-6 md:p-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+              style={{ background: "linear-gradient(135deg, #7C3AED, #A855F7)" }}
+            >
+              <div className="text-center sm:text-right">
+                <p className="text-white/70 text-xs mb-1">{t("lms.roiCalc.annualSavings")}</p>
+                <p className="text-white font-extrabold text-5xl md:text-6xl leading-none">{savingsPercent}%</p>
+              </div>
+              <div className="hidden sm:block w-px h-16 bg-white/20" />
+              <div className="text-center sm:text-left">
+                <p className="text-white font-bold text-2xl md:text-3xl">{fmt(savingsAmount)}<span className="text-base font-normal ml-0.5">{t("lms.roiCalc.feeUnit")}</span></p>
+                <p className="text-white/60 text-[11px] md:text-xs mt-1">
+                  {t("lms.roiCalc.savingsNote", { percent: savingsPercent })}
+                </p>
+              </div>
+            </div>
+
+            {/* Annual revenue bar */}
+            <div className="rounded-[16px] p-4 md:p-5 bg-white border border-gray-100 shadow-sm">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xs md:text-sm" style={{ color: "#6B7280" }}>{t("lms.roiCalc.annualRevenue")}</span>
+                <span className="font-bold text-sm md:text-base" style={{ color: TEXT_DARK }}>{fmt(annualRevenue)}{t("lms.roiCalc.feeUnit")}</span>
+              </div>
+              <div className="w-full h-2 rounded-full" style={{ background: "#E5E7EB" }}>
+                <div
+                  className="h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${lmsCostRatio}%`, background: `linear-gradient(90deg, ${PURPLE}, #A855F7)` }}
+                />
+              </div>
+              <p className="text-[10px] mt-1.5" style={{ color: "#9CA3AF" }}>
+                {t("lms.roiCalc.costRatio", { ratio: lmsCostRatio, defaultValue: `매출 대비 LMS 비용 비율: ${lmsCostRatio}%` })}
+              </p>
+            </div>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col gap-3 mt-1">
               <a
                 href="#contact"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 shadow-md"
-                style={{ background: LMS_PRIMARY }}
+                className="w-full inline-flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-base text-white transition-all hover:opacity-90 shadow-lg"
+                style={{ background: PURPLE }}
               >
                 {t("lms.roiCalc.cta")}
                 <ArrowRight className="w-4 h-4" />
               </a>
               <button
                 onClick={handlePdfExport}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-semibold text-sm border-2 border-border text-foreground hover:bg-secondary transition-all"
-                title={t("lms.roiCalc.pdfExport")}
+                className="w-full inline-flex items-center justify-center gap-2 py-4 rounded-2xl font-semibold text-base transition-all hover:bg-purple-50"
+                style={{ border: `2px solid ${PURPLE}`, color: PURPLE }}
               >
                 <Download className="w-4 h-4" />
+                {t("lms.roiCalc.pdfExport", "결과 다운로드")}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Collapsible Charts Section */}
+        {/* ── Collapsible Charts Section (preserved) ── */}
         <Collapsible open={showCharts} onOpenChange={setShowCharts}>
           <CollapsibleTrigger asChild>
-            <button className="w-full mt-5 md:mt-8 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl border border-border bg-background font-semibold text-sm text-foreground hover:bg-secondary transition-all group cursor-pointer">
-              <BarChart2 className="w-4.5 h-4.5 text-muted-foreground" />
+            <button className="w-full mt-5 md:mt-8 flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl border border-gray-200 bg-white font-semibold text-sm hover:bg-gray-50 transition-all group cursor-pointer" style={{ color: TEXT_DARK }}>
+              <BarChart2 className="w-4.5 h-4.5" style={{ color: "#9CA3AF" }} />
               <span>{showCharts ? t("lms.roiCalc.hideCharts", "상세 비용 비교 & 장기 절감 시뮬레이션 닫기") : t("lms.roiCalc.showCharts", "상세 비용 비교 & 장기 절감 시뮬레이션 보기")}</span>
-              {showCharts ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+              {showCharts ? <ChevronUp className="w-4 h-4" style={{ color: "#9CA3AF" }} /> : <ChevronDown className="w-4 h-4" style={{ color: "#9CA3AF" }} />}
             </button>
           </CollapsibleTrigger>
 
           <CollapsibleContent className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 overflow-hidden">
             {/* Cost Comparison Bar Chart */}
-            <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
+            <div className="mt-5 md:mt-8 rounded-[20px] border border-gray-100 bg-white p-5 md:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
-                  <BarChart3 className="w-5 h-5" style={{ color: LMS_PRIMARY }} />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: PURPLE_LIGHT }}>
+                  <BarChart3 className="w-5 h-5" style={{ color: PURPLE }} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.pdfCostComparison")}</h4>
-                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.selfBuildCost")} vs {t("lms.roiCalc.webheadsCost")}</p>
+                  <h4 className="font-bold text-base" style={{ color: TEXT_DARK }}>{t("lms.roiCalc.pdfCostComparison")}</h4>
+                  <p className="text-xs mt-0.5" style={{ color: "#9CA3AF" }}>{t("lms.roiCalc.selfBuildCost")} vs {t("lms.roiCalc.webheadsCost")}</p>
                 </div>
               </div>
               <div className="h-[260px] md:h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={comparisonData} layout="vertical" margin={{ left: 0, right: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-                    <XAxis type="number" tickFormatter={(v) => `${(v / 10000).toFixed(0)}만`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                    <YAxis type="category" dataKey="name" width={100} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                    <Tooltip formatter={(v: number) => `${formatNumber(v)}원`} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                    <Bar dataKey="self" name={t("lms.roiCalc.selfBuildCost")} fill="hsl(0, 70%, 65%)" radius={[0, 6, 6, 0]} />
-                    <Bar dataKey="wh" name={t("lms.roiCalc.webheadsCost")} fill="hsl(245, 58%, 55%)" radius={[0, 6, 6, 0]} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" horizontal={false} />
+                    <XAxis type="number" tickFormatter={(v) => `${(v / 10000).toFixed(0)}만`} tick={{ fontSize: 11, fill: "#9CA3AF" }} />
+                    <YAxis type="category" dataKey="name" width={100} tick={{ fontSize: 11, fill: "#9CA3AF" }} />
+                    <Tooltip formatter={(v: number) => `${fmt(v)}원`} contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB", fontSize: 12 }} />
+                    <Bar dataKey="self" name={t("lms.roiCalc.selfBuildCost")} fill="#F87171" radius={[0, 6, 6, 0]} />
+                    <Bar dataKey="wh" name={t("lms.roiCalc.webheadsCost")} fill={PURPLE} radius={[0, 6, 6, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
 
             {/* 5-Year Projection Chart */}
-            <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
+            <div className="mt-5 md:mt-8 rounded-[20px] border border-gray-100 bg-white p-5 md:p-8 shadow-sm">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: GREEN_BG }}>
                   <TrendingUp className="w-5 h-5" style={{ color: GREEN_ACCENT }} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.scenarioTitle")}</h4>
-                  <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.scenarioDesc")}</p>
+                  <h4 className="font-bold text-base" style={{ color: TEXT_DARK }}>{t("lms.roiCalc.scenarioTitle")}</h4>
+                  <p className="text-xs mt-0.5" style={{ color: "#9CA3AF" }}>{t("lms.roiCalc.scenarioDesc")}</p>
                 </div>
               </div>
 
-              {/* Summary cards */}
               <div className="grid grid-cols-3 gap-3 my-6">
                 {[0, 2, 4].map((idx) => {
                   const d = projectionData[idx];
                   return (
-                    <div key={idx} className="rounded-xl p-3 md:p-4 text-center" style={{ background: idx === 4 ? GREEN_BG : "hsl(var(--muted) / 0.5)" }}>
-                      <p className="text-[11px] md:text-xs text-muted-foreground font-medium">{d.name}</p>
-                      <p className="font-bold text-sm md:text-lg mt-1" style={{ color: idx === 4 ? GREEN_TEXT : "hsl(var(--foreground))" }}>
-                        {formatNumber(d.savings)}
+                    <div key={idx} className="rounded-xl p-3 md:p-4 text-center" style={{ background: idx === 4 ? GREEN_BG : "#F3F4F6" }}>
+                      <p className="text-[11px] md:text-xs font-medium" style={{ color: "#6B7280" }}>{d.name}</p>
+                      <p className="font-bold text-sm md:text-lg mt-1" style={{ color: idx === 4 ? GREEN_TEXT : TEXT_DARK }}>
+                        {fmt(d.savings)}
                         <span className="text-[10px] md:text-xs font-normal">{t("lms.roiCalc.feeUnit")}</span>
                       </p>
                     </div>
@@ -375,21 +379,21 @@ export default function RoiCalculator() {
                   <AreaChart data={projectionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="selfGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0.15} />
-                        <stop offset="95%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#F87171" stopOpacity={0.15} />
+                        <stop offset="95%" stopColor="#F87171" stopOpacity={0} />
                       </linearGradient>
                       <linearGradient id="whGrad" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0.15} />
-                        <stop offset="95%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0} />
+                        <stop offset="5%" stopColor={PURPLE} stopOpacity={0.15} />
+                        <stop offset="95%" stopColor={PURPLE} stopOpacity={0} />
                       </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="name" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-                    <YAxis tickFormatter={(v) => `${(v / 100000000).toFixed(1)}억`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                    <Tooltip formatter={chartTooltipFormatter} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                    <XAxis dataKey="name" tick={{ fontSize: 12, fill: "#9CA3AF" }} />
+                    <YAxis tickFormatter={(v) => `${(v / 100000000).toFixed(1)}억`} tick={{ fontSize: 11, fill: "#9CA3AF" }} />
+                    <Tooltip formatter={chartTooltipFormatter} contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB", fontSize: 12 }} />
                     <Legend wrapperStyle={{ fontSize: 12 }} />
-                    <Area type="monotone" dataKey="selfBuild" name={t("lms.roiCalc.chartSelfBuild")} stroke="hsl(0, 70%, 65%)" fill="url(#selfGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(0, 70%, 65%)" }} />
-                    <Area type="monotone" dataKey="webheads" name={t("lms.roiCalc.chartWebheads")} stroke="hsl(245, 58%, 55%)" fill="url(#whGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(245, 58%, 55%)" }} />
+                    <Area type="monotone" dataKey="selfBuild" name={t("lms.roiCalc.chartSelfBuild")} stroke="#F87171" fill="url(#selfGrad)" strokeWidth={2} dot={{ r: 4, fill: "#F87171" }} />
+                    <Area type="monotone" dataKey="webheads" name={t("lms.roiCalc.chartWebheads")} stroke={PURPLE} fill="url(#whGrad)" strokeWidth={2} dot={{ r: 4, fill: PURPLE }} />
                   </AreaChart>
                 </ResponsiveContainer>
               </div>
@@ -398,27 +402,27 @@ export default function RoiCalculator() {
         </Collapsible>
 
         {/* Add-on Savings */}
-        <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
+        <div className="mt-5 md:mt-8 rounded-[20px] border border-gray-100 bg-white p-5 md:p-8 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
-            <h4 className="font-bold text-foreground text-sm md:text-base">{t("lms.roiCalc.addonsTitle")}</h4>
+            <h4 className="font-bold text-sm md:text-base" style={{ color: TEXT_DARK }}>{t("lms.roiCalc.addonsTitle")}</h4>
           </div>
-          <p className="flex items-center gap-1.5 text-xs text-muted-foreground mb-5">
+          <p className="flex items-center gap-1.5 text-xs mb-5" style={{ color: "#9CA3AF" }}>
             <Info className="w-3.5 h-3.5 shrink-0" />
             <span>{t("lms.roiCalc.addonsSource")}</span>
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {addonItems.map((item) => (
-              <div key={item.label} className="rounded-xl p-5 bg-secondary flex flex-col gap-3">
+              <div key={item.label} className="rounded-xl p-5 flex flex-col gap-3" style={{ background: "#F9FAFB" }}>
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: `${item.color}15` }}>
                     <item.icon className="w-4.5 h-4.5" style={{ color: item.color }} />
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground leading-relaxed mb-1" style={{ wordBreak: "keep-all" }}>{item.label}</p>
+                    <p className="text-xs leading-relaxed mb-1" style={{ color: "#6B7280", wordBreak: "keep-all" }}>{item.label}</p>
                     <p className="text-sm font-bold" style={{ color: item.color }}>{item.value}</p>
                   </div>
                 </div>
-                <p className="text-[11px] text-muted-foreground/70 leading-relaxed pl-0.5 border-t border-border/50 pt-2.5" style={{ wordBreak: "keep-all" }}>
+                <p className="text-[11px] leading-relaxed pl-0.5 border-t pt-2.5" style={{ color: "#9CA3AF", borderColor: "#E5E7EB", wordBreak: "keep-all" }}>
                   * {item.basis}
                 </p>
               </div>
