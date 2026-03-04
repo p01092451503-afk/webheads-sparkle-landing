@@ -95,7 +95,7 @@ export default function BlogPage() {
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <span className="inline-flex items-center gap-1.5 px-4 py-1.5 mb-5 rounded-full text-xs font-semibold tracking-wider uppercase bg-foreground text-background">Blog & Insights</span>
           <h1 className="text-3xl md:text-5xl font-extrabold text-foreground leading-tight mb-4" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", letterSpacing: "-0.02em" }}>
-            {lang === "en" ? "LMS Insights" : "LMS 인사이트"}
+            {lang === "en" ? "WEBHEADS LMS Insights" : "웹헤즈 LMS 인사이트"}
           </h1>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
             {lang === "en" ? (<>From e-learning adoption to AI learning trends,<br className="hidden md:block" />professional guides for corporate training managers.</>)
