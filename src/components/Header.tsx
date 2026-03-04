@@ -68,7 +68,7 @@ export default function Header() {
           </div>
         </div>
       )}
-    <header className="fixed top-[44px] left-0 right-0 z-50">
+    <header className={`fixed left-0 right-0 z-50 ${showBanner ? "top-[44px]" : "top-0"}`}>
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
