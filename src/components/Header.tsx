@@ -69,7 +69,7 @@ export default function Header() {
           </div>
           <button
             onClick={() => setBannerDismissed(true)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-foreground/50 hover:text-foreground transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 z-20 text-foreground/50 hover:text-foreground transition-colors"
             aria-label="배너 닫기"
           >
             <X className="w-3.5 h-3.5" />
