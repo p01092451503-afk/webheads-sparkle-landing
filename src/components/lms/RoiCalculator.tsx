@@ -311,7 +311,7 @@ export default function RoiCalculator() {
                     </div>
                     {hasTransferOverage && (
                       <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
-                        ⚠ 포함량 초과 +{fmt(monthlyTransferUsed - 1500)}GB → 연 +{fmt(webheadsResult.transferOverageCost)}원
+                        ⚠ 기본량 초과 +{fmt(monthlyTransferUsed - 1500)}GB → 연 +{fmt(webheadsResult.transferOverageCost)}원
                       </p>
                     )}
                   </div>
