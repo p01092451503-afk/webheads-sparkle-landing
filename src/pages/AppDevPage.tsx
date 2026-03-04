@@ -73,7 +73,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("appdev.beforeAfterSection.sub")} heading={t("appdev.beforeAfterSection.heading")} description={t("appdev.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("appdev.beforeAfterSection.sub")} heading={t("appdev.beforeAfterSection.heading")} description={t("appdev.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("appdev.midCTA.heading")} description={t("appdev.midCTA.description")} ctaText={t("appdev.midCTA.ctaText")} />
 
       {/* Other Apps */}
