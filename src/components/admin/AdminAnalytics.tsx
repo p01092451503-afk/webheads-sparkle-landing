@@ -129,9 +129,11 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return ip.replace(/:[\da-f]{1,4}$/i, ":***");
   };
 
+  const humanViews = useMemo(() => filteredViews.filter((v) => (v.visitor_type || "human") === "human"), [filteredViews]);
+
   const ipWithLocation = useMemo(() => {
     const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null }> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       const ip = v.ip_address || "알 수 없음";
       if (!ipMap[ip]) ipMap[ip] = { count: 0, city: null, country: null, lastVisit: null };
       ipMap[ip].count++;
@@ -142,16 +144,16 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(ipMap)
       .map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
       .sort((a, b) => b.count - a.count);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const topLocations = useMemo(() => {
-    const locationCounts = filteredViews.reduce((acc, v) => {
+    const locationCounts = humanViews.reduce((acc, v) => {
       const loc = v.city || v.country || "알 수 없음";
       acc[loc] = (acc[loc] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
     return Object.entries(locationCounts).sort(([, a], [, b]) => (b as number) - (a as number));
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const pageDwellTimes = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
