@@ -378,7 +378,7 @@ export default function RoiCalculator() {
                     </div>
                     {hasOverage && (
                       <p className="text-[9px] mt-1 leading-relaxed rounded-lg p-2" style={{ color: "#6B7280", background: PURPLE_LIGHT }}>
-                        💡 수강생 수와 콘텐츠가 늘어나면 전송량·저장공간 사용이 증가하여 Plus 요금제 포함량을 초과할 수 있습니다. 초과분은 전송량 400원/GB, 저장공간 800원/GB 단가로 과금됩니다.
+                        💡 수강생 수와 콘텐츠가 늘어나면 전송량·저장공간 사용이 증가하여 Plus 요금제 기본량을 초과할 수 있습니다. 초과분은 전송량 400원/GB, 저장공간 800원/GB 단가로 과금됩니다.
                       </p>
                     )}
                   </div>
