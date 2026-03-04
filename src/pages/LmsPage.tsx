@@ -450,7 +450,7 @@ export default function LmsPage() {
               </div>
             ))}
           </div>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 rounded-xl border border-border bg-secondary/40 px-6 py-4">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 rounded-xl border border-border bg-muted px-6 py-4">
             <p className="text-foreground font-semibold text-sm">{t("lms.plansCustom.title")} <span className="font-normal text-muted-foreground">{t("lms.plansCustom.desc")}</span></p>
             <a href="#contact" className="shrink-0 inline-flex px-5 py-2.5 rounded-2xl font-bold text-xs text-white transition-colors hover:opacity-90" style={{ background: "hsl(var(--lms-primary))" }}>{t("lms.plansCustom.cta")}</a>
           </div>
