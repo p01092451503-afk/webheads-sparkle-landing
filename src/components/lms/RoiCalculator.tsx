@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useRef } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp, Download, BookOpen, Users, BarChart3, BarChart2, Sparkles, Building2, Wrench, Server } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -97,8 +97,41 @@ export default function RoiCalculator() {
 
   // 비교: 연간 운영비 기준 (초기 개발비 별도)
   const savingsAmount = selfBuild.annualOps - webheadsAnnual;
-  const savingsPercent = selfBuild.annualOps > 0 ? ((savingsAmount / selfBuild.annualOps) * 100).toFixed(1) : "0";
+  const savingsPercentNum = selfBuild.annualOps > 0 ? (savingsAmount / selfBuild.annualOps) * 100 : 0;
+  const savingsPercent = savingsPercentNum.toFixed(1);
   const lmsCostRatio = annualRevenue > 0 ? Math.min(100, Math.round((webheadsAnnual / annualRevenue) * 100)) : 0;
+
+  // Countup animation
+  const [displayPercent, setDisplayPercent] = useState(savingsPercentNum);
+  const [displayAmount, setDisplayAmount] = useState(savingsAmount);
+  const [isPulsing, setIsPulsing] = useState(false);
+
+  useEffect(() => {
+    const duration = 800;
+    const startTime = performance.now();
+    const startPercent = displayPercent;
+    const startAmount = displayAmount;
+    const targetPercent = savingsPercentNum;
+    const targetAmount = savingsAmount;
+
+    if (startPercent === targetPercent && startAmount === targetAmount) return;
+
+    setIsPulsing(true);
+    const pulseTimer = setTimeout(() => setIsPulsing(false), 300);
+
+    let rafId: number;
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setDisplayPercent(startPercent + (targetPercent - startPercent) * eased);
+      setDisplayAmount(Math.round(startAmount + (targetAmount - startAmount) * eased));
+      if (progress < 1) rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+    return () => { cancelAnimationFrame(rafId); clearTimeout(pulseTimer); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savingsPercentNum, savingsAmount]);
 
   const fmt = (n: number) => n.toLocaleString("ko-KR");
 
@@ -489,20 +522,47 @@ export default function RoiCalculator() {
               </div>
             </div>
 
-            {/* Savings banner — 연간 운영비 기준 */}
+            {/* Savings banner — 메인 + 서브 2층 구조 */}
             <div
-              className="rounded-[16px] p-6 md:p-8 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
-              style={{ background: "linear-gradient(135deg, #7C3AED, #A855F7)" }}
+              className="transition-transform duration-200"
+              style={{ transform: isPulsing ? "scale(1.02)" : "scale(1)" }}
             >
-              <div className="text-center sm:text-right">
-                <p className="text-white/70 text-xs mb-1">연간 운영비 절감</p>
-                <p className="text-white font-extrabold text-5xl md:text-6xl leading-none">{savingsPercent}%</p>
+              {/* 메인 배너 */}
+              <div
+                className="flex flex-col sm:flex-row items-center justify-center gap-5 sm:gap-8"
+                style={{
+                  background: "linear-gradient(135deg, #7C3AED, #A855F7)",
+                  borderRadius: "20px 20px 0 0",
+                  padding: "36px 40px",
+                }}
+              >
+                <div className="text-center sm:text-right">
+                  <p className="text-white mb-2" style={{ fontSize: 14, opacity: 0.85 }}>연간 운영비 절감</p>
+                  <p className="text-white leading-none" style={{ fontWeight: 800 }}>
+                    <span style={{ fontSize: 80 }}>{displayPercent.toFixed(1)}</span>
+                    <span style={{ fontSize: 48 }}>%</span>
+                  </p>
+                </div>
+                <div className="hidden sm:block bg-white/30" style={{ width: 1, height: "70%", minHeight: 60, alignSelf: "center" }} />
+                <div className="text-center sm:text-left">
+                  <p className="text-white mb-2" style={{ fontSize: 14, opacity: 0.85 }}>절감 금액</p>
+                  <p className="text-white" style={{ fontSize: 40, fontWeight: 700, lineHeight: 1 }}>
+                    {fmt(displayAmount)}<span style={{ fontSize: 24, fontWeight: 400, marginLeft: 2 }}>원</span>
+                  </p>
+                </div>
               </div>
-              <div className="hidden sm:block w-px h-16 bg-white/20" />
-              <div className="text-center sm:text-left">
-                <p className="text-white font-bold text-2xl md:text-3xl">{fmt(savingsAmount)}<span className="text-base font-normal ml-0.5">원</span></p>
-                <p className="text-white/60 text-[11px] md:text-xs mt-1">
-                  초기 개발비 {fmt(SELF_BUILD_INIT_DEV)}원 추가 절감 (1회성)
+              {/* 서브 정보 바 */}
+              <div
+                className="flex flex-col sm:flex-row items-center justify-between gap-2"
+                style={{
+                  background: "#5B21B6",
+                  borderRadius: "0 0 20px 20px",
+                  padding: "16px 40px",
+                }}
+              >
+                <p className="text-white text-[13px]" style={{ opacity: 0.9 }}>🎁 초기 개발비 추가 절감 (1회성)</p>
+                <p className="text-white" style={{ fontSize: 18, fontWeight: 700 }}>
+                  + {fmt(SELF_BUILD_INIT_DEV)}원 <span className="text-sm font-normal" style={{ opacity: 0.7 }}>(1회성)</span>
                 </p>
               </div>
             </div>
