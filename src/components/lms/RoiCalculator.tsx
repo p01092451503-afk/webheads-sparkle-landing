@@ -274,7 +274,7 @@ export default function RoiCalculator() {
                     {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
                   </span>
                   <div className="text-right">
-                    <span className="font-bold text-lg md:text-xl" style={{ color: GREEN_TEXT }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
+                    <span className="font-bold text-2xl md:text-3xl" style={{ color: GREEN_TEXT }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
                   </div>
                 </div>
               </div>
