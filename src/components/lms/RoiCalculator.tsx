@@ -133,7 +133,7 @@ export default function RoiCalculator() {
                 </div>
 
                 {/* 웹헤즈 */}
-                <div className="rounded-2xl p-6" style={{ background: "#F0FDF4", border: "2px solid #86EFAC" }}>
+                <div className="rounded-2xl p-6" style={{ background: "#fff", border: "2px solid #16A34A" }}>
                   <p className="text-xs font-semibold mb-2" style={{ color: "#6B7280" }}>웹헤즈 LMS</p>
                   <p className="font-extrabold text-4xl mb-3" style={{ color: "#16A34A" }}>
                     0<span className="text-lg">원</span>
