@@ -91,7 +91,7 @@ export default function AppDevPage() {
       </section>
 
       {/* Dev Stack */}
-      <section className="py-24 bg-background border-t border-border">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-12">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("appdev.devStackSection.sub")}</p>
