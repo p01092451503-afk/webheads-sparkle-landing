@@ -94,16 +94,6 @@ export default function SmsKakaoPage() {
               SMS 충전 요청
               <ArrowRight className="w-4 h-4" />
             </a>
-            <a
-              href="https://help.webheads.co.kr/kolluscrm.php"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-accent text-accent-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
-            >
-              <MonitorSmartphone className="w-4 h-4" />
-              원격지원 요청
-              <ArrowRight className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </section>
