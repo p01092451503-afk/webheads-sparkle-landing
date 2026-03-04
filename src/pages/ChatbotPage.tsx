@@ -1,3 +1,4 @@
+import ChatbotArchDiagram from "@/components/visuals/ChatbotArchDiagram";
 import ContactSection from "@/components/ContactSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
