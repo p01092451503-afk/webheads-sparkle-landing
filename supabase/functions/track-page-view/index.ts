@@ -64,6 +64,16 @@ const cloudflareRanges = [
   /^173\.245\./, /^103\.(21|22|31)\./,
 ];
 
+// Known cloud/datacenter IP ranges (likely bots with spoofed UA)
+const datacenterRanges = [
+  /^34\.(2[0-9]|3[0-9]|4[0-9]|5[0-9]|6[0-9]|7[0-9]|8[0-9]|9[0-9]|1[0-4][0-9]|15[0-9]|16[0-9]|17[0-5])\./, // GCP
+  /^35\.(1[5-9][0-9]|2[0-4][0-9]|25[0-5])\./, // GCP
+  /^54\.(6[4-9]|[7-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\./, // AWS
+  /^52\.(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.)/, // AWS
+  /^13\.(5[2-9]|[6-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\./, // AWS
+  /^18\.(1[6-9][0-9]|2[0-4][0-9]|25[0-5])\./, // AWS
+];
+
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
   // Headless browsers & automated tools
@@ -73,6 +83,9 @@ function classifyVisitor(ua: string, ip: string | null): string {
   for (const [pat, type] of scraperMap) { if (pat.test(lowerUA)) return type; }
   const isCloudflareProxy = ip ? cloudflareRanges.some(r => r.test(ip)) : false;
   if (isCloudflareProxy) return "scraper_cf";
+  // Datacenter IPs with normal UA = likely spoofed bot
+  const isDatacenter = ip ? datacenterRanges.some(r => r.test(ip)) : false;
+  if (isDatacenter) return "scraper_datacenter";
   return "human";
 }
 
