@@ -147,7 +147,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   }, [humanViews]);
 
   const topLocations = useMemo(() => {
-    const locationCounts = filteredViews.reduce((acc, v) => {
+    const locationCounts = humanViews.reduce((acc, v) => {
       const loc = v.city || v.country || "알 수 없음";
       acc[loc] = (acc[loc] || 0) + 1;
       return acc;
