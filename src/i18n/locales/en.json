@@ -405,6 +405,29 @@
       { "name": "Enterprise", "price": "Custom", "unit": "", "priceNote": "Custom quote", "features": [{ "main": "iOS + Android + Tablet Optimized" }, { "main": "Full LMS Integration + SSO + DRM" }, { "main": "Advanced Learning Analytics Dashboard" }, { "main": "Custom Native Module Development" }, { "main": "App Store + Continuous Updates" }, { "main": "Dedicated PM + Annual Maintenance" }], "recommend": "Best for large institutions, cyber universities, corporate training" }
     ],
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your project scope.", "cta": "Request Custom Quote" },
+    "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter App Launch", "desc": "Real performance changes before and after mobile app adoption." },
+    "beforeAfter": [
+      { "label": "Learning Accessibility", "before": "PC only (poor mobile UX)", "after": "Native iOS + Android app" },
+      { "label": "Learning Retention", "before": "30% 7-day return rate", "after": "65% with push notifications" },
+      { "label": "Offline Learning", "before": "Not available", "after": "Download via Wi-Fi & study offline" },
+      { "label": "Dev Timeline & Cost", "before": "6+ months / ₩50M+", "after": "4 weeks~ / ₩1.5M~ (MVP)" }
+    ],
+    "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations that launched mobile apps." },
+    "caseStudies": [
+      { "org": "V Cyber University", "industry": "Cyber University", "challenge": "PC-only LMS couldn't meet learner demand for mobile study during commute hours.", "result": "After iOS/Android launch, mobile learning rose to 45% and progress rates improved by 20%.", "metrics": [{ "label": "Mobile Learning", "value": "45%" }, { "label": "Progress Up", "value": "20%" }, { "label": "Years Active", "value": "2" }] },
+      { "org": "W Corporate Training", "industry": "Corporate", "challenge": "Relying solely on email for learning reminders resulted in low open rates and completion.", "result": "Push notifications doubled app return rates and annual completion improved by 30%.", "metrics": [{ "label": "Return Rate Up", "value": "2x+" }, { "label": "Completion Up", "value": "30%" }, { "label": "Years Active", "value": "5" }] }
+    ],
+    "comparisonSection": { "sub": "COMPARISON", "heading": "WEBHEADS App Dev vs\nIn-house vs Generic", "desc": "See what sets e-learning-specialized app development apart." },
+    "comparisonHeaders": ["Criteria", "WEBHEADS", "In-house Dev", "Generic Agency"],
+    "comparisonRows": [
+      { "label": "Perfect LMS Integration", "values": ["O", "△", "X"] },
+      { "label": "iOS + Android Simultaneous", "values": ["O", "O", "O"] },
+      { "label": "Built-in DRM Security", "values": ["O", "X", "X"] },
+      { "label": "App Store Review Handling", "values": ["O", "X", "△"] },
+      { "label": "e-Learning UX Expertise", "values": ["O", "X", "X"] },
+      { "label": "Post-launch Maintenance", "values": ["O", "△", "△"] },
+      { "label": "Offline Learning Support", "values": ["O", "X", "X"] }
+    ],
     "faqs": [
       { "q": "Does developing for both iOS and Android cost double?", "a": "No, it doesn't. WEBHEADS uses React Native or Flutter cross-platform frameworks to develop iOS and Android apps simultaneously from a single codebase. This saves approximately 30-40% in development costs compared to separate native development. Maintenance is also more cost-effective since a single modification applies to both platforms at once. Of course, when platform-specific features (Face ID, NFC, etc.) are needed, we add native modules to ensure the optimal user experience." },
       { "q": "Do you handle App Store/Google Play submission?", "a": "Yes, we handle the entire Apple App Store and Google Play Store submission process. From developer account setup guidance to app metadata (screenshots, descriptions, keywords) creation, review submission, and rejection response — we take care of everything. With extensive experience navigating Apple's stringent review criteria, we minimize rejection rates. We continue to support the re-review process for app updates after initial publication as well." },
