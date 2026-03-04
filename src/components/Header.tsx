@@ -53,7 +53,7 @@ export default function Header() {
         <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
         <div className="container mx-auto px-4 max-w-7xl flex items-center justify-center gap-3 py-2 relative z-10">
           <p className="text-sm sm:text-base font-bold tracking-tight text-foreground">
-            막막한 교육사이트 구축, {new Date().getMonth() + 1}월 한달 웹헤즈의 무료 컨설팅 기회를 잡으세요!
+            막막한 교육 플랫폼 구축, 3월 내 신청 시 2개월 LMS 무료 이용권 증정! (~3/31)
           </p>
           <a
             href="#contact"
