@@ -339,7 +339,7 @@ export default function RoiCalculator() {
                     </div>
                     {hasStorageOverage && (
                       <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
-                        ⚠ 포함량 초과 +{fmt(storageUsed - 200)}GB → 연 +{fmt(webheadsResult.storageOverageCost)}원
+                        ⚠ 기본량 초과 +{fmt(storageUsed - 200)}GB → 연 +{fmt(webheadsResult.storageOverageCost)}원
                       </p>
                     )}
                   </div>
