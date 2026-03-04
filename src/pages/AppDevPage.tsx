@@ -60,7 +60,7 @@ export default function AppDevPage() {
       </section>
 
       {/* LMS Features */}
-      <section className="py-28 bg-background">
+      <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("appdev.lmsFeaturesSection.sub")}</p>
@@ -73,7 +73,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("appdev.beforeAfterSection.sub")} heading={t("appdev.beforeAfterSection.heading")} description={t("appdev.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("appdev.beforeAfterSection.sub")} heading={t("appdev.beforeAfterSection.heading")} description={t("appdev.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("appdev.midCTA.heading")} description={t("appdev.midCTA.description")} ctaText={t("appdev.midCTA.ctaText")} />
 
       {/* Other Apps */}
@@ -91,7 +91,7 @@ export default function AppDevPage() {
       </section>
 
       {/* Dev Stack */}
-      <section className="py-24 bg-background border-t border-border">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-12">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("appdev.devStackSection.sub")}</p>
@@ -103,8 +103,8 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceProcess steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
+      <ServiceProcess bg="bg-secondary" steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
+      <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
@@ -124,9 +124,9 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("appdev.caseStudySection.sub")} heading={t("appdev.caseStudySection.heading")} description={t("appdev.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("appdev.seo.title")} />
+      <ServiceCaseStudy bg="bg-secondary" cases={caseStudies} subheading={t("appdev.caseStudySection.sub")} heading={t("appdev.caseStudySection.heading")} description={t("appdev.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("appdev.seo.title")} />
       <ContactSection />
     </div>
   );

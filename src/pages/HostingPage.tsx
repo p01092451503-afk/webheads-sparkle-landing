@@ -60,7 +60,7 @@ export default function HostingPage() {
       </section>
 
       {/* Features */}
-      <section className="py-28 bg-background">
+      <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("hosting.featuresSection.sub")}</p>
@@ -72,11 +72,11 @@ export default function HostingPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("hosting.beforeAfterSection.sub")} heading={t("hosting.beforeAfterSection.heading")} description={t("hosting.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("hosting.beforeAfterSection.sub")} heading={t("hosting.beforeAfterSection.heading")} description={t("hosting.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("hosting.midCTA.heading")} description={t("hosting.midCTA.description")} />
-      <ServiceExtraFeatures features={extraFeatures} subheading={t("hosting.extraSection.sub")} heading={t("hosting.extraSection.heading")} description={t("hosting.extraSection.desc")} />
-      <ServiceProcess steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("hosting.comparisonSection.sub")} heading={t("hosting.comparisonSection.heading")} description={t("hosting.comparisonSection.desc")} />
+      <ServiceExtraFeatures bg="bg-secondary" features={extraFeatures} subheading={t("hosting.extraSection.sub")} heading={t("hosting.extraSection.heading")} description={t("hosting.extraSection.desc")} />
+      <ServiceProcess bg="bg-background" steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
+      <ServiceComparison bg="bg-secondary" headers={comparisonHeaders} rows={comparisonRows} subheading={t("hosting.comparisonSection.sub")} heading={t("hosting.comparisonSection.heading")} description={t("hosting.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
@@ -96,9 +96,9 @@ export default function HostingPage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("hosting.caseStudySection.sub")} heading={t("hosting.caseStudySection.heading")} description={t("hosting.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName="호스팅 서비스" />
+      <ServiceCaseStudy bg="bg-secondary" cases={caseStudies} subheading={t("hosting.caseStudySection.sub")} heading={t("hosting.caseStudySection.heading")} description={t("hosting.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName="호스팅 서비스" />
       <ContactSection />
     </div>
   );

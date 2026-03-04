@@ -56,7 +56,7 @@ export default function DrmPage() {
       </section>
 
       {/* Features */}
-      <section className="py-28 bg-background">
+      <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("drm.featuresSection.sub")}</p>
@@ -68,11 +68,11 @@ export default function DrmPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("drm.beforeAfterSection.sub")} heading={t("drm.beforeAfterSection.heading")} description={t("drm.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("drm.beforeAfterSection.sub")} heading={t("drm.beforeAfterSection.heading")} description={t("drm.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("drm.midCTA.heading")} description={t("drm.midCTA.description")} ctaText={t("drm.midCTA.ctaText")} />
 
       {/* Solutions */}
-      <section id="solutions" className="py-28 bg-secondary">
+      <section id="solutions" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("drm.solutionsSection.sub")}</p>
@@ -85,11 +85,11 @@ export default function DrmPage() {
         </div>
       </section>
 
-      <ServiceProcess steps={processSteps} heading={t("drm.processSection.title")} subheading={t("drm.processSection.sub")} description={t("drm.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("drm.comparisonSection.sub")} heading={t("drm.comparisonSection.heading")} description={t("drm.comparisonSection.desc")} />
-      <ServiceCaseStudy cases={caseStudies} subheading={t("drm.caseStudySection.sub")} heading={t("drm.caseStudySection.heading")} description={t("drm.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("drm.seo.title")} />
+      <ServiceProcess bg="bg-secondary" steps={processSteps} heading={t("drm.processSection.title")} subheading={t("drm.processSection.sub")} description={t("drm.processSection.desc")} />
+      <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("drm.comparisonSection.sub")} heading={t("drm.comparisonSection.heading")} description={t("drm.comparisonSection.desc")} />
+      <ServiceCaseStudy bg="bg-secondary" cases={caseStudies} subheading={t("drm.caseStudySection.sub")} heading={t("drm.caseStudySection.heading")} description={t("drm.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("drm.seo.title")} />
       <ContactSection />
     </div>
   );

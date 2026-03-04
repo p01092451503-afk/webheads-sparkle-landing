@@ -1,11 +1,11 @@
 import { LucideIcon } from "lucide-react";
 
 interface Feature { icon: LucideIcon; title: string; desc: string; tags: string[]; }
-interface ServiceExtraFeaturesProps { features: Feature[]; subheading: string; heading: string; description: string; }
+interface ServiceExtraFeaturesProps { features: Feature[]; subheading: string; heading: string; description: string; bg?: string; }
 
-export default function ServiceExtraFeatures({ features, subheading, heading, description }: ServiceExtraFeaturesProps) {
+export default function ServiceExtraFeatures({ features, subheading, heading, description, bg = "bg-background" }: ServiceExtraFeaturesProps) {
   return (
-    <section className="py-28 bg-background">
+    <section className={`py-28 ${bg}`}>
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="mb-16">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{subheading}</p>

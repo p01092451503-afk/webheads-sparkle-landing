@@ -51,7 +51,7 @@ export default function ContentPage() {
       </section>
 
       {/* Features */}
-      <section className="py-28 bg-background">
+      <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("content.featuresSection.sub")}</p>
@@ -66,7 +66,7 @@ export default function ContentPage() {
       <ServiceMidCTA heading={t("content.midCTA.heading")} description={t("content.midCTA.description")} ctaText={t("content.midCTA.ctaText")} />
 
       {/* Content Types */}
-      <section id="types" className="py-28 bg-secondary">
+      <section id="types" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("content.contentTypesSection.sub")}</p>
@@ -79,11 +79,10 @@ export default function ContentPage() {
         </div>
       </section>
 
-      <ServiceProcess steps={processSteps} heading={t("content.processSection.title")} subheading={t("content.processSection.sub")} description={t("content.processSection.desc")} />
+      <ServiceProcess bg="bg-secondary" steps={processSteps} heading={t("content.processSection.title")} subheading={t("content.processSection.sub")} description={t("content.processSection.desc")} />
 
-
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("content.seo.title")} />
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("content.seo.title")} />
       <ContactSection />
     </div>
   );

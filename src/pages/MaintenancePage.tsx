@@ -71,11 +71,11 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("maintenance.beforeAfterSection.sub")} heading={t("maintenance.beforeAfterSection.heading")} description={t("maintenance.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("maintenance.beforeAfterSection.sub")} heading={t("maintenance.beforeAfterSection.heading")} description={t("maintenance.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("maintenance.midCTA.heading")} description={t("maintenance.midCTA.description")} />
-      <ServiceExtraFeatures features={devFeatures} subheading={t("maintenance.extraSection.sub")} heading={t("maintenance.extraSection.heading")} description={t("maintenance.extraSection.desc")} />
-      <ServiceProcess steps={processSteps} subheading={t("maintenance.processSection.sub")} heading={t("maintenance.processSection.heading")} description={t("maintenance.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("maintenance.comparisonSection.sub")} heading={t("maintenance.comparisonSection.heading")} description={t("maintenance.comparisonSection.desc")} />
+      <ServiceExtraFeatures bg="bg-secondary" features={devFeatures} subheading={t("maintenance.extraSection.sub")} heading={t("maintenance.extraSection.heading")} description={t("maintenance.extraSection.desc")} />
+      <ServiceProcess bg="bg-background" steps={processSteps} subheading={t("maintenance.processSection.sub")} heading={t("maintenance.processSection.heading")} description={t("maintenance.processSection.desc")} />
+      <ServiceComparison bg="bg-secondary" headers={comparisonHeaders} rows={comparisonRows} subheading={t("maintenance.comparisonSection.sub")} heading={t("maintenance.comparisonSection.heading")} description={t("maintenance.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
@@ -94,9 +94,9 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("maintenance.caseStudySection.sub")} heading={t("maintenance.caseStudySection.heading")} description={t("maintenance.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName="유지보수 서비스" />
+      <ServiceCaseStudy bg="bg-background" cases={caseStudies} subheading={t("maintenance.caseStudySection.sub")} heading={t("maintenance.caseStudySection.heading")} description={t("maintenance.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-secondary" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-background" faqs={faqs} serviceName="유지보수 서비스" />
       <ContactSection />
     </div>
   );

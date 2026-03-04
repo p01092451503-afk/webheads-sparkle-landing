@@ -27,11 +27,12 @@ interface ServiceComparisonProps {
   subheading: string;
   heading: string;
   description: string;
+  bg?: string;
 }
 
-export default function ServiceComparison({ headers, rows, subheading, heading, description }: ServiceComparisonProps) {
+export default function ServiceComparison({ headers, rows, subheading, heading, description, bg = "bg-secondary" }: ServiceComparisonProps) {
   return (
-    <section className="py-28 bg-secondary">
+    <section className={`py-28 ${bg}`}>
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="mb-16">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{subheading}</p>

@@ -294,7 +294,7 @@ export default function LmsPage() {
       <IndustryScenarioTabs />
 
       {/* All-in-One Management — 핵심 기능 개요 */}
-      <section className="py-16 md:py-28">
+      <section className="py-16 md:py-28 bg-background">
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
           <div className="mb-10 md:mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.allInOneSection.sub")}</p>
@@ -326,7 +326,7 @@ export default function LmsPage() {
       <DeviceFriendlySection />
 
       {/* AI Features — 차별화 기능 */}
-      <section className="py-16 md:py-28">
+      <section className="py-16 md:py-28 bg-background">
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
           <div className="mb-10 md:mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>

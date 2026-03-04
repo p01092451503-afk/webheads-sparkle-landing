@@ -77,7 +77,7 @@ export default function ChatbotPage() {
       </section>
 
       {/* Features */}
-      <section className="py-28 bg-background">
+      <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("chatbot.featuresSection.sub")}</p>
@@ -140,10 +140,10 @@ export default function ChatbotPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("chatbot.beforeAfterSection.sub")} heading={t("chatbot.beforeAfterSection.heading")} description={t("chatbot.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-secondary" items={beforeAfter} subheading={t("chatbot.beforeAfterSection.sub")} heading={t("chatbot.beforeAfterSection.heading")} description={t("chatbot.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("chatbot.midCTA.heading")} description={t("chatbot.midCTA.description")} ctaText={t("chatbot.midCTA.ctaText")} />
-      <ServiceProcess steps={processSteps} subheading={t("chatbot.processSection.sub")} heading={t("chatbot.processSection.heading")} description={t("chatbot.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("chatbot.comparisonSection.sub")} heading={t("chatbot.comparisonSection.heading")} description={t("chatbot.comparisonSection.desc")} />
+      <ServiceProcess bg="bg-background" steps={processSteps} subheading={t("chatbot.processSection.sub")} heading={t("chatbot.processSection.heading")} description={t("chatbot.processSection.desc")} />
+      <ServiceComparison bg="bg-secondary" headers={comparisonHeaders} rows={comparisonRows} subheading={t("chatbot.comparisonSection.sub")} heading={t("chatbot.comparisonSection.heading")} description={t("chatbot.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
@@ -163,9 +163,9 @@ export default function ChatbotPage() {
         </div>
       </section>
 
-      <ServiceCaseStudy cases={caseStudies} subheading={t("chatbot.caseStudySection.sub")} heading={t("chatbot.caseStudySection.heading")} description={t("chatbot.caseStudySection.desc")} />
-      <TestimonialSection testimonials={testimonials} />
-      <ServiceFAQ faqs={faqs} serviceName={t("chatbot.seo.title")} />
+      <ServiceCaseStudy bg="bg-background" cases={caseStudies} subheading={t("chatbot.caseStudySection.sub")} heading={t("chatbot.caseStudySection.heading")} description={t("chatbot.caseStudySection.desc")} />
+      <TestimonialSection bg="bg-secondary" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-background" faqs={faqs} serviceName={t("chatbot.seo.title")} />
       <ContactSection />
     </div>
   );
