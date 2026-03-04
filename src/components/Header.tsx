@@ -71,6 +71,13 @@ export default function Header() {
           role="banner"
           aria-label={t("banner.text")}
         >
+          <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" aria-hidden="true">
+            <circle cx="10%" cy="50%" r="60" fill="hsl(280, 50%, 90%)" opacity="0.4" />
+            <circle cx="30%" cy="20%" r="35" fill="hsl(250, 55%, 88%)" opacity="0.35" />
+            <circle cx="55%" cy="70%" r="45" fill="hsl(320, 45%, 91%)" opacity="0.3" />
+            <circle cx="75%" cy="30%" r="50" fill="hsl(260, 50%, 90%)" opacity="0.35" />
+            <circle cx="92%" cy="60%" r="40" fill="hsl(300, 40%, 92%)" opacity="0.3" />
+          </svg>
           <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2 relative z-10">
             <p className="text-xs sm:text-base font-medium tracking-tight text-foreground leading-snug text-center">
