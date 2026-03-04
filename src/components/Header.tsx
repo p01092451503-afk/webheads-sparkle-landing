@@ -26,8 +26,8 @@ export default function Header() {
       const dismissed = localStorage.getItem("promo_banner_dismissed");
       if (!dismissed) return false;
       const dismissedAt = new Date(dismissed).getTime();
-      const sevenDays = 7 * 24 * 60 * 60 * 1000;
-      return Date.now() - dismissedAt < sevenDays;
+      const oneDay = 24 * 60 * 60 * 1000;
+      return Date.now() - dismissedAt < oneDay;
     } catch { return false; }
   });
   const [scrolled, setScrolled] = useState(false);
@@ -80,10 +80,9 @@ export default function Header() {
               setBannerDismissed(true);
               try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 z-20 text-foreground/50 hover:text-foreground transition-colors"
-            aria-label="배너 닫기"
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 text-foreground/60 hover:text-foreground transition-colors text-xs font-medium px-2 py-1 rounded-md hover:bg-foreground/5"
           >
-            <X className="w-3.5 h-3.5" />
+            하루동안 열지 않기
           </button>
         </div>
       )}
