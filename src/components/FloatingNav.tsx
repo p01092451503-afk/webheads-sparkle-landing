@@ -15,6 +15,15 @@ export default function FloatingNav() {
   }, []);
 
   const isServiceRequest = location.pathname === "/service-request";
+  const isLmsPage = location.pathname === "/lms";
+
+  const handleRoiClick = () => {
+    if (isLmsPage) {
+      const el = document.getElementById("roi-calculator");
+      if (el) { el.scrollIntoView({ behavior: "smooth" }); return; }
+    }
+    window.location.href = "/lms#roi-calculator";
+  };
 
   const mobileButtons = [
     ...(!isServiceRequest && location.pathname !== "/pricing"
@@ -23,6 +32,7 @@ export default function FloatingNav() {
     ...(!isServiceRequest && location.pathname !== "/sms-kakao"
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
       : []),
+    { to: "#roi", icon: Calculator, label: "ROI 계산기", className: "bg-primary text-primary-foreground", onClick: handleRoiClick },
     ...(location.pathname !== "/blog"
       ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
       : []),
