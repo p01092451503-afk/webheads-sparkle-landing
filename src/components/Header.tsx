@@ -45,7 +45,27 @@ export default function Header() {
   }, [location]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
+    <>
+      {/* Top promo banner */}
+      <div
+        className="fixed top-0 left-0 right-0 z-[60] overflow-hidden"
+        style={{ backgroundColor: "#FFF9C4" }}
+      >
+        <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+        <div className="container mx-auto px-4 max-w-7xl flex items-center justify-between gap-3 py-2 relative z-10">
+          <p className="text-xs sm:text-sm font-bold tracking-tight" style={{ color: "#5D4E00" }}>
+            🌸 막막한 교육사이트 구축, {new Date().getMonth() + 1}월 한달 웹헤즈의 무료 컨설팅 기회를 잡으세요!
+          </p>
+          <a
+            href="#contact"
+            className="shrink-0 rounded-full px-4 py-1.5 text-xs font-bold transition-opacity hover:opacity-80"
+            style={{ backgroundColor: "#F9A825", color: "#fff" }}
+          >
+            신청하기
+          </a>
+        </div>
+      </div>
+    <header className="fixed top-[36px] left-0 right-0 z-50">
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
@@ -149,5 +169,6 @@ export default function Header() {
         </div>
       )}
     </header>
+    </>
   );
 }
