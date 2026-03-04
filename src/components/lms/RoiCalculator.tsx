@@ -241,7 +241,7 @@ export default function RoiCalculator() {
             {/* Cost comparison cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {/* Self-build card */}
-              <div className="rounded-[16px] p-5 md:p-6 border" style={{ background: "#F3F4F6", borderColor: "#E5E7EB" }}>
+              <div className="rounded-[16px] p-5 md:p-6 border" style={{ background: "#F3F4F6", borderColor: "#9CA3AF" }}>
                 <p className="text-xs font-medium mb-3" style={{ color: "#6B7280" }}>
                   {t("lms.roiCalc.selfBuildAnnual")} ({t("lms.roiCalc.annualLabel")})
                 </p>
