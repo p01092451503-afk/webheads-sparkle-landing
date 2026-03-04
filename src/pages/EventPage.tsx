@@ -89,14 +89,14 @@ export default function EventPage() {
             막막한 교육플랫폼 구축, 웹헤즈와 함께 시작하세요.<br />
             1년 이용 계약 시 <strong style={{ color: "hsl(340, 40%, 25%)" }}>총 110만원 상당</strong>의 혜택을 드립니다.
           </p>
-          <a
-            href="#contact"
+          <Link
+            to="/lms#contact"
             className="inline-flex items-center gap-2 px-9 py-4 rounded-full font-bold text-lg transition-all text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             style={{ background: "linear-gradient(135deg, hsl(340, 55%, 48%) 0%, hsl(320, 50%, 45%) 100%)" }}
           >
             지금 바로 신청하기
             <ArrowRight className="w-5 h-5" />
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -218,14 +218,14 @@ export default function EventPage() {
           <p className="mb-8" style={{ color: "hsl(340, 20%, 40%)" }}>
             프로모션은 2026년 3월 31일에 종료됩니다. 서둘러 신청하세요!
           </p>
-          <a
-            href="#contact"
+          <Link
+            to="/lms#contact"
             className="inline-flex items-center gap-2 px-9 py-4 rounded-full font-bold text-lg transition-all text-white shadow-lg hover:shadow-xl hover:-translate-y-0.5"
             style={{ background: "linear-gradient(135deg, hsl(340, 55%, 48%) 0%, hsl(320, 50%, 45%) 100%)" }}
           >
             무료 상담 신청
             <ArrowRight className="w-5 h-5" />
-          </a>
+          </Link>
         </div>
       </section>
     </>
