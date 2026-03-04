@@ -84,7 +84,7 @@ export default function CompetitorComparison() {
               <tbody>
                 {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
-                      <td className="px-4 md:px-5 py-3 font-normal text-foreground text-xs border-r border-border">{row[0]}</td>
+                      <td className="px-4 md:px-5 py-3 font-bold text-foreground text-sm border-r border-border">{row[0]}</td>
                       <td className="px-3 py-3 text-center">
                         <CellContent value={row[1]} isWebheads={false} lang={lang} />
                       </td>
