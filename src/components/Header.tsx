@@ -97,7 +97,7 @@ export default function Header() {
       <div
         className={`transition-all duration-300 ${
           effectiveScrolled
-            ? "bg-white/98 backdrop-blur-xl shadow-sm"
+            ? "bg-background/98 backdrop-blur-xl shadow-sm"
             : "bg-transparent"
         }`}
       >
@@ -106,7 +106,7 @@ export default function Header() {
             {/* Logo */}
             <Link
               to="/lms"
-              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${effectiveScrolled ? "text-[hsl(230,25%,15%)]" : "text-white"}`}
+              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${effectiveScrolled ? "text-foreground" : "text-white"}`}
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}
@@ -124,7 +124,7 @@ export default function Header() {
                       relative whitespace-nowrap px-3.5 py-1.5 text-[0.9rem] font-medium rounded-lg transition-colors duration-200
                       ${isActive
                         ? effectiveScrolled ? "text-foreground underline underline-offset-4 decoration-2" : "text-white underline underline-offset-4 decoration-2"
-                        : effectiveScrolled ? "text-foreground hover:bg-gray-100" : "text-white hover:bg-white/10"
+                        : effectiveScrolled ? "text-foreground hover:bg-muted" : "text-white hover:bg-white/10"
                       }
                     `}
                   >
@@ -141,7 +141,7 @@ export default function Header() {
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
-                    ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
+                    ? "bg-foreground text-background hover:opacity-90"
                     : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
                 }`}
               >
@@ -151,7 +151,7 @@ export default function Header() {
 
             {/* Mobile toggle */}
             <button
-              className={`lg:hidden ml-auto p-2 transition-colors ${effectiveScrolled ? "text-gray-500 hover:text-gray-800" : "text-white/80 hover:text-white"}`}
+              className={`lg:hidden ml-auto p-2 transition-colors ${effectiveScrolled ? "text-muted-foreground hover:text-foreground" : "text-white/80 hover:text-white"}`}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Menu"
             >
@@ -164,7 +164,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
+        <div className="lg:hidden bg-background border-t border-border shadow-lg">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-0.5">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
@@ -172,10 +172,10 @@ export default function Header() {
                 <Link
                   key={s.path}
                   to={s.path}
-                  className={`inline-block w-fit px-3 py-2.5 text-sm font-normal rounded-lg transition-colors ${
+                    className={`inline-block w-fit px-3 py-2.5 text-sm font-normal rounded-lg transition-colors ${
                     isActive
-                      ? "text-[hsl(250,55%,52%)] font-medium"
-                      : "text-[hsl(230,25%,15%)] hover:bg-gray-50"
+                      ? "text-primary font-medium"
+                      : "text-foreground hover:bg-muted"
                   }`}
                 >
                   {s.label}
@@ -183,12 +183,12 @@ export default function Header() {
               );
             })}
 
-            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
+            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
               <LanguageSwitcher />
             </div>
             <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-[hsl(230,25%,15%)] text-white text-center"
+              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
             >
               {t("header.cta")}
             </Link>

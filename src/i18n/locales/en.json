@@ -1275,7 +1275,6 @@
       "92.6% client retention rate",
       "Launch in as little as 3 days",
       "24/7 tech support & incident response",
-      "Top-rated technology credit evaluation",
       "Flexible cloud or on-premise options"
     ],
     "cta": {
@@ -1350,6 +1349,61 @@
       "title": "Apply now and get up to ₩1.1M in benefits",
       "desc": "This promotion ends on March 31, 2026. Don't miss out!",
       "button": "Free Consultation"
+    }
+  },
+  "smsKakao": {
+    "seo": {
+      "title": "SMS / KakaoTalk Alerts",
+      "description": "Use SMS messaging and KakaoTalk alert services with WEBHEADS LMS solution. Check per-message pricing and recharge methods.",
+      "keywords": "SMS, KakaoTalk, alerts, messaging, LMS, WEBHEADS"
+    },
+    "hero": {
+      "title": "SMS / KakaoTalk Alerts",
+      "desc": "Automatically send SMS messages and KakaoTalk alerts from your solution"
+    },
+    "tabs": {
+      "sms": "SMS",
+      "kakao": "KakaoTalk Alerts"
+    },
+    "cta": {
+      "title": "Need to request a service?",
+      "desc": "Click the button below if you need to recharge SMS credits.",
+      "button": "SMS Recharge Request"
+    },
+    "sms": {
+      "title": "SMS Messaging Service (SMS/LMS)",
+      "desc": "Send messages automatically or individually from your solution. Choose between SMS (short) and LMS (long) messages with a convenient point deduction system. (From 25 KRW to 15 KRW per message)",
+      "tableTitle": "SMS Hosting Pricing",
+      "tableHeader": "Per-Message Pricing",
+      "rowCount": "SMS Volume",
+      "rowPerUnit": "Per Message",
+      "rowTotal": "Total Cost",
+      "vatNote": "(excl. VAT)",
+      "rowPoints": "Point Deduction",
+      "pointSms": "1 point per message",
+      "pointLms": "3 points per message",
+      "smsInfo": "Text only, up to <strong class='text-foreground'>80 bytes (40 Korean characters)</strong><br /><span class='text-xs'>(Short Message Service)</span>",
+      "lmsInfo": "Text only, up to <strong class='text-foreground'>2,000 bytes (1,000 Korean characters)</strong><br /><span class='text-xs'>(Long Message Service)</span>",
+      "preRegTitle": "Before applying for SMS hosting!",
+      "preRegDesc": "You must register your sender number before applying for SMS hosting to use the service normally.",
+      "preRegWhat": "What is sender number registration?",
+      "preRegWhatDesc": "Per the Telecommunications Business Act Article 84, to prevent user damage from falsely displayed phone numbers, this system requires registration of authenticated sender numbers for SMS transmission. Without registered sender numbers, messages cannot be sent.",
+      "preRegHow": "How to Register",
+      "preRegHowDesc": "Please leave your representative number and company name on the maintenance request board, and we will assist with the registration process."
+    },
+    "kakao": {
+      "title": "KakaoTalk Alert Service",
+      "desc": "An automatic notification service from your solution. Messages are sent directly to customers' KakaoTalk without friend-adding, using a convenient point deduction system. Individual messages are not supported — only approved templates can be sent. (Templates must be separately approved by Kakao.)",
+      "tableTitle": "KakaoTalk Alert Pricing",
+      "tableHeader": "Per-Message Pricing",
+      "rowCount": "Volume",
+      "rowPerUnit": "Per Message",
+      "rowTotal": "Total Cost",
+      "vatNote": "(excl. VAT)",
+      "rowPoints": "Point Deduction",
+      "pointInfo": "1 point per alert",
+      "infoTitle": "KakaoTalk Alert Guide",
+      "infoDesc": "You must sign up for a KakaoTalk business channel, register your profile, and manage templates. Only approved template messages can be sent, and individual messaging is not supported. For details on template approval and management, please contact your representative."
     }
   }
 }
