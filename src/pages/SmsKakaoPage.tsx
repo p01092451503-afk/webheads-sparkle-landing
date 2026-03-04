@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { MessageSquareText, Bell, ArrowRight, Info } from "lucide-react";
+import { MessageSquareText, Bell, ArrowRight, Info, MonitorSmartphone } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
 
 type TabType = "sms" | "kakao";
