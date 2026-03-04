@@ -236,9 +236,9 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const utmCampaignCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => { if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1; });
+    humanViews.forEach((v) => { if (v.utm_campaign) acc[v.utm_campaign] = (acc[v.utm_campaign] || 0) + 1; });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const utmMediumCounts = useMemo(() => {
     const acc: Record<string, number> = {};
