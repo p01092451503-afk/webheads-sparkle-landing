@@ -143,8 +143,28 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
+            className="relative rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
           >
+            {/* Quick response badge */}
+            <span className="absolute -top-3 right-4 inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-700">
+              ⚡ 평균 2시간 이내 담당자 연락
+            </span>
+
+            {/* Urgency banner */}
+            {(() => {
+              const now = new Date();
+              const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+              const month = now.getMonth() + 1;
+              return (
+                <div className="flex items-center gap-2 rounded-lg bg-amber-50 border border-amber-200 px-4 py-2.5 text-sm">
+                  <span>🔥</span>
+                  <span className="flex-1 font-medium text-amber-900">
+                    {now.getFullYear()}년 {month}월 무료 컨설팅 · <strong>{month}월 {lastDay}일 마감</strong>
+                  </span>
+                </div>
+              );
+            })()}
+
             {/* Inquiry type tabs */}
             {showDemo && (
               <div className="flex rounded-lg p-1 gap-1 bg-muted">
@@ -175,15 +195,11 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               </div>
             )}
 
-            {/* Row 1: Company + Name */}
+            {/* Row 1: Company (optional) + Name */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <FormField
-                label={t("contact.formCompany")}
-                required
-              >
+              <FormField label={t("contact.formCompany")}>
                 <input
                   type="text"
-                  required
                   placeholder={t("contact.formCompanyPlaceholder")}
                   value={form.company}
                   onChange={(e) => setForm({ ...form, company: e.target.value })}
@@ -294,6 +310,12 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                 </>
               )}
             </button>
+
+            {/* Trust line */}
+            <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+              <Lock className="w-3.5 h-3.5" />
+              개인정보는 안전하게 보호되며 스팸 발송 없음
+            </p>
           </form>
         )}
       </div>
