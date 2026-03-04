@@ -76,7 +76,10 @@ export default function Header() {
             </Link>
           </div>
           <button
-            onClick={() => setBannerDismissed(true)}
+            onClick={() => {
+              setBannerDismissed(true);
+              try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
+            }}
             className="absolute right-3 top-1/2 -translate-y-1/2 p-1 z-20 text-foreground/50 hover:text-foreground transition-colors"
             aria-label="배너 닫기"
           >
