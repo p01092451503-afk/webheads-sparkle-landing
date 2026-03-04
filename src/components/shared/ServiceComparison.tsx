@@ -1,10 +1,19 @@
-import { CheckCircle2, XCircle, MinusCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-function StatusIcon({ value }: { value: string }) {
-  if (value === "O") return <CheckCircle2 className="w-5 h-5 text-primary mx-auto" />;
-  if (value === "X") return <XCircle className="w-5 h-5 text-destructive/50 mx-auto" />;
-  if (value === "△") return <MinusCircle className="w-5 h-5 text-muted-foreground mx-auto" />;
-  return <span className="text-sm text-foreground text-center block">{value}</span>;
+function StatusText({ value }: { value: string }) {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+
+  if (value === "O") {
+    return <span className="text-sm font-bold text-primary mx-auto block text-center">{lang === "ko" ? "기본 제공" : "Included"}</span>;
+  }
+  if (value === "X") {
+    return <span className="text-sm font-bold text-destructive/50 mx-auto block text-center">{lang === "ko" ? "불가" : "N/A"}</span>;
+  }
+  if (value === "△") {
+    return <span className="text-sm font-bold text-muted-foreground mx-auto block text-center">{lang === "ko" ? "제한적" : "Limited"}</span>;
+  }
+  return <span className="text-sm font-bold text-foreground text-center block">{value}</span>;
 }
 
 interface ComparisonRow {
