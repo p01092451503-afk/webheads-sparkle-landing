@@ -62,7 +62,7 @@ export default function CompetitorComparison() {
         </div>
 
         {/* Table card */}
-        <div className="rounded-2xl bg-background overflow-hidden shadow-sm border border-border">
+        <div className="rounded-2xl bg-background shadow-sm border border-border mt-4 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-base">
               <thead>
