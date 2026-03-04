@@ -201,25 +201,35 @@ export default function LmsPage() {
 
 
         <div className="container mx-auto px-5 md:px-6 relative z-10 text-center flex flex-col items-center">
+          {/* Highlight badge (industry variant) */}
+          {useVariant && variant.highlightBadge && (
+            <span
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold mb-4"
+              style={{ background: "hsl(45, 95%, 55%)", color: "hsl(30, 60%, 15%)" }}
+            >
+              <Award className="w-3.5 h-3.5" />
+              {variant.highlightBadge}
+            </span>
+          )}
           <span
             className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8"
             style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }}
           >
             <Sparkles className="w-4 h-4" />
-            {t("lms.hero.badge")}
+            {useVariant ? variant.badge : t("lms.hero.badge")}
           </span>
           <h1
-            className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white"
+            className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white whitespace-pre-line"
             style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}
           >
-            {t("lms.hero.title")}
+            {useVariant ? variant.title : t("lms.hero.title")}
             <br />
             <span className="bg-clip-text" style={{ opacity: 0.95 }}>
-              {t("lms.hero.titleHighlight")}
+              {useVariant ? variant.titleHighlight : t("lms.hero.titleHighlight")}
             </span>
           </h1>
           <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
-            {t("lms.hero.desc")}
+            {useVariant ? variant.desc : t("lms.hero.desc")}
           </p>
           <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
             <a
@@ -227,7 +237,7 @@ export default function LmsPage() {
               className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2"
               style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
             >
-              {t("lms.hero.cta1")}
+              {useVariant ? variant.cta1 : t("lms.hero.cta1")}
               <ArrowRight className="w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a href="#solutions" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
