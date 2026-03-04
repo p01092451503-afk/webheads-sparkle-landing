@@ -69,6 +69,8 @@
     "successTitle": "신청이 완료되었습니다",
     "successDesc": "빠른 시일 내에 담당자가 연락드리겠습니다.\n평일 10:00–18:00 운영 기준으로 응대합니다.",
     "successRetry": "다시 문의하기",
+    "responseBadge": "평균 2시간 이내 응답",
+    "trustLine": "개인정보는 안전하게 보호되며 스팸 발송 없음",
     "tabConsultation": "상담 신청",
     "tabDemo": "데모 신청",
     "formMessagePlaceholderDemo": "데모를 원하시는 서비스나 기능을 구체적으로 작성해주세요.",

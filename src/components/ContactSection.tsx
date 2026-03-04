@@ -145,12 +145,11 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             onSubmit={handleSubmit}
             className="relative rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
           >
-            {/* Urgency banner — bold Toss style */}
             {/* Quick response badge */}
-            <div className="flex items-center gap-2 px-1">
-              <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-bold text-foreground tracking-tight shadow-sm border border-border">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-bold text-foreground tracking-tight border border-border">
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                평균 2시간 이내 응답
+                {t("contact.responseBadge")}
               </span>
             </div>
 
@@ -303,7 +302,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             {/* Trust line */}
             <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
               <Lock className="w-3.5 h-3.5" />
-              개인정보는 안전하게 보호되며 스팸 발송 없음
+              {t("contact.trustLine")}
             </p>
           </form>
         )}
