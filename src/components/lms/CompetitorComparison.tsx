@@ -128,9 +128,7 @@ export default function CompetitorComparison() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row, ri) => {
-                  const winnerCol = winners[ri];
-                  return (
+                {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
                       <td className="px-5 md:px-6 py-3.5 font-medium text-foreground text-sm">{row[0]}</td>
                       <td className="px-4 py-3.5 text-center">
@@ -139,12 +137,11 @@ export default function CompetitorComparison() {
                       <td className="px-4 py-3.5 text-center">
                         <CellContent value={row[2]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className={`px-4 py-3.5 text-center ${winnerCol === 2 ? "bg-primary/5" : "bg-primary/[0.02]"}`}>
+                      <td className="px-4 py-3.5 text-center bg-primary/5">
                         <CellContent value={row[3]} isWebheads={true} lang={lang} />
                       </td>
                     </tr>
-                  );
-                })}
+                ))}
               </tbody>
             </table>
           </div>
