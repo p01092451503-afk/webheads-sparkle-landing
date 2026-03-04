@@ -42,9 +42,9 @@ export default function RoiCalculator() {
 
   // Break-even color logic
   const getBepStyle = () => {
-    if (breakEvenMonths <= 12) return { bg: "#F0FDF4", border: "#BBF7D0", text: "#15803D" };
-    if (breakEvenMonths <= 24) return { bg: "#FFFBEB", border: "#FDE68A", text: "#A16207" };
-    return { bg: "#F9FAFB", border: "#E5E7EB", text: "#6B7280" };
+    if (breakEvenMonths <= 12) return { bg: "#fff", border: "#16A34A", text: "#16A34A" };
+    if (breakEvenMonths <= 24) return { bg: "#fff", border: "#D97706", text: "#D97706" };
+    return { bg: "#fff", border: "#9CA3AF", text: "#6B7280" };
   };
   const bepStyle = getBepStyle();
 
