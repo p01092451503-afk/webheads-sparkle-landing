@@ -59,13 +59,13 @@ export default function Header() {
             <p className="text-sm sm:text-base font-bold tracking-tight text-foreground">
               막막한 교육플랫폼 구축, 3월 신청시 LMS 2개월 무료 이용권 증정!
             </p>
-            <a
-              href="#contact"
+            <Link
+              to="/event"
               className="shrink-0 rounded-full px-4 py-1.5 text-xs font-bold transition-opacity hover:opacity-80 text-foreground"
               style={{ backgroundColor: "hsl(50, 100%, 50%)" }}
             >
-              신청하기
-            </a>
+              자세히 보기
+            </Link>
           </div>
           <button
             onClick={() => setBannerDismissed(true)}

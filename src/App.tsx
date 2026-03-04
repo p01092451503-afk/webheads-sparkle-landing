@@ -23,6 +23,7 @@ import ServiceRequestPage from "./pages/ServiceRequestPage";
 import PricingPage from "./pages/PricingPage";
 import SmsKakaoPage from "./pages/SmsKakaoPage";
 import BlogPage from "./pages/BlogPage";
+import EventPage from "./pages/EventPage";
 const OverviewPage = lazy(() => import("./pages/OverviewPage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
