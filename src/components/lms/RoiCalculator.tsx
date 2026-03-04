@@ -206,11 +206,14 @@ export default function RoiCalculator() {
 
             <div className="space-y-4 flex-1">
               {/* 1. 예상 연 매출 */}
-              <div className="flex justify-between items-center py-3 border-b border-border">
-                <span className="text-sm text-muted-foreground">{t("lms.roiCalc.annualRevenue")}</span>
-                <div className="text-right">
-                  <span className="font-bold text-foreground text-lg">{formatNumber(monthlyRevenue * 12)}{t("lms.roiCalc.feeUnit")}</span>
-                  <p className="text-[11px] text-muted-foreground/60">{t("lms.roiCalc.perMonth", { cost: formatNumber(monthlyRevenue) })}</p>
+              <div className="rounded-xl p-4 md:p-5" style={{ background: "hsl(var(--muted) / 0.35)" }}>
+                <p className="text-[11px] font-semibold text-muted-foreground tracking-wide uppercase mb-3">{t("lms.roiCalc.annualRevenue")}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-xs md:text-sm text-muted-foreground">{t("lms.roiCalc.annualRevenue")}</span>
+                  <div className="text-right">
+                    <span className="font-bold text-foreground text-base">{formatNumber(monthlyRevenue * 12)}{t("lms.roiCalc.feeUnit")}</span>
+                    <p className="text-[11px] text-muted-foreground/60">{t("lms.roiCalc.perMonth", { cost: formatNumber(monthlyRevenue) })}</p>
+                  </div>
                 </div>
               </div>
 
