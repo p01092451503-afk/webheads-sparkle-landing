@@ -11,7 +11,7 @@ const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 
-type Tab = "home" | "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
 
 const TabLoader = () => (
   <div className="flex items-center justify-center py-20">
