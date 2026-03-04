@@ -106,7 +106,7 @@ export default function Header() {
             {/* Logo */}
             <Link
               to="/lms"
-              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${effectiveScrolled ? "text-[hsl(230,25%,15%)]" : "text-white"}`}
+              className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${effectiveScrolled ? "text-foreground" : "text-white"}`}
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}
