@@ -2,9 +2,8 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Home, Loader2, Bell, Settings, Shield, ExternalLink, Wrench
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench
 } from "lucide-react";
-import AdminHome from "@/components/admin/AdminHome";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
 const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
@@ -12,7 +11,7 @@ const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 
-type Tab = "home" | "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
 
 const TabLoader = () => (
   <div className="flex items-center justify-center py-20">
@@ -22,7 +21,7 @@ const TabLoader = () => (
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<Tab>("home");
+  const [tab, setTab] = useState<Tab>("inquiries");
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [inquiries, setInquiries] = useState<any[]>([]);
@@ -137,7 +136,6 @@ export default function AdminDashboard() {
   };
 
   const tabs: { key: Tab; icon: any; label: string }[] = [
-    { key: "home", icon: Home, label: "홈" },
     { key: "inquiries", icon: MessageSquare, label: "문의" },
     { key: "service_requests", icon: Wrench, label: "서비스 요청" },
     { key: "analytics", icon: BarChart3, label: "분석" },
@@ -224,9 +222,6 @@ export default function AdminDashboard() {
       </header>
 
       <div className="max-w-[1120px] mx-auto px-5 sm:px-6 py-6">
-        {tab === "home" && (
-          <AdminHome inquiries={inquiries} pageViews={pageViews} onNavigate={setTab} />
-        )}
         <Suspense fallback={<TabLoader />}>
           {tab === "inquiries" && (
             <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
