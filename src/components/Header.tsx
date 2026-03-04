@@ -98,7 +98,7 @@ export default function Header() {
           </button>
         </div>
       )}
-    <header className={`fixed left-0 right-0 z-50 ${showBanner ? "top-[44px]" : "top-0"}`}>
+    <header className={`fixed left-0 right-0 z-50 transition-[top] duration-500 ease-out ${showBanner ? "top-[44px]" : "top-0"}`}>
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
