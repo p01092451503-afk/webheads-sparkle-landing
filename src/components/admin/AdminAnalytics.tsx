@@ -775,7 +775,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />} className="bg-[hsl(340,25%,90%)]">
             {newVisitorData.topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : newVisitorData.topLocations.map(([l, c], i) => <BarRow key={l} rank={i+1} label={l} value={c} max={newVisitorData.topLocations[0][1]} color="hsl(340, 65%, 55%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />} className="bg-[hsl(260,20%,96%)]">
+          <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />} className="bg-[hsl(260,25%,90%)]">
             {newVisitorData.topDevices.length === 0 ? <Empty /> : (
               <>
                 {newVisitorData.topDevices.map(([d, c], i) => <BarRow key={d} rank={i+1} label={d} value={c} max={newVisitorData.topDevices[0][1]} color="hsl(262, 60%, 55%)" />)}
