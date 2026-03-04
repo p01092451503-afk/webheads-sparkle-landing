@@ -67,6 +67,13 @@ export default function Header() {
               신청하기
             </a>
           </div>
+          <button
+            onClick={() => setBannerDismissed(true)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-foreground/50 hover:text-foreground transition-colors"
+            aria-label="배너 닫기"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
         </div>
       )}
     <header className={`fixed left-0 right-0 z-50 ${showBanner ? "top-[44px]" : "top-0"}`}>
