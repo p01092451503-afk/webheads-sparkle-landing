@@ -215,6 +215,9 @@ async function handlePost(req: Request): Promise<Response> {
     }
   }
 
+  // Apply geo-based datacenter city detection
+  visitor_type = classifyWithGeo(visitor_type, country, city);
+
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
