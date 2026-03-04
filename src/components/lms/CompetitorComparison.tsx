@@ -11,31 +11,6 @@ const WH_SUB_EN: Record<string, string> = {
   "One-stop": "PG·DRM·SMS·AI integrated in-house",
 };
 
-function getWinner(row: string[]): number {
-  const vals = row.slice(1);
-  const score = (v: string): number => {
-    if (v === "O") return 3;
-    if (v === "△") return 1;
-    if (v === "X") return 0;
-    if (v === "없음" || v === "None") return 3;
-    if (v === "즉시" || v === "Instant") return 3;
-    if (v === "원스톱" || v === "One-stop") return 3;
-    if (v === "최소 3일" || v === "As fast as 3 days") return 2;
-    if (v.includes("별도") || v.includes("Custom")) return 1;
-    if (v.includes("자체") || v.includes("In-house")) return 1;
-    if (v.includes("제한") || v.includes("Limited")) return 1;
-    if (v.includes("이메일") || v.includes("Email")) return 1;
-    if (v.includes("개별") || v.includes("Separate")) return 1;
-    if (v.includes("만원") || v.includes("$")) return 0;
-    if (v.includes("개월") || v.includes("month") || v.includes("year")) return 0;
-    return 2;
-  };
-  const scores = vals.map(score);
-  const max = Math.max(...scores);
-  const lastIdx = scores.length - 1;
-  if (scores[lastIdx] === max) return lastIdx;
-  return scores.indexOf(max);
-}
 
 function CellContent({
   value,
@@ -89,15 +64,9 @@ export default function CompetitorComparison() {
   const headers = t("lms.competitorTable.headers", { returnObjects: true }) as string[];
   const rows = t("lms.competitorTable.rows", { returnObjects: true }) as string[][];
 
-  const winCounts: number[] = [0, 0, 0];
-  const winners: number[] = rows.map((row) => {
-    const w = getWinner(row);
-    winCounts[w]++;
-    return w;
-  });
 
   return (
-    <section className="py-16 md:py-28 bg-secondary">
+    <section className="py-16 md:py-28 bg-background">
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         {/* Header */}
         <div className="mb-8 md:mb-12">
@@ -134,9 +103,7 @@ export default function CompetitorComparison() {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((row, ri) => {
-                  const winnerCol = winners[ri];
-                  return (
+                {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
                       <td className="px-5 md:px-6 py-3.5 font-medium text-foreground text-sm">{row[0]}</td>
                       <td className="px-4 py-3.5 text-center">
@@ -145,37 +112,16 @@ export default function CompetitorComparison() {
                       <td className="px-4 py-3.5 text-center">
                         <CellContent value={row[2]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className={`px-4 py-3.5 text-center ${winnerCol === 2 ? "bg-primary/5" : "bg-primary/[0.02]"}`}>
+                      <td className="px-4 py-3.5 text-center bg-primary/5">
                         <CellContent value={row[3]} isWebheads={true} lang={lang} />
                       </td>
                     </tr>
-                  );
-                })}
+                ))}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Score summary */}
-        <div className="mt-5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-          {[
-            { label: headers[1], count: winCounts[0], isWh: false },
-            { label: headers[2], count: winCounts[1], isWh: false },
-            { label: headers[3], count: winCounts[2], isWh: true },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold border ${
-                item.isWh
-                  ? "bg-primary/5 text-primary border-primary/20"
-                  : "bg-muted text-muted-foreground border-border"
-              }`}
-            >
-              <span>{item.label}</span>
-              <span className="text-base font-bold">{item.count}{lang === "ko" ? "승" : "W"}</span>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
