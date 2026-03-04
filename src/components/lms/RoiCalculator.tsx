@@ -267,7 +267,7 @@ export default function RoiCalculator() {
               </div>
 
               {/* 3. 연간 절감액 */}
-              <div className="rounded-xl p-3.5 md:p-4" style={{ background: "hsl(var(--lms-primary))" }}>
+              <div className="rounded-xl p-3.5 md:p-4" style={{ background: "hsl(220, 25%, 25%)" }}>
                 <h4 className="font-bold text-xs md:text-sm mb-2 text-white"><span className="opacity-60 mr-1.5">C.</span>{t("lms.roiCalc.annualSavings")}</h4>
                 <div className="flex justify-between items-center">
                   <span className="text-[11px] md:text-xs text-white/70">
