@@ -27,15 +27,8 @@ export default function EventPage() {
       />
 
       {/* Hero */}
-      <section className="relative pt-36 pb-20 lg:pt-44 lg:pb-28 overflow-hidden" style={{ background: "linear-gradient(160deg, hsl(350, 65%, 94%) 0%, hsl(340, 55%, 90%) 25%, hsl(320, 45%, 91%) 50%, hsl(280, 40%, 93%) 75%, hsl(300, 35%, 95%) 100%)" }}>
-        <div className="absolute inset-0">
-          <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] rounded-full blur-[150px] opacity-40" style={{ background: "hsl(350, 70%, 88%)" }} />
-          <div className="absolute bottom-[5%] right-[10%] w-[400px] h-[400px] rounded-full blur-[130px] opacity-30" style={{ background: "hsl(280, 50%, 90%)" }} />
-          <div className="absolute top-[40%] left-[50%] w-[300px] h-[300px] rounded-full blur-[120px] opacity-25" style={{ background: "hsl(30, 70%, 92%)" }} />
-        </div>
-        <div className="absolute top-20 right-[15%] w-24 h-24 rounded-full border-2 opacity-[0.08]" style={{ borderColor: "hsl(340, 50%, 50%)" }} />
-        <div className="absolute bottom-16 left-[10%] w-16 h-16 rounded-full border opacity-[0.06]" style={{ borderColor: "hsl(320, 40%, 50%)" }} />
-        <div className="absolute top-32 left-[8%] w-8 h-8 rounded-full opacity-[0.1]" style={{ background: "hsl(340, 60%, 80%)" }} />
+      <section className="relative pt-36 pb-20 lg:pt-44 lg:pb-28 overflow-hidden">
+        <HeroPatternBg theme="rose-spring" />
 
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full mb-8 text-sm font-bold backdrop-blur-sm" style={{ background: "hsl(340, 70%, 85%)", color: "hsl(340, 55%, 25%)" }}>
