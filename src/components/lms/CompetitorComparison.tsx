@@ -67,7 +67,7 @@ export default function CompetitorComparison() {
             <table className="w-full text-base">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="px-5 md:px-6 py-5 text-left text-sm font-semibold text-muted-foreground w-[28%]">
+                  <th className="px-5 md:px-6 py-5 text-left text-sm font-semibold text-muted-foreground w-[28%] border-r border-border">
                     {headers[0]}
                   </th>
                   <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
@@ -84,7 +84,7 @@ export default function CompetitorComparison() {
               <tbody>
                 {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
-                      <td className="px-5 md:px-6 py-5 font-medium text-foreground text-base">{row[0]}</td>
+                      <td className="px-5 md:px-6 py-5 font-medium text-foreground text-base border-r border-border">{row[0]}</td>
                       <td className="px-4 py-5 text-center">
                         <CellContent value={row[1]} isWebheads={false} lang={lang} />
                       </td>
