@@ -74,6 +74,17 @@ const datacenterRanges = [
   /^18\.(1[6-9][0-9]|2[0-4][0-9]|25[0-5])\./, // AWS
 ];
 
+// Known US datacenter cities (Google, AWS, Microsoft, Meta, etc.)
+const datacenterCities = [
+  /mountain\s*view/i, /ashburn/i, /council\s*bluffs/i, /the\s*dalles/i,
+  /pryor/i, /papillion/i, /boardman/i, /quincy/i, /prineville/i,
+  /new\s*albany/i, /altoona/i, /maiden/i, /forest\s*city/i,
+  /santa\s*clara/i, /san\s*jose/i, /reston/i, /herndon/i,
+  /allston/i, /somerville/i, /des\s*moines/i, /hilliard/i,
+  /columbus.*ohio/i, /sterling/i, /manassas/i, /cheyenne/i,
+  /phoenix.*arizona/i, /chandler/i, /mesa.*arizona/i,
+];
+
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
   // Headless browsers & automated tools
@@ -87,6 +98,18 @@ function classifyVisitor(ua: string, ip: string | null): string {
   const isDatacenter = ip ? datacenterRanges.some(r => r.test(ip)) : false;
   if (isDatacenter) return "scraper_datacenter";
   return "human";
+}
+
+// Post-geo classification: check if geo city is a known datacenter location
+function classifyWithGeo(visitorType: string, country: string | null, city: string | null): string {
+  if (visitorType !== "human") return visitorType;
+  if (!country || !city) return visitorType;
+  // Only apply to US traffic (most major datacenter cities)
+  const isUS = /united\s*states|^us$/i.test(country);
+  if (!isUS) return visitorType;
+  const isDatacenterCity = datacenterCities.some(r => r.test(city));
+  if (isDatacenterCity) return "scraper_datacenter";
+  return visitorType;
 }
 
 function extractIP(req: Request): string | null {
@@ -138,6 +161,7 @@ async function handleBotPixel(req: Request): Promise<Response> {
   }
 
   const { country, city } = await geoLookup(ip);
+  const finalType = classifyWithGeo(visitor_type, country, city);
   const referer = req.headers.get("referer") || null;
 
   const supabase = createClient(
@@ -155,7 +179,7 @@ async function handleBotPixel(req: Request): Promise<Response> {
     ip_address: ip,
     country,
     city,
-    visitor_type,
+    visitor_type: finalType,
     is_first_visit: false,
   });
 
@@ -190,6 +214,9 @@ async function handlePost(req: Request): Promise<Response> {
       console.error("Repeat UA check failed:", e);
     }
   }
+
+  // Apply geo-based datacenter city detection
+  visitor_type = classifyWithGeo(visitor_type, country, city);
 
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
