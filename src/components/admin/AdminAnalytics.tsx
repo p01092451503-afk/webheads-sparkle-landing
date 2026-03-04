@@ -36,8 +36,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return clickEvents.filter((v) => new Date(v.created_at) >= since);
   }, [clickEvents, dateRange]);
 
-  const totalViews = filteredViews.length;
-  const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
+  const totalViews = humanViews.length;
+  const uniqueSessions = new Set(humanViews.map((v) => v.session_id)).size;
 
   const visitorTypeCounts = useMemo(() => {
     // Display name maps for granular visitor_type from DB
