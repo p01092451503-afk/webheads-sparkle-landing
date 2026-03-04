@@ -470,10 +470,10 @@
     ],
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter DRM", "desc": "Real content security changes before and after DRM adoption." },
     "beforeAfter": [
-      { "label": "Video Leaks", "before": "10+/month (illegal sharing)", "after": "0 (completely blocked)" },
-      { "label": "Capture/Recording Block", "before": "Impossible (unprotected)", "after": "All-platform real-time block" },
-      { "label": "Leak Tracing", "before": "Untraceable", "after": "Watermark-based instant ID" },
-      { "label": "Learner UX (Plugins)", "before": "ActiveX required", "after": "Browser-native (EME)" }
+      { "label": "Video Leaks", "before": "10+/month (illegal sharing)", "after": "0", "measure": "Widevine/FairPlay multi-DRM with AES-128 encryption. Content unplayable without license server authentication." },
+      { "label": "Capture/Recording Block", "before": "Impossible (unprotected)", "after": "All-platform real-time block", "measure": "zone@GUARD detects and blocks OBS, Bandicam, and similar recording tools in real-time. Packet capture (Fiddler etc.) also blocked." },
+      { "label": "Leak Tracing", "before": "Untraceable", "after": "Watermark-based instant ID", "measure": "Forensic watermarks embed user ID, IP, and timestamp into video in real-time. Leaked content analyzed to identify the source immediately." },
+      { "label": "Learner UX (Plugins)", "before": "ActiveX required", "after": "Browser-native playback", "measure": "Migrated to W3C standard EME (Encrypted Media Extensions). Instant playback on Chrome, Safari, and Edge without plugin installation." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual security outcomes from organizations using DRM." },
     "caseStudies": [
