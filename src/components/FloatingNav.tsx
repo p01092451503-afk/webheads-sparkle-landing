@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronUp, ChevronDown, MessageSquareText, CreditCard, Send } from "lucide-react";
+import { ChevronUp, ChevronDown, MessageSquareText, CreditCard, Send, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
@@ -50,6 +50,17 @@ export default function FloatingNav() {
           >
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.support")}</span>
             <MessageSquareText className="w-5 h-5" />
+          </Link>
+        )}
+
+        {location.pathname !== "/blog" && (
+          <Link
+            to="/blog"
+            className="group relative w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity border-2 border-primary/40"
+            aria-label="LMS 인사이트"
+          >
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">LMS 인사이트</span>
+            <BookOpen className="w-5 h-5" />
           </Link>
         )}
       </div>
