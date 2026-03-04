@@ -30,6 +30,7 @@ export default function Header() {
       return Date.now() - dismissedAt < oneDay;
     } catch { return false; }
   });
+  const [bannerReady, setBannerReady] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
