@@ -83,8 +83,23 @@ const industryVariants: Record<string, {
 export default function LmsPage() {
   const { t, i18n } = useTranslation();
   const [searchParams] = useSearchParams();
+  const location = useLocation();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
+
+  // Scroll to ROI calculator when navigated from other pages
+  useEffect(() => {
+    const state = location.state as { scrollTo?: string } | null;
+    if (state?.scrollTo) {
+      const timer = setTimeout(() => {
+        const el = document.getElementById(state.scrollTo!);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+      // Clear state to prevent re-scroll on re-render
+      window.history.replaceState({}, "");
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
 
   // Resolve industry variant from URL param → sessionStorage → default
   const variant = useMemo(() => {
