@@ -1,9 +1,10 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Wrench } from "lucide-react";
 
 interface BeforeAfterItem {
   label: string;
   before: string;
   after: string;
+  measure?: string;
 }
 
 interface ServiceBeforeAfterProps {
@@ -35,6 +36,12 @@ export default function ServiceBeforeAfter({ items, subheading, heading, descrip
                   <p className="text-sm font-bold text-primary">{item.after}</p>
                 </div>
               </div>
+              {item.measure && (
+                <div className="flex items-start gap-2 rounded-xl bg-muted/60 px-4 py-3">
+                  <Wrench className="w-4 h-4 text-muted-foreground shrink-0 mt-0.5" />
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.measure}</p>
+                </div>
+              )}
             </div>
           ))}
         </div>

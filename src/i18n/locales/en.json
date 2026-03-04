@@ -131,10 +131,10 @@
     "plansCustom": { "title": "Need a custom quote?", "desc": "For high-traffic or special security requirements, we provide tailored infrastructure proposals.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Switching", "desc": "Real operational metrics before and after adopting WEBHEADS hosting." },
     "beforeAfter": [
-      { "label": "Incident Recovery Time", "before": "Avg. 4+ hours", "after": "Avg. under 30 min" },
-      { "label": "Video Loading Speed", "before": "12 sec (frequent buffering)", "after": "Under 2 sec (CDN applied)" },
-      { "label": "Monthly Downtime", "before": "6+ hours", "after": "0 hours (99.9% SLA)" },
-      { "label": "Infrastructure Cost", "before": "₩2M+/mo (self-managed)", "after": "₩700K~/mo (managed)" }
+      { "label": "Incident Recovery Time", "before": "Avg. 4+ hours", "after": "Avg. under 30 min", "measure": "24/7 NOC monitoring + auto-detection system deployed. Instant alerts trigger remote response by dedicated engineers." },
+      { "label": "Video Loading Speed", "before": "12 sec (frequent buffering)", "after": "Under 2 sec", "measure": "Global CDN (CloudFront) edge deployment + Adaptive Bitrate (ABR) streaming for automatic quality adjustment based on network conditions." },
+      { "label": "Monthly Downtime", "before": "6+ hours", "after": "0 hours (99.9% SLA)", "measure": "Active-Standby redundancy architecture + automatic failover. Server failures trigger auto-switch to backup within 30 seconds." },
+      { "label": "Infrastructure Cost", "before": "₩2M+/mo (self-managed)", "after": "₩700K~/mo", "measure": "Migrated from in-house server rooms to managed cloud. WEBHEADS handles server management, security, and backups — eliminating staffing and equipment costs." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual operational outcomes from organizations that switched to WEBHEADS hosting." },
     "caseStudies": [
@@ -213,10 +213,10 @@
     "plansCustom": { "title": "Need a custom quote?", "desc": "For complex environments or special requirements, we provide tailored maintenance proposals.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Adopting Maintenance", "desc": "Real operational metrics before and after adopting WEBHEADS maintenance." },
     "beforeAfter": [
-      { "label": "Incident Response Time", "before": "Avg. 2+ hours (manual contact)", "after": "Avg. under 10 min (NOC auto-detect)" },
-      { "label": "Security Patch Cycle", "before": "Quarterly (manual)", "after": "Critical 24hr, Regular 2x/mo" },
-      { "label": "Feature Request Turnaround", "before": "Avg. 2-3 weeks", "after": "Avg. 1-3 business days" },
-      { "label": "Operational Visibility", "before": "Post-incident awareness", "after": "Real-time monitoring + monthly reports" }
+      { "label": "Incident Response Time", "before": "Avg. 2+ hours (manual contact)", "after": "Avg. under 10 min", "measure": "Zabbix/Grafana-based NOC monitoring — anomaly auto-detection triggers Slack/SMS alerts for immediate remote engineer response." },
+      { "label": "Security Patch Cycle", "before": "Quarterly (manual)", "after": "Critical 24hr, Regular 2x/mo", "measure": "Weekly CVE vulnerability scanning + emergency patch SLA. OS, middleware, and CMS patches verified in staging before production deployment." },
+      { "label": "Feature Request Turnaround", "before": "Avg. 2-3 weeks", "after": "Avg. 1-3 business days", "measure": "Dedicated issue tracker (Jira) + assigned PM. Standardized pipeline: request → impact analysis → dev/QA → deployment." },
+      { "label": "Operational Visibility", "before": "Post-incident awareness", "after": "Real-time monitoring + monthly reports", "measure": "Real-time dashboard for CPU, memory, and traffic metrics + monthly operations report (uptime, incident history, performance trends)." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using WEBHEADS maintenance." },
     "caseStudies": [
@@ -323,10 +323,10 @@
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your organization.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter AI Chatbot", "desc": "Real operational metrics before and after adopting an AI chatbot." },
     "beforeAfter": [
-      { "label": "Repetitive Inquiry Handling", "before": "100% manual by agents", "after": "80% auto-resolved by AI" },
-      { "label": "After-hours Support", "before": "No response (off-hours)", "after": "24/7 instant response" },
-      { "label": "Average Response Time", "before": "Avg. 30 min – 1 hour", "after": "Avg. under 2 seconds" },
-      { "label": "Monthly Support Cost", "before": "₩3M+/mo (2 agents)", "after": "₩100K-500K/mo (AI ops)" }
+      { "label": "Repetitive Inquiry Handling", "before": "100% manual by agents", "after": "80% auto-resolved by AI", "measure": "FAQ, policies, and curriculum data trained via RAG pipeline. GPT-4o auto-responds to standardized inquiries." },
+      { "label": "After-hours Support", "before": "No response (off-hours)", "after": "24/7 instant response", "measure": "Cloud-based AI chatbot operates 365 days non-stop. Only complex inquiries escalate to human agents." },
+      { "label": "Average Response Time", "before": "Avg. 30 min – 1 hour", "after": "Avg. under 2 seconds", "measure": "Vector DB (Pinecone) semantic search + LLM streaming response. Similar query caching for instant repeat answers." },
+      { "label": "Monthly Support Cost", "before": "₩3M+/mo (2 agents)", "after": "₩100K-500K/mo", "measure": "Replaced 2 full-time agents with AI chatbot API + monthly model tuning costs. Agents focus only on complex cases." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using AI chatbots." },
     "caseStudies": [
@@ -407,10 +407,10 @@
     "plansCustom": { "title": "None of these plans quite right?", "desc": "We'll propose a custom quote tailored to your project scope.", "cta": "Request Custom Quote" },
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter App Launch", "desc": "Real performance changes before and after mobile app adoption." },
     "beforeAfter": [
-      { "label": "Learning Accessibility", "before": "PC only (poor mobile UX)", "after": "Native iOS + Android app" },
-      { "label": "Learning Retention", "before": "30% 7-day return rate", "after": "65% with push notifications" },
-      { "label": "Offline Learning", "before": "Not available", "after": "Download via Wi-Fi & study offline" },
-      { "label": "Dev Timeline & Cost", "before": "6+ months / ₩50M+", "after": "4 weeks~ / ₩1.5M~ (MVP)" }
+      { "label": "Learning Accessibility", "before": "PC only (poor mobile UX)", "after": "Native iOS + Android app", "measure": "React Native cross-platform development for simultaneous iOS/Android launch. Integrated with existing LMS APIs for seamless content access." },
+      { "label": "Learning Retention", "before": "30% 7-day return rate", "after": "65%", "measure": "Firebase Cloud Messaging push notification system. Personalized alerts for incomplete courses and assignment deadlines." },
+      { "label": "Offline Learning", "before": "Not available", "after": "Download via Wi-Fi & study offline", "measure": "DRM-encrypted local storage + offline progress sync. Enables learning in subways, airplanes, and other offline environments." },
+      { "label": "Dev Timeline & Cost", "before": "6+ months / ₩50M+", "after": "4 weeks~ / ₩1.5M~ (MVP)", "measure": "Pre-built LMS app templates (auth, player, push) + institution branding customization dramatically reduces timeline and cost." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations that launched mobile apps." },
     "caseStudies": [
@@ -470,10 +470,10 @@
     ],
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter DRM", "desc": "Real content security changes before and after DRM adoption." },
     "beforeAfter": [
-      { "label": "Video Leaks", "before": "10+/month (illegal sharing)", "after": "0 (completely blocked)" },
-      { "label": "Capture/Recording Block", "before": "Impossible (unprotected)", "after": "All-platform real-time block" },
-      { "label": "Leak Tracing", "before": "Untraceable", "after": "Watermark-based instant ID" },
-      { "label": "Learner UX (Plugins)", "before": "ActiveX required", "after": "Browser-native (EME)" }
+      { "label": "Video Leaks", "before": "10+/month (illegal sharing)", "after": "0", "measure": "Widevine/FairPlay multi-DRM with AES-128 encryption. Content unplayable without license server authentication." },
+      { "label": "Capture/Recording Block", "before": "Impossible (unprotected)", "after": "All-platform real-time block", "measure": "zone@GUARD detects and blocks OBS, Bandicam, and similar recording tools in real-time. Packet capture (Fiddler etc.) also blocked." },
+      { "label": "Leak Tracing", "before": "Untraceable", "after": "Watermark-based instant ID", "measure": "Forensic watermarks embed user ID, IP, and timestamp into video in real-time. Leaked content analyzed to identify the source immediately." },
+      { "label": "Learner UX (Plugins)", "before": "ActiveX required", "after": "Browser-native playback", "measure": "Migrated to W3C standard EME (Encrypted Media Extensions). Instant playback on Chrome, Safari, and Edge without plugin installation." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual security outcomes from organizations using DRM." },
     "caseStudies": [
@@ -547,10 +547,10 @@
     ],
     "beforeAfterSection": { "sub": "BEFORE & AFTER", "heading": "See the Difference\nAfter Channel/SMS", "desc": "Real operational changes before and after automated messaging." },
     "beforeAfter": [
-      { "label": "Learning Reminders", "before": "Manual calls/emails", "after": "Condition-based auto-send" },
-      { "label": "Completion Rate", "before": "60% (insufficient nudging)", "after": "85%+ (auto-reminder effect)" },
-      { "label": "Learner Context in Support", "before": "Separate system lookup (3min+)", "after": "Instant display in Channel Talk" },
-      { "label": "Messaging Cost", "before": "SMS ₩15/msg", "after": "KakaoTalk ₩8/msg (47% savings)" }
+      { "label": "Learning Reminders", "before": "Manual calls/emails", "after": "Condition-based auto-send", "measure": "LMS data (progress, inactive days) integrated with Channel Talk API. Auto-triggers KakaoTalk alerts on conditions like '7 days inactive'." },
+      { "label": "Completion Rate", "before": "60% (insufficient nudging)", "after": "85%+", "measure": "Automated D-7/D-3/D-1 deadline reminders + personalized nudges with course name and remaining lectures for non-completers." },
+      { "label": "Learner Context in Support", "before": "Separate system lookup (3min+)", "after": "Instant display in Channel Talk", "measure": "LMS enrollment data (courses, progress, last login) synced to Channel Talk custom profile fields for instant agent visibility." },
+      { "label": "Messaging Cost", "before": "SMS ₩15/msg", "after": "KakaoTalk ₩8/msg (47% savings)", "measure": "Migrated simple notifications from SMS to KakaoTalk AlimTalk. Pre-approved templates reduce per-message cost by 47% with higher delivery rates." }
     ],
     "caseStudySection": { "sub": "CASE STUDIES", "heading": "Real Results from\nReal Clients", "desc": "Actual outcomes from organizations using Channel Talk/SMS automation." },
     "caseStudies": [
