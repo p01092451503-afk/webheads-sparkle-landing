@@ -153,20 +153,24 @@ export default function RoiCalculator() {
               className="rounded-2xl p-6 md:p-8 text-center transition-colors duration-300"
               style={{ background: bepStyle.bg, border: `1px solid ${bepStyle.border}` }}
             >
-              <h3 className="font-bold text-base mb-5" style={{ color: "#111827" }}>
-                웹헤즈 도입 시 손익분기점
+              <h3 className="font-bold text-base mb-2" style={{ color: "#111827" }}>
+                아낀 6,000만원으로 WEBHEADS LMS를
               </h3>
               <p className="font-extrabold text-5xl md:text-6xl mb-2" style={{ color: bepStyle.text }}>
-                {displayBreakEven}<span className="text-2xl md:text-3xl">개월 후 본전</span>
+                {displayBreakEven}<span className="text-2xl md:text-3xl">개월</span>
               </p>
-              <p className="text-sm mb-4" style={{ color: "#6B7280" }}>
+              <p className="text-sm font-semibold mb-4" style={{ color: bepStyle.text }}>
+                이용할 수 있습니다
+              </p>
+              <p className="text-sm mb-1" style={{ color: "#6B7280" }}>
                 = 월 이용료 {fmt(monthly)}원 기준
               </p>
-              <p className="text-sm leading-relaxed max-w-md mx-auto" style={{ color: "#6B7280" }}>
-                자체 구축에 6,000만원을 쓰는 대신,{" "}
-                웹헤즈를 {displayBreakEven}개월 이용하면 같은 비용이 됩니다.
+              <p className="text-sm leading-relaxed max-w-md mx-auto" style={{ color: "#9CA3AF" }}>
+                자체 구축비 6,000만원 대신 WEBHEADS LMS를 선택하면,
                 <br />
-                그 이후부터는 순수 절감입니다.
+                같은 비용으로 {displayBreakEven}개월간 운영할 수 있습니다.
+                <br />
+                그 이후에도 낮은 월 이용료만으로 계속 이용 가능합니다.
               </p>
             </div>
 
