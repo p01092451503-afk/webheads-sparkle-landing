@@ -55,7 +55,7 @@ export default function ServiceComparison({ headers, rows, subheading, heading, 
                     <td className="px-6 py-3.5 font-medium text-foreground">{row.label}</td>
                     {row.values.map((v, j) => (
                       <td key={j} className={`px-4 py-3.5 text-center ${j === 0 ? "bg-primary/5" : ""}`}>
-                        <StatusIcon value={v} />
+                        <StatusText value={v} />
                       </td>
                     ))}
                   </tr>
