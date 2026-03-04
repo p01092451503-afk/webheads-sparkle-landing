@@ -108,7 +108,7 @@ export default function SmsKakaoPage() {
         </div>
       </section>
 
-      <ContactSection />
+      
     </>
   );
 }
