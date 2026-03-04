@@ -305,6 +305,23 @@
         ]
       }
     },
+    "archDiagram": {
+      "title": "요청 처리 흐름 (Request Flow)",
+      "user": "사용자",
+      "userSub": "질문 입력",
+      "channel": "채널 연동",
+      "channelSub": "웹/카카오/앱",
+      "orchestrator": "LangChain",
+      "orchestratorSub": "오케스트레이션",
+      "rag": "Vector DB",
+      "ragSub": "RAG 검색",
+      "llm": "LLM",
+      "llmSub": "GPT-4o / Claude",
+      "response": "AI 응답",
+      "responseSub": "스트리밍 출력",
+      "legendCore": "핵심 엔진",
+      "legendModule": "연동 모듈"
+    },
     "midCTA": { "heading": "우리 기관에 맞는 AI 챗봇이 궁금하신가요?", "description": "기관 특성에 맞는 챗봇 구축 방안을 무료로 제안드립니다.", "ctaText": "무료 데모 신청하기" },
     "processSection": { "sub": "도입 과정", "heading": "체계적인 AI 챗봇\n도입 프로세스", "desc": "요구사항 분석부터 지속 운영까지, 전담 엔지니어가 함께합니다." },
     "processSteps": [
