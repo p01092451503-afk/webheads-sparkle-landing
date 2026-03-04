@@ -268,11 +268,8 @@ export default function RoiCalculator() {
 
               {/* 4. 연간 절감액 */}
               <div className="rounded-xl p-4 md:p-5" style={{ background: GREEN_BG }}>
-                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
-                  <span className="text-xs md:text-sm font-semibold" style={{ color: GREEN_TEXT }}>{t("lms.roiCalc.annualSavings")}</span>
-                  <span className="font-bold text-xl md:text-2xl" style={{ color: GREEN_TEXT }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
-                </div>
-                <p className="text-[11px] md:text-xs mt-1" style={{ color: GREEN_ACCENT }}>
+                <h4 className="font-bold text-sm md:text-base mb-3" style={{ color: GREEN_TEXT }}>{t("lms.roiCalc.annualSavings")}</h4>
+                <p className="text-xs md:text-sm" style={{ color: GREEN_ACCENT }}>
                   {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
                 </p>
               </div>
