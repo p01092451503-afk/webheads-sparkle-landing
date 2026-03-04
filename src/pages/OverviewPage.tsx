@@ -66,9 +66,9 @@ function LmsDetailSection() {
         <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light와 웹헤즈 PRO — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
         {/* LMS Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           {lmsStats.map((s, i) => (
-            <div key={i} className="rounded-xl p-5 text-center border border-border" style={{ background: "hsl(250,30%,96%)" }}>
+            <div key={i} className="rounded-xl p-5 text-center border border-border w-[calc(50%-6px)] md:w-[220px]" style={{ background: "hsl(250,30%,96%)" }}>
               <p className="text-2xl font-black text-foreground">{s.value}</p>
               <p className="text-sm text-muted-foreground font-medium mt-1">{s.label}</p>
               <p className="text-xs text-muted-foreground/60 mt-0.5">{s.sub}</p>
