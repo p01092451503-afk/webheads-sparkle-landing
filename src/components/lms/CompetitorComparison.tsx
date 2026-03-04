@@ -62,7 +62,7 @@ export default function CompetitorComparison() {
         </div>
 
         {/* Table card */}
-        <div className="rounded-2xl bg-background overflow-hidden shadow-sm border border-border">
+        <div className="rounded-2xl bg-background shadow-sm border border-border mt-4 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-base">
               <thead>
@@ -76,10 +76,7 @@ export default function CompetitorComparison() {
                   <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
                     {headers[2]}
                   </th>
-                  <th className="px-4 py-5 text-center text-sm font-bold text-primary-foreground bg-primary relative">
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 rounded-full whitespace-nowrap bg-primary/80 text-primary-foreground/80">
-                      Best Choice
-                    </span>
+                  <th className="px-4 py-5 text-center text-sm font-bold text-primary-foreground bg-primary">
                     {headers[3]}
                   </th>
                 </tr>
