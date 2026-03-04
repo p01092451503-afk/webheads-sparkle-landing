@@ -21,7 +21,15 @@ const serviceBlobColors: Record<string, string> = {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [bannerDismissed, setBannerDismissed] = useState(false);
+  const [bannerDismissed, setBannerDismissed] = useState(() => {
+    try {
+      const dismissed = localStorage.getItem("promo_banner_dismissed");
+      if (!dismissed) return false;
+      const dismissedAt = new Date(dismissed).getTime();
+      const sevenDays = 7 * 24 * 60 * 60 * 1000;
+      return Date.now() - dismissedAt < sevenDays;
+    } catch { return false; }
+  });
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
