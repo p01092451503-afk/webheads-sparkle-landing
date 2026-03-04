@@ -130,6 +130,57 @@ export default function Footer() {
           <p className="text-xs text-muted-foreground" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", fontWeight: 400 }}>{t("footer.copyright")}</p>
         </div>
       </div>
+      {/* Privacy Policy Dialog */}
+      <Dialog open={privacyOpen} onOpenChange={setPrivacyOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-lg font-bold">개인정보처리방침</DialogTitle>
+          </DialogHeader>
+          <div className="text-sm leading-relaxed text-foreground/80 space-y-4" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
+            <p className="font-semibold">주식회사 웹헤즈(이하 "회사")는 개인정보 보호법에 따라 이용자의 개인정보를 보호하고 이와 관련한 고충을 원활하게 처리할 수 있도록 다음과 같은 처리방침을 두고 있습니다.</p>
+
+            <h3 className="font-bold text-foreground mt-4">1. 개인정보의 수집 항목 및 수집 방법</h3>
+            <p>회사는 서비스 제공을 위해 다음과 같은 개인정보를 수집합니다.</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li><strong>필수 항목:</strong> 이름, 회사명, 연락처(전화번호)</li>
+              <li><strong>선택 항목:</strong> 이메일, 문의 내용, 희망 일시</li>
+              <li><strong>자동 수집 항목:</strong> 접속 IP, 브라우저 정보, 접속 시간, 방문 페이지</li>
+            </ul>
+
+            <h3 className="font-bold text-foreground mt-4">2. 개인정보의 수집 및 이용 목적</h3>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>서비스 문의 및 상담 응대</li>
+              <li>서비스 요청(SMS 충전, 원격지원 등) 처리</li>
+              <li>서비스 이용 통계 분석 및 품질 개선</li>
+              <li>마케팅 정보 제공(동의한 경우에 한함)</li>
+            </ul>
+
+            <h3 className="font-bold text-foreground mt-4">3. 개인정보의 보유 및 이용 기간</h3>
+            <p>회사는 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 단, 관련 법령에 따라 보존할 필요가 있는 경우 해당 기간 동안 보관합니다.</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>계약 또는 청약철회 등에 관한 기록: 5년</li>
+              <li>소비자의 불만 또는 분쟁처리에 관한 기록: 3년</li>
+              <li>웹사이트 방문 기록: 3개월</li>
+            </ul>
+
+            <h3 className="font-bold text-foreground mt-4">4. 개인정보의 제3자 제공</h3>
+            <p>회사는 이용자의 동의 없이 개인정보를 제3자에게 제공하지 않습니다. 다만, 법령에 의한 요청이 있는 경우에는 예외로 합니다.</p>
+
+            <h3 className="font-bold text-foreground mt-4">5. 개인정보의 파기 절차 및 방법</h3>
+            <p>전자적 파일 형태의 정보는 복구할 수 없는 방법으로 삭제하며, 종이에 출력된 개인정보는 분쇄기로 분쇄하거나 소각합니다.</p>
+
+            <h3 className="font-bold text-foreground mt-4">6. 개인정보 보호 책임자</h3>
+            <ul className="list-none space-y-1">
+              <li>책임자: 웹헤즈 대표</li>
+              <li>연락처: 02-540-4337</li>
+              <li>이메일: webheads@webheads.co.kr</li>
+            </ul>
+
+            <h3 className="font-bold text-foreground mt-4">7. 개인정보 처리방침의 변경</h3>
+            <p>이 개인정보처리방침은 2026년 3월 4일부터 적용됩니다. 변경 사항이 있을 경우 웹사이트를 통해 공지합니다.</p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </footer>
   );
 }
