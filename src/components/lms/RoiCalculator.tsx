@@ -111,7 +111,7 @@ export default function RoiCalculator() {
               <h3 className="font-bold text-base mb-4" style={{ color: "#111827" }}>최초 구축비</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative">
                 {/* 자체 구축 */}
-                <div className="rounded-2xl p-6" style={{ background: "#FFF1F2", border: "1px solid #FECDD3" }}>
+                <div className="rounded-2xl p-6" style={{ background: "#fff", border: "1px solid #E5E7EB" }}>
                   <p className="text-xs font-semibold mb-2" style={{ color: "#6B7280" }}>자체 구축</p>
                   <p className="font-extrabold text-4xl mb-3" style={{ color: "#EF4444" }}>
                     60,000,000<span className="text-lg">원</span>
