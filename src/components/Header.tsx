@@ -72,12 +72,12 @@ export default function Header() {
           aria-label={t("banner.text")}
         >
           <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1400 44" aria-hidden="true">
-            <circle cx="80" cy="22" r="80" fill="hsl(280, 50%, 85%)" opacity="0.5" />
-            <circle cx="350" cy="10" r="55" fill="hsl(250, 55%, 82%)" opacity="0.45" />
-            <circle cx="600" cy="35" r="70" fill="hsl(320, 45%, 86%)" opacity="0.4" />
-            <circle cx="850" cy="5" r="60" fill="hsl(260, 50%, 84%)" opacity="0.45" />
-            <circle cx="1050" cy="30" r="75" fill="hsl(300, 40%, 87%)" opacity="0.4" />
-            <circle cx="1300" cy="15" r="65" fill="hsl(270, 50%, 83%)" opacity="0.45" />
+            <circle cx="80" cy="22" r="80" fill="hsl(280, 55%, 78%)" opacity="0.7" />
+            <circle cx="350" cy="10" r="55" fill="hsl(250, 60%, 75%)" opacity="0.65" />
+            <circle cx="600" cy="35" r="70" fill="hsl(320, 50%, 80%)" opacity="0.6" />
+            <circle cx="850" cy="5" r="60" fill="hsl(260, 55%, 76%)" opacity="0.65" />
+            <circle cx="1050" cy="30" r="75" fill="hsl(300, 45%, 80%)" opacity="0.6" />
+            <circle cx="1300" cy="15" r="65" fill="hsl(270, 55%, 77%)" opacity="0.65" />
           </svg>
           <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2 relative z-10">
