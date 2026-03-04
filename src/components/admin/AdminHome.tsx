@@ -63,7 +63,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     const mobileRate = total > 0 ? Math.round((mobileCount / total) * 100) : 0;
 
     return { avgDwell: dwellCount > 0 ? Math.round(totalDwell / dwellCount) : 0, avgScroll: scrollCount > 0 ? Math.round(totalScroll / scrollCount) : 0, mobileRate, mobileCount, desktopCount, firstVisit, returning, topBrowsers, topPagesList, topLocList };
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const formatDuration = (s: number) => {
     if (s < 60) return `${s}초`;
