@@ -32,9 +32,9 @@ function CellContent({
 
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className="font-semibold text-sm text-foreground">{display}</span>
+      <span className="font-semibold text-base text-foreground">{display}</span>
       {sub && (
-        <span className="text-[11px] font-medium text-muted-foreground">{sub}</span>
+        <span className="text-xs font-medium text-muted-foreground">{sub}</span>
       )}
     </div>
   );
@@ -64,20 +64,20 @@ export default function CompetitorComparison() {
         {/* Table card */}
         <div className="rounded-2xl bg-background overflow-hidden shadow-sm border border-border">
           <div className="overflow-x-auto">
-            <table className="w-full text-[13px]">
+            <table className="w-full text-base">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="px-5 md:px-6 py-4 text-left text-xs font-semibold text-muted-foreground w-[28%]">
+                  <th className="px-5 md:px-6 py-5 text-left text-sm font-semibold text-muted-foreground w-[28%]">
                     {headers[0]}
                   </th>
-                  <th className="px-4 py-4 text-center text-xs font-semibold text-muted-foreground">
+                  <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
                     {headers[1]}
                   </th>
-                  <th className="px-4 py-4 text-center text-xs font-semibold text-muted-foreground">
+                  <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
                     {headers[2]}
                   </th>
-                  <th className="px-4 py-4 text-center text-xs font-bold text-primary-foreground bg-primary relative">
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[10px] font-bold px-2 py-0.5 rounded-full whitespace-nowrap bg-primary/80 text-primary-foreground/80">
+                  <th className="px-4 py-5 text-center text-sm font-bold text-primary-foreground bg-primary relative">
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-xs font-bold px-3 py-0.5 rounded-full whitespace-nowrap bg-primary/80 text-primary-foreground/80">
                       Best Choice
                     </span>
                     {headers[3]}
@@ -87,14 +87,14 @@ export default function CompetitorComparison() {
               <tbody>
                 {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
-                      <td className="px-5 md:px-6 py-3.5 font-medium text-foreground text-sm">{row[0]}</td>
-                      <td className="px-4 py-3.5 text-center">
+                      <td className="px-5 md:px-6 py-5 font-medium text-foreground text-base">{row[0]}</td>
+                      <td className="px-4 py-5 text-center">
                         <CellContent value={row[1]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className="px-4 py-3.5 text-center">
+                      <td className="px-4 py-5 text-center">
                         <CellContent value={row[2]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className="px-4 py-3.5 text-center bg-primary/5">
+                      <td className="px-4 py-5 text-center bg-primary/5">
                         <CellContent value={row[3]} isWebheads={true} lang={lang} />
                       </td>
                     </tr>
