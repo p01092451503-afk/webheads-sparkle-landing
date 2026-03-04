@@ -40,26 +40,30 @@ export default function LearnerJourneyMap() {
 
 
           {/* Desktop: horizontal grid */}
-          <div className="hidden md:grid md:grid-cols-5 md:gap-5">
+          <div className="hidden md:grid md:grid-cols-5 md:gap-6">
             {steps.map((step, i) => {
               const Icon = stepIcons[i] || BookOpen;
               const color = stepColors[i];
               return (
                 <div key={i} className="relative flex flex-col items-center text-center group">
                   <div
-                    className="w-20 h-20 flex items-center justify-center mb-5 transition-transform group-hover:scale-110 relative z-10"
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg relative z-10"
+                    style={{ background: `${color}14`, border: `1.5px solid ${color}25` }}
                   >
-                    <Icon className="w-8 h-8" style={{ color }} />
+                    <Icon className="w-7 h-7" style={{ color }} strokeWidth={1.8} />
                   </div>
                   {i < steps.length - 1 && (
-                    <div className="absolute top-9 -right-4 z-20">
-                      <ArrowRight className="w-7 h-7 text-muted-foreground/40" />
+                    <div className="absolute top-7 -right-5 z-20">
+                      <ArrowRight className="w-6 h-6 text-muted-foreground/30" />
                     </div>
                   )}
-                  <h4 className="font-bold text-foreground text-base mb-2">{step.label}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                  <span className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: `${color}cc` }}>
+                    Step {i + 1}
+                  </span>
+                  <h4 className="font-bold text-foreground text-lg leading-snug mb-2.5">{step.label}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                   <span
-                    className="inline-block text-sm font-semibold px-3.5 py-1.5 rounded-full"
+                    className="inline-block text-sm font-semibold px-4 py-1.5 rounded-full"
                     style={{ background: `${color}12`, color }}
                   >
                     {step.service}
@@ -70,22 +74,31 @@ export default function LearnerJourneyMap() {
           </div>
 
           {/* Mobile: vertical timeline */}
-          <div className="md:hidden flex flex-col gap-1">
+          <div className="md:hidden flex flex-col gap-2">
             {steps.map((step, i) => {
               const Icon = stepIcons[i] || BookOpen;
               const color = stepColors[i];
               return (
                 <div key={i} className="relative flex items-start gap-4 pl-1">
-                  <div
-                    className="shrink-0 w-11 h-11 flex items-center justify-center relative z-10"
-                  >
-                    <Icon className="w-5 h-5" style={{ color }} />
+                  <div className="flex flex-col items-center shrink-0">
+                    <div
+                      className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10"
+                      style={{ background: `${color}14`, border: `1.5px solid ${color}25` }}
+                    >
+                      <Icon className="w-5.5 h-5.5" style={{ color }} strokeWidth={1.8} />
+                    </div>
+                    {i < steps.length - 1 && (
+                      <div className="w-px h-6 mt-1" style={{ background: `${color}30` }} />
+                    )}
                   </div>
-                  <div className="pt-0.5 pb-5 min-w-0">
-                    <h4 className="font-bold text-foreground text-sm">{step.label}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed mt-0.5" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                  <div className="pt-1 pb-4 min-w-0">
+                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: `${color}cc` }}>
+                      Step {i + 1}
+                    </span>
+                    <h4 className="font-bold text-foreground text-base mt-0.5">{step.label}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                     <span
-                      className="inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full mt-2"
+                      className="inline-block text-xs font-semibold px-3 py-1 rounded-full mt-2.5"
                       style={{ background: `${color}12`, color }}
                     >
                       {step.service}
