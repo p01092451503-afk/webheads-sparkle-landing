@@ -207,7 +207,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       const key = toLocalDateKey(d);
       days[key] = { views: 0, sessions: new Set() };
     }
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       const key = toLocalDateKey(new Date(v.created_at));
       if (days[key]) { days[key].views++; if (v.session_id) days[key].sessions.add(v.session_id); }
     });
