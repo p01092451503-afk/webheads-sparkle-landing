@@ -123,7 +123,7 @@ export default function Footer() {
               className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-accent text-accent-foreground font-semibold text-xs hover:opacity-90 transition-opacity"
             >
               <MonitorSmartphone className="w-3.5 h-3.5" />
-              원격지원 요청
+              {t("footer.serviceRequestBtn")}
               <span className="text-accent-foreground/70">→</span>
             </a>
             <a
