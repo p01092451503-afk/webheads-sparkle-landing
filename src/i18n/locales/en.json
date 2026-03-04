@@ -69,6 +69,8 @@
     "successTitle": "Your request has been submitted",
     "successDesc": "A representative will contact you shortly.\nWe operate on weekdays 10:00–18:00.",
     "successRetry": "Send another inquiry",
+    "responseBadge": "Average response within 2 hours",
+    "trustLine": "Your information is securely protected — no spam",
     "tabConsultation": "Consultation",
     "tabDemo": "Demo Request",
     "formMessagePlaceholderDemo": "Please describe the service or features you'd like to demo.",

@@ -302,7 +302,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             {/* Trust line */}
             <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
               <Lock className="w-3.5 h-3.5" />
-              개인정보는 안전하게 보호되며 스팸 발송 없음
+              {t("contact.trustLine")}
             </p>
           </form>
         )}
