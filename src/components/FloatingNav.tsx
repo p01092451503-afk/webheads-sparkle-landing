@@ -23,9 +23,6 @@ export default function FloatingNav() {
     ...(!isServiceRequest && location.pathname !== "/sms-kakao"
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
       : []),
-    ...(!isServiceRequest
-      ? [{ to: "/service-request", icon: MessageSquareText, label: t("floatingNav.support"), className: "bg-primary text-primary-foreground" }]
-      : []),
     ...(location.pathname !== "/blog"
       ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
       : []),
