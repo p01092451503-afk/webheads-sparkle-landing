@@ -24,6 +24,8 @@ export default function ChatbotPage() {
   const plans = t("chatbot.plans", { returnObjects: true }) as any[];
   const faqs = t("chatbot.faqs", { returnObjects: true }) as any[];
   const testimonials = t("chatbot.testimonials", { returnObjects: true }) as any[];
+  const techSpecs = t("chatbot.techSpecs", { returnObjects: true }) as any;
+  const techSpecsSection = t("chatbot.techSpecsSection", { returnObjects: true }) as any;
 
   return (
     <div className="min-h-screen bg-background">
