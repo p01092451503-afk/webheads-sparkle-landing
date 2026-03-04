@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Check, Gift, Shield, Settings, Clock, ArrowRight, CalendarDays, MessageSquare, FileCheck, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
+import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 
 const benefitIcons = [Gift, Shield, Settings];
 const benefitAccents = [
