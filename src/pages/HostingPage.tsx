@@ -72,11 +72,11 @@ export default function HostingPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("hosting.beforeAfterSection.sub")} heading={t("hosting.beforeAfterSection.heading")} description={t("hosting.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("hosting.beforeAfterSection.sub")} heading={t("hosting.beforeAfterSection.heading")} description={t("hosting.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("hosting.midCTA.heading")} description={t("hosting.midCTA.description")} />
-      <ServiceExtraFeatures features={extraFeatures} subheading={t("hosting.extraSection.sub")} heading={t("hosting.extraSection.heading")} description={t("hosting.extraSection.desc")} />
-      <ServiceProcess steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
-      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("hosting.comparisonSection.sub")} heading={t("hosting.comparisonSection.heading")} description={t("hosting.comparisonSection.desc")} />
+      <ServiceExtraFeatures bg="bg-secondary" features={extraFeatures} subheading={t("hosting.extraSection.sub")} heading={t("hosting.extraSection.heading")} description={t("hosting.extraSection.desc")} />
+      <ServiceProcess bg="bg-background" steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
+      <ServiceComparison bg="bg-secondary" headers={comparisonHeaders} rows={comparisonRows} subheading={t("hosting.comparisonSection.sub")} heading={t("hosting.comparisonSection.heading")} description={t("hosting.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
