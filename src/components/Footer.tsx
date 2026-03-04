@@ -116,14 +116,16 @@ export default function Footer() {
               {t("footer.smsRechargeBtn")}
               <span className="text-primary-foreground/70">→</span>
             </a>
-            <Link
-              to="/service-request?type=remote"
+            <a
+              href="https://help.webheads.co.kr/kolluscrm.php"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md"
             >
               <MonitorSmartphone className="w-4 h-4" />
               {t("footer.serviceRequestBtn")}
               <span className="text-primary-foreground/70">→</span>
-            </Link>
+            </a>
             <a
               href="tel:02-540-4337"
               className="inline-flex items-center gap-2.5 rounded-full px-6 py-3 bg-foreground/20 text-foreground font-bold text-sm hover:bg-foreground/30 transition-colors shadow-md"
