@@ -958,6 +958,7 @@
       "monthlyRevenue": "예상 월 매출",
       "selfBuildCost": "자체 구축 월 비용 (추정)",
       "webheadsCost": "웹헤즈 월 이용료",
+      "monthlySavings": "월 절감액",
       "annualSavings": "연간 예상 절감액",
       "savingsNote": "자체 구축 대비 약 {{percent}}% 절감 효과",
       "cta": "맞춤 견적 요청하기",
