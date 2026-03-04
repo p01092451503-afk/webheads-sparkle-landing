@@ -61,16 +61,19 @@ export default function Header() {
       {showBanner && (
         <div
           className="fixed top-0 left-0 right-0 z-[60] overflow-hidden bg-muted border-b border-border"
+          role="banner"
+          aria-label={t("banner.text")}
         >
           <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-          <div className="container mx-auto px-4 max-w-7xl flex items-center justify-center gap-3 py-2 relative z-10 pr-10">
-            <p className="text-sm sm:text-base font-bold tracking-tight text-foreground">
+          <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-between sm:justify-center gap-2 sm:gap-3 py-2 relative z-10 pr-[90px] sm:pr-[120px]">
+            <p className="text-xs sm:text-base font-bold tracking-tight text-foreground leading-snug">
               {t("banner.text")}
             </p>
             <Link
               to="/event"
-              className="shrink-0 rounded-full px-4 py-1.5 text-xs font-bold transition-opacity hover:opacity-80 text-foreground"
+              className="shrink-0 rounded-full px-3 sm:px-4 py-1.5 text-[11px] sm:text-xs font-bold transition-opacity hover:opacity-80 text-foreground min-h-[32px] flex items-center"
               style={{ backgroundColor: "hsl(50, 100%, 50%)" }}
+              aria-label={t("banner.cta")}
             >
               {t("banner.cta")}
             </Link>
@@ -80,9 +83,11 @@ export default function Header() {
               setBannerDismissed(true);
               try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
             }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 text-foreground/60 hover:text-foreground transition-colors text-xs font-medium px-2 py-1 rounded-md hover:bg-foreground/5"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 text-foreground/60 hover:text-foreground transition-colors text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-1 rounded-md hover:bg-foreground/5 min-h-[32px] flex items-center"
+            aria-label="하루동안 열지 않기"
           >
-            하루동안 열지 않기
+            <span className="hidden sm:inline">하루동안 열지 않기</span>
+            <X className="w-4 h-4 sm:hidden" aria-hidden="true" />
           </button>
         </div>
       )}
