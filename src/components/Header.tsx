@@ -172,10 +172,10 @@ export default function Header() {
                 <Link
                   key={s.path}
                   to={s.path}
-                  className={`inline-block w-fit px-3 py-2.5 text-sm font-normal rounded-lg transition-colors ${
+                    className={`inline-block w-fit px-3 py-2.5 text-sm font-normal rounded-lg transition-colors ${
                     isActive
-                      ? "text-[hsl(250,55%,52%)] font-medium"
-                      : "text-[hsl(230,25%,15%)] hover:bg-gray-50"
+                      ? "text-primary font-medium"
+                      : "text-foreground hover:bg-muted"
                   }`}
                 >
                   {s.label}
