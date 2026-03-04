@@ -54,7 +54,12 @@ export default function Header() {
     setMobileOpen(false);
   }, [location]);
 
-  const showBanner = !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
+  useEffect(() => {
+    const timer = setTimeout(() => setBannerReady(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const showBanner = bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
   return (
     <>
