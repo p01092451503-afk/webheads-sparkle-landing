@@ -68,7 +68,7 @@ export default function ChannelPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("channel.beforeAfterSection.sub")} heading={t("channel.beforeAfterSection.heading")} description={t("channel.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("channel.beforeAfterSection.sub")} heading={t("channel.beforeAfterSection.heading")} description={t("channel.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("channel.midCTA.heading")} description={t("channel.midCTA.description")} />
 
       {/* Use Cases */}
