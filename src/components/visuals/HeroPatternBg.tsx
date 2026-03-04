@@ -129,45 +129,76 @@ function IndigoDeepPattern({ stroke }: { stroke: string }) {
   );
 }
 
-/* ── Rose-Spring: Soft petal arcs + floating circles ── */
+/* ── Rose-Spring: Sacred geometry flower-of-life inspired pattern ── */
 function RoseSpringPattern({ stroke }: { stroke: string }) {
+  // Generate flower-of-life petal paths (6 petals around a center)
+  const flowerOfLife = (cx: number, cy: number, r: number) => {
+    const petals: string[] = [];
+    for (let i = 0; i < 6; i++) {
+      const angle = (i * 60 * Math.PI) / 180;
+      const px = cx + r * Math.cos(angle);
+      const py = cy + r * Math.sin(angle);
+      petals.push(`M ${cx + r} ${cy} A ${r} ${r} 0 0 1 ${cx + r * Math.cos(Math.PI / 3)} ${cy + r * Math.sin(Math.PI / 3)}`);
+    }
+    return petals;
+  };
+
+  // Single flower rosette: 6 overlapping circles
+  const Rosette = ({ cx, cy, r, op }: { cx: number; cy: number; r: number; op: number }) => (
+    <g opacity={op}>
+      <circle cx={cx} cy={cy} r={r} stroke={stroke} strokeWidth={1.5} fill="none" />
+      {[0, 1, 2, 3, 4, 5].map(i => {
+        const angle = (i * 60 * Math.PI) / 180;
+        return (
+          <circle
+            key={i}
+            cx={cx + r * Math.cos(angle)}
+            cy={cy + r * Math.sin(angle)}
+            r={r}
+            stroke={stroke}
+            strokeWidth={1.2}
+            fill="none"
+          />
+        );
+      })}
+    </g>
+  );
+
   return (
     <>
-      {/* Flowing petal curves – left */}
-      <g opacity="0.12">
-        {[0, 1, 2, 3, 4, 5].map(i => (
+      {/* Main flower-of-life clusters */}
+      <Rosette cx={200} cy={280} r={70} op={0.18} />
+      <Rosette cx={1280} cy={320} r={80} op={0.15} />
+      <Rosette cx={720} cy={480} r={50} op={0.12} />
+
+      {/* Smaller accent rosettes */}
+      <Rosette cx={450} cy={100} r={35} op={0.14} />
+      <Rosette cx={1050} cy={120} r={40} op={0.13} />
+      <Rosette cx={900} cy={520} r={30} op={0.10} />
+      <Rosette cx={100} cy={500} r={25} op={0.12} />
+      <Rosette cx={1400} cy={150} r={28} op={0.10} />
+
+      {/* Flowing sacred curves connecting clusters */}
+      <g opacity="0.16">
+        {[0, 1, 2, 3].map(i => (
           <path
-            key={`petal-l-${i}`}
-            d={`M -30 ${100 + i * 80} C ${150 + i * 20} ${60 + i * 80} ${300 - i * 10} ${140 + i * 80} ${450 + i * 30} ${100 + i * 80}`}
+            key={`curve-${i}`}
+            d={`M -20 ${120 + i * 120} C ${300 + i * 50} ${80 + i * 120} ${600 - i * 30} ${160 + i * 120} ${900 + i * 40} ${120 + i * 120} S ${1200 + i * 20} ${160 + i * 120} 1460 ${130 + i * 120}`}
             stroke={stroke}
-            strokeWidth={1.8 - i * 0.15}
+            strokeWidth={1.4}
             fill="none"
           />
         ))}
       </g>
-      {/* Concentric arcs – right side */}
-      <g opacity="0.10">
-        {[0, 1, 2, 3, 4].map(i => (
-          <circle key={`arc-r-${i}`} cx={1400} cy={300} r={80 + i * 60} stroke={stroke} strokeWidth={1.5 - i * 0.1} fill="none" />
-        ))}
-      </g>
-      {/* Soft floating circles */}
-      <g opacity="0.08">
+
+      {/* Scattered seed-of-life dots */}
+      <g opacity="0.20">
         {[
-          [200, 120, 40], [350, 450, 55], [100, 500, 30],
-          [1100, 100, 45], [1250, 400, 35], [1350, 200, 25],
-          [700, 80, 20], [900, 500, 30], [600, 450, 15],
-        ].map(([cx, cy, r], i) => (
-          <circle key={`fc-${i}`} cx={cx} cy={cy} r={r} stroke={stroke} strokeWidth={1.2} fill="none" />
-        ))}
-      </g>
-      {/* Scattered petals – small dots */}
-      <g opacity="0.10">
-        {[
-          [180, 350], [320, 200], [480, 480], [650, 150], [820, 400],
-          [1000, 250], [1150, 500], [1300, 120], [50, 250], [750, 520],
+          [320, 180], [580, 300], [160, 420], [440, 500], [680, 140],
+          [850, 350], [1000, 450], [1150, 220], [1350, 480], [50, 150],
+          [750, 60], [1100, 550], [380, 380], [960, 180], [1220, 100],
         ].map(([cx, cy], i) => (
-          <circle key={`dot-${i}`} cx={cx} cy={cy} r={2.5 + (i % 3)} fill={stroke} />
+          <circle key={`seed-${i}`} cx={cx} cy={cy} r={3 + (i % 4)} fill={stroke} fillOpacity={0.5} />
         ))}
       </g>
     </>
