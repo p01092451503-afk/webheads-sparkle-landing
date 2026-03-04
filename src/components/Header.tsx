@@ -44,7 +44,7 @@ export default function Header() {
     setMobileOpen(false);
   }, [location]);
 
-  const showBanner = new Date() <= new Date("2025-03-31T23:59:59+09:00");
+  const showBanner = new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
   return (
     <>
