@@ -103,7 +103,7 @@ export default function LmsPage() {
             {
               "@type": "Product",
               "name": "웹헤즈 LMS 구독",
-              "description": "이러닝 플랫폼 구축 및 운영을 위한 학습 관리 시스템",
+              "description": "이러닝 솔루션 · 온라인 교육 플랫폼 구축 및 운영을 위한 학습관리시스템 (LMS). 클라우드 LMS, AI 기반 학습관리, 맞춤형 LMS 개발.",
               "brand": {
                 "@type": "Brand",
                 "name": "웹헤즈 (Webheads)"
