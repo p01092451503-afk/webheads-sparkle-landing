@@ -62,21 +62,21 @@ export default function CompetitorComparison() {
         </div>
 
         {/* Table card */}
-        <div className="rounded-2xl bg-background shadow-sm border border-border mt-4 overflow-hidden">
+        <div className="rounded-xl bg-background shadow-sm border border-border mt-4 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-base">
+            <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="px-5 md:px-6 py-5 text-left text-sm font-semibold text-muted-foreground w-[28%] border-r border-border">
+                  <th className="px-4 md:px-5 py-3 text-left text-xs font-semibold text-muted-foreground w-[26%] border-r border-border">
                     {headers[0]}
                   </th>
-                  <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
+                  <th className="px-3 py-3 text-center text-xs font-semibold text-muted-foreground">
                     {headers[1]}
                   </th>
-                  <th className="px-4 py-5 text-center text-sm font-semibold text-muted-foreground">
+                  <th className="px-3 py-3 text-center text-xs font-semibold text-muted-foreground">
                     {headers[2]}
                   </th>
-                  <th className="px-4 py-5 text-center text-sm font-bold text-primary-foreground bg-primary">
+                  <th className="px-3 py-3 text-center text-xs font-bold text-primary-foreground bg-primary">
                     {headers[3]}
                   </th>
                 </tr>
@@ -84,14 +84,14 @@ export default function CompetitorComparison() {
               <tbody>
                 {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
-                      <td className="px-5 md:px-6 py-5 font-medium text-foreground text-base border-r border-border">{row[0]}</td>
-                      <td className="px-4 py-5 text-center">
+                      <td className="px-4 md:px-5 py-3 font-medium text-foreground text-sm border-r border-border">{row[0]}</td>
+                      <td className="px-3 py-3 text-center">
                         <CellContent value={row[1]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className="px-4 py-5 text-center">
+                      <td className="px-3 py-3 text-center">
                         <CellContent value={row[2]} isWebheads={false} lang={lang} />
                       </td>
-                      <td className="px-4 py-5 text-center bg-primary/5">
+                      <td className="px-3 py-3 text-center bg-primary/5">
                         <CellContent value={row[3]} isWebheads={true} lang={lang} />
                       </td>
                     </tr>
