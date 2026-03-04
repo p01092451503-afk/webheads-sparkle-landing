@@ -85,9 +85,9 @@ export default function Header() {
               try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
             }}
             className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 text-foreground/60 hover:text-foreground transition-colors text-[10px] sm:text-xs font-medium px-1.5 sm:px-2 py-1 rounded-md hover:bg-foreground/5 min-h-[32px] flex items-center"
-            aria-label="하루동안 열지 않기"
+            aria-label={t("banner.dismiss")}
           >
-            <span className="hidden sm:inline">하루동안 열지 않기</span>
+            <span className="hidden sm:inline">{t("banner.dismiss")}</span>
             <X className="w-4 h-4 sm:hidden" aria-hidden="true" />
           </button>
         </div>
