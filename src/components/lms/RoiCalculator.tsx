@@ -42,9 +42,9 @@ export default function RoiCalculator() {
 
   // Break-even color logic
   const getBepStyle = () => {
-    if (breakEvenMonths <= 12) return { bg: "#F0FDF4", border: "#BBF7D0", text: "#15803D" };
-    if (breakEvenMonths <= 24) return { bg: "#FFFBEB", border: "#FDE68A", text: "#A16207" };
-    return { bg: "#F9FAFB", border: "#E5E7EB", text: "#6B7280" };
+    if (breakEvenMonths <= 12) return { bg: "#fff", border: "#16A34A", text: "#16A34A" };
+    if (breakEvenMonths <= 24) return { bg: "#fff", border: "#D97706", text: "#D97706" };
+    return { bg: "#fff", border: "#9CA3AF", text: "#6B7280" };
   };
   const bepStyle = getBepStyle();
 
@@ -111,7 +111,7 @@ export default function RoiCalculator() {
               <h3 className="font-bold text-base mb-4" style={{ color: "#111827" }}>최초 구축비</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative">
                 {/* 자체 구축 */}
-                <div className="rounded-2xl p-6" style={{ background: "#FFF1F2", border: "1px solid #FECDD3" }}>
+                <div className="rounded-2xl p-6" style={{ background: "#fff", border: "1px solid #E5E7EB" }}>
                   <p className="text-xs font-semibold mb-2" style={{ color: "#6B7280" }}>자체 구축</p>
                   <p className="font-extrabold text-4xl mb-3" style={{ color: "#EF4444" }}>
                     60,000,000<span className="text-lg">원</span>
@@ -133,7 +133,7 @@ export default function RoiCalculator() {
                 </div>
 
                 {/* 웹헤즈 */}
-                <div className="rounded-2xl p-6" style={{ background: "#F0FDF4", border: "2px solid #86EFAC" }}>
+                <div className="rounded-2xl p-6" style={{ background: "#fff", border: "2px solid #16A34A" }}>
                   <p className="text-xs font-semibold mb-2" style={{ color: "#6B7280" }}>웹헤즈 LMS</p>
                   <p className="font-extrabold text-4xl mb-3" style={{ color: "#16A34A" }}>
                     0<span className="text-lg">원</span>
@@ -183,7 +183,7 @@ export default function RoiCalculator() {
                     {fmt(SELF_BUILD_COST)}<span className="text-sm">원</span>
                   </p>
                   {/* Bar */}
-                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#FEE2E2" }}>
+                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#E5E7EB" }}>
                     <div className="h-full rounded-full" style={{ width: "100%", background: "#EF4444" }} />
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export default function RoiCalculator() {
                     {fmt(displayThreeYearWh)}<span className="text-sm">원</span>
                   </p>
                   {/* Bar */}
-                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#EDE9FE" }}>
+                  <div className="mt-3 mx-auto rounded-full overflow-hidden" style={{ height: 8, background: "#E5E7EB" }}>
                     <div
                       className="h-full rounded-full transition-all duration-500"
                       style={{
@@ -207,13 +207,13 @@ export default function RoiCalculator() {
 
               {/* Saving result */}
               {isSavingPositive ? (
-                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#F0FDF4" }}>
+                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#fff", border: "1px solid #16A34A" }}>
                   <p className="font-extrabold text-2xl md:text-3xl" style={{ color: "#16A34A" }}>
                     3년간 {fmt(displayThreeYearSaving)}원 절감
                   </p>
                 </div>
               ) : (
-                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#FFF7ED" }}>
+                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#fff", border: "1px solid #D97706" }}>
                   <p className="font-bold text-lg" style={{ color: "#D97706" }}>
                     자체 구축이 유리합니다
                   </p>
