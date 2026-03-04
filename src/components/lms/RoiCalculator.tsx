@@ -20,16 +20,16 @@ function calcSelfBuildAnnual(students: number, courses: number, instructors: num
  * 웹헤즈 LMS 비용 (연간) — Plus 요금제(월 700,000원) 기준
  * 포함량: 전송 1,500GB/월, 저장 200GB
  * 초과 단가: 전송 400원/GB, 저장 800원/GB
- * 가중치: 수강생 1명당 월 ~0.3GB 전송, 과정 1개당 ~0.3GB 저장
+ * 가중치: 수강생 1명당 월 ~1.5GB 전송 (월 5강 수강 가정), 과정 1개당 ~2GB 저장 (HD 기준)
  */
 function calcWebheadsAnnual(students: number, courses: number) {
   const baseFee = 700000 * 12;
-  const INCLUDED_TRANSFER_GB = 1500; // 월 포함 전송량
-  const INCLUDED_STORAGE_GB = 200;   // 포함 저장공간
+  const INCLUDED_TRANSFER_GB = 1500;
+  const INCLUDED_STORAGE_GB = 200;
   const TRANSFER_OVERAGE_PER_GB = 400;
   const STORAGE_OVERAGE_PER_GB = 800;
-  const GB_PER_STUDENT = 0.3;  // 수강생 1명당 월 전송량 (30분 강의 기준)
-  const GB_PER_COURSE = 0.3;   // 과정 1개당 저장공간 (30분 강의 기준)
+  const GB_PER_STUDENT = 1.5;   // 수강생 1명당 월 전송량 (월 5강 수강 기준)
+  const GB_PER_COURSE = 2.0;    // 과정 1개당 저장공간 (HD 콘텐츠 기준)
 
   const monthlyTransferGB = students * GB_PER_STUDENT;
   const storageGB = courses * GB_PER_COURSE;
@@ -38,7 +38,7 @@ function calcWebheadsAnnual(students: number, courses: number) {
   const storageOverageGB = Math.max(0, storageGB - INCLUDED_STORAGE_GB);
 
   const transferOverageCost = transferOverageGB * TRANSFER_OVERAGE_PER_GB * 12;
-  const storageOverageCost = storageOverageGB * STORAGE_OVERAGE_PER_GB;  // 저장공간은 누적이므로 연 1회
+  const storageOverageCost = storageOverageGB * STORAGE_OVERAGE_PER_GB;
 
   return {
     baseFee,
