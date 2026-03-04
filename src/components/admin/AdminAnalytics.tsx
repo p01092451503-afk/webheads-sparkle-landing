@@ -307,7 +307,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       { label: "CTA 클릭", count: ctaSessions.size },
       { label: "문의 제출", count: filteredInquiries.length },
     ];
-  }, [filteredViews, filteredInquiries, filteredClicks]);
+  }, [humanViews, filteredInquiries, filteredClicks]);
 
   const hourlyData = useMemo(() => {
     const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
