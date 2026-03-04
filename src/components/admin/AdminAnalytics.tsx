@@ -343,23 +343,23 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const resolutionCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (v.screen_width && v.screen_height) {
         const res = `${v.screen_width}×${v.screen_height}`;
         acc[res] = (acc[res] || 0) + 1;
       }
     });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const languageCounts = useMemo(() => {
     const acc: Record<string, number> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       const lang = v.language || "Unknown";
       acc[lang] = (acc[lang] || 0) + 1;
     });
     return Object.entries(acc).sort(([, a], [, b]) => b - a);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   // 신규 방문자 분석: 3/4 이전에 한 번이라도 접속한 IP/session은 제외
   const newVisitorCutoff = new Date("2026-03-04T00:00:00");
