@@ -254,20 +254,55 @@ export default function RoiCalculator() {
             {/* ── 초기 투자비 비교 배너 ── */}
             <div className="rounded-[16px] p-5 md:p-6 bg-white border border-gray-200 shadow-sm">
               <p className="text-xs font-bold mb-4" style={{ color: TEXT_DARK }}>초기 투자비 비교</p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-xl p-4" style={{ background: "#FEF2F2" }}>
+              <div className="grid grid-cols-2 gap-4 relative">
+                {/* 자체구축 카드 */}
+                <div
+                  className="rounded-xl p-4 relative transition-colors duration-300"
+                  style={{
+                    background: selfBuild.annualOps > 40_000_000 ? "#FFEBEE" : "#FFF1F1",
+                    border: "1px solid #FFCDD2",
+                  }}
+                >
+                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-lg text-[10px] font-bold text-white" style={{ background: "#E53935" }}>
+                    ❌ 고비용
+                  </div>
                   <p className="text-[10px] font-medium mb-1" style={{ color: "#6B7280" }}>자체 구축</p>
-                  <p className="font-bold text-lg" style={{ color: "#DC2626" }}>
+                  <p className="font-bold text-lg" style={{ color: "#E53935" }}>
                     {fmt(SELF_BUILD_INIT_DEV)}<span className="text-xs font-normal">원</span>
                   </p>
-                  <p className="text-[10px] mt-1" style={{ color: "#9CA3AF" }}>개발 기간 약 6~12개월 소요</p>
-                </div>
-                <div className="rounded-xl p-4" style={{ background: PURPLE_LIGHT }}>
-                  <p className="text-[10px] font-medium mb-1" style={{ color: "#6B7280" }}>웹헤즈 LMS</p>
-                  <p className="font-bold text-lg" style={{ color: PURPLE }}>
-                    0<span className="text-xs font-normal">원</span>
+                  <p className="text-[10px] mt-1.5 flex items-center gap-1" style={{ color: "#9CA3AF" }}>
+                    ⏱ 개발 기간 약 6~12개월 소요
                   </p>
-                  <p className="text-[10px] mt-1" style={{ color: "#9CA3AF" }}>즉시 도입 가능</p>
+                </div>
+
+                {/* VS 뱃지 */}
+                <div
+                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold bg-white"
+                  style={{ border: "1px solid #E5E7EB", color: "#9CA3AF" }}
+                >
+                  VS
+                </div>
+
+                {/* 웹헤즈 LMS 카드 */}
+                <div
+                  className="rounded-xl relative animate-scale-in"
+                  style={{
+                    padding: "1.25rem 1.25rem 1.5rem",
+                    background: "linear-gradient(135deg, #EDE9FE, #F3E8FF)",
+                    border: `2px solid ${PURPLE}`,
+                    boxShadow: "0 4px 20px rgba(124,58,237,0.15)",
+                  }}
+                >
+                  <div className="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white" style={{ background: PURPLE }}>
+                    즉시 도입 가능
+                  </div>
+                  <p className="text-[10px] font-medium mb-2" style={{ color: "#6B7280" }}>웹헤즈 LMS</p>
+                  <p className="font-bold flex items-center gap-1" style={{ color: PURPLE, fontSize: "2.25rem", lineHeight: 1 }}>
+                    ✅ 0<span className="text-sm font-normal">원</span>
+                  </p>
+                  <p className="text-[11px] mt-2 font-medium" style={{ color: PURPLE, opacity: 0.8 }}>
+                    ⚡ 도입 기간 0일
+                  </p>
                 </div>
               </div>
             </div>
