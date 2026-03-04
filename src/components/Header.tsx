@@ -141,7 +141,7 @@ export default function Header() {
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
-                    ? "bg-[hsl(230,25%,15%)] text-white hover:bg-[hsl(230,25%,20%)]"
+                    ? "bg-foreground text-background hover:opacity-90"
                     : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
                 }`}
               >
