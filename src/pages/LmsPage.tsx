@@ -450,10 +450,9 @@ export default function LmsPage() {
               </div>
             ))}
           </div>
-          <div className="mt-12 text-center rounded-2xl border border-border bg-background/50 p-8">
-            <p className="text-foreground font-semibold text-lg mb-2">{t("lms.plansCustom.title")}</p>
-            <p className="text-muted-foreground text-sm mb-6">{t("lms.plansCustom.desc")}</p>
-            <a href="#contact" className="inline-flex px-8 py-3.5 rounded-2xl font-bold text-sm text-white transition-colors hover:opacity-90" style={{ background: "hsl(var(--lms-primary))" }}>{t("lms.plansCustom.cta")}</a>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 rounded-xl border border-border bg-secondary/40 px-6 py-4">
+            <p className="text-foreground font-semibold text-sm">{t("lms.plansCustom.title")} <span className="font-normal text-muted-foreground">{t("lms.plansCustom.desc")}</span></p>
+            <a href="#contact" className="shrink-0 inline-flex px-5 py-2.5 rounded-2xl font-bold text-xs text-white transition-colors hover:opacity-90" style={{ background: "hsl(var(--lms-primary))" }}>{t("lms.plansCustom.cta")}</a>
           </div>
         </div>
       </section>
