@@ -189,7 +189,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     if (isToday) {
       const hours: Record<number, { views: number; sessions: Set<string> }> = {};
       for (let h = 0; h < 24; h++) hours[h] = { views: 0, sessions: new Set() };
-      filteredViews.forEach((v) => {
+      humanViews.forEach((v) => {
         const d = new Date(v.created_at);
         const h = d.getHours();
         hours[h].views++;
