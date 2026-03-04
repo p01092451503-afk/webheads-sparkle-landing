@@ -18,7 +18,7 @@ function calcSelfBuildAnnual(students: number, courses: number, instructors: num
 
 /**
  * 웹헤즈 LMS 비용 (연간) — Plus 요금제(월 700,000원) 기준
- * 포함량: 전송 1,500GB/월, 저장 200GB
+ * 기본량: 전송 1,500GB/월, 저장 200GB
  * 초과 단가: 전송 400원/GB, 저장 800원/GB
  * 가중치: 수강생 1명당 월 ~1.5GB 전송 (월 5강 수강 가정), 과정 1개당 ~2GB 저장 (HD 기준)
  */
@@ -311,7 +311,7 @@ export default function RoiCalculator() {
                     </div>
                     {hasTransferOverage && (
                       <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
-                        ⚠ 포함량 초과 +{fmt(monthlyTransferUsed - 1500)}GB → 연 +{fmt(webheadsResult.transferOverageCost)}원
+                        ⚠ 기본량 초과 +{fmt(monthlyTransferUsed - 1500)}GB → 연 +{fmt(webheadsResult.transferOverageCost)}원
                       </p>
                     )}
                   </div>
@@ -339,7 +339,7 @@ export default function RoiCalculator() {
                     </div>
                     {hasStorageOverage && (
                       <p className="text-[9px] mt-0.5 font-medium" style={{ color: "#EF4444" }}>
-                        ⚠ 포함량 초과 +{fmt(storageUsed - 200)}GB → 연 +{fmt(webheadsResult.storageOverageCost)}원
+                        ⚠ 기본량 초과 +{fmt(storageUsed - 200)}GB → 연 +{fmt(webheadsResult.storageOverageCost)}원
                       </p>
                     )}
                   </div>
@@ -378,7 +378,7 @@ export default function RoiCalculator() {
                     </div>
                     {hasOverage && (
                       <p className="text-[9px] mt-1 leading-relaxed rounded-lg p-2" style={{ color: "#6B7280", background: PURPLE_LIGHT }}>
-                        💡 수강생 수와 콘텐츠가 늘어나면 전송량·저장공간 사용이 증가하여 Plus 요금제 포함량을 초과할 수 있습니다. 초과분은 전송량 400원/GB, 저장공간 800원/GB 단가로 과금됩니다.
+                        💡 수강생 수와 콘텐츠가 늘어나면 전송량·저장공간 사용이 증가하여 Plus 요금제 기본량을 초과할 수 있습니다. 초과분은 전송량 400원/GB, 저장공간 800원/GB 단가로 과금됩니다.
                       </p>
                     )}
                   </div>
