@@ -97,8 +97,41 @@ export default function RoiCalculator() {
 
   // 비교: 연간 운영비 기준 (초기 개발비 별도)
   const savingsAmount = selfBuild.annualOps - webheadsAnnual;
-  const savingsPercent = selfBuild.annualOps > 0 ? ((savingsAmount / selfBuild.annualOps) * 100).toFixed(1) : "0";
+  const savingsPercentNum = selfBuild.annualOps > 0 ? (savingsAmount / selfBuild.annualOps) * 100 : 0;
+  const savingsPercent = savingsPercentNum.toFixed(1);
   const lmsCostRatio = annualRevenue > 0 ? Math.min(100, Math.round((webheadsAnnual / annualRevenue) * 100)) : 0;
+
+  // Countup animation
+  const [displayPercent, setDisplayPercent] = useState(savingsPercentNum);
+  const [displayAmount, setDisplayAmount] = useState(savingsAmount);
+  const [isPulsing, setIsPulsing] = useState(false);
+
+  useEffect(() => {
+    const duration = 800;
+    const startTime = performance.now();
+    const startPercent = displayPercent;
+    const startAmount = displayAmount;
+    const targetPercent = savingsPercentNum;
+    const targetAmount = savingsAmount;
+
+    if (startPercent === targetPercent && startAmount === targetAmount) return;
+
+    setIsPulsing(true);
+    const pulseTimer = setTimeout(() => setIsPulsing(false), 300);
+
+    let rafId: number;
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setDisplayPercent(startPercent + (targetPercent - startPercent) * eased);
+      setDisplayAmount(Math.round(startAmount + (targetAmount - startAmount) * eased));
+      if (progress < 1) rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+    return () => { cancelAnimationFrame(rafId); clearTimeout(pulseTimer); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savingsPercentNum, savingsAmount]);
 
   const fmt = (n: number) => n.toLocaleString("ko-KR");
 
