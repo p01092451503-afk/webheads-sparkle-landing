@@ -34,6 +34,7 @@ function FooterServiceLink({ to, label, isActive }: { to: string; label: string;
 export default function Footer() {
   const { t } = useTranslation();
   const location = useLocation();
+  const [privacyOpen, setPrivacyOpen] = useState(false);
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
   return (
