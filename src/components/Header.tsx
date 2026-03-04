@@ -97,7 +97,7 @@ export default function Header() {
       <div
         className={`transition-all duration-300 ${
           effectiveScrolled
-            ? "bg-white/98 backdrop-blur-xl shadow-sm"
+            ? "bg-background/98 backdrop-blur-xl shadow-sm"
             : "bg-transparent"
         }`}
       >
