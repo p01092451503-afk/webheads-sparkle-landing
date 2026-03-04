@@ -21,7 +21,7 @@ const TabLoader = () => (
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<Tab>("home");
+  const [tab, setTab] = useState<Tab>("inquiries");
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [inquiries, setInquiries] = useState<any[]>([]);
