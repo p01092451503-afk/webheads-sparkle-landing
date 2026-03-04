@@ -28,7 +28,7 @@ const searchBotMap: [RegExp, string][] = [
   [/baiduspider/i, "search_bot_baidu"],
   [/duckduckbot/i, "search_bot_duckduckgo"],
   [/slurp/i, "search_bot_yahoo"],
-  [/naverbot/i, "search_bot_naver"],
+  [/naverbot|yeti\//i, "search_bot_naver"],
   [/applebot/i, "search_bot_apple"],
   [/sogou/i, "search_bot_sogou"],
   [/facebot|facebookexternalhit/i, "search_bot_facebook"],
@@ -66,8 +66,8 @@ const cloudflareRanges = [
 
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
-  // Headless browsers are automated bots
-  if (/headlesschrome|phantomjs|puppeteer|playwright|selenium/i.test(ua)) return "scraper_headless";
+  // Headless browsers & automated tools
+  if (/headlesschrome|phantomjs|puppeteer|playwright|selenium|pageburst/i.test(ua)) return "scraper_headless";
   for (const [pat, type] of aiBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of searchBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of scraperMap) { if (pat.test(lowerUA)) return type; }
