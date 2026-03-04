@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronUp, ChevronDown, MessageSquareText, CreditCard, Send } from "lucide-react";
+import { ChevronUp, ChevronDown, MessageSquareText, CreditCard, Send, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
