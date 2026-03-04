@@ -32,9 +32,9 @@ function CellContent({
 
   return (
     <div className="flex flex-col items-center gap-0.5">
-      <span className="font-normal text-xs text-foreground">{display}</span>
+      <span className="font-bold text-sm text-foreground">{display}</span>
       {sub && (
-        <span className="text-[10px] font-normal text-muted-foreground">{sub}</span>
+        <span className="text-xs font-bold text-muted-foreground">{sub}</span>
       )}
     </div>
   );
@@ -66,7 +66,7 @@ export default function CompetitorComparison() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border">
+                <tr className="border-b border-border bg-muted">
                   <th className="px-4 md:px-5 py-3 text-left text-base font-bold text-muted-foreground w-[26%] border-r border-border">
                     {headers[0]}
                   </th>
@@ -84,7 +84,7 @@ export default function CompetitorComparison() {
               <tbody>
                 {rows.map((row, ri) => (
                     <tr key={ri} className={ri < rows.length - 1 ? "border-b border-border/50" : ""}>
-                      <td className="px-4 md:px-5 py-3 font-normal text-foreground text-xs border-r border-border">{row[0]}</td>
+                      <td className="px-4 md:px-5 py-3 font-bold text-foreground text-sm border-r border-border">{row[0]}</td>
                       <td className="px-3 py-3 text-center">
                         <CellContent value={row[1]} isWebheads={false} lang={lang} />
                       </td>
