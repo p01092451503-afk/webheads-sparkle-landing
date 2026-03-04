@@ -131,7 +131,6 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return ip.replace(/:[\da-f]{1,4}$/i, ":***");
   };
 
-  const humanViews = useMemo(() => filteredViews.filter((v) => (v.visitor_type || "human") === "human"), [filteredViews]);
 
   const ipWithLocation = useMemo(() => {
     const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null }> = {};
