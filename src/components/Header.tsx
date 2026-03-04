@@ -20,6 +20,7 @@ const serviceBlobColors: Record<string, string> = {
 };
 
 export default function Header() {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [bannerDismissed, setBannerDismissed] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
