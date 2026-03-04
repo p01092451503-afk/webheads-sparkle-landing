@@ -1260,5 +1260,65 @@
     "pricing": "Pricing",
     "smsKakao": "SMS · Kakao",
     "support": "Support"
+  },
+  "banner": {
+    "text": "Build your e-learning platform with Webheads — Get 2 months free LMS when you sign up in March!",
+    "cta": "Learn More"
+  },
+  "event": {
+    "seo": {
+      "title": "March Promo | 2 Months Free LMS Access - WEBHEADS",
+      "description": "Webheads Light LMS 2 months free, SSL 2 years free, free initial setup! March-only promotion. Up to ₩1.1M in benefits with a 1-year contract."
+    },
+    "hero": {
+      "deadline": "Ends Mar 31, 2026",
+      "title1": "Sign up in March,",
+      "titleHighlight": "2 Months Free LMS",
+      "title2": "Access Included!",
+      "desc": "Launch your e-learning platform with Webheads.",
+      "descPrefix": "Get up to ",
+      "descValue": "₩1.1M in benefits",
+      "descSuffix": " with a 1-year contract.",
+      "cta": "Get Started Now"
+    },
+    "benefits": {
+      "label": "BENEFITS",
+      "title": "Benefits at a Glance",
+      "desc": "All benefits included when you sign up for the March promotion.",
+      "items": [
+        { "title": "2 Months Free Webheads Light LMS", "desc": "Try Webheads Light for 2 months free. Includes all core LMS features to start running your courses right away.", "value": "Worth ~₩600K" },
+        { "title": "2 Years Free SSL Certificate", "desc": "Free SSL certificate for 2 years to protect your learners' data with secure communications.", "value": "Worth ~₩200K" },
+        { "title": "Free LMS Initial Setup", "desc": "Our engineers handle the initial setup at no cost — domain connection, default design, category configuration, and more.", "value": "Worth ₩300K" }
+      ]
+    },
+    "conditions": {
+      "label": "Eligibility",
+      "items": ["1-year LMS contract (new customers)", "Apply by Mar 31, 2026", "Light version only", "Cannot combine with other promotions"]
+    },
+    "steps": {
+      "label": "HOW TO",
+      "title": "How to Participate",
+      "items": [
+        { "step": "01", "title": "Apply", "desc": "Click the button below to request a consultation." },
+        { "step": "02", "title": "Consultation", "desc": "Our team will contact you to discuss your requirements." },
+        { "step": "03", "title": "Contract", "desc": "Sign a 1-year LMS service agreement." },
+        { "step": "04", "title": "Benefits Applied", "desc": "All promotional benefits are activated immediately." }
+      ]
+    },
+    "faqs": {
+      "label": "FAQ",
+      "title": "Frequently Asked Questions",
+      "items": [
+        { "q": "What features are included in Webheads Light?", "a": "Webheads Light includes all essential LMS features: course management, learner management, content upload, progress tracking, certificate issuance, and more." },
+        { "q": "Is there an automatic conversion to paid after 2 months?", "a": "Yes. Based on the 1-year contract, the first 2 months are free, and regular billing starts from month 3." },
+        { "q": "How long does the LMS setup take after signing up?", "a": "Initial setup is typically completed within 3-5 business days after the contract is signed." },
+        { "q": "Can existing Webheads customers apply?", "a": "This promotion is for new contract customers only. Existing customers may inquire about separate benefits." }
+      ]
+    },
+    "cta": {
+      "title": "Apply now and get up to ₩1.1M in benefits",
+      "desc": "This promotion ends on March 31, 2026. Don't miss out!",
+      "button": "Free Consultation"
+    }
   }
 }
