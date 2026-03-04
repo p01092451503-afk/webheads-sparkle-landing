@@ -18,7 +18,7 @@ function calcSelfBuildAnnual(students: number, courses: number, instructors: num
 
 /**
  * 웹헤즈 LMS 비용 (연간) — Plus 요금제(월 700,000원) 기준
- * 포함량: 전송 1,500GB/월, 저장 200GB
+ * 기본량: 전송 1,500GB/월, 저장 200GB
  * 초과 단가: 전송 400원/GB, 저장 800원/GB
  * 가중치: 수강생 1명당 월 ~1.5GB 전송 (월 5강 수강 가정), 과정 1개당 ~2GB 저장 (HD 기준)
  */
