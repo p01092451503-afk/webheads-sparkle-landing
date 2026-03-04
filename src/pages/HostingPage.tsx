@@ -7,6 +7,9 @@ import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceExtraFeatures from "@/components/shared/ServiceExtraFeatures";
+import ServiceBeforeAfter from "@/components/shared/ServiceBeforeAfter";
+import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
+import ServiceComparison from "@/components/shared/ServiceComparison";
 import { Server, Zap, Shield, BarChart3, Globe, Clock, FileSearch, Settings, Monitor, CheckCircle, FileText, Database, HardDrive, Headphones, RefreshCw, Lock } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -24,6 +27,10 @@ export default function HostingPage() {
   const stats = t("hosting.stats", { returnObjects: true }) as any[];
   const faqs = t("hosting.faqs", { returnObjects: true }) as any[];
   const testimonials = t("hosting.testimonials", { returnObjects: true }) as any[];
+  const beforeAfter = t("hosting.beforeAfter", { returnObjects: true }) as any[];
+  const caseStudies = t("hosting.caseStudies", { returnObjects: true }) as any[];
+  const comparisonHeaders = t("hosting.comparisonHeaders", { returnObjects: true }) as string[];
+  const comparisonRows = t("hosting.comparisonRows", { returnObjects: true }) as any[];
 
   return (
     <div className="min-h-screen bg-background">
@@ -65,9 +72,11 @@ export default function HostingPage() {
         </div>
       </section>
 
+      <ServiceBeforeAfter items={beforeAfter} subheading={t("hosting.beforeAfterSection.sub")} heading={t("hosting.beforeAfterSection.heading")} description={t("hosting.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("hosting.midCTA.heading")} description={t("hosting.midCTA.description")} />
       <ServiceExtraFeatures features={extraFeatures} subheading={t("hosting.extraSection.sub")} heading={t("hosting.extraSection.heading")} description={t("hosting.extraSection.desc")} />
       <ServiceProcess steps={processSteps} subheading={t("hosting.processSection.sub")} heading={t("hosting.processSection.heading")} description={t("hosting.processSection.desc")} />
+      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("hosting.comparisonSection.sub")} heading={t("hosting.comparisonSection.heading")} description={t("hosting.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
@@ -88,6 +97,7 @@ export default function HostingPage() {
         </div>
       </section>
 
+      <ServiceCaseStudy cases={caseStudies} subheading={t("hosting.caseStudySection.sub")} heading={t("hosting.caseStudySection.heading")} description={t("hosting.caseStudySection.desc")} />
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName="호스팅 서비스" />
       <ContactSection />

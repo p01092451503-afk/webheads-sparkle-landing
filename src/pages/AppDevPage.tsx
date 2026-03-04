@@ -1,11 +1,13 @@
 import ContactSection from "@/components/ContactSection";
-
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
+import ServiceBeforeAfter from "@/components/shared/ServiceBeforeAfter";
+import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
+import ServiceComparison from "@/components/shared/ServiceComparison";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2, Search, Palette, Link2, CheckCircle, Rocket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -13,6 +15,7 @@ const lmsFeatureIcons = [Tablet, Bell, Lock, Wifi, BarChart3, ShieldCheck];
 const otherAppIcons = [Globe, Zap, Smartphone, Code2];
 const devStackIcons = [Smartphone, RefreshCw, Settings2];
 const processIcons = [Search, Palette, Code2, CheckCircle, Rocket];
+
 export default function AppDevPage() {
   const { t } = useTranslation();
 
@@ -24,6 +27,10 @@ export default function AppDevPage() {
   const plans = t("appdev.plans", { returnObjects: true }) as any[];
   const faqs = t("appdev.faqs", { returnObjects: true }) as any[];
   const testimonials = t("appdev.testimonials", { returnObjects: true }) as any[];
+  const beforeAfter = t("appdev.beforeAfter", { returnObjects: true }) as any[];
+  const caseStudies = t("appdev.caseStudies", { returnObjects: true }) as any[];
+  const comparisonHeaders = t("appdev.comparisonHeaders", { returnObjects: true }) as string[];
+  const comparisonRows = t("appdev.comparisonRows", { returnObjects: true }) as any[];
 
   return (
     <div className="min-h-screen bg-background">
@@ -66,6 +73,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      <ServiceBeforeAfter items={beforeAfter} subheading={t("appdev.beforeAfterSection.sub")} heading={t("appdev.beforeAfterSection.heading")} description={t("appdev.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("appdev.midCTA.heading")} description={t("appdev.midCTA.description")} ctaText={t("appdev.midCTA.ctaText")} />
 
       {/* Other Apps */}
@@ -96,6 +104,7 @@ export default function AppDevPage() {
       </section>
 
       <ServiceProcess steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
+      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
 
       {/* Plans */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
@@ -116,6 +125,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      <ServiceCaseStudy cases={caseStudies} subheading={t("appdev.caseStudySection.sub")} heading={t("appdev.caseStudySection.heading")} description={t("appdev.caseStudySection.desc")} />
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName={t("appdev.seo.title")} />
       <ContactSection />

@@ -1,11 +1,13 @@
 import ContactSection from "@/components/ContactSection";
-
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceMidCTA from "@/components/shared/ServiceMidCTA";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
 import ServiceProcess from "@/components/shared/ServiceProcess";
+import ServiceBeforeAfter from "@/components/shared/ServiceBeforeAfter";
+import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
+import ServiceComparison from "@/components/shared/ServiceComparison";
 import { MessageCircle, Smartphone, Bell, UserCheck, BarChart3, Settings, CheckCircle2, Search, Link, Zap, Activity } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -21,6 +23,10 @@ export default function ChannelPage() {
   const faqs = t("channel.faqs", { returnObjects: true }) as any[];
   const testimonials = t("channel.testimonials", { returnObjects: true }) as any[];
   const processSteps = (t("channel.processSteps", { returnObjects: true }) as any[]).map((step: any, i: number) => ({ ...step, icon: processIcons[i] || Search }));
+  const beforeAfter = t("channel.beforeAfter", { returnObjects: true }) as any[];
+  const caseStudies = t("channel.caseStudies", { returnObjects: true }) as any[];
+  const comparisonHeaders = t("channel.comparisonHeaders", { returnObjects: true }) as string[];
+  const comparisonRows = t("channel.comparisonRows", { returnObjects: true }) as any[];
 
   return (
     <div className="min-h-screen bg-background">
@@ -62,6 +68,7 @@ export default function ChannelPage() {
         </div>
       </section>
 
+      <ServiceBeforeAfter items={beforeAfter} subheading={t("channel.beforeAfterSection.sub")} heading={t("channel.beforeAfterSection.heading")} description={t("channel.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("channel.midCTA.heading")} description={t("channel.midCTA.description")} />
 
       {/* Use Cases */}
@@ -78,15 +85,9 @@ export default function ChannelPage() {
         </div>
       </section>
 
-      {/* Process */}
-      <ServiceProcess
-        steps={processSteps}
-        heading={t("channel.processSection.title")}
-        subheading={t("channel.processSection.sub")}
-        description={t("channel.processSection.desc")}
-      />
-
-
+      <ServiceProcess steps={processSteps} heading={t("channel.processSection.title")} subheading={t("channel.processSection.sub")} description={t("channel.processSection.desc")} />
+      <ServiceComparison headers={comparisonHeaders} rows={comparisonRows} subheading={t("channel.comparisonSection.sub")} heading={t("channel.comparisonSection.heading")} description={t("channel.comparisonSection.desc")} />
+      <ServiceCaseStudy cases={caseStudies} subheading={t("channel.caseStudySection.sub")} heading={t("channel.caseStudySection.heading")} description={t("channel.caseStudySection.desc")} />
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName={t("channel.seo.title")} />
       <ContactSection />
