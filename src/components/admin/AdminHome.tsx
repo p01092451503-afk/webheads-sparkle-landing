@@ -28,8 +28,10 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     return pageViews.filter((v) => new Date(v.created_at) >= since);
   }, [pageViews, dateRange]);
 
+  const humanViews = useMemo(() => filteredViews.filter((v) => (v.visitor_type || "human") === "human"), [filteredViews]);
+
   const newInquiries = filteredInquiries.filter((i) => i.status === "new");
-  const uniqueSessions = new Set(filteredViews.map((v) => v.session_id)).size;
+  const uniqueSessions = new Set(humanViews.map((v) => v.session_id)).size;
   const conversionRate = uniqueSessions > 0 ? ((filteredInquiries.length / uniqueSessions) * 100).toFixed(1) : "0.0";
   const recentInquiries = filteredInquiries.slice(0, 5);
 
