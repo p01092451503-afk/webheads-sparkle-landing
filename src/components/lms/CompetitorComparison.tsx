@@ -64,7 +64,7 @@ export default function CompetitorComparison() {
         {/* Table card */}
         <div className="rounded-2xl bg-background overflow-hidden shadow-sm border border-border">
           <div className="overflow-x-auto">
-            <table className="w-full text-[13px]">
+            <table className="w-full text-base">
               <thead>
                 <tr className="border-b border-border">
                   <th className="px-5 md:px-6 py-4 text-left text-xs font-semibold text-muted-foreground w-[28%]">
