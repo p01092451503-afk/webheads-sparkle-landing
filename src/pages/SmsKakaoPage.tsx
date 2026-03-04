@@ -84,14 +84,16 @@ export default function SmsKakaoPage() {
             SMS 충전 또는 카테노이드 원격지원이 필요하신 경우 아래 양식을 작성해주세요.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <Link
-              to="/service-request?type=sms"
+            <a
+              href="https://help.webheads.co.kr"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
             >
               <MessageSquareText className="w-4 h-4" />
               SMS 충전 요청
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
             <Link
               to="/service-request?type=remote"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-lg"
