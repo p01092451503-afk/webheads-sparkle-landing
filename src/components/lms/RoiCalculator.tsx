@@ -1,49 +1,95 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp } from "lucide-react";
+import { Calculator, TrendingUp, ArrowRight, Bot, Shield, MessageSquare, Info, ChevronDown, ChevronUp, Download, BookOpen, Users, BarChart3 } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, Legend } from "recharts";
 
 /**
  * Self-build cost model (annual, in KRW):
- * - Server/infra: base 6M + scale factor
- * - Developer: base 24M + scale factor  
- * - Maintenance/security: base 4.8M + scale factor
- * - Licenses/SSL/misc: base 3.6M + scale factor
- * Total scales with student count to reflect realistic TCO.
+ * Scales with student count, courses, and instructors for more accurate TCO.
  */
-function calcSelfBuildAnnual(students: number) {
-  // Scale multiplier: 1.0x at 200, up to ~2.5x at 5000
+function calcSelfBuildAnnual(students: number, courses: number, instructors: number) {
   const scale = 1 + Math.max(0, students - 200) / 2400;
+  const courseScale = 1 + Math.max(0, courses - 5) / 30;
+  const staffScale = 1 + Math.max(0, instructors - 3) / 15;
 
-  const server = Math.round(6000000 * scale);
+  const server = Math.round(6000000 * scale * courseScale);
   const developer = Math.round(24000000 * scale);
-  const maintenance = Math.round(4800000 * scale);
+  const maintenance = Math.round(4800000 * scale * courseScale);
   const license = Math.round(3600000 * scale);
-  const total = server + developer + maintenance + license;
+  const staffCost = Math.round(2400000 * staffScale * (instructors > 5 ? 1.3 : 1));
+  const total = server + developer + maintenance + license + staffCost;
 
-  return { server, developer, maintenance, license, total };
+  return { server, developer, maintenance, license, staffCost, total };
 }
+
+function getWebheadsMonthlyCost(students: number): number {
+  if (students <= 200) return 500000;
+  if (students <= 500) return 700000;
+  if (students <= 1000) return 1000000;
+  if (students <= 2000) return 1500000;
+  if (students <= 3000) return 2000000;
+  return 2500000;
+}
+
+const LMS_PRIMARY = "hsl(var(--lms-primary))";
+const GREEN_BG = "hsl(145, 70%, 93%)";
+const GREEN_TEXT = "hsl(145, 60%, 28%)";
+const GREEN_ACCENT = "hsl(145, 60%, 38%)";
 
 export default function RoiCalculator() {
   const { t } = useTranslation();
   const [students, setStudents] = useState(500);
   const [fee, setFee] = useState(100000);
+  const [courses, setCourses] = useState(10);
+  const [instructors, setInstructors] = useState(5);
   const [showBreakdown, setShowBreakdown] = useState(false);
+  const reportRef = useRef<HTMLDivElement>(null);
 
   const monthlyRevenue = students * fee;
-  const selfBuild = calcSelfBuildAnnual(students);
+  const selfBuild = useMemo(() => calcSelfBuildAnnual(students, courses, instructors), [students, courses, instructors]);
   const selfBuildMonthly = Math.round(selfBuild.total / 12);
-  const webheadsMonthlyCost = students <= 200 ? 500000 : students <= 500 ? 700000 : students <= 1000 ? 1000000 : students <= 2000 ? 1500000 : students <= 3000 ? 2000000 : 2500000;
+  const webheadsMonthlyCost = getWebheadsMonthlyCost(students);
   const savingsMonthly = selfBuildMonthly - webheadsMonthlyCost;
-  const savingsPercent = Math.round((savingsMonthly / selfBuildMonthly) * 100);
+  const savingsPercent = selfBuildMonthly > 0 ? Math.round((savingsMonthly / selfBuildMonthly) * 100) : 0;
   const annualSavings = savingsMonthly * 12;
 
   const formatNumber = (n: number) => n.toLocaleString("ko-KR");
+
+  // 5-year projection data
+  const projectionData = useMemo(() => {
+    const selfAnnual = selfBuild.total;
+    const whAnnual = webheadsMonthlyCost * 12;
+    return Array.from({ length: 5 }, (_, i) => {
+      const year = i + 1;
+      // Self-build has ~5% annual increase (inflation, scaling)
+      const selfCum = Array.from({ length: year }, (_, y) => Math.round(selfAnnual * Math.pow(1.05, y))).reduce((a, b) => a + b, 0);
+      // Webheads stays relatively stable
+      const whCum = whAnnual * year;
+      return {
+        name: t("lms.roiCalc.year", { n: year }),
+        selfBuild: selfCum,
+        webheads: whCum,
+        savings: selfCum - whCum,
+      };
+    });
+  }, [selfBuild.total, webheadsMonthlyCost, t]);
+
+  // Bar chart data for cost comparison
+  const comparisonData = useMemo(() => [
+    { name: t("lms.roiCalc.breakdownServer"), self: Math.round(selfBuild.server / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownDev"), self: Math.round(selfBuild.developer / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownMaint"), self: Math.round(selfBuild.maintenance / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownLicense"), self: Math.round(selfBuild.license / 12), wh: 0 },
+    { name: t("lms.roiCalc.breakdownStaff"), self: Math.round(selfBuild.staffCost / 12), wh: 0 },
+    { name: t("lms.roiCalc.webheadsCost"), self: 0, wh: webheadsMonthlyCost },
+  ], [selfBuild, webheadsMonthlyCost, t]);
 
   const breakdownItems = [
     { label: t("lms.roiCalc.breakdownServer"), value: selfBuild.server },
     { label: t("lms.roiCalc.breakdownDev"), value: selfBuild.developer },
     { label: t("lms.roiCalc.breakdownMaint"), value: selfBuild.maintenance },
     { label: t("lms.roiCalc.breakdownLicense"), value: selfBuild.license },
+    { label: t("lms.roiCalc.breakdownStaff"), value: selfBuild.staffCost },
   ];
 
   const addonItems = [
@@ -52,11 +98,77 @@ export default function RoiCalculator() {
     { icon: MessageSquare, label: t("lms.roiCalc.addonSms"), value: t("lms.roiCalc.smsSaving"), basis: t("lms.roiCalc.smsBasis"), color: "hsl(170, 55%, 38%)" },
   ];
 
+  // PDF export
+  const handlePdfExport = useCallback(() => {
+    const now = new Date().toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric" });
+    const lines = [
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `  ${t("lms.roiCalc.pdfTitle")}`,
+      `  ${t("lms.roiCalc.pdfGenerated")}: ${now}`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      ``,
+      `■ ${t("lms.roiCalc.pdfConditions")}`,
+      `  • ${t("lms.roiCalc.studentsLabel")}: ${formatNumber(students)}${t("lms.roiCalc.studentsUnit")}`,
+      `  • ${t("lms.roiCalc.coursesLabel")}: ${formatNumber(courses)}${t("lms.roiCalc.coursesUnit")}`,
+      `  • ${t("lms.roiCalc.instructorsLabel")}: ${formatNumber(instructors)}${t("lms.roiCalc.instructorsUnit")}`,
+      `  • ${t("lms.roiCalc.feeLabel")}: ${formatNumber(fee)}${t("lms.roiCalc.feeUnit")}`,
+      ``,
+      `■ ${t("lms.roiCalc.pdfCostComparison")}`,
+      `  • ${t("lms.roiCalc.monthlyRevenue")}: ${formatNumber(monthlyRevenue)}${t("lms.roiCalc.feeUnit")}`,
+      `  • ${t("lms.roiCalc.selfBuildCost")}: ${formatNumber(selfBuildMonthly)}${t("lms.roiCalc.feeUnit")}`,
+      ``,
+      `    [${t("lms.roiCalc.breakdownTitle")}]`,
+      ...breakdownItems.map(i => `    - ${i.label}: ${formatNumber(Math.round(i.value / 12))}${t("lms.roiCalc.feeUnit")}`),
+      ``,
+      `  • ${t("lms.roiCalc.webheadsCost")}: ${formatNumber(webheadsMonthlyCost)}${t("lms.roiCalc.feeUnit")}`,
+      `  • ${t("lms.roiCalc.annualSavings")}: ${formatNumber(annualSavings)}${t("lms.roiCalc.feeUnit")}`,
+      `  • ${t("lms.roiCalc.savingsNote", { percent: Math.max(0, savingsPercent) })}`,
+      ``,
+      `■ ${t("lms.roiCalc.pdfProjection")}`,
+      ...projectionData.map(d => `  • ${d.name}: ${t("lms.roiCalc.cumulativeSavings")} ${formatNumber(d.savings)}${t("lms.roiCalc.feeUnit")}`),
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      t("lms.roiCalc.pdfDisclaimer"),
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+    ];
+
+    const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `WEBHEADS_ROI_Report_${students}students.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [students, courses, instructors, fee, monthlyRevenue, selfBuildMonthly, webheadsMonthlyCost, annualSavings, savingsPercent, breakdownItems, projectionData, t]);
+
+  const SliderInput = ({ label, unit, value, min, max, step, onChange, icon: Icon }: {
+    label: string; unit: string; value: number; min: number; max: number; step: number; onChange: (v: number) => void; icon: any;
+  }) => (
+    <div className="mb-6 last:mb-0">
+      <div className="flex justify-between items-end mb-2.5">
+        <label className="text-sm font-semibold text-foreground flex items-center gap-1.5">
+          <Icon className="w-3.5 h-3.5 text-muted-foreground" />
+          {label}
+        </label>
+        <span className="text-lg font-bold" style={{ color: LMS_PRIMARY }}>{formatNumber(value)}{unit}</span>
+      </div>
+      <input
+        type="range" min={min} max={max} step={step} value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+        className="w-full h-2 rounded-full appearance-none cursor-pointer"
+        style={{ background: `linear-gradient(to right, ${LMS_PRIMARY} ${((value - min) / (max - min)) * 100}%, hsl(var(--border)) ${((value - min) / (max - min)) * 100}%)` }}
+      />
+      <div className="flex justify-between text-xs text-muted-foreground mt-1"><span>{formatNumber(min)}</span><span>{formatNumber(max)}</span></div>
+    </div>
+  );
+
+  const chartTooltipFormatter = (value: number) => `${formatNumber(value)}원`;
+
   return (
-    <section className="py-16 md:py-28">
+    <section className="py-16 md:py-28" ref={reportRef}>
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         <div className="mb-8 md:mb-12">
-          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: LMS_PRIMARY }}>
             {t("lms.roiCalc.sub")}
           </p>
           <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">
@@ -70,52 +182,27 @@ export default function RoiCalculator() {
           <div className="rounded-2xl border border-border bg-background p-5 md:p-8 self-start">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
-                <Calculator className="w-5 h-5" style={{ color: "hsl(var(--lms-primary))" }} />
+                <Calculator className="w-5 h-5" style={{ color: LMS_PRIMARY }} />
               </div>
               <h3 className="font-bold text-foreground text-lg">{t("lms.roiCalc.inputTitle")}</h3>
             </div>
 
-            {/* Students slider */}
-            <div className="mb-8">
-              <div className="flex justify-between items-end mb-3">
-                <label className="text-sm font-semibold text-foreground">{t("lms.roiCalc.studentsLabel")}</label>
-                <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(students)}{t("lms.roiCalc.studentsUnit")}</span>
-              </div>
-              <input
-                type="range" min={50} max={5000} step={50} value={students}
-                onChange={(e) => setStudents(Number(e.target.value))}
-                className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                style={{ background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((students - 50) / 4950) * 100}%, hsl(var(--border)) ${((students - 50) / 4950) * 100}%)` }}
-              />
-              <div className="flex justify-between text-xs text-muted-foreground mt-1.5"><span>50</span><span>5,000</span></div>
-            </div>
-
-            {/* Fee slider */}
-            <div>
-              <div className="flex justify-between items-end mb-3">
-                <label className="text-sm font-semibold text-foreground">{t("lms.roiCalc.feeLabel")}</label>
-                <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(fee)}{t("lms.roiCalc.feeUnit")}</span>
-              </div>
-              <input
-                type="range" min={10000} max={500000} step={10000} value={fee}
-                onChange={(e) => setFee(Number(e.target.value))}
-                className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                style={{ background: `linear-gradient(to right, hsl(var(--lms-primary)) ${((fee - 10000) / 490000) * 100}%, hsl(var(--border)) ${((fee - 10000) / 490000) * 100}%)` }}
-              />
-              <div className="flex justify-between text-xs text-muted-foreground mt-1.5"><span>10,000</span><span>500,000</span></div>
-            </div>
+            <SliderInput label={t("lms.roiCalc.studentsLabel")} unit={t("lms.roiCalc.studentsUnit")} value={students} min={50} max={5000} step={50} onChange={setStudents} icon={Users} />
+            <SliderInput label={t("lms.roiCalc.feeLabel")} unit={t("lms.roiCalc.feeUnit")} value={fee} min={10000} max={500000} step={10000} onChange={setFee} icon={TrendingUp} />
+            <SliderInput label={t("lms.roiCalc.coursesLabel")} unit={t("lms.roiCalc.coursesUnit")} value={courses} min={1} max={100} step={1} onChange={setCourses} icon={BookOpen} />
+            <SliderInput label={t("lms.roiCalc.instructorsLabel")} unit={t("lms.roiCalc.instructorsUnit")} value={instructors} min={1} max={30} step={1} onChange={setInstructors} icon={Users} />
           </div>
 
           {/* Result */}
           <div className="rounded-2xl border border-border bg-background p-5 md:p-8 flex flex-col">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
-                <TrendingUp className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: GREEN_BG }}>
+                <TrendingUp className="w-5 h-5" style={{ color: GREEN_ACCENT }} />
               </div>
               <h3 className="font-bold text-foreground text-lg">{t("lms.roiCalc.resultTitle")}</h3>
             </div>
 
-            <div className="space-y-5 flex-1">
+            <div className="space-y-4 flex-1">
               <div className="flex justify-between items-center py-3 border-b border-border">
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.monthlyRevenue")}</span>
                 <span className="font-bold text-foreground text-lg">{formatNumber(monthlyRevenue)}{t("lms.roiCalc.feeUnit")}</span>
@@ -129,10 +216,7 @@ export default function RoiCalculator() {
                 >
                   <span className="text-sm text-muted-foreground flex items-center gap-1.5">
                     {t("lms.roiCalc.selfBuildCost")}
-                    {showBreakdown
-                      ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground/60" />
-                      : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground/60" />
-                    }
+                    {showBreakdown ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground/60" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground/60" />}
                   </span>
                   <span className="font-bold text-muted-foreground text-lg">{formatNumber(selfBuildMonthly)}{t("lms.roiCalc.feeUnit")}</span>
                 </button>
@@ -160,27 +244,114 @@ export default function RoiCalculator() {
 
               <div className="flex justify-between items-center py-3 border-b border-border">
                 <span className="text-sm text-muted-foreground">{t("lms.roiCalc.webheadsCost")}</span>
-                <span className="font-bold text-lg" style={{ color: "hsl(var(--lms-primary))" }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
+                <span className="font-bold text-lg" style={{ color: LMS_PRIMARY }}>{formatNumber(webheadsMonthlyCost)}{t("lms.roiCalc.feeUnit")}</span>
               </div>
-              <div className="rounded-xl p-4 md:p-5" style={{ background: "hsl(145, 70%, 93%)" }}>
+              <div className="rounded-xl p-4 md:p-5" style={{ background: GREEN_BG }}>
                 <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1">
-                  <span className="text-xs md:text-sm font-semibold" style={{ color: "hsl(145, 60%, 28%)" }}>{t("lms.roiCalc.annualSavings")}</span>
-                  <span className="font-bold text-xl md:text-2xl" style={{ color: "hsl(145, 60%, 28%)" }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
+                  <span className="text-xs md:text-sm font-semibold" style={{ color: GREEN_TEXT }}>{t("lms.roiCalc.annualSavings")}</span>
+                  <span className="font-bold text-xl md:text-2xl" style={{ color: GREEN_TEXT }}>{formatNumber(annualSavings)}{t("lms.roiCalc.feeUnit")}</span>
                 </div>
-                <p className="text-[11px] md:text-xs mt-1" style={{ color: "hsl(145, 60%, 38%)" }}>
+                <p className="text-[11px] md:text-xs mt-1" style={{ color: GREEN_ACCENT }}>
                   {t("lms.roiCalc.savingsNote", { percent: savingsPercent > 0 ? savingsPercent : 0 })}
                 </p>
               </div>
             </div>
 
-            <a
-              href="#contact"
-              className="mt-6 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90 w-full"
-              style={{ background: "hsl(var(--lms-primary))" }}
-            >
-              {t("lms.roiCalc.cta")}
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <div className="flex gap-3 mt-6">
+              <a
+                href="#contact"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
+                style={{ background: LMS_PRIMARY }}
+              >
+                {t("lms.roiCalc.cta")}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <button
+                onClick={handlePdfExport}
+                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm border border-border text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+                title={t("lms.roiCalc.pdfExport")}
+              >
+                <Download className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Cost Comparison Bar Chart */}
+        <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
+              <BarChart3 className="w-5 h-5" style={{ color: LMS_PRIMARY }} />
+            </div>
+            <div>
+              <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.pdfCostComparison")}</h4>
+              <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.selfBuildCost")} vs {t("lms.roiCalc.webheadsCost")}</p>
+            </div>
+          </div>
+          <div className="h-[260px] md:h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={comparisonData} layout="vertical" margin={{ left: 0, right: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
+                <XAxis type="number" tickFormatter={(v) => `${(v / 10000).toFixed(0)}만`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                <YAxis type="category" dataKey="name" width={100} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                <Tooltip formatter={(v: number) => `${formatNumber(v)}원`} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
+                <Bar dataKey="self" name={t("lms.roiCalc.selfBuildCost")} fill="hsl(0, 70%, 65%)" radius={[0, 6, 6, 0]} />
+                <Bar dataKey="wh" name={t("lms.roiCalc.webheadsCost")} fill="hsl(245, 58%, 55%)" radius={[0, 6, 6, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* 5-Year Projection Chart */}
+        <div className="mt-5 md:mt-8 rounded-2xl border border-border bg-background p-5 md:p-8">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: GREEN_BG }}>
+              <TrendingUp className="w-5 h-5" style={{ color: GREEN_ACCENT }} />
+            </div>
+            <div>
+              <h4 className="font-bold text-foreground text-base">{t("lms.roiCalc.scenarioTitle")}</h4>
+              <p className="text-xs text-muted-foreground mt-0.5">{t("lms.roiCalc.scenarioDesc")}</p>
+            </div>
+          </div>
+
+          {/* Summary cards */}
+          <div className="grid grid-cols-3 gap-3 my-6">
+            {[0, 2, 4].map((idx) => {
+              const d = projectionData[idx];
+              return (
+                <div key={idx} className="rounded-xl p-3 md:p-4 text-center" style={{ background: idx === 4 ? GREEN_BG : "hsl(var(--muted) / 0.5)" }}>
+                  <p className="text-[11px] md:text-xs text-muted-foreground font-medium">{d.name}</p>
+                  <p className="font-bold text-sm md:text-lg mt-1" style={{ color: idx === 4 ? GREEN_TEXT : "hsl(var(--foreground))" }}>
+                    {formatNumber(d.savings)}
+                    <span className="text-[10px] md:text-xs font-normal">{t("lms.roiCalc.feeUnit")}</span>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="h-[280px] md:h-[320px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={projectionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="selfGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="hsl(0, 70%, 65%)" stopOpacity={0} />
+                  </linearGradient>
+                  <linearGradient id="whGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0.15} />
+                    <stop offset="95%" stopColor="hsl(245, 58%, 55%)" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <XAxis dataKey="name" tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
+                <YAxis tickFormatter={(v) => `${(v / 100000000).toFixed(1)}억`} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
+                <Tooltip formatter={chartTooltipFormatter} contentStyle={{ borderRadius: 12, border: "1px solid hsl(var(--border))", fontSize: 12 }} />
+                <Legend wrapperStyle={{ fontSize: 12 }} />
+                <Area type="monotone" dataKey="selfBuild" name={t("lms.roiCalc.chartSelfBuild")} stroke="hsl(0, 70%, 65%)" fill="url(#selfGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(0, 70%, 65%)" }} />
+                <Area type="monotone" dataKey="webheads" name={t("lms.roiCalc.chartWebheads")} stroke="hsl(245, 58%, 55%)" fill="url(#whGrad)" strokeWidth={2} dot={{ r: 4, fill: "hsl(245, 58%, 55%)" }} />
+              </AreaChart>
+            </ResponsiveContainer>
           </div>
         </div>
 
