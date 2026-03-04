@@ -68,7 +68,7 @@ export default function DrmPage() {
         </div>
       </section>
 
-      <ServiceBeforeAfter items={beforeAfter} subheading={t("drm.beforeAfterSection.sub")} heading={t("drm.beforeAfterSection.heading")} description={t("drm.beforeAfterSection.desc")} />
+      <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("drm.beforeAfterSection.sub")} heading={t("drm.beforeAfterSection.heading")} description={t("drm.beforeAfterSection.desc")} />
       <ServiceMidCTA heading={t("drm.midCTA.heading")} description={t("drm.midCTA.description")} ctaText={t("drm.midCTA.ctaText")} />
 
       {/* Solutions */}
