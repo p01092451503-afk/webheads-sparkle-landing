@@ -157,7 +157,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const pageDwellTimes = useMemo(() => {
     const acc: Record<string, { total: number; count: number }> = {};
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (v.duration_seconds && v.duration_seconds > 0) {
         if (!acc[v.page_path]) acc[v.page_path] = { total: 0, count: 0 };
         acc[v.page_path].total += v.duration_seconds;
@@ -167,7 +167,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(acc)
       .map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count }))
       .sort((a, b) => b.avg - a.avg);
-  }, [filteredViews]);
+  }, [humanViews]);
 
   const overallAvgDwell = useMemo(() => {
     const withDuration = filteredViews.filter((v) => v.duration_seconds && v.duration_seconds > 0);
