@@ -761,16 +761,16 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
-          <ChartCard title="신규 방문자 랜딩 페이지" icon={<Eye className="w-4 h-4" />}>
+          <ChartCard title="신규 방문자 랜딩 페이지" icon={<Eye className="w-4 h-4" />} className="bg-[hsl(40,30%,96%)]">
             {newVisitorData.topLandingPages.length === 0 ? <Empty msg="신규 방문자 데이터 수집 중..." /> : newVisitorData.topLandingPages.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={newVisitorData.topLandingPages[0][1]} color="hsl(37, 90%, 51%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 유입 경로" icon={<ArrowUpRight className="w-4 h-4" />}>
+          <ChartCard title="신규 방문자 유입 경로" icon={<ArrowUpRight className="w-4 h-4" />} className="bg-[hsl(150,20%,96%)]">
             {newVisitorData.topReferrers.length === 0 ? <Empty /> : newVisitorData.topReferrers.map(([r, c], i) => <BarRow key={r} rank={i+1} label={r} value={c} max={newVisitorData.topReferrers[0][1]} color="hsl(152, 57%, 42%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />}>
+          <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />} className="bg-[hsl(340,20%,96%)]">
             {newVisitorData.topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : newVisitorData.topLocations.map(([l, c], i) => <BarRow key={l} rank={i+1} label={l} value={c} max={newVisitorData.topLocations[0][1]} color="hsl(340, 65%, 55%)" />)}
           </ChartCard>
-          <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />}>
+          <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />} className="bg-[hsl(260,20%,96%)]">
             {newVisitorData.topDevices.length === 0 ? <Empty /> : (
               <>
                 {newVisitorData.topDevices.map(([d, c], i) => <BarRow key={d} rank={i+1} label={d} value={c} max={newVisitorData.topDevices[0][1]} color="hsl(262, 60%, 55%)" />)}
@@ -823,13 +823,13 @@ function MetricCard({ icon, label, value, color, sub, tooltip }: {
   );
 }
 
-function ChartCard({ title, icon, children, maxItems = 10 }: { title: string; icon: React.ReactNode; children: React.ReactNode; maxItems?: number }) {
+function ChartCard({ title, icon, children, maxItems = 10, className }: { title: string; icon: React.ReactNode; children: React.ReactNode; maxItems?: number; className?: string }) {
   const [expanded, setExpanded] = useState(false);
   const childArray = React.Children.toArray(children);
   const hasMore = childArray.length > maxItems;
   const visibleChildren = expanded ? childArray : childArray.slice(0, maxItems);
   return (
-    <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-4">
+    <div className={`rounded-2xl border border-[hsl(220,13%,91%)] p-4 ${className || "bg-white"}`}>
       <div className="flex items-center gap-2 mb-4">
         <span className="text-muted-foreground">{icon}</span>
         <h4 className="text-[13px] font-semibold text-foreground flex-1">{title}</h4>
