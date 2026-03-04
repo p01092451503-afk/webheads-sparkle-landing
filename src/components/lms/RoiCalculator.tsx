@@ -207,7 +207,7 @@ export default function RoiCalculator() {
 
               {/* Saving result */}
               {isSavingPositive ? (
-                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#F0FDF4" }}>
+                <div className="text-center rounded-xl py-4 px-6" style={{ background: "#fff", border: "1px solid #16A34A" }}>
                   <p className="font-extrabold text-2xl md:text-3xl" style={{ color: "#16A34A" }}>
                     3년간 {fmt(displayThreeYearSaving)}원 절감
                   </p>
