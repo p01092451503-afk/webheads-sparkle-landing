@@ -72,7 +72,7 @@ export default function DrmPage() {
       <ServiceMidCTA heading={t("drm.midCTA.heading")} description={t("drm.midCTA.description")} ctaText={t("drm.midCTA.ctaText")} />
 
       {/* Solutions */}
-      <section id="solutions" className="py-28 bg-secondary">
+      <section id="solutions" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("drm.solutionsSection.sub")}</p>
