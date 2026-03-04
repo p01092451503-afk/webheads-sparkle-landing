@@ -145,25 +145,33 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             onSubmit={handleSubmit}
             className="relative rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
           >
-            {/* Quick response badge */}
-            <span className="absolute -top-3 right-4 inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-bold text-emerald-700">
-              ⚡ 평균 2시간 이내 담당자 연락
-            </span>
-
-            {/* Urgency banner */}
+            {/* Urgency banner — Toss style */}
             {(() => {
               const now = new Date();
               const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
               const month = now.getMonth() + 1;
               return (
-                <div className="flex items-center gap-2 rounded-lg bg-amber-50 border border-amber-200 px-4 py-2.5 text-sm">
-                  <span>🔥</span>
-                  <span className="flex-1 font-medium text-amber-900">
-                    {now.getFullYear()}년 {month}월 무료 컨설팅 · <strong>{month}월 {lastDay}일 마감</strong>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 rounded-xl bg-primary/[0.04] px-5 py-3.5">
+                  <div className="flex items-center gap-2.5">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-black">%</span>
+                    <span className="text-sm font-semibold text-foreground tracking-tight">
+                      {month}월 무료 컨설팅 진행 중
+                    </span>
+                  </div>
+                  <span className="text-xs font-medium text-muted-foreground tabular-nums">
+                    {month}월 {lastDay}일까지
                   </span>
                 </div>
               );
             })()}
+
+            {/* Quick response badge */}
+            <div className="flex items-center gap-2 px-1">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-[11px] font-semibold text-muted-foreground tracking-tight">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                평균 2시간 이내 응답
+              </span>
+            </div>
 
             {/* Inquiry type tabs */}
             {showDemo && (
