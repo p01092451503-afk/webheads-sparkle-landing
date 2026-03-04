@@ -42,7 +42,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
     const locationCounts: Record<string, number> = {};
     let totalDwell = 0, dwellCount = 0, totalScroll = 0, scrollCount = 0, firstVisit = 0, returning = 0;
 
-    filteredViews.forEach((v) => {
+    humanViews.forEach((v) => {
       if (v.device_type) deviceCounts[v.device_type] = (deviceCounts[v.device_type] || 0) + 1;
       if (v.browser) browserCounts[v.browser] = (browserCounts[v.browser] || 0) + 1;
       if (v.page_path) topPages[v.page_path] = (topPages[v.page_path] || 0) + 1;
