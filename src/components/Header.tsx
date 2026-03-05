@@ -182,46 +182,70 @@ export default function Header() {
                 {/* Support Popover */}
                 {supportOpen && (
                   <div
-                    className="absolute right-0 top-[calc(100%+8px)] w-[340px] bg-card rounded-2xl shadow-xl border border-border p-2 animate-fade-in"
-                    style={{ zIndex: 100 }}
+                    className="absolute right-0 top-[calc(100%+10px)] w-[360px] rounded-2xl overflow-hidden animate-fade-in"
+                    style={{
+                      zIndex: 100,
+                      background: "hsl(220, 20%, 14%)",
+                      boxShadow: "0 20px 60px -12px hsla(220, 40%, 10%, 0.5), 0 0 0 1px hsla(220, 20%, 24%, 0.6)",
+                    }}
                   >
+                    {/* Header */}
+                    <div className="px-5 pt-4 pb-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.1em]" style={{ color: "hsl(220, 15%, 50%)" }}>
+                        고객지원
+                      </p>
+                    </div>
+
+                    {/* SMS */}
                     <a
                       href="https://help.webheads.co.kr/login.php"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
+                      className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors"
+                      style={{ color: "white" }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = "hsl(220, 18%, 19%)"}
+                      onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                     >
                       <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-                        style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
+                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                        style={{ background: "hsl(221, 83%, 53%, 0.15)", color: "hsl(221, 80%, 68%)" }}
                       >
                         <Mail className="w-[18px] h-[18px]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[14px] font-bold text-foreground tracking-[-0.02em]">SMS 충전</p>
-                        <p className="text-[12px] text-muted-foreground mt-0.5">문자 발송 건수를 충전하고 현황을 확인합니다</p>
+                        <p className="text-[14px] font-semibold tracking-[-0.02em]" style={{ color: "hsl(0, 0%, 95%)" }}>SMS 충전</p>
+                        <p className="text-[12px] mt-0.5" style={{ color: "hsl(220, 12%, 52%)" }}>문자 발송 건수 충전 및 현황 확인</p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
+                      <ChevronRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" style={{ color: "hsl(220, 12%, 40%)" }} />
                     </a>
-                    <div className="mx-3 h-px bg-border/60" />
+
+                    {/* Divider */}
+                    <div className="mx-5 h-px" style={{ background: "hsl(220, 15%, 22%)" }} />
+
+                    {/* Remote Support */}
                     <a
                       href="https://help.webheads.co.kr/kolluscrm.php"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
+                      className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors"
+                      style={{ color: "white" }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = "hsl(220, 18%, 19%)"}
+                      onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                     >
                       <div
-                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-                        style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
+                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                        style={{ background: "hsl(152, 57%, 42%, 0.15)", color: "hsl(152, 50%, 55%)" }}
                       >
                         <MonitorSmartphone className="w-[18px] h-[18px]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[14px] font-bold text-foreground tracking-[-0.02em]">원격지원 요청</p>
-                        <p className="text-[12px] text-muted-foreground mt-0.5">카테노이드 원격지원으로 빠르게 문제를 해결합니다</p>
+                        <p className="text-[14px] font-semibold tracking-[-0.02em]" style={{ color: "hsl(0, 0%, 95%)" }}>원격지원 요청</p>
+                        <p className="text-[12px] mt-0.5" style={{ color: "hsl(220, 12%, 52%)" }}>카테노이드 원격지원으로 빠르게 해결</p>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
+                      <ChevronRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" style={{ color: "hsl(220, 12%, 40%)" }} />
                     </a>
+
+                    <div className="h-2" />
                   </div>
                 )}
               </div>
