@@ -74,12 +74,12 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
-  const showBanner = bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
+  const showBanner = isKorean && bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
   return (
     <>
       {/* Top promo banner */}
-      {(!bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
+      {(isKorean && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
         <div
           className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
           style={{ backgroundColor: "hsl(250, 60%, 95%)" }}
