@@ -901,6 +901,35 @@
       { "title": "Automated Notifications", "desc": "Auto-send enrollment confirmations, assignment reminders, completion notices, and payment alerts via email, SMS, or KakaoTalk throughout the entire learning lifecycle — no ops staff required." }
     ],
     "midCTA": { "heading": "Looking for the perfect e-learning solution?", "description": "We'll recommend the optimal LMS based on your business goals and scale — for free.", "ctaText": "Free Consultation" },
+    "caseStudy": {
+      "sub": "CASE STUDIES",
+      "heading": "Real Results from\nReal Clients",
+      "desc": "See how organizations transformed their training with Webheads LMS.",
+      "cases": [
+        {
+          "org": "Hanwha General Insurance",
+          "industry": "Finance & Insurance",
+          "challenge": "With over 1,200 sales staff and HQ employees requiring annual mandatory compliance training (Insurance Business Act, Financial Consumer Protection Act, AML), offline training incurred ~$230K/year in venue, instructor, and travel costs. Managing attendance across 120 nationwide branches was difficult, and gathering completion records for FSS audits took 2+ weeks each time.",
+          "result": "Deployed Webheads PRO with SAP SuccessFactors integration, AI-driven completion reminders, and automated certificate generation. Reduced compliance admin time by 75%, saved $92K in training costs within 6 months, and raised employee satisfaction from 3.2 to 4.6 out of 5.",
+          "metrics": [
+            { "label": "Cost Reduction", "value": "40%" },
+            { "label": "Completion Rate", "value": "98.7%" },
+            { "label": "Audit Prep Time", "value": "75%↓" }
+          ]
+        },
+        {
+          "org": "Sejong Cyber University",
+          "industry": "Higher Education",
+          "challenge": "An aging in-house LMS serving 8,500 students and 3,200 continuing education learners suffered repeated server crashes during enrollment periods. With 62% of learning happening on mobile but no mobile optimization, dropout rates hit 35%. Manual HRD-Net reporting consumed 120 staff-hours monthly, and 400+ SCORM 1.2 courses needed migration.",
+          "result": "Migrated to Webheads PRO (dedicated server) with lossless SCORM migration, auto-scaling infrastructure for zero-downtime enrollment, and responsive mobile UI with offline downloads. Mobile completion rates rose from 62% to 89%, and admin workload dropped from 120 to 15 hours/month via automated HRD-Net API integration.",
+          "metrics": [
+            { "label": "Mobile Completion", "value": "89%" },
+            { "label": "Admin Workload", "value": "87%↓" },
+            { "label": "Server Downtime", "value": "0" }
+          ]
+        }
+      ]
+    },
     "industryTabs": {
       "sub": "USE CASES",
       "title": "LMS Solutions\nfor Every Industry",
