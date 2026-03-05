@@ -168,9 +168,8 @@ export default function Header() {
               >
                 {t("header.cta")}
               </Link>
-              <div className="relative" ref={supportRef}>
+              <div className="relative" ref={supportRef} onMouseEnter={() => setSupportOpen(true)} onMouseLeave={() => setSupportOpen(false)}>
                 <button
-                  onClick={() => setSupportOpen((v) => !v)}
                   className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     effectiveScrolled
                       ? "text-foreground hover:bg-muted border border-border"
@@ -189,7 +188,6 @@ export default function Header() {
                       boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
                     }}
                   >
-                    {/* SMS */}
                     <a
                       href="https://help.webheads.co.kr/login.php"
                       target="_blank"
@@ -211,11 +209,7 @@ export default function Header() {
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
                     </a>
-
-                    {/* Divider */}
                     <div className="mx-5 h-px bg-border/60" />
-
-                    {/* Remote Support */}
                     <a
                       href="https://help.webheads.co.kr/kolluscrm.php"
                       target="_blank"
