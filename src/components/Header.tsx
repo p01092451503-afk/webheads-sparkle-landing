@@ -257,7 +257,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-background border-t border-border shadow-lg">
+        <div className="lg:hidden bg-background border-t border-border shadow-lg max-h-[calc(100vh-100px)] overflow-y-auto">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-0.5">
             {services.map((s) => {
               const isActive = location.pathname === s.path;
