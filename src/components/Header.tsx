@@ -188,12 +188,6 @@ export default function Header() {
                       boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
                     }}
                   >
-                    {/* Header */}
-                    <div className="px-5 pt-5 pb-2 text-center">
-                      <p className="text-[17px] font-bold text-foreground tracking-[-0.03em]">
-                        고객지원
-                      </p>
-                    </div>
 
                     {/* SMS */}
                     <a
@@ -203,10 +197,10 @@ export default function Header() {
                       className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
                     >
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
                       >
-                        <MessageSquareText className="w-[18px] h-[18px]" />
+                        <MessageSquareText className="w-6 h-6" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">SMS 충전</p>
@@ -226,10 +220,10 @@ export default function Header() {
                       className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
                     >
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
                       >
-                        <ScreenShare className="w-[18px] h-[18px]" />
+                        <ScreenShare className="w-6 h-6" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">원격지원 요청</p>
