@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Mail, MonitorSmartphone, BookOpen, Phone } from "lucide-react";
+import { Mail, MonitorSmartphone, BookOpen, Phone, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -126,38 +126,52 @@ export default function Footer() {
             <Phone className="w-4 h-4" />
             {t("footer.callLabel", "대표전화 02-540-4337")}
           </a>
-          <button
-            onClick={() => setSupportOpen(!supportOpen)}
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 whitespace-nowrap text-foreground hover:bg-muted border border-border"
-          >
-            {t("header.customerSupport", "고객지원")}
-            <span className="text-muted-foreground">→</span>
-          </button>
-        </div>
-        {supportOpen && (
-          <div className="border-t border-border">
-            <div className="container mx-auto px-6 max-w-5xl py-3 flex items-center justify-start gap-3 flex-wrap">
-              <a
-                href="https://help.webheads.co.kr/login.php"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                SMS 충전
-              </a>
-              <a
-                href="https://help.webheads.co.kr/kolluscrm.php"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full px-4 py-2 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
-              >
-                <MonitorSmartphone className="w-3.5 h-3.5" />
-                원격지원 요청
-              </a>
-            </div>
+          <div className="relative">
+            <button
+              onClick={() => setSupportOpen(!supportOpen)}
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 whitespace-nowrap text-foreground hover:bg-muted border border-border"
+            >
+              {t("header.customerSupport", "고객지원")}
+              <span className="text-muted-foreground">→</span>
+            </button>
+
+            {supportOpen && (
+              <div className="absolute bottom-[calc(100%+10px)] left-0 w-[340px] bg-card rounded-2xl overflow-hidden animate-fade-in border border-border shadow-lg z-50">
+                <a
+                  href="https://help.webheads.co.kr/login.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/60"
+                >
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: "hsl(221, 83%, 53%, 0.08)" }}>
+                    <Mail className="w-5 h-5" style={{ color: "hsl(221, 83%, 53%)" }} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">SMS 충전</p>
+                    <p className="text-[12px] text-muted-foreground mt-0.5">문자 발송 건수 충전 및 현황 확인</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                </a>
+                <div className="mx-5 h-px bg-border/60" />
+                <a
+                  href="https://help.webheads.co.kr/kolluscrm.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/60"
+                >
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: "hsl(152, 57%, 42%, 0.08)" }}>
+                    <MonitorSmartphone className="w-5 h-5" style={{ color: "hsl(152, 57%, 42%)" }} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">원격지원 요청</p>
+                    <p className="text-[12px] text-muted-foreground mt-0.5">카테노이드 원격지원으로 빠르게 해결</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
       <div className="border-t border-border">
