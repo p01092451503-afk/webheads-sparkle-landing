@@ -78,6 +78,7 @@ const datacenterRanges = [
   /^124\.24[2-3]\./, // Huawei Cloud
   /^150\.10[8-9]\./, /^150\.11[0-9]\./, // Tencent Cloud
   /^43\.15[3-5]\./, /^43\.13[4-7]\./, // Tencent Cloud
+  /^124\.15[6-8]\./, // Tencent Cloud (HK)
   /^49\.23[2-5]\./, /^101\.3[2-9]\./, // Alibaba Cloud
   /^47\.(7[4-9]|[89][0-9]|1[0-1][0-9])\./, // Alibaba Cloud
 ];
