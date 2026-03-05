@@ -57,14 +57,14 @@ export default function LearnerJourneyMap() {
                       <ArrowRight className="w-6 h-6 text-muted-foreground/30" />
                     </div>
                   )}
-                  <span className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: `${color}cc` }}>
+                  <span className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color }}>
                     Step {i + 1}
                   </span>
                   <h4 className="font-bold text-foreground text-lg leading-snug mb-2.5">{step.label}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                  <p className="text-sm text-foreground/70 leading-relaxed mb-4" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                   <span
                     className="inline-block text-sm font-semibold px-4 py-1.5 rounded-full"
-                    style={{ background: `${color}12`, color }}
+                    style={{ background: `hsl(0 0% 100% / 0.8)`, color }}
                   >
                     {step.service}
                   </span>
@@ -92,14 +92,14 @@ export default function LearnerJourneyMap() {
                     )}
                   </div>
                   <div className="pt-1 pb-4 min-w-0">
-                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: `${color}cc` }}>
+                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
                       Step {i + 1}
                     </span>
                     <h4 className="font-bold text-foreground text-base mt-0.5">{step.label}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                    <p className="text-sm text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                     <span
                       className="inline-block text-xs font-semibold px-3 py-1 rounded-full mt-2.5"
-                      style={{ background: `${color}12`, color }}
+                      style={{ background: `hsl(0 0% 100% / 0.8)`, color }}
                     >
                       {step.service}
                     </span>
