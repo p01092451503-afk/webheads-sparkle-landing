@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Headset, Mail, MonitorSmartphone, ChevronRight } from "lucide-react";
+import { Menu, X, Mail, MonitorSmartphone, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -170,13 +170,12 @@ export default function Header() {
               <div className="relative" ref={supportRef}>
                 <button
                   onClick={() => setSupportOpen((v) => !v)}
-                  className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap ${
                     effectiveScrolled
-                      ? "bg-primary/20 text-primary hover:bg-primary/25"
-                      : "bg-white/30 text-white hover:bg-white/40 border border-white/25"
+                      ? "bg-accent text-foreground hover:bg-accent/80"
+                      : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
                   }`}
                 >
-                  <Headset className="w-4 h-4" />
                   {t("header.customerSupport")}
                 </button>
 
@@ -279,7 +278,6 @@ export default function Header() {
               onClick={() => setSupportOpen((v) => !v)}
               className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors w-full text-left"
             >
-              <Headset className="w-4 h-4" />
               {t("header.customerSupport")}
             </button>
             {supportOpen && (
