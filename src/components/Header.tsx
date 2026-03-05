@@ -188,12 +188,6 @@ export default function Header() {
                       boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
                     }}
                   >
-                    {/* Header */}
-                    <div className="px-5 pt-5 pb-2 text-center">
-                      <p className="text-[17px] font-bold text-foreground tracking-[-0.03em]">
-                        고객지원
-                      </p>
-                    </div>
 
                     {/* SMS */}
                     <a
