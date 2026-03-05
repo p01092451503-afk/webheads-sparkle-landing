@@ -6,7 +6,11 @@
     "allServices": "전체 서비스",
     "cta": "문의하기",
     "logo": "WEBHEADS.",
-    "customerSupport": "고객지원"
+    "customerSupport": "고객지원",
+    "smsRechargeTitle": "SMS 충전",
+    "smsRechargeDesc": "문자 발송 건수 충전 및 현황 확인",
+    "remoteSupportTitle": "원격지원 요청",
+    "remoteSupportDesc": "카테노이드 원격지원으로 빠르게 해결"
   },
   "footer": {
     "company": "Company",

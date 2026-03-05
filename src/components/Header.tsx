@@ -305,7 +305,7 @@ export default function Header() {
                   className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
                 >
                   <MonitorSmartphone className="w-4 h-4" style={{ color: "hsl(152, 57%, 42%)" }} />
-                  <span className="text-sm font-medium text-foreground">원격지원 요청</span>
+                  <span className="text-sm font-medium text-foreground">{t("header.remoteSupportTitle")}</span>
                   <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
                 </a>
               </div>
