@@ -35,10 +35,30 @@ const queryClient = new QueryClient();
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+
+  const [bannerVisible, setBannerVisible] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      try {
+        const dismissed = localStorage.getItem("promo_banner_dismissed");
+        if (dismissed) {
+          const dismissedAt = new Date(dismissed).getTime();
+          const oneDay = 24 * 60 * 60 * 1000;
+          if (Date.now() - dismissedAt < oneDay) { setBannerVisible(false); return; }
+        }
+        setBannerVisible(new Date() <= new Date("2026-03-31T23:59:59+09:00"));
+      } catch { setBannerVisible(false); }
+    };
+    check();
+    window.addEventListener("storage", check);
+    return () => window.removeEventListener("storage", check);
+  }, []);
   
   return (
     <>
       {!isAdmin && <Header />}
+      {!isAdmin && bannerVisible && <div className="h-[44px]" />}
       <main>{children}</main>
       {!isAdmin && <Footer />}
       {!isAdmin && <FloatingNav />}
