@@ -410,6 +410,86 @@
       { "title": "Community & Social", "desc": "From SNS-style feeds and chat to professional community apps.", "tags": ["Feed", "Real-time Chat", "Notifications"] }
     ],
     "devStackSection": { "sub": "TECH STACK", "title": "Built with Proven\nTechnology Stacks" },
+    "storeSubmissionSection": {
+      "sub": "APP STORE REVIEW",
+      "title": "iOS · Android\nApp Store Submission Guide",
+      "desc": "A comprehensive overview of Apple App Store and Google Play Store submission methods, procedures, and key considerations. WEBHEADS handles the entire process for you."
+    },
+    "storeSubmission": {
+      "ios": {
+        "name": "Apple App Store",
+        "badge": "iOS",
+        "process": {
+          "title": "Submission Process",
+          "steps": [
+            { "step": "1", "title": "Register Apple Developer Program", "desc": "Register a developer account at $99/year (USD). Enterprise accounts require a D-U-N-S number, and approval may take up to 48 hours." },
+            { "step": "2", "title": "Build & Archive App", "desc": "Build and archive your app in Xcode, then upload to App Store Connect. Proper Code Signing and Provisioning Profiles must be configured." },
+            { "step": "3", "title": "Register App Store Connect Metadata", "desc": "Register app name, description, screenshots (6.7\"/6.5\"/5.5\"), keywords, category, and privacy policy URL." },
+            { "step": "4", "title": "Submit for Review & Wait", "desc": "After submission, results are typically returned within 24-48 hours. App status shows 'In Review' and additional information may be requested." },
+            { "step": "5", "title": "Approval & Release", "desc": "After approval, choose immediate or scheduled release. Each subsequent app update also requires re-review." }
+          ]
+        },
+        "features": {
+          "title": "Characteristics",
+          "items": [
+            "Manual human review process",
+            "Average review time: 24-48 hours (up to 7 days)",
+            "Very strict review criteria (design, privacy, performance)",
+            "$99/year developer account fee",
+            "Beta testing available via TestFlight"
+          ]
+        },
+        "cautions": {
+          "title": "Common Rejection Reasons & Cautions",
+          "items": [
+            { "title": "Inadequate Privacy Policy", "desc": "A privacy policy URL clearly stating data collection items, purposes, and third-party sharing is mandatory. App Tracking Transparency (ATT) framework implementation is also required." },
+            { "title": "Incomplete Features or Bugs", "desc": "Crashes, blank screens, or broken links result in immediate rejection. Thorough real-device testing of all features is essential." },
+            { "title": "Apple HIG Non-compliance", "desc": "UI/UX that doesn't follow Apple Human Interface Guidelines (non-standard navigation, excessive ads, webview wrapping) leads to rejection." },
+            { "title": "Missing In-App Purchase (IAP)", "desc": "Directing digital content or subscription payments to external payment methods results in rejection. Apple's IAP system (30% commission) must be used." },
+            { "title": "No Test Account Provided", "desc": "Apps requiring login must submit a test account (ID/PW) for review. Missing this causes delays or rejection." },
+            { "title": "Inaccurate Metadata", "desc": "Screenshots that differ from the actual app or exaggerated descriptions lead to rejection. Accurate, honest app descriptions are crucial." }
+          ]
+        }
+      },
+      "android": {
+        "name": "Google Play Store",
+        "badge": "Android",
+        "process": {
+          "title": "Submission Process",
+          "steps": [
+            { "step": "1", "title": "Register Google Play Console", "desc": "Pay a one-time $25 (USD) developer registration fee. Identity verification is required, and you can register apps immediately after account setup." },
+            { "step": "2", "title": "Build AAB (Android App Bundle)", "desc": "Generate a signed AAB file in Android Studio. Using Google Play App Signing delegates key management to Google for enhanced security." },
+            { "step": "3", "title": "Create Store Listing", "desc": "Register app name, short description (80 chars), full description (4,000 chars), screenshots, feature graphic (1024×500), content rating questionnaire, and privacy policy." },
+            { "step": "4", "title": "Submit for Review", "desc": "Upload AAB to the production track and request review. New apps take up to 7 days; existing app updates complete in 1-3 days." },
+            { "step": "5", "title": "Approval & Release", "desc": "After approval, use Staged Rollout to deploy to a subset of users first, then roll out to everyone." }
+          ]
+        },
+        "features": {
+          "title": "Characteristics",
+          "items": [
+            "Combined automated + manual review",
+            "New app review: up to 7 days / Updates: 1-3 days",
+            "Relatively more flexible criteria vs. Apple",
+            "One-time $25 developer account fee (permanent)",
+            "Internal, closed, and open testing tracks available"
+          ]
+        },
+        "cautions": {
+          "title": "Common Rejection Reasons & Cautions",
+          "items": [
+            { "title": "Missing Privacy Policy", "desc": "Apps collecting personal data must have a privacy policy URL and complete the Data Safety Section. Since 2024, a data deletion request feature is also mandatory." },
+            { "title": "Target API Level Not Met", "desc": "Google Play raises target API level requirements annually. As of 2025, new apps must target Android 14 (API 34) or higher." },
+            { "title": "Missing Content Rating", "desc": "Apps won't be published without completing the IARC questionnaire. Set accurate ratings matching your app content." },
+            { "title": "Malware & Policy Violations", "desc": "Unauthorized data collection, excessive background battery drain, and deceptive ads can result in app removal and account suspension." },
+            { "title": "Excessive Permission Requests", "desc": "Requesting unnecessary permissions (camera, location, contacts) can lead to review rejection. Only request minimum required permissions." },
+            { "title": "IP Infringement", "desc": "Unauthorized use of other brands' logos, names, or content results in immediate removal. Caution is needed for app icons and screenshots as well." }
+          ]
+        }
+      },
+      "weHandle": "WEBHEADS handles the entire process",
+      "weHandleDesc": "From review preparation to rejection responses and post-launch update re-reviews — our dedicated team handles every step of app store submission.",
+      "weHandleCta": "Consult About Store Submission"
+    },
     "devStack": [
       { "title": "iOS / Android Native", "desc": "Native apps with Swift (iOS) and Kotlin (Android) that fully comply with platform guidelines.", "tags": ["Swift", "Kotlin", "Native UI"] },
       { "title": "Hybrid / Cross-platform", "desc": "Build iOS and Android simultaneously from a single codebase with React Native or Flutter.", "tags": ["React Native", "Flutter", "Cost Savings"] },

@@ -8,6 +8,7 @@ import ServiceProcess from "@/components/shared/ServiceProcess";
 import ServiceBeforeAfter from "@/components/shared/ServiceBeforeAfter";
 import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
 import ServiceComparison from "@/components/shared/ServiceComparison";
+import StoreSubmissionSection from "@/components/shared/StoreSubmissionSection";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2, Search, Palette, Link2, CheckCircle, Rocket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -103,6 +104,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      <StoreSubmissionSection />
       <ServiceProcess bg="bg-secondary" steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
       <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
 
