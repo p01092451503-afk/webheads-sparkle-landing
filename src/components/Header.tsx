@@ -54,7 +54,19 @@ export default function Header() {
 
   useEffect(() => {
     setMobileOpen(false);
+    setSupportOpen(false);
   }, [location]);
+
+  // Close support popover on outside click
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (supportRef.current && !supportRef.current.contains(e.target as Node)) {
+        setSupportOpen(false);
+      }
+    };
+    if (supportOpen) document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [supportOpen]);
 
   useEffect(() => {
     const timer = setTimeout(() => setBannerReady(true), 2000);
