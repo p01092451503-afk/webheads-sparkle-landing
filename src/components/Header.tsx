@@ -105,10 +105,10 @@ export default function Header() {
               setBannerDismissed(true);
               try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
             }}
-            className="shrink-0 z-20 text-foreground/50 hover:text-foreground transition-colors text-[10px] sm:text-xs font-medium px-2.5 sm:px-3 py-1 rounded-md bg-foreground/5 hover:bg-foreground/10 flex items-center"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 text-foreground/40 hover:text-foreground transition-colors p-1 rounded-md hover:bg-foreground/5"
             aria-label={t("banner.dismiss")}
           >
-            {t("banner.dismiss")}
+            <X className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
       )}
