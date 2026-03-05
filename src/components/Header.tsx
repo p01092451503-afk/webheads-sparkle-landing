@@ -34,7 +34,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
-  const isLightPage = location.pathname === "/service-request" || location.pathname === "/overview" || location.pathname === "/blog" || location.pathname === "/event";
+  const isLightPage = location.pathname === "/service-request" || location.pathname === "/overview" || location.pathname === "/blog" || location.pathname === "/event" || location.pathname === "/support";
   const effectiveScrolled = scrolled || isLightPage;
 
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
@@ -154,6 +154,17 @@ export default function Header() {
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
               <Link
+                to="/support"
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                  effectiveScrolled
+                    ? "text-foreground hover:bg-muted"
+                    : "text-white/90 hover:bg-white/10"
+                }`}
+              >
+                <Headset className="w-4 h-4" />
+                {t("header.customerSupport")}
+              </Link>
+              <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
@@ -203,8 +214,15 @@ export default function Header() {
               <LanguageSwitcher />
             </div>
             <Link
+              to="/support"
+              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors"
+            >
+              <Headset className="w-4 h-4" />
+              {t("header.customerSupport")}
+            </Link>
+            <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
+              className="mt-1 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
             >
               {t("header.cta")}
             </Link>
