@@ -217,7 +217,7 @@ export default function Header() {
                       href="https://help.webheads.co.kr/kolluscrm.php"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
+                      className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors hover:bg-muted"
                     >
                       <div
                         className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
