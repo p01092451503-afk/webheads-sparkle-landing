@@ -99,7 +99,7 @@ export default function LearnerJourneyMap() {
                     <p className="text-sm text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                     <span
                       className="inline-block text-xs font-semibold px-3 py-1 rounded-full mt-2.5"
-                      style={{ background: `${color}12`, color }}
+                      style={{ background: `hsl(0 0% 100% / 0.8)`, color }}
                     >
                       {step.service}
                     </span>
