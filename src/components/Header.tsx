@@ -170,13 +170,12 @@ export default function Header() {
               <div className="relative" ref={supportRef}>
                 <button
                   onClick={() => setSupportOpen((v) => !v)}
-                  className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap ${
                     effectiveScrolled
-                      ? "bg-primary/20 text-primary hover:bg-primary/25"
-                      : "bg-white/30 text-white hover:bg-white/40 border border-white/25"
+                      ? "bg-accent text-foreground hover:bg-accent/80"
+                      : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
                   }`}
                 >
-                  <Headset className="w-4 h-4" />
                   {t("header.customerSupport")}
                 </button>
 
