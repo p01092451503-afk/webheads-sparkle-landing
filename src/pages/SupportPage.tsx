@@ -10,7 +10,7 @@ export default function SupportPage() {
         path="/support"
       />
       <div className="min-h-screen" style={{ background: "hsl(220, 14%, 96%)" }}>
-        <div className="container mx-auto px-5 max-w-[520px] pt-28 pb-20">
+        <div className="container mx-auto px-5 max-w-[680px] pt-28 pb-20">
 
           {/* Header */}
           <div className="mb-8">
@@ -22,31 +22,33 @@ export default function SupportPage() {
             </p>
           </div>
 
-          {/* Main Action Cards */}
-          <div className="flex flex-col gap-3 mb-4">
+          {/* Main Action Cards — side by side */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
             {/* SMS 충전 */}
             <a
               href="https://help.webheads.co.kr/login.php"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white rounded-2xl p-5 flex items-center gap-4 transition-all hover:shadow-md active:scale-[0.99]"
+              className="group bg-white rounded-2xl p-6 flex flex-col items-center text-center gap-4 transition-all hover:shadow-md active:scale-[0.99]"
               style={{ border: "1px solid hsl(220, 13%, 91%)" }}
             >
               <div
-                className="w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0"
+                className="w-14 h-14 rounded-[16px] flex items-center justify-center"
                 style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
               >
-                <Mail className="w-[22px] h-[22px]" />
+                <Mail className="w-6 h-6" />
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-semibold text-foreground" style={{ letterSpacing: "-0.02em" }}>
+              <div>
+                <p className="text-[17px] font-bold text-foreground" style={{ letterSpacing: "-0.02em" }}>
                   SMS 충전
                 </p>
-                <p className="text-[13px] text-muted-foreground mt-0.5">
-                  문자 발송 건수를 충전하고 현황을 확인합니다
+                <p className="text-[13px] text-muted-foreground mt-1">
+                  문자 발송 건수를 충전하고<br />현황을 확인합니다
                 </p>
               </div>
-              <ChevronRight className="w-5 h-5 text-muted-foreground/40 shrink-0 group-hover:text-muted-foreground transition-colors" />
+              <span className="inline-flex items-center gap-1 text-[13px] font-semibold mt-1" style={{ color: "hsl(221, 83%, 53%)" }}>
+                충전하기 <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </a>
 
             {/* 원격지원 */}
@@ -54,24 +56,26 @@ export default function SupportPage() {
               href="https://help.webheads.co.kr/kolluscrm.php"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white rounded-2xl p-5 flex items-center gap-4 transition-all hover:shadow-md active:scale-[0.99]"
+              className="group bg-white rounded-2xl p-6 flex flex-col items-center text-center gap-4 transition-all hover:shadow-md active:scale-[0.99]"
               style={{ border: "1px solid hsl(220, 13%, 91%)" }}
             >
               <div
-                className="w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0"
+                className="w-14 h-14 rounded-[16px] flex items-center justify-center"
                 style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
               >
-                <MonitorSmartphone className="w-[22px] h-[22px]" />
+                <MonitorSmartphone className="w-6 h-6" />
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-semibold text-foreground" style={{ letterSpacing: "-0.02em" }}>
+              <div>
+                <p className="text-[17px] font-bold text-foreground" style={{ letterSpacing: "-0.02em" }}>
                   원격지원 요청
                 </p>
-                <p className="text-[13px] text-muted-foreground mt-0.5">
-                  카테노이드 원격지원으로 빠르게 문제를 해결합니다
+                <p className="text-[13px] text-muted-foreground mt-1">
+                  카테노이드 원격지원으로<br />빠르게 문제를 해결합니다
                 </p>
               </div>
-              <ChevronRight className="w-5 h-5 text-muted-foreground/40 shrink-0 group-hover:text-muted-foreground transition-colors" />
+              <span className="inline-flex items-center gap-1 text-[13px] font-semibold mt-1" style={{ color: "hsl(152, 57%, 42%)" }}>
+                요청하기 <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </span>
             </a>
           </div>
 
