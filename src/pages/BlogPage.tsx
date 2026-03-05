@@ -99,6 +99,14 @@ export default function BlogPage() {
     setCurrentPage(1);
     setExpandedId(null);
   };
+  const handleCategoryChange = (cat: Category | "all") => {
+    setActiveCategory(cat);
+    setCurrentPage(1);
+    setExpandedId(null);
+  };
+
+  const catConfig = lang === "en" ? categoryConfigEn : categoryConfigKo;
+  const allCategories: (Category | "all")[] = ["all", "guide", "trend", "tip"];
 
   const jsonLd = {
     "@context": "https://schema.org",
