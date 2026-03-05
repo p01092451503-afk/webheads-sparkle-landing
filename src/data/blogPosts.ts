@@ -586,7 +586,7 @@ export const blogPostsKo: BlogPost[] = [
       "핵심 아키텍처 구성: ① Amazon Route 53 — DNS 라우팅으로 학습자를 가장 가까운 CloudFront 엣지 로케이션으로 안내합니다. ② Amazon CloudFront — 동영상 강의, PDF, 이미지 등 정적 콘텐츠를 글로벌 CDN으로 배포하여 지연 시간을 최소화합니다. 한국 학습자 기준 평균 응답 시간이 On-Premise 대비 40~60% 단축됩니다.",
       "③ Application Load Balancer(ALB) + Auto Scaling Group — EC2 인스턴스를 멀티 AZ(가용영역)에 수평 확장 배치합니다. 시험 기간이나 의무교육 마감일 등 트래픽 급증 시 자동으로 인스턴스를 추가하고, 유휴 시간에는 축소하여 비용을 절감합니다. 이러닝 워크로드에 권장되는 인스턴스 유형은 범용 m6i.xlarge(4vCPU, 16GB RAM)이며, 동시 접속 500명 기준 2~4대 구성이 일반적입니다.",
       "④ Amazon Aurora(MySQL/PostgreSQL 호환) — 상용 DB 대비 1/10 비용으로 5배 성능을 제공합니다. Multi-AZ 자동 페일오버로 99.99% 가용성을 보장하며, Read Replica를 활용해 리포트·대시보드 쿼리를 분리하면 학습자 응답 속도에 영향을 주지 않습니다. ⑤ Amazon ElastiCache(Redis) — 세션 캐싱과 빈번한 DB 쿼리 결과를 메모리에 저장하여, 로그인·과정 목록 조회 등 반복 요청의 응답 시간을 10ms 이하로 단축합니다.",
-      "⑥ Amazon S3 + S3 Intelligent-Tiering — 강의 영상, SCORM 패키지, 수료증 PDF 등 비정형 데이터를 무제한 저장합니다. Intelligent-Tiering으로 접근 빈도가 낮아진 자료를 자동으로 저비용 스토리지로 이동시켜 스토리지 비용을 30~50% 절감합니다. ⑦ Amazon EFS — 멀티 AZ EC2 인스턴스 간 공유 파일 시스템으로, 플러그인·테마·업로드 파일을 일관되게 동기화합니다.",
+      "⑥ Amazon S3 + S3 Intelligent-Tiering — 강의 영상, 수료증 PDF, 교육 자료 등 비정형 데이터를 무제한 저장합니다. Intelligent-Tiering으로 접근 빈도가 낮아진 자료를 자동으로 저비용 스토리지로 이동시켜 스토리지 비용을 30~50% 절감합니다. ⑦ Amazon EFS — 멀티 AZ EC2 인스턴스 간 공유 파일 시스템으로, 플러그인·테마·업로드 파일을 일관되게 동기화합니다.",
       "비용 최적화 전략: Reserved Instances(1~3년 약정)를 기본 워크로드에, Spot Instances를 배치 트랜스코딩·리포트 생성 등 중단 가능한 작업에 활용하면 On-Demand 대비 최대 72% 비용 절감이 가능합니다. AWS Cost Explorer와 Budgets 알림을 설정하여 월별 예산을 초과하지 않도록 관리합니다.",
       "웹헤즈는 16년간 축적한 LMS 운영 경험을 바탕으로, AWS 아키텍처 설계·마이그레이션·운영 최적화를 원스톱으로 제공합니다. 고객사 규모와 동시 접속자 수에 맞춘 맞춤형 사양 산정과 비용 시뮬레이션을 무료 컨설팅으로 지원합니다."
     ],
