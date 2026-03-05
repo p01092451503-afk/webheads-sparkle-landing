@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Headset } from "lucide-react";
+import { Menu, X, Headset, Mail, MonitorSmartphone, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -21,6 +21,8 @@ const serviceBlobColors: Record<string, string> = {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [supportOpen, setSupportOpen] = useState(false);
+  const supportRef = useRef<HTMLDivElement>(null);
   const [bannerDismissed, setBannerDismissed] = useState(() => {
     try {
       const dismissed = localStorage.getItem("promo_banner_dismissed");
@@ -52,7 +54,19 @@ export default function Header() {
 
   useEffect(() => {
     setMobileOpen(false);
+    setSupportOpen(false);
   }, [location]);
+
+  // Close support popover on outside click
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (supportRef.current && !supportRef.current.contains(e.target as Node)) {
+        setSupportOpen(false);
+      }
+    };
+    if (supportOpen) document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [supportOpen]);
 
   useEffect(() => {
     const timer = setTimeout(() => setBannerReady(true), 2000);
@@ -153,17 +167,65 @@ export default function Header() {
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
-              <Link
-                to="/support"
-                className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
-                  effectiveScrolled
-                    ? "bg-primary/20 text-primary hover:bg-primary/25"
-                    : "bg-white/30 text-white hover:bg-white/40 border border-white/25"
-                }`}
-              >
-                <Headset className="w-4 h-4" />
-                {t("header.customerSupport")}
-              </Link>
+              <div className="relative" ref={supportRef}>
+                <button
+                  onClick={() => setSupportOpen((v) => !v)}
+                  className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                    effectiveScrolled
+                      ? "bg-primary/20 text-primary hover:bg-primary/25"
+                      : "bg-white/30 text-white hover:bg-white/40 border border-white/25"
+                  }`}
+                >
+                  <Headset className="w-4 h-4" />
+                  {t("header.customerSupport")}
+                </button>
+
+                {/* Support Popover */}
+                {supportOpen && (
+                  <div
+                    className="absolute right-0 top-[calc(100%+8px)] w-[340px] bg-card rounded-2xl shadow-xl border border-border p-2 animate-fade-in"
+                    style={{ zIndex: 100 }}
+                  >
+                    <a
+                      href="https://help.webheads.co.kr/login.php"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
+                    >
+                      <div
+                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
+                      >
+                        <Mail className="w-[18px] h-[18px]" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[14px] font-bold text-foreground tracking-[-0.02em]">SMS 충전</p>
+                        <p className="text-[12px] text-muted-foreground mt-0.5">문자 발송 건수를 충전하고 현황을 확인합니다</p>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
+                    </a>
+                    <div className="mx-3 h-px bg-border/60" />
+                    <a
+                      href="https://help.webheads.co.kr/kolluscrm.php"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3.5 px-4 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
+                    >
+                      <div
+                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
+                      >
+                        <MonitorSmartphone className="w-[18px] h-[18px]" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[14px] font-bold text-foreground tracking-[-0.02em]">원격지원 요청</p>
+                        <p className="text-[12px] text-muted-foreground mt-0.5">카테노이드 원격지원으로 빠르게 문제를 해결합니다</p>
+                      </div>
+                      <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
+                    </a>
+                  </div>
+                )}
+              </div>
               <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
@@ -213,13 +275,38 @@ export default function Header() {
             <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
               <LanguageSwitcher />
             </div>
-            <Link
-              to="/support"
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors"
+            <button
+              onClick={() => setSupportOpen((v) => !v)}
+              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors w-full text-left"
             >
               <Headset className="w-4 h-4" />
               {t("header.customerSupport")}
-            </Link>
+            </button>
+            {supportOpen && (
+              <div className="mx-1 mb-2 rounded-xl border border-border bg-accent/30 overflow-hidden">
+                <a
+                  href="https://help.webheads.co.kr/login.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
+                >
+                  <Mail className="w-4 h-4" style={{ color: "hsl(221, 83%, 53%)" }} />
+                  <span className="text-sm font-medium text-foreground">SMS 충전</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
+                </a>
+                <div className="mx-4 h-px bg-border/60" />
+                <a
+                  href="https://help.webheads.co.kr/kolluscrm.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
+                >
+                  <MonitorSmartphone className="w-4 h-4" style={{ color: "hsl(152, 57%, 42%)" }} />
+                  <span className="text-sm font-medium text-foreground">원격지원 요청</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
+                </a>
+              </div>
+            )}
             <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
               className="mt-1 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
