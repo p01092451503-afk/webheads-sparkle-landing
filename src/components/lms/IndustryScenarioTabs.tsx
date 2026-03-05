@@ -74,50 +74,42 @@ export default function IndustryScenarioTabs() {
             ))}
           </div>
 
-          {/* Add-ons & Case Study */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            {/* Recommended Add-ons */}
-            <div className="rounded-xl p-5 bg-secondary">
-              <div className="flex items-center gap-2 mb-3">
-                <Puzzle className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
-                <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.addonsLabel")}</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {current.addons.map((addon) => (
-                  <span
-                    key={addon}
-                    className="text-xs px-3 py-1.5 rounded-full font-semibold"
-                    style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
-                  >
-                    {addon}
-                  </span>
-                ))}
-              </div>
+          {/* Case Study (full width) with addons integrated */}
+          <div className="rounded-xl p-5 bg-secondary mb-8">
+            <div className="flex items-center gap-2 mb-3">
+              <Lightbulb className="w-4 h-4" style={{ color: "hsl(35, 90%, 50%)" }} />
+              <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.caseLabel")}</span>
             </div>
-
-            {/* Case Study */}
-            <div className="rounded-xl p-5 bg-secondary">
-              <div className="flex items-center gap-2 mb-3">
-                <Lightbulb className="w-4 h-4" style={{ color: "hsl(35, 90%, 50%)" }} />
-                <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.caseLabel")}</span>
-              </div>
-              {current.caseName ? (
-                <div className="space-y-2">
-                  <p className="text-sm font-bold text-foreground">{current.caseName}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
-                    {current.caseDetail}
-                  </p>
-                  {current.caseMetrics && (
-                    <p className="text-xs font-semibold pt-1" style={{ color: "hsl(var(--lms-primary))" }}>
-                      📊 {current.caseMetrics}
-                    </p>
-                  )}
-                </div>
-              ) : (
+            {current.caseName ? (
+              <div className="space-y-2">
+                <p className="text-sm font-bold text-foreground">{current.caseName}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
-                  {current.case}
+                  {current.caseDetail}
                 </p>
-              )}
+                {current.caseMetrics && (
+                  <p className="text-xs font-semibold pt-1" style={{ color: "hsl(var(--lms-primary))" }}>
+                    📊 {current.caseMetrics}
+                  </p>
+                )}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                {current.case}
+              </p>
+            )}
+            {/* Recommended Add-ons */}
+            <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border flex-wrap">
+              <Puzzle className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(var(--lms-primary))" }} />
+              <span className="text-xs font-bold text-muted-foreground tracking-wide mr-1">{t("lms.industryTabs.addonsLabel")}</span>
+              {current.addons.map((addon) => (
+                <span
+                  key={addon}
+                  className="text-xs px-3 py-1 rounded-full font-semibold"
+                  style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
+                >
+                  {addon}
+                </span>
+              ))}
             </div>
           </div>
 
