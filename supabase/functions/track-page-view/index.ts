@@ -93,6 +93,16 @@ const datacenterCities = [
   /phoenix.*arizona/i, /chandler/i, /mesa.*arizona/i,
 ];
 
+// Detect fake/impossible UA combinations (spoofed bots)
+function hasFakeUA(ua: string): boolean {
+  // Safari version 26+ doesn't exist on iOS 16
+  if (/iPhone OS 16_0.*Version\/2[6-9]\./i.test(ua)) return true;
+  if (/iPhone OS 16_0.*Version\/[3-9][0-9]\./i.test(ua)) return true;
+  // Chrome 145+ on old iOS is suspicious
+  if (/iPhone OS 1[0-5]_.*Chrome\/14[5-9]\./i.test(ua)) return true;
+  return false;
+}
+
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
   // Headless browsers & automated tools
@@ -100,6 +110,8 @@ function classifyVisitor(ua: string, ip: string | null): string {
   for (const [pat, type] of aiBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of searchBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of scraperMap) { if (pat.test(lowerUA)) return type; }
+  // Fake/spoofed User-Agent
+  if (hasFakeUA(ua)) return "scraper_fake_ua";
   const isCloudflareProxy = ip ? cloudflareRanges.some(r => r.test(ip)) : false;
   if (isCloudflareProxy) return "scraper_cf";
   // Datacenter IPs with normal UA = likely spoofed bot
