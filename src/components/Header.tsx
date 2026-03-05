@@ -157,8 +157,8 @@ export default function Header() {
                 to="/support"
                 className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
                   effectiveScrolled
-                    ? "text-foreground hover:bg-muted"
-                    : "text-white/90 hover:bg-white/10"
+                    ? "bg-muted text-foreground hover:bg-muted-foreground/15"
+                    : "bg-white/15 text-white hover:bg-white/25"
                 }`}
               >
                 <Headset className="w-4 h-4" />
