@@ -135,7 +135,8 @@ export default function Footer() {
             </button>
 
             {supportOpen && (
-              <div className="absolute bottom-[calc(100%+10px)] left-0 w-[340px] bg-card rounded-2xl overflow-hidden animate-fade-in border border-border shadow-lg z-50">
+              <div className="absolute bottom-full pb-[10px] left-0 w-[340px] z-50">
+              <div className="w-full bg-card rounded-2xl overflow-hidden animate-fade-in border border-border shadow-lg">
                 <a
                   href="https://help.webheads.co.kr/login.php"
                   target="_blank"
@@ -167,6 +168,7 @@ export default function Footer() {
                   </div>
                   <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
                 </a>
+              </div>
               </div>
             )}
           </div>

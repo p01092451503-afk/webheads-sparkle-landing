@@ -181,10 +181,10 @@ export default function Header() {
 
                 {/* Support Popover */}
                 {supportOpen && (
+                  <div className="absolute right-0 top-full pt-[10px] w-[360px]" style={{ zIndex: 100 }}>
                   <div
-                    className="absolute right-0 top-[calc(100%+10px)] w-[360px] bg-card rounded-2xl overflow-hidden animate-fade-in border border-border"
+                    className="w-full bg-card rounded-2xl overflow-hidden animate-fade-in border border-border"
                     style={{
-                      zIndex: 100,
                       boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
                     }}
                   >
@@ -231,6 +231,7 @@ export default function Header() {
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
                     </a>
+                  </div>
                   </div>
                 )}
               </div>
