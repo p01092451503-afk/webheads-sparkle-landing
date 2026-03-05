@@ -6,7 +6,11 @@
     "allServices": "All Services",
     "cta": "Contact Us",
     "logo": "WEBHEADS.",
-    "customerSupport": "Support"
+    "customerSupport": "Support",
+    "smsRechargeTitle": "SMS Recharge",
+    "smsRechargeDesc": "Recharge SMS credits and check usage",
+    "remoteSupportTitle": "Remote Support",
+    "remoteSupportDesc": "Quick resolution via remote assistance"
   },
   "footer": {
     "company": "Company",
