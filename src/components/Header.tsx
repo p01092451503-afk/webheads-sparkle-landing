@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Mail, MonitorSmartphone, ChevronRight } from "lucide-react";
+import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, ScreenShare } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -189,7 +189,7 @@ export default function Header() {
                     }}
                   >
                     {/* Header */}
-                    <div className="px-5 pt-5 pb-2">
+                    <div className="px-5 pt-5 pb-2 text-center">
                       <p className="text-[17px] font-bold text-foreground tracking-[-0.03em]">
                         고객지원
                       </p>
@@ -206,7 +206,7 @@ export default function Header() {
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
                       >
-                        <Mail className="w-[18px] h-[18px]" />
+                        <MessageSquareText className="w-[18px] h-[18px]" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">SMS 충전</p>
@@ -229,7 +229,7 @@ export default function Header() {
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
                       >
-                        <MonitorSmartphone className="w-[18px] h-[18px]" />
+                        <ScreenShare className="w-[18px] h-[18px]" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">원격지원 요청</p>
