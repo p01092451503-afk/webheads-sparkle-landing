@@ -14,8 +14,8 @@ export default function ServiceExtraFeatures({ features, subheading, heading, de
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f) => (
-            <div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
+            <div key={f.title} className="rounded-2xl p-7 bg-background border border-border hover:shadow-md transition-all duration-200 flex flex-col gap-3">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-secondary shadow-sm">
                 <f.icon className="w-5 h-5 text-primary" />
               </div>
               <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
