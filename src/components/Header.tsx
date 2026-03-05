@@ -85,16 +85,6 @@ export default function Header() {
           role="banner"
           aria-label={t("banner.text")}
         >
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1400 44" aria-hidden="true">
-            {/* Bold filled circles */}
-            <circle cx="80" cy="22" r="80" fill="hsl(280, 55%, 78%)" opacity="0.49" />
-            <circle cx="350" cy="10" r="50" fill="hsl(260, 50%, 80%)" opacity="0.42" />
-            <circle cx="600" cy="30" r="70" fill="hsl(300, 45%, 82%)" opacity="0.385" />
-            <circle cx="850" cy="15" r="60" fill="hsl(270, 50%, 79%)" opacity="0.455" />
-            <circle cx="1100" cy="25" r="75" fill="hsl(250, 55%, 81%)" opacity="0.42" />
-            <circle cx="1300" cy="18" r="55" fill="hsl(290, 45%, 80%)" opacity="0.455" />
-          </svg>
-          <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/30 to-transparent" />
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2 relative z-10">
             <p className="text-sm sm:text-base font-medium tracking-tight text-foreground leading-snug text-center">
               <span className="sm:hidden">{t("banner.textShort")}</span>
