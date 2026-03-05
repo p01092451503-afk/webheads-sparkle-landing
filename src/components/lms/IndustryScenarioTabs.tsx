@@ -4,6 +4,18 @@ import { Building2, GraduationCap, Briefcase, Landmark, Rocket, CheckCircle2, Li
 
 const tabIcons = [Rocket, Building2, GraduationCap, Briefcase, Landmark];
 
+const addonRouteMap: Record<string, string> = {
+  "PG 결제": "/pg", "PG Payment": "/pg",
+  "AI 챗봇": "/chatbot", "AI Chatbot": "/chatbot",
+  "콘텐츠 제작": "/content", "Content Dev": "/content",
+  "DRM 보안": "/drm", "DRM Security": "/drm",
+  "SMS 알림": "/sms-kakao", "SMS Alerts": "/sms-kakao",
+  "유지보수": "/maintenance", "Maintenance": "/maintenance",
+  "호스팅": "/hosting", "Hosting": "/hosting",
+  "채널톡": "/channel", "Channel Talk": "/channel",
+  "앱 개발": "/app-dev", "App Dev": "/app-dev",
+};
+
 export default function IndustryScenarioTabs() {
   const { t } = useTranslation();
   const tabs = t("lms.industryTabs.tabs", { returnObjects: true }) as {
@@ -79,15 +91,27 @@ export default function IndustryScenarioTabs() {
               <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.addonsLabel")}</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {current.addons.map((addon) => (
-                <span
-                  key={addon}
-                  className="text-xs px-3 py-1.5 rounded-full font-semibold"
-                  style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
-                >
-                  {addon}
-                </span>
-              ))}
+              {current.addons.map((addon) => {
+                const href = addonRouteMap[addon];
+                return href ? (
+                  <a
+                    key={addon}
+                    href={href}
+                    className="text-xs px-3 py-1.5 rounded-full font-semibold transition-opacity hover:opacity-80"
+                    style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
+                  >
+                    {addon}
+                  </a>
+                ) : (
+                  <span
+                    key={addon}
+                    className="text-xs px-3 py-1.5 rounded-full font-semibold"
+                    style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
+                  >
+                    {addon}
+                  </span>
+                );
+              })}
             </div>
           </div>
 
