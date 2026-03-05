@@ -7,6 +7,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const ADMIN_EMAIL = "34bus@webheads.co.kr";
+
 interface ContactFormData {
   company: string;
   name: string;
@@ -55,6 +57,84 @@ serve(async (req) => {
     }
 
     console.log(`New inquiry saved: ${company} / ${name}`);
+
+    // Send email notification to admin
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    if (resendApiKey) {
+      try {
+        const typeLabel = inquiryType === "demo" ? "데모 요청" : "상담 문의";
+        const now = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+
+        const emailHtml = `
+          <div style="font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; background: #ffffff;">
+            <div style="background: #1a1a2e; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px;">
+              <h1 style="color: #ffffff; font-size: 20px; margin: 0 0 4px;">📬 새로운 ${typeLabel}이 접수되었습니다</h1>
+              <p style="color: #a0a0b8; font-size: 13px; margin: 0;">${now}</p>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+              <tr style="border-bottom: 1px solid #f0f0f0;">
+                <td style="padding: 12px 8px; color: #888; width: 90px;">유형</td>
+                <td style="padding: 12px 8px; font-weight: 600;">${typeLabel}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f0f0f0;">
+                <td style="padding: 12px 8px; color: #888;">회사명</td>
+                <td style="padding: 12px 8px; font-weight: 600;">${company}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f0f0f0;">
+                <td style="padding: 12px 8px; color: #888;">이름</td>
+                <td style="padding: 12px 8px; font-weight: 600;">${name}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f0f0f0;">
+                <td style="padding: 12px 8px; color: #888;">연락처</td>
+                <td style="padding: 12px 8px; font-weight: 600;">${phone}</td>
+              </tr>
+              ${email ? `<tr style="border-bottom: 1px solid #f0f0f0;">
+                <td style="padding: 12px 8px; color: #888;">이메일</td>
+                <td style="padding: 12px 8px;">${email}</td>
+              </tr>` : ""}
+              ${service ? `<tr style="border-bottom: 1px solid #f0f0f0;">
+                <td style="padding: 12px 8px; color: #888;">서비스</td>
+                <td style="padding: 12px 8px;">${service}</td>
+              </tr>` : ""}
+              ${message ? `<tr>
+                <td style="padding: 12px 8px; color: #888; vertical-align: top;">메시지</td>
+                <td style="padding: 12px 8px; white-space: pre-wrap;">${message}</td>
+              </tr>` : ""}
+            </table>
+            <div style="margin-top: 24px; padding: 16px; background: #f8f9fa; border-radius: 8px; text-align: center;">
+              <a href="https://webheads-service.lovable.app/admin" style="display: inline-block; padding: 10px 24px; background: #1a1a2e; color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">관리자 대시보드에서 확인 →</a>
+            </div>
+            <p style="color: #aaa; font-size: 11px; text-align: center; margin-top: 20px;">이 메일은 WEBHEADS 서비스 사이트에서 자동 발송되었습니다.</p>
+          </div>
+        `;
+
+        const emailRes = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${resendApiKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            from: "WEBHEADS <onboarding@resend.dev>",
+            to: [ADMIN_EMAIL],
+            subject: `[웹헤즈] 새 ${typeLabel}: ${company} - ${name}`,
+            html: emailHtml,
+          }),
+        });
+
+        if (!emailRes.ok) {
+          const errBody = await emailRes.text();
+          console.error(`Email send failed [${emailRes.status}]: ${errBody}`);
+        } else {
+          console.log(`Notification email sent to ${ADMIN_EMAIL}`);
+        }
+      } catch (emailErr) {
+        console.error("Email notification error:", emailErr);
+        // Don't fail the request if email fails
+      }
+    } else {
+      console.warn("RESEND_API_KEY not set, skipping email notification");
+    }
 
     return new Response(
       JSON.stringify({ success: true }),
