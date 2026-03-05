@@ -72,18 +72,37 @@ const datacenterRanges = [
   /^52\.(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.)/, // AWS
   /^13\.(5[2-9]|[6-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\./, // AWS
   /^18\.(1[6-9][0-9]|2[0-4][0-9]|25[0-5])\./, // AWS
+  /^3\.(1[2-9]|2[0-9]|[3-9][0-9]|1[0-4][0-9])\./, // AWS (3.x.x.x)
+  /^121\.3[6-9]\./, /^121\.4[0-9]\./, // Huawei Cloud
+  /^116\.20[4-5]\./, /^116\.63\./, // Huawei Cloud
+  /^124\.24[2-3]\./, // Huawei Cloud
+  /^150\.10[8-9]\./, /^150\.11[0-9]\./, // Tencent Cloud
+  /^43\.15[3-5]\./, /^43\.13[4-7]\./, // Tencent Cloud
+  /^124\.15[6-8]\./, // Tencent Cloud (HK)
+  /^49\.23[2-5]\./, /^101\.3[2-9]\./, // Alibaba Cloud
+  /^47\.(7[4-9]|[89][0-9]|1[0-1][0-9])\./, // Alibaba Cloud
 ];
 
-// Known US datacenter cities (Google, AWS, Microsoft, Meta, etc.)
+// Known datacenter cities (Google, AWS, Microsoft, Huawei, Tencent, etc.)
 const datacenterCities = [
   /mountain\s*view/i, /ashburn/i, /council\s*bluffs/i, /the\s*dalles/i,
   /pryor/i, /papillion/i, /boardman/i, /quincy/i, /prineville/i,
   /new\s*albany/i, /altoona/i, /maiden/i, /forest\s*city/i,
   /santa\s*clara/i, /san\s*jose/i, /reston/i, /herndon/i,
   /allston/i, /somerville/i, /des\s*moines/i, /hilliard/i,
-  /columbus.*ohio/i, /sterling/i, /manassas/i, /cheyenne/i,
+  /columbus.*ohio/i, /dublin.*ohio/i, /sterling/i, /manassas/i, /cheyenne/i,
   /phoenix.*arizona/i, /chandler/i, /mesa.*arizona/i,
 ];
+
+// Detect fake/impossible UA combinations (spoofed bots)
+function hasFakeUA(ua: string): boolean {
+  // Safari version 26+ doesn't exist on iOS 16
+  if (/iPhone OS 16_0.*Version\/2[6-9]\./i.test(ua)) return true;
+  if (/iPhone OS 16_0.*Version\/[3-9][0-9]\./i.test(ua)) return true;
+  // Chrome 145+ on old iOS is suspicious
+  if (/iPhone OS 1[0-5]_.*Chrome\/14[5-9]\./i.test(ua)) return true;
+  return false;
+}
 
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
@@ -92,6 +111,8 @@ function classifyVisitor(ua: string, ip: string | null): string {
   for (const [pat, type] of aiBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of searchBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of scraperMap) { if (pat.test(lowerUA)) return type; }
+  // Fake/spoofed User-Agent
+  if (hasFakeUA(ua)) return "scraper_fake_ua";
   const isCloudflareProxy = ip ? cloudflareRanges.some(r => r.test(ip)) : false;
   if (isCloudflareProxy) return "scraper_cf";
   // Datacenter IPs with normal UA = likely spoofed bot

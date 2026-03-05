@@ -1,0 +1,2 @@
+UPDATE page_views SET visitor_type = 'scraper_datacenter' WHERE visitor_type = 'human' AND ip_address LIKE '124.156.%';
+UPDATE click_events SET visitor_type = 'scraper_datacenter' WHERE visitor_type = 'human' AND ip_address LIKE '124.156.%';
