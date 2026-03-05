@@ -108,6 +108,7 @@ export default function LearnerJourneyMap() {
               );
             })}
           </div>
+        </div>
 
         <div className="mt-10 text-center">
           <a
