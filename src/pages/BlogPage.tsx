@@ -7,13 +7,15 @@ import { BlogPost, blogPostsKo, blogPostsEn, categoryConfigKo, categoryConfigEn 
 
 const POSTS_PER_PAGE = 10;
 
-const categoryIcons = {
+type Category = "guide" | "trend" | "tip";
+
+const categoryIcons: Record<Category, typeof BookOpen> = {
   guide: BookOpen,
   trend: TrendingUp,
   tip: Lightbulb,
 };
 
-const categoryColors = {
+const categoryColors: Record<Category, string> = {
   guide: "hsl(250,55%,52%)",
   trend: "hsl(192,50%,42%)",
   tip: "hsl(40,80%,50%)",
