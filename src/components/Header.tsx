@@ -189,7 +189,7 @@ export default function Header() {
                     }}
                   >
                     {/* Header */}
-                    <div className="px-5 pt-5 pb-2">
+                    <div className="px-5 pt-5 pb-2 text-center">
                       <p className="text-[17px] font-bold text-foreground tracking-[-0.03em]">
                         고객지원
                       </p>
