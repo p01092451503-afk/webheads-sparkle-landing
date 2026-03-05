@@ -185,8 +185,6 @@ export default function SupportPage() {
               <span className="text-[12px]" style={{ color: "hsl(220, 10%, 45%)" }}>평균 2시간 내 응답</span>
             </div>
           </div>
-            </span>
-          </div>
 
         </div>
       </div>
