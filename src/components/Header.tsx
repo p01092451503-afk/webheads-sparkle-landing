@@ -232,8 +232,8 @@ export default function Header() {
                         <ScreenShare className="w-6 h-6" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">원격지원 요청</p>
-                        <p className="text-[12px] text-muted-foreground mt-0.5">카테노이드 원격지원으로 빠르게 해결</p>
+                        <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">{t("header.remoteSupportTitle")}</p>
+                        <p className="text-[12px] text-muted-foreground mt-0.5">{t("header.remoteSupportDesc")}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
                     </a>
