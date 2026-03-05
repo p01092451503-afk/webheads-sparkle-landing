@@ -1,4 +1,4 @@
-import { Mail, MonitorSmartphone, Phone, Headset, Clock, ChevronRight, MessageCircle } from "lucide-react";
+import { Mail, MonitorSmartphone, Phone, ChevronRight, MessageCircle } from "lucide-react";
 import SEO from "@/components/SEO";
 
 export default function SupportPage() {
@@ -79,59 +79,44 @@ export default function SupportPage() {
             </a>
           </div>
 
-          {/* Phone Section */}
-          <div
-            className="bg-white rounded-2xl p-5 mb-4"
-            style={{ border: "1px solid hsl(220, 13%, 91%)" }}
-          >
-            <div className="flex items-center gap-2 mb-4">
-              <Phone className="w-4 h-4 text-muted-foreground" />
-              <span className="text-[13px] font-semibold text-foreground" style={{ letterSpacing: "-0.01em" }}>전화 상담</span>
-            </div>
+          {/* Secondary Section — subtle, compact list style */}
+          <div className="rounded-2xl overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(220, 20%, 99%), hsl(220, 14%, 96%))", border: "1px solid hsl(220, 13%, 91%)" }}>
+            {/* Phone */}
             <a
               href="tel:02-540-4337"
-              className="flex items-center justify-between group"
+              className="flex items-center gap-4 px-5 py-4 group transition-colors hover:bg-white/60"
             >
-              <div>
-                <p className="text-[22px] font-bold text-foreground tracking-[-0.04em] tabular-nums leading-none">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 bg-muted-foreground/[0.06]">
+                <Phone className="w-[17px] h-[17px] text-muted-foreground" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[15px] font-bold text-foreground tracking-[-0.02em]">
                   02-540-4337
                 </p>
-                <div className="flex items-center gap-1.5 mt-2">
-                  <Clock className="w-3.5 h-3.5 text-muted-foreground/50" />
-                  <span className="text-[12px] text-muted-foreground">평일 09:00 – 18:00</span>
-                </div>
+                <p className="text-[12px] text-muted-foreground mt-0.5">평일 09:00 – 18:00</p>
               </div>
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors"
-                style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
-              >
-                <Phone className="w-[18px] h-[18px]" />
+              <span className="text-[12px] font-medium text-muted-foreground/60 shrink-0">전화 상담</span>
+            </a>
+
+            <div className="mx-5 h-px bg-border/60" />
+
+            {/* Online Inquiry */}
+            <a
+              href="/#contact"
+              className="flex items-center gap-4 px-5 py-4 group transition-colors hover:bg-white/60"
+            >
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: "hsl(37, 90%, 51%, 0.08)" }}>
+                <MessageCircle className="w-[17px] h-[17px]" style={{ color: "hsl(37, 90%, 51%)" }} />
               </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[15px] font-bold text-foreground tracking-[-0.02em]">
+                  온라인 문의
+                </p>
+                <p className="text-[12px] text-muted-foreground mt-0.5">도입 상담 및 견적을 요청합니다</p>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
             </a>
           </div>
-
-          {/* Inquiry CTA */}
-          <a
-            href="/#contact"
-            className="flex items-center gap-4 bg-white rounded-2xl p-5 transition-all hover:shadow-md active:scale-[0.99] group"
-            style={{ border: "1px solid hsl(220, 13%, 91%)" }}
-          >
-            <div
-              className="w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0"
-              style={{ background: "hsl(37, 90%, 51%, 0.08)", color: "hsl(37, 90%, 51%)" }}
-            >
-              <MessageCircle className="w-[22px] h-[22px]" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[15px] font-semibold text-foreground" style={{ letterSpacing: "-0.02em" }}>
-                온라인 문의
-              </p>
-              <p className="text-[13px] text-muted-foreground mt-0.5">
-                도입 상담 및 견적을 요청합니다
-              </p>
-            </div>
-            <ChevronRight className="w-5 h-5 text-muted-foreground/40 shrink-0 group-hover:text-muted-foreground transition-colors" />
-          </a>
 
         </div>
       </div>
