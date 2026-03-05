@@ -113,66 +113,78 @@ export default function SupportPage() {
             </a>
           </div>
 
-          {/* Contact Section */}
-          <div id="contact" className="bg-card rounded-2xl shadow-sm overflow-hidden" style={{ border: "1px solid hsl(220, 13%, 91%)" }}>
-            <div className="px-5 pt-5 pb-3">
-              <p className="text-[13px] font-semibold text-muted-foreground tracking-[-0.01em]">문의하기</p>
+          {/* Contact Section — distinct dark theme */}
+          <div
+            id="contact"
+            className="rounded-2xl overflow-hidden"
+            style={{
+              background: "hsl(220, 20%, 16%)",
+            }}
+          >
+            <div className="px-6 pt-6 pb-2">
+              <p className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "hsl(221, 83%, 68%)" }}>
+                Contact
+              </p>
+              <p className="text-[20px] font-bold text-white tracking-[-0.03em] mt-1">
+                다른 방법으로 문의하기
+              </p>
             </div>
 
-            {/* Phone */}
-            <a
-              href="tel:02-540-4337"
-              className="flex items-center gap-4 px-5 py-4 group transition-colors hover:bg-accent/50"
-            >
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                style={{ background: "hsl(221, 83%, 53%, 0.07)", color: "hsl(221, 83%, 53%)" }}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-4">
+              {/* Phone */}
+              <a
+                href="tel:02-540-4337"
+                className="group flex flex-col gap-3 rounded-xl p-5 transition-colors"
+                style={{ background: "hsl(220, 18%, 21%)" }}
               >
-                <Phone className="w-[18px] h-[18px]" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-bold text-foreground tracking-[-0.02em]">
-                  전화 상담
-                </p>
-                <p className="text-[13px] text-muted-foreground mt-0.5">
-                  02-540-4337
-                  <span className="mx-1.5 text-border">·</span>
-                  평일 09:00 – 18:00
-                </p>
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
-            </a>
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center"
+                  style={{ background: "hsl(221, 83%, 53%, 0.15)", color: "hsl(221, 83%, 68%)" }}
+                >
+                  <Phone className="w-[18px] h-[18px]" />
+                </div>
+                <div>
+                  <p className="text-[15px] font-bold text-white tracking-[-0.02em]">전화 상담</p>
+                  <p className="text-[20px] font-bold text-white tracking-[-0.03em] tabular-nums mt-1">
+                    02-540-4337
+                  </p>
+                </div>
+                <div className="flex items-center gap-1.5 mt-auto">
+                  <Clock className="w-3.5 h-3.5" style={{ color: "hsl(220, 10%, 50%)" }} />
+                  <span className="text-[12px]" style={{ color: "hsl(220, 10%, 50%)" }}>평일 09:00 – 18:00</span>
+                </div>
+              </a>
 
-            <div className="mx-5 h-px bg-border/60" />
-
-            {/* Online Inquiry */}
-            <a
-              href="/#contact"
-              className="flex items-center gap-4 px-5 py-4 group transition-colors hover:bg-accent/50"
-            >
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                style={{ background: "hsl(37, 90%, 51%, 0.07)", color: "hsl(37, 90%, 51%)" }}
+              {/* Online Inquiry */}
+              <a
+                href="/#contact"
+                className="group flex flex-col gap-3 rounded-xl p-5 transition-colors"
+                style={{ background: "hsl(220, 18%, 21%)" }}
               >
-                <MessageCircle className="w-[18px] h-[18px]" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-bold text-foreground tracking-[-0.02em]">
-                  온라인 문의
-                </p>
-                <p className="text-[13px] text-muted-foreground mt-0.5">
-                  도입 상담 및 견적을 요청합니다
-                </p>
-              </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
-            </a>
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center"
+                  style={{ background: "hsl(37, 90%, 51%, 0.12)", color: "hsl(37, 80%, 58%)" }}
+                >
+                  <MessageCircle className="w-[18px] h-[18px]" />
+                </div>
+                <div>
+                  <p className="text-[15px] font-bold text-white tracking-[-0.02em]">온라인 문의</p>
+                  <p className="text-[13px] mt-1 leading-relaxed" style={{ color: "hsl(220, 10%, 60%)" }}>
+                    도입 상담 및 견적을 요청합니다
+                  </p>
+                </div>
+                <div className="flex items-center gap-1 mt-auto text-[13px] font-semibold" style={{ color: "hsl(37, 80%, 58%)" }}>
+                  문의하기 <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </a>
+            </div>
+
+            {/* Trust badge inside dark section */}
+            <div className="px-6 pb-5 pt-1 flex items-center gap-1.5">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: "hsl(152, 57%, 50%)" }} />
+              <span className="text-[12px]" style={{ color: "hsl(220, 10%, 45%)" }}>평균 2시간 내 응답</span>
+            </div>
           </div>
-
-          {/* Trust footer */}
-          <div className="mt-8 flex items-center justify-center gap-4 text-[12px] text-muted-foreground/50">
-            <span className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              평균 2시간 내 응답
             </span>
           </div>
 
