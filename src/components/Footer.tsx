@@ -128,12 +128,10 @@ export default function Footer() {
           </a>
           <button
             onClick={() => setSupportOpen(!supportOpen)}
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity text-white relative"
-            style={{ backgroundColor: "hsl(192, 70%, 50%)" }}
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 whitespace-nowrap text-foreground hover:bg-muted border border-border"
           >
-            <MonitorSmartphone className="w-4 h-4" />
-            {t("header.support", "고객지원")}
-            <span className="text-white/70">→</span>
+            {t("header.customerSupport", "고객지원")}
+            <span className="text-muted-foreground">→</span>
           </button>
         </div>
         {supportOpen && (
