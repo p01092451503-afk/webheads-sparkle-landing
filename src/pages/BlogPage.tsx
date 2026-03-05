@@ -75,14 +75,20 @@ export default function BlogPage() {
   const blogPosts = lang === "en" ? blogPostsEn : blogPostsKo;
 
   const filteredPosts = useMemo(() => {
-    if (!searchQuery.trim()) return blogPosts;
-    const q = searchQuery.toLowerCase();
-    return blogPosts.filter((p) =>
-      p.title.toLowerCase().includes(q) ||
-      p.summary.toLowerCase().includes(q) ||
-      p.keywords.some((kw) => kw.toLowerCase().includes(q))
-    );
-  }, [blogPosts, searchQuery]);
+    let posts = blogPosts;
+    if (activeCategory !== "all") {
+      posts = posts.filter((p) => p.category === activeCategory);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      posts = posts.filter((p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.summary.toLowerCase().includes(q) ||
+        p.keywords.some((kw) => kw.toLowerCase().includes(q))
+      );
+    }
+    return posts;
+  }, [blogPosts, searchQuery, activeCategory]);
 
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
   const paginatedPosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
