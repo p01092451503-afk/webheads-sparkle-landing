@@ -294,7 +294,7 @@ export default function Header() {
                   className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
                 >
                   <Mail className="w-4 h-4" style={{ color: "hsl(221, 83%, 53%)" }} />
-                  <span className="text-sm font-medium text-foreground">SMS 충전</span>
+                  <span className="text-sm font-medium text-foreground">{t("header.smsRechargeTitle")}</span>
                   <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
                 </a>
                 <div className="mx-4 h-px bg-border/60" />
