@@ -154,6 +154,17 @@ export default function Header() {
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
               <Link
+                to="/support"
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                  effectiveScrolled
+                    ? "text-foreground hover:bg-muted"
+                    : "text-white/90 hover:bg-white/10"
+                }`}
+              >
+                <Headset className="w-4 h-4" />
+                {t("header.customerSupport")}
+              </Link>
+              <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
