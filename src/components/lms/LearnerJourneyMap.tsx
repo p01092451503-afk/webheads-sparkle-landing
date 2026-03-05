@@ -48,7 +48,7 @@ export default function LearnerJourneyMap() {
                 <div key={i} className="relative flex flex-col items-center text-center group">
                   <div
                     className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg relative z-10"
-                    style={{ background: `${color}14`, border: `1.5px solid ${color}25` }}
+                    style={{ background: `hsl(0 0% 100% / 0.85)`, border: `1.5px solid ${color}40`, boxShadow: `0 2px 12px ${color}20` }}
                   >
                     <Icon className="w-7 h-7" style={{ color }} strokeWidth={1.8} />
                   </div>
