@@ -1,4 +1,4 @@
-import { Mail, MonitorSmartphone, Phone, ChevronRight, MessageCircle } from "lucide-react";
+import { Mail, MonitorSmartphone, Phone, ChevronRight, MessageCircle, Headset, Clock, Shield } from "lucide-react";
 import SEO from "@/components/SEO";
 
 export default function SupportPage() {
@@ -12,13 +12,20 @@ export default function SupportPage() {
       <div className="min-h-screen" style={{ background: "hsl(220, 14%, 96%)" }}>
         <div className="container mx-auto px-5 max-w-[680px] pt-28 pb-20">
 
-          {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-[26px] font-bold text-foreground tracking-[-0.04em] leading-tight">
-              고객센터
+          {/* Hero Header */}
+          <div className="mb-10 text-center">
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+              style={{ background: "hsl(221, 83%, 53%, 0.08)" }}
+            >
+              <Headset className="w-7 h-7" style={{ color: "hsl(221, 83%, 53%)" }} />
+            </div>
+            <h1 className="text-[28px] font-bold text-foreground tracking-[-0.04em] leading-tight">
+              무엇을 도와드릴까요?
             </h1>
-            <p className="text-[14px] text-muted-foreground mt-1.5" style={{ letterSpacing: "-0.01em" }}>
-              필요한 서비스를 선택해 주세요
+            <p className="text-[14px] text-muted-foreground mt-2 leading-relaxed" style={{ letterSpacing: "-0.01em" }}>
+              SMS 충전, 원격지원, 상담 문의까지<br className="sm:hidden" />
+              {" "}필요한 서비스를 바로 이용하세요
             </p>
           </div>
 
@@ -116,6 +123,19 @@ export default function SupportPage() {
               </div>
               <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 group-hover:text-muted-foreground/60 transition-colors" />
             </a>
+          </div>
+
+          {/* Trust footer */}
+          <div className="mt-6 flex items-center justify-center gap-4 text-[12px] text-muted-foreground/50">
+            <span className="flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5" />
+              평균 2시간 내 응답
+            </span>
+            <span className="w-px h-3 bg-border" />
+            <span className="flex items-center gap-1">
+              <Shield className="w-3.5 h-3.5" />
+              안심 개인정보 보호
+            </span>
           </div>
 
         </div>
