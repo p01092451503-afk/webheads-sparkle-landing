@@ -275,13 +275,38 @@ export default function Header() {
             <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
               <LanguageSwitcher />
             </div>
-            <Link
-              to="/support"
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors"
+            <button
+              onClick={() => setSupportOpen((v) => !v)}
+              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors w-full text-left"
             >
               <Headset className="w-4 h-4" />
               {t("header.customerSupport")}
-            </Link>
+            </button>
+            {supportOpen && (
+              <div className="mx-1 mb-2 rounded-xl border border-border bg-accent/30 overflow-hidden">
+                <a
+                  href="https://help.webheads.co.kr/login.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
+                >
+                  <Mail className="w-4 h-4" style={{ color: "hsl(221, 83%, 53%)" }} />
+                  <span className="text-sm font-medium text-foreground">SMS 충전</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
+                </a>
+                <div className="mx-4 h-px bg-border/60" />
+                <a
+                  href="https://help.webheads.co.kr/kolluscrm.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
+                >
+                  <MonitorSmartphone className="w-4 h-4" style={{ color: "hsl(152, 57%, 42%)" }} />
+                  <span className="text-sm font-medium text-foreground">원격지원 요청</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
+                </a>
+              </div>
+            )}
             <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
               className="mt-1 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
