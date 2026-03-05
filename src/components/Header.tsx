@@ -112,6 +112,7 @@ export default function Header() {
           </button>
         </div>
       )}
+      <div className={`transition-[height] duration-500 ease-out ${showBanner ? "h-[44px]" : "h-0"}`} aria-hidden="true" />
     <header className={`fixed left-0 right-0 z-50 transition-[top] duration-500 ease-out ${showBanner ? "top-[44px]" : "top-0"}`}>
       {/* Main bar */}
       <div
