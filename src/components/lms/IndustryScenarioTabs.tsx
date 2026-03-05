@@ -4,6 +4,18 @@ import { Building2, GraduationCap, Briefcase, Landmark, Rocket, CheckCircle2, Li
 
 const tabIcons = [Rocket, Building2, GraduationCap, Briefcase, Landmark];
 
+const addonRouteMap: Record<string, string> = {
+  "PG 결제": "/pg", "PG Payment": "/pg",
+  "AI 챗봇": "/chatbot", "AI Chatbot": "/chatbot",
+  "콘텐츠 제작": "/content", "Content Dev": "/content",
+  "DRM 보안": "/drm", "DRM Security": "/drm",
+  "SMS 알림": "/sms-kakao", "SMS Alerts": "/sms-kakao",
+  "유지보수": "/maintenance", "Maintenance": "/maintenance",
+  "호스팅": "/hosting", "Hosting": "/hosting",
+  "채널톡": "/channel", "Channel Talk": "/channel",
+  "앱 개발": "/app-dev", "App Dev": "/app-dev",
+};
+
 export default function IndustryScenarioTabs() {
   const { t } = useTranslation();
   const tabs = t("lms.industryTabs.tabs", { returnObjects: true }) as {
