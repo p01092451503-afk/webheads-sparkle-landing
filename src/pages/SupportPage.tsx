@@ -28,7 +28,7 @@ export default function SupportPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
             {/* SMS 충전 */}
             <a
-              href="https://help.webheads.co.kr"
+              href="https://help.webheads.co.kr/login.php"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 rounded-2xl border border-border bg-background p-8 hover:border-primary/30 hover:shadow-lg transition-all"
