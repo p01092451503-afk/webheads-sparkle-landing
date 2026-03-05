@@ -170,10 +170,10 @@ export default function Header() {
               <div className="relative" ref={supportRef}>
                 <button
                   onClick={() => setSupportOpen((v) => !v)}
-                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap ${
+                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     effectiveScrolled
                       ? "bg-accent text-foreground hover:bg-accent/80"
-                      : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
+                      : "bg-white/20 text-white hover:bg-white/30"
                   }`}
                 >
                   {t("header.customerSupport")}
@@ -227,10 +227,10 @@ export default function Header() {
               </div>
               <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
-                className={`shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-200 hover:shadow-md whitespace-nowrap ${
+                className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
                     ? "bg-foreground text-background hover:opacity-90"
-                    : "bg-white/20 text-white border border-white/30 hover:bg-white/30"
+                    : "bg-white/20 text-white hover:bg-white/30"
                 }`}
               >
                 {t("header.cta")}
