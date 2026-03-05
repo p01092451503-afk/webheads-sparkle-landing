@@ -1,4 +1,4 @@
-import { Mail, MonitorSmartphone, Phone, Headset, Clock, ChevronRight, MessageCircle } from "lucide-react";
+import { Mail, MonitorSmartphone, Phone, ChevronRight, MessageCircle } from "lucide-react";
 import SEO from "@/components/SEO";
 
 export default function SupportPage() {
