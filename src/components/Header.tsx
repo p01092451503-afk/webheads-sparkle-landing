@@ -172,7 +172,7 @@ export default function Header() {
                   onClick={() => setSupportOpen((v) => !v)}
                   className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                     effectiveScrolled
-                      ? "bg-accent text-foreground hover:bg-accent/80"
+                      ? "text-foreground hover:bg-muted border border-border"
                       : "bg-white/20 text-white hover:bg-white/30"
                   }`}
                 >
