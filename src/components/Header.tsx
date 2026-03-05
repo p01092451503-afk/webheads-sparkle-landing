@@ -80,7 +80,7 @@ export default function Header() {
       {/* Top promo banner */}
       {(!bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
         <div
-          className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
+          className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
           style={{ backgroundColor: "hsl(250, 60%, 95%)" }}
           role="banner"
           aria-label={t("banner.text")}
@@ -112,7 +112,7 @@ export default function Header() {
           </button>
         </div>
       )}
-      <div className={`transition-[height] duration-500 ease-out ${showBanner ? "h-[100px]" : "h-[56px]"}`} aria-hidden="true" />
+      <div className={`transition-[height] duration-500 ease-out ${showBanner ? "h-[44px]" : "h-0"}`} aria-hidden="true" />
     <header className={`fixed left-0 right-0 z-50 transition-[top] duration-500 ease-out ${showBanner ? "top-[44px]" : "top-0"}`}>
       {/* Main bar */}
       <div
