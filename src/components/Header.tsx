@@ -281,7 +281,7 @@ export default function Header() {
             </div>
             <button
               onClick={() => setSupportOpen((v) => !v)}
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors w-full text-left"
+              className="mt-2 inline-block w-fit px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors text-left"
             >
               {t("header.customerSupport")}
             </button>
@@ -312,7 +312,7 @@ export default function Header() {
             )}
             <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
-              className="mt-1 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
+              className="mt-1 inline-block w-fit px-3 py-2.5 rounded-lg text-sm font-semibold text-foreground text-left"
             >
               {t("header.cta")}
             </Link>
