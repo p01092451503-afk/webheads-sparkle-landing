@@ -576,6 +576,61 @@ export const blogPostsKo: BlogPost[] = [
     readTime: "13분",
     keywords: ["AI 거버넌스", "생성형 AI 보안", "AI 규정 준수", "데이터 프라이버시", "AI 윤리"],
   },
+  {
+    id: "aws-elearning-architecture",
+    category: "guide",
+    title: "AWS 기반 이러닝 인프라 아키텍처 완전 가이드: EC2·S3·CloudFront·RDS 최적 구성 전략",
+    summary: "LMS를 AWS 클라우드에 구축할 때 필요한 핵심 서비스 구성, 사양 선정 기준, 비용 최적화 전략을 실무 관점에서 상세히 정리합니다.",
+    content: [
+      "AWS는 전 세계 이러닝 플랫폼의 클라우드 인프라 시장에서 압도적 점유율을 차지하고 있으며, Moodle·Canvas·자체 LMS 등 다양한 학습관리시스템이 AWS 위에서 운영되고 있습니다. 2024~2025년 기준 Moodle만 해도 전 세계 5억 명 이상의 사용자가 236개국에서 사용 중이며, 대다수가 AWS 인프라를 기반으로 합니다.",
+      "핵심 아키텍처 구성: ① Amazon Route 53 — DNS 라우팅으로 학습자를 가장 가까운 CloudFront 엣지 로케이션으로 안내합니다. ② Amazon CloudFront — 동영상 강의, PDF, 이미지 등 정적 콘텐츠를 글로벌 CDN으로 배포하여 지연 시간을 최소화합니다. 한국 학습자 기준 평균 응답 시간이 On-Premise 대비 40~60% 단축됩니다.",
+      "③ Application Load Balancer(ALB) + Auto Scaling Group — EC2 인스턴스를 멀티 AZ(가용영역)에 수평 확장 배치합니다. 시험 기간이나 의무교육 마감일 등 트래픽 급증 시 자동으로 인스턴스를 추가하고, 유휴 시간에는 축소하여 비용을 절감합니다. 이러닝 워크로드에 권장되는 인스턴스 유형은 범용 m6i.xlarge(4vCPU, 16GB RAM)이며, 동시 접속 500명 기준 2~4대 구성이 일반적입니다.",
+      "④ Amazon Aurora(MySQL/PostgreSQL 호환) — 상용 DB 대비 1/10 비용으로 5배 성능을 제공합니다. Multi-AZ 자동 페일오버로 99.99% 가용성을 보장하며, Read Replica를 활용해 리포트·대시보드 쿼리를 분리하면 학습자 응답 속도에 영향을 주지 않습니다. ⑤ Amazon ElastiCache(Redis) — 세션 캐싱과 빈번한 DB 쿼리 결과를 메모리에 저장하여, 로그인·과정 목록 조회 등 반복 요청의 응답 시간을 10ms 이하로 단축합니다.",
+      "⑥ Amazon S3 + S3 Intelligent-Tiering — 강의 영상, SCORM 패키지, 수료증 PDF 등 비정형 데이터를 무제한 저장합니다. Intelligent-Tiering으로 접근 빈도가 낮아진 자료를 자동으로 저비용 스토리지로 이동시켜 스토리지 비용을 30~50% 절감합니다. ⑦ Amazon EFS — 멀티 AZ EC2 인스턴스 간 공유 파일 시스템으로, 플러그인·테마·업로드 파일을 일관되게 동기화합니다.",
+      "비용 최적화 전략: Reserved Instances(1~3년 약정)를 기본 워크로드에, Spot Instances를 배치 트랜스코딩·리포트 생성 등 중단 가능한 작업에 활용하면 On-Demand 대비 최대 72% 비용 절감이 가능합니다. AWS Cost Explorer와 Budgets 알림을 설정하여 월별 예산을 초과하지 않도록 관리합니다.",
+      "웹헤즈는 16년간 축적한 LMS 운영 경험을 바탕으로, AWS 아키텍처 설계·마이그레이션·운영 최적화를 원스톱으로 제공합니다. 고객사 규모와 동시 접속자 수에 맞춘 맞춤형 사양 산정과 비용 시뮬레이션을 무료 컨설팅으로 지원합니다."
+    ],
+    date: "2025-10-05",
+    readTime: "14분",
+    keywords: ["AWS LMS", "이러닝 클라우드", "EC2", "CloudFront", "Aurora", "AWS 아키텍처", "LMS 인프라"],
+  },
+  {
+    id: "aws-elearning-case-studies",
+    category: "trend",
+    title: "AWS 클라우드 LMS 도입 기업 사례 분석: 맑은소프트·Upskilled·글로벌 대학의 성공 전략",
+    summary: "AWS 기반 LMS를 도입한 국내외 기업·교육기관의 실제 사례를 통해 성능 개선, 비용 절감, 글로벌 확장 효과를 분석합니다.",
+    content: [
+      "사례 1: 맑은소프트(한국) — 국내 대표 LMS 기업 맑은소프트는 트래픽 급증 시 서버 불안정 문제를 해결하기 위해 AWS 마이그레이션을 단행했습니다. AWS Auto Scaling과 DynamoDB를 도입하여 피크 시간 트래픽 처리 능력을 3배 이상 향상시켰으며, CloudFront를 통해 해외 학습자의 접근 속도를 50% 개선했습니다. 결과적으로 글로벌 LMS 시장 진출의 기술적 기반을 확보했습니다.",
+      "사례 2: Upskilled(호주) — 호주의 온라인 교육 기업 Upskilled은 AWS에서 클라우드 네이티브 LMS를 운영하면서, 혁신적인 보안 프레임워크를 구축했습니다. AWS WAF, GuardDuty, Security Hub를 조합한 다층 보안 아키텍처로 사이버 위협을 사전 탐지하고, 예측적 위협 분석(Predictive Threat Analytics)을 적용하여 보안 인시던트를 90% 이상 감소시켰습니다.",
+      "사례 3: Geniusee 이러닝 플랫폼(글로벌) — WordPress 기반 이러닝 솔루션을 AWS 서버리스 아키텍처로 마이그레이션한 사례입니다. AWS Lambda, API Gateway, DynamoDB를 활용하여 서버 관리 부담을 완전히 제거하고, 동시 접속자 수에 관계없이 자동 확장되는 인프라를 구현했습니다. 서버 관리 인력 비용이 월 $8,000에서 $0으로 감소했으며, 응답 시간이 평균 2.1초에서 0.4초로 개선되었습니다.",
+      "사례 4: 대규모 대학교(미국/EU) — Moodle LMS를 AWS 레퍼런스 아키텍처 기반으로 운영하는 다수의 대학들이 있습니다. Multi-AZ Aurora, ElastiCache Redis, EFS를 조합한 고가용성 아키텍처로 학기 초 수강신청 트래픽(평상시 대비 20배)을 안정적으로 처리합니다. 한 대학의 경우 On-Premise에서 AWS로 전환 후 인프라 운영 비용이 연간 42% 감소했으며, 시스템 가동률이 99.5%에서 99.99%로 향상되었습니다.",
+      "공통 성공 요인 분석: ① 단계적 마이그레이션 — 빅뱅 전환이 아닌 비핵심 시스템부터 순차 이전하여 리스크를 최소화합니다. ② IaC(Infrastructure as Code) — CloudFormation 또는 Terraform으로 인프라를 코드화하여 재현 가능한 환경을 구축합니다. ③ 모니터링 우선 — CloudWatch 대시보드, X-Ray 트레이싱을 선행 구축하여 성능 병목을 실시간 파악합니다.",
+      "비용 효과 종합: 분석 대상 기업들의 2024~2025년 평균 데이터에 따르면, AWS 전환 후 인프라 비용은 35~55% 절감, 서비스 가용성은 99.9% 이상 달성, 콘텐츠 전송 속도는 2~5배 향상되었습니다. 특히 Auto Scaling 도입으로 피크/비피크 시간대의 비용 격차를 60% 이상 줄인 것이 핵심 절감 포인트입니다.",
+      "웹헤즈는 국내외 다양한 AWS LMS 구축·운영 레퍼런스를 보유하고 있으며, 고객사의 현재 인프라 상태와 목표에 맞는 최적의 마이그레이션 전략을 제안합니다. PoC(Proof of Concept) 환경 구축부터 프로덕션 전환까지 전 과정을 지원합니다."
+    ],
+    date: "2025-10-20",
+    readTime: "15분",
+    keywords: ["AWS LMS 사례", "클라우드 마이그레이션", "맑은소프트", "이러닝 인프라", "AWS 비용 절감"],
+  },
+  {
+    id: "aws-serverless-elearning",
+    category: "tip",
+    title: "AWS 서버리스로 이러닝 플랫폼 구축하기: Lambda·API Gateway·DynamoDB 실전 패턴",
+    summary: "서버 관리 없이 확장 가능한 이러닝 백엔드를 구축하는 AWS 서버리스 아키텍처 패턴과 비용 구조를 실무 관점에서 해설합니다.",
+    content: [
+      "전통적인 EC2 기반 LMS 아키텍처는 안정적이지만, 서버 패치·스케일링·장애 대응 등 운영 부담이 상당합니다. AWS 서버리스 아키텍처는 이러한 운영 오버헤드를 제거하면서도 무한 확장성을 제공합니다. 2024~2025년 AWS re:Invent에서 발표된 사례에 따르면, 서버리스 전환 기업의 평균 운영 비용이 60~70% 감소했습니다.",
+      "서버리스 이러닝 아키텍처 패턴: ① API Gateway + Lambda — RESTful API를 서버 없이 구현합니다. 학습자 인증, 과정 조회, 진도 저장, 퀴즈 채점 등 각 기능을 개별 Lambda 함수로 분리하여 독립적으로 배포·확장합니다. Node.js 또는 Python 런타임 권장, 콜드 스타트를 최소화하려면 Provisioned Concurrency를 설정합니다.",
+      "② DynamoDB — 학습 진도, 퀴즈 결과, 사용자 활동 로그 등 대량의 읽기/쓰기가 발생하는 데이터에 적합합니다. 단일 테이블 디자인(Single Table Design)으로 과정-학습자-진도를 하나의 테이블에 모델링하면, 복잡한 조인 없이 밀리초 단위 응답이 가능합니다. On-Demand 용량 모드를 선택하면 트래픽 예측 없이도 자동 확장됩니다.",
+      "③ S3 + CloudFront + MediaConvert — 강의 영상 업로드 시 S3 이벤트가 Lambda를 트리거하여 MediaConvert로 자동 트랜스코딩(HLS 멀티 비트레이트)합니다. 변환된 영상은 CloudFront를 통해 글로벌 배포되며, Signed URL로 인가된 학습자만 접근할 수 있습니다. DRM이 필요한 경우 AWS Elemental MediaPackage와 연동합니다.",
+      "④ Amazon Cognito — 학습자 인증·인가를 완전 관리형으로 처리합니다. SAML 2.0/OIDC 연동으로 기업 SSO(Single Sign-On)를 지원하고, MFA(다중 인증)를 추가하여 보안을 강화합니다. JWT 토큰 기반 인증으로 Lambda 함수에서 사용자 검증이 간단합니다.",
+      "⑤ Amazon SES + EventBridge — 과정 마감 알림, 수료증 발급 통지, 미이수 경고 등 이벤트 기반 이메일을 자동 발송합니다. EventBridge 스케줄러로 주간 학습 리마인더, 월간 학습 리포트 등 정기 알림을 서버리스로 구현합니다.",
+      "비용 구조 비교(동시 접속 1,000명 기준): EC2 기반 — 월 $2,800~$4,200(상시 운영) | 서버리스 — 월 $400~$1,200(사용량 비례). 서버리스는 야간·주말 등 비활동 시간에 비용이 거의 발생하지 않아, 기업교육처럼 평일 업무시간 중심의 워크로드에 특히 유리합니다.",
+      "웹헤즈는 기존 LMS의 서버리스 전환 컨설팅과 신규 서버리스 LMS 구축을 모두 지원합니다. 특히 기업교육 특화 서버리스 아키텍처 템플릿을 보유하고 있어, PoC 구축 기간을 2주 이내로 단축할 수 있습니다."
+    ],
+    date: "2025-11-01",
+    readTime: "13분",
+    keywords: ["AWS 서버리스", "Lambda", "DynamoDB", "이러닝 백엔드", "서버리스 LMS", "API Gateway"],
+  },
 ];
 
 export const blogPostsEn: BlogPost[] = [
@@ -1132,5 +1187,60 @@ export const blogPostsEn: BlogPost[] = [
     date: "2025-07-15",
     readTime: "13 min",
     keywords: ["AI governance", "generative AI security", "AI compliance", "data privacy", "AI ethics"],
+  },
+  {
+    id: "aws-elearning-architecture",
+    category: "guide",
+    title: "Complete Guide to AWS E-Learning Infrastructure: Optimal EC2, S3, CloudFront & RDS Configuration",
+    summary: "A practical guide to core AWS service configuration, specification selection criteria, and cost optimization strategies for building LMS on the cloud.",
+    content: [
+      "AWS dominates the cloud infrastructure market for e-learning platforms worldwide. Moodle alone serves over 500 million users across 236 countries as of 2024-2025, with the majority running on AWS infrastructure.",
+      "Core architecture components: ① Amazon Route 53 — DNS routing directs learners to the nearest CloudFront edge location. ② Amazon CloudFront — Distributes video lectures, PDFs, and images via global CDN, reducing latency. Korean learners typically see 40-60% faster response times compared to on-premise setups.",
+      "③ ALB + Auto Scaling Group — EC2 instances deployed horizontally across Multi-AZ. Auto-scales during exam periods or compliance training deadlines, then contracts during idle hours. Recommended instance: m6i.xlarge (4vCPU, 16GB RAM), typically 2-4 instances for 500 concurrent users.",
+      "④ Amazon Aurora (MySQL/PostgreSQL compatible) — 5x performance at 1/10 the cost of commercial databases. Multi-AZ automatic failover ensures 99.99% availability. Read Replicas separate report/dashboard queries from learner-facing operations. ⑤ Amazon ElastiCache (Redis) — Caches sessions and frequent DB queries, reducing login and course listing response times to under 10ms.",
+      "⑥ Amazon S3 + Intelligent-Tiering — Unlimited storage for lecture videos, SCORM packages, and certificates. Intelligent-Tiering automatically moves infrequently accessed content to lower-cost storage, saving 30-50% on storage costs. ⑦ Amazon EFS — Shared file system across Multi-AZ EC2 instances for consistent plugin, theme, and upload synchronization.",
+      "Cost optimization: Reserved Instances (1-3 year commitment) for baseline workloads plus Spot Instances for batch transcoding and report generation can save up to 72% versus On-Demand pricing. AWS Cost Explorer and Budgets alerts prevent monthly budget overruns.",
+      "WEBHEADS provides one-stop AWS architecture design, migration, and operational optimization based on 16 years of LMS experience. Free consultation includes customized specification sizing and cost simulation based on your organization's scale and concurrent user count."
+    ],
+    date: "2025-10-05",
+    readTime: "14 min",
+    keywords: ["AWS LMS", "e-learning cloud", "EC2", "CloudFront", "Aurora", "AWS architecture", "LMS infrastructure"],
+  },
+  {
+    id: "aws-elearning-case-studies",
+    category: "trend",
+    title: "AWS Cloud LMS Case Studies: Success Strategies from Malgnsoft, Upskilled & Global Universities",
+    summary: "Real-world case studies of enterprises and educational institutions that adopted AWS-based LMS, analyzing performance improvements, cost savings, and global expansion results.",
+    content: [
+      "Case 1: Malgnsoft (Korea) — Korea's leading LMS company migrated to AWS to resolve server instability during traffic spikes. AWS Auto Scaling and DynamoDB increased peak traffic handling capacity by 3x, while CloudFront improved overseas learner access speed by 50%, establishing the technical foundation for global LMS market expansion.",
+      "Case 2: Upskilled (Australia) — Australian online education company Upskilled built an innovative security framework for their cloud-native LMS on AWS. Multi-layer security architecture combining AWS WAF, GuardDuty, and Security Hub with Predictive Threat Analytics reduced security incidents by over 90% while automating Australian Privacy Act compliance.",
+      "Case 3: Geniusee E-Learning Platform (Global) — Migrated a WordPress-based e-learning solution to AWS serverless architecture using Lambda, API Gateway, and DynamoDB. Eliminated server management entirely with auto-scaling infrastructure. Server management costs dropped from $8,000/month to $0, and response times improved from 2.1s to 0.4s average.",
+      "Case 4: Major Universities (US/EU) — Multiple universities operate Moodle LMS on AWS reference architecture. High-availability architecture combining Multi-AZ Aurora, ElastiCache Redis, and EFS handles enrollment traffic spikes (20x normal). One university reported 42% annual infrastructure cost reduction and availability improvement from 99.5% to 99.99% after AWS migration.",
+      "Common success factors: ① Phased migration — Sequential transfer starting with non-critical systems minimizes risk. ② IaC (Infrastructure as Code) — CloudFormation or Terraform creates reproducible environments. ③ Monitoring-first — CloudWatch dashboards and X-Ray tracing identify performance bottlenecks in real-time.",
+      "Cost impact summary: Based on 2024-2025 average data from analyzed companies, AWS migration yielded 35-55% infrastructure cost reduction, 99.9%+ service availability, and 2-5x content delivery speed improvement. Auto Scaling reduced peak/off-peak cost differential by over 60%.",
+      "WEBHEADS has extensive domestic and international AWS LMS deployment references, proposing optimal migration strategies based on your current infrastructure and objectives. Support spans from PoC environment setup through production cutover."
+    ],
+    date: "2025-10-20",
+    readTime: "15 min",
+    keywords: ["AWS LMS case study", "cloud migration", "e-learning infrastructure", "AWS cost savings", "LMS deployment"],
+  },
+  {
+    id: "aws-serverless-elearning",
+    category: "tip",
+    title: "Building Serverless E-Learning Platforms on AWS: Lambda, API Gateway & DynamoDB Patterns",
+    summary: "Practical AWS serverless architecture patterns and cost structures for building scalable e-learning backends without server management overhead.",
+    content: [
+      "Traditional EC2-based LMS architecture is reliable but carries significant operational overhead for patching, scaling, and incident response. AWS serverless architecture eliminates this overhead while providing infinite scalability. Per AWS re:Invent 2024-2025 case studies, serverless adoption reduced average operational costs by 60-70%.",
+      "Serverless e-learning patterns: ① API Gateway + Lambda — Implement RESTful APIs without servers. Separate learner authentication, course queries, progress tracking, and quiz grading into individual Lambda functions for independent deployment and scaling. Node.js or Python runtime recommended; configure Provisioned Concurrency to minimize cold starts.",
+      "② DynamoDB — Ideal for high-volume read/write data: learning progress, quiz results, user activity logs. Single Table Design models courses-learners-progress in one table, enabling millisecond responses without complex joins. On-Demand capacity mode auto-scales without traffic prediction.",
+      "③ S3 + CloudFront + MediaConvert — S3 upload events trigger Lambda for automatic MediaConvert transcoding (HLS multi-bitrate). Transcoded videos deploy globally via CloudFront with Signed URLs restricting access to authorized learners. AWS Elemental MediaPackage integrates for DRM requirements.",
+      "④ Amazon Cognito — Fully managed learner authentication/authorization. SAML 2.0/OIDC integration supports enterprise SSO, with MFA for enhanced security. JWT token-based authentication simplifies user verification in Lambda functions.",
+      "⑤ Amazon SES + EventBridge — Event-driven emails for course deadlines, certificate issuance, and incomplete course warnings. EventBridge Scheduler handles weekly learning reminders and monthly reports in a serverless fashion.",
+      "Cost comparison (1,000 concurrent users): EC2-based — $2,800-$4,200/month (always-on) | Serverless — $400-$1,200/month (usage-based). Serverless generates minimal costs during evenings/weekends, making it particularly advantageous for corporate training workloads centered on business hours.",
+      "WEBHEADS supports both serverless migration consulting for existing LMS and greenfield serverless LMS development. Our corporate training-specific serverless architecture templates enable PoC deployment within 2 weeks."
+    ],
+    date: "2025-11-01",
+    readTime: "13 min",
+    keywords: ["AWS serverless", "Lambda", "DynamoDB", "e-learning backend", "serverless LMS", "API Gateway"],
   },
 ];
