@@ -237,6 +237,7 @@ export default function Header() {
                       <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
                     </a>
                   </div>
+                  </div>
                 )}
               </div>
             </div>
