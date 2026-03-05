@@ -7,13 +7,15 @@ import { BlogPost, blogPostsKo, blogPostsEn, categoryConfigKo, categoryConfigEn 
 
 const POSTS_PER_PAGE = 10;
 
-const categoryIcons = {
+type Category = "guide" | "trend" | "tip";
+
+const categoryIcons: Record<Category, typeof BookOpen> = {
   guide: BookOpen,
   trend: TrendingUp,
   tip: Lightbulb,
 };
 
-const categoryColors = {
+const categoryColors: Record<Category, string> = {
   guide: "hsl(250,55%,52%)",
   trend: "hsl(192,50%,42%)",
   tip: "hsl(40,80%,50%)",
@@ -67,19 +69,26 @@ export default function BlogPage() {
   const { t, i18n } = useTranslation();
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
   const lang = i18n.language?.startsWith("en") ? "en" : "ko";
   const blogPosts = lang === "en" ? blogPostsEn : blogPostsKo;
 
   const filteredPosts = useMemo(() => {
-    if (!searchQuery.trim()) return blogPosts;
-    const q = searchQuery.toLowerCase();
-    return blogPosts.filter((p) =>
-      p.title.toLowerCase().includes(q) ||
-      p.summary.toLowerCase().includes(q) ||
-      p.keywords.some((kw) => kw.toLowerCase().includes(q))
-    );
-  }, [blogPosts, searchQuery]);
+    let posts = blogPosts;
+    if (activeCategory !== "all") {
+      posts = posts.filter((p) => p.category === activeCategory);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      posts = posts.filter((p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.summary.toLowerCase().includes(q) ||
+        p.keywords.some((kw) => kw.toLowerCase().includes(q))
+      );
+    }
+    return posts;
+  }, [blogPosts, searchQuery, activeCategory]);
 
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
   const paginatedPosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
@@ -90,6 +99,14 @@ export default function BlogPage() {
     setCurrentPage(1);
     setExpandedId(null);
   };
+  const handleCategoryChange = (cat: Category | "all") => {
+    setActiveCategory(cat);
+    setCurrentPage(1);
+    setExpandedId(null);
+  };
+
+  const catConfig = lang === "en" ? categoryConfigEn : categoryConfigKo;
+  const allCategories: (Category | "all")[] = ["all", "guide", "trend", "tip"];
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -138,6 +155,30 @@ export default function BlogPage() {
                 {filteredPosts.length}{lang === "en" ? " results" : "건"}
               </span>
             )}
+          </div>
+          {/* Category Filter Tabs */}
+          <div className="flex items-center justify-center gap-2 mt-6 flex-wrap">
+            {allCategories.map((cat) => {
+              const isActive = activeCategory === cat;
+              const Icon = cat === "all" ? null : categoryIcons[cat];
+              const label = cat === "all" ? (lang === "en" ? "All" : "전체") : catConfig[cat].label;
+              const color = cat === "all" ? "hsl(var(--primary))" : categoryColors[cat];
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                    isActive
+                      ? "text-white border-transparent shadow-md"
+                      : "bg-card text-muted-foreground border-border hover:border-muted-foreground/40"
+                  }`}
+                  style={isActive ? { backgroundColor: color } : undefined}
+                >
+                  {Icon && <Icon className="w-3.5 h-3.5" />}
+                  {label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
