@@ -157,6 +157,16 @@ export default function Header() {
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
+              <Link
+                to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
+                className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:shadow-md whitespace-nowrap ${
+                  effectiveScrolled
+                    ? "bg-foreground text-background hover:opacity-90"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                {t("header.cta")}
+              </Link>
               <div className="relative" ref={supportRef}>
                 <button
                   onClick={() => setSupportOpen((v) => !v)}
@@ -229,16 +239,6 @@ export default function Header() {
                   </div>
                 )}
               </div>
-              <Link
-                to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
-                className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:shadow-md whitespace-nowrap ${
-                  effectiveScrolled
-                    ? "bg-foreground text-background hover:opacity-90"
-                    : "bg-white/20 text-white hover:bg-white/30"
-                }`}
-              >
-                {t("header.cta")}
-              </Link>
             </div>
 
             {/* Mobile toggle */}
