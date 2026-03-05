@@ -1,4 +1,4 @@
-import { Mail, MonitorSmartphone, Phone, Headset } from "lucide-react";
+import { Mail, MonitorSmartphone, Phone, Headset, Clock, ChevronRight, MessageCircle } from "lucide-react";
 import SEO from "@/components/SEO";
 
 export default function SupportPage() {
@@ -9,42 +9,44 @@ export default function SupportPage() {
         description="웹헤즈 고객센터 — SMS 충전 및 카테노이드 원격지원을 요청하세요."
         path="/support"
       />
-      <div className="min-h-screen bg-background pt-28 pb-20">
-        <div className="container mx-auto px-5 max-w-2xl">
+      <div className="min-h-screen" style={{ background: "hsl(220, 14%, 96%)" }}>
+        <div className="container mx-auto px-5 max-w-[520px] pt-28 pb-20">
+
           {/* Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-5">
-              <Headset className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight mb-3">
+          <div className="mb-8">
+            <h1 className="text-[26px] font-bold text-foreground tracking-[-0.04em] leading-tight">
               고객센터
             </h1>
-            <p className="text-muted-foreground text-sm md:text-base">
-              SMS 충전 또는 원격지원이 필요하신가요? 아래 버튼을 눌러 바로 요청하세요.
+            <p className="text-[14px] text-muted-foreground mt-1.5" style={{ letterSpacing: "-0.01em" }}>
+              필요한 서비스를 선택해 주세요
             </p>
           </div>
 
-          {/* Action Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+          {/* Main Action Cards */}
+          <div className="flex flex-col gap-3 mb-4">
             {/* SMS 충전 */}
             <a
               href="https://help.webheads.co.kr/login.php"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col items-center gap-4 rounded-2xl border border-border bg-background p-8 hover:border-primary/30 hover:shadow-lg transition-all"
+              className="group bg-white rounded-2xl p-5 flex items-center gap-4 transition-all hover:shadow-md active:scale-[0.99]"
+              style={{ border: "1px solid hsl(220, 13%, 91%)" }}
             >
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-primary/10 group-hover:bg-primary/15 transition-colors">
-                <Mail className="w-7 h-7 text-primary" />
+              <div
+                className="w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0"
+                style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
+              >
+                <Mail className="w-[22px] h-[22px]" />
               </div>
-              <div className="text-center">
-                <h2 className="text-lg font-bold text-foreground mb-1.5">SMS 충전</h2>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  문자 발송 건수를 충전하고<br />발송 현황을 확인합니다.
+              <div className="flex-1 min-w-0">
+                <p className="text-[15px] font-semibold text-foreground" style={{ letterSpacing: "-0.02em" }}>
+                  SMS 충전
+                </p>
+                <p className="text-[13px] text-muted-foreground mt-0.5">
+                  문자 발송 건수를 충전하고 현황을 확인합니다
                 </p>
               </div>
-              <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary mt-1">
-                충전하기 <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-              </span>
+              <ChevronRight className="w-5 h-5 text-muted-foreground/40 shrink-0 group-hover:text-muted-foreground transition-colors" />
             </a>
 
             {/* 원격지원 */}
@@ -52,34 +54,81 @@ export default function SupportPage() {
               href="https://help.webheads.co.kr/kolluscrm.php"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col items-center gap-4 rounded-2xl border border-border bg-background p-8 hover:border-primary/30 hover:shadow-lg transition-all"
+              className="group bg-white rounded-2xl p-5 flex items-center gap-4 transition-all hover:shadow-md active:scale-[0.99]"
+              style={{ border: "1px solid hsl(220, 13%, 91%)" }}
             >
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent group-hover:bg-accent/80 transition-colors">
-                <MonitorSmartphone className="w-7 h-7 text-accent-foreground" />
+              <div
+                className="w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0"
+                style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
+              >
+                <MonitorSmartphone className="w-[22px] h-[22px]" />
               </div>
-              <div className="text-center">
-                <h2 className="text-lg font-bold text-foreground mb-1.5">원격지원 요청</h2>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  카테노이드 원격지원을 통해<br />빠르게 문제를 해결합니다.
+              <div className="flex-1 min-w-0">
+                <p className="text-[15px] font-semibold text-foreground" style={{ letterSpacing: "-0.02em" }}>
+                  원격지원 요청
+                </p>
+                <p className="text-[13px] text-muted-foreground mt-0.5">
+                  카테노이드 원격지원으로 빠르게 문제를 해결합니다
                 </p>
               </div>
-              <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary mt-1">
-                요청하기 <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-              </span>
+              <ChevronRight className="w-5 h-5 text-muted-foreground/40 shrink-0 group-hover:text-muted-foreground transition-colors" />
             </a>
           </div>
 
-          {/* Phone CTA */}
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-3">전화 상담을 원하시나요?</p>
+          {/* Phone Section */}
+          <div
+            className="bg-white rounded-2xl p-5 mb-4"
+            style={{ border: "1px solid hsl(220, 13%, 91%)" }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Phone className="w-4 h-4 text-muted-foreground" />
+              <span className="text-[13px] font-semibold text-foreground" style={{ letterSpacing: "-0.01em" }}>전화 상담</span>
+            </div>
             <a
               href="tel:02-540-4337"
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 bg-muted text-foreground font-semibold text-sm hover:bg-muted-foreground/10 transition-colors"
+              className="flex items-center justify-between group"
             >
-              <Phone className="w-4 h-4" />
-              02-540-4337
+              <div>
+                <p className="text-[22px] font-bold text-foreground tracking-[-0.04em] tabular-nums leading-none">
+                  02-540-4337
+                </p>
+                <div className="flex items-center gap-1.5 mt-2">
+                  <Clock className="w-3.5 h-3.5 text-muted-foreground/50" />
+                  <span className="text-[12px] text-muted-foreground">평일 09:00 – 18:00</span>
+                </div>
+              </div>
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors"
+                style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
+              >
+                <Phone className="w-[18px] h-[18px]" />
+              </div>
             </a>
           </div>
+
+          {/* Inquiry CTA */}
+          <a
+            href="/#contact"
+            className="flex items-center gap-4 bg-white rounded-2xl p-5 transition-all hover:shadow-md active:scale-[0.99] group"
+            style={{ border: "1px solid hsl(220, 13%, 91%)" }}
+          >
+            <div
+              className="w-12 h-12 rounded-[14px] flex items-center justify-center shrink-0"
+              style={{ background: "hsl(37, 90%, 51%, 0.08)", color: "hsl(37, 90%, 51%)" }}
+            >
+              <MessageCircle className="w-[22px] h-[22px]" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[15px] font-semibold text-foreground" style={{ letterSpacing: "-0.02em" }}>
+                온라인 문의
+              </p>
+              <p className="text-[13px] text-muted-foreground mt-0.5">
+                도입 상담 및 견적을 요청합니다
+              </p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-muted-foreground/40 shrink-0 group-hover:text-muted-foreground transition-colors" />
+          </a>
+
         </div>
       </div>
     </>
