@@ -35,7 +35,8 @@ export default function Header() {
   const [bannerReady, setBannerReady] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isKorean = i18n.language === "ko" || i18n.language?.startsWith("ko-");
   const isLightPage = location.pathname === "/service-request" || location.pathname === "/overview" || location.pathname === "/blog" || location.pathname === "/event";
   const effectiveScrolled = scrolled || isLightPage;
 
