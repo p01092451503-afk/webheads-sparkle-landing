@@ -214,15 +214,18 @@ export default function Header() {
               <LanguageSwitcher />
             </div>
             <Link
+              to="/support"
+              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-medium text-foreground flex items-center gap-2 hover:bg-muted transition-colors"
+            >
+              <Headset className="w-4 h-4" />
+              {t("header.customerSupport")}
+            </Link>
+            <Link
               to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
-              className="mt-2 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
+              className="mt-1 px-4 py-2.5 rounded-xl text-sm font-semibold bg-foreground text-background text-center"
             >
               {t("header.cta")}
             </Link>
-          </div>
-        </div>
-      )}
-    </header>
     </>
   );
 }
