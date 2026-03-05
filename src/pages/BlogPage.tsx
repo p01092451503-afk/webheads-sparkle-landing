@@ -156,6 +156,30 @@ export default function BlogPage() {
               </span>
             )}
           </div>
+          {/* Category Filter Tabs */}
+          <div className="flex items-center justify-center gap-2 mt-6 flex-wrap">
+            {allCategories.map((cat) => {
+              const isActive = activeCategory === cat;
+              const Icon = cat === "all" ? null : categoryIcons[cat];
+              const label = cat === "all" ? (lang === "en" ? "All" : "전체") : catConfig[cat].label;
+              const color = cat === "all" ? "hsl(var(--primary))" : categoryColors[cat];
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategoryChange(cat)}
+                  className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                    isActive
+                      ? "text-white border-transparent shadow-md"
+                      : "bg-card text-muted-foreground border-border hover:border-muted-foreground/40"
+                  }`}
+                  style={isActive ? { backgroundColor: color } : undefined}
+                >
+                  {Icon && <Icon className="w-3.5 h-3.5" />}
+                  {label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
