@@ -206,7 +206,7 @@ export default function Header() {
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
                       >
-                        <Mail className="w-[18px] h-[18px]" />
+                        <MessageSquareText className="w-[18px] h-[18px]" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">SMS 충전</p>
