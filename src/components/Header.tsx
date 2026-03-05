@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Headset, Mail, MonitorSmartphone, ChevronRight } from "lucide-react";
+import { Menu, X, Mail, MonitorSmartphone, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
