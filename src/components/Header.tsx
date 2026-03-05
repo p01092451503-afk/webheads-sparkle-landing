@@ -226,6 +226,10 @@ export default function Header() {
             >
               {t("header.cta")}
             </Link>
+          </div>
+        </div>
+      )}
+    </header>
     </>
   );
 }
