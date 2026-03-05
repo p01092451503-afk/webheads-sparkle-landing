@@ -197,10 +197,10 @@ export default function Header() {
                       className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors hover:bg-accent/60"
                     >
                       <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
                       >
-                        <MessageSquareText className="w-[18px] h-[18px]" />
+                        <MessageSquareText className="w-6 h-6" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">SMS 충전</p>
