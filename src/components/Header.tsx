@@ -229,7 +229,7 @@ export default function Header() {
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                         style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
                       >
-                        <MonitorSmartphone className="w-[18px] h-[18px]" />
+                        <ScreenShare className="w-[18px] h-[18px]" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">원격지원 요청</p>
