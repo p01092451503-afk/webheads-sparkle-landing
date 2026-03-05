@@ -1385,7 +1385,7 @@
     "cta": {
       "title": "서비스 요청이 필요하신가요?",
       "desc": "SMS 충전이 필요하신 경우 아래 버튼을 클릭해주세요.",
-      "button": "SMS 충전 요청"
+      "button": "SMS 충전"
     },
     "sms": {
       "title": "SMS 발송 서비스(SMS/LMS)",

@@ -1373,7 +1373,7 @@
     "cta": {
       "title": "Need to request a service?",
       "desc": "Click the button below if you need to recharge SMS credits.",
-      "button": "SMS Recharge Request"
+      "button": "SMS Recharge"
     },
     "sms": {
       "title": "SMS Messaging Service (SMS/LMS)",
