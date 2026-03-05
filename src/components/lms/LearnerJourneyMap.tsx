@@ -92,7 +92,7 @@ export default function LearnerJourneyMap() {
                     )}
                   </div>
                   <div className="pt-1 pb-4 min-w-0">
-                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: `${color}cc` }}>
+                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
                       Step {i + 1}
                     </span>
                     <h4 className="font-bold text-foreground text-base mt-0.5">{step.label}</h4>
