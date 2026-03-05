@@ -155,7 +155,7 @@ export default function Header() {
               <LanguageSwitcher scrolled={effectiveScrolled} />
               <Link
                 to="/support"
-                className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
+                className={`shrink-0 px-4 py-2 rounded-full text-sm font-bold transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${
                   effectiveScrolled
                     ? "bg-primary/20 text-primary hover:bg-primary/25"
                     : "bg-white/30 text-white hover:bg-white/40 border border-white/25"
