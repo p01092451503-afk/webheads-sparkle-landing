@@ -22,7 +22,7 @@ import MaintenancePage from "./pages/MaintenancePage";
 import ServiceRequestPage from "./pages/ServiceRequestPage";
 import PricingPage from "./pages/PricingPage";
 import SmsKakaoPage from "./pages/SmsKakaoPage";
-import SupportPage from "./pages/SupportPage";
+
 import BlogPage from "./pages/BlogPage";
 import EventPage from "./pages/EventPage";
 const OverviewPage = lazy(() => import("./pages/OverviewPage"));
