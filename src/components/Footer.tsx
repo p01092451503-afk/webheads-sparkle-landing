@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Phone, Mail, MonitorSmartphone, BookOpen } from "lucide-react";
+import { Mail, MonitorSmartphone, BookOpen } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -105,34 +105,27 @@ export default function Footer() {
       {/* Service Request Banner — hide on /service-request */}
       {location.pathname !== "/service-request" && (
         <div className="border-t border-border">
-          <div className="container mx-auto px-6 max-w-5xl py-3.5 flex items-center justify-start gap-2 flex-wrap">
+          <div className="container mx-auto px-6 max-w-5xl py-3.5 flex items-center justify-start gap-3 flex-wrap">
             <a
-              href="https://help.webheads.co.kr"
+              href="https://help.webheads.co.kr/login.php"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-primary text-primary-foreground font-semibold text-xs hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
             >
-              <Mail className="w-3.5 h-3.5" />
-              {t("footer.smsRechargeBtn")}
+              <Mail className="w-4 h-4" />
+              SMS 충전
               <span className="text-primary-foreground/70">→</span>
             </a>
             <a
               href="https://help.webheads.co.kr/kolluscrm.php"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-accent text-accent-foreground font-semibold text-xs hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity text-white"
+              style={{ backgroundColor: "hsl(192, 70%, 50%)" }}
             >
-              <MonitorSmartphone className="w-3.5 h-3.5" />
-              {t("footer.serviceRequestBtn")}
-              <span className="text-accent-foreground/70">→</span>
-            </a>
-            <a
-              href="tel:02-540-4337"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 bg-muted text-foreground font-semibold text-xs hover:bg-muted-foreground/10 transition-colors"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              {t("footer.mainPhone")}
-              <span className="text-foreground/50">→</span>
+              <MonitorSmartphone className="w-4 h-4" />
+              원격지원 요청
+              <span className="text-white/70">→</span>
             </a>
           </div>
         </div>
