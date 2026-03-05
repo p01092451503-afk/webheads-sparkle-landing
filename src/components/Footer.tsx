@@ -126,9 +126,8 @@ export default function Footer() {
             <Phone className="w-4 h-4" />
             {t("footer.callLabel", "대표전화 02-540-4337")}
           </a>
-          <div className="relative">
+          <div className="relative" onMouseEnter={() => setSupportOpen(true)} onMouseLeave={() => setSupportOpen(false)}>
             <button
-              onClick={() => setSupportOpen(!supportOpen)}
               className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 whitespace-nowrap text-foreground hover:bg-muted border border-border"
             >
               {t("header.customerSupport", "고객지원")}
