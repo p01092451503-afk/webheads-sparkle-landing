@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Mail, MonitorSmartphone, BookOpen } from "lucide-react";
+import { Mail, MonitorSmartphone, BookOpen, Phone } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
@@ -71,8 +71,22 @@ export default function Footer() {
               {/* Customer Center */}
               <div className="flex flex-col gap-2">
                 <p className="text-[11px] font-normal tracking-[0.15em] uppercase text-foreground/40" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.customerCenter")}</p>
-                <p className="text-[14px] font-normal text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.newPhone")}</p>
-                <p className="text-[14px] font-normal text-primary" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.maintenancePhone")}</p>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href="tel:02-336-4338"
+                    className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
+                  >
+                    <Phone className="w-3 h-3" />
+                    {t("footer.newPhone")}
+                  </a>
+                  <a
+                    href="tel:02-540-4337"
+                    className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
+                  >
+                    <Phone className="w-3 h-3" />
+                    {t("footer.maintenancePhone")}
+                  </a>
+                </div>
               </div>
 
             </div>
