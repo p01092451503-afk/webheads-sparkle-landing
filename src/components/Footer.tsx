@@ -35,6 +35,7 @@ export default function Footer() {
   const { t } = useTranslation();
   const location = useLocation();
   const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [supportOpen, setSupportOpen] = useState(false);
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
   return (
