@@ -206,8 +206,8 @@ export default function Header() {
                         <MessageSquareText className="w-6 h-6" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">SMS 충전</p>
-                        <p className="text-[12px] text-muted-foreground mt-0.5">문자 발송 건수 충전 및 현황 확인</p>
+                        <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">{t("header.smsRechargeTitle")}</p>
+                        <p className="text-[12px] text-muted-foreground mt-0.5">{t("header.smsRechargeDesc")}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
                     </a>
