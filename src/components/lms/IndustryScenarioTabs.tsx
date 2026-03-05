@@ -101,9 +101,23 @@ export default function IndustryScenarioTabs() {
                 <Lightbulb className="w-4 h-4" style={{ color: "hsl(35, 90%, 50%)" }} />
                 <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.caseLabel")}</span>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
-                {current.case}
-              </p>
+              {current.caseName ? (
+                <div className="space-y-2">
+                  <p className="text-sm font-bold text-foreground">{current.caseName}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                    {current.caseDetail}
+                  </p>
+                  {current.caseMetrics && (
+                    <p className="text-xs font-semibold pt-1" style={{ color: "hsl(var(--lms-primary))" }}>
+                      📊 {current.caseMetrics}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground leading-relaxed" style={{ wordBreak: "keep-all" }}>
+                  {current.case}
+                </p>
+              )}
             </div>
           </div>
 
