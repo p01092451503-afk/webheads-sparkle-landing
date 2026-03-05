@@ -83,7 +83,7 @@ export default function LearnerJourneyMap() {
                   <div className="flex flex-col items-center shrink-0">
                     <div
                       className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10"
-                      style={{ background: `${color}14`, border: `1.5px solid ${color}25` }}
+                      style={{ background: `hsl(0 0% 100% / 0.85)`, border: `1.5px solid ${color}40`, boxShadow: `0 2px 12px ${color}20` }}
                     >
                       <Icon className="w-5.5 h-5.5" style={{ color }} strokeWidth={1.8} />
                     </div>
