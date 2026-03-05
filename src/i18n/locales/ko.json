@@ -78,7 +78,7 @@
     "tabConsultation": "상담 신청",
     "tabDemo": "데모 신청",
     "formMessagePlaceholderDemo": "데모를 원하시는 서비스나 기능을 구체적으로 작성해주세요.",
-    "services": ["LMS", "호스팅", "유지보수", "AI챗봇", "APP", "DRM", "채널톡/SMS", "PG", "콘텐츠"]
+    "services": ["LMS", "호스팅", "유지보수", "AI챗봇", "APP", "DRM", "채널톡/SMS", "PG", "콘텐츠", "고객지원", "기타"]
   },
   "testimonial": {
     "sub": "고객 후기",
