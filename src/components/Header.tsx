@@ -188,11 +188,6 @@ export default function Header() {
                       boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
                     }}
                   >
-                    style={{
-                      zIndex: 100,
-                      boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
-                    }}
-                  >
                     <a
                       href="https://help.webheads.co.kr/login.php"
                       target="_blank"
