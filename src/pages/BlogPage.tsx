@@ -69,6 +69,7 @@ export default function BlogPage() {
   const { t, i18n } = useTranslation();
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
   const lang = i18n.language?.startsWith("en") ? "en" : "ko";
   const blogPosts = lang === "en" ? blogPostsEn : blogPostsKo;
