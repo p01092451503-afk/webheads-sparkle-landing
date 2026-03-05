@@ -66,10 +66,30 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
 export default function BlogPage() {
   const { t, i18n } = useTranslation();
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const lang = i18n.language?.startsWith("en") ? "en" : "ko";
   const blogPosts = lang === "en" ? blogPostsEn : blogPostsKo;
 
+  const filteredPosts = useMemo(() => {
+    if (!searchQuery.trim()) return blogPosts;
+    const q = searchQuery.toLowerCase();
+    return blogPosts.filter((p) =>
+      p.title.toLowerCase().includes(q) ||
+      p.summary.toLowerCase().includes(q) ||
+      p.keywords.some((kw) => kw.toLowerCase().includes(q))
+    );
+  }, [blogPosts, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+  const paginatedPosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
+
   const handleToggle = (id: string) => setExpandedId(expandedId === id ? null : id);
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+    setExpandedId(null);
+  };
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -99,22 +119,80 @@ export default function BlogPage() {
           <h1 className="text-3xl md:text-5xl font-extrabold text-foreground leading-tight mb-4" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", letterSpacing: "-0.02em" }}>
             {lang === "en" ? "WEBHEADS LMS Insights" : "웹헤즈 LMS 인사이트"}
           </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
             {lang === "en" ? (<>From e-learning adoption to AI learning trends,<br className="hidden md:block" />professional guides for corporate training managers.</>)
               : (<>이러닝 솔루션 도입부터 AI 학습관리 트렌드까지,<br className="hidden md:block" />기업교육 담당자를 위한 전문 가이드를 제공합니다.</>)}
           </p>
-        </div>
-      </section>
-
-      <section className="pb-20 md:pb-28">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="flex flex-col gap-8">
-            {blogPosts.map((post) => (
-              <BlogCard key={post.id} post={post} isExpanded={expandedId === post.id} onToggle={() => handleToggle(post.id)} lang={lang} />
-            ))}
+          {/* Search Bar */}
+          <div className="relative max-w-xl mx-auto">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder={lang === "en" ? "Search by keyword, title, or tag..." : "키워드, 제목, 태그로 검색..."}
+              className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-border bg-card text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 transition-shadow"
+            />
+            {searchQuery && (
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
+                {filteredPosts.length}{lang === "en" ? " results" : "건"}
+              </span>
+            )}
           </div>
         </div>
       </section>
+
+      <section className="pb-12 md:pb-16">
+        <div className="container mx-auto px-6 max-w-4xl">
+          {paginatedPosts.length === 0 ? (
+            <div className="text-center py-16">
+              <Search className="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" />
+              <p className="text-muted-foreground text-lg font-medium">{lang === "en" ? "No results found" : "검색 결과가 없습니다"}</p>
+              <p className="text-muted-foreground/60 text-sm mt-1">{lang === "en" ? "Try different keywords" : "다른 키워드로 검색해보세요"}</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-8">
+              {paginatedPosts.map((post) => (
+                <BlogCard key={post.id} post={post} isExpanded={expandedId === post.id} onToggle={() => handleToggle(post.id)} lang={lang} />
+              ))}
+            </div>
+          )}
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <nav className="flex items-center justify-center gap-2 mt-12" aria-label="Pagination">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-card text-foreground disabled:opacity-30 disabled:cursor-not-allowed hover:bg-muted transition-colors"
+                aria-label="Previous page"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`inline-flex items-center justify-center w-10 h-10 rounded-lg text-sm font-semibold transition-colors ${
+                    page === currentPage
+                      ? "bg-primary text-primary-foreground shadow-md"
+                      : "border border-border bg-card text-foreground hover:bg-muted"
+                  }`}
+                  aria-current={page === currentPage ? "page" : undefined}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border bg-card text-foreground disabled:opacity-30 disabled:cursor-not-allowed hover:bg-muted transition-colors"
+                aria-label="Next page"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </nav>
+          )}
 
       <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6 max-w-4xl">
