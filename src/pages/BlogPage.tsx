@@ -193,6 +193,8 @@ export default function BlogPage() {
               </button>
             </nav>
           )}
+        </div>
+      </section>
 
       <section className="pb-20 md:pb-28">
         <div className="container mx-auto px-6 max-w-4xl">
