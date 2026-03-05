@@ -91,15 +91,27 @@ export default function IndustryScenarioTabs() {
               <span className="text-xs font-bold text-foreground tracking-wide">{t("lms.industryTabs.addonsLabel")}</span>
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {current.addons.map((addon) => (
-                <span
-                  key={addon}
-                  className="text-xs px-3 py-1.5 rounded-full font-semibold"
-                  style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
-                >
-                  {addon}
-                </span>
-              ))}
+              {current.addons.map((addon) => {
+                const href = addonRouteMap[addon];
+                return href ? (
+                  <a
+                    key={addon}
+                    href={href}
+                    className="text-xs px-3 py-1.5 rounded-full font-semibold transition-opacity hover:opacity-80"
+                    style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
+                  >
+                    {addon}
+                  </a>
+                ) : (
+                  <span
+                    key={addon}
+                    className="text-xs px-3 py-1.5 rounded-full font-semibold"
+                    style={{ background: "hsl(var(--lms-primary) / 0.1)", color: "hsl(var(--lms-primary))" }}
+                  >
+                    {addon}
+                  </span>
+                );
+              })}
             </div>
           </div>
 
