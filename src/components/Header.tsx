@@ -188,13 +188,15 @@ export default function Header() {
                       boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
                     }}
                   >
-
                     {/* SMS */}
                     <a
                       href="https://help.webheads.co.kr/login.php"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors hover:bg-muted"
+                      className="group flex items-center gap-4 px-5 py-4 transition-colors"
+                      style={{ background: "transparent" }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = "hsl(220, 14%, 92%)"}
+                      onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                     >
                       <div
                         className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
@@ -217,7 +219,10 @@ export default function Header() {
                       href="https://help.webheads.co.kr/kolluscrm.php"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center gap-4 mx-2 px-3.5 py-3.5 rounded-xl transition-colors hover:bg-muted"
+                      className="group flex items-center gap-4 px-5 py-4 transition-colors"
+                      style={{ background: "transparent" }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = "hsl(220, 14%, 92%)"}
+                      onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
                     >
                       <div
                         className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
@@ -231,8 +236,6 @@ export default function Header() {
                       </div>
                       <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
                     </a>
-
-                    <div className="h-2" />
                   </div>
                 )}
               </div>
