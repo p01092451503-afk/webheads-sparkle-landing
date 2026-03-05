@@ -57,7 +57,7 @@ export default function LearnerJourneyMap() {
                       <ArrowRight className="w-6 h-6 text-muted-foreground/30" />
                     </div>
                   )}
-                  <span className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: `${color}cc` }}>
+                  <span className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color }}>
                     Step {i + 1}
                   </span>
                   <h4 className="font-bold text-foreground text-lg leading-snug mb-2.5">{step.label}</h4>
