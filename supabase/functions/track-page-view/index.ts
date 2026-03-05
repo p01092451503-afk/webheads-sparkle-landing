@@ -82,14 +82,14 @@ const datacenterRanges = [
   /^47\.(7[4-9]|[89][0-9]|1[0-1][0-9])\./, // Alibaba Cloud
 ];
 
-// Known US datacenter cities (Google, AWS, Microsoft, Meta, etc.)
+// Known datacenter cities (Google, AWS, Microsoft, Huawei, Tencent, etc.)
 const datacenterCities = [
   /mountain\s*view/i, /ashburn/i, /council\s*bluffs/i, /the\s*dalles/i,
   /pryor/i, /papillion/i, /boardman/i, /quincy/i, /prineville/i,
   /new\s*albany/i, /altoona/i, /maiden/i, /forest\s*city/i,
   /santa\s*clara/i, /san\s*jose/i, /reston/i, /herndon/i,
   /allston/i, /somerville/i, /des\s*moines/i, /hilliard/i,
-  /columbus.*ohio/i, /sterling/i, /manassas/i, /cheyenne/i,
+  /columbus.*ohio/i, /dublin.*ohio/i, /sterling/i, /manassas/i, /cheyenne/i,
   /phoenix.*arizona/i, /chandler/i, /mesa.*arizona/i,
 ];
 
