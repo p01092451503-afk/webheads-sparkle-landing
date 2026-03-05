@@ -79,26 +79,26 @@ export default function LearnerJourneyMap() {
               const Icon = stepIcons[i] || BookOpen;
               const color = stepColors[i];
               return (
-                <div key={i} className="relative flex items-start gap-4 pl-1">
+                <div key={i} className="relative flex items-start gap-3 pl-1">
                   <div className="flex flex-col items-center shrink-0">
                     <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center relative z-10"
+                      className="w-10 h-10 rounded-lg flex items-center justify-center relative z-10"
                       style={{ background: `hsl(0 0% 100% / 0.85)`, border: `1.5px solid ${color}40`, boxShadow: `0 2px 12px ${color}20` }}
                     >
-                      <Icon className="w-5.5 h-5.5" style={{ color }} strokeWidth={1.8} />
+                      <Icon className="w-4 h-4" style={{ color }} strokeWidth={1.8} />
                     </div>
                     {i < steps.length - 1 && (
-                      <div className="w-px h-6 mt-1" style={{ background: `${color}30` }} />
+                      <div className="w-px h-5 mt-1" style={{ background: `${color}30` }} />
                     )}
                   </div>
-                  <div className="pt-1 pb-4 min-w-0">
-                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color }}>
+                  <div className="pt-0.5 pb-3 min-w-0">
+                    <span className="text-[9px] font-bold uppercase tracking-widest" style={{ color }}>
                       Step {i + 1}
                     </span>
-                    <h4 className="font-bold text-foreground text-base mt-0.5">{step.label}</h4>
-                    <p className="text-sm text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                    <h4 className="font-bold text-foreground text-sm mt-0.5">{step.label}</h4>
+                    <p className="text-xs text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                     <span
-                      className="inline-block text-xs font-semibold px-3 py-1 rounded-full mt-2.5"
+                      className="inline-block text-[11px] font-semibold px-2.5 py-0.5 rounded-full mt-2"
                       style={{ background: `hsl(0 0% 100% / 0.8)`, color }}
                     >
                       {step.service}
@@ -108,7 +108,6 @@ export default function LearnerJourneyMap() {
               );
             })}
           </div>
-        </div>
 
         <div className="mt-10 text-center">
           <a
