@@ -761,21 +761,21 @@ export const blogPostsEn: BlogPost[] = [
     keywords: ["online exam system", "e-learning system development", "remote education platform", "LMS implementation", "e-learning system"],
   },
   {
-    id: "scorm-vs-xapi",
+    id: "video-centric-elearning",
     category: "tip",
-    title: "SCORM vs xAPI: Which E-Learning Standard Fits Your Organization?",
-    summary: "A detailed comparison of SCORM and xAPI (Tin Can) standards, including pros, cons, use cases, and migration strategies.",
+    title: "The Video-Centric E-Learning Era: Maximizing Learning Data with xAPI and cmi5",
+    summary: "Strategies for leveraging xAPI and cmi5 standards for advanced learning analytics in today's video-dominant e-learning environment.",
     content: [
-      "SCORM (Sharable Content Object Reference Model) has been the de facto e-learning standard since its creation by ADL in 2001—over 25 years. It tracks basic data like start/completion, scores, and time spent. Most LMS platforms support SCORM 1.2 and SCORM 2004.",
-      "xAPI (Experience API, formerly Tin Can API) emerged in 2013 as the next-generation standard. Using an 'Actor-Verb-Object' Statement structure, it tracks virtually all learning activities—not just browser-based learning but offline workshops, mobile apps, VR simulations, and on-the-job training, enabling true '360-degree learning analytics.'",
-      "Detailed comparison of key differences: ① Tracking scope — SCORM tracks only web browser-based learning; xAPI tracks all environments ② Data storage — SCORM stores within the LMS; xAPI stores in an independent LRS (Learning Record Store), enabling multi-system data integration ③ Content structure — SCORM requires strict packaging (PIF, manifest files); xAPI is free-form ④ Offline support — SCORM cannot; xAPI supports local storage with sync.",
-      "Practical selection criteria: Keep SCORM if you have extensive existing SCORM content and only need basic completion/score tracking. xAPI is essential if you need mobile/offline learning tracking, detailed behavior pattern analysis (page dwell time, specific interactions), or cross-system data integration.",
-      "Migration strategy: Rather than switching all at once, use a 'SCORM + xAPI hybrid' approach for gradual transition. Keep existing SCORM content running while applying xAPI only to new content. SCORM-to-xAPI conversion wrappers can also collect some xAPI data from existing SCORM content.",
-      "Keep an eye on cmi5—the latest standard combining SCORM's simplicity with xAPI's flexibility. Built on top of xAPI as 'LMS launch rules,' its adoption is growing in next-generation LMS platforms. WEBHEADS LMS supports SCORM 1.2/2004, xAPI, and cmi5, providing flexible compatibility with any content standard."
+      "As of 2026, over 85% of e-learning content is video-based. The e-learning landscape has rapidly shifted from packaged content to streaming video lectures, live virtual classes, and microlearning short-form content, driving evolution in learning data tracking methods.",
+      "xAPI (Experience API) tracks all learning activities using 'Actor-Verb-Object' Statements. Beyond browser-based learning, it captures offline workshops, mobile apps, VR simulations, and on-the-job training for true '360-degree learning analytics.'",
+      "xAPI for video learning: ① Segment-level viewing data — Track which sections learners rewatch and where they drop off, second by second ② Interaction tracking — Collect in-video quiz responses, branching scenario choices, bookmarks ③ Multi-device sync — Seamless cross-device learning continuity.",
+      "cmi5 adds standardized 'LMS launch rules' on top of xAPI's flexibility. While adoption is still growing, next-gen LMS platforms increasingly support it, providing standardized start/completion/pass status reporting for video content.",
+      "Video-centric LMS architecture essentials: ① HLS/DASH adaptive streaming — Auto-adjusts quality based on network conditions ② Global CDN distribution — Fast delivery via CloudFront, Akamai ③ DRM security — Widevine, FairPlay, PlayReady for content protection.",
+      "WEBHEADS LMS supports both xAPI and cmi5, with video-optimized streaming infrastructure and learning analytics dashboards included. Segment-level viewing analysis, drop-off point identification, and personalized content recommendations enable data-driven education operations."
     ],
     date: "2026-01-28",
     readTime: "10 min",
-    keywords: ["e-learning solution", "e-learning system", "LMS implementation", "education management", "online education platform"],
+    keywords: ["video e-learning", "xAPI", "cmi5", "video LMS", "learning analytics", "e-learning solution"],
   },
   {
     id: "cloud-lms-migration",
