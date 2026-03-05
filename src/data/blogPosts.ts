@@ -1010,21 +1010,22 @@ export const blogPostsEn: BlogPost[] = [
     keywords: ["LMS implementation", "education platform development", "e-learning solution", "LMS comparison", "e-learning system development"],
   },
   {
-    id: "scorm-xapi-guide",
+    id: "video-learning-analytics",
     category: "tip",
-    title: "SCORM vs xAPI: Which E-Learning Standard Should You Choose?",
-    summary: "A detailed comparison of the two dominant e-learning standards—SCORM and xAPI—covering differences, trade-offs, and practical adoption strategies.",
+    title: "The Evolution of Video Learning Analytics: Turning Viewing Data into Business Insights with xAPI",
+    summary: "Practical strategies for maximizing training ROI through xAPI-based learning analytics in video-centric e-learning environments.",
     content: [
-      "When loading e-learning content into an LMS, the first question is 'which standard to use?' SCORM (Sharable Content Object Reference Model) and xAPI (Experience API, formerly Tin Can API) are the two most widely used standards in the global e-learning market, each with distinct characteristics and limitations.",
-      "SCORM was developed in 2001 by ADL (Advanced Distributed Learning) under the U.S. Department of Defense. SCORM 1.2 and SCORM 2004 (Edition 4) are the de facto industry standards today. Over 95% of global LMS platforms support SCORM, and authoring tools (Articulate Storyline, Adobe Captivate, iSpring) natively support SCORM packaging. Content is packaged as a ZIP file and uploaded to the LMS, which automatically tracks progress, scores, and completion status.",
-      "SCORM limitations: ① Only tracks browser-based learning — Cannot record offline learning, mobile app learning, on-the-job training, or simulations ② Limited data model — Only transmits simple data like 'pass/fail' and 'progress %' ③ LMS-dependent — Only operates within the LMS, making external data sharing difficult ④ Concurrent access — Can cause server load issues during large-scale simultaneous learning sessions.",
-      "xAPI was released in 2013 by ADL as SCORM's successor. It records all learning experiences as Statements in the format 'Actor + Verb + Object.' Data is sent to a separate Learning Record Store (LRS), freeing it from LMS dependency. It can track learning activities across all environments—mobile apps, AR/VR, IoT devices, and on-the-job training.",
-      "xAPI adoption considerations: ① Requires LRS setup or subscription — Options include Learning Locker (open-source), Veracity LRS, Watershed ② Content creation requires direct xAPI implementation or supported authoring tools ③ Analytics capability — A systematic analytics framework to convert massive learning data into meaningful insights ④ Strategy for parallel operation with existing SCORM content.",
-      "Practical recommendation: Most organizations should 'run both' SCORM and xAPI rather than choosing one. Keep existing e-learning content in SCORM while recording new content and informal learning activities (on-the-job training, mentoring, social learning) via xAPI. WEBHEADS LMS natively supports both SCORM 1.2/2004 and xAPI, plus cmi5 for future extensibility."
+      "With 85%+ of e-learning content now video-based in 2026, video viewing data analytics has become a core competency for training operations. Beyond simple 'playback completion,' it's now possible to track which segments learners rewatch, where they drop off, and which interactions they engage with—down to the second.",
+      "xAPI-powered video analytics: ① Segment-level viewing heatmaps — Visualize per-segment viewing rates to identify focus areas and drop-off points. High-rewatch segments likely indicate difficult content, becoming improvement targets.",
+      "② Interaction tracking — Record in-video quiz accuracy, branching scenario selection patterns, bookmark positions, and playback speed changes. This data enables scientific analysis of 'which interaction types improve learning outcomes.'",
+      "③ Multi-device learning patterns — Track cross-device patterns where learners start on PC and continue on mobile. xAPI's LRS integrates data regardless of device, enabling true omnichannel learning analytics.",
+      "④ Learning outcome correlation — Connect viewing patterns with assessment scores and performance metrics to analyze 'which learning behaviors actually contribute to competency improvement.' Data-driven measurement of Kirkpatrick Level 3 (behavior change) and Level 4 (results) becomes possible.",
+      "Practical tips: ① Limit videos to under 7 minutes — Data shows completion rates drop sharply beyond 7 minutes ② Insert quizzes immediately after key concepts — Post-viewing questions improve retention by 2.5x ③ AI-based personalization — Auto-recommend content based on viewing data.",
+      "WEBHEADS LMS provides built-in xAPI video analytics dashboards, visualizing segment viewing rates, drop-off points, and interaction engagement in real-time. Monthly insight reports are auto-generated to support data-driven decision-making."
     ],
     date: "2025-11-01",
     readTime: "11 min",
-    keywords: ["SCORM", "xAPI", "e-learning standards", "LMS content", "learning management system"],
+    keywords: ["video learning analytics", "xAPI", "e-learning data", "learning analytics", "video LMS"],
   },
   {
     id: "mobile-learning-strategy",
