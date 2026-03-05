@@ -334,7 +334,7 @@ export default function LmsPage() {
             <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
             <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.aiSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             {aiFeatures.map((f: any, i: number) => {
               const Icon = aiFeatureIcons[i] || Brain;
               return (

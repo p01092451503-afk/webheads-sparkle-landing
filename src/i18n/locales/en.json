@@ -1056,10 +1056,8 @@
     "aiSection": { "sub": "AI Features", "title": "Smart & Easy Operations\nwith AI", "desc": "Leverage AI technology for a smarter digital e-learning environment." },
     "aiFeatures": [
       { "title": "AI Mock Tests & Analytics", "desc": "Leave course curation, pop quizzes, and learner analysis to AI for smarter e-learning." },
-      { "title": "Auto Multi-language Subtitles", "desc": "AI automatically generates multi-language subtitles so anyone can learn easily." },
+      { "title": "AI Voice Search & Subtitles", "desc": "Converts in-video speech to text for keyword search and segment navigation, while AI auto-generates multi-language subtitles for global learning." },
       { "title": "AI Content Summarization", "desc": "AI auto-summarizes long lecture videos and materials into key takeaways for efficient review." },
-      { "title": "AI Voice Search", "desc": "Converts in-video speech to text, letting learners jump to the exact moment a keyword is mentioned." },
-      { "title": "AI Tutor", "desc": "AI instantly answers questions during the learning process, providing personalized explanations and additional learning materials tailored to each learner's understanding." },
       { "title": "AI Chatbot", "desc": "Automatically responds 24/7 to operational questions such as enrollment, scheduling, and assignment submissions, reducing admin workload and improving learner convenience." }
     ],
     "plansSection": { "sub": "PRICING", "title": "Choose a Plan\nThat Fits Your Scale", "desc": "WEBHEADS Light LMS pricing plans. PRO requires a custom quote." },
