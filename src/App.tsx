@@ -70,7 +70,7 @@ const App = () => (
               <Route path="/service-request" element={<ServiceRequestPage />} />
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/sms-kakao" element={<SmsKakaoPage />} />
-              <Route path="/support" element={<SupportPage />} />
+              
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/event" element={<EventPage />} />
               <Route path="/overview" element={<OverviewPage />} />
