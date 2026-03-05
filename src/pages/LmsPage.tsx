@@ -32,7 +32,7 @@ import ClientMarquee from "@/components/ClientMarquee";
 
 const lightFeatureIcons = [Zap, DollarSign, Palette, Languages, ShieldCheck, RefreshCw, LineChart, MonitorSmartphone, Plug, PackageCheck];
 const proFeatureIcons = [Lock, Link2, Wrench, Headphones, HardDrive, Paintbrush, Server, KeyRound, Award];
-const aiFeatureIcons = [Brain, Subtitles, FileCheck, Search, GraduationCap, MessageSquare];
+const aiFeatureIcons = [Brain, Subtitles, FileCheck, MessageSquare];
 const allInOneIcons = [Search, Monitor, Headphones, DollarSign, Users, Bell];
 const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
