@@ -116,34 +116,50 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Service Request Banner — hide on /service-request */}
-      {location.pathname !== "/service-request" && (
-        <div className="border-t border-border">
-          <div className="container mx-auto px-6 max-w-5xl py-3.5 flex items-center justify-start gap-3 flex-wrap">
-            <a
-              href="https://help.webheads.co.kr/login.php"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
-            >
-              <Mail className="w-4 h-4" />
-              SMS 충전
-              <span className="text-primary-foreground/70">→</span>
-            </a>
-            <a
-              href="https://help.webheads.co.kr/kolluscrm.php"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity text-white"
-              style={{ backgroundColor: "hsl(192, 70%, 50%)" }}
-            >
-              <MonitorSmartphone className="w-4 h-4" />
-              원격지원 요청
-              <span className="text-white/70">→</span>
-            </a>
-          </div>
+      <div className="border-t border-border">
+        <div className="container mx-auto px-6 max-w-5xl py-3.5 flex items-center justify-start gap-3 flex-wrap">
+          <a
+            href="tel:02-540-4337"
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
+            <Phone className="w-4 h-4" />
+            {t("footer.callLabel", "대표전화 02-540-4337")}
+          </a>
+          <button
+            onClick={() => setSupportOpen(!supportOpen)}
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity text-white relative"
+            style={{ backgroundColor: "hsl(192, 70%, 50%)" }}
+          >
+            <MonitorSmartphone className="w-4 h-4" />
+            {t("header.support", "고객지원")}
+            <span className="text-white/70">→</span>
+          </button>
         </div>
-      )}
+        {supportOpen && (
+          <div className="border-t border-border">
+            <div className="container mx-auto px-6 max-w-5xl py-3 flex items-center justify-start gap-3 flex-wrap">
+              <a
+                href="https://help.webheads.co.kr/login.php"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                SMS 충전
+              </a>
+              <a
+                href="https://help.webheads.co.kr/kolluscrm.php"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full px-4 py-2 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
+              >
+                <MonitorSmartphone className="w-3.5 h-3.5" />
+                원격지원 요청
+              </a>
+            </div>
+          </div>
+        )}
+      </div>
 
       <div className="border-t border-border">
         <div className="container mx-auto px-6 max-w-5xl py-5 flex items-center justify-center">
