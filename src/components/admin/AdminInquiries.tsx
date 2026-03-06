@@ -5,6 +5,7 @@ import {
   Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2
 } from "lucide-react";
 import InquiryVisitorStats from "./InquiryVisitorStats";
+import InquiryAIAnalysis from "./InquiryAIAnalysis";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
