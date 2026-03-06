@@ -108,7 +108,7 @@ export default function InquiryVisitorStats({ sessionId }: Props) {
         {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
       </button>
 
-      {expanded && <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      {expanded && <><div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {ip && (
           <StatItem icon={Globe} label="IP" value={ip} />
         )}
