@@ -100,10 +100,11 @@ export default function InquiryVisitorStats({ sessionId }: Props) {
     <div className="mt-5 pt-4 border-t-2 border-[hsl(220,13%,88%)]">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex items-center gap-1.5 w-full text-left mb-3"
+        className="flex items-center gap-2 w-full text-left mb-3"
       >
-        <Eye className="w-3.5 h-3.5 text-muted-foreground" />
-        <span className="text-[11px] font-semibold text-muted-foreground tracking-wide">방문자 정보</span>
+        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-[hsl(221,83%,53%)]">
+          <Eye className="w-3.5 h-3.5" /> 방문자 정보
+        </span>
         <div className="flex-1" />
         {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
       </button>
