@@ -38,7 +38,7 @@ export default function StoreSubmissionSection() {
             onClick={() => setActiveTab("ios")}
             className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all duration-200 ${activeTab === "ios" ? "bg-foreground text-background shadow-lg" : "bg-background text-foreground border border-border hover:border-muted-foreground/40"}`}
           >
-            <Apple className="w-4 h-4" />
+            {appleIcon}
             {data.ios.name}
           </button>
           <button
