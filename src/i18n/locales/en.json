@@ -800,6 +800,41 @@
       { "title": "Payment Error Monitoring & CS", "desc": "Real-time success/failure monitoring, fraud detection (FDS) alerts, and automated CS support.", "tags": ["FDS", "Real-time Monitoring", "Auto CS", "Refund Mgmt"] }
     ],
     "midCTA": { "heading": "Wondering about the right payment integration for your platform?", "description": "We'll propose an optimized PG integration plan for your business model — free of charge." },
+    "domesticPgSection": {
+      "sub": "DOMESTIC PG PROVIDERS",
+      "title": "Korea's Top 4\nPayment Systems for E-Learning",
+      "desc": "WEBHEADS integrates Korea's leading PG providers optimized for education platforms. We identify each provider's strengths and configure the ideal payment environment for your business."
+    },
+    "domesticPgProviders": [
+      {
+        "name": "Toss Payments",
+        "badge": "Fastest Integration",
+        "desc": "Toss Payments is Korea's fastest-growing PG provider, known for its intuitive payment UI/UX and developer-friendly APIs. With clean REST API documentation and SDKs, integration timelines are significantly reduced. It supports all major quick-pay options including TossPay, NaverPay, and KakaoPay in a single integration.",
+        "strengths": ["Developer-friendly REST API", "All-in-one quick pay support", "Real-time settlement dashboard", "Auto recurring billing"],
+        "bestFor": "Platforms needing fast integration and modern payment UX"
+      },
+      {
+        "name": "KG Inicis",
+        "badge": "#1 Market Share",
+        "desc": "Established in 1998, KG Inicis maintains the #1 market share in Korea's online payment industry. With over 200,000 merchants, it provides the widest range of payment methods including credit cards, bank transfers, virtual accounts, and mobile payments. High-volume traffic handling and exceptional payment success rates are its core strengths.",
+        "strengths": ["200K+ merchant infrastructure", "99.99% uptime guarantee", "All payment methods supported", "High-volume traffic handling"],
+        "bestFor": "Large platforms requiring stability and comprehensive payment options"
+      },
+      {
+        "name": "Mobilians",
+        "badge": "Mobile Payment Specialist",
+        "desc": "Mobilians specializes in carrier billing through Korea's three major telecom operators (SKT, KT, LG U+). Payments can be made using just a mobile phone number without a credit card, making it especially useful for learners without credit cards or for micro-content purchases. It also achieves high payment success rates for monthly auto-payments and subscriptions.",
+        "strengths": ["Direct integration with 3 carriers", "Payment without credit card", "Micro-content optimized", "Monthly auto-payment support"],
+        "bestFor": "Micro-content sales and reaching learners without credit cards"
+      },
+      {
+        "name": "PayTeacher",
+        "badge": "Education Specialized",
+        "desc": "PayTeacher is a PG provider optimized for tuition payments at educational institutions and academies. It provides essential education industry payment features by default, including installment payments, auto-transfer, and automatic tuition billing. Its strengths include HRD-Net subsidy course payment integration and education-specific settlement reports — features not available from other PG providers.",
+        "strengths": ["Installment auto-management", "Auto tuition billing", "HRD-Net subsidy integration", "Education settlement reports"],
+        "bestFor": "Educational institutions needing installments and auto-transfers"
+      }
+    ],
     "partnersSection": { "sub": "PG PARTNERS", "title": "Integrated Domestic &\nGlobal PG Partners", "desc": "We select and integrate the optimal PG provider for your business model." },
     "pgPartners": [
       { "name": "Toss Payments", "category": "Domestic PG", "desc": "Unified credit card & quick pay" },

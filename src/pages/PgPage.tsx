@@ -78,6 +78,41 @@ export default function PgPage() {
 
       <ServiceMidCTA heading={t("pg.midCTA.heading")} description={t("pg.midCTA.description")} />
 
+      {/* Domestic PG Providers */}
+      <section className="py-28 bg-secondary">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.domesticPgSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("pg.domesticPgSection.title")}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{t("pg.domesticPgSection.desc")}</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {(t("pg.domesticPgProviders", { returnObjects: true }) as any[]).map((provider: any) => (
+              <div key={provider.name} className="rounded-2xl bg-background border border-border hover:border-primary/30 hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col">
+                <div className="p-7 flex flex-col gap-4 flex-1">
+                  <div className="flex items-center gap-3">
+                    <h3 className="font-bold text-foreground text-lg tracking-tight">{provider.name}</h3>
+                    <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">{provider.badge}</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm leading-relaxed" style={{ wordBreak: "keep-all" }}>{provider.desc}</p>
+                  <ul className="flex flex-col gap-2 mt-1">
+                    {provider.strengths.map((s: string) => (
+                      <li key={s} className="flex items-center gap-2 text-sm">
+                        <span className="text-primary font-bold shrink-0">✓</span>
+                        <span className="text-foreground">{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-auto pt-4 border-t border-border/60">
+                    <p className="text-xs text-muted-foreground"><span className="font-semibold text-foreground">Best for:</span> {provider.bestFor}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* PG Partners */}
       <section id="partners" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
