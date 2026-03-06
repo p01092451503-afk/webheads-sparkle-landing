@@ -2,15 +2,11 @@ import { useState, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
-  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2
+  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2, AlertTriangle
 } from "lucide-react";
 import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
-import {
-  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
 
