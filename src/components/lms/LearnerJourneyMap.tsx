@@ -96,7 +96,7 @@ export default function LearnerJourneyMap() {
                       Step {i + 1}
                     </span>
                     <h4 className="font-bold text-foreground text-sm mt-0.5">{step.label}</h4>
-                    <p className="text-xs text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                    <p className="text-sm text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                     <span
                       className="inline-block text-[11px] font-semibold px-2.5 py-0.5 rounded-full mt-2"
                       style={{ background: `hsl(0 0% 100% / 0.8)`, color }}
