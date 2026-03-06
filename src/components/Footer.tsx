@@ -55,7 +55,7 @@ export default function Footer() {
                 <p className="text-[14px] font-normal text-foreground/70" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{t("footer.privacy")}</p>
                 <button
                   onClick={() => setPrivacyOpen(true)}
-                  className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
+                  className="self-start inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
                 >
                   {t("footer.privacyPolicy")}
                 </button>
