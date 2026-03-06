@@ -291,8 +291,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       </div>
                     </div>
 
+                    {/* Visitor Stats */}
+                    <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
+
                     {/* Delete */}
-                    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <button className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] hover:bg-[hsl(0,84%,60%,0.1)] transition-all active:scale-[0.96]">
