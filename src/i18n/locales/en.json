@@ -1074,6 +1074,7 @@
       { "title": "Trendy Templates", "desc": "Design templates that enable easy management without experts" },
       { "title": "Multi-language", "desc": "Support for 11 languages including English, Chinese, and Japanese" },
       { "title": "DRM & Watermark", "desc": "Video security and anti-piracy via Catenoid (Kollus)" },
+      { "title": "PG Payment", "desc": "Toss Payments included by default for credit card, bank transfer & easy pay" },
       { "title": "Auto Updates", "desc": "Latest features and security patches applied automatically" },
       { "title": "Learning Analytics", "desc": "Real-time dashboard for learner progress, completion rates, and performance" },
       { "title": "Mobile Optimized", "desc": "Responsive UI across PC, tablet, and mobile for seamless learning" },
@@ -1089,6 +1090,7 @@
       { "title": "White Labeling", "desc": "Full UI/UX customization to match your brand identity" },
       { "title": "On-premise Deploy", "desc": "Install and operate directly on your own IDC, AWS, or cloud environment" },
       { "title": "SSO & LDAP", "desc": "Unified authentication with your corporate account system" },
+      { "title": "PG Payment", "desc": "Multiple PG integrations: Toss, Inicis, Mobilians, PayTeacher & more" },
       { "title": "Standard API", "desc": "RESTful API for seamless integration with existing systems" },
       { "title": "SLA Guarantee", "desc": "99.9% uptime guarantee with emergency response protocols" }
     ],
