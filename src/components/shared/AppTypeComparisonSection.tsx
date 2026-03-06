@@ -44,7 +44,6 @@ export default function AppTypeComparisonSection() {
                 }`}
               >
                 {type.name}
-                {type.name}
               </button>
             );
           })}
