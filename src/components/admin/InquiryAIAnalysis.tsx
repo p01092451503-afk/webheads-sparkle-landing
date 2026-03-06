@@ -202,7 +202,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
             <div className="mt-3 rounded-xl border border-[hsl(262,60%,85%)] bg-[hsl(262,60%,97%)] px-4 py-3">
               <div className="flex items-center gap-2 mb-2">
                 <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold text-white bg-[hsl(262,83%,58%)]">
-                  📋 추천 요금제 & 커스터마이징 요약
+                  추천 요금제 & 커스터마이징 요약
                 </span>
               </div>
               <div className="text-[11px] text-foreground/80 leading-[1.8]">
