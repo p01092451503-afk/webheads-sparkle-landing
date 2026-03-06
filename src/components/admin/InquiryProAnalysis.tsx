@@ -217,13 +217,56 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
 
   // LOADING state
   if (state === "loading") {
+    const steps = [
+      { key: "requesting", label: "AI 요청 전송 중", desc: "Edge Function에 분석 요청을 보내고 있습니다" },
+      { key: "analyzing", label: "AI 분석 중", desc: "고객 프로파일, 비용 시나리오, 리스크를 분석하고 있습니다" },
+      { key: "retrying", label: `재시도 중 (${retryCount}/2)`, desc: "네트워크 오류로 재시도합니다. 잠시만 기다려주세요" },
+      { key: "saving", label: "결과 저장 중", desc: "분석 결과를 데이터베이스에 저장하고 있습니다" },
+    ];
+    const activeIdx = steps.findIndex((s) => s.key === progressStep);
+
     return (
       <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
-        <div className="flex items-center gap-3 px-4 py-4 rounded-xl border border-[hsl(37,60%,85%)] bg-[hsl(37,60%,97%)]">
-          <Loader2 className="w-4 h-4 animate-spin text-[hsl(37,90%,51%)]" />
-          <div>
-            <p className="text-[11px] font-semibold text-[hsl(37,90%,41%)]">Pro 분석 중...</p>
-            <p className="text-[9px] text-muted-foreground mt-0.5">고객 프로파일, 비용 시나리오, 리스크 분석, 이메일 초안을 생성하고 있습니다</p>
+        <div className="rounded-xl border border-[hsl(37,60%,85%)] bg-[hsl(37,60%,97%)] p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin text-[hsl(37,90%,51%)]" />
+              <p className="text-[12px] font-bold text-[hsl(37,90%,41%)]">Pro 분석 진행 중</p>
+            </div>
+            <span className="text-[10px] font-mono text-muted-foreground tabular-nums">{elapsedSec}초</span>
+          </div>
+          <div className="space-y-2">
+            {steps.map((step, i) => {
+              const isCurrent = i === activeIdx;
+              const isDone = i < activeIdx;
+              const isRetryHidden = step.key === "retrying" && progressStep !== "retrying" && activeIdx < 2;
+              if (isRetryHidden) return null;
+              return (
+                <div key={step.key} className="flex items-start gap-2.5">
+                  <div className="mt-0.5 shrink-0">
+                    {isDone ? (
+                      <div className="w-4 h-4 rounded-full bg-[hsl(152,57%,42%)] flex items-center justify-center">
+                        <Check className="w-2.5 h-2.5 text-white" />
+                      </div>
+                    ) : isCurrent ? (
+                      <div className="w-4 h-4 rounded-full border-2 border-[hsl(37,90%,51%)] flex items-center justify-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[hsl(37,90%,51%)] animate-pulse" />
+                      </div>
+                    ) : (
+                      <div className="w-4 h-4 rounded-full border-2 border-[hsl(220,13%,85%)]" />
+                    )}
+                  </div>
+                  <div>
+                    <p className={`text-[11px] font-semibold ${isCurrent ? "text-[hsl(37,90%,41%)]" : isDone ? "text-[hsl(152,57%,42%)]" : "text-muted-foreground/50"}`}>
+                      {step.label}
+                    </p>
+                    {isCurrent && (
+                      <p className="text-[9px] text-muted-foreground mt-0.5">{step.desc}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
