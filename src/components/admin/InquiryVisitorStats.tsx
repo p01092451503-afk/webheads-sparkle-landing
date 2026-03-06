@@ -166,6 +166,7 @@ export default function InquiryVisitorStats({ sessionId }: Props) {
           </p>
         </div>
       </div>
+      </>}
     </div>
   );
 }
