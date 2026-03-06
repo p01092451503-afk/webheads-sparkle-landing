@@ -4,6 +4,7 @@ import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
   Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2
 } from "lucide-react";
+import InquiryVisitorStats from "./InquiryVisitorStats";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
