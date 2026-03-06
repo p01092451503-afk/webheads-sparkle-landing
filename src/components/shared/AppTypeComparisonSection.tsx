@@ -99,7 +99,7 @@ export default function AppTypeComparisonSection() {
             <div className="rounded-2xl bg-secondary border border-border p-6 md:p-7">
               <div className="flex items-center gap-2 mb-4">
                 <ThumbsDown className="w-4 h-4" style={{ color: "hsl(0, 60%, 50%)" }} />
-                <h4 className="font-bold text-foreground text-sm">단점</h4>
+                <h4 className="font-bold text-foreground text-sm">{data.consLabel}</h4>
               </div>
               <ul className="flex flex-col gap-2.5">
                 {activeType.cons.map((con: string, i: number) => (
