@@ -223,7 +223,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
                   추천 요금제 & 커스터마이징 요약
                 </span>
               </div>
-              <div className="text-[11px] text-foreground/80 leading-[1.8]">
+              <div style={{ fontSize: `${fontSize}px` }} className="text-foreground/80 leading-[1.8]">
                 <SectionContent lines={summary.split("\n").filter(l => l.trim())} />
               </div>
             </div>
