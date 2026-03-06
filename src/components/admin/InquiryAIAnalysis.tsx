@@ -91,11 +91,13 @@ export default function InquiryAIAnalysis({ inquiry }: Props) {
       {expanded && (
         <div className="bg-white rounded-xl p-5 border border-[hsl(220,13%,93%)] prose prose-sm max-w-none
           prose-headings:text-foreground prose-headings:font-bold prose-headings:tracking-tight
-          prose-h3:text-[14px] prose-h3:mt-5 prose-h3:mb-2
-          prose-p:text-[13px] prose-p:text-foreground/80 prose-p:leading-relaxed
-          prose-li:text-[13px] prose-li:text-foreground/80
+          prose-h3:text-[13px] prose-h3:mt-6 prose-h3:mb-2 prose-h3:pb-1.5 prose-h3:border-b prose-h3:border-[hsl(220,13%,93%)]
+          prose-p:text-[10px] prose-p:text-foreground/80 prose-p:leading-[1.7] prose-p:my-1
+          prose-li:text-[10px] prose-li:text-foreground/80 prose-li:leading-[1.7] prose-li:my-0.5
           prose-strong:text-foreground prose-strong:font-semibold
-          prose-ul:my-1 prose-ol:my-1
+          prose-ul:my-1.5 prose-ol:my-1.5 prose-ul:pl-4 prose-ol:pl-4
+          prose-hr:my-4 prose-hr:border-[hsl(220,13%,93%)]
+          prose-code:text-[10px]
         ">
           <MarkdownRenderer content={result} />
           <div className="mt-4 pt-3 border-t border-[hsl(220,13%,93%)] flex items-center gap-2">
@@ -182,5 +184,5 @@ function inlineFormat(text: string): string {
   return text
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/`(.+?)`/g, '<code class="text-[12px] px-1 py-0.5 rounded bg-muted text-foreground">$1</code>');
+    .replace(/`(.+?)`/g, '<code class="text-[10px] px-1 py-0.5 rounded bg-muted text-foreground">$1</code>');
 }
