@@ -105,6 +105,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      <AppTypeComparisonSection />
       <StoreSubmissionSection />
       <ServiceProcess bg="bg-secondary" steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
       <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
