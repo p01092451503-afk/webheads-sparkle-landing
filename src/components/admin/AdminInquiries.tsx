@@ -4,6 +4,7 @@ import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
   Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2
 } from "lucide-react";
+import InquiryVisitorStats from "./InquiryVisitorStats";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
@@ -289,6 +290,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                         })}
                       </div>
                     </div>
+
+                    {/* Visitor Stats */}
+                    <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
 
                     {/* Delete */}
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
