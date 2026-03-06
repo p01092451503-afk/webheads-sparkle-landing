@@ -20,7 +20,7 @@ export default function AppTypeComparisonSection() {
   const ActiveIcon = typeIcons[activeIdx];
 
   return (
-    <section className="py-16 md:py-28 bg-background">
+    <section className="py-16 md:py-28 bg-secondary">
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         {/* Header */}
         <div className="mb-10 md:mb-16">
