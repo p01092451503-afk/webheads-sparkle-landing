@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Sparkles, Download } from "lucide-react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 interface Props {
   inquiry: any;
@@ -35,7 +37,6 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
       setResult(analysis);
       setState("done");
 
-      // Save to DB
       await supabase
         .from("contact_inquiries")
         .update({ ai_analysis: analysis } as any)
@@ -46,6 +47,66 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
       setState("error");
     }
   };
+
+  const exportPDF = useCallback(() => {
+    const sections = parseSections(result);
+    const summary = extractSummary(sections);
+    const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+    // Load NotoSansKR font (base64 embedded is too large, use built-in fallback)
+    doc.setFont("helvetica");
+
+    // Title
+    doc.setFontSize(16);
+    doc.setTextColor(88, 55, 163); // purple
+    doc.text("AI Analysis Report", 14, 20);
+
+    // Inquiry info
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    const infoLines = [
+      `Company: ${inquiry.company || "-"}`,
+      `Contact: ${inquiry.name || "-"} / ${inquiry.phone || "-"} / ${inquiry.email || "-"}`,
+      `Service: ${inquiry.service || "-"}`,
+      `Type: ${inquiry.inquiry_type === "demo" ? "Demo" : "Consultation"}`,
+      `Date: ${new Date(inquiry.created_at).toLocaleDateString("ko-KR")}`,
+    ];
+    infoLines.forEach((line, i) => doc.text(line, 14, 30 + i * 5));
+
+    // Analysis table
+    const tableData = sections.map((s) => [
+      s.title,
+      s.lines.map((l) => stripMarkdown(l)).join("\n"),
+    ]);
+
+    autoTable(doc, {
+      startY: 56,
+      head: [["Section", "Details"]],
+      body: tableData,
+      styles: { fontSize: 8, cellPadding: 3, overflow: "linebreak" },
+      headStyles: { fillColor: [88, 55, 163], textColor: 255, fontStyle: "bold" },
+      columnStyles: { 0: { cellWidth: 42, fontStyle: "bold" }, 1: { cellWidth: 140 } },
+      theme: "grid",
+    });
+
+    // Summary box
+    if (summary) {
+      const finalY = (doc as any).lastAutoTable?.finalY || 200;
+      const boxY = finalY + 8;
+      doc.setDrawColor(88, 55, 163);
+      doc.setFillColor(248, 245, 255);
+      doc.roundedRect(14, boxY, 182, 30, 3, 3, "FD");
+      doc.setFontSize(10);
+      doc.setTextColor(88, 55, 163);
+      doc.text("Recommended Plan & Customization Summary", 20, boxY + 7);
+      doc.setFontSize(8);
+      doc.setTextColor(60, 60, 60);
+      const summaryText = doc.splitTextToSize(summary, 170);
+      doc.text(summaryText, 20, boxY + 14);
+    }
+
+    doc.save(`AI_Analysis_${inquiry.company || "report"}_${new Date().toISOString().slice(0, 10)}.pdf`);
+  }, [result, inquiry]);
 
   if (state === "idle") {
     return (
@@ -86,49 +147,98 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
     );
   }
 
-  // Parse sections from markdown
   const sections = parseSections(result);
+  const summary = extractSummary(sections);
 
   return (
-    <div className="mt-5 pt-4 border-t-2 border-[hsl(220,13%,88%)]">
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="flex items-center gap-2 w-full text-left mb-3"
-      >
-        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-[hsl(262,83%,58%)]">
-          <Sparkles className="w-3.5 h-3.5" /> AI 제안 전략
-        </span>
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)] font-semibold">저장됨</span>
-        <div className="flex-1" />
-        {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
-      </button>
+    <div className="mt-5 pt-4 border-t border-[hsl(220,13%,91%)]">
+      <div className="flex items-center gap-2 mb-3">
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className="flex items-center gap-2 flex-1 text-left"
+        >
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-[hsl(262,83%,58%)]">
+            <Sparkles className="w-3.5 h-3.5" /> AI 제안 전략
+          </span>
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)] font-semibold">저장됨</span>
+          <div className="flex-1" />
+          {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
+        </button>
+        <button
+          onClick={exportPDF}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:opacity-90 transition-opacity active:scale-[0.97]"
+        >
+          <Download className="w-3 h-3" /> PDF
+        </button>
+      </div>
 
       {expanded && (
-        <div className="bg-white rounded-xl border border-[hsl(220,13%,91%)] overflow-hidden">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-muted">
-                <th className="w-[26%] text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-r border-b border-[hsl(220,13%,91%)]">항목</th>
-                <th className="text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-b border-[hsl(220,13%,91%)]">분석 내용</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sections.map((section, idx) => (
-                <tr key={idx} className={`${idx % 2 === 1 ? "bg-muted/30" : ""} border-b border-[hsl(220,13%,91%)] last:border-b-0`}>
-                  <td className="align-top text-[11px] font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,91%)] whitespace-nowrap">
-                    {section.title}
-                  </td>
-                  <td className="align-top px-4 py-3 text-[11px] text-foreground/80 leading-[1.7]">
-                    <SectionContent lines={section.lines} />
-                  </td>
+        <>
+          <div className="bg-white rounded-xl border border-[hsl(220,13%,91%)] overflow-hidden">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-muted">
+                  <th className="w-[26%] text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-r border-b border-[hsl(220,13%,91%)]">항목</th>
+                  <th className="text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-b border-[hsl(220,13%,91%)]">분석 내용</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {sections.map((section, idx) => (
+                  <tr key={idx} className={`${idx % 2 === 1 ? "bg-muted/30" : ""} border-b border-[hsl(220,13%,91%)] last:border-b-0`}>
+                    <td className="align-top text-[11px] font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,91%)] whitespace-nowrap">
+                      {section.title}
+                    </td>
+                    <td className="align-top px-4 py-3 text-[11px] text-foreground/80 leading-[1.7]">
+                      <SectionContent lines={section.lines} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Summary: Recommended plan + customization */}
+          {summary && (
+            <div className="mt-3 rounded-xl border border-[hsl(262,60%,85%)] bg-[hsl(262,60%,97%)] px-4 py-3">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold text-white bg-[hsl(262,83%,58%)]">
+                  📋 추천 요금제 & 커스터마이징 요약
+                </span>
+              </div>
+              <div className="text-[11px] text-foreground/80 leading-[1.8]">
+                <SectionContent lines={summary.split("\n").filter(l => l.trim())} />
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
+}
+
+/** Extract the recommended plan + customization cost lines from sections */
+function extractSummary(sections: { title: string; lines: string[] }[]): string | null {
+  const planSection = sections.find(s =>
+    s.title.includes("추천 요금제") || s.title.includes("예상 비용") || s.title.includes("비용")
+  );
+  const customSection = sections.find(s =>
+    s.title.includes("커스터마이징")
+  );
+
+  const parts: string[] = [];
+  if (planSection) {
+    parts.push(...planSection.lines.map(l => stripMarkdown(l)));
+  }
+  if (customSection) {
+    // Add a condensed version: only lines with costs
+    const costLines = customSection.lines.filter(l => /원|비용|추가/i.test(l));
+    if (costLines.length > 0) {
+      parts.push("--- 커스터마이징 항목 ---");
+      parts.push(...costLines.map(l => stripMarkdown(l)));
+    }
+  }
+
+  return parts.length > 0 ? parts.join("\n") : null;
 }
 
 // Parse markdown into sections split by ### headers
@@ -179,6 +289,14 @@ function SectionContent({ lines }: { lines: string[] }) {
 
 function stripEmoji(text: string): string {
   return text.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{1F000}-\u{1FFFF}]/gu, "").trim();
+}
+
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/`(.+?)`/g, "$1")
+    .replace(/^[-*]\s/, "• ");
 }
 
 function inlineFormat(text: string): string {
