@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp, Zap, Copy, Mail, Check, RefreshCw, AlertTriangle, Shield, Target, TrendingUp } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Zap, Copy, Mail, Check, RefreshCw, AlertTriangle, Target } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 
