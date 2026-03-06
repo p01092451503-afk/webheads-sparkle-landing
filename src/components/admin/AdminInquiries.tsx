@@ -318,6 +318,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     {/* AI Analysis */}
                     <InquiryAIAnalysis inquiry={selectedInquiry} />
 
+                    {/* AI Pro Analysis */}
+                    <InquiryProAnalysis inquiry={selectedInquiry} />
+
                     {/* Delete */}
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
                       <button
