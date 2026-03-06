@@ -131,7 +131,21 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
         response_email_draft: (data as any).response_email_draft,
         meeting_agenda: (data as any).meeting_agenda,
       });
+      setIsFrozen(!!(data as any).is_frozen);
       setState("done");
+    }
+  };
+
+  const freezeAnalysis = async () => {
+    setFreezing(true);
+    try {
+      await supabase
+        .from("inquiry_analyses" as any)
+        .update({ is_frozen: true } as any)
+        .eq("inquiry_id", inquiry.id);
+      setIsFrozen(true);
+    } finally {
+      setFreezing(false);
     }
   };
 
