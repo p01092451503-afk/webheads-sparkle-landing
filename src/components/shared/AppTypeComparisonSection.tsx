@@ -65,7 +65,7 @@ export default function AppTypeComparisonSection() {
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed" style={{ wordBreak: "keep-all" }}>{activeType.definition}</p>
               <div className="pt-3 border-t border-border/60">
-                <p className="text-xs font-semibold text-foreground mb-1.5">개발 방법</p>
+                <p className="text-xs font-semibold text-foreground mb-1.5">{data.devMethodLabel}</p>
                 <p className="text-muted-foreground text-xs leading-relaxed" style={{ wordBreak: "keep-all" }}>{activeType.devMethod}</p>
               </div>
             </div>
