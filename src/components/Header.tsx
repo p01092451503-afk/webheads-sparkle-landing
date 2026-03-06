@@ -4,7 +4,7 @@ import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, Scre
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
+const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app", "/drm", "/channel", "/pg", "/content"];
 
 // Solid colors per service for the organic blob nav indicator
 const serviceBlobColors: Record<string, string> = {
