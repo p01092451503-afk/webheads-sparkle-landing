@@ -150,6 +150,7 @@ export type Database = {
           feature_mapping: Json | null
           id: string
           inquiry_id: string
+          is_frozen: boolean
           meeting_agenda: Json | null
           recommended_plan: string | null
           response_email_draft: string | null
@@ -165,6 +166,7 @@ export type Database = {
           feature_mapping?: Json | null
           id?: string
           inquiry_id: string
+          is_frozen?: boolean
           meeting_agenda?: Json | null
           recommended_plan?: string | null
           response_email_draft?: string | null
@@ -180,6 +182,7 @@ export type Database = {
           feature_mapping?: Json | null
           id?: string
           inquiry_id?: string
+          is_frozen?: boolean
           meeting_agenda?: Json | null
           recommended_plan?: string | null
           response_email_draft?: string | null

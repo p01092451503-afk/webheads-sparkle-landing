@@ -148,7 +148,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90"
           style={{ background: "linear-gradient(135deg, hsl(262, 83%, 58%), hsl(221, 83%, 53%))" }}
         >
-          AI 제안 전략 분석
+          AI 기초 분석
         </button>
       </div>
     );
@@ -190,7 +190,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
           className="flex items-center gap-2 flex-1 text-left"
         >
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white bg-[hsl(262,83%,58%)]">
-            <Sparkles className="w-3.5 h-3.5" /> AI 제안 전략
+            <Sparkles className="w-3.5 h-3.5" /> AI 기초 분석
           </span>
           <span className="text-[10px] px-2 py-0.5 rounded-full bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)] font-semibold">저장됨</span>
           <div className="flex-1" />

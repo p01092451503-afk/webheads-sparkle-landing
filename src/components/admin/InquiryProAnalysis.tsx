@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp, Zap, Copy, Mail, Check, RefreshCw, AlertTriangle, Target } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Zap, Copy, Mail, Check, RefreshCw, AlertTriangle, Target, Lock, Shield } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 
@@ -89,6 +89,8 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
   const [error, setError] = useState("");
   const [expanded, setExpanded] = useState(true);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [isFrozen, setIsFrozen] = useState(false);
+  const [freezing, setFreezing] = useState(false);
   const [progressStep, setProgressStep] = useState<"requesting" | "analyzing" | "retrying" | "saving" | "done">("requesting");
   const [retryCount, setRetryCount] = useState(0);
   const [elapsedSec, setElapsedSec] = useState(0);
@@ -129,7 +131,21 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
         response_email_draft: (data as any).response_email_draft,
         meeting_agenda: (data as any).meeting_agenda,
       });
+      setIsFrozen(!!(data as any).is_frozen);
       setState("done");
+    }
+  };
+
+  const freezeAnalysis = async () => {
+    setFreezing(true);
+    try {
+      await supabase
+        .from("inquiry_analyses" as any)
+        .update({ is_frozen: true } as any)
+        .eq("inquiry_id", inquiry.id);
+      setIsFrozen(true);
+    } finally {
+      setFreezing(false);
     }
   };
 
@@ -209,7 +225,7 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90"
           style={{ background: "linear-gradient(135deg, hsl(37, 90%, 51%), hsl(15, 90%, 55%))" }}
         >
-          <Zap className="w-4 h-4" /> AI 제안 전략 Pro 분석
+          <Zap className="w-4 h-4" /> AI 영업 전략 리포트
         </button>
       </div>
     );
@@ -319,9 +335,14 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
         <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-2 flex-1 text-left">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white" style={{ background: "linear-gradient(135deg, hsl(37, 90%, 51%), hsl(15, 90%, 55%))" }}>
-            <Zap className="w-3.5 h-3.5" /> AI 제안 전략 Pro
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white" style={{ background: isFrozen ? "linear-gradient(135deg, hsl(220, 60%, 45%), hsl(220, 70%, 55%))" : "linear-gradient(135deg, hsl(37, 90%, 51%), hsl(15, 90%, 55%))" }}>
+            {isFrozen ? <Shield className="w-3.5 h-3.5" /> : <Zap className="w-3.5 h-3.5" />} AI 영업 전략 리포트
           </span>
+          {isFrozen && (
+            <span className="text-[9px] px-2 py-0.5 rounded-full font-bold text-white bg-[hsl(220,60%,50%)] flex items-center gap-1">
+              <Lock className="w-2.5 h-2.5" /> 확정
+            </span>
+          )}
           <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: pc.bg, color: pc.text }}>
             {analysis.strategic_score.priority}
           </span>
@@ -331,12 +352,23 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
           <div className="flex-1" />
           {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
         </button>
-        <button
-          onClick={runAnalysis}
-          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold text-[hsl(37,90%,41%)] bg-[hsl(37,90%,51%,0.08)] hover:bg-[hsl(37,90%,51%,0.14)] transition-colors"
-        >
-          <RefreshCw className="w-3 h-3" /> 재분석
-        </button>
+        {!isFrozen && (
+          <>
+            <button
+              onClick={freezeAnalysis}
+              disabled={freezing}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold text-white bg-[hsl(220,60%,50%)] hover:bg-[hsl(220,60%,45%)] transition-colors disabled:opacity-50"
+            >
+              {freezing ? <Loader2 className="w-3 h-3 animate-spin" /> : <Lock className="w-3 h-3" />} 확정
+            </button>
+            <button
+              onClick={runAnalysis}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold text-[hsl(37,90%,41%)] bg-[hsl(37,90%,51%,0.08)] hover:bg-[hsl(37,90%,51%,0.14)] transition-colors"
+            >
+              <RefreshCw className="w-3 h-3" /> 재분석
+            </button>
+          </>
+        )}
       </div>
 
       {expanded && (
