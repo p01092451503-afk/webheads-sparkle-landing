@@ -12,7 +12,7 @@ const serviceBlobColors: Record<string, string> = {
   "/hosting": "hsl(250, 55%, 52%)",
   "/maintenance": "hsl(250, 55%, 52%)",
   "/chatbot": "hsl(192, 50%, 42%)",
-  "/app-dev": "hsl(192, 50%, 42%)",
+  "/app": "hsl(192, 50%, 42%)",
   "/drm": "hsl(235, 45%, 48%)",
   "/channel": "hsl(192, 50%, 42%)",
   "/pg": "hsl(235, 45%, 48%)",
