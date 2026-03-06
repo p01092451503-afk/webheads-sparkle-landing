@@ -49,28 +49,56 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
     }
   };
 
-  const exportPDF = useCallback(() => {
+  const exportPDF = useCallback(async () => {
     const sections = parseSections(result);
     const summary = extractSummary(sections);
+
+    // Load Noto Sans KR font for Korean support
+    const fontUrl = "https://cdn.jsdelivr.net/gh/nicholasgasior/gfonts-subset@master/files/NotoSansKR-Regular.ttf";
+    const fontBoldUrl = "https://cdn.jsdelivr.net/gh/nicholasgasior/gfonts-subset@master/files/NotoSansKR-Bold.ttf";
+
+    let fontBase64 = "";
+    let fontBoldBase64 = "";
+    try {
+      const [res, resBold] = await Promise.all([fetch(fontUrl), fetch(fontBoldUrl)]);
+      const [buf, bufBold] = await Promise.all([res.arrayBuffer(), resBold.arrayBuffer()]);
+      fontBase64 = btoa(String.fromCharCode(...new Uint8Array(buf)));
+      fontBoldBase64 = btoa(String.fromCharCode(...new Uint8Array(bufBold)));
+    } catch {
+      console.warn("Font load failed, falling back to helvetica");
+    }
+
     const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
 
-    // Load NotoSansKR font (base64 embedded is too large, use built-in fallback)
-    doc.setFont("helvetica");
+    const hasKoreanFont = fontBase64.length > 0;
+    if (hasKoreanFont) {
+      doc.addFileToVFS("NotoSansKR-Regular.ttf", fontBase64);
+      doc.addFont("NotoSansKR-Regular.ttf", "NotoSansKR", "normal");
+      doc.addFileToVFS("NotoSansKR-Bold.ttf", fontBoldBase64);
+      doc.addFont("NotoSansKR-Bold.ttf", "NotoSansKR", "bold");
+      doc.setFont("NotoSansKR");
+    } else {
+      doc.setFont("helvetica");
+    }
+
+    const fontFamily = hasKoreanFont ? "NotoSansKR" : "helvetica";
 
     // Title
+    doc.setFont(fontFamily, "bold");
     doc.setFontSize(16);
-    doc.setTextColor(88, 55, 163); // purple
+    doc.setTextColor(88, 55, 163);
     doc.text("AI Analysis Report", 14, 20);
 
     // Inquiry info
+    doc.setFont(fontFamily, "normal");
     doc.setFontSize(9);
     doc.setTextColor(100, 100, 100);
     const infoLines = [
-      `Company: ${inquiry.company || "-"}`,
-      `Contact: ${inquiry.name || "-"} / ${inquiry.phone || "-"} / ${inquiry.email || "-"}`,
-      `Service: ${inquiry.service || "-"}`,
-      `Type: ${inquiry.inquiry_type === "demo" ? "Demo" : "Consultation"}`,
-      `Date: ${new Date(inquiry.created_at).toLocaleDateString("ko-KR")}`,
+      `회사: ${inquiry.company || "-"}`,
+      `담당자: ${inquiry.name || "-"} / ${inquiry.phone || "-"} / ${inquiry.email || "-"}`,
+      `서비스: ${inquiry.service || "-"}`,
+      `유형: ${inquiry.inquiry_type === "demo" ? "데모 요청" : "상담 요청"}`,
+      `날짜: ${new Date(inquiry.created_at).toLocaleDateString("ko-KR")}`,
     ];
     infoLines.forEach((line, i) => doc.text(line, 14, 30 + i * 5));
 
@@ -82,10 +110,10 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
 
     autoTable(doc, {
       startY: 56,
-      head: [["Section", "Details"]],
+      head: [["항목", "분석 내용"]],
       body: tableData,
-      styles: { fontSize: 8, cellPadding: 3, overflow: "linebreak" },
-      headStyles: { fillColor: [88, 55, 163], textColor: 255, fontStyle: "bold" },
+      styles: { fontSize: 8, cellPadding: 3, overflow: "linebreak", font: fontFamily },
+      headStyles: { fillColor: [88, 55, 163], textColor: 255, fontStyle: "bold", font: fontFamily },
       columnStyles: { 0: { cellWidth: 42, fontStyle: "bold" }, 1: { cellWidth: 140 } },
       theme: "grid",
     });
@@ -94,15 +122,18 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
     if (summary) {
       const finalY = (doc as any).lastAutoTable?.finalY || 200;
       const boxY = finalY + 8;
+      const summaryText = doc.splitTextToSize(summary, 170);
+      const boxHeight = Math.max(30, summaryText.length * 4 + 16);
       doc.setDrawColor(88, 55, 163);
       doc.setFillColor(248, 245, 255);
-      doc.roundedRect(14, boxY, 182, 30, 3, 3, "FD");
+      doc.roundedRect(14, boxY, 182, boxHeight, 3, 3, "FD");
+      doc.setFont(fontFamily, "bold");
       doc.setFontSize(10);
       doc.setTextColor(88, 55, 163);
-      doc.text("Recommended Plan & Customization Summary", 20, boxY + 7);
+      doc.text("추천 요금제 & 커스터마이징 요약", 20, boxY + 7);
+      doc.setFont(fontFamily, "normal");
       doc.setFontSize(8);
       doc.setTextColor(60, 60, 60);
-      const summaryText = doc.splitTextToSize(summary, 170);
       doc.text(summaryText, 20, boxY + 14);
     }
 
