@@ -2,15 +2,11 @@ import { useState, useMemo, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
-  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2
+  Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2, AlertTriangle
 } from "lucide-react";
 import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
-import {
-  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
-  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
 
@@ -35,6 +31,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [noteText, setNoteText] = useState("");
   const [savingNote, setSavingNote] = useState(false);
   const itemRefs = useRef<Record<string, HTMLDivElement>>({});
+  const [deleteTarget, setDeleteTarget] = useState<any | null>(null);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deleteError, setDeleteError] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
@@ -71,11 +71,30 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setSavingNote(false);
   };
 
-  const deleteInquiry = async (id: string) => {
-    await supabase.from("contact_inquiries").delete().eq("id", id);
-    setInquiries((prev: any[]) => prev.filter((i) => i.id !== id));
-    if (selectedInquiry?.id === id) setSelectedInquiry(null);
-    logActivity("delete", "inquiry", id);
+  const deleteInquiry = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    setDeleteError("");
+    try {
+      // Verify password by re-authenticating
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user?.email) throw new Error("인증 오류");
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: deletePassword,
+      });
+      if (authError) { setDeleteError("비밀번호가 올바르지 않습니다."); setDeleting(false); return; }
+
+      await supabase.from("contact_inquiries").delete().eq("id", deleteTarget.id);
+      setInquiries((prev: any[]) => prev.filter((i) => i.id !== deleteTarget.id));
+      if (selectedInquiry?.id === deleteTarget.id) setSelectedInquiry(null);
+      logActivity("delete", "inquiry", deleteTarget.id);
+      setDeleteTarget(null);
+      setDeletePassword("");
+    } catch (e: any) {
+      setDeleteError(e.message || "삭제 중 오류가 발생했습니다.");
+    }
+    setDeleting(false);
   };
 
   const exportCSV = () => {
@@ -300,30 +319,12 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
 
                     {/* Delete */}
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <button className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] hover:bg-[hsl(0,84%,60%,0.1)] transition-all active:scale-[0.96]">
-                            <Trash2 className="w-3 h-3" /> 문의 삭제
-                          </button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>문의를 삭제하시겠습니까?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              {selectedInquiry.company} · {selectedInquiry.name} 문의가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>취소</AlertDialogCancel>
-                            <AlertDialogAction
-                              onClick={() => deleteInquiry(selectedInquiry.id)}
-                              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                            >
-                              삭제
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                      <button
+                        onClick={() => { setDeleteTarget(selectedInquiry); setDeletePassword(""); setDeleteError(""); }}
+                        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] hover:bg-[hsl(0,84%,60%,0.1)] transition-all active:scale-[0.96]"
+                      >
+                        <Trash2 className="w-3 h-3" /> 문의 삭제
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -332,6 +333,49 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
           );
         })}
       </div>
+
+      {/* Password-confirmed Delete Dialog */}
+      <Dialog open={!!deleteTarget} onOpenChange={(open) => { if (!open) { setDeleteTarget(null); setDeletePassword(""); setDeleteError(""); } }}>
+        <DialogContent className="max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-[16px]">
+              <AlertTriangle className="w-5 h-5 text-[hsl(0,84%,60%)]" />
+              문의를 삭제하시겠습니까?
+            </DialogTitle>
+            <DialogDescription className="text-[13px]">
+              <strong>{deleteTarget?.company} · {deleteTarget?.name}</strong> 문의가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="mt-2">
+            <label className="text-[12px] font-semibold text-muted-foreground mb-1.5 block">관리자 비밀번호를 입력해주세요</label>
+            <input
+              type="password"
+              value={deletePassword}
+              onChange={(e) => { setDeletePassword(e.target.value); setDeleteError(""); }}
+              placeholder="비밀번호"
+              className="w-full rounded-xl px-3.5 py-2.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 bg-white border border-[hsl(220,13%,91%)] focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
+              onKeyDown={(e) => { if (e.key === "Enter" && deletePassword) deleteInquiry(); }}
+            />
+            {deleteError && <p className="text-[11px] text-[hsl(0,84%,50%)] mt-1.5">{deleteError}</p>}
+          </div>
+          <DialogFooter className="mt-3">
+            <button
+              onClick={() => { setDeleteTarget(null); setDeletePassword(""); setDeleteError(""); }}
+              className="px-4 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-colors"
+            >
+              취소
+            </button>
+            <button
+              onClick={deleteInquiry}
+              disabled={!deletePassword || deleting}
+              className="px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,50%)] transition-colors disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {deleting && <Loader2 className="w-3 h-3 animate-spin" />}
+              삭제
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
