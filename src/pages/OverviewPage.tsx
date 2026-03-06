@@ -63,7 +63,7 @@ function LmsDetailSection() {
   return (
     <section id="lms" className="py-16">
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light와 웹헤즈 PRO — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
+        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light(임대형)와 웹헤즈 PRO(구축형) — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
         {/* LMS Stats */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
@@ -235,7 +235,7 @@ function AddOnServicesSection() {
   return (
     <section id="services" className="py-16">
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="ADD-ON SERVICES" title="부가서비스 라인업" desc="LMS를 중심으로 교육 사업에 필요한 8가지 부가서비스를 원스톱으로 제공합니다." />
+        <SectionHead sub="ADD-ON SERVICES" title="부가서비스 라인업" desc="LMS를 중심으로 교육 사업에 필요한 8가지 부가서비스를 원스톱으로 제공합니다. 각 서비스 페이지에서 상세한 기능·요금·도입 가이드를 확인하세요." />
 
         <div className="space-y-5">
           {ovServices.slice(1).map((svc, i) => {
