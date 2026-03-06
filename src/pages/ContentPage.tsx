@@ -89,7 +89,7 @@ export default function ContentPage() {
                   <type.icon className="w-5 h-5" style={{ color: "hsl(25, 80%, 45%)" }} />
                 </div>
                 <h3 className="font-bold text-foreground text-sm tracking-tight leading-snug">{type.label}</h3>
-                <p className="text-muted-foreground text-[11px] leading-relaxed">{type.desc}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">{type.desc}</p>
               </div>
             ))}
           </div>
