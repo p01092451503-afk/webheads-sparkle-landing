@@ -148,7 +148,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90"
           style={{ background: "linear-gradient(135deg, hsl(262, 83%, 58%), hsl(221, 83%, 53%))" }}
         >
-          AI 제안 전략 분석
+          AI 기초 분석
         </button>
       </div>
     );
