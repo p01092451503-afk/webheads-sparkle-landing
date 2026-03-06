@@ -1106,6 +1106,7 @@
         ["Scalability", "Auto Scaling · Cloud storage", "Server spec upgrade · Unlimited custom"],
         ["Best For", "SMBs needing fast launch", "Security & customization focused enterprises"],
         ["API Integration", "RESTful API", "Full ERP/CRM/HR integration"],
+        ["PG Payment", "Toss Payments included", "Toss, Inicis, Mobilians, PayTeacher & more"],
         ["SLA", "Cloud SLA", "99.9% uptime guarantee"]
       ]
     },
