@@ -102,13 +102,13 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
       {expanded && (
         <div className="bg-white rounded-xl p-5 border border-[hsl(220,13%,93%)] prose prose-sm max-w-none
           prose-headings:text-foreground prose-headings:font-bold prose-headings:tracking-tight
-          prose-h3:text-[8px] prose-h3:mt-5 prose-h3:mb-2 prose-h3:pb-1.5 prose-h3:border-b prose-h3:border-[hsl(220,13%,93%)]
-          prose-p:text-[6px] prose-p:text-foreground/80 prose-p:leading-[1.8] prose-p:my-1
-          prose-li:text-[6px] prose-li:text-foreground/80 prose-li:leading-[1.8] prose-li:my-0.5
+          prose-h3:text-[6px] prose-h3:mt-5 prose-h3:mb-2 prose-h3:pb-1.5 prose-h3:border-b prose-h3:border-[hsl(220,13%,93%)]
+          prose-p:text-[4px] prose-p:text-foreground/80 prose-p:leading-[1.8] prose-p:my-1
+          prose-li:text-[4px] prose-li:text-foreground/80 prose-li:leading-[1.8] prose-li:my-0.5
           prose-strong:text-foreground prose-strong:font-semibold
           prose-ul:my-1.5 prose-ol:my-1.5 prose-ul:pl-3 prose-ol:pl-3
           prose-hr:my-5 prose-hr:border-[hsl(220,13%,93%)]
-          prose-code:text-[6px]
+          prose-code:text-[4px]
         ">
           <MarkdownRenderer content={result} />
         </div>
