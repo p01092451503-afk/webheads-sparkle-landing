@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp, Zap, Copy, Mail, Check, RefreshCw, AlertTriangle, Shield, Target, TrendingUp } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Zap, Copy, Mail, Check, RefreshCw, AlertTriangle, Target } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 
@@ -57,6 +57,32 @@ interface CostScenario {
 
 type AnalysisState = "idle" | "loading" | "done" | "error";
 
+const RETRYABLE_FUNCTION_ERRORS = [
+  "Failed to send a request to the Edge Function",
+  "Failed to fetch",
+  "Gateway Timeout",
+  "504",
+];
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function buildInquiryPayload(inquiry: any) {
+  return {
+    id: inquiry.id,
+    company: inquiry.company,
+    name: inquiry.name,
+    phone: inquiry.phone,
+    email: inquiry.email,
+    service: inquiry.service,
+    inquiry_type: inquiry.inquiry_type,
+    message: inquiry.message,
+    created_at: inquiry.created_at,
+    updated_at: inquiry.updated_at,
+    status: inquiry.status,
+    session_id: inquiry.session_id,
+  };
+}
+
 export default function InquiryProAnalysis({ inquiry }: Props) {
   const [state, setState] = useState<AnalysisState>("idle");
   const [analysis, setAnalysis] = useState<ProAnalysis | null>(null);
@@ -90,15 +116,38 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
     }
   };
 
+  const invokeProAnalysis = async (payload: any) => {
+    let lastError: Error | null = null;
+
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry-pro", {
+        body: { inquiry: payload },
+      });
+
+      if (!fnError && !data?.error) {
+        return data;
+      }
+
+      const message = data?.error || fnError?.message || "Pro 분석 요청에 실패했습니다.";
+      lastError = new Error(message);
+
+      const isRetryable = RETRYABLE_FUNCTION_ERRORS.some((keyword) => message.includes(keyword));
+      if (!isRetryable || attempt === 2) {
+        throw lastError;
+      }
+
+      await wait(1200 * (attempt + 1));
+    }
+
+    throw lastError || new Error("Pro 분석 요청에 실패했습니다.");
+  };
+
   const runAnalysis = async () => {
     setState("loading");
     setError("");
     try {
-      const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry-pro", {
-        body: { inquiry },
-      });
-      if (fnError) throw new Error(fnError.message);
-      if (data?.error) throw new Error(data.error);
+      const payload = buildInquiryPayload(inquiry);
+      const data = await invokeProAnalysis(payload);
       setAnalysis(data.analysis);
       setState("done");
     } catch (e: any) {

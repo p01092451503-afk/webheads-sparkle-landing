@@ -6,13 +6,48 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const AI_TIMEOUT_MS = 120000;
+
+async function upsertAnalysisRow(row: Record<string, unknown>) {
+  const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+  const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    console.error("SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is missing");
+    return;
+  }
+
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/inquiry_analyses?on_conflict=inquiry_id`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      Prefer: "resolution=merge-duplicates,return=minimal",
+    },
+    body: JSON.stringify(row),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    console.error("DB upsert error:", res.status, errText);
+    return;
+  }
+
+  await res.text();
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
+  let inquiryId: string | null = null;
+
   try {
     const { inquiry } = await req.json();
+    inquiryId = inquiry?.id ?? null;
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
       return new Response(JSON.stringify({ error: "LOVABLE_API_KEY is not configured" }), {
@@ -111,7 +146,10 @@ Webheads 제품 정보:
 문의 유형: ${inquiry.inquiry_type === "demo" ? "데모 요청" : "상담 요청"}
 
 문의 내용:
-${inquiry.message || "(내용 없음)"}`;
+${(inquiry.message || "(내용 없음)").slice(0, 8000)}`;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort("AI request timeout"), AI_TIMEOUT_MS);
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -120,13 +158,18 @@ ${inquiry.message || "(내용 없음)"}`;
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "google/gemini-3-flash-preview",
+        temperature: 0.2,
+        max_tokens: 2200,
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userMessage },
         ],
       }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       if (response.status === 429) {
@@ -141,7 +184,11 @@ ${inquiry.message || "(내용 없음)"}`;
       }
       const t = await response.text();
       console.error("AI gateway error:", response.status, t);
-      return new Response(JSON.stringify({ error: "AI analysis failed" }), {
+      const errorMessage = `AI analysis failed (${response.status})`;
+      if (inquiryId) {
+        await upsertAnalysisRow({ inquiry_id: inquiryId, analysis_status: "failed", error_message: errorMessage });
+      }
+      return new Response(JSON.stringify({ error: errorMessage }), {
         status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
@@ -157,25 +204,18 @@ ${inquiry.message || "(내용 없음)"}`;
       parsed = JSON.parse(content);
     } catch {
       console.error("Failed to parse AI response as JSON:", content);
-      return new Response(JSON.stringify({ error: "AI 응답을 JSON으로 파싱할 수 없습니다.", raw: content }), {
+      const errorMessage = "AI 응답을 JSON으로 파싱할 수 없습니다.";
+      if (inquiryId) {
+        await upsertAnalysisRow({ inquiry_id: inquiryId, analysis_status: "failed", error_message: errorMessage });
+      }
+      return new Response(JSON.stringify({ error: errorMessage, raw: content }), {
         status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Save to inquiry_analyses table
-    const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-    const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-
-    const upsertRes = await fetch(`${SUPABASE_URL}/rest/v1/inquiry_analyses`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_SERVICE_ROLE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-        Prefer: "resolution=merge-duplicates",
-      },
-      body: JSON.stringify({
-        inquiry_id: inquiry.id,
+    if (inquiryId) {
+      await upsertAnalysisRow({
+        inquiry_id: inquiryId,
         customer_profile: parsed.customer_profile,
         feature_mapping: parsed.feature_mapping,
         cost_scenarios: parsed.cost_scenarios,
@@ -186,23 +226,30 @@ ${inquiry.message || "(내용 없음)"}`;
         meeting_agenda: parsed.meeting_agenda,
         analysis_status: "completed",
         error_message: null,
-      }),
-    });
-
-    if (!upsertRes.ok) {
-      const errText = await upsertRes.text();
-      console.error("DB upsert error:", upsertRes.status, errText);
-    } else {
-      await upsertRes.text();
+      });
     }
 
     return new Response(JSON.stringify({ analysis: parsed }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e) {
+    const message = e instanceof Error ? e.message : "Unknown error";
     console.error("Error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
-      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+
+    if (inquiryId) {
+      await upsertAnalysisRow({ inquiry_id: inquiryId, analysis_status: "failed", error_message: message });
+    }
+
+    if (message.includes("timeout") || message.includes("aborted")) {
+      return new Response(JSON.stringify({ error: "분석 시간이 초과되었습니다. 다시 시도해주세요." }), {
+        status: 504,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 });
