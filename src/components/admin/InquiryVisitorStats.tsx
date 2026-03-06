@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  Globe, Monitor, MapPin, ArrowRight, Clock, Eye, Loader2, UserCheck, Smartphone, Laptop
+  Globe, Monitor, MapPin, ArrowRight, Clock, Eye, Loader2, UserCheck, Smartphone, Laptop, ChevronDown, ChevronUp
 } from "lucide-react";
 
 interface Props {
