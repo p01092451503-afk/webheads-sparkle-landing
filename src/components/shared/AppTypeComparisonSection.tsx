@@ -43,7 +43,7 @@ export default function AppTypeComparisonSection() {
                     : "bg-secondary text-foreground border border-border hover:border-muted-foreground/40"
                 }`}
               >
-                <Icon className="w-4 h-4" />
+                {type.name}
                 {type.name}
               </button>
             );
