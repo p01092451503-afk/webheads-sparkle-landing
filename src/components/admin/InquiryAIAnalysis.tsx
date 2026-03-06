@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp, Sparkles, Download } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Sparkles, Download, Plus, Minus } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -16,6 +16,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
   const [result, setResult] = useState<string>(inquiry.ai_analysis || "");
   const [error, setError] = useState<string>("");
   const [expanded, setExpanded] = useState(true);
+  const [fontSize, setFontSize] = useState(11);
 
   useEffect(() => {
     if (inquiry.ai_analysis) {
@@ -164,6 +165,23 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
           <div className="flex-1" />
           {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
         </button>
+        <div className="inline-flex items-center rounded-lg border border-[hsl(220,13%,88%)] overflow-hidden">
+          <button
+            onClick={() => setFontSize(prev => Math.max(9, prev - 1))}
+            disabled={fontSize <= 9}
+            className="px-1.5 py-1.5 text-muted-foreground hover:bg-muted disabled:opacity-30 transition-colors"
+          >
+            <Minus className="w-3 h-3" />
+          </button>
+          <span className="px-2 py-1 text-[10px] font-semibold text-foreground border-x border-[hsl(220,13%,88%)] min-w-[32px] text-center">{fontSize}px</span>
+          <button
+            onClick={() => setFontSize(prev => Math.min(16, prev + 1))}
+            disabled={fontSize >= 16}
+            className="px-1.5 py-1.5 text-muted-foreground hover:bg-muted disabled:opacity-30 transition-colors"
+          >
+            <Plus className="w-3 h-3" />
+          </button>
+        </div>
         <button
           onClick={exportPDF}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:opacity-90 transition-opacity active:scale-[0.97]"
@@ -178,17 +196,17 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-muted">
-                  <th className="w-[26%] text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-r border-b border-[hsl(220,13%,91%)]">항목</th>
-                  <th className="text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-b border-[hsl(220,13%,91%)]">분석 내용</th>
+                  <th style={{ fontSize: `${fontSize}px` }} className="w-[26%] text-left font-bold text-foreground px-4 py-2.5 border-r border-b border-[hsl(220,13%,91%)]">항목</th>
+                  <th style={{ fontSize: `${fontSize}px` }} className="text-left font-bold text-foreground px-4 py-2.5 border-b border-[hsl(220,13%,91%)]">분석 내용</th>
                 </tr>
               </thead>
               <tbody>
                 {sections.map((section, idx) => (
                   <tr key={idx} className={`${idx % 2 === 1 ? "bg-muted/30" : ""} border-b border-[hsl(220,13%,91%)] last:border-b-0`}>
-                    <td className="align-top text-[11px] font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,91%)] whitespace-nowrap">
+                    <td style={{ fontSize: `${fontSize}px` }} className="align-top font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,91%)] whitespace-nowrap">
                       {section.title}
                     </td>
-                    <td className="align-top px-4 py-3 text-[11px] text-foreground/80 leading-[1.7]">
+                    <td style={{ fontSize: `${fontSize}px` }} className="align-top px-4 py-3 text-foreground/80 leading-[1.7]">
                       <SectionContent lines={section.lines} />
                     </td>
                   </tr>
@@ -205,7 +223,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
                   추천 요금제 & 커스터마이징 요약
                 </span>
               </div>
-              <div className="text-[11px] text-foreground/80 leading-[1.8]">
+              <div style={{ fontSize: `${fontSize}px` }} className="text-foreground/80 leading-[1.8]">
                 <SectionContent lines={summary.split("\n").filter(l => l.trim())} />
               </div>
             </div>
