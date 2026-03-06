@@ -103,15 +103,17 @@ export default function Footer() {
                   </li>
                 );
               })}
-              <li className="mt-3 pt-3 border-t border-border">
-                <Link
-                  to="/blog"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity duration-200"
-                >
-                  <BookOpen className="w-4 h-4" />
-                  {t("footer.lmsInsight")}
-                </Link>
-              </li>
+              {location.pathname !== "/blog" && (
+                <li className="mt-3 pt-3 border-t border-border">
+                  <Link
+                    to="/blog"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity duration-200"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    {t("footer.lmsInsight")}
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
