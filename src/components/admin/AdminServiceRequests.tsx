@@ -4,6 +4,7 @@ import {
   RefreshCw, Search, Trash2, MessageSquareText, MonitorSmartphone, Clock,
   Building2, User, Phone, Mail, ChevronDown, ChevronUp
 } from "lucide-react";
+import InquiryVisitorStats from "./InquiryVisitorStats";
 
 type RequestStatus = "new" | "in_progress" | "completed";
 
@@ -189,6 +190,9 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
                         <p className="text-sm text-foreground mt-1 bg-muted p-3 rounded-lg whitespace-pre-wrap">{r.reason}</p>
                       </div>
                     )}
+
+                    {/* Visitor Stats */}
+                    <InquiryVisitorStats sessionId={r.session_id} />
 
                     {/* Status actions */}
                     <div className="flex items-center gap-2 pt-2">
