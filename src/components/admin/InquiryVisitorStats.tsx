@@ -17,6 +17,7 @@ function maskIp(ip: string) {
 export default function InquiryVisitorStats({ sessionId }: Props) {
   const [loading, setLoading] = useState(true);
   const [views, setViews] = useState<any[]>([]);
+  const [expanded, setExpanded] = useState(true);
 
   useEffect(() => {
     if (!sessionId) { setLoading(false); return; }
