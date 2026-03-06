@@ -9,6 +9,7 @@ import ServiceBeforeAfter from "@/components/shared/ServiceBeforeAfter";
 import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
 import ServiceComparison from "@/components/shared/ServiceComparison";
 import StoreSubmissionSection from "@/components/shared/StoreSubmissionSection";
+import AppTypeComparisonSection from "@/components/shared/AppTypeComparisonSection";
 import { Smartphone, Tablet, RefreshCw, Bell, Lock, BarChart3, Wifi, Settings2, ShieldCheck, Globe, Zap, Code2, Search, Palette, Link2, CheckCircle, Rocket } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
