@@ -410,6 +410,88 @@
       { "title": "Community & Social", "desc": "From SNS-style feeds and chat to professional community apps.", "tags": ["Feed", "Real-time Chat", "Notifications"] }
     ],
     "devStackSection": { "sub": "TECH STACK", "title": "Built with Proven\nTechnology Stacks" },
+    "appTypeComparison": {
+      "sub": "APP TYPE COMPARISON",
+      "title": "Native App vs Hybrid App vs Web App",
+      "desc": "Choose the optimal app type for your project goals and budget. Compare the characteristics, pros, and cons of each approach.",
+      "types": [
+        {
+          "name": "Native App",
+          "badge": "Best Performance",
+          "definition": "Built with platform-specific code using Swift (iOS) and Kotlin (Android) for each platform.",
+          "devMethod": "Developed individually using platform SDKs and languages. Uses Xcode (iOS) and Android Studio (Android).",
+          "pros": [
+            "Best performance and responsiveness",
+            "Full access to all device features (camera, GPS, NFC, biometrics)",
+            "Perfect compliance with Apple HIG / Material Design for natural UX",
+            "Highest App Store review pass rate",
+            "Excellent offline and background processing"
+          ],
+          "cons": [
+            "Double cost and timeline for iOS + Android",
+            "Requires two teams (Swift + Kotlin)",
+            "Both codebases need updating for maintenance"
+          ],
+          "bestFor": "High-performance LMS apps, video streaming, DRM-secured apps, large-scale services"
+        },
+        {
+          "name": "Hybrid App",
+          "badge": "Cost Efficient",
+          "definition": "Built with cross-platform frameworks like React Native or Flutter from a single codebase for iOS and Android simultaneously.",
+          "devMethod": "Developed with React Native (JavaScript/TypeScript) or Flutter (Dart). Device features accessed via native module bridges.",
+          "pros": [
+            "Single codebase for iOS + Android (30-40% cost savings)",
+            "Achieves 90%+ of native performance",
+            "Faster development and efficient maintenance",
+            "Hot Reload for rapid development cycles",
+            "Extensible with native modules for device features"
+          ],
+          "cons": [
+            "Complex animations/graphics may underperform vs native",
+            "Platform-specific features require separate native modules",
+            "Framework compatibility needed for OS updates"
+          ],
+          "bestFor": "LMS integration apps, commerce apps, internal tools, MVPs needing fast launch"
+        },
+        {
+          "name": "Web App (PWA)",
+          "badge": "Fast Launch",
+          "definition": "Built with web technologies (HTML, CSS, JavaScript), runs in browsers, and can be installed to home screen as a PWA.",
+          "devMethod": "Developed with web frameworks like React/Vue. Offline support and push notifications via Service Workers.",
+          "pros": [
+            "Fastest development speed and lowest cost",
+            "Instant deployment without App Store review",
+            "Accessible via URL with no install friction",
+            "Single codebase for web and app",
+            "Updates apply instantly on deployment"
+          ],
+          "cons": [
+            "Limited access to native device features (NFC, biometrics)",
+            "Some iOS limitations for push notifications",
+            "Not discoverable via App Store search (SEO instead)",
+            "Limited offline capabilities vs native",
+            "Lower performance vs native/hybrid"
+          ],
+          "bestFor": "Informational apps, simple booking/ordering systems, MVPs for market validation, budget-limited projects"
+        }
+      ],
+      "comparisonTable": {
+        "title": "At a Glance",
+        "headers": ["Criteria", "Native App", "Hybrid App", "Web App (PWA)"],
+        "rows": [
+          { "label": "Development Cost", "values": ["High", "Medium", "Low"] },
+          { "label": "Development Time", "values": ["6-12+ weeks", "4-8 weeks", "2-4 weeks"] },
+          { "label": "Performance", "values": ["Best", "Excellent (90%+)", "Average"] },
+          { "label": "Device Features", "values": ["Full Access", "Most Supported", "Limited"] },
+          { "label": "App Store Listing", "values": ["Available", "Available", "Not Available"] },
+          { "label": "Maintenance Cost", "values": ["High (2x)", "Medium", "Low"] },
+          { "label": "Offline Support", "values": ["Available", "Available", "Limited"] },
+          { "label": "Update Speed", "values": ["Review Required", "Review Required", "Instant"] }
+        ]
+      },
+      "recommendation": "WEBHEADS recommends the optimal app type based on your project goals, budget, and timeline",
+      "recommendationCta": "Get Free Consultation"
+    },
     "storeSubmissionSection": {
       "sub": "APP STORE REVIEW",
       "title": "iOS · Android\nApp Store Submission Guide",
