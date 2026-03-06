@@ -13,7 +13,7 @@ const serviceConfig: { key: string; path: string; accent: string; icon: LucideIc
   { key: "content", path: "/content", accent: "hsl(35, 85%, 50%)", icon: Video },
   { key: "drm", path: "/drm", accent: "hsl(0, 65%, 52%)", icon: ShieldCheck },
   { key: "chatbot", path: "/chatbot", accent: "hsl(260, 65%, 55%)", icon: Bot },
-  { key: "app", path: "/app-dev", accent: "hsl(170, 60%, 40%)", icon: Smartphone },
+  { key: "app", path: "/app", accent: "hsl(170, 60%, 40%)", icon: Smartphone },
   { key: "pg", path: "/pg", accent: "hsl(245, 60%, 55%)", icon: CreditCard },
   { key: "channel", path: "/channel", accent: "hsl(195, 80%, 42%)", icon: MessageSquareMore },
   { key: "maintenance", path: "/maintenance", accent: "hsl(150, 55%, 40%)", icon: Wrench },

@@ -45,7 +45,7 @@
 - AI 교육 솔루션으로서 학습 효율 극대화
 
 ### 앱 개발 (iOS/Android)
-- URL: https://service.webheads.co.kr/app-dev
+- URL: https://service.webheads.co.kr/app
 - 웹헤즈 LMS와 완벽 연동되는 네이티브 앱 개발
 - React Native, Flutter 지원
 - 교육플랫폼 개발 전문

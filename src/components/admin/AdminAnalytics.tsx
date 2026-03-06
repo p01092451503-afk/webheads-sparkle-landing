@@ -293,7 +293,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const sessions = new Set(humanViews.map((v) => v.session_id).filter(Boolean));
     const landingSessions = new Set<string>();
     const serviceSessions = new Set<string>();
-    const servicePages = ["/lms", "/hosting", "/drm", "/content", "/chatbot", "/channel", "/maintenance", "/app-dev", "/pg"];
+    const servicePages = ["/lms", "/hosting", "/drm", "/content", "/chatbot", "/channel", "/maintenance", "/app", "/pg"];
     humanViews.forEach((v) => {
       if (!v.session_id) return;
       if (v.page_path === "/") landingSessions.add(v.session_id);

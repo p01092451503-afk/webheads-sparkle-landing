@@ -13,7 +13,7 @@ const addonRouteMap: Record<string, string> = {
   "유지보수": "/maintenance", "Maintenance": "/maintenance",
   "호스팅": "/hosting", "Hosting": "/hosting",
   "채널톡": "/channel", "Channel Talk": "/channel",
-  "앱 개발": "/app-dev", "App Dev": "/app-dev",
+  "앱 개발": "/app", "App Dev": "/app",
 };
 
 export default function IndustryScenarioTabs() {

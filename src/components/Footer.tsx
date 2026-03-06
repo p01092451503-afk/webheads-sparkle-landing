@@ -4,14 +4,14 @@ import { Mail, MonitorSmartphone, BookOpen, Phone, ChevronRight } from "lucide-r
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
+const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app", "/drm", "/channel", "/pg", "/content"];
 
 const serviceBlobColors: Record<string, string> = {
   "/lms": "hsl(250, 55%, 52%)",
   "/hosting": "hsl(250, 55%, 52%)",
   "/maintenance": "hsl(250, 55%, 52%)",
   "/chatbot": "hsl(192, 50%, 42%)",
-  "/app-dev": "hsl(192, 50%, 42%)",
+  "/app": "hsl(192, 50%, 42%)",
   "/drm": "hsl(235, 45%, 48%)",
   "/channel": "hsl(192, 50%, 42%)",
   "/pg": "hsl(235, 45%, 48%)",

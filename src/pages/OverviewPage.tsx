@@ -14,7 +14,7 @@ const serviceCards = [
   { key: "hosting", icon: Server, accent: "hsl(200,70%,50%)", path: "/hosting" },
   { key: "maintenance", icon: Wrench, accent: "hsl(210,40%,50%)", path: "/maintenance" },
   { key: "chatbot", icon: Bot, accent: "hsl(190,70%,45%)", path: "/chatbot" },
-  { key: "appdev", icon: Smartphone, accent: "hsl(165,55%,45%)", path: "/app-dev" },
+  { key: "appdev", icon: Smartphone, accent: "hsl(165,55%,45%)", path: "/app" },
   { key: "drm", icon: ShieldCheck, accent: "hsl(225,60%,55%)", path: "/drm" },
   { key: "channel", icon: MessageSquare, accent: "hsl(155,55%,45%)", path: "/channel" },
   { key: "pg", icon: CreditCard, accent: "hsl(240,55%,55%)", path: "/pg" },
