@@ -85,7 +85,7 @@ export default function AppTypeComparisonSection() {
             <div className="rounded-2xl bg-secondary border border-border p-6 md:p-7">
               <div className="flex items-center gap-2 mb-4">
                 <ThumbsUp className="w-4 h-4 text-primary" />
-                <h4 className="font-bold text-foreground text-sm">장점</h4>
+                <h4 className="font-bold text-foreground text-sm">{data.prosLabel}</h4>
               </div>
               <ul className="flex flex-col gap-2.5">
                 {activeType.pros.map((pro: string, i: number) => (
