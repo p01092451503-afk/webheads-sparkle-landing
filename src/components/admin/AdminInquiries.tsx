@@ -295,6 +295,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     {/* Visitor Stats */}
                     <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
 
+                    {/* AI Analysis */}
+                    <InquiryAIAnalysis inquiry={selectedInquiry} />
+
                     {/* Delete */}
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
                       <AlertDialog>
