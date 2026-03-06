@@ -334,11 +334,11 @@ export default function LmsPage() {
             <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("lms.aiSection.title")}</h2>
             <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.aiSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
             {aiFeatures.map((f: any, i: number) => {
               const Icon = aiFeatureIcons[i] || Brain;
               return (
-                <div key={f.title} className="rounded-2xl p-7 transition-all duration-200 flex flex-col gap-3 hover:shadow-md relative overflow-hidden" style={{ background: "var(--lms-gradient-subtle)", border: `1px solid hsl(var(--lms-card-border))` }}>
+                <div key={f.title} className="rounded-2xl p-6 transition-all duration-200 flex flex-col gap-3 hover:shadow-md relative overflow-hidden" style={{ background: "var(--lms-gradient-subtle)", border: `1px solid hsl(var(--lms-card-border))` }}>
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
                     <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
                   </div>
