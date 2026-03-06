@@ -203,10 +203,10 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
               <tbody>
                 {sections.map((section, idx) => (
                   <tr key={idx} className={`${idx % 2 === 1 ? "bg-muted/30" : ""} border-b border-[hsl(220,13%,91%)] last:border-b-0`}>
-                    <td className="align-top text-[11px] font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,91%)] whitespace-nowrap">
+                    <td style={{ fontSize: `${fontSize}px` }} className="align-top font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,91%)] whitespace-nowrap">
                       {section.title}
                     </td>
-                    <td className="align-top px-4 py-3 text-[11px] text-foreground/80 leading-[1.7]">
+                    <td style={{ fontSize: `${fontSize}px` }} className="align-top px-4 py-3 text-foreground/80 leading-[1.7]">
                       <SectionContent lines={section.lines} />
                     </td>
                   </tr>
