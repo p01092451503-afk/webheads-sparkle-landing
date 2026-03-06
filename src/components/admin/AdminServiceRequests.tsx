@@ -191,6 +191,9 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
                       </div>
                     )}
 
+                    {/* Visitor Stats */}
+                    <InquiryVisitorStats sessionId={r.session_id} />
+
                     {/* Status actions */}
                     <div className="flex items-center gap-2 pt-2">
                       <span className="text-xs font-semibold text-muted-foreground mr-1">상태:</span>
