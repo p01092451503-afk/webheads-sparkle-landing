@@ -96,7 +96,7 @@ export default function InquiryVisitorStats({ sessionId }: Props) {
   };
 
   return (
-    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
+    <div className="mt-5 pt-4 border-t-2 border-[hsl(220,13%,88%)]">
       <p className="text-[11px] font-semibold text-muted-foreground mb-3 tracking-wide flex items-center gap-1.5">
         <Eye className="w-3.5 h-3.5" /> 방문자 정보
       </p>
