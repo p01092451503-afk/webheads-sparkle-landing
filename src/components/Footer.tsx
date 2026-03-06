@@ -4,7 +4,7 @@ import { Mail, MonitorSmartphone, BookOpen, Phone, ChevronRight } from "lucide-r
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app-dev", "/drm", "/channel", "/pg", "/content"];
+const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app", "/drm", "/channel", "/pg", "/content"];
 
 const serviceBlobColors: Record<string, string> = {
   "/lms": "hsl(250, 55%, 52%)",
