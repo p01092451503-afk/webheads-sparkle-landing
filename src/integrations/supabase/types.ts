@@ -91,6 +91,7 @@ export type Database = {
       }
       contact_inquiries: {
         Row: {
+          ai_analysis: string | null
           company: string
           created_at: string
           email: string | null
@@ -106,6 +107,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ai_analysis?: string | null
           company: string
           created_at?: string
           email?: string | null
@@ -121,6 +123,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ai_analysis?: string | null
           company?: string
           created_at?: string
           email?: string | null
