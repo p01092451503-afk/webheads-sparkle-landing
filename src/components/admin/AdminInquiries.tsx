@@ -71,11 +71,30 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setSavingNote(false);
   };
 
-  const deleteInquiry = async (id: string) => {
-    await supabase.from("contact_inquiries").delete().eq("id", id);
-    setInquiries((prev: any[]) => prev.filter((i) => i.id !== id));
-    if (selectedInquiry?.id === id) setSelectedInquiry(null);
-    logActivity("delete", "inquiry", id);
+  const deleteInquiry = async () => {
+    if (!deleteTarget) return;
+    setDeleting(true);
+    setDeleteError("");
+    try {
+      // Verify password by re-authenticating
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user?.email) throw new Error("인증 오류");
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: deletePassword,
+      });
+      if (authError) { setDeleteError("비밀번호가 올바르지 않습니다."); setDeleting(false); return; }
+
+      await supabase.from("contact_inquiries").delete().eq("id", deleteTarget.id);
+      setInquiries((prev: any[]) => prev.filter((i) => i.id !== deleteTarget.id));
+      if (selectedInquiry?.id === deleteTarget.id) setSelectedInquiry(null);
+      logActivity("delete", "inquiry", deleteTarget.id);
+      setDeleteTarget(null);
+      setDeletePassword("");
+    } catch (e: any) {
+      setDeleteError(e.message || "삭제 중 오류가 발생했습니다.");
+    }
+    setDeleting(false);
   };
 
   const exportCSV = () => {
