@@ -47,10 +47,10 @@ export default function LearnerJourneyMap() {
               return (
                 <div key={i} className="relative flex flex-col items-center text-center group">
                   <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg relative z-10"
+                    className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg relative z-10"
                     style={{ background: `hsl(0 0% 100% / 0.85)`, border: `1.5px solid ${color}40`, boxShadow: `0 2px 12px ${color}20` }}
                   >
-                    <Icon className="w-5 h-5" style={{ color }} strokeWidth={1.8} />
+                    <Icon className="w-7 h-7" style={{ color }} strokeWidth={1.8} />
                   </div>
                   {i < steps.length - 1 && (
                     <div className="absolute top-5 -right-4 z-20">
@@ -61,7 +61,7 @@ export default function LearnerJourneyMap() {
                     Step {i + 1}
                   </span>
                   <h4 className="font-bold text-foreground text-sm leading-snug mb-2">{step.label}</h4>
-                  <p className="text-xs text-foreground/70 leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                  <p className="text-sm text-foreground/70 leading-relaxed mb-3" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                   <span
                     className="inline-block text-xs font-semibold px-3 py-1 rounded-full"
                     style={{ background: `hsl(0 0% 100% / 0.8)`, color }}
@@ -81,11 +81,11 @@ export default function LearnerJourneyMap() {
               return (
                 <div key={i} className="relative flex items-start gap-3 pl-1">
                   <div className="flex flex-col items-center shrink-0">
-                    <div
-                      className="w-10 h-10 rounded-lg flex items-center justify-center relative z-10"
-                      style={{ background: `hsl(0 0% 100% / 0.85)`, border: `1.5px solid ${color}40`, boxShadow: `0 2px 12px ${color}20` }}
-                    >
-                      <Icon className="w-4 h-4" style={{ color }} strokeWidth={1.8} />
+                     <div
+                       className="w-13 h-13 rounded-lg flex items-center justify-center relative z-10"
+                       style={{ background: `hsl(0 0% 100% / 0.85)`, border: `1.5px solid ${color}40`, boxShadow: `0 2px 12px ${color}20` }}
+                     >
+                       <Icon className="w-5 h-5" style={{ color }} strokeWidth={1.8} />
                     </div>
                     {i < steps.length - 1 && (
                       <div className="w-px h-5 mt-1" style={{ background: `${color}30` }} />
@@ -96,7 +96,7 @@ export default function LearnerJourneyMap() {
                       Step {i + 1}
                     </span>
                     <h4 className="font-bold text-foreground text-sm mt-0.5">{step.label}</h4>
-                    <p className="text-xs text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
+                    <p className="text-sm text-foreground/70 leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{step.desc}</p>
                     <span
                       className="inline-block text-[11px] font-semibold px-2.5 py-0.5 rounded-full mt-2"
                       style={{ background: `hsl(0 0% 100% / 0.8)`, color }}
