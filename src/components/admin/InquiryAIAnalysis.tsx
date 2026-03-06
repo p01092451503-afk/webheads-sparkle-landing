@@ -165,6 +165,23 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
           <div className="flex-1" />
           {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
         </button>
+        <div className="inline-flex items-center rounded-lg border border-[hsl(220,13%,88%)] overflow-hidden">
+          <button
+            onClick={() => setFontSize(prev => Math.max(9, prev - 1))}
+            disabled={fontSize <= 9}
+            className="px-1.5 py-1.5 text-muted-foreground hover:bg-muted disabled:opacity-30 transition-colors"
+          >
+            <Minus className="w-3 h-3" />
+          </button>
+          <span className="px-2 py-1 text-[10px] font-semibold text-foreground border-x border-[hsl(220,13%,88%)] min-w-[32px] text-center">{fontSize}px</span>
+          <button
+            onClick={() => setFontSize(prev => Math.min(16, prev + 1))}
+            disabled={fontSize >= 16}
+            className="px-1.5 py-1.5 text-muted-foreground hover:bg-muted disabled:opacity-30 transition-colors"
+          >
+            <Plus className="w-3 h-3" />
+          </button>
+        </div>
         <button
           onClick={exportPDF}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:opacity-90 transition-opacity active:scale-[0.97]"
