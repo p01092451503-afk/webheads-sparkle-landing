@@ -196,8 +196,8 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-muted">
-                  <th className="w-[26%] text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-r border-b border-[hsl(220,13%,91%)]">항목</th>
-                  <th className="text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-b border-[hsl(220,13%,91%)]">분석 내용</th>
+                  <th style={{ fontSize: `${fontSize}px` }} className="w-[26%] text-left font-bold text-foreground px-4 py-2.5 border-r border-b border-[hsl(220,13%,91%)]">항목</th>
+                  <th style={{ fontSize: `${fontSize}px` }} className="text-left font-bold text-foreground px-4 py-2.5 border-b border-[hsl(220,13%,91%)]">분석 내용</th>
                 </tr>
               </thead>
               <tbody>
