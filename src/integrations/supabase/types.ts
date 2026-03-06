@@ -140,6 +140,62 @@ export type Database = {
         }
         Relationships: []
       }
+      inquiry_analyses: {
+        Row: {
+          analysis_status: string
+          cost_scenarios: Json | null
+          created_at: string | null
+          customer_profile: Json | null
+          error_message: string | null
+          feature_mapping: Json | null
+          id: string
+          inquiry_id: string
+          meeting_agenda: Json | null
+          recommended_plan: string | null
+          response_email_draft: string | null
+          risk_flags: Json | null
+          strategic_score: Json | null
+        }
+        Insert: {
+          analysis_status?: string
+          cost_scenarios?: Json | null
+          created_at?: string | null
+          customer_profile?: Json | null
+          error_message?: string | null
+          feature_mapping?: Json | null
+          id?: string
+          inquiry_id: string
+          meeting_agenda?: Json | null
+          recommended_plan?: string | null
+          response_email_draft?: string | null
+          risk_flags?: Json | null
+          strategic_score?: Json | null
+        }
+        Update: {
+          analysis_status?: string
+          cost_scenarios?: Json | null
+          created_at?: string | null
+          customer_profile?: Json | null
+          error_message?: string | null
+          feature_mapping?: Json | null
+          id?: string
+          inquiry_id?: string
+          meeting_agenda?: Json | null
+          recommended_plan?: string | null
+          response_email_draft?: string | null
+          risk_flags?: Json | null
+          strategic_score?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiry_analyses_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: true
+            referencedRelation: "contact_inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       page_views: {
         Row: {
           browser: string | null
