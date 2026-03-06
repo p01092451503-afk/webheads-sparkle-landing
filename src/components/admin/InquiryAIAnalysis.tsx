@@ -86,7 +86,9 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
     );
   }
 
-  // done
+  // Parse sections from markdown
+  const sections = parseSections(result);
+
   return (
     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
       <button
@@ -100,76 +102,77 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
       </button>
 
       {expanded && (
-        <div className="bg-white rounded-xl p-5 border border-[hsl(220,13%,93%)] prose prose-sm max-w-none
-          prose-headings:text-foreground prose-headings:font-bold prose-headings:tracking-tight
-          prose-h3:text-[6px] prose-h3:mt-5 prose-h3:mb-2 prose-h3:pb-1.5 prose-h3:border-b prose-h3:border-[hsl(220,13%,93%)]
-          prose-p:text-[4px] prose-p:text-foreground/80 prose-p:leading-[1.8] prose-p:my-1
-          prose-li:text-[4px] prose-li:text-foreground/80 prose-li:leading-[1.8] prose-li:my-0.5
-          prose-strong:text-foreground prose-strong:font-semibold
-          prose-ul:my-1.5 prose-ol:my-1.5 prose-ul:pl-3 prose-ol:pl-3
-          prose-hr:my-5 prose-hr:border-[hsl(220,13%,93%)]
-          prose-code:text-[4px]
-        ">
-          <MarkdownRenderer content={result} />
+        <div className="bg-white rounded-xl border border-[hsl(220,13%,93%)] overflow-hidden">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-muted">
+                <th className="w-[26%] text-left text-[11px] font-bold text-foreground px-4 py-2.5 border-r border-[hsl(220,13%,93%)]">항목</th>
+                <th className="text-left text-[11px] font-bold text-foreground px-4 py-2.5">분석 내용</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sections.map((section, idx) => (
+                <tr key={idx} className={idx % 2 === 1 ? "bg-muted/30" : ""}>
+                  <td className="align-top text-[11px] font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,93%)] whitespace-nowrap">
+                    {section.title}
+                  </td>
+                  <td className="align-top px-4 py-3 text-[11px] text-foreground/80 leading-[1.7]">
+                    <SectionContent lines={section.lines} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
   );
 }
 
-// Simple markdown renderer
-function MarkdownRenderer({ content }: { content: string }) {
-  const lines = content.split("\n");
-  const elements: JSX.Element[] = [];
-  let listItems: string[] = [];
-  let listType: "ul" | "ol" | null = null;
+// Parse markdown into sections split by ### headers
+function parseSections(content: string): { title: string; lines: string[] }[] {
+  const sections: { title: string; lines: string[] }[] = [];
+  const rawLines = content.split("\n");
+  let currentTitle = "";
+  let currentLines: string[] = [];
 
-  const flushList = () => {
-    if (listItems.length > 0 && listType) {
-      const Tag = listType;
-      elements.push(
-        <Tag key={`list-${elements.length}`}>
-          {listItems.map((item, i) => (
-            <li key={i} dangerouslySetInnerHTML={{ __html: inlineFormat(item) }} />
-          ))}
-        </Tag>
-      );
-      listItems = [];
-      listType = null;
-    }
-  };
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    if (line.startsWith("### ")) {
-      flushList();
-      elements.push(<h3 key={i} dangerouslySetInnerHTML={{ __html: inlineFormat(stripEmoji(line.slice(4))) }} />);
-    } else if (line.startsWith("## ")) {
-      flushList();
-      elements.push(<h3 key={i} dangerouslySetInnerHTML={{ __html: inlineFormat(stripEmoji(line.slice(3))) }} />);
-    } else if (line.startsWith("# ")) {
-      flushList();
-      elements.push(<h3 key={i} dangerouslySetInnerHTML={{ __html: inlineFormat(stripEmoji(line.slice(2))) }} />);
-    } else if (/^[-*] /.test(line)) {
-      if (listType !== "ul") { flushList(); listType = "ul"; }
-      listItems.push(line.slice(2));
-    } else if (/^\d+\. /.test(line)) {
-      if (listType !== "ol") { flushList(); listType = "ol"; }
-      listItems.push(line.replace(/^\d+\. /, ""));
+  for (const line of rawLines) {
+    const headerMatch = line.match(/^#{1,3}\s+(?:\d+\.\s*)?(.+)/);
+    if (headerMatch) {
+      if (currentTitle || currentLines.length > 0) {
+        sections.push({ title: currentTitle || "개요", lines: currentLines });
+      }
+      currentTitle = stripEmoji(headerMatch[1]).trim();
+      currentLines = [];
     } else if (/^---+$/.test(line.trim())) {
-      flushList();
-      elements.push(<hr key={i} />);
-    } else if (line.trim() === "") {
-      flushList();
-    } else {
-      flushList();
-      elements.push(<p key={i} dangerouslySetInnerHTML={{ __html: inlineFormat(line) }} />);
+      // skip dividers
+    } else if (line.trim() !== "") {
+      currentLines.push(line);
     }
   }
-  flushList();
+  if (currentTitle || currentLines.length > 0) {
+    sections.push({ title: currentTitle || "개요", lines: currentLines });
+  }
+  return sections;
+}
 
-  return <>{elements}</>;
+function SectionContent({ lines }: { lines: string[] }) {
+  return (
+    <div className="flex flex-col gap-0.5">
+      {lines.map((line, i) => {
+        const isBullet = /^[-*]\s/.test(line);
+        const isOrdered = /^\d+\.\s/.test(line);
+        const text = isBullet ? line.slice(2) : isOrdered ? line.replace(/^\d+\.\s/, "") : line;
+        return (
+          <div key={i} className={isBullet || isOrdered ? "flex gap-1.5" : ""}>
+            {isBullet && <span className="text-muted-foreground shrink-0">·</span>}
+            {isOrdered && <span className="text-muted-foreground shrink-0">{line.match(/^\d+/)?.[0]}.</span>}
+            <span dangerouslySetInnerHTML={{ __html: inlineFormat(text) }} />
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 function stripEmoji(text: string): string {
@@ -180,5 +183,5 @@ function inlineFormat(text: string): string {
   return text
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
-    .replace(/`(.+?)`/g, '<code class="text-[6px] px-1 py-0.5 rounded bg-muted text-foreground">$1</code>');
+    .replace(/`(.+?)`/g, '<code class="text-[10px] px-1 py-0.5 rounded bg-muted text-foreground">$1</code>');
 }
