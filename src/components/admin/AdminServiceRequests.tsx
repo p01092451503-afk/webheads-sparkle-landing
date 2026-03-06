@@ -4,6 +4,7 @@ import {
   RefreshCw, Search, Trash2, MessageSquareText, MonitorSmartphone, Clock,
   Building2, User, Phone, Mail, ChevronDown, ChevronUp
 } from "lucide-react";
+import InquiryVisitorStats from "./InquiryVisitorStats";
 
 type RequestStatus = "new" | "in_progress" | "completed";
 
