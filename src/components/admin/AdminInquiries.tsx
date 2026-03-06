@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
+import InquiryProAnalysis from "./InquiryProAnalysis";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
@@ -316,6 +317,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
 
                     {/* AI Analysis */}
                     <InquiryAIAnalysis inquiry={selectedInquiry} />
+
+                    {/* AI Pro Analysis */}
+                    <InquiryProAnalysis inquiry={selectedInquiry} />
 
                     {/* Delete */}
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
