@@ -1,0 +1,1 @@
+ALTER TABLE public.inquiry_analyses ADD COLUMN is_frozen boolean NOT NULL DEFAULT false;
