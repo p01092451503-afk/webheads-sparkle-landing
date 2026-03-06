@@ -102,18 +102,18 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
       </button>
 
       {expanded && (
-        <div className="bg-white rounded-xl border border-[hsl(220,13%,93%)] overflow-hidden">
+        <div className="bg-white rounded-xl border-2 border-[hsl(220,13%,87%)] overflow-hidden">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-muted">
-                <th className="w-[26%] text-left text-[13px] font-bold text-foreground px-4 py-2.5 border-r border-[hsl(220,13%,93%)]">항목</th>
-                <th className="text-left text-[13px] font-bold text-foreground px-4 py-2.5">분석 내용</th>
+                <th className="w-[26%] text-left text-[13px] font-bold text-foreground px-4 py-2.5 border-r-2 border-b-2 border-[hsl(220,13%,87%)]">항목</th>
+                <th className="text-left text-[13px] font-bold text-foreground px-4 py-2.5 border-b-2 border-[hsl(220,13%,87%)]">분석 내용</th>
               </tr>
             </thead>
             <tbody>
               {sections.map((section, idx) => (
-                <tr key={idx} className={idx % 2 === 1 ? "bg-muted/30" : ""}>
-                  <td className="align-top text-[13px] font-semibold text-foreground px-4 py-3 border-r border-[hsl(220,13%,93%)] whitespace-nowrap">
+                <tr key={idx} className={`${idx % 2 === 1 ? "bg-muted/30" : ""} border-b-2 border-[hsl(220,13%,87%)] last:border-b-0`}>
+                  <td className="align-top text-[13px] font-semibold text-foreground px-4 py-3 border-r-2 border-[hsl(220,13%,87%)] whitespace-nowrap">
                     {section.title}
                   </td>
                   <td className="align-top px-4 py-3 text-[13px] text-foreground/80 leading-[1.7]">
