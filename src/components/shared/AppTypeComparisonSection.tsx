@@ -74,7 +74,7 @@ export default function AppTypeComparisonSection() {
             <div className="rounded-2xl bg-primary/5 border border-primary/10 p-6 flex flex-col gap-3">
               <div className="flex items-center gap-2">
                 <Target className="w-4 h-4 text-primary" />
-                <p className="text-sm font-bold text-foreground">추천 프로젝트</p>
+                <p className="text-sm font-bold text-foreground">{data.bestForLabel}</p>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed" style={{ wordBreak: "keep-all" }}>{activeType.bestFor}</p>
             </div>
