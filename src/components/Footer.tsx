@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Mail, MonitorSmartphone, BookOpen, Phone, ChevronRight } from "lucide-react";
+import { Mail, MonitorSmartphone, BookOpen, Phone, ChevronRight, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
