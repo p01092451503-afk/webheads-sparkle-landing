@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Sparkles } from "lucide-react";
 
 interface Props {
   inquiry: any;
@@ -95,6 +95,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
         onClick={() => setExpanded(!expanded)}
         className="flex items-center gap-2 w-full text-left mb-3"
       >
+        <Sparkles className="w-3.5 h-3.5 text-muted-foreground" />
         <span className="text-[11px] font-semibold text-muted-foreground tracking-wide">AI 제안 전략</span>
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)] font-semibold">저장됨</span>
         <div className="flex-1" />
