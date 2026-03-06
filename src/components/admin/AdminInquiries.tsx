@@ -322,6 +322,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     <InquiryProAnalysis inquiry={selectedInquiry} />
 
                     {/* Delete */}
+                    {/* 삭제 버튼 숨김 처리
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
                       <button
                         onClick={() => { setDeleteTarget(selectedInquiry); setDeletePassword(""); setDeleteError(""); }}
@@ -330,6 +331,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                         <Trash2 className="w-3 h-3" /> 문의 삭제
                       </button>
                     </div>
+                    */}
                   </div>
                 </div>
               )}
