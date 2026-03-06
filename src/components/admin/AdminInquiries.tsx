@@ -31,6 +31,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [noteText, setNoteText] = useState("");
   const [savingNote, setSavingNote] = useState(false);
   const itemRefs = useRef<Record<string, HTMLDivElement>>({});
+  const [deleteTarget, setDeleteTarget] = useState<any | null>(null);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deleteError, setDeleteError] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
