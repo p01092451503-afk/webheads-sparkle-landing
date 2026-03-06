@@ -89,6 +89,8 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
   const [error, setError] = useState("");
   const [expanded, setExpanded] = useState(true);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [isFrozen, setIsFrozen] = useState(false);
+  const [freezing, setFreezing] = useState(false);
   const [progressStep, setProgressStep] = useState<"requesting" | "analyzing" | "retrying" | "saving" | "done">("requesting");
   const [retryCount, setRetryCount] = useState(0);
   const [elapsedSec, setElapsedSec] = useState(0);
