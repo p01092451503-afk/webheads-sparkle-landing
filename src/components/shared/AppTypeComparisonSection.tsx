@@ -65,7 +65,7 @@ export default function AppTypeComparisonSection() {
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed" style={{ wordBreak: "keep-all" }}>{activeType.definition}</p>
               <div className="pt-3 border-t border-border/60">
-                <p className="text-xs font-semibold text-foreground mb-1.5">개발 방법</p>
+                <p className="text-xs font-semibold text-foreground mb-1.5">{data.devMethodLabel}</p>
                 <p className="text-muted-foreground text-xs leading-relaxed" style={{ wordBreak: "keep-all" }}>{activeType.devMethod}</p>
               </div>
             </div>
@@ -74,7 +74,7 @@ export default function AppTypeComparisonSection() {
             <div className="rounded-2xl bg-primary/5 border border-primary/10 p-6 flex flex-col gap-3">
               <div className="flex items-center gap-2">
                 <Target className="w-4 h-4 text-primary" />
-                <p className="text-sm font-bold text-foreground">추천 프로젝트</p>
+                <p className="text-sm font-bold text-foreground">{data.bestForLabel}</p>
               </div>
               <p className="text-muted-foreground text-sm leading-relaxed" style={{ wordBreak: "keep-all" }}>{activeType.bestFor}</p>
             </div>
@@ -85,7 +85,7 @@ export default function AppTypeComparisonSection() {
             <div className="rounded-2xl bg-secondary border border-border p-6 md:p-7">
               <div className="flex items-center gap-2 mb-4">
                 <ThumbsUp className="w-4 h-4 text-primary" />
-                <h4 className="font-bold text-foreground text-sm">장점</h4>
+                <h4 className="font-bold text-foreground text-sm">{data.prosLabel}</h4>
               </div>
               <ul className="flex flex-col gap-2.5">
                 {activeType.pros.map((pro: string, i: number) => (
@@ -99,7 +99,7 @@ export default function AppTypeComparisonSection() {
             <div className="rounded-2xl bg-secondary border border-border p-6 md:p-7">
               <div className="flex items-center gap-2 mb-4">
                 <ThumbsDown className="w-4 h-4" style={{ color: "hsl(0, 60%, 50%)" }} />
-                <h4 className="font-bold text-foreground text-sm">단점</h4>
+                <h4 className="font-bold text-foreground text-sm">{data.consLabel}</h4>
               </div>
               <ul className="flex flex-col gap-2.5">
                 {activeType.cons.map((con: string, i: number) => (

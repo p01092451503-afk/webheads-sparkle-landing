@@ -414,6 +414,10 @@
       "sub": "APP TYPE COMPARISON",
       "title": "Native App vs Hybrid App vs Web App",
       "desc": "Choose the optimal app type for your project goals and budget. Compare the characteristics, pros, and cons of each approach.",
+      "devMethodLabel": "Development Method",
+      "bestForLabel": "Recommended Projects",
+      "prosLabel": "Pros",
+      "consLabel": "Cons",
       "types": [
         {
           "name": "Native App",
