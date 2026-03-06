@@ -800,6 +800,30 @@
       { "title": "Payment Error Monitoring & CS", "desc": "Real-time success/failure monitoring, fraud detection (FDS) alerts, and automated CS support.", "tags": ["FDS", "Real-time Monitoring", "Auto CS", "Refund Mgmt"] }
     ],
     "midCTA": { "heading": "Wondering about the right payment integration for your platform?", "description": "We'll propose an optimized PG integration plan for your business model — free of charge." },
+    "pgGuideSection": {
+      "sub": "PG SELECTION GUIDE",
+      "title": "Essential Checklist for\nChoosing the Right PG Provider",
+      "desc": "Your payment system is core infrastructure directly tied to revenue. Use this checklist to select the optimal PG provider for your business."
+    },
+    "pgConsiderations": [
+      { "title": "Fee Structure Comparison", "desc": "Fee rates vary by payment method — credit cards, bank transfers, and quick-pay each have different rates. Volume-based fee negotiations are possible, so simulate total costs based on your projected transaction volume." },
+      { "title": "Settlement Cycle", "desc": "Settlement periods range from D+2 to D+7 across PG providers. Startups and SMBs where cash flow is critical should prioritize providers with shorter settlement cycles. Toss Payments even supports D+1 settlement." },
+      { "title": "Supported Payment Methods", "desc": "Verify coverage for credit/debit cards, bank transfers, virtual accounts, mobile payments, and quick-pay options (KakaoPay, NaverPay, TossPay) — especially the methods your target customers prefer." },
+      { "title": "Recurring Billing Support", "desc": "For subscription or installment services, confirm billing key-based auto-recurring payment support. Additional features like auto-retry on failure and learner notifications are also critical." },
+      { "title": "Integration Convenience", "desc": "Check REST API documentation quality, SDK language support, and sandbox test environment availability. Integration guides and sample code matching your tech stack can significantly reduce development time." },
+      { "title": "Security Certification Level", "desc": "Verify PCI-DSS certification, card tokenization, 3D Secure authentication, and FDS (Fraud Detection System) capabilities. Payment data breaches can be catastrophic for platform credibility." }
+    ],
+    "pgDocsSection": {
+      "title": "Required Documents for PG Merchant Registration",
+      "desc": "Prepare these documents in advance to expedite the merchant review process. WEBHEADS supports you through the entire process from document preparation to approval."
+    },
+    "pgRequiredDocs": [
+      { "doc": "Business Registration Certificate", "detail": "Scanned copy of your corporate or individual business registration. Business status must be 'Active' and the business category should include 'E-commerce' or 'Education Services'." },
+      { "doc": "E-commerce Business Registration", "detail": "Online sales of paid content or services require e-commerce business registration with your local government. Applications without this will be rejected during PG review." },
+      { "doc": "Representative's ID Copy", "detail": "Front-side copy of the CEO's national ID or driver's license. For corporations, a corporate seal certificate may also be required." },
+      { "doc": "Settlement Bank Account Copy", "detail": "Copy of the corporate (or individual business) bank account for receiving PG settlements. The account name must match the registered business name." },
+      { "doc": "Service URL & Terms of Service", "detail": "Your live service URL must have published Terms of Service, Privacy Policy, and Refund Policy pages. The PG review team will verify your actual service." }
+    ],
     "domesticPgSection": {
       "sub": "DOMESTIC PG PROVIDERS",
       "title": "Korea's Top 4\nPayment Systems for E-Learning",

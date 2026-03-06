@@ -127,15 +127,61 @@ export default function PgPage() {
         </div>
       </section>
 
-      <ServiceProcess bg="bg-secondary" 
+      {/* PG Selection Guide */}
+      <section className="py-28 bg-secondary">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-16">
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.pgGuideSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("pg.pgGuideSection.title")}</h2>
+            <p className="text-muted-foreground mt-4 text-base">{t("pg.pgGuideSection.desc")}</p>
+          </div>
+
+          {/* Considerations */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+            {(t("pg.pgConsiderations", { returnObjects: true }) as any[]).map((item: any, i: number) => (
+              <div key={item.title} className="rounded-2xl p-7 bg-background border border-border hover:border-primary/30 hover:shadow-md transition-all duration-200 flex flex-col gap-3">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-primary text-primary-foreground font-bold text-xs">{String(i + 1).padStart(2, "0")}</div>
+                <h3 className="font-bold text-foreground text-base tracking-tight">{item.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed" style={{ wordBreak: "keep-all" }}>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Required Documents */}
+          <div className="rounded-2xl border border-border overflow-hidden">
+            <div className="px-6 py-4 bg-muted border-b border-border">
+              <h3 className="font-bold text-foreground text-base">{t("pg.pgDocsSection.title")}</h3>
+              <p className="text-muted-foreground text-xs mt-1">{t("pg.pgDocsSection.desc")}</p>
+            </div>
+            <div className="divide-y divide-border">
+              {(t("pg.pgRequiredDocs", { returnObjects: true }) as any[]).map((doc: any, i: number) => (
+                <div key={doc.doc} className="flex gap-4 px-6 py-5 hover:bg-muted/30 transition-colors">
+                  <div className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center bg-primary/10 text-primary font-bold text-xs mt-0.5">{i + 1}</div>
+                  <div>
+                    <h4 className="font-bold text-foreground text-sm">{doc.doc}</h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed mt-1" style={{ wordBreak: "keep-all" }}>{doc.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 rounded-xl border border-border bg-background px-6 py-4">
+            <p className="text-foreground font-semibold text-sm text-center sm:text-left" style={{ wordBreak: "keep-all" }}>서류 준비가 번거로우신가요? <span className="font-normal text-muted-foreground">WEBHEADS가 가맹점 등록부터 연동까지 원스톱으로 지원합니다.</span></p>
+            <a href="#contact" className="shrink-0 inline-flex px-5 py-2.5 rounded-2xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("pg.hero.cta1")}</a>
+          </div>
+        </div>
+      </section>
+
+      <ServiceProcess bg="bg-background" 
         steps={processSteps}
         heading={t("pg.processSection.title")}
         subheading={t("pg.processSection.sub")}
         description={t("pg.processSection.desc")}
       />
 
-      <TestimonialSection bg="bg-background" testimonials={testimonials} />
-      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("pg.seo.title")} />
+      <TestimonialSection bg="bg-secondary" testimonials={testimonials} />
+      <ServiceFAQ bg="bg-background" faqs={faqs} serviceName={t("pg.seo.title")} />
       <ContactSection />
     </div>
   );
