@@ -57,6 +57,7 @@ export default function Footer() {
                   onClick={() => setPrivacyOpen(true)}
                   className="self-start inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 border border-primary/20 text-primary text-xs font-medium hover:bg-primary/5 transition-colors"
                 >
+                  <ShieldCheck className="w-3 h-3" />
                   {t("footer.privacyPolicy")}
                 </button>
               </div>
