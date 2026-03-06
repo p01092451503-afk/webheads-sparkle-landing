@@ -16,6 +16,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
   const [result, setResult] = useState<string>(inquiry.ai_analysis || "");
   const [error, setError] = useState<string>("");
   const [expanded, setExpanded] = useState(true);
+  const [fontSize, setFontSize] = useState(11);
 
   useEffect(() => {
     if (inquiry.ai_analysis) {
