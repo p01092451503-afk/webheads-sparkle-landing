@@ -89,11 +89,28 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
   const [error, setError] = useState("");
   const [expanded, setExpanded] = useState(true);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [progressStep, setProgressStep] = useState<"requesting" | "analyzing" | "retrying" | "saving" | "done">("requesting");
+  const [retryCount, setRetryCount] = useState(0);
+  const [elapsedSec, setElapsedSec] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Load existing analysis on mount
   useEffect(() => {
     loadExisting();
   }, [inquiry.id]);
+
+  useEffect(() => {
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+
+  const startTimer = () => {
+    setElapsedSec(0);
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => setElapsedSec((s) => s + 1), 1000);
+  };
+  const stopTimer = () => {
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null; }
+  };
 
   const loadExisting = async () => {
     const { data } = await supabase
@@ -120,11 +137,19 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
     let lastError: Error | null = null;
 
     for (let attempt = 0; attempt < 3; attempt += 1) {
+      if (attempt > 0) {
+        setRetryCount(attempt);
+        setProgressStep("retrying");
+      } else {
+        setProgressStep("requesting");
+      }
+
       const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry-pro", {
         body: { inquiry: payload },
       });
 
       if (!fnError && !data?.error) {
+        setProgressStep("saving");
         return data;
       }
 
@@ -145,14 +170,21 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
   const runAnalysis = async () => {
     setState("loading");
     setError("");
+    setRetryCount(0);
+    setProgressStep("requesting");
+    startTimer();
     try {
       const payload = buildInquiryPayload(inquiry);
+      setProgressStep("analyzing");
       const data = await invokeProAnalysis(payload);
+      setProgressStep("done");
       setAnalysis(data.analysis);
       setState("done");
     } catch (e: any) {
       setError(e.message || "Pro 분석 중 오류가 발생했습니다.");
       setState("error");
+    } finally {
+      stopTimer();
     }
   };
 
