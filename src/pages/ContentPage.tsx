@@ -73,23 +73,23 @@ export default function ContentPage() {
             <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("content.contentTypesSection.title")}</h2>
             <p className="text-muted-foreground mt-4 text-base">{t("content.contentTypesSection.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {contentTypes.map((type: any, i: number) => (
               <div
                 key={type.label}
-                className={`group rounded-2xl p-7 bg-background border transition-all duration-300 flex flex-col gap-4 hover:-translate-y-1 ${
+                className={`group rounded-xl p-5 bg-background border transition-all duration-300 flex flex-col gap-3 hover:-translate-y-1 ${
                   i === 3 ? "border-primary/40 shadow-md ring-1 ring-primary/10" : "border-border hover:border-primary/25 hover:shadow-lg"
                 }`}
                 style={{ boxShadow: i === 3 ? undefined : "0 2px 12px rgba(0,0,0,0.04)" }}
               >
                 <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
                   style={{ background: "hsl(25, 90%, 95%)" }}
                 >
-                  <type.icon className="w-6 h-6" style={{ color: "hsl(25, 80%, 45%)" }} />
+                  <type.icon className="w-5 h-5" style={{ color: "hsl(25, 80%, 45%)" }} />
                 </div>
-                <h3 className="font-bold text-foreground text-[15px] tracking-tight leading-snug">{type.label}</h3>
-                <p className="text-muted-foreground text-xs leading-relaxed">{type.desc}</p>
+                <h3 className="font-bold text-foreground text-sm tracking-tight leading-snug">{type.label}</h3>
+                <p className="text-muted-foreground text-[11px] leading-relaxed">{type.desc}</p>
               </div>
             ))}
           </div>
