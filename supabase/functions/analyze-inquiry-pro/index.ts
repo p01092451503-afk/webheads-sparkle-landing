@@ -8,6 +8,68 @@ const corsHeaders = {
 
 const AI_TIMEOUT_MS = 120000;
 
+/* ── Default values for partial save ── */
+const DEFAULTS = {
+  customer_profile: {
+    industry: "분석 중",
+    scale: "미확인",
+    content_type: "mixed",
+    security_sensitivity: "medium",
+    urgency: "medium",
+    decision_maker_level: "unknown",
+  },
+  feature_mapping: [],
+  cost_scenarios: {
+    scenario_a: { label: "진입형", monthly: 0, initial: 0, coverage_pct: 0, description: "재분석 필요" },
+    scenario_b: { label: "전략 추천형", monthly: 0, initial: 0, coverage_pct: 0, description: "재분석 필요" },
+    scenario_c: { label: "프리미엄형", monthly: 0, initial: 0, coverage_pct: 0, description: "재분석 필요" },
+  },
+  risk_flags: [],
+  strategic_score: {
+    revenue_potential: 0,
+    purchase_intent: 0,
+    build_complexity: 0,
+    reference_value: 0,
+    urgency_score: 0,
+    total: 0,
+    priority: "MEDIUM",
+  },
+  recommended_plan: "Basic",
+  response_email_draft: "",
+  meeting_agenda: [],
+};
+
+/* ── JSON cleaning: strip code fences, trim ── */
+function cleanJsonResponse(raw: string): string {
+  // Remove ```json ... ``` or ``` ... ``` fences
+  let cleaned = raw.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
+  // If still wrapped in fences (multiple), do a greedy extract
+  const fenceMatch = cleaned.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/i);
+  if (fenceMatch) {
+    cleaned = fenceMatch[1].trim();
+  }
+  return cleaned;
+}
+
+/* ── Merge parsed (possibly partial) data with defaults ── */
+function mergeWithDefaults(parsed: Record<string, unknown>): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+  for (const key of Object.keys(DEFAULTS)) {
+    const defaultVal = (DEFAULTS as any)[key];
+    const parsedVal = parsed[key];
+
+    if (parsedVal === undefined || parsedVal === null) {
+      result[key] = defaultVal;
+    } else if (typeof defaultVal === "object" && !Array.isArray(defaultVal) && typeof parsedVal === "object" && !Array.isArray(parsedVal)) {
+      // Deep merge one level for objects like customer_profile, cost_scenarios, strategic_score
+      result[key] = { ...defaultVal, ...(parsedVal as Record<string, unknown>) };
+    } else {
+      result[key] = parsedVal;
+    }
+  }
+  return result;
+}
+
 async function upsertAnalysisRow(row: Record<string, unknown>) {
   const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
   const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -219,42 +281,57 @@ ${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSO
     }
 
     const data = await response.json();
-    let content = data.choices?.[0]?.message?.content || "";
+    const rawContent = data.choices?.[0]?.message?.content || "";
 
-    // Strip markdown code fences if present
-    content = content.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
+    // Clean JSON: strip code fences, trim
+    const cleanedContent = cleanJsonResponse(rawContent);
 
-    let parsed;
+    let parsed: Record<string, unknown>;
+    let isPartial = false;
+
     try {
-      parsed = JSON.parse(content);
+      parsed = JSON.parse(cleanedContent);
     } catch {
-      console.error("Failed to parse AI response as JSON:", content);
-      const errorMessage = "AI 응답을 JSON으로 파싱할 수 없습니다.";
-      if (inquiryId) {
-        await upsertAnalysisRow({ inquiry_id: inquiryId, analysis_status: "failed", error_message: errorMessage });
-      }
-      return new Response(JSON.stringify({ error: errorMessage, raw: content }), {
-        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      // JSON parse failed — attempt partial save with defaults
+      console.error("Failed to parse AI response as JSON. Raw (first 500 chars):", rawContent.slice(0, 500));
+      isPartial = true;
+      parsed = {};
     }
+
+    // Merge with defaults to fill any missing fields
+    const merged = mergeWithDefaults(parsed);
+
+    // Determine if any key field was missing from parsed → mark as partial
+    const criticalKeys = ["customer_profile", "cost_scenarios", "strategic_score"];
+    if (!isPartial) {
+      for (const key of criticalKeys) {
+        if (parsed[key] === undefined || parsed[key] === null) {
+          isPartial = true;
+          break;
+        }
+      }
+    }
+
+    const analysisStatus = isPartial ? "partial" : "completed";
+    const errorMessage = isPartial ? `일부 분석 항목이 불완전합니다. AI 원본 응답(앞 500자): ${rawContent.slice(0, 500)}` : null;
 
     if (inquiryId) {
       await upsertAnalysisRow({
         inquiry_id: inquiryId,
-        customer_profile: parsed.customer_profile,
-        feature_mapping: parsed.feature_mapping,
-        cost_scenarios: parsed.cost_scenarios,
-        risk_flags: parsed.risk_flags,
-        strategic_score: parsed.strategic_score,
-        recommended_plan: parsed.recommended_plan,
-        response_email_draft: parsed.response_email_draft,
-        meeting_agenda: parsed.meeting_agenda,
-        analysis_status: "completed",
-        error_message: null,
+        customer_profile: merged.customer_profile,
+        feature_mapping: merged.feature_mapping,
+        cost_scenarios: merged.cost_scenarios,
+        risk_flags: merged.risk_flags,
+        strategic_score: merged.strategic_score,
+        recommended_plan: merged.recommended_plan,
+        response_email_draft: merged.response_email_draft,
+        meeting_agenda: merged.meeting_agenda,
+        analysis_status: analysisStatus,
+        error_message: errorMessage,
       });
     }
 
-    return new Response(JSON.stringify({ analysis: parsed }), {
+    return new Response(JSON.stringify({ analysis: merged, status: analysisStatus }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e) {
