@@ -130,7 +130,12 @@ export default function Header() {
               className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${effectiveScrolled ? "text-foreground" : "text-white"}`}
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
-              {t("header.logo")}
+              {t("header.logo")}{(() => {
+                const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+                const mm = String(now.getMonth() + 1).padStart(2, "0");
+                const dd = String(now.getDate()).padStart(2, "0");
+                return mm + dd;
+              })()}
             </Link>
 
             {/* Desktop Nav — all services inline */}
