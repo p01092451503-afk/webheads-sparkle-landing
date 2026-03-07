@@ -35,24 +35,64 @@ export default function AdminDashboard() {
 
   // Auth check
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { navigate("/admin/login", { replace: true }); return; }
-      // Check role using SECURITY DEFINER function to bypass RLS
-      const uid = session.user.id;
-      const [superRes, adminRes] = await Promise.all([
-        supabase.rpc("has_role", { _user_id: uid, _role: "super_admin" }),
-        supabase.rpc("has_role", { _user_id: uid, _role: "admin" }),
-      ]);
-      const isSuperAdminRole = superRes.data === true;
-      const isAdminRole = adminRes.data === true;
-      if (!isSuperAdminRole && !isAdminRole) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
-      setUserRole(isSuperAdminRole ? "super_admin" : "admin");
-      setUserId(uid);
-      setLoading(false);
+    let isMounted = true;
+
+    const redirectToLogin = () => {
+      if (!isMounted) return;
+      navigate("/admin/login", { replace: true });
     };
+
+    const checkAuth = async () => {
+      try {
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError || !session) {
+          redirectToLogin();
+          return;
+        }
+
+        const uid = session.user.id;
+        const [superRes, adminRes] = await Promise.all([
+          supabase.rpc("has_role", { _user_id: uid, _role: "super_admin" }),
+          supabase.rpc("has_role", { _user_id: uid, _role: "admin" }),
+        ]);
+
+        if (superRes.error || adminRes.error) {
+          redirectToLogin();
+          return;
+        }
+
+        const isSuperAdminRole = superRes.data === true;
+        const isAdminRole = adminRes.data === true;
+
+        if (!isSuperAdminRole && !isAdminRole) {
+          supabase.auth.signOut().catch(() => undefined);
+          redirectToLogin();
+          return;
+        }
+
+        if (!isMounted) return;
+        setUserRole(isSuperAdminRole ? "super_admin" : "admin");
+        setUserId(uid);
+      } catch {
+        redirectToLogin();
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    const authTimeout = window.setTimeout(() => {
+      if (!isMounted) return;
+      setLoading(false);
+      redirectToLogin();
+    }, 10000);
+
     checkAuth();
-  }, []);
+
+    return () => {
+      isMounted = false;
+      window.clearTimeout(authTimeout);
+    };
+  }, [navigate]);
 
   // Initial data
   useEffect(() => {
