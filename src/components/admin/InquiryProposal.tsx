@@ -221,7 +221,11 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
   }
 
   if (state === "idle" && frozen) {
-    return null;
+    return (
+      <div className="mt-4 pt-4 border-t border-border">
+        <p className="text-[13px] text-muted-foreground">확정된 제안서를 불러오는 중입니다...</p>
+      </div>
+    );
   }
 
   if (state === "loading") {
