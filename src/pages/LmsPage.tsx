@@ -499,6 +499,9 @@ export default function LmsPage() {
       {/* Competitor Comparison — 왜 우리인가 */}
       <CompetitorComparison />
 
+      {/* Mid CTA — 요금제 전 전환 유도 */}
+      <ServiceMidCTA heading={t("lms.midCTA2.heading")} description={t("lms.midCTA2.description")} ctaText={t("lms.midCTA2.ctaText")} />
+
       {/* Plans — 요금제 */}
       <section id="plans" className="py-16 md:py-28" style={{ background: "linear-gradient(180deg, hsl(245, 30%, 96%) 0%, hsl(245, 20%, 93%) 100%)" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-6xl">

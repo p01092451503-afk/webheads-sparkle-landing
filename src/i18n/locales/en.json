@@ -1137,6 +1137,7 @@
       { "title": "Automated Notifications", "desc": "Auto-send enrollment confirmations, assignment reminders, completion notices, and payment alerts via email, SMS, or KakaoTalk throughout the entire learning lifecycle — no ops staff required." }
     ],
     "midCTA": { "heading": "Looking for the perfect e-learning solution?", "description": "We'll recommend the optimal LMS based on your business goals and scale — for free.", "ctaText": "Free Consultation" },
+    "midCTA2": { "heading": "Compared your options yet?", "description": "Our consultants provide a personalized 1:1 comparison analysis tailored to your organization.", "ctaText": "Get Custom Comparison" },
     "caseStudy": {
       "sub": "CASE STUDIES",
       "heading": "Real Results from\nReal Clients",
