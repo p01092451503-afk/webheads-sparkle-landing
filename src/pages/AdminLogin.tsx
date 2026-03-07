@@ -24,16 +24,22 @@ export default function AdminLogin() {
   };
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (session?.user && (await hasAdminAccess(session.user.id))) {
-        navigate("/admin", { replace: true });
-      }
+    const handleSession = (session: { user: { id: string } } | null) => {
+      if (!session?.user) return;
+
+      hasAdminAccess(session.user.id)
+        .then((ok) => {
+          if (ok) navigate("/admin", { replace: true });
+        })
+        .catch(() => undefined);
+    };
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      handleSession(session as { user: { id: string } } | null);
     });
 
-    supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.user && (await hasAdminAccess(session.user.id))) {
-        navigate("/admin", { replace: true });
-      }
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      handleSession(session as { user: { id: string } } | null);
     });
 
     return () => subscription.unsubscribe();

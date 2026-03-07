@@ -194,17 +194,28 @@ export default function PageTracker() {
       if (session?.user) {
         const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
         setIsAdmin(!!data);
+      } else {
+        setIsAdmin(false);
       }
     };
+
     checkAdmin();
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
-        const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
-        setIsAdmin(!!data);
+        void (async () => {
+          try {
+            const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+            setIsAdmin(!!data);
+          } catch {
+            setIsAdmin(false);
+          }
+        })();
       } else {
         setIsAdmin(false);
       }
     });
+
     return () => subscription.unsubscribe();
   }, []);
 

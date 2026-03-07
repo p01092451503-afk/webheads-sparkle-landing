@@ -35,27 +35,69 @@ export default function AdminDashboard() {
 
   // Auth check
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { navigate("/admin/login", { replace: true }); return; }
-      // Check role using SECURITY DEFINER function to bypass RLS
-      const uid = session.user.id;
-      const [superRes, adminRes] = await Promise.all([
-        supabase.rpc("has_role", { _user_id: uid, _role: "super_admin" }),
-        supabase.rpc("has_role", { _user_id: uid, _role: "admin" }),
-      ]);
-      const isSuperAdminRole = superRes.data === true;
-      const isAdminRole = adminRes.data === true;
-      if (!isSuperAdminRole && !isAdminRole) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
-      setUserRole(isSuperAdminRole ? "super_admin" : "admin");
-      setUserId(uid);
-      setLoading(false);
+    let isMounted = true;
+
+    const redirectToLogin = () => {
+      if (!isMounted) return;
+      navigate("/admin/login", { replace: true });
     };
+
+    const checkAuth = async () => {
+      try {
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError || !session) {
+          redirectToLogin();
+          return;
+        }
+
+        const uid = session.user.id;
+        const [superRes, adminRes] = await Promise.all([
+          supabase.rpc("has_role", { _user_id: uid, _role: "super_admin" }),
+          supabase.rpc("has_role", { _user_id: uid, _role: "admin" }),
+        ]);
+
+        if (superRes.error || adminRes.error) {
+          redirectToLogin();
+          return;
+        }
+
+        const isSuperAdminRole = superRes.data === true;
+        const isAdminRole = adminRes.data === true;
+
+        if (!isSuperAdminRole && !isAdminRole) {
+          supabase.auth.signOut().catch(() => undefined);
+          redirectToLogin();
+          return;
+        }
+
+        if (!isMounted) return;
+        setUserRole(isSuperAdminRole ? "super_admin" : "admin");
+        setUserId(uid);
+      } catch {
+        redirectToLogin();
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    const authTimeout = window.setTimeout(() => {
+      if (!isMounted) return;
+      setLoading(false);
+      redirectToLogin();
+    }, 10000);
+
     checkAuth();
-  }, []);
+
+    return () => {
+      isMounted = false;
+      window.clearTimeout(authTimeout);
+    };
+  }, [navigate]);
 
   // Initial data
   useEffect(() => {
+    if (!userId) return;
+
     const since7d = new Date();
     since7d.setDate(since7d.getDate() - 7);
 
@@ -67,8 +109,8 @@ export default function AdminDashboard() {
       setInquiries(inqRes.data || []);
       setServiceRequests(srRes.data || []);
       setPageViews(pvRes.data || []);
-    });
-  }, []);
+    }).catch(() => undefined);
+  }, [userId]);
 
   const fetchFullAnalytics = useCallback(async (days: number) => {
     const since = new Date();
@@ -105,6 +147,8 @@ export default function AdminDashboard() {
 
   // Realtime
   useEffect(() => {
+    if (!userId) return;
+
     const channel = supabase
       .channel('inquiries-realtime')
       .on('postgres_changes', {
@@ -117,8 +161,9 @@ export default function AdminDashboard() {
         setTimeout(() => setNewInquiryAlert(false), 5000);
       })
       .subscribe();
+
     return () => { supabase.removeChannel(channel); };
-  }, []);
+  }, [userId]);
 
   const fetchInquiries = useCallback(async () => {
     const { data } = await supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500);
@@ -160,6 +205,8 @@ export default function AdminDashboard() {
       </div>
     );
   }
+
+  if (!userId) return null;
 
   return (
     <div className="min-h-screen bg-[hsl(220,14%,96%)]">
