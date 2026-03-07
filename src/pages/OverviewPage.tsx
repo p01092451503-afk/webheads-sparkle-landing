@@ -489,8 +489,8 @@ export default function OverviewPage() {
       />
 
       {/* ── HERO ── */}
-      <section data-pdf-section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(210,40%,96%) 0%, hsl(220,30%,92%) 40%, hsl(210,35%,88%) 100%)" }}>
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 30%, hsl(210,60%,92%,0.6), transparent)" }} />
+      <section data-pdf-section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "hsl(220,30%,82%)" }}>
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 30%, hsl(220,35%,86%,0.5), transparent)" }} />
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(220,50%,30%,0.08)", color: "hsl(220,50%,35%)", border: "1px solid hsl(220,40%,50%,0.15)" }}>
             {t("overview.hero.badge")}
