@@ -255,7 +255,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
             {/* Service select */}
             <FormField label={t("contact.formService")}>
-              <div className="relative">
+              <div className="relative" onMouseLeave={() => setShowServiceDropdown(false)}>
                 <button
                   type="button"
                   onClick={() => setShowServiceDropdown(!showServiceDropdown)}
