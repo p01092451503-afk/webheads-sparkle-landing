@@ -51,8 +51,8 @@ export default function AdminLogin() {
       return;
     }
 
-    const { data: roleData } = await supabase.from("user_roles").select("role").eq("user_id", authData.user.id).eq("role", "admin").maybeSingle();
-    if (!roleData) {
+    const isAdmin = await hasAdminAccess(authData.user.id);
+    if (!isAdmin) {
       await supabase.auth.signOut();
       setError("관리자 권한이 없는 계정입니다.");
       setLoading(false);
