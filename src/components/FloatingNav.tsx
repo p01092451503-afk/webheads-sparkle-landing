@@ -31,7 +31,7 @@ export default function FloatingNav() {
   ];
 
   return (
-    <>
+    <div data-floating-nav>
       {/* Desktop — vertically centered */}
       <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-2">
         {!isServiceRequest && location.pathname !== "/pricing" && (
