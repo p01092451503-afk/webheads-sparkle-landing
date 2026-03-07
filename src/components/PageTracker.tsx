@@ -317,7 +317,7 @@ export default function PageTracker() {
     }).then(({ error }) => {
       if (error) console.error("Tracking error:", error);
     });
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, isAdmin]);
 
   // Send duration on tab close (once, no duplicate)
   useEffect(() => {
