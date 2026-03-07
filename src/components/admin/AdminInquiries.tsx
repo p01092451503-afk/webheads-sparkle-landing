@@ -244,13 +244,13 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                         {inq.inquiry_type === "demo" ? "데모" : "상담"}
                       </span>
                       {inq.ai_analysis && (
-                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(192,80%,40%)] bg-[hsl(192,80%,40%,0.08)]">🤖 AI분석</span>
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(192,80%,40%)] bg-[hsl(192,80%,40%,0.08)]">AI분석</span>
                       )}
                       {inq.notes && (
-                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">📝 메모</span>
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">메모</span>
                       )}
                       {inq.meeting_notes && (
-                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(262,60%,55%)] bg-[hsl(262,60%,55%,0.08)]">✅ 미팅완료</span>
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(262,60%,55%)] bg-[hsl(262,60%,55%,0.08)]">미팅완료</span>
                       )}
                     </div>
                     <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">
