@@ -113,6 +113,14 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     }
   }, [inquiry, companyInfo]);
 
+  // Backward compatibility: for old frozen records without saved proposal, auto-restore once
+  useEffect(() => {
+    if (frozen && !proposal && state === "idle" && !attemptedRestoreRef.current) {
+      attemptedRestoreRef.current = true;
+      generate();
+    }
+  }, [frozen, proposal, state, generate]);
+
   const exportPDF = useCallback(async () => {
     if (!proposal || !containerRef.current) return;
 
