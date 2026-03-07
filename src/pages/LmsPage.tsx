@@ -571,6 +571,7 @@ export default function LmsPage() {
       <TestimonialSection testimonials={testimonials} />
       <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
       <ContactSection showDemo />
+      <ExitIntentPopup />
     </div>
   );
 }
