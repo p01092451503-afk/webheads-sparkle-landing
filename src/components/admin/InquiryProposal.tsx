@@ -1,8 +1,8 @@
 import { useState, useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
+import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
 
 interface ProposalSection {
   heading: string;
@@ -73,94 +73,43 @@ export default function InquiryProposal({ inquiry }: Props) {
   }, [inquiry]);
 
   const exportPDF = useCallback(async () => {
-    if (!proposal) return;
-    const doc = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
+    if (!proposal || !containerRef.current) return;
 
-    // Load Noto Sans KR font
+    const contentEl = containerRef.current.querySelector("[data-proposal-content]") as HTMLElement;
+    if (!contentEl) return;
+
     try {
-      const fontRes = await fetch("https://cdn.jsdelivr.net/gh/nicobytes/fonts-for-jspdf/NotoSansKR-Regular.ttf");
-      const fontBuf = await fontRes.arrayBuffer();
-      const fontBase64 = btoa(String.fromCharCode(...new Uint8Array(fontBuf)));
-      doc.addFileToVFS("NotoSansKR-Regular.ttf", fontBase64);
-      doc.addFont("NotoSansKR-Regular.ttf", "NotoSansKR", "normal");
-      doc.setFont("NotoSansKR");
-    } catch {
-      // Fallback to default
-    }
+      const canvas = await html2canvas(contentEl, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#ffffff",
+      });
 
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const margin = 20;
-    const contentWidth = pageWidth - margin * 2;
-    let y = 25;
+      const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
+      const imgWidth = 190;
+      const pageHeight = 277;
+      const margin = 10;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgData = canvas.toDataURL("image/png");
 
-    const addText = (text: string, size: number, style: "normal" | "bold" = "normal", maxWidth = contentWidth) => {
-      doc.setFontSize(size);
-      const lines = doc.splitTextToSize(text, maxWidth);
-      for (const line of lines) {
-        if (y > 275) { doc.addPage(); y = 20; }
-        doc.text(line, margin, y);
-        y += size * 0.45;
+      let heightLeft = imgHeight;
+      let position = margin;
+
+      pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight + margin;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
       }
-    };
 
-    // Title
-    doc.setFontSize(18);
-    const titleLines = doc.splitTextToSize(proposal.title, contentWidth);
-    for (const line of titleLines) {
-      doc.text(line, margin, y);
-      y += 8;
+      pdf.save(`${inquiry.company}_제안서.pdf`);
+    } catch (e) {
+      console.error("PDF export error:", e);
     }
-    y += 4;
-
-    // Summary
-    doc.setFontSize(11);
-    doc.setTextColor(100);
-    const summaryLines = doc.splitTextToSize(proposal.summary, contentWidth);
-    for (const line of summaryLines) {
-      if (y > 275) { doc.addPage(); y = 20; }
-      doc.text(line, margin, y);
-      y += 5;
-    }
-    doc.setTextColor(0);
-    y += 8;
-
-    // Sections
-    for (const section of proposal.sections) {
-      if (y > 260) { doc.addPage(); y = 20; }
-
-      // Heading
-      doc.setFontSize(13);
-      doc.text(section.heading, margin, y);
-      y += 7;
-
-      // Content - clean markdown
-      const cleaned = section.content
-        .replace(/\*\*/g, "")
-        .replace(/\*/g, "")
-        .replace(/#{1,6}\s/g, "")
-        .replace(/\|/g, "  ");
-
-      doc.setFontSize(10);
-      const contentLines = doc.splitTextToSize(cleaned, contentWidth);
-      for (const line of contentLines) {
-        if (y > 275) { doc.addPage(); y = 20; }
-        doc.text(line, margin, y);
-        y += 4.5;
-      }
-      y += 6;
-    }
-
-    // Footer
-    const pageCount = doc.getNumberOfPages();
-    for (let i = 1; i <= pageCount; i++) {
-      doc.setPage(i);
-      doc.setFontSize(8);
-      doc.setTextColor(150);
-      doc.text(`WEBHEADS  |  서울시 마포구 월드컵로114, 3층  |  02-540-4337  |  www.webheads.co.kr  |  ${i}/${pageCount}`, margin, 290);
-      doc.setTextColor(0);
-    }
-
-    doc.save(`${inquiry.company}_제안서.pdf`);
   }, [proposal, inquiry.company]);
 
   const renderMarkdown = (content: string) => {
@@ -265,7 +214,7 @@ export default function InquiryProposal({ inquiry }: Props) {
       </div>
 
       {expanded && (
-        <div className="bg-white rounded-xl border border-[hsl(220,13%,93%)] p-5 sm:p-6" style={{ fontSize: `${fontSize}px` }}>
+        <div data-proposal-content className="bg-white rounded-xl border border-[hsl(220,13%,93%)] p-5 sm:p-6" style={{ fontSize: `${fontSize}px` }}>
           {/* Title */}
           <h2 className="text-[1.2em] font-bold text-foreground tracking-[-0.02em] mb-2">{proposal.title}</h2>
           <p className="text-[0.85em] text-muted-foreground mb-6 leading-relaxed">{proposal.summary}</p>
