@@ -511,11 +511,11 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
                     <div className="space-y-2">
                       <div>
                         <p className="text-[10px] text-muted-foreground">월 비용</p>
-                        <p className="text-[16px] font-black text-foreground">{scenario.monthly}<span className="text-[11px] font-normal text-muted-foreground">만원</span></p>
+                        <p className="text-[16px] font-black text-foreground">{Number(scenario.monthly).toLocaleString()}<span className="text-[11px] font-normal text-muted-foreground">원</span></p>
                       </div>
                       <div>
                         <p className="text-[10px] text-muted-foreground">초기 비용</p>
-                        <p className="text-[14px] font-bold text-foreground">{scenario.initial}<span className="text-[11px] font-normal text-muted-foreground">만원</span></p>
+                        <p className="text-[14px] font-bold text-foreground">{Number(scenario.initial).toLocaleString()}<span className="text-[11px] font-normal text-muted-foreground">원</span></p>
                       </div>
                       <div>
                         <p className="text-[10px] text-muted-foreground mb-1">요구사항 커버리지</p>
