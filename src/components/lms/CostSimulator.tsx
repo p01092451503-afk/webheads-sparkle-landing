@@ -183,10 +183,10 @@ export default function CostSimulator() {
                 </div>
                 <button
                   onClick={() => setNeedsCdn(!needsCdn)}
-                  className={`relative w-11 h-6 rounded-full transition-colors ${needsCdn ? "" : "bg-muted"}`}
+                  className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${needsCdn ? "" : "bg-muted"}`}
                   style={needsCdn ? { background: "hsl(var(--lms-primary))" } : undefined}
                 >
-                  <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${needsCdn ? "translate-x-[22px]" : "translate-x-0.5"}`} />
+                  <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsCdn ? "translate-x-5" : "translate-x-0"}`} />
                 </button>
               </div>
 
