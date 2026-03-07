@@ -43,7 +43,6 @@ export default function CostSimulator() {
   const recommendations = useMemo<PlanRecommendation[]>(() => {
     return PLANS.map((plan) => {
       if (plan.name === "Starter") {
-        // Starter uses external video hosting — no CDN/storage overage
         return {
           ...plan,
           isMatch: !needsCdn,
@@ -51,6 +50,11 @@ export default function CostSimulator() {
           overageCdn: 0,
           overageStorage: 0,
         };
+      }
+
+      // CDN plans only show when CDN is needed
+      if (!needsCdn) {
+        return { ...plan, isMatch: false, totalMonthly: 0, overageCdn: 0, overageStorage: 0 };
       }
 
       const overCdn = Math.max(0, cdnGB - plan.cdnIncluded);
