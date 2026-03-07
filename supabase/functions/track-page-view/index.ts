@@ -112,6 +112,8 @@ function classifyVisitor(ua: string, ip: string | null): string {
   for (const [pat, type] of aiBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of searchBotMap) { if (pat.test(lowerUA)) return type; }
   for (const [pat, type] of scraperMap) { if (pat.test(lowerUA)) return type; }
+  // Naver in-app search crawler (US-based proxies with spoofed mobile UA)
+  if (/naver\(inapp;\s*search;/i.test(ua) && /naverom/i.test(ua)) return "search_bot_naver";
   // Fake/spoofed User-Agent
   if (hasFakeUA(ua)) return "scraper_fake_ua";
   const isCloudflareProxy = ip ? cloudflareRanges.some(r => r.test(ip)) : false;
@@ -119,6 +121,8 @@ function classifyVisitor(ua: string, ip: string | null): string {
   // Datacenter IPs with normal UA = likely spoofed bot
   const isDatacenter = ip ? datacenterRanges.some(r => r.test(ip)) : false;
   if (isDatacenter) return "scraper_datacenter";
+  // T-Mobile/carrier IPs from US with Naver inapp pattern
+  if (/172\.56\./i.test(ip || "")) return "human"; // T-Mobile US is legitimate carrier
   return "human";
 }
 
