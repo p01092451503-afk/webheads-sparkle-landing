@@ -320,8 +320,26 @@ function AddOnServicesSection() {
 }
 
 /* ══════════════════════════════════════════
-   MAIN PAGE
+   Client Reference Grid (for Overview PDF)
    ══════════════════════════════════════════ */
+function ClientMarqueeGrid() {
+  const { t } = useTranslation();
+  const clients = t("lms.clients", { returnObjects: true }) as string[];
+
+  return (
+    <div className="flex flex-wrap justify-center gap-x-1 gap-y-3">
+      {clients.map((name, i) => (
+        <span
+          key={i}
+          className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-border bg-white text-muted-foreground"
+        >
+          {name}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function OverviewPage() {
   const { t } = useTranslation();
   const [pdfLoading, setPdfLoading] = useState(false);
@@ -506,6 +524,16 @@ export default function OverviewPage() {
       {/* ── Add-on Services (deferred) ── */}
       <LazySection fallbackHeight="600px">
         <AddOnServicesSection />
+      </LazySection>
+
+      {/* ── Client References ── */}
+      <LazySection fallbackHeight="200px">
+        <section data-pdf-section className="py-16" style={{ background: "hsl(252, 30%, 97%)" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <SectionHead sub="CLIENT REFERENCES" title="대표 구축사례" desc="300개 이상의 기업·기관이 웹헤즈 LMS를 도입하여 운영하고 있습니다." />
+            <ClientMarqueeGrid />
+          </div>
+        </section>
       </LazySection>
 
       {/* ── Why Webheads ── */}
