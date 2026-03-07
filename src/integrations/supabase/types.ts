@@ -97,6 +97,7 @@ export type Database = {
           email: string | null
           id: string
           inquiry_type: string
+          meeting_notes: string | null
           message: string | null
           name: string
           notes: string | null
@@ -113,6 +114,7 @@ export type Database = {
           email?: string | null
           id?: string
           inquiry_type?: string
+          meeting_notes?: string | null
           message?: string | null
           name: string
           notes?: string | null
@@ -129,6 +131,7 @@ export type Database = {
           email?: string | null
           id?: string
           inquiry_type?: string
+          meeting_notes?: string | null
           message?: string | null
           name?: string
           notes?: string | null
