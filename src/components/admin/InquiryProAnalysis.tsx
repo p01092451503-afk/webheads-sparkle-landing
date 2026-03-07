@@ -429,7 +429,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
               <div className="flex items-center justify-between mb-3">
                 <p className="text-[11px] font-bold text-muted-foreground tracking-wide">전략적 가치 스코어</p>
                 <div className="flex items-center gap-2">
-                  <span className="text-[18px] font-black text-foreground">{analysis.strategic_score.total}</span>
+                  <span className="text-[18px] font-black text-foreground">{recalculatedTotal}</span>
                   <span className="text-[10px] text-muted-foreground">/100</span>
                 </div>
               </div>
@@ -438,9 +438,9 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
                   <div key={item.key} className="flex items-center gap-3">
                     <span className="text-[11px] text-muted-foreground w-[80px] shrink-0">{item.label}</span>
                     <div className="flex-1">
-                      <Progress value={item.value} className="h-2" />
+                      <Progress value={item.percent} className="h-2" />
                     </div>
-                    <span className="text-[11px] font-semibold text-foreground w-[32px] text-right">{item.value}</span>
+                    <span className="text-[11px] font-semibold text-foreground w-[32px] text-right">{item.score}</span>
                   </div>
                 ))}
               </div>
