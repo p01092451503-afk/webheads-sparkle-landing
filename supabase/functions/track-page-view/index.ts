@@ -275,6 +275,8 @@ async function handlePost(req: Request): Promise<Response> {
     utm_content: body.utm_content || null,
     is_first_visit: body.is_first_visit || false,
     visitor_type,
+    visitor_id: body.visitor_id || null,
+    visit_count: body.visit_count || 1,
   });
 
   if (error) {

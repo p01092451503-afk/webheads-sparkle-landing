@@ -313,6 +313,8 @@ export type Database = {
           utm_medium: string | null
           utm_source: string | null
           utm_term: string | null
+          visit_count: number | null
+          visitor_id: string | null
           visitor_type: string | null
         }
         Insert: {
@@ -339,6 +341,8 @@ export type Database = {
           utm_medium?: string | null
           utm_source?: string | null
           utm_term?: string | null
+          visit_count?: number | null
+          visitor_id?: string | null
           visitor_type?: string | null
         }
         Update: {
@@ -365,6 +369,8 @@ export type Database = {
           utm_medium?: string | null
           utm_source?: string | null
           utm_term?: string | null
+          visit_count?: number | null
+          visitor_id?: string | null
           visitor_type?: string | null
         }
         Relationships: []

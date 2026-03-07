@@ -4,7 +4,8 @@ import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
   MousePointerClick, Users, ScrollText, Link2, LogOut,
-  Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown, ShieldAlert
+  Route, Languages, MonitorSmartphone, Grid3X3, Bot, User, BrainCircuit, ChevronDown, ShieldAlert,
+  Repeat, Fingerprint, GitBranch
 } from "lucide-react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip,
@@ -53,6 +54,85 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const bounced = sessions.filter((c) => c === 1).length;
     return Math.round((bounced / sessions.length) * 100);
   }, [humanViews]);
+
+  // 2. Bounce rate per landing page
+  const bounceByPage = useMemo(() => {
+    const sessionData: Record<string, { landing: string; pageCount: number; firstTime: string }> = {};
+    humanViews.forEach((v) => {
+      if (!v.session_id) return;
+      if (!sessionData[v.session_id]) {
+        sessionData[v.session_id] = { landing: v.page_path, pageCount: 0, firstTime: v.created_at };
+      }
+      sessionData[v.session_id].pageCount++;
+      if (v.created_at < sessionData[v.session_id].firstTime) {
+        sessionData[v.session_id].landing = v.page_path;
+        sessionData[v.session_id].firstTime = v.created_at;
+      }
+    });
+    const pageStats: Record<string, { total: number; bounced: number }> = {};
+    Object.values(sessionData).forEach((s) => {
+      if (!pageStats[s.landing]) pageStats[s.landing] = { total: 0, bounced: 0 };
+      pageStats[s.landing].total++;
+      if (s.pageCount === 1) pageStats[s.landing].bounced++;
+    });
+    return Object.entries(pageStats)
+      .map(([path, d]) => ({ path, rate: d.total > 0 ? Math.round((d.bounced / d.total) * 100) : 0, total: d.total, bounced: d.bounced }))
+      .filter((d) => d.total >= 2)
+      .sort((a, b) => b.rate - a.rate);
+  }, [humanViews]);
+
+  // 3. Visitor frequency analysis (via visitor_id)
+  const visitorFrequency = useMemo(() => {
+    const vidSessions: Record<string, Set<string>> = {};
+    humanViews.forEach((v) => {
+      const vid = (v as any).visitor_id;
+      if (!vid || !v.session_id) return;
+      if (!vidSessions[vid]) vidSessions[vid] = new Set();
+      vidSessions[vid].add(v.session_id);
+    });
+    const freq: Record<string, number> = { "1회": 0, "2회": 0, "3~5회": 0, "6~10회": 0, "11회+": 0 };
+    Object.values(vidSessions).forEach((sessions) => {
+      const c = sessions.size;
+      if (c === 1) freq["1회"]++;
+      else if (c === 2) freq["2회"]++;
+      else if (c <= 5) freq["3~5회"]++;
+      else if (c <= 10) freq["6~10회"]++;
+      else freq["11회+"]++;
+    });
+    const totalVisitors = Object.values(vidSessions).length;
+    return { freq: Object.entries(freq).filter(([, v]) => v > 0), totalVisitors };
+  }, [humanViews]);
+
+  // 4. CTA conversion attribution: session path → CTA click → inquiry
+  const ctaAttribution = useMemo(() => {
+    const sessionPages: Record<string, { path: string; time: string }[]> = {};
+    humanViews.forEach((v) => {
+      if (!v.session_id) return;
+      if (!sessionPages[v.session_id]) sessionPages[v.session_id] = [];
+      sessionPages[v.session_id].push({ path: v.page_path, time: v.created_at });
+    });
+    const ctaSessionPages: Record<string, string> = {};
+    filteredClicks.forEach((c) => {
+      if (c.session_id) ctaSessionPages[c.session_id] = c.page_path;
+    });
+    const inquirySessionIds = new Set(inquiries.filter((i: any) => i.session_id).map((i: any) => i.session_id));
+    const flowCounts: Record<string, { total: number; converted: number }> = {};
+    Object.entries(ctaSessionPages).forEach(([sid, ctaPage]) => {
+      const pages = sessionPages[sid];
+      if (!pages) return;
+      const sorted = [...pages].sort((a, b) => a.time.localeCompare(b.time));
+      const uniquePages = [...new Set(sorted.map((p) => p.path))];
+      const flow = uniquePages.length <= 3
+        ? uniquePages.join(" → ") + " → [CTA]"
+        : `${uniquePages[0]} → ... → ${ctaPage} → [CTA]`;
+      if (!flowCounts[flow]) flowCounts[flow] = { total: 0, converted: 0 };
+      flowCounts[flow].total++;
+      if (inquirySessionIds.has(sid)) flowCounts[flow].converted++;
+    });
+    return Object.entries(flowCounts)
+      .map(([flow, d]) => ({ flow, ...d }))
+      .sort((a, b) => b.total - a.total);
+  }, [humanViews, filteredClicks, inquiries]);
 
   const visitorTypeCounts = useMemo(() => {
     // Display name maps for granular visitor_type from DB
@@ -832,10 +912,59 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />}>
             {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={ctaByPage[0][1]} color="hsl(262, 60%, 55%)" />)}
           </ChartCard>
+          {/* CTA Conversion Attribution */}
+          <ChartCard title="CTA 전환 경로" icon={<GitBranch className="w-4 h-4" />}>
+            {ctaAttribution.length === 0 ? <Empty msg="CTA 전환 경로 데이터 수집 중..." /> : ctaAttribution.slice(0, 10).map((d, i) => (
+              <div key={d.flow} className="flex items-center gap-2 py-1.5">
+                <span className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold bg-[hsl(262,60%,55%,0.1)] text-[hsl(262,60%,55%)]">{i+1}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[12px] text-foreground truncate">{d.flow}</p>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    <span className="text-[11px] text-muted-foreground">{d.total}회</span>
+                    {d.converted > 0 && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)]">전환 {d.converted}건</span>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </ChartCard>
         </div>
       </SectionGroup>
 
-      <SectionGroup title="콘텐츠 소비 분석" number={8}>
+      <SectionGroup title="이탈률 · 재방문 분석" number={8}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <ChartCard title="페이지별 이탈률" icon={<LogOut className="w-4 h-4" />}>
+            {bounceByPage.length === 0 ? <Empty msg="이탈률 데이터 수집 중..." /> : bounceByPage.slice(0, 10).map((d, i) => (
+              <div key={d.path} className="flex items-center gap-2 py-1.5">
+                <span className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold bg-[hsl(25,95%,53%,0.1)] text-[hsl(25,95%,53%)]">{i+1}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <p className="text-[12px] text-foreground truncate">{d.path}</p>
+                    <span className="text-[13px] font-bold tabular-nums" style={{ color: d.rate > 70 ? "hsl(0, 84%, 60%)" : d.rate > 40 ? "hsl(25, 95%, 53%)" : "hsl(152, 57%, 42%)" }}>{d.rate}%</span>
+                  </div>
+                  <div className="flex items-center gap-1 mt-0.5">
+                    <div className="flex-1 h-1.5 rounded-full bg-[hsl(25,95%,53%,0.08)]">
+                      <div className="h-full rounded-full transition-all" style={{ width: `${d.rate}%`, background: d.rate > 70 ? "hsl(0, 84%, 60%)" : d.rate > 40 ? "hsl(25, 95%, 53%)" : "hsl(152, 57%, 42%)" }} />
+                    </div>
+                    <span className="text-[10px] text-muted-foreground shrink-0">{d.bounced}/{d.total}세션</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </ChartCard>
+          <ChartCard title="방문 빈도 분포" icon={<Repeat className="w-4 h-4" />}>
+            {visitorFrequency.totalVisitors === 0 ? <Empty msg="방문자 ID 데이터 수집 중..." /> : (
+              <>
+                <p className="text-[11px] text-muted-foreground mb-2">총 {visitorFrequency.totalVisitors}명의 고유 방문자</p>
+                {visitorFrequency.freq.map(([label, count], i) => (
+                  <BarRow key={label} rank={i+1} label={label} value={count} max={visitorFrequency.freq[0][1]} color="hsl(199, 89%, 48%)" />
+                ))}
+              </>
+            )}
+          </ChartCard>
+        </div>
+      </SectionGroup>
+
+      <SectionGroup title="콘텐츠 소비 분석" number={9}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <ChartCard title="페이지별 스크롤 깊이" icon={<ScrollText className="w-4 h-4" />}>
             {scrollDepthStats.length === 0 ? <Empty msg="스크롤 데이터 수집 중..." /> : scrollDepthStats.map((d, i) => <BarRow key={d.path} rank={i+1} label={d.path} value={d.avg} max={100} color="hsl(37, 90%, 51%)" suffix="%" />)}
@@ -846,7 +975,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         </div>
       </SectionGroup>
 
-      <SectionGroup title="신규 방문자 분석 (3/4~)" number={9}>
+      <SectionGroup title="신규 방문자 분석 (3/4~)" number={10}>
         <div className="flex flex-wrap items-center gap-1.5 px-1 mb-1">
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)]">
             <User className="w-3 h-3" /> 사람 접속만 표시
