@@ -475,7 +475,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
                     <th className="text-left font-bold text-foreground px-3 py-2.5 border-b border-[hsl(220,13%,91%)]">요구사항</th>
                     <th className="text-left font-bold text-foreground px-3 py-2.5 border-b border-[hsl(220,13%,91%)] w-[80px]">분류</th>
                     <th className="text-left font-bold text-foreground px-3 py-2.5 border-b border-[hsl(220,13%,91%)]">구현 방안</th>
-                    <th className="text-left font-bold text-foreground px-3 py-2.5 border-b border-[hsl(220,13%,91%)] w-[100px]">비용</th>
+                    <th className="text-left font-bold text-foreground px-3 py-2.5 border-b border-[hsl(220,13%,91%)] min-w-[140px]">비용</th>
                   </tr>
                 </thead>
                 <tbody>
