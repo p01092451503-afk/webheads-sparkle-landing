@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
+import { dedupeLocation } from "@/lib/utils";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
