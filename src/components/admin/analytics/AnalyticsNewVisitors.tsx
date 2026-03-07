@@ -25,7 +25,7 @@ export default function AnalyticsNewVisitors({ pageViews, toLocalDateKey }: Prop
   const [newVisitorDateFilter, setNewVisitorDateFilter] = useState<string>("all");
   const newVisitorCutoff = new Date("2026-03-04T00:00:00");
 
-  const { dedupeLocation } = require("@/lib/utils");
+  
 
   const newVisitorData: NewVisitorData = (() => {
     const oldVisitorIds = new Set<string>();
