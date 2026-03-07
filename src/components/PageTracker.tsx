@@ -241,6 +241,7 @@ export default function PageTracker() {
 
   // ─── 4. CTA click tracking with session context ───
   const trackClick = useCallback((e: MouseEvent) => {
+    if (isAdmin) return;
     const target = e.target as HTMLElement;
     const btn = target.closest("a[href], button") as HTMLElement | null;
     if (!btn) return;
@@ -270,7 +271,7 @@ export default function PageTracker() {
         visitor_id: getVisitorId(),
       },
     }).catch(() => {});
-  }, []);
+  }, [isAdmin]);
 
   useEffect(() => {
     document.addEventListener("click", trackClick, true);
