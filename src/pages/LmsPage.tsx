@@ -28,6 +28,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useSearchParams, useLocation } from "react-router-dom";
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
+import ExitIntentPopup from "@/components/ExitIntentPopup";
 import ClientMarquee from "@/components/ClientMarquee";
 
 const lightFeatureIcons = [Zap, DollarSign, Palette, Languages, ShieldCheck, CreditCard, RefreshCw, LineChart, MonitorSmartphone, Plug, PackageCheck];
