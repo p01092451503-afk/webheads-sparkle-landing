@@ -19,9 +19,10 @@ interface AdminServiceRequestsProps {
   setRequests: (r: any[]) => void;
   onRefresh: () => void;
   logActivity: (action: string, targetType?: string, targetId?: string, details?: any) => Promise<void>;
+  isSuperAdmin: boolean;
 }
 
-export default function AdminServiceRequests({ requests, setRequests, onRefresh, logActivity }: AdminServiceRequestsProps) {
+export default function AdminServiceRequests({ requests, setRequests, onRefresh, logActivity, isSuperAdmin }: AdminServiceRequestsProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
@@ -44,12 +45,14 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
   }, [requests, statusFilter, typeFilter, searchQuery]);
 
   const updateStatus = async (id: string, status: RequestStatus) => {
+    if (!isSuperAdmin) return;
     await supabase.from("service_requests").update({ status }).eq("id", id);
     setRequests(requests.map((r) => (r.id === id ? { ...r, status } : r)));
     await logActivity("update_service_request_status", "service_request", id, { status });
   };
 
   const deleteRequest = async (id: string) => {
+    if (!isSuperAdmin) return;
     if (!confirm("정말 삭제하시겠습니까?")) return;
     await supabase.from("service_requests").delete().eq("id", id);
     setRequests(requests.filter((r) => r.id !== id));
@@ -201,7 +204,8 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
                         <button
                           key={s}
                           onClick={() => updateStatus(r.id, s)}
-                          className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all ${
+                          disabled={!isSuperAdmin}
+                          className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all disabled:cursor-not-allowed disabled:opacity-60 ${
                             status === s
                               ? "bg-primary text-primary-foreground"
                               : "bg-muted text-muted-foreground hover:text-foreground"
@@ -211,12 +215,14 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
                         </button>
                       ))}
                       <div className="flex-1" />
-                      <button
-                        onClick={() => deleteRequest(r.id)}
-                        className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                      {isSuperAdmin && (
+                        <button
+                          onClick={() => deleteRequest(r.id)}
+                          className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                   </div>
                 )}

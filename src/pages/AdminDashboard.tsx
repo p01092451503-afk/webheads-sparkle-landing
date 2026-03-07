@@ -12,6 +12,7 @@ const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 
 type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
+type UserRole = "super_admin" | "admin" | "user";
 
 const TabLoader = () => (
   <div className="flex items-center justify-center py-20">
@@ -24,6 +25,7 @@ export default function AdminDashboard() {
   const [tab, setTab] = useState<Tab>("inquiries");
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<UserRole>("admin");
   const [inquiries, setInquiries] = useState<any[]>([]);
   const [serviceRequests, setServiceRequests] = useState<any[]>([]);
   const [pageViews, setPageViews] = useState<any[]>([]);
@@ -36,15 +38,20 @@ export default function AdminDashboard() {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { navigate("/admin/login", { replace: true }); return; }
-      const { data } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle();
-      if (!data) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
+      // Check role - prefer super_admin
+      const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id);
+      if (!roles || roles.length === 0) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
+      const hasAdmin = roles.some((r: any) => r.role === "admin" || r.role === "super_admin");
+      if (!hasAdmin) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
+      const isSuperAdmin = roles.some((r: any) => r.role === "super_admin");
+      setUserRole(isSuperAdmin ? "super_admin" : "admin");
       setUserId(session.user.id);
       setLoading(false);
     };
     checkAuth();
   }, []);
 
-  // Initial data: only inquiries, service requests, and recent page views (7 days) in parallel
+  // Initial data
   useEffect(() => {
     const since7d = new Date();
     since7d.setDate(since7d.getDate() - 7);
@@ -60,7 +67,6 @@ export default function AdminDashboard() {
     });
   }, []);
 
-  // Lazy load full analytics data only when analytics tab is opened or home requests more data
   const fetchFullAnalytics = useCallback(async (days: number) => {
     const since = new Date();
     since.setDate(since.getDate() - days);
@@ -88,7 +94,6 @@ export default function AdminDashboard() {
     setAnalyticsLoaded(true);
   }, []);
 
-  // When analytics tab is opened for the first time, load full data
   useEffect(() => {
     if (tab === "analytics" && !analyticsLoaded) {
       fetchFullAnalytics(30);
@@ -135,6 +140,8 @@ export default function AdminDashboard() {
     navigate("/admin/login", { replace: true });
   };
 
+  const isSuperAdmin = userRole === "super_admin";
+
   const tabs: { key: Tab; icon: any; label: string }[] = [
     { key: "inquiries", icon: MessageSquare, label: "문의" },
     { key: "service_requests", icon: Wrench, label: "고객지원" },
@@ -172,7 +179,12 @@ export default function AdminDashboard() {
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[hsl(220,13%,91%)]">
         <div className="max-w-[1120px] mx-auto px-5 sm:px-6">
           <div className="flex items-center justify-between h-14">
-            <span style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontStyle: "italic", fontSize: "1.375rem", letterSpacing: "-0.03em" }} className="text-foreground">WEBHEADS.</span>
+            <div className="flex items-center gap-2">
+              <span style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontStyle: "italic", fontSize: "1.375rem", letterSpacing: "-0.03em" }} className="text-foreground">WEBHEADS.</span>
+              {!isSuperAdmin && (
+                <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[hsl(220,14%,93%)] text-muted-foreground">읽기 전용</span>
+              )}
+            </div>
             <div className="flex items-center gap-0.5">
               <button
                 onClick={() => navigate("/lms")}
@@ -224,16 +236,16 @@ export default function AdminDashboard() {
       <div className="max-w-[1120px] mx-auto px-5 sm:px-6 py-6">
         <Suspense fallback={<TabLoader />}>
           {tab === "inquiries" && (
-            <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} />
+            <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "service_requests" && (
-            <AdminServiceRequests requests={serviceRequests} setRequests={setServiceRequests} onRefresh={fetchServiceRequests} logActivity={logActivity} />
+            <AdminServiceRequests requests={serviceRequests} setRequests={setServiceRequests} onRefresh={fetchServiceRequests} logActivity={logActivity} isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "analytics" && (
             <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => fetchFullAnalytics(days)} />
           )}
           {tab === "activity" && <AdminActivityLog />}
-          {tab === "settings" && <AdminSettings />}
+          {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
       </div>
     </div>
