@@ -525,7 +525,7 @@ export default function LmsPage() {
       {/* ═══ 16. Contact ═══ */}
       <ContactSection showDemo />
 
-      <ExitIntentPopup />
+      {/* <ExitIntentPopup /> */}
     </div>
   );
 }
