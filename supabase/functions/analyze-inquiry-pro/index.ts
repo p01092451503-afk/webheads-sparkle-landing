@@ -239,7 +239,7 @@ serve(async (req) => {
     "reference_value": number (0~20, 레퍼런스/포트폴리오 가치),
     "urgency_score": number (0~20, 도입 시급성),
     "total": number (위 5개 항목의 합산, 0~100),
-    "priority": "HIGH(70~100) | MEDIUM(40~69) | LOW(0~39)"
+    "priority": "HIGH | MEDIUM | LOW"
   },
   "recommended_plan": "Starter | Basic | Plus | Premium",
   "response_email_draft": "string (아래 이메일 작성 가이드라인을 엄격히 준수한 한국어 비즈니스 이메일)",
@@ -256,6 +256,7 @@ serve(async (req) => {
 - **줄바꿈**: 문단 구분을 위해 \\n\\n을 사용하여 가독성 확보
 - risk_flags의 action은 "~하세요" 형태의 구체적 영업 액션 (예: "첫 미팅에서 무료 PoC를 제안하세요")
 - meeting_agenda는 영업 성공률을 높이기 위한 전략적 순서로 배치
+- priority는 total 기준으로만 산정: HIGH(70~100), MEDIUM(40~69), LOW(0~39)
 - AI 기초 분석이 제공된 경우, 기초 분석의 인사이트를 적극 활용하되 더 깊은 영업 전략적 관점을 추가
 - 반드시 유효한 JSON만 출력하세요`;
 
