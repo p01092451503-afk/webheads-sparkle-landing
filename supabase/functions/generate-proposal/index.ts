@@ -6,6 +6,51 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
+const FALLBACK_MODEL = "anthropic/claude-3-haiku";
+
+async function callAIWithFallback(
+  apiKey: string,
+  body: Record<string, unknown>,
+  inquiryId?: string,
+): Promise<{ data: any; usedModel: string }> {
+  const models = [PRIMARY_MODEL, FALLBACK_MODEL];
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i];
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...body, model }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(`[AI] model_used: ${model}, inquiry_id: ${inquiryId ?? "unknown"}`);
+      return { data, usedModel: model };
+    }
+
+    if (i < models.length - 1 && (response.status === 429 || response.status >= 500)) {
+      console.warn(`[AI] ${model} failed with ${response.status}, waiting 1s before fallback...`);
+      await new Promise((r) => setTimeout(r, 1000));
+      continue;
+    }
+
+    if (response.status === 402) {
+      throw { status: 402, message: "크레딧이 부족합니다." };
+    }
+    if (response.status === 429) {
+      throw { status: 429, message: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." };
+    }
+    const t = await response.text();
+    console.error("AI gateway error:", response.status, t);
+    throw { status: 500, message: "AI 게이트웨이 오류" };
+  }
+  throw { status: 500, message: "All AI models failed" };
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -90,44 +135,30 @@ ${pro_analysis ? JSON.stringify(pro_analysis, null, 2) : "분석 결과 없음"}
 
 위 정보를 종합하여, 고객에게 발송할 수 있는 전문 제안서를 JSON 형식으로 작성해주세요.`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userMessage },
-        ],
-      }),
-    });
-
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." }), {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
+    let data: any;
+    try {
+      const result = await callAIWithFallback(
+        LOVABLE_API_KEY,
+        {
+          max_tokens: 3000,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userMessage },
+          ],
+        },
+        inquiry?.id,
+      );
+      data = result.data;
+    } catch (e: any) {
+      if (e?.status) {
+        return new Response(JSON.stringify({ error: e.message }), {
+          status: e.status, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "크레딧이 부족합니다." }), {
-          status: 402,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
-      return new Response(JSON.stringify({ error: "AI 게이트웨이 오류" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      throw e;
     }
 
-    const result = await response.json();
-    const content = result.choices?.[0]?.message?.content;
+    const content = data.choices?.[0]?.message?.content;
 
     if (!content) {
       return new Response(JSON.stringify({ error: "AI 응답이 비어있습니다" }), {

@@ -6,6 +6,53 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
+const FALLBACK_MODEL = "anthropic/claude-3-haiku";
+
+async function callAIWithFallback(
+  apiKey: string,
+  body: Record<string, unknown>,
+  inquiryId?: string,
+): Promise<{ data: any; usedModel: string }> {
+  const models = [PRIMARY_MODEL, FALLBACK_MODEL];
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i];
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...body, model }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(`[AI] model_used: ${model}, inquiry_id: ${inquiryId ?? "unknown"}`);
+      return { data, usedModel: model };
+    }
+
+    // Only fallback on 429 or 5xx
+    if (i < models.length - 1 && (response.status === 429 || response.status >= 500)) {
+      console.warn(`[AI] ${model} failed with ${response.status}, waiting 1s before fallback...`);
+      await new Promise((r) => setTimeout(r, 1000));
+      continue;
+    }
+
+    // Non-retriable error or last model — throw
+    if (response.status === 402) {
+      throw { status: 402, message: "AI credits exhausted." };
+    }
+    if (response.status === 429) {
+      throw { status: 429, message: "Rate limit exceeded. Please try again later." };
+    }
+    const t = await response.text();
+    console.error("AI gateway error:", response.status, t);
+    throw { status: 500, message: `AI analysis failed (${response.status})` };
+  }
+  throw { status: 500, message: "All AI models failed" };
+}
+
 const PRICING_CONTEXT = `
 ## 웹헤즈 LMS 요금제 정보
 
@@ -128,49 +175,28 @@ ${PRICING_CONTEXT}
 문의 내용:
 ${inquiry.message || "(내용 없음)"}`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+    const { data } = await callAIWithFallback(
+      LOVABLE_API_KEY,
+      {
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userMessage },
         ],
-      }),
-    });
+      },
+      inquiry?.id,
+    );
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again later." }), {
-          status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "AI credits exhausted." }), {
-          status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
-      return new Response(JSON.stringify({ error: "AI analysis failed" }), {
-        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const data = await response.json();
     const content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
 
     return new Response(JSON.stringify({ analysis: content }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
-  } catch (e) {
+  } catch (e: any) {
     console.error("Error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
-      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    const status = e?.status || 500;
+    const message = e?.message || (e instanceof Error ? e.message : "Unknown error");
+    return new Response(JSON.stringify({ error: message }), {
+      status, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 });
