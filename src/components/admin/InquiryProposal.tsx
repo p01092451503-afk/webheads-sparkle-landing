@@ -28,6 +28,15 @@ export default function InquiryProposal({ inquiry }: Props) {
   const [expanded, setExpanded] = useState(true);
   const [fontSize, setFontSize] = useState(13);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [companyInfo, setCompanyInfo] = useState({
+    name: "WEBHEADS", address: "서울시 마포구 월드컵로114, 3층",
+    phone: "02-540-4337", website: "www.webheads.co.kr",
+  });
+
+  useEffect(() => {
+    supabase.from("admin_settings").select("value").eq("key", "company_info").maybeSingle()
+      .then(({ data }) => { if (data?.value) setCompanyInfo(data.value as any); });
+  }, []);
 
   const generate = useCallback(async () => {
     setState("loading");
