@@ -7,6 +7,7 @@ import { Progress } from "@/components/ui/progress";
 interface Props {
   inquiry: any;
   proposalFrozen?: boolean;
+  isSuperAdmin?: boolean;
 }
 
 interface ProAnalysis {
@@ -85,7 +86,7 @@ function buildInquiryPayload(inquiry: any) {
   };
 }
 
-export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
+export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdmin }: Props) {
   const [state, setState] = useState<AnalysisState>("idle");
   const [analysis, setAnalysis] = useState<ProAnalysis | null>(null);
   const [error, setError] = useState("");
@@ -373,6 +374,14 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
               <RefreshCw className="w-3 h-3" /> 재분석
             </button>
           </>
+        )}
+        {isFrozen && isSuperAdmin && (
+          <button
+            onClick={runAnalysis}
+            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold text-white bg-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,50%)] transition-colors"
+          >
+            <RefreshCw className="w-3 h-3" /> 강제 재분석
+          </button>
         )}
       </div>
 
