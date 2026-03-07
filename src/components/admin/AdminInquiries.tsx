@@ -246,9 +246,14 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-muted-foreground bg-[hsl(220,14%,96%)]">
                         {inq.inquiry_type === "demo" ? "데모" : "상담"}
                       </span>
-                      {inq.ai_analysis && (
-                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(192,80%,40%)] bg-[hsl(192,80%,40%,0.08)]">AI분석</span>
-                      )}
+                      {(() => {
+                        const badge = getAnalysisBadge(inq);
+                        return badge ? (
+                          <span className={`text-[11px] font-medium px-2 py-0.5 rounded-md ${badge.className}`}>
+                            {badge.label}
+                          </span>
+                        ) : null;
+                      })()}
                       {inq.notes && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">메모</span>
                       )}
