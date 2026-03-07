@@ -1,8 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useState, useRef, useCallback } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import { useRef } from "react";
 import SEO from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import LazySection from "@/components/shared/LazySection";
