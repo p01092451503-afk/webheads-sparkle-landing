@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { dedupeLocation } from "@/lib/utils";
 import { Eye, Globe, Wifi, MapPin, ArrowUpRight, Smartphone, User, Users } from "lucide-react";
-import { SectionGroup, MetricCard, ChartCard, BarRow, Empty } from "./AnalyticsShared";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 
 interface NewVisitorData {
   totalNew: number;
