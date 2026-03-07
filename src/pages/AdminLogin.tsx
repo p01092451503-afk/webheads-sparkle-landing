@@ -13,18 +13,26 @@ export default function AdminLogin() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  const hasAdminAccess = async (userId: string) => {
+    const { data, error } = await supabase.rpc("has_role", {
+      _user_id: userId,
+      _role: "admin",
+    });
+
+    if (error) return false;
+    return data === true;
+  };
+
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        const { data } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle();
-        if (data) navigate("/admin", { replace: true });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user && (await hasAdminAccess(session.user.id))) {
+        navigate("/admin", { replace: true });
       }
     });
 
     supabase.auth.getSession().then(async ({ data: { session } }) => {
-      if (session?.user) {
-        const { data } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle();
-        if (data) navigate("/admin", { replace: true });
+      if (session?.user && (await hasAdminAccess(session.user.id))) {
+        navigate("/admin", { replace: true });
       }
     });
 
@@ -43,8 +51,8 @@ export default function AdminLogin() {
       return;
     }
 
-    const { data: roleData } = await supabase.from("user_roles").select("role").eq("user_id", authData.user.id).eq("role", "admin").maybeSingle();
-    if (!roleData) {
+    const isAdmin = await hasAdminAccess(authData.user.id);
+    if (!isAdmin) {
       await supabase.auth.signOut();
       setError("관리자 권한이 없는 계정입니다.");
       setLoading(false);
