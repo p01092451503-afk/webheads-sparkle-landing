@@ -66,7 +66,7 @@ function LmsDetailSection() {
     {/* LMS Header + Light vs PRO */}
     <section id="lms" className="pt-16 pb-4" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light(임대형)와 웹헤즈 PRO(구축형) — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
+        <SectionHead sub={t("overview.lmsSection.sub")} title={t("overview.lmsSection.title")} desc={t("overview.lmsSection.desc")} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {[
@@ -243,7 +243,7 @@ function AddOnServicesSection() {
     {/* Add-on header */}
     <section id="services" className="pt-16 pb-2" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="ADD-ON SERVICES" title="부가서비스 라인업" desc="LMS를 중심으로 교육 사업에 필요한 8가지 부가서비스를 원스톱으로 제공합니다. 각 서비스 페이지에서 상세한 기능·요금·도입 가이드를 확인하세요." />
+        <SectionHead sub={t("overview.addOnSection.sub")} title={t("overview.addOnSection.title")} desc={t("overview.addOnSection.desc")} />
       </div>
     </section>
 
@@ -267,7 +267,7 @@ function AddOnServicesSection() {
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="font-bold text-base text-foreground">{svc.title}</h3>
                       <a href={card.path} className="text-xs font-semibold flex items-center gap-0.5 shrink-0" style={{ color: card.accent }}>
-                        상세보기 <ChevronRight className="w-3.5 h-3.5" />
+                        {t("overview.viewDetail")} <ChevronRight className="w-3.5 h-3.5" />
                       </a>
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-3">{svc.desc}</p>
@@ -281,7 +281,7 @@ function AddOnServicesSection() {
 
                 {plans && plans.length > 0 && (
                   <div className="mt-5 pt-4 border-t border-border">
-                    <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">요금제</p>
+                    <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">{t("overview.pricing")}</p>
                     <div className={`grid gap-2 ${plans.length === 4 ? "grid-cols-2 lg:grid-cols-4" : "grid-cols-1 sm:grid-cols-3"}`}>
                       {plans.map((plan: any, pi: number) => (
                         <div key={pi} className={`rounded-lg p-4 border ${plan.highlight ? "border-[hsl(255,75%,58%)] bg-[hsl(255,75%,58%,0.03)]" : "border-border bg-secondary/30"} relative`}>
@@ -439,7 +439,7 @@ export default function OverviewPage() {
       <LazySection fallbackHeight="200px">
         <section data-pdf-section className="py-16" style={{ background: "hsl(252, 30%, 97%)" }}>
           <div className="container mx-auto px-6 max-w-5xl">
-            <SectionHead sub="CLIENT REFERENCES" title="대표 구축사례" desc="300개 이상의 기업·기관이 웹헤즈 LMS를 도입하여 운영하고 있습니다." />
+            <SectionHead sub={t("overview.clientsSection.sub")} title={t("overview.clientsSection.title")} desc={t("overview.clientsSection.desc")} />
             <ClientMarqueeGrid />
           </div>
         </section>
@@ -474,11 +474,11 @@ export default function OverviewPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="tel:02-336-4338" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
               <Phone className="w-4 h-4" />
-              신규도입 : 02-336-4338
+              {t("overview.cta.phone1")}
             </a>
             <a href="tel:02-540-4337" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
               <Phone className="w-4 h-4" />
-              장애 및 유지보수 : 02-540-4337
+              {t("overview.cta.phone2")}
             </a>
           </div>
           <p className="mt-6 text-xs text-muted-foreground">{t("overview.cta.note")}</p>

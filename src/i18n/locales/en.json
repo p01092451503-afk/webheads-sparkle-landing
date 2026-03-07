@@ -1543,11 +1543,30 @@
       "24/7 tech support & incident response",
       "Flexible cloud or on-premise options"
     ],
+    "lmsSection": {
+      "sub": "CORE SERVICE",
+      "title": "LMS (Learning Management System)",
+      "desc": "WEBHEADS Light (Rental) and WEBHEADS PRO (On-premise) — choose the optimal LMS for your business needs."
+    },
+    "addOnSection": {
+      "sub": "ADD-ON SERVICES",
+      "title": "Add-on Service Lineup",
+      "desc": "We provide 8 add-on services essential for education businesses, centered around LMS. Check detailed features, pricing, and onboarding guides on each service page."
+    },
+    "clientsSection": {
+      "sub": "CLIENT REFERENCES",
+      "title": "Key Client References",
+      "desc": "Over 300 organizations have adopted and are operating WEBHEADS LMS."
+    },
+    "viewDetail": "Details",
+    "pricing": "Pricing",
     "cta": {
       "title": "Start Your Consultation",
       "desc": "Have questions about WEBHEADS solutions?\nReach out anytime — our consultants will respond promptly.",
       "btn1": "Free Consultation",
       "btn2": "02-336-4338",
+      "phone1": "New Inquiry: 02-336-4338",
+      "phone2": "Support & Maintenance: 02-540-4337",
       "note": "Weekdays 10:00–18:00 · Lunch 12:00–13:00"
     }
   },
