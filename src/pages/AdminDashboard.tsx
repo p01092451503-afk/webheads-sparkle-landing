@@ -11,8 +11,9 @@ const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 const AIUsageDashboard = lazy(() => import("@/components/admin/AIUsageDashboard"));
+const SalesPriorityDashboard = lazy(() => import("@/components/admin/SalesPriorityDashboard"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "ai_usage" | "activity" | "settings";
+type Tab = "inquiries" | "service_requests" | "analytics" | "ai_usage" | "sales_priority" | "activity" | "settings";
 type UserRole = "super_admin" | "admin" | "user";
 
 const TabLoader = () => (
