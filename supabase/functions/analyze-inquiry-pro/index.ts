@@ -303,10 +303,26 @@ serve(async (req) => {
 ${(inquiry.message || "(내용 없음)").slice(0, 6000)}`;
 
     if (ai_basic_analysis) {
+      // If structured JSON (v2), extract only key fields to save tokens
+      let basicSummary = "";
+      if (typeof ai_basic_analysis === "object" && ai_basic_analysis.needs_summary) {
+        const a = ai_basic_analysis;
+        basicSummary = `1차 분석 요약: ${a.needs_summary}
+핵심 요건: ${Array.isArray(a.key_requirements) ? a.key_requirements.join(", ") : "미확인"}
+1차 추천 플랜: ${a.recommended_plan || "미확인"}
+규모 추정: ${a.scale_estimate || "미확인"}
+예상 비용: ${a.pricing_fit || "미확인"}`;
+      } else {
+        // Legacy text fallback — truncate
+        basicSummary = typeof ai_basic_analysis === "string"
+          ? ai_basic_analysis.slice(0, 2000)
+          : JSON.stringify(ai_basic_analysis).slice(0, 2000);
+      }
+
       userMessage += `
 
 ## AI 기초 분석 결과 (1차 분석)
-${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSON.stringify(ai_basic_analysis).slice(0, 4000)}
+${basicSummary}
 
 위 기초 분석을 참고하여, 더 깊은 영업 전략적 관점에서 종합 리포트를 작성해주세요.`;
     }
