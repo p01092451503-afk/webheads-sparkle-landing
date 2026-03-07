@@ -108,6 +108,37 @@ const PRICING_CONTEXT = `
 - 다국어 지원
 `;
 
+/** Convert JSON object to readable markdown when AI ignores format instructions */
+function jsonToMarkdown(obj: Record<string, unknown>, depth = 0): string {
+  const lines: string[] = [];
+  for (const [key, value] of Object.entries(obj)) {
+    const heading = key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+    if (typeof value === "string") {
+      lines.push(`${"###".slice(0, 3)} ${heading}\n${value}\n`);
+    } else if (Array.isArray(value)) {
+      lines.push(`### ${heading}`);
+      for (const item of value) {
+        if (typeof item === "string") {
+          lines.push(`- ${item}`);
+        } else if (typeof item === "object" && item !== null) {
+          const parts = Object.entries(item).map(([k, v]) => `**${k}**: ${v}`).join(" / ");
+          lines.push(`- ${parts}`);
+        }
+      }
+      lines.push("");
+    } else if (typeof value === "object" && value !== null) {
+      lines.push(`### ${heading}`);
+      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+        lines.push(`- **${k}**: ${typeof v === "object" ? JSON.stringify(v) : v}`);
+      }
+      lines.push("");
+    } else {
+      lines.push(`- **${heading}**: ${value}`);
+    }
+  }
+  return lines.join("\n");
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
