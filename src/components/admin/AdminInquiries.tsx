@@ -336,6 +336,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                 </button>
               </div>
               <InquiryDetail
+                key={selectedInquiry.id}
                 selectedInquiry={selectedInquiry}
                 isSuperAdmin={isSuperAdmin}
                 noteText={noteText}
