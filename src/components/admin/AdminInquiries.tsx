@@ -24,6 +24,7 @@ interface AdminInquiriesProps {
   setInquiries: (fn: any) => void;
   onRefresh: () => void;
   logActivity: (action: string, targetType?: string, targetId?: string, details?: any) => void;
+  isSuperAdmin: boolean;
 }
 
 export default function AdminInquiries({ inquiries, setInquiries, onRefresh, logActivity }: AdminInquiriesProps) {
