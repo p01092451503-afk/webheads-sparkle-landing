@@ -73,7 +73,7 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="text-lg font-bold text-foreground">서비스 요청</h2>
+          <h2 className="text-lg font-bold text-foreground">고객지원</h2>
           <span className="text-xs font-medium text-muted-foreground px-2 py-0.5 rounded-full bg-muted">{requests.length}건</span>
         </div>
         <button onClick={onRefresh} className="p-2 rounded-lg hover:bg-muted transition-colors">
