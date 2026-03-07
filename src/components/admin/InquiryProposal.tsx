@@ -36,10 +36,19 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     phone: "02-540-4337", website: "www.webheads.co.kr",
   });
 
+  // Check persisted frozen state on mount
   useEffect(() => {
     supabase.from("admin_settings").select("value").eq("key", "company_info").maybeSingle()
       .then(({ data }) => { if (data?.value) setCompanyInfo(data.value as any); });
-  }, []);
+
+    // Check if inquiry_analyses is_frozen
+    supabase.from("inquiry_analyses").select("is_frozen").eq("inquiry_id", inquiry.id).maybeSingle()
+      .then(({ data }) => {
+        if (data?.is_frozen) {
+          setFrozen(true);
+        }
+      });
+  }, [inquiry.id]);
 
   const generate = useCallback(async () => {
     setState("loading");
@@ -154,7 +163,21 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     );
   };
 
+  const handleFreeze = useCallback(async () => {
+    setFrozen(true);
+    onFreeze?.();
+    // Persist frozen state
+    await supabase
+      .from("inquiry_analyses" as any)
+      .update({ is_frozen: true } as any)
+      .eq("inquiry_id", inquiry.id);
+  }, [inquiry.id, onFreeze]);
+
   if (state === "idle") {
+    // If already frozen, don't show generate button at all
+    if (frozen) {
+      return null;
+    }
     const hasAnalysis = !!inquiry.ai_analysis;
     return (
       <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
@@ -227,7 +250,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
             </span>
           ) : (
             <>
-              <button onClick={() => { setFrozen(true); onFreeze?.(); }} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,48%)] transition-all">
+              <button onClick={handleFreeze} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,48%)] transition-all">
                 <CheckCircle2 className="w-3 h-3" /> 확정
               </button>
               <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-all">
