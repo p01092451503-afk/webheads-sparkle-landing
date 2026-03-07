@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -185,6 +185,28 @@ function sendDuration(pagePath: string) {
 export default function PageTracker() {
   const location = useLocation();
   const lastPath = useRef<string>("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check if current user is an authenticated admin — skip all tracking if so
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+        setIsAdmin(!!data);
+      }
+    };
+    checkAdmin();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+        setIsAdmin(!!data);
+      } else {
+        setIsAdmin(false);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Global visibility listener (active dwell time)
   useEffect(() => {
@@ -219,6 +241,7 @@ export default function PageTracker() {
 
   // ─── 4. CTA click tracking with session context ───
   const trackClick = useCallback((e: MouseEvent) => {
+    if (isAdmin) return;
     const target = e.target as HTMLElement;
     const btn = target.closest("a[href], button") as HTMLElement | null;
     if (!btn) return;
@@ -248,7 +271,7 @@ export default function PageTracker() {
         visitor_id: getVisitorId(),
       },
     }).catch(() => {});
-  }, []);
+  }, [isAdmin]);
 
   useEffect(() => {
     document.addEventListener("click", trackClick, true);
@@ -257,6 +280,7 @@ export default function PageTracker() {
 
   // ─── Page view tracking ───
   useEffect(() => {
+    if (isAdmin) return;
     const path = location.pathname + location.hash;
     if (path === lastPath.current) return;
 
@@ -293,10 +317,11 @@ export default function PageTracker() {
     }).then(({ error }) => {
       if (error) console.error("Tracking error:", error);
     });
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.hash, isAdmin]);
 
   // Send duration on tab close (once, no duplicate)
   useEffect(() => {
+    if (isAdmin) return;
     const handleUnload = () => {
       if (lastPath.current) {
         sendDuration(lastPath.current.split("#")[0]);
