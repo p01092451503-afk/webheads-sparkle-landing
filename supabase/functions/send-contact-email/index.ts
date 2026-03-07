@@ -194,7 +194,8 @@ serve(async (req) => {
           customerSubject = `[웹헤즈] ${typeLabel} 접수가 완료되었습니다`;
           customerBodyHtml = `
             <div style="font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; background: #ffffff;">
-              <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px;">
+              <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; text-align: center;">
+                <img src="${LOGO_URL}" alt="WEBHEADS" style="height: 36px; margin-bottom: 12px;" />
                 <h1 style="color: #ffffff; font-size: 18px; margin: 0;">WEBHEADS</h1>
                 <p style="color: #93c5fd; font-size: 13px; margin: 4px 0 0;">문의 접수 확인</p>
               </div>
