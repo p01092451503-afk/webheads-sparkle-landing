@@ -53,7 +53,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
       supabase.from("contact_inquiries").select("proposal_data").eq("id", inquiry.id).maybeSingle(),
     ]).then(([frozenResult, proposalResult]) => {
       const isFrozen = !!frozenResult.data?.is_frozen;
-      const savedProposal = proposalResult.data?.proposal_data as Proposal | null;
+      const savedProposal = proposalResult.data?.proposal_data as unknown as Proposal | null;
 
       setFrozen(isFrozen);
       if (savedProposal) {
