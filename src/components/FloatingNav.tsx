@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen, FileText, Calculator } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -7,7 +7,7 @@ export default function FloatingNav() {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
   const location = useLocation();
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 300);
@@ -18,9 +18,13 @@ export default function FloatingNav() {
   const isLmsPage = location.pathname === "/lms" || location.pathname === "/";
   const isServiceRequest = location.pathname === "/service-request";
 
-  const scrollToCostSimulator = () => {
-    const el = document.getElementById("cost-simulator");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+  const handleCostSimulator = () => {
+    if (isLmsPage) {
+      const el = document.getElementById("cost-simulator");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/lms#cost-simulator");
+    }
   };
 
   const mobileButtons = [
@@ -43,12 +47,10 @@ export default function FloatingNav() {
     <div data-floating-nav>
       {/* Desktop — vertically centered */}
       <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-2">
-        {isLmsPage && (
-          <button onClick={scrollToCostSimulator} className="group relative w-10 h-10 rounded-lg bg-[hsl(var(--lms-primary))] text-white flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.costSimulator")}>
-            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.costSimulator")}</span>
-            <Calculator className="w-5 h-5" />
-          </button>
-        )}
+        <button onClick={handleCostSimulator} className="group relative w-10 h-10 rounded-lg bg-[hsl(var(--lms-primary))] text-white flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.costSimulator")}>
+          <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.costSimulator")}</span>
+          <Calculator className="w-5 h-5" />
+        </button>
         {!isServiceRequest && location.pathname !== "/pricing" && (
           <Link to="/pricing" className="group relative w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.pricing")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.pricing")}</span>
@@ -77,15 +79,13 @@ export default function FloatingNav() {
 
       {/* Mobile — action buttons, bottom right above scroll buttons */}
       <div className="fixed right-3 bottom-32 z-50 md:hidden flex flex-col items-center gap-2">
-        {isLmsPage && (
-          <button
-            onClick={scrollToCostSimulator}
-            className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg bg-[hsl(var(--lms-primary))] text-white"
-            aria-label={t("floatingNav.costSimulator")}
-          >
-            <Calculator className="w-4 h-4" />
-          </button>
-        )}
+        <button
+          onClick={handleCostSimulator}
+          className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg bg-[hsl(var(--lms-primary))] text-white"
+          aria-label={t("floatingNav.costSimulator")}
+        >
+          <Calculator className="w-4 h-4" />
+        </button>
         {mobileButtons.map((btn) => (
             <Link
               key={btn.to}
