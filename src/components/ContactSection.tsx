@@ -52,7 +52,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
     name: "",
     phone: "",
     email: "",
-    service: "",
+    service: [] as string[],
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);

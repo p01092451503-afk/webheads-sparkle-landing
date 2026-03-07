@@ -59,7 +59,7 @@
     "formPhonePlaceholder": "e.g. +1-234-567-8900",
     "formEmail": "Email",
     "formEmailPlaceholder": "email@company.com",
-    "formService": "Service of Interest",
+    "formService": "Service of Interest (Multiple Selection)",
     "formServicePlaceholder": "Select a service",
     "formMessage": "Additional Details",
     "formMessagePlaceholder": "Please describe your goals and any questions.",
