@@ -161,6 +161,7 @@ export default function AdminDashboard() {
 
   const tabs: { key: Tab; icon: any; label: string }[] = [
     { key: "inquiries", icon: MessageSquare, label: "문의" },
+    { key: "sales_priority", icon: Target, label: "영업" },
     { key: "analytics", icon: BarChart3, label: "분석" },
     { key: "ai_usage", icon: Zap, label: "AI" },
     { key: "settings", icon: Settings, label: "설정" },
