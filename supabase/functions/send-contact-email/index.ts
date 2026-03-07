@@ -128,7 +128,7 @@ serve(async (req) => {
           },
           body: JSON.stringify({
             from: "WEBHEADS <onboarding@resend.dev>",
-            to: [ADMIN_EMAIL],
+            to: [adminEmail],
             subject: `[웹헤즈] 새 ${typeLabel}: ${company} - ${name}`,
             html: emailHtml,
           }),
