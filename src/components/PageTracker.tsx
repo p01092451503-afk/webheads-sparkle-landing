@@ -2,35 +2,55 @@ import { useEffect, useRef, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
+// ─── Constants ───
 const SCROLL_DEPTH_KEY = "_scroll_depth";
 const FIRST_VISIT_KEY = "_wh_visited";
 const SESSION_LAST_ACTIVE_KEY = "_wh_last_active";
-const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
+const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes (GA4 style)
+const VISITOR_ID_KEY = "_wh_vid";
+const VISITOR_VISIT_COUNT_KEY = "_wh_vc";
+const VISITOR_LAST_VISIT_KEY = "_wh_lv";
 
-function getSessionId() {
+// ─── 1. Session management with 30-min inactivity timeout ───
+function getSessionId(): string {
   const now = Date.now();
   const lastActive = parseInt(sessionStorage.getItem(SESSION_LAST_ACTIVE_KEY) || "0", 10);
   let id = sessionStorage.getItem("_sid");
 
-  // If session exists but inactive for 30+ minutes, create new session
+  // Session expired after 30min inactivity → new session
   if (id && lastActive > 0 && (now - lastActive) > SESSION_TIMEOUT_MS) {
-    id = crypto.randomUUID();
-    sessionStorage.setItem("_sid", id);
+    id = null; // force new session
   }
 
   if (!id) {
     id = crypto.randomUUID();
     sessionStorage.setItem("_sid", id);
+    // Increment visit count for returning visitor tracking
+    const count = parseInt(localStorage.getItem(VISITOR_VISIT_COUNT_KEY) || "0", 10);
+    localStorage.setItem(VISITOR_VISIT_COUNT_KEY, String(count + 1));
+    localStorage.setItem(VISITOR_LAST_VISIT_KEY, String(now));
   }
 
-  // Update last active timestamp
   sessionStorage.setItem(SESSION_LAST_ACTIVE_KEY, String(now));
   return id;
 }
 
-/** Call periodically to keep session alive on user activity */
 function touchSession() {
   sessionStorage.setItem(SESSION_LAST_ACTIVE_KEY, String(Date.now()));
+}
+
+// ─── 3. Visitor ID for cross-session identification (no fingerprinting) ───
+function getVisitorId(): string {
+  let vid = localStorage.getItem(VISITOR_ID_KEY);
+  if (!vid) {
+    vid = crypto.randomUUID();
+    localStorage.setItem(VISITOR_ID_KEY, vid);
+  }
+  return vid;
+}
+
+function getVisitCount(): number {
+  return parseInt(localStorage.getItem(VISITOR_VISIT_COUNT_KEY) || "1", 10);
 }
 
 function isFirstVisit(): boolean {
@@ -42,26 +62,20 @@ function isFirstVisit(): boolean {
   return false;
 }
 
+// ─── UTM tracking ───
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"] as const;
 const UTM_STORAGE_PREFIX = "_wh_utm_";
 
 function captureAndGetUTMParams(): Record<string, string | null> {
   const params = new URLSearchParams(window.location.search);
-  
-  // If URL has any UTM param, store all in sessionStorage (overwrite previous)
   const hasUtm = UTM_KEYS.some(k => params.has(k));
   if (hasUtm) {
     for (const key of UTM_KEYS) {
       const val = params.get(key);
-      if (val) {
-        sessionStorage.setItem(UTM_STORAGE_PREFIX + key, val);
-      } else {
-        sessionStorage.removeItem(UTM_STORAGE_PREFIX + key);
-      }
+      if (val) sessionStorage.setItem(UTM_STORAGE_PREFIX + key, val);
+      else sessionStorage.removeItem(UTM_STORAGE_PREFIX + key);
     }
   }
-
-  // Return stored UTM values (persisted across SPA navigations)
   const result: Record<string, string | null> = {};
   for (const key of UTM_KEYS) {
     result[key] = sessionStorage.getItem(UTM_STORAGE_PREFIX + key) || null;
@@ -69,6 +83,7 @@ function captureAndGetUTMParams(): Record<string, string | null> {
   return result;
 }
 
+// ─── UA parsing ───
 function parseUA(ua: string) {
   let browser = "Unknown";
   let os = "Unknown";
@@ -95,9 +110,48 @@ function parseUA(ua: string) {
   return { browser, os, deviceType };
 }
 
-function sendDuration(pagePath: string, startTime: number) {
-  const duration = (Date.now() - startTime) / 1000;
+// ─── 5. Active dwell time tracking (excludes tab-hidden time) ───
+let activeStartTime = Date.now();
+let accumulatedActiveTime = 0;
+let isTabActive = true;
+let durationSentForPath: string | null = null;
+
+function onVisibilityChange() {
+  if (document.visibilityState === "hidden") {
+    if (isTabActive) {
+      accumulatedActiveTime += Date.now() - activeStartTime;
+      isTabActive = false;
+    }
+  } else {
+    activeStartTime = Date.now();
+    isTabActive = true;
+    // Also touch session on tab re-focus
+    touchSession();
+  }
+}
+
+function getActiveDuration(): number {
+  let total = accumulatedActiveTime;
+  if (isTabActive) {
+    total += Date.now() - activeStartTime;
+  }
+  return total / 1000; // seconds
+}
+
+function resetActiveTimer() {
+  activeStartTime = Date.now();
+  accumulatedActiveTime = 0;
+  isTabActive = !document.hidden;
+  durationSentForPath = null;
+}
+
+function sendDuration(pagePath: string) {
+  const duration = getActiveDuration();
   if (duration < 1) return;
+  // Prevent duplicate sends for the same page navigation
+  if (durationSentForPath === pagePath) return;
+  durationSentForPath = pagePath;
+
   const sessionId = getSessionId();
   const scrollDepth = parseInt(sessionStorage.getItem(SCROLL_DEPTH_KEY) || "0", 10);
 
@@ -108,16 +162,12 @@ function sendDuration(pagePath: string, startTime: number) {
     scroll_depth: scrollDepth > 0 ? scrollDepth : null,
   };
 
-  // Use supabase functions.invoke which includes proper apikey header
-  // Use keepalive fetch as fallback for unload scenarios
   try {
     const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-page-duration`;
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
       "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
     };
-    
-    // sendBeacon doesn't support custom headers, use keepalive fetch instead
     fetch(url, {
       method: "POST",
       headers,
@@ -125,19 +175,24 @@ function sendDuration(pagePath: string, startTime: number) {
       keepalive: true,
     }).catch(() => {});
   } catch {
-    // Silent fail for tracking
+    // Silent fail
   }
 
-  // Reset scroll depth for next page
   sessionStorage.setItem(SCROLL_DEPTH_KEY, "0");
 }
 
+// ─── Component ───
 export default function PageTracker() {
   const location = useLocation();
   const lastPath = useRef<string>("");
-  const pageStartTime = useRef<number>(Date.now());
 
-  // Keep session alive on user activity (mouse, keyboard, touch)
+  // Global visibility listener (active dwell time)
+  useEffect(() => {
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, []);
+
+  // Keep session alive on user activity
   useEffect(() => {
     const onActivity = () => touchSession();
     const events = ["mousemove", "keydown", "touchstart", "click", "scroll"] as const;
@@ -145,10 +200,9 @@ export default function PageTracker() {
     return () => { events.forEach(e => window.removeEventListener(e, onActivity)); };
   }, []);
 
-  // Track scroll depth
+  // Scroll depth tracking
   useEffect(() => {
     let maxScroll = 0;
-
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -159,23 +213,21 @@ export default function PageTracker() {
         sessionStorage.setItem(SCROLL_DEPTH_KEY, String(maxScroll));
       }
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
 
-  // Track CTA clicks
+  // ─── 4. CTA click tracking with session context ───
   const trackClick = useCallback((e: MouseEvent) => {
     const target = e.target as HTMLElement;
     const btn = target.closest("a[href], button") as HTMLElement | null;
     if (!btn) return;
 
-    // Only track CTA-like elements (links to contact, demo, etc.)
     const text = (btn.textContent || "").trim();
     const href = btn.getAttribute("href") || "";
     const id = btn.getAttribute("id") || btn.getAttribute("data-track") || "";
 
-    const isCTA = 
+    const isCTA =
       /상담|문의|데모|신청|체험|견적|연락|시작|contact|demo|trial|pricing/i.test(text + href + id) ||
       btn.hasAttribute("data-track");
 
@@ -193,6 +245,7 @@ export default function PageTracker() {
         element_id: id || null,
         device_type: deviceType,
         browser,
+        visitor_id: getVisitorId(),
       },
     }).catch(() => {});
   }, []);
@@ -202,18 +255,18 @@ export default function PageTracker() {
     return () => document.removeEventListener("click", trackClick, true);
   }, [trackClick]);
 
-  // Track page views
+  // ─── Page view tracking ───
   useEffect(() => {
     const path = location.pathname + location.hash;
     if (path === lastPath.current) return;
 
-    // Send duration for previous page
+    // Send active duration for previous page
     if (lastPath.current) {
-      sendDuration(lastPath.current.split("#")[0], pageStartTime.current);
+      sendDuration(lastPath.current.split("#")[0]);
     }
 
     lastPath.current = path;
-    pageStartTime.current = Date.now();
+    resetActiveTimer();
     sessionStorage.setItem(SCROLL_DEPTH_KEY, "0");
 
     const ua = navigator.userAgent;
@@ -233,6 +286,8 @@ export default function PageTracker() {
         language: navigator.language,
         session_id: getSessionId(),
         is_first_visit: isFirstVisit(),
+        visitor_id: getVisitorId(),
+        visit_count: getVisitCount(),
         ...utmParams,
       },
     }).then(({ error }) => {
@@ -240,22 +295,15 @@ export default function PageTracker() {
     });
   }, [location.pathname, location.hash]);
 
-  // Send duration on tab close / page unload
+  // Send duration on tab close (once, no duplicate)
   useEffect(() => {
     const handleUnload = () => {
       if (lastPath.current) {
-        sendDuration(lastPath.current.split("#")[0], pageStartTime.current);
+        sendDuration(lastPath.current.split("#")[0]);
       }
     };
     window.addEventListener("beforeunload", handleUnload);
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden" && lastPath.current) {
-        sendDuration(lastPath.current.split("#")[0], pageStartTime.current);
-      }
-    });
-    return () => {
-      window.removeEventListener("beforeunload", handleUnload);
-    };
+    return () => window.removeEventListener("beforeunload", handleUnload);
   }, []);
 
   return null;
