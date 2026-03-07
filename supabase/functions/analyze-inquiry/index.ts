@@ -54,59 +54,11 @@ async function callAIWithFallback(
   throw { status: 500, message: "All AI models failed" };
 }
 
-const PRICING_CONTEXT = `
-## 웹헤즈 LMS 요금제 정보
-
-### 플랜별 월 이용료 (VAT 별도)
-- Starter: 300,000원/월 - YouTube/Vimeo 연동, CDN 미사용, 저장공간 없음
-- Basic: 500,000원/월 - CDN 500GB 전송량, 100GB 저장공간, 트랜스코딩 20GB
-- Plus: 700,000원/월 - CDN 1,500GB 전송량, 200GB 저장공간, 트랜스코딩 20GB (가장 인기)
-- Premium: 1,000,000원/월 - CDN 2,000GB 전송량, 250GB 저장공간, 트랜스코딩 20GB, 보안 리포트 포함
-
-### 공통 제공 사항 (모든 플랜)
-- 회원 수 무제한
-- 관리자 계정 무제한
-- LMS 전문 담당자 배정
-- 정기 업데이트
-- 개발 도메인 1개
-- 통계 페이지
-- 라이브(ZOOM) 연동
-- SMS/카카오 알림톡 발송 API 연동
-- 검색엔진 최적화
-- 디자인 템플릿 제공
-- AI 학습 독려 기능
-- 관리자 대시보드
-- 수료증 템플릿
-- 모바일 웹 서비스
-- 소셜 로그인(구글, 카카오, 네이버, 페이스북)
-
-### 초과 사용 요금
-- 전송량: Basic 500원/GB, Plus 400원/GB, Premium 300원/GB
-- 저장공간: Basic 1,000원/GB, Plus 800원/GB, Premium 500원/GB
-- 트랜스코딩: Basic 2,200원/GB, Plus/Premium 2,000원/GB
-- 보안 플레이어(DRM): 월 300,000원 추가
-
-### 보안
-- Starter: 기본 보안, SSL
-- Basic/Plus: 기본 보안, WAF & Shield, FireWall 등
-- Premium: 별도 문의 (맞춤 보안)
-
-### 커스터마이징
-- 기본 UI/UX 커스터마이징은 모든 플랜에서 가능
-- 고급 기능 커스터마이징은 별도 견적
-- 외부 시스템 연동(ERP, CRM 등)은 별도 개발비 발생
-- 다국어 지원은 기본 제공 (한/영)
-- 추가 언어는 별도 견적
-
-### 웹헤즈 LMS 핵심 기능
-- 학습 관리 시스템 (강의 등록, 수강생 관리, 진도 추적)
-- 퀴즈/시험 시스템
-- 수료증 발급
-- 실시간 화상 강의 (ZOOM 연동)
-- 모바일 반응형
-- AI 기능 (학습 독려, 요약 등)
-- DRM 보안 플레이어 (옵션)
-- 다국어 지원
+const BASE_COMPANY_CONTEXT = `
+## 웹헤즈 회사 정보
+- 16년 이상 이러닝 전문 기업, 300+ 고객사, 92.6% 유지율
+- 서비스: LMS, 호스팅, 유지보수, AI챗봇, 앱 개발, DRM, 채널톡/SMS, PG 결제, 콘텐츠 제작
+- 솔루션: Light(임대형), PRO(구축형/On-premise)
 `;
 
 /** Convert JSON object to readable markdown when AI ignores format instructions */
