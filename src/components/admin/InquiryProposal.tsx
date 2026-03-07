@@ -66,6 +66,7 @@ export default function InquiryProposal({ inquiry }: Props) {
           inquiry,
           ai_basic_analysis: inquiry.ai_analysis || null,
           pro_analysis: proAnalysis,
+          company_info: companyInfo,
         },
       });
 
