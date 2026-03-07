@@ -1143,7 +1143,7 @@
       "desc": "See how organizations transformed their training with Webheads LMS.",
       "cases": [
         {
-          "org": "Hanwha General Insurance",
+          "org": "Insurance Corp.",
           "industry": "Finance & Insurance",
           "challenge": "With over 1,200 sales staff and HQ employees requiring annual mandatory compliance training (Insurance Business Act, Financial Consumer Protection Act, AML), offline training incurred ~$230K/year in venue, instructor, and travel costs. Managing attendance across 120 nationwide branches was difficult, and gathering completion records for FSS audits took 2+ weeks each time.",
           "result": "Deployed Webheads PRO with SAP SuccessFactors integration, AI-driven completion reminders, and automated certificate generation. Reduced compliance admin time by 75%, saved $92K in training costs within 6 months, and raised employee satisfaction from 3.2 to 4.6 out of 5.",
@@ -1154,14 +1154,14 @@
           ]
         },
         {
-          "org": "Sejong Cyber University",
-          "industry": "Higher Education",
-          "challenge": "An aging in-house LMS serving 8,500 students and 3,200 continuing education learners suffered repeated server crashes during enrollment periods. With 62% of learning happening on mobile but no mobile optimization, dropout rates hit 35%. Manual HRD-Net reporting consumed 120 staff-hours monthly, and 400+ SCORM 1.2 courses needed migration.",
-          "result": "Migrated to Webheads PRO (dedicated server) with lossless SCORM migration, auto-scaling infrastructure for zero-downtime enrollment, and responsive mobile UI with offline downloads. Mobile completion rates rose from 62% to 89%, and admin workload dropped from 120 to 15 hours/month via automated HRD-Net API integration.",
+          "org": "월급쟁이부자들",
+          "industry": "Real Estate Education",
+          "challenge": "Operating real estate investment courses exclusively through offline lectures with no online presence. As enrollments grew, securing venues became difficult, and students outside Seoul faced high dropout rates due to travel burden. Lecture recordings were shared via simple file sharing, leading to frequent content leaks. Three staff members spent 60+ hours weekly on manual enrollment, payment, and completion processing.",
+          "result": "Built an online education platform from scratch with Webheads LMS. DRM video protection completely eliminated content leaks, while PG payment integration and automated enrollment management streamlined the entire journey from signup to certification. The offline-to-online transition triggered explosive nationwide enrollment growth, making them Korea's #1 real estate education platform within one year. Administrative workload was reduced by over 80%, and student numbers grew 5x.",
           "metrics": [
-            { "label": "Mobile Completion", "value": "89%" },
-            { "label": "Admin Workload", "value": "87%↓" },
-            { "label": "Server Downtime", "value": "0" }
+            { "label": "Student Growth", "value": "500%" },
+            { "label": "Admin Workload", "value": "80%↓" },
+            { "label": "Content Leaks", "value": "0" }
           ]
         }
       ]
