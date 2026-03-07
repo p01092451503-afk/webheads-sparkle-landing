@@ -66,7 +66,7 @@ function LmsDetailSection() {
     {/* LMS Header + Light vs PRO */}
     <section id="lms" className="pt-16 pb-4" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light(임대형)와 웹헤즈 PRO(구축형) — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
+        <SectionHead sub={t("overview.lmsSection.sub")} title={t("overview.lmsSection.title")} desc={t("overview.lmsSection.desc")} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {[
