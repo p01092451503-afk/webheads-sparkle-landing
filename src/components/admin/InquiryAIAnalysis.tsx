@@ -55,19 +55,38 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdm
       const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry", {
         body: { inquiry },
       });
-      if (fnError) throw new Error(fnError.message);
+      
+      console.log("[InquiryAIAnalysis] invoke result:", { data, fnError });
+      
+      if (fnError) {
+        // supabase.functions.invoke sets error for non-2xx responses
+        // but data may still contain useful error info
+        const errMsg = typeof data === 'object' && data?.error ? data.error : fnError.message;
+        throw new Error(errMsg);
+      }
       if (data?.error) throw new Error(data.error);
 
       const analysisV2 = data.analysis_v2 as AnalysisV2 | null;
       const analysisText = data.analysis as string;
 
-      setResultV2(analysisV2);
+      // If analysis_v2 is null but analysisText looks like JSON, try to parse it
+      let finalV2 = analysisV2;
+      if (!finalV2 && analysisText) {
+        try {
+          const cleaned = analysisText.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
+          const parsed = JSON.parse(cleaned);
+          if (parsed.needs_summary) finalV2 = parsed;
+        } catch { /* not JSON, use legacy text */ }
+      }
+
+      setResultV2(finalV2);
       setResultText(analysisText);
       setState("done");
+      setExpanded(true);
 
       // Save both text (backward compat) and v2 JSON
       const updatePayload: any = { ai_analysis: analysisText };
-      if (analysisV2) updatePayload.ai_analysis_v2 = analysisV2;
+      if (finalV2) updatePayload.ai_analysis_v2 = finalV2;
 
       await supabase
         .from("contact_inquiries")
@@ -75,6 +94,7 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdm
         .eq("id", inquiry.id);
       onAnalysisSaved?.(analysisText);
     } catch (e: any) {
+      console.error("[InquiryAIAnalysis] error:", e);
       setError(e.message || "분석 중 오류가 발생했습니다.");
       setState("error");
     }
