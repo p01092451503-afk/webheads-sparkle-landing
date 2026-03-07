@@ -33,6 +33,7 @@ export default function AdminDashboard() {
       ?? "inquiries";
   });
   const authCheckedRef = useRef(false);
+  const authResolvedRef = useRef(false);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<UserRole>("admin");
