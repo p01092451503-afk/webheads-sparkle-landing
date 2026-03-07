@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -9,6 +10,40 @@ const corsHeaders = {
 const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
 const FALLBACK_MODEL = "anthropic/claude-3-haiku";
 const AI_TIMEOUT_MS = 120000;
+
+async function logAICall(params: {
+  inquiry_id?: string;
+  function_name: string;
+  model_used?: string;
+  prompt_tokens?: number;
+  completion_tokens?: number;
+  total_tokens?: number;
+  duration_ms?: number;
+  status: string;
+  error_code?: string;
+  error_message?: string;
+}) {
+  try {
+    const url = Deno.env.get("SUPABASE_URL");
+    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!url || !key) return;
+    const sb = createClient(url, key);
+    await sb.from("ai_call_logs").insert({
+      inquiry_id: params.inquiry_id || null,
+      function_name: params.function_name,
+      model_used: params.model_used || null,
+      prompt_tokens: params.prompt_tokens ?? null,
+      completion_tokens: params.completion_tokens ?? null,
+      total_tokens: params.total_tokens ?? null,
+      duration_ms: params.duration_ms ?? null,
+      status: params.status,
+      error_code: params.error_code || null,
+      error_message: params.error_message || null,
+    });
+  } catch (e) {
+    console.error("[ai_call_logs] insert failed:", e);
+  }
+}
 
 async function callAIWithFallback(
   apiKey: string,
@@ -42,16 +77,16 @@ async function callAIWithFallback(
     }
 
     if (response.status === 402) {
-      throw { status: 402, message: "AI credits exhausted." };
+      throw { status: 402, message: "AI credits exhausted.", code: "402" };
     }
     if (response.status === 429) {
-      throw { status: 429, message: "Rate limit exceeded. Please try again later." };
+      throw { status: 429, message: "Rate limit exceeded. Please try again later.", code: "429" };
     }
     const t = await response.text();
     console.error("AI gateway error:", response.status, t);
-    throw { status: 500, message: `AI analysis failed (${response.status})` };
+    throw { status: 500, message: `AI analysis failed (${response.status})`, code: String(response.status) };
   }
-  throw { status: 500, message: "All AI models failed" };
+  throw { status: 500, message: "All AI models failed", code: "all_failed" };
 }
 
 /* ── Default values for partial save ── */
@@ -85,11 +120,8 @@ const DEFAULTS = {
   meeting_agenda: [],
 };
 
-/* ── JSON cleaning: strip code fences, trim ── */
 function cleanJsonResponse(raw: string): string {
-  // Remove ```json ... ``` or ``` ... ``` fences
   let cleaned = raw.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
-  // If still wrapped in fences (multiple), do a greedy extract
   const fenceMatch = cleaned.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/i);
   if (fenceMatch) {
     cleaned = fenceMatch[1].trim();
@@ -97,7 +129,6 @@ function cleanJsonResponse(raw: string): string {
   return cleaned;
 }
 
-/* ── Merge parsed (possibly partial) data with defaults ── */
 function mergeWithDefaults(parsed: Record<string, unknown>): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const key of Object.keys(DEFAULTS)) {
@@ -107,7 +138,6 @@ function mergeWithDefaults(parsed: Record<string, unknown>): Record<string, unkn
     if (parsedVal === undefined || parsedVal === null) {
       result[key] = defaultVal;
     } else if (typeof defaultVal === "object" && !Array.isArray(defaultVal) && typeof parsedVal === "object" && !Array.isArray(parsedVal)) {
-      // Deep merge one level for objects like customer_profile, cost_scenarios, strategic_score
       result[key] = { ...defaultVal, ...(parsedVal as Record<string, unknown>) };
     } else {
       result[key] = parsedVal;
@@ -284,6 +314,8 @@ ${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSO
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort("AI request timeout"), AI_TIMEOUT_MS);
 
+    const startTime = Date.now();
+    let usedModel = "";
     let data: any;
     try {
       const result = await callAIWithFallback(
@@ -300,8 +332,19 @@ ${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSO
         controller.signal,
       );
       data = result.data;
+      usedModel = result.usedModel;
     } catch (e: any) {
       clearTimeout(timeoutId);
+      const durationMs = Date.now() - startTime;
+      await logAICall({
+        inquiry_id: inquiryId ?? undefined,
+        function_name: "analyze-inquiry-pro",
+        model_used: usedModel || null,
+        duration_ms: durationMs,
+        status: "failed",
+        error_code: e?.code || String(e?.status || "unknown"),
+        error_message: e?.message || "Unknown error",
+      });
       if (e?.status) {
         if (inquiryId && e.status >= 500) {
           await upsertAnalysisRow({ inquiry_id: inquiryId, analysis_status: "failed", error_message: e.message });
@@ -314,10 +357,10 @@ ${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSO
     }
 
     clearTimeout(timeoutId);
+    const durationMs = Date.now() - startTime;
+    const usage = data.usage;
 
     const rawContent = data.choices?.[0]?.message?.content || "";
-
-    // Clean JSON: strip code fences, trim
     const cleanedContent = cleanJsonResponse(rawContent);
 
     let parsed: Record<string, unknown>;
@@ -326,16 +369,13 @@ ${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSO
     try {
       parsed = JSON.parse(cleanedContent);
     } catch {
-      // JSON parse failed — attempt partial save with defaults
       console.error("Failed to parse AI response as JSON. Raw (first 500 chars):", rawContent.slice(0, 500));
       isPartial = true;
       parsed = {};
     }
 
-    // Merge with defaults to fill any missing fields
     const merged = mergeWithDefaults(parsed);
 
-    // Determine if any key field was missing from parsed → mark as partial
     const criticalKeys = ["customer_profile", "cost_scenarios", "strategic_score"];
     if (!isPartial) {
       for (const key of criticalKeys) {
@@ -348,6 +388,17 @@ ${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSO
 
     const analysisStatus = isPartial ? "partial" : "completed";
     const errorMessage = isPartial ? `일부 분석 항목이 불완전합니다. AI 원본 응답(앞 500자): ${rawContent.slice(0, 500)}` : null;
+
+    await logAICall({
+      inquiry_id: inquiryId ?? undefined,
+      function_name: "analyze-inquiry-pro",
+      model_used: usedModel,
+      prompt_tokens: usage?.prompt_tokens,
+      completion_tokens: usage?.completion_tokens,
+      total_tokens: usage?.total_tokens,
+      duration_ms: durationMs,
+      status: isPartial ? "partial" : "success",
+    });
 
     if (inquiryId) {
       await upsertAnalysisRow({

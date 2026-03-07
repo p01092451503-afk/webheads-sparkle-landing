@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -8,6 +9,40 @@ const corsHeaders = {
 
 const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
 const FALLBACK_MODEL = "anthropic/claude-3-haiku";
+
+async function logAICall(params: {
+  inquiry_id?: string;
+  function_name: string;
+  model_used?: string;
+  prompt_tokens?: number;
+  completion_tokens?: number;
+  total_tokens?: number;
+  duration_ms?: number;
+  status: string;
+  error_code?: string;
+  error_message?: string;
+}) {
+  try {
+    const url = Deno.env.get("SUPABASE_URL");
+    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    if (!url || !key) return;
+    const sb = createClient(url, key);
+    await sb.from("ai_call_logs").insert({
+      inquiry_id: params.inquiry_id || null,
+      function_name: params.function_name,
+      model_used: params.model_used || null,
+      prompt_tokens: params.prompt_tokens ?? null,
+      completion_tokens: params.completion_tokens ?? null,
+      total_tokens: params.total_tokens ?? null,
+      duration_ms: params.duration_ms ?? null,
+      status: params.status,
+      error_code: params.error_code || null,
+      error_message: params.error_message || null,
+    });
+  } catch (e) {
+    console.error("[ai_call_logs] insert failed:", e);
+  }
+}
 
 async function callAIWithFallback(
   apiKey: string,
@@ -41,16 +76,16 @@ async function callAIWithFallback(
 
     // Non-retriable error or last model — throw
     if (response.status === 402) {
-      throw { status: 402, message: "AI credits exhausted." };
+      throw { status: 402, message: "AI credits exhausted.", code: "402" };
     }
     if (response.status === 429) {
-      throw { status: 429, message: "Rate limit exceeded. Please try again later." };
+      throw { status: 429, message: "Rate limit exceeded. Please try again later.", code: "429" };
     }
     const t = await response.text();
     console.error("AI gateway error:", response.status, t);
-    throw { status: 500, message: `AI analysis failed (${response.status})` };
+    throw { status: 500, message: `AI analysis failed (${response.status})`, code: String(response.status) };
   }
-  throw { status: 500, message: "All AI models failed" };
+  throw { status: 500, message: "All AI models failed", code: "all_failed" };
 }
 
 const PRICING_CONTEXT = `
@@ -175,22 +210,52 @@ ${PRICING_CONTEXT}
 문의 내용:
 ${inquiry.message || "(내용 없음)"}`;
 
-    const { data } = await callAIWithFallback(
-      LOVABLE_API_KEY,
-      {
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userMessage },
-        ],
-      },
-      inquiry?.id,
-    );
+    const startTime = Date.now();
+    let usedModel = "";
+    try {
+      const result = await callAIWithFallback(
+        LOVABLE_API_KEY,
+        {
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userMessage },
+          ],
+        },
+        inquiry?.id,
+      );
+      usedModel = result.usedModel;
+      const durationMs = Date.now() - startTime;
+      const usage = result.data.usage;
 
-    const content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
+      const content = result.data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
 
-    return new Response(JSON.stringify({ analysis: content }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+      await logAICall({
+        inquiry_id: inquiry?.id,
+        function_name: "analyze-inquiry",
+        model_used: usedModel,
+        prompt_tokens: usage?.prompt_tokens,
+        completion_tokens: usage?.completion_tokens,
+        total_tokens: usage?.total_tokens,
+        duration_ms: durationMs,
+        status: "success",
+      });
+
+      return new Response(JSON.stringify({ analysis: content }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    } catch (e: any) {
+      const durationMs = Date.now() - startTime;
+      await logAICall({
+        inquiry_id: inquiry?.id,
+        function_name: "analyze-inquiry",
+        model_used: usedModel || null,
+        duration_ms: durationMs,
+        status: "failed",
+        error_code: e?.code || String(e?.status || "unknown"),
+        error_message: e?.message || "Unknown error",
+      });
+      throw e;
+    }
   } catch (e: any) {
     console.error("Error:", e);
     const status = e?.status || 500;
