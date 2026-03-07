@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { dedupeLocation } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Globe, Monitor, MapPin, ArrowRight, Clock, Eye, Loader2, UserCheck, Smartphone, Laptop, ChevronDown, ChevronUp
@@ -49,7 +50,7 @@ export default function InquiryVisitorStats({ sessionId }: Props) {
 
   const first = views[0];
   const ip = first.ip_address ? maskIp(first.ip_address) : null;
-  const location = [first.city, first.country].filter(Boolean).join(", ");
+  const location = [dedupeLocation(first.city), first.country].filter(Boolean).join(", ");
   const isFirstVisit = first.is_first_visit;
   const referrer = first.referrer || "직접 방문";
   const browser = first.browser || "알 수 없음";

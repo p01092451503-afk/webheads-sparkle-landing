@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useRef } from "react";
+import { dedupeLocation } from "@/lib/utils";
 import {
   Eye, Globe, Smartphone, Monitor, RefreshCw, ArrowUpRight,
   TrendingUp, BarChart3, Calendar, Wifi, Clock, MapPin,
@@ -149,13 +150,13 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (!ipMap[ip].lastVisit || v.created_at > ipMap[ip].lastVisit!) ipMap[ip].lastVisit = v.created_at;
     });
     return Object.entries(ipMap)
-      .map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
+      .map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: dedupeLocation(d.city || d.country || null), lastVisit: d.lastVisit }))
       .sort((a, b) => b.count - a.count);
   }, [humanViews]);
 
   const topLocations = useMemo(() => {
     const locationCounts = humanViews.reduce((acc, v) => {
-      const loc = v.city || v.country || "알 수 없음";
+      const loc = dedupeLocation(v.city || v.country) || "알 수 없음";
       acc[loc] = (acc[loc] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
@@ -431,7 +432,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     // 지역
     const locations: Record<string, number> = {};
     filteredNewVisitors.forEach((v) => {
-      const loc = v.city || v.country || "알 수 없음";
+      const loc = dedupeLocation(v.city || v.country) || "알 수 없음";
       locations[loc] = (locations[loc] || 0) + 1;
     });
     const topLocations = Object.entries(locations).sort(([, a], [, b]) => b - a);
