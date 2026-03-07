@@ -290,15 +290,25 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
                         마지막 접속: {admin.last_sign_in ? formatTime(admin.last_sign_in) : "없음"}
                       </p>
                     </div>
-                    {admin.role !== "super_admin" && (
-                      <div className="flex gap-1.5 shrink-0">
+                    <div className="flex gap-1.5 shrink-0">
+                      {admin.role === "admin" ? (
                         <button
-                          onClick={() => updateRole(admin, admin.role === "admin" ? "super_admin" : "admin")}
+                          onClick={() => updateRole(admin, "super_admin")}
                           className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.06)] hover:bg-[hsl(37,90%,51%,0.1)] transition-all"
                           title="최고관리자로 변경"
                         >
                           <Crown className="w-3 h-3" />
                         </button>
+                      ) : (
+                        <button
+                          onClick={() => updateRole(admin, "admin")}
+                          className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-[hsl(220,9%,46%)] bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-all"
+                          title="일반 관리자로 변경"
+                        >
+                          <Shield className="w-3 h-3" />
+                        </button>
+                      )}
+                      {admin.role !== "super_admin" && (
                         <button
                           onClick={() => { setDeleteTarget(admin); setDeleteError(""); }}
                           className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] hover:bg-[hsl(0,84%,60%,0.1)] transition-all"
@@ -306,8 +316,8 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
                         >
                           <Trash2 className="w-3 h-3" />
                         </button>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
