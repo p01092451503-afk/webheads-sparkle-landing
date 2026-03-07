@@ -506,6 +506,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문" value={visitStats.first} color="hsl(37, 90%, 51%)" sub={`재방문 ${visitStats.returning}`} tooltip="신규 방문자 수입니다." />
           <MetricCard icon={<Smartphone className="w-[18px] h-[18px]" />} label="모바일" value={deviceCounts.mobile || 0} color="hsl(262, 60%, 55%)" tooltip="모바일 접속 수입니다." />
           <MetricCard icon={<TrendingUp className="w-[18px] h-[18px]" />} label="전환율" value={`${conversionRate}%`} color="hsl(0, 84%, 60%)" sub={`문의 ${filteredInquiries.length}건`} tooltip="방문 대비 문의 전환율입니다." />
+          <MetricCard icon={<LogOut className="w-[18px] h-[18px]" />} label="이탈률" value={`${bounceRate}%`} color="hsl(25, 95%, 53%)" tooltip="1개 페이지만 보고 떠난 세션의 비율입니다." />
           <MetricCard icon={<Link2 className="w-[18px] h-[18px]" />} label="UTM 유입" value={utmSourceCounts.reduce((s, [, c]) => s + c, 0)} color="hsl(170, 70%, 40%)" tooltip="UTM 파라미터 유입 수입니다." />
         </div>
       </SectionGroup>
