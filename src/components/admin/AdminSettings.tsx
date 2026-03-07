@@ -369,6 +369,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
           </div>
         </>
       )}
+      </div>{/* end grid */}
 
       {/* Create Admin Dialog */}
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
