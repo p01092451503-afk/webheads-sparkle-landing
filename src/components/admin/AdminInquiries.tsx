@@ -8,6 +8,7 @@ import {
 import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
 import InquiryProAnalysis from "./InquiryProAnalysis";
+import InquiryProposal from "./InquiryProposal";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
@@ -414,6 +415,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
 
                     {/* AI Pro Analysis */}
                     <InquiryProAnalysis inquiry={selectedInquiry} />
+
+                    {/* Proposal */}
+                    <InquiryProposal inquiry={selectedInquiry} />
 
                     {/* Delete */}
                     {/* 삭제 버튼 숨김 처리
