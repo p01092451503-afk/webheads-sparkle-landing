@@ -266,8 +266,6 @@ export default function LmsPage() {
       {/* ═══ 4. Industry Scenario Tabs ═══ */}
       <IndustryScenarioTabs />
 
-      {/* ═══ Mid CTA #1 ═══ */}
-      <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
       {/* ═══ 6. All-in-One — 핵심 기능 ═══ */}
       <section className="py-16 md:py-28 bg-background">
