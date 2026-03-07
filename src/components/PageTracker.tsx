@@ -202,9 +202,16 @@ export default function PageTracker() {
 
     supabase
       .rpc("has_role", { _user_id: userId, _role: "admin" })
-      .then(({ data }) => setAdminSafely(Boolean(data)))
-      .catch(() => setAdminSafely(false))
-      .finally(() => setAuthReady(true));
+      .then(
+        ({ data }) => {
+          setAdminSafely(Boolean(data));
+          setAuthReady(true);
+        },
+        () => {
+          setAdminSafely(false);
+          setAuthReady(true);
+        }
+      );
   }, [setAdminSafely]);
 
   // Auth readiness + admin role check
