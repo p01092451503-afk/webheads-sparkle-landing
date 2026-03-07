@@ -356,6 +356,19 @@ export default function OverviewPage() {
     setPdfLoading(true);
 
     try {
+      // Hide header/footer/floating-nav during capture
+      const header = document.querySelector("header");
+      const footer = document.querySelector("footer");
+      const floatingNav = document.querySelector("[data-floating-nav]");
+      if (header) (header as HTMLElement).style.display = "none";
+      if (footer) (footer as HTMLElement).style.display = "none";
+      if (floatingNav) (floatingNav as HTMLElement).style.display = "none";
+
+      // Reduce hero top padding (normally compensates for fixed header)
+      const heroSection = contentRef.current.querySelector("[data-pdf-section]") as HTMLElement | null;
+      const origPt = heroSection?.style.paddingTop;
+      if (heroSection) heroSection.style.paddingTop = "40px";
+
       // Force all lazy sections to render by scrolling through them
       const pageEl = contentRef.current;
       const totalH = pageEl.scrollHeight;
@@ -452,6 +465,16 @@ export default function OverviewPage() {
     } catch (err) {
       console.error("PDF generation failed:", err);
     } finally {
+      // Restore header/footer/nav visibility
+      const header = document.querySelector("header");
+      const footer = document.querySelector("footer");
+      const floatingNav = document.querySelector("[data-floating-nav]");
+      if (header) (header as HTMLElement).style.display = "";
+      if (footer) (footer as HTMLElement).style.display = "";
+      if (floatingNav) (floatingNav as HTMLElement).style.display = "";
+      // Restore hero padding
+      const heroSection = contentRef.current?.querySelector("[data-pdf-section]") as HTMLElement | null;
+      if (heroSection) heroSection.style.paddingTop = "";
       setPdfLoading(false);
     }
   }, [pdfLoading]);
