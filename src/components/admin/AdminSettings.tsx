@@ -101,6 +101,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
       for (const row of data) {
         if (row.key === "notifications") setNotifSettings(row.value as any);
         if (row.key === "company_info") setCompanyInfo(row.value as any);
+        if (row.key === "auto_response_templates") setAutoResponse(row.value as any);
       }
     }
   }, []);
