@@ -260,6 +260,32 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* ═══ Trust Badges ═══ */}
+      <section className="py-8 md:py-12 bg-secondary/50">
+        <div className="container mx-auto px-5 md:px-6 max-w-4xl">
+          <p className="text-center text-xs font-semibold text-muted-foreground tracking-widest uppercase mb-6">{t("lms.trustBadges.title")}</p>
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {[
+              { icon: <Shield className="w-5 h-5" />, label: "ISO 27001", sub: t("lms.trustBadges.iso") },
+              { icon: <ShieldCheck className="w-5 h-5" />, label: t("lms.trustBadges.govLabel"), sub: t("lms.trustBadges.gov") },
+              { icon: <Award className="w-5 h-5" />, label: "AWS Partner", sub: t("lms.trustBadges.aws") },
+              { icon: <Lock className="w-5 h-5" />, label: "ISMS-P", sub: t("lms.trustBadges.isms") },
+              { icon: <GraduationCap className="w-5 h-5" />, label: "KDT", sub: t("lms.trustBadges.kdt") },
+            ].map((b) => (
+              <div key={b.label} className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-background border border-border shadow-sm">
+                <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: "hsl(var(--lms-primary) / 0.08)" }}>
+                  <span style={{ color: "hsl(var(--lms-primary))" }}>{b.icon}</span>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-foreground leading-tight">{b.label}</p>
+                  <p className="text-[10px] text-muted-foreground leading-tight">{b.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ 3. Client Marquee ═══ */}
       <ClientMarquee />
 
