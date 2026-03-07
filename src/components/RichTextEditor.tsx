@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback, useEffect } from "react";
-import { Bold, Italic, Underline, Strikethrough, Type, Palette, Expand, Shrink } from "lucide-react";
+import { Bold, Italic, Underline, Strikethrough, Type, Palette } from "lucide-react";
 
 interface Props {
   value: string;
@@ -29,7 +29,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
   const editorRef = useRef<HTMLDivElement>(null);
   const [showSizePicker, setShowSizePicker] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  
   const [isEmpty, setIsEmpty] = useState(true);
   const isComposing = useRef(false);
   const initialized = useRef(false);
@@ -142,16 +142,10 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           )}
         </div>
 
-        <div className="flex-1" />
-
-        {/* Expand/Shrink */}
-        <ToolBtn title={expanded ? "축소" : "확장"} onClick={() => setExpanded(!expanded)}>
-          {expanded ? <Shrink className="w-3.5 h-3.5" /> : <Expand className="w-3.5 h-3.5" />}
-        </ToolBtn>
       </div>
 
       {/* Editor */}
-      <div className="relative" style={{ resize: "vertical", overflow: "auto", minHeight: expanded ? 200 : 120 }}>
+      <div className="relative" style={{ resize: "vertical", overflow: "auto", minHeight: 120 }}>
         {isEmpty && (
           <div className="absolute top-0 left-0 right-0 px-4 py-3.5 text-sm text-muted-foreground/40 pointer-events-none select-none">
             {placeholder}
