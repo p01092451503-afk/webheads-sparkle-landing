@@ -301,7 +301,24 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               </span>
             </label>
 
-            {/* Error */}
+            {/* ── Marketing checkbox ── */}
+            <label className="flex items-start gap-3 cursor-pointer select-none group">
+              <input
+                type="checkbox"
+                checked={marketingAgreed}
+                onChange={(e) => setMarketingAgreed(e.target.checked)}
+                className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0 mt-0.5"
+              />
+              <div>
+                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  {t("contact.formMarketing")}
+                </span>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {t("contact.formMarketingDesc")}
+                </p>
+              </div>
+            </label>
+
             {error && (
               <p className="text-sm text-center rounded-lg py-2.5 px-4 font-medium bg-destructive/10 text-destructive border border-destructive/20">
                 {error}
