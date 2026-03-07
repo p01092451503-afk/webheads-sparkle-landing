@@ -26,7 +26,7 @@ interface AnalysisV2 {
 
 type AnalysisState = "idle" | "analyzing" | "done" | "error";
 
-export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
+export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdmin }: Props) {
   const [state, setState] = useState<AnalysisState>(
     inquiry.ai_analysis_v2 || inquiry.ai_analysis ? "done" : "idle"
   );

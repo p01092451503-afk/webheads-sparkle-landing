@@ -28,9 +28,10 @@ type ProposalState = "idle" | "loading" | "done" | "error";
 interface Props {
   inquiry: any;
   onFreeze?: () => void;
+  isSuperAdmin?: boolean;
 }
 
-export default function InquiryProposal({ inquiry, onFreeze }: Props) {
+export default function InquiryProposal({ inquiry, onFreeze, isSuperAdmin }: Props) {
   const [state, setState] = useState<ProposalState>("idle");
   const [proposal, setProposal] = useState<Proposal | null>(null);
   const [error, setError] = useState("");
