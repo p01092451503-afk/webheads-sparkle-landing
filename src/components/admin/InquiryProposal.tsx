@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
 import html2canvas from "html2canvas";
@@ -28,6 +28,15 @@ export default function InquiryProposal({ inquiry }: Props) {
   const [expanded, setExpanded] = useState(true);
   const [fontSize, setFontSize] = useState(13);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [companyInfo, setCompanyInfo] = useState({
+    name: "WEBHEADS", address: "서울시 마포구 월드컵로114, 3층",
+    phone: "02-540-4337", website: "www.webheads.co.kr",
+  });
+
+  useEffect(() => {
+    supabase.from("admin_settings").select("value").eq("key", "company_info").maybeSingle()
+      .then(({ data }) => { if (data?.value) setCompanyInfo(data.value as any); });
+  }, []);
 
   const generate = useCallback(async () => {
     setState("loading");
@@ -57,6 +66,7 @@ export default function InquiryProposal({ inquiry }: Props) {
           inquiry,
           ai_basic_analysis: inquiry.ai_analysis || null,
           pro_analysis: proAnalysis,
+          company_info: companyInfo,
         },
       });
 
@@ -235,7 +245,7 @@ export default function InquiryProposal({ inquiry }: Props) {
           {/* Footer */}
           <div className="mt-8 pt-4 border-t border-[hsl(220,13%,93%)] text-center">
             <p className="text-[1.05em] text-muted-foreground">
-              WEBHEADS | 서울시 마포구 월드컵로114, 3층 | 02-540-4337 | www.webheads.co.kr
+              {companyInfo.name} | {companyInfo.address} | {companyInfo.phone} | {companyInfo.website}
             </p>
           </div>
         </div>

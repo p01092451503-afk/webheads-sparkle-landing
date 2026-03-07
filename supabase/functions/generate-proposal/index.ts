@@ -12,7 +12,11 @@ serve(async (req) => {
   }
 
   try {
-    const { inquiry, ai_basic_analysis, pro_analysis } = await req.json();
+    const { inquiry, ai_basic_analysis, pro_analysis, company_info } = await req.json();
+    const companyName = company_info?.name || "WEBHEADS";
+    const companyAddress = company_info?.address || "서울시 마포구 월드컵로114, 3층";
+    const companyPhone = company_info?.phone || "02-540-4337";
+    const companyWebsite = company_info?.website || "www.webheads.co.kr";
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {

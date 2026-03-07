@@ -7,7 +7,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const ADMIN_EMAIL = "34bus@webheads.co.kr";
+// Default admin email - will be overridden by DB settings
+const DEFAULT_ADMIN_EMAIL = "34bus@webheads.co.kr";
 
 interface ContactFormData {
   company: string;
@@ -58,9 +59,20 @@ serve(async (req) => {
 
     console.log(`New inquiry saved: ${company} / ${name}`);
 
+    // Fetch notification settings from DB
+    const { data: notifRow } = await supabaseAdmin
+      .from("admin_settings")
+      .select("value")
+      .eq("key", "notifications")
+      .maybeSingle();
+    
+    const notifSettings = notifRow?.value as any || { email_on_new_inquiry: true, notification_email: DEFAULT_ADMIN_EMAIL };
+    const shouldSendEmail = notifSettings.email_on_new_inquiry !== false;
+    const adminEmail = notifSettings.notification_email || DEFAULT_ADMIN_EMAIL;
+
     // Send email notification to admin
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    if (resendApiKey) {
+    if (resendApiKey && shouldSendEmail) {
       try {
         const typeLabel = inquiryType === "demo" ? "데모 요청" : "상담 문의";
         const now = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
@@ -116,7 +128,7 @@ serve(async (req) => {
           },
           body: JSON.stringify({
             from: "WEBHEADS <onboarding@resend.dev>",
-            to: [ADMIN_EMAIL],
+            to: [adminEmail],
             subject: `[웹헤즈] 새 ${typeLabel}: ${company} - ${name}`,
             html: emailHtml,
           }),
@@ -126,7 +138,7 @@ serve(async (req) => {
           const errBody = await emailRes.text();
           console.error(`Email send failed [${emailRes.status}]: ${errBody}`);
         } else {
-          console.log(`Notification email sent to ${ADMIN_EMAIL}`);
+          console.log(`Notification email sent to ${adminEmail}`);
         }
       } catch (emailErr) {
         console.error("Email notification error:", emailErr);
