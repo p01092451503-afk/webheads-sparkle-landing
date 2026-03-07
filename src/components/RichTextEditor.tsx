@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { Bold, Italic, Underline, Strikethrough, Type, Palette, Expand, Shrink } from "lucide-react";
 
 interface Props {
@@ -8,7 +8,13 @@ interface Props {
   className?: string;
 }
 
-const FONT_SIZES = ["12px", "14px", "16px", "18px", "20px", "24px"];
+const FONT_SIZES = [
+  { label: "작게", value: "1" },
+  { label: "보통", value: "3" },
+  { label: "크게", value: "5" },
+  { label: "아주 크게", value: "7" },
+];
+
 const COLORS = [
   "#000000", "#374151", "#6b7280",
   "#dc2626", "#ea580c", "#d97706",
@@ -21,32 +27,45 @@ export default function RichTextEditor({ value, onChange, placeholder, className
   const [showSizePicker, setShowSizePicker] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(!value);
+  const [isEmpty, setIsEmpty] = useState(true);
+  const isComposing = useRef(false);
+  const initialized = useRef(false);
+
+  // Set initial value once
+  useEffect(() => {
+    if (editorRef.current && !initialized.current) {
+      if (value) {
+        editorRef.current.innerHTML = value;
+        setIsEmpty(false);
+      }
+      initialized.current = true;
+    }
+  }, []);
+
+  const syncValue = useCallback(() => {
+    if (!editorRef.current) return;
+    const text = editorRef.current.textContent || "";
+    setIsEmpty(!text.trim());
+    onChange(editorRef.current.innerHTML);
+  }, [onChange]);
 
   const exec = useCallback((cmd: string, val?: string) => {
     document.execCommand(cmd, false, val);
     editorRef.current?.focus();
-    updateValue();
-  }, []);
-
-  const updateValue = useCallback(() => {
-    if (!editorRef.current) return;
-    const html = editorRef.current.innerHTML;
-    const text = editorRef.current.textContent || "";
-    setIsEmpty(!text.trim());
-    onChange(html);
-  }, [onChange]);
+    syncValue();
+  }, [syncValue]);
 
   const handleInput = useCallback(() => {
-    updateValue();
-  }, [updateValue]);
+    if (isComposing.current) return;
+    syncValue();
+  }, [syncValue]);
 
-  const ToolBtn = ({ active, onClick, children, title }: { active?: boolean; onClick: () => void; children: React.ReactNode; title: string }) => (
+  const ToolBtn = ({ onClick, children, title }: { onClick: () => void; children: React.ReactNode; title: string }) => (
     <button
       type="button"
       title={title}
       onMouseDown={(e) => { e.preventDefault(); onClick(); }}
-      className={`p-1.5 rounded-md transition-colors hover:bg-primary/10 ${active ? "bg-primary/10 text-primary" : "text-muted-foreground"}`}
+      className="p-1.5 rounded-md transition-colors hover:bg-primary/10 text-muted-foreground"
     >
       {children}
     </button>
@@ -77,33 +96,19 @@ export default function RichTextEditor({ value, onChange, placeholder, className
             <Type className="w-3.5 h-3.5" />
           </ToolBtn>
           {showSizePicker && (
-            <div className="absolute top-full left-0 mt-1 bg-background border border-border rounded-lg shadow-lg p-1.5 z-50 flex flex-col gap-0.5 min-w-[80px]">
-              {FONT_SIZES.map((size) => (
+            <div className="absolute top-full left-0 mt-1 bg-background border border-border rounded-lg shadow-lg p-1.5 z-50 flex flex-col gap-0.5 min-w-[100px]">
+              {FONT_SIZES.map((s) => (
                 <button
-                  key={size}
+                  key={s.value}
                   type="button"
                   onMouseDown={(e) => {
                     e.preventDefault();
-                    // fontSize command uses 1-7, so we use a span approach
-                    exec("fontSize", "7");
-                    // Replace font size 7 with actual pixel size
-                    const el = editorRef.current;
-                    if (el) {
-                      const fonts = el.querySelectorAll('font[size="7"]');
-                      fonts.forEach((f) => {
-                        const span = document.createElement("span");
-                        span.style.fontSize = size;
-                        span.innerHTML = f.innerHTML;
-                        f.replaceWith(span);
-                      });
-                      updateValue();
-                    }
+                    exec("fontSize", s.value);
                     setShowSizePicker(false);
                   }}
                   className="px-3 py-1.5 text-left rounded-md hover:bg-muted text-sm text-foreground transition-colors"
-                  style={{ fontSize: size }}
                 >
-                  {size}
+                  {s.label}
                 </button>
               ))}
             </div>
@@ -153,9 +158,10 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           ref={editorRef}
           contentEditable
           onInput={handleInput}
-          onBlur={updateValue}
+          onCompositionStart={() => { isComposing.current = true; }}
+          onCompositionEnd={() => { isComposing.current = false; syncValue(); }}
+          onBlur={syncValue}
           onFocus={() => { setShowSizePicker(false); setShowColorPicker(false); }}
-          dangerouslySetInnerHTML={value ? { __html: value } : undefined}
           className="px-4 py-3.5 text-sm outline-none text-foreground h-full"
           style={{ wordBreak: "keep-all", minHeight: "inherit" }}
         />
