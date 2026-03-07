@@ -39,7 +39,6 @@ const kdtFeatureIcons = [Link2, UserCheck, ClipboardList, Wallet];
 const processIcons = [ClipboardCheck, PenTool, Code, FileCheck, Wrench];
 
 // ── Industry-specific Hero variants (Korean only) ──
-// Usage: /lms?industry=university | enterprise | government
 const industryVariants: Record<string, {
   badge: string;
   title: string;
@@ -89,7 +88,6 @@ export default function LmsPage() {
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
 
-  // Scroll to ROI calculator when navigated from other pages
   useEffect(() => {
     const state = location.state as { scrollTo?: string } | null;
     if (state?.scrollTo) {
@@ -97,13 +95,11 @@ export default function LmsPage() {
         const el = document.getElementById(state.scrollTo!);
         if (el) el.scrollIntoView({ behavior: "smooth" });
       }, 300);
-      // Clear state to prevent re-scroll on re-render
       window.history.replaceState({}, "");
       return () => clearTimeout(timer);
     }
   }, [location.state]);
 
-  // Resolve industry variant from URL param → sessionStorage → default
   const variant = useMemo(() => {
     const paramIndustry = searchParams.get("industry");
     if (paramIndustry && industryVariants[paramIndustry]) {
@@ -117,7 +113,6 @@ export default function LmsPage() {
     return industryVariants.default;
   }, [searchParams]);
 
-  // Use variant only in Korean mode
   const isKorean = i18n.language?.startsWith("ko") ?? true;
   const useVariant = isKorean && variant !== industryVariants.default;
 
@@ -208,37 +203,22 @@ export default function LmsPage() {
         faqJsonLd={faqs}
       />
 
-      {/* Hero — Centered with abstract volumetric patterns */}
-      <section
-        className="relative flex items-center justify-center pt-28 pb-28 md:pt-44 md:pb-44 overflow-hidden"
-      >
+      {/* ═══ 1. Hero ═══ */}
+      <section className="relative flex items-center justify-center pt-28 pb-28 md:pt-44 md:pb-44 overflow-hidden">
         <HeroPatternBg theme="blue-purple" />
         <LmsHeroOverlay />
-
-
-
         <div className="container mx-auto px-5 md:px-6 relative z-10 text-center flex flex-col items-center">
-          {/* Highlight badge (industry variant) */}
           {useVariant && variant.highlightBadge && (
-            <span
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold mb-4"
-              style={{ background: "hsl(45, 95%, 55%)", color: "hsl(30, 60%, 15%)" }}
-            >
+            <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold mb-4" style={{ background: "hsl(45, 95%, 55%)", color: "hsl(30, 60%, 15%)" }}>
               <Award className="w-3.5 h-3.5" />
               {variant.highlightBadge}
             </span>
           )}
-          <span
-            className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8"
-            style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }}
-          >
+          <span className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8" style={{ background: "rgba(255,255,255,0.1)", backdropFilter: "blur(12px)", color: "white", border: "1px solid rgba(255,255,255,0.15)" }}>
             <Sparkles className="w-4 h-4" />
             {useVariant ? variant.badge : t("lms.hero.badge")}
           </span>
-          <h1
-            className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white whitespace-pre-line"
-            style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}
-          >
+          <h1 className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white whitespace-pre-line" style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}>
             {useVariant ? variant.title : t("lms.hero.title")}
             <br />
             <span className="bg-clip-text" style={{ opacity: 0.95 }}>
@@ -249,11 +229,7 @@ export default function LmsPage() {
             {useVariant ? variant.desc : t("lms.hero.desc")}
           </p>
           <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
-            <a
-              href="#contact"
-              className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2"
-              style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}
-            >
+            <a href="#contact" className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
               {useVariant ? variant.cta1 : t("lms.hero.cta1")}
               <ArrowRight className="w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
             </a>
@@ -266,7 +242,7 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Stats — with gradient accent line */}
+      {/* ═══ 2. Stats ═══ */}
       <section className="py-12 md:py-20 relative">
         <div className="container mx-auto px-5 md:px-6 max-w-3xl lg:max-w-[55rem]">
           <div className="text-center mb-7 md:mb-10">
@@ -275,12 +251,7 @@ export default function LmsPage() {
           <div className="grid grid-cols-3 gap-0 divide-x divide-border">
             {stats.map((s: any, idx: number) => (
               <div key={s.label} className="flex flex-col items-center justify-center py-4 md:py-7 px-2 md:px-2.5 text-center">
-                <span
-                  className="block font-bold leading-none mb-1.5 md:mb-2 text-2xl md:text-5xl tracking-tight"
-                  style={{ color: "hsl(var(--lms-primary))" }}
-                >
-                  {s.value}
-                </span>
+                <span className="block font-bold leading-none mb-1.5 md:mb-2 text-2xl md:text-5xl tracking-tight" style={{ color: "hsl(var(--lms-primary))" }}>{s.value}</span>
                 <span className="block text-xs md:text-sm font-semibold text-foreground mb-0.5">{s.label}</span>
                 <span className="block text-[10px] md:text-xs text-muted-foreground">{s.sub}</span>
               </div>
@@ -289,13 +260,24 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Client Reference Marquee */}
+      {/* ═══ 3. Client Marquee ═══ */}
       <ClientMarquee />
 
-      {/* Industry Scenario Tabs — "이 서비스가 나에게 맞는가?" */}
+      {/* ═══ 4. Industry Scenario Tabs ═══ */}
       <IndustryScenarioTabs />
 
-      {/* All-in-One Management — 핵심 기능 개요 */}
+      {/* ═══ 5. Case Studies — 사회적 증명 (시나리오 직후 배치) ═══ */}
+      <ServiceCaseStudy
+        subheading={t("lms.caseStudy.sub")}
+        heading={t("lms.caseStudy.heading")}
+        description={t("lms.caseStudy.desc")}
+        cases={t("lms.caseStudy.cases", { returnObjects: true }) as any[]}
+      />
+
+      {/* ═══ Mid CTA #1 — 사례 확인 후 전환 유도 ═══ */}
+      <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
+
+      {/* ═══ 6. All-in-One — 핵심 기능 ═══ */}
       <section className="py-16 md:py-28 bg-background">
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
           <div className="mb-10 md:mb-16">
@@ -306,13 +288,8 @@ export default function LmsPage() {
             {allInOneFeatures.map((f: any, i: number) => {
               const Icon = allInOneIcons[i] || Search;
               return (
-                <div
-                  key={f.title}
-                  className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-all duration-200 flex flex-col gap-3 hover:shadow-md"
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"
-                  >
+                <div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-all duration-200 flex flex-col gap-3 hover:shadow-md">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm">
                     <Icon className="w-5 h-5" style={{ color: `hsl(var(--lms-primary))` }} />
                   </div>
                   <h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3>
@@ -324,10 +301,7 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Device Friendly — 멀티 디바이스 지원 */}
-      <DeviceFriendlySection />
-
-      {/* AI Features — 차별화 기능 */}
+      {/* ═══ 7. AI Features ═══ */}
       <section className="py-16 md:py-28 bg-background">
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
           <div className="mb-10 md:mb-16">
@@ -352,13 +326,16 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Mid CTA — 중간 전환 유도 */}
-      <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
+      {/* ═══ 8. Device Friendly ═══ */}
+      <DeviceFriendlySection />
 
-      {/* Learner Journey Map — 흰색 배경 */}
+      {/* ═══ 9. Learner Journey Map ═══ */}
       <LearnerJourneyMap />
 
-      {/* Solutions — 회색 배경 */}
+      {/* ═══ Mid CTA #2 — 기능 확인 후 전환 유도 ═══ */}
+      <ServiceMidCTA heading={t("lms.midCTA2.heading")} description={t("lms.midCTA2.description")} ctaText={t("lms.midCTA2.ctaText")} />
+
+      {/* ═══ 10. Solutions — Light vs PRO ═══ */}
       <section id="solutions" className="py-16 md:py-28 bg-secondary">
         <div className="container mx-auto px-5 md:px-6 max-w-7xl">
           <div className="mb-10 md:mb-16">
@@ -368,9 +345,7 @@ export default function LmsPage() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {/* Webheads Light */}
-            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
-              style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
-            >
+            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1" style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}>
               <div className="flex items-center gap-3.5 mb-5">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
                   <Cloud className="w-6 h-6" style={{ color: "hsl(245, 58%, 55%)" }} />
@@ -394,19 +369,13 @@ export default function LmsPage() {
                   </div>
                 ))}
               </div>
-              <a
-                href="#contact"
-                className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
-                style={{ background: "hsl(245, 58%, 55%)" }}
-              >
+              <a href="#contact" className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg" style={{ background: "hsl(245, 58%, 55%)" }}>
                 {t("lms.light.cta")}
               </a>
             </div>
 
             {/* Webheads PRO */}
-            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1"
-              style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}
-            >
+            <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1" style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}>
               <div className="flex items-center gap-3.5 mb-5">
                 <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(215, 70%, 94%)" }}>
                   <Server className="w-6 h-6" style={{ color: "hsl(215, 65%, 48%)" }} />
@@ -430,17 +399,13 @@ export default function LmsPage() {
                   </div>
                 ))}
               </div>
-              <a
-                href="#contact"
-                className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg"
-                style={{ background: "hsl(215, 65%, 48%)" }}
-              >
+              <a href="#contact" className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg" style={{ background: "hsl(215, 65%, 48%)" }}>
                 {t("lms.pro.cta")}
               </a>
             </div>
-           </div>
+          </div>
 
-          {/* HTML Comparison Table for AIO */}
+          {/* Comparison Table */}
           <div className="mt-12">
             <h3 className="font-bold text-foreground text-xl md:text-2xl lg:text-3xl tracking-tight mb-3">{t("lms.comparisonTable.title")}</h3>
             <p className="text-muted-foreground text-xs md:text-sm mb-6 md:mb-8">{t("lms.comparisonTable.desc")}</p>
@@ -450,9 +415,7 @@ export default function LmsPage() {
                   <thead>
                     <tr className="border-b border-border" style={{ background: "var(--lms-gradient-subtle)" }}>
                       {(t("lms.comparisonTable.headers", { returnObjects: true }) as string[]).map((header, i) => (
-                        <th key={i} className={`px-5 py-4 text-left font-bold text-foreground whitespace-nowrap ${i === 0 ? "min-w-[120px]" : "min-w-[180px]"}`}>
-                          {header}
-                        </th>
+                        <th key={i} className={`px-5 py-4 text-left font-bold text-foreground whitespace-nowrap ${i === 0 ? "min-w-[120px]" : "min-w-[180px]"}`}>{header}</th>
                       ))}
                     </tr>
                   </thead>
@@ -460,9 +423,7 @@ export default function LmsPage() {
                     {(t("lms.comparisonTable.rows", { returnObjects: true }) as string[][]).map((row, rowIdx) => (
                       <tr key={rowIdx} className={`border-b border-border last:border-0 ${rowIdx % 2 === 1 ? "bg-muted/30" : ""}`}>
                         {row.map((cell, cellIdx) => (
-                          <td key={cellIdx} className={`px-5 py-3.5 ${cellIdx === 0 ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
-                            {cell}
-                          </td>
+                          <td key={cellIdx} className={`px-5 py-3.5 ${cellIdx === 0 ? "font-semibold text-foreground" : "text-muted-foreground"}`}>{cell}</td>
                         ))}
                       </tr>
                     ))}
@@ -480,14 +441,8 @@ export default function LmsPage() {
               </div>
               <h4 className="font-bold text-foreground text-base">{t("lms.kdt.name")}</h4>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed flex-1" style={{ wordBreak: "keep-all" }}>
-              {t("lms.kdt.summary")}
-            </p>
-            <a
-              href="#contact"
-              className="shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90"
-              style={{ background: "hsl(145, 60%, 38%)" }}
-            >
+            <p className="text-sm text-muted-foreground leading-relaxed flex-1" style={{ wordBreak: "keep-all" }}>{t("lms.kdt.summary")}</p>
+            <a href="#contact" className="shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90" style={{ background: "hsl(145, 60%, 38%)" }}>
               {t("lms.kdt.ctaShort")}
               <ArrowRight className="w-4 h-4" />
             </a>
@@ -495,14 +450,10 @@ export default function LmsPage() {
         </div>
       </section>
 
-
-      {/* Competitor Comparison — 왜 우리인가 */}
+      {/* ═══ 11. Competitor Comparison ═══ */}
       <CompetitorComparison />
 
-      {/* Mid CTA — 요금제 전 전환 유도 */}
-      <ServiceMidCTA heading={t("lms.midCTA2.heading")} description={t("lms.midCTA2.description")} ctaText={t("lms.midCTA2.ctaText")} />
-
-      {/* Plans — 요금제 */}
+      {/* ═══ 12. Plans — 요금제 ═══ */}
       <section id="plans" className="py-16 md:py-28" style={{ background: "linear-gradient(180deg, hsl(245, 30%, 96%) 0%, hsl(245, 20%, 93%) 100%)" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-6xl">
           <div className="mb-10 md:mb-16">
@@ -552,18 +503,10 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* Case Studies — 도입 사례 */}
-      <ServiceCaseStudy
-        subheading={t("lms.caseStudy.sub")}
-        heading={t("lms.caseStudy.heading")}
-        description={t("lms.caseStudy.desc")}
-        cases={t("lms.caseStudy.cases", { returnObjects: true }) as any[]}
-      />
-
-      {/* Mid CTA — 관심 전환 */}
+      {/* ═══ Mid CTA #3 — 요금제 확인 후 최종 전환 ═══ */}
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
-      {/* Process */}
+      {/* ═══ 13. Process ═══ */}
       <ServiceProcess
         steps={processSteps}
         heading={t("lms.processSection.heading")}
@@ -571,9 +514,15 @@ export default function LmsPage() {
         description={t("lms.processSection.desc")}
       />
 
+      {/* ═══ 14. Testimonials ═══ */}
       <TestimonialSection testimonials={testimonials} />
+
+      {/* ═══ 15. FAQ ═══ */}
       <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
+
+      {/* ═══ 16. Contact ═══ */}
       <ContactSection showDemo />
+
       <ExitIntentPopup />
     </div>
   );
