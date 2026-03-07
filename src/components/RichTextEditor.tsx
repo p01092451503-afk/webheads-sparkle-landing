@@ -149,7 +149,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
       </div>
 
       {/* Editor */}
-      <div className="relative" style={{ resize: "vertical", overflow: "auto", minHeight: 120 }}>
+      <div className="relative" style={{ height: editorHeight, overflow: "auto" }}>
         {isEmpty && (
           <div className="absolute top-0 left-0 right-0 px-4 py-3.5 text-sm text-muted-foreground/40 pointer-events-none select-none">
             {placeholder}
@@ -164,8 +164,51 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           onBlur={syncValue}
           onFocus={() => { setShowSizePicker(false); setShowColorPicker(false); }}
           className="px-4 py-3.5 text-sm outline-none text-foreground h-full"
-          style={{ wordBreak: "keep-all", minHeight: "inherit" }}
+          style={{ wordBreak: "keep-all", minHeight: "100%" }}
         />
+      </div>
+
+      {/* Drag handle */}
+      <div
+        onMouseDown={(e) => {
+          e.preventDefault();
+          isDragging.current = true;
+          dragStartY.current = e.clientY;
+          dragStartHeight.current = editorHeight;
+          const onMove = (ev: MouseEvent) => {
+            if (!isDragging.current) return;
+            const diff = ev.clientY - dragStartY.current;
+            setEditorHeight(Math.max(80, dragStartHeight.current + diff));
+          };
+          const onUp = () => {
+            isDragging.current = false;
+            window.removeEventListener("mousemove", onMove);
+            window.removeEventListener("mouseup", onUp);
+          };
+          window.addEventListener("mousemove", onMove);
+          window.addEventListener("mouseup", onUp);
+        }}
+        onTouchStart={(e) => {
+          const touch = e.touches[0];
+          isDragging.current = true;
+          dragStartY.current = touch.clientY;
+          dragStartHeight.current = editorHeight;
+          const onMove = (ev: TouchEvent) => {
+            if (!isDragging.current) return;
+            const diff = ev.touches[0].clientY - dragStartY.current;
+            setEditorHeight(Math.max(80, dragStartHeight.current + diff));
+          };
+          const onEnd = () => {
+            isDragging.current = false;
+            window.removeEventListener("touchmove", onMove);
+            window.removeEventListener("touchend", onEnd);
+          };
+          window.addEventListener("touchmove", onMove);
+          window.addEventListener("touchend", onEnd);
+        }}
+        className="flex items-center justify-center py-1.5 cursor-row-resize border-t border-border/50 hover:bg-muted/80 transition-colors"
+      >
+        <GripHorizontal className="w-5 h-5 text-muted-foreground/50" />
       </div>
     </div>
   );
