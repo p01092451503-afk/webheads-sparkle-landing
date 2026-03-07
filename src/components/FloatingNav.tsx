@@ -91,6 +91,6 @@ export default function FloatingNav() {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
