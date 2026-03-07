@@ -498,47 +498,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
         </>
       )}
 
-      {/* Company Info */}
-      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(152,57%,42%,0.08)]">
-            <Building2 className="w-[18px] h-[18px] text-[hsl(152,57%,42%)]" />
-          </div>
-          <div>
-            <h3 className="text-[15px] font-semibold text-foreground">회사 정보</h3>
-            <p className="text-[12px] text-muted-foreground">제안서 및 이메일에 사용되는 정보</p>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3">
-          {[
-            { label: "회사명", key: "name" as const },
-            { label: "주소", key: "address" as const },
-            { label: "전화번호", key: "phone" as const },
-            { label: "웹사이트", key: "website" as const },
-            { label: "이메일", key: "email" as const },
-          ].map((field) => (
-            <div key={field.key} className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-semibold text-muted-foreground pl-1">{field.label}</label>
-              <input
-                type="text"
-                value={companyInfo[field.key]}
-                onChange={(e) => setCompanyInfo({ ...companyInfo, [field.key]: e.target.value })}
-                className="w-full rounded-xl px-4 py-3 text-[14px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(152,57%,42%)] transition-all"
-              />
-            </div>
-          ))}
-
-          <button
-            onClick={() => saveSettings("company_info", companyInfo)}
-            disabled={companySaving}
-            className="self-end flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(152,57%,42%)] hover:bg-[hsl(152,57%,35%)] transition-all disabled:opacity-50 mt-1"
-          >
-            {companySaving ? <Loader2 className="w-3 h-3 animate-spin" /> : companySaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
-            {companySaved ? "저장됨" : "저장"}
-          </button>
-        </div>
-      </div>
+      {/* Company Info - moved below Auto-Response */}
 
       {/* Auto-Response Templates */}
       <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6 lg:col-span-2">
