@@ -496,12 +496,13 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
       <SectionGroup title="방문자 유형 분석" number={2}>
+        {/* Summary Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { icon: <User className="w-4 h-4" />, label: "사람", value: visitorTypeCounts.human, color: "hsl(221, 83%, 53%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.human / visitorTypeCounts.total) * 100) : 0 },
             { icon: <Bot className="w-4 h-4" />, label: "검색엔진 봇", value: visitorTypeCounts.searchBot, color: "hsl(37, 90%, 51%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.searchBot / visitorTypeCounts.total) * 100) : 0 },
-            { icon: <ShieldAlert className="w-4 h-4" />, label: "스크래퍼", value: visitorTypeCounts.scraper, color: "hsl(0, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.scraper / visitorTypeCounts.total) * 100) : 0 },
             { icon: <BrainCircuit className="w-4 h-4" />, label: "AI 봇", value: visitorTypeCounts.ai, color: "hsl(262, 60%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.ai / visitorTypeCounts.total) * 100) : 0 },
+            { icon: <ShieldAlert className="w-4 h-4" />, label: "스크래퍼", value: visitorTypeCounts.scraper, color: "hsl(0, 70%, 55%)", pct: visitorTypeCounts.total > 0 ? Math.round((visitorTypeCounts.scraper / visitorTypeCounts.total) * 100) : 0 },
           ].map((item) => (
             <div key={item.label} className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3 flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${item.color}12`, color: item.color }}>{item.icon}</div>
@@ -515,58 +516,141 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
             </div>
           ))}
         </div>
-        {[
-          { subs: visitorTypeCounts.searchBotSubs, label: "검색엔진 봇 종류별 상세", color: "hsl(37, 90%, 51%)", total: visitorTypeCounts.searchBot },
-          { subs: visitorTypeCounts.aiBotSubs, label: "AI 봇 종류별 상세", color: "hsl(262, 60%, 55%)", total: visitorTypeCounts.ai },
-          { subs: visitorTypeCounts.scraperSubs, label: "스크래퍼 종류별 상세", color: "hsl(0, 70%, 55%)", total: visitorTypeCounts.scraper },
-        ].map((group) => (
-          <div key={group.label} className="mt-3 bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3">
-            <p className="text-[12px] font-semibold text-muted-foreground mb-2">{group.label}</p>
-            {group.subs.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {group.subs.map(([name, count]) => (
-                  <div key={name} className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px]" style={{ background: `${group.color}08`, border: `1px solid ${group.color}15` }}>
-                    <span className="font-semibold text-foreground">{name}</span>
-                    <span className="font-bold" style={{ color: group.color }}>{count.toLocaleString()}</span>
-                    <span className="text-muted-foreground">({group.total > 0 ? Math.round((count / group.total) * 100) : 0}%)</span>
+
+        {/* Search Bot Detail */}
+        <div className="mt-4 bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+          <div className="px-4 py-3 border-b border-[hsl(220,13%,93%)] flex items-center gap-2">
+            <Bot className="w-4 h-4 text-[hsl(37,90%,51%)]" />
+            <span className="text-[13px] font-bold text-foreground">검색엔진 봇</span>
+            <span className="text-[11px] font-bold text-[hsl(37,90%,51%)]">{visitorTypeCounts.searchBot.toLocaleString()}회</span>
+          </div>
+          <div className="px-4 py-3">
+            {visitorTypeCounts.searchBotSubs.length > 0 ? (
+              <div className="flex flex-col gap-1.5">
+                {visitorTypeCounts.searchBotSubs.map(([name, count], i) => (
+                  <div key={name} className="flex items-center gap-2">
+                    <span className="text-[11px] font-medium text-muted-foreground w-5 shrink-0 text-right">{i + 1}</span>
+                    <div className="flex-1 h-6 rounded-lg overflow-hidden relative bg-[hsl(220,14%,96%)]">
+                      <div className="h-full rounded-lg" style={{ width: `${Math.max((count / visitorTypeCounts.searchBotSubs[0][1]) * 100, 4)}%`, background: "hsl(37, 90%, 51%, 0.15)" }} />
+                      <span className="absolute left-2.5 top-0 h-full flex items-center text-[11px] font-semibold text-foreground">{name}</span>
+                    </div>
+                    <span className="text-[11px] font-bold shrink-0 w-10 text-right" style={{ color: "hsl(37, 90%, 51%)" }}>{count.toLocaleString()}</span>
                   </div>
                 ))}
               </div>
-            ) : (
-              <p className="text-[11px] text-muted-foreground/40 py-1">해당 기간에 감지된 데이터가 없습니다</p>
-            )}
+            ) : <p className="text-[11px] text-muted-foreground/40 py-1">감지된 데이터 없음</p>}
           </div>
-        ))}
-        {visitorTypeCounts.aiBotPages.length > 0 && (
-          <div className="mt-3 bg-white rounded-2xl border border-[hsl(220,13%,91%)] px-4 py-3">
-            <p className="text-[12px] font-semibold text-muted-foreground mb-3">🤖 AI 봇별 크롤링 페이지 분석</p>
-            <div className="flex flex-col gap-3">
-              {visitorTypeCounts.aiBotPages.map(({ bot, pages }) => {
-                const botTotal = pages.reduce((s, [, c]) => s + c, 0);
-                return (
-                  <div key={bot}>
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-[12px] font-bold text-foreground">{bot}</span>
-                      <span className="text-[11px] text-muted-foreground">총 {botTotal}회</span>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      {pages.slice(0, 8).map(([path, count]) => (
-                        <div key={path} className="flex items-center gap-2">
-                          <div className="flex-1 h-5 rounded overflow-hidden relative bg-[hsl(220,14%,96%)]">
-                            <div className="h-full rounded" style={{ width: `${Math.max((count / pages[0][1]) * 100, 4)}%`, background: "hsl(262, 60%, 55%, 0.15)" }} />
-                            <span className="absolute left-2 top-0 h-full flex items-center text-[10px] font-medium text-foreground">{path}</span>
+          {/* Search Bot Page Analysis */}
+          {visitorTypeCounts.searchBotPages.length > 0 && (
+            <div className="px-4 py-3 border-t border-[hsl(220,13%,93%)]">
+              <p className="text-[11px] font-semibold text-muted-foreground mb-2">검색엔진 봇별 크롤링 페이지</p>
+              <div className="flex flex-col gap-3">
+                {visitorTypeCounts.searchBotPages.slice(0, 5).map(({ bot, pages }) => {
+                  const botTotal = pages.reduce((s, [, c]) => s + c, 0);
+                  return (
+                    <div key={bot}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[11px] font-bold text-foreground">{bot}</span>
+                        <span className="text-[10px] text-muted-foreground">{botTotal}회</span>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        {pages.slice(0, 5).map(([path, count]) => (
+                          <div key={path} className="flex items-center gap-2">
+                            <div className="flex-1 h-5 rounded overflow-hidden relative bg-[hsl(220,14%,96%)]">
+                              <div className="h-full rounded" style={{ width: `${Math.max((count / pages[0][1]) * 100, 4)}%`, background: "hsl(37, 90%, 51%, 0.12)" }} />
+                              <span className="absolute left-2 top-0 h-full flex items-center text-[10px] font-medium text-foreground">{path}</span>
+                            </div>
+                            <span className="text-[10px] font-bold shrink-0" style={{ color: "hsl(37, 90%, 51%)" }}>{count}</span>
                           </div>
-                          <span className="text-[10px] font-bold shrink-0" style={{ color: "hsl(262, 60%, 55%)" }}>{count}</span>
-                          <span className="text-[10px] text-muted-foreground shrink-0">({Math.round((count / botTotal) * 100)}%)</span>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
+          )}
+        </div>
+
+        {/* AI Bot Detail */}
+        <div className="mt-3 bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+          <div className="px-4 py-3 border-b border-[hsl(220,13%,93%)] flex items-center gap-2">
+            <BrainCircuit className="w-4 h-4 text-[hsl(262,60%,55%)]" />
+            <span className="text-[13px] font-bold text-foreground">AI 봇</span>
+            <span className="text-[11px] font-bold text-[hsl(262,60%,55%)]">{visitorTypeCounts.ai.toLocaleString()}회</span>
           </div>
-        )}
+          <div className="px-4 py-3">
+            {visitorTypeCounts.aiBotSubs.length > 0 ? (
+              <div className="flex flex-col gap-1.5">
+                {visitorTypeCounts.aiBotSubs.map(([name, count], i) => (
+                  <div key={name} className="flex items-center gap-2">
+                    <span className="text-[11px] font-medium text-muted-foreground w-5 shrink-0 text-right">{i + 1}</span>
+                    <div className="flex-1 h-6 rounded-lg overflow-hidden relative bg-[hsl(220,14%,96%)]">
+                      <div className="h-full rounded-lg" style={{ width: `${Math.max((count / visitorTypeCounts.aiBotSubs[0][1]) * 100, 4)}%`, background: "hsl(262, 60%, 55%, 0.15)" }} />
+                      <span className="absolute left-2.5 top-0 h-full flex items-center text-[11px] font-semibold text-foreground">{name}</span>
+                    </div>
+                    <span className="text-[11px] font-bold shrink-0 w-10 text-right" style={{ color: "hsl(262, 60%, 55%)" }}>{count.toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+            ) : <p className="text-[11px] text-muted-foreground/40 py-1">감지된 데이터 없음</p>}
+          </div>
+          {/* AI Bot Page Analysis */}
+          {visitorTypeCounts.aiBotPages.length > 0 && (
+            <div className="px-4 py-3 border-t border-[hsl(220,13%,93%)]">
+              <p className="text-[11px] font-semibold text-muted-foreground mb-2">AI 봇별 크롤링 페이지</p>
+              <div className="flex flex-col gap-3">
+                {visitorTypeCounts.aiBotPages.map(({ bot, pages }) => {
+                  const botTotal = pages.reduce((s, [, c]) => s + c, 0);
+                  return (
+                    <div key={bot}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[11px] font-bold text-foreground">{bot}</span>
+                        <span className="text-[10px] text-muted-foreground">{botTotal}회</span>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        {pages.slice(0, 8).map(([path, count]) => (
+                          <div key={path} className="flex items-center gap-2">
+                            <div className="flex-1 h-5 rounded overflow-hidden relative bg-[hsl(220,14%,96%)]">
+                              <div className="h-full rounded" style={{ width: `${Math.max((count / pages[0][1]) * 100, 4)}%`, background: "hsl(262, 60%, 55%, 0.12)" }} />
+                              <span className="absolute left-2 top-0 h-full flex items-center text-[10px] font-medium text-foreground">{path}</span>
+                            </div>
+                            <span className="text-[10px] font-bold shrink-0" style={{ color: "hsl(262, 60%, 55%)" }}>{count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Scraper Detail */}
+        <div className="mt-3 bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+          <div className="px-4 py-3 border-b border-[hsl(220,13%,93%)] flex items-center gap-2">
+            <ShieldAlert className="w-4 h-4 text-[hsl(0,70%,55%)]" />
+            <span className="text-[13px] font-bold text-foreground">스크래퍼</span>
+            <span className="text-[11px] font-bold text-[hsl(0,70%,55%)]">{visitorTypeCounts.scraper.toLocaleString()}회</span>
+          </div>
+          <div className="px-4 py-3">
+            {visitorTypeCounts.scraperSubs.length > 0 ? (
+              <div className="flex flex-col gap-1.5">
+                {visitorTypeCounts.scraperSubs.map(([name, count], i) => (
+                  <div key={name} className="flex items-center gap-2">
+                    <span className="text-[11px] font-medium text-muted-foreground w-5 shrink-0 text-right">{i + 1}</span>
+                    <div className="flex-1 h-6 rounded-lg overflow-hidden relative bg-[hsl(220,14%,96%)]">
+                      <div className="h-full rounded-lg" style={{ width: `${Math.max((count / visitorTypeCounts.scraperSubs[0][1]) * 100, 4)}%`, background: "hsl(0, 70%, 55%, 0.12)" }} />
+                      <span className="absolute left-2.5 top-0 h-full flex items-center text-[11px] font-semibold text-foreground">{name}</span>
+                    </div>
+                    <span className="text-[11px] font-bold shrink-0 w-10 text-right" style={{ color: "hsl(0, 70%, 55%)" }}>{count.toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+            ) : <p className="text-[11px] text-muted-foreground/40 py-1">감지된 데이터 없음</p>}
+          </div>
+        </div>
       </SectionGroup>
 
       <SectionGroup title={isToday ? "시간대별 방문 추이" : "일별 방문 추이"} number={3}>
