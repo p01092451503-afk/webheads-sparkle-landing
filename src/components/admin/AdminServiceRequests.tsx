@@ -220,8 +220,9 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
                           onClick={() => deleteRequest(r.id)}
                           className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
                         >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                   </div>
                 )}
