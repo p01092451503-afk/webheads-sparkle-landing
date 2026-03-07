@@ -410,6 +410,12 @@ export default function InquiryProposal({ inquiry, onFreeze, isSuperAdmin }: Pro
               </button>
             </>
           )}
+          {frozen && isSuperAdmin && !editing && (
+            <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-amber-700 bg-amber-100 hover:bg-amber-200 dark:text-amber-300 dark:bg-amber-900/30 dark:hover:bg-amber-900/50 transition-colors">
+              <Shield className="w-3 h-3" />
+              <RefreshCw className="w-3 h-3" /> 재작성
+            </button>
+          )}
         </div>
       </div>
 
