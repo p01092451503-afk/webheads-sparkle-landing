@@ -485,29 +485,6 @@ export default function OverviewPage() {
         </div>
       </section>
 
-      {/* Floating PDF Download Button */}
-      <button
-        onClick={handleDownloadPdf}
-        disabled={pdfLoading}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold shadow-lg transition-all hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-wait print:hidden"
-        style={{
-          background: "hsl(var(--foreground))",
-          color: "hsl(var(--background))",
-          boxShadow: "0 8px 30px -6px hsl(0 0% 0% / 0.3)",
-        }}
-      >
-        {pdfLoading ? (
-          <>
-            <Loader2 className="w-4 h-4 animate-spin" />
-            PDF 생성 중...
-          </>
-        ) : (
-          <>
-            <Download className="w-4 h-4" />
-            PDF 다운로드
-          </>
-        )}
-      </button>
     </div>
   );
 }
