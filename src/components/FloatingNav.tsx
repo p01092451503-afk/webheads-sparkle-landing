@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen } from "lucide-react";
+import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen, FileText } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
@@ -25,6 +25,9 @@ export default function FloatingNav() {
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
       : []),
     
+    ...(location.pathname !== "/overview"
+      ? [{ to: "/overview", icon: FileText, label: "서비스 소개서", className: "bg-primary text-primary-foreground" }]
+      : []),
     ...(location.pathname !== "/blog"
       ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
       : []),
@@ -44,6 +47,12 @@ export default function FloatingNav() {
           <Link to="/sms-kakao" className="group relative w-10 h-10 rounded-full bg-[hsl(45,93%,55%)] text-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.smsKakao")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.smsKakao")}</span>
             <Send className="w-5 h-5" />
+          </Link>
+        )}
+        {location.pathname !== "/overview" && (
+          <Link to="/overview" className="group relative w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label="서비스 소개서">
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">서비스 소개서</span>
+            <FileText className="w-5 h-5" />
           </Link>
         )}
         {location.pathname !== "/blog" && (
