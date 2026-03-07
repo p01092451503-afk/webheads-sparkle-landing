@@ -9,10 +9,13 @@ interface Props {
 }
 
 const FONT_SIZES = [
-  { label: "작게", value: "1" },
+  { label: "아주 작게", value: "1" },
+  { label: "작게", value: "2" },
   { label: "보통", value: "3" },
+  { label: "약간 크게", value: "4" },
   { label: "크게", value: "5" },
-  { label: "아주 크게", value: "7" },
+  { label: "아주 크게", value: "6" },
+  { label: "최대", value: "7" },
 ];
 
 const COLORS = [
