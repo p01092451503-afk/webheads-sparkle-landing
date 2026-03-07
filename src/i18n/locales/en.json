@@ -1511,7 +1511,10 @@
     "strengths": [
       { "title": "One-Stop Integrated Service", "desc": "From LMS to hosting, DRM, payments, content, and apps — 9 services from a single partner. Dramatically reduce vendor management costs." },
       { "title": "Proven Expertise & Trust", "desc": "16 years, 300+ deployments, 92.6% retention rate. Trusted by leading education organizations across Korea." },
-      { "title": "Fast Launch, Flexible Scale", "desc": "Cloud LMS launches in as little as 3 days. Scale up with feature additions, plan upgrades, or on-premise migration as you grow." }
+      { "title": "Fast Launch, Flexible Scale", "desc": "Cloud LMS launches in as little as 3 days. Scale up with feature additions, plan upgrades, or on-premise migration as you grow." },
+      { "title": "24/7 Technical Support", "desc": "Dedicated engineers provide round-the-clock support from incident response to feature improvements. Proactive server monitoring, security patches, and performance optimization." },
+      { "title": "Multi-DRM & Strong Security", "desc": "Protect premium content with FairPlay, Widevine multi-DRM, screen capture prevention, and forensic watermarking." },
+      { "title": "AI-Powered Smart Learning", "desc": "Built-in AI features including mock exams, speech-to-text subtitles, content auto-summarization, and AI chatbot to maximize learning outcomes." }
     ],
     "servicesSection": {
       "sub": "ALL SERVICES",

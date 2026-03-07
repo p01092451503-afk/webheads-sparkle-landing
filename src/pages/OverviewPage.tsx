@@ -538,7 +538,7 @@ export default function OverviewPage() {
             <h2 className="text-2xl lg:text-4xl font-bold tracking-tight text-foreground mb-5">{t("overview.intro.title")}</h2>
             <p className="text-base leading-relaxed text-muted-foreground whitespace-pre-line max-w-2xl mx-auto">{t("overview.intro.desc")}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {ovStrengths.map((s, i) => (
               <div key={i} className="rounded-2xl p-6 bg-white border border-border shadow-sm">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm mb-3" style={{ background: "hsl(255,75%,58%,0.1)", color: "hsl(255,75%,58%)" }}>
