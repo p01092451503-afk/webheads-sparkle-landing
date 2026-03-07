@@ -498,7 +498,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
         </>
       )}
 
-      {/* Company Info - moved below Auto-Response */}
+      
 
       {/* Auto-Response Templates */}
       <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6 lg:col-span-2">
