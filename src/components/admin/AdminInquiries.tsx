@@ -323,7 +323,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                         <p className="text-[11px] font-semibold text-muted-foreground tracking-wide flex items-center gap-1.5">
                           <ClipboardList className="w-3.5 h-3.5" /> 미팅 내용
                         </p>
-                        {selectedInquiry.meeting_notes && !editingMeetingNote && (
+                        {isSuperAdmin && selectedInquiry.meeting_notes && !editingMeetingNote && (
                           <button
                             onClick={() => setEditingMeetingNote(true)}
                             className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-[hsl(262,60%,55%)] hover:bg-[hsl(262,60%,55%,0.06)] transition-all"
@@ -332,41 +332,49 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                           </button>
                         )}
                       </div>
-                      {!selectedInquiry.meeting_notes && !editingMeetingNote ? (
-                        <button
-                          onClick={() => setEditingMeetingNote(true)}
-                          className="w-full py-4 rounded-xl border-2 border-dashed border-[hsl(220,13%,91%)] text-[12px] text-muted-foreground/50 hover:border-[hsl(262,60%,55%,0.3)] hover:text-[hsl(262,60%,55%)] transition-all"
-                        >
-                          + 미팅 내용 기록하기
-                        </button>
-                      ) : editingMeetingNote ? (
+                      {isSuperAdmin ? (
                         <>
-                          <textarea
-                            value={meetingNoteText}
-                            onChange={(e) => setMeetingNoteText(e.target.value)}
-                            rows={5}
-                            placeholder="미팅 일시, 참석자, 논의 내용, 후속 조치 등을 기록하세요..."
-                            className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(262,60%,55%,0.3)] focus:border-[hsl(262,60%,55%)] focus:ring-2 focus:ring-[hsl(262,60%,55%,0.08)] transition-all"
-                            autoFocus
-                          />
-                          <div className="flex gap-2 mt-2">
-                            <button onClick={saveMeetingNote} disabled={savingMeetingNote}
-                              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(262,60%,55%)] hover:bg-[hsl(262,60%,45%)] transition-all active:scale-[0.96] disabled:opacity-50"
-                            >
-                              {savingMeetingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
-                              저장
-                            </button>
+                          {!selectedInquiry.meeting_notes && !editingMeetingNote ? (
                             <button
-                              onClick={() => { setEditingMeetingNote(false); setMeetingNoteText(selectedInquiry.meeting_notes || ""); }}
-                              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all"
+                              onClick={() => setEditingMeetingNote(true)}
+                              className="w-full py-4 rounded-xl border-2 border-dashed border-[hsl(220,13%,91%)] text-[12px] text-muted-foreground/50 hover:border-[hsl(262,60%,55%,0.3)] hover:text-[hsl(262,60%,55%)] transition-all"
                             >
-                              취소
+                              + 미팅 내용 기록하기
                             </button>
-                          </div>
+                          ) : editingMeetingNote ? (
+                            <>
+                              <textarea
+                                value={meetingNoteText}
+                                onChange={(e) => setMeetingNoteText(e.target.value)}
+                                rows={5}
+                                placeholder="미팅 일시, 참석자, 논의 내용, 후속 조치 등을 기록하세요..."
+                                className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(262,60%,55%,0.3)] focus:border-[hsl(262,60%,55%)] focus:ring-2 focus:ring-[hsl(262,60%,55%,0.08)] transition-all"
+                                autoFocus
+                              />
+                              <div className="flex gap-2 mt-2">
+                                <button onClick={saveMeetingNote} disabled={savingMeetingNote}
+                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(262,60%,55%)] hover:bg-[hsl(262,60%,45%)] transition-all active:scale-[0.96] disabled:opacity-50"
+                                >
+                                  {savingMeetingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                                  저장
+                                </button>
+                                <button
+                                  onClick={() => { setEditingMeetingNote(false); setMeetingNoteText(selectedInquiry.meeting_notes || ""); }}
+                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all"
+                                >
+                                  취소
+                                </button>
+                              </div>
+                            </>
+                          ) : (
+                            <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(262,60%,55%,0.15)]">
+                              {selectedInquiry.meeting_notes}
+                            </div>
+                          )}
                         </>
                       ) : (
-                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(262,60%,55%,0.15)]">
-                          {selectedInquiry.meeting_notes}
+                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(262,60%,55%,0.15)] min-h-[48px]">
+                          {selectedInquiry.meeting_notes || <span className="text-muted-foreground/30">미팅 내용 없음</span>}
                         </div>
                       )}
                     </div>
@@ -379,8 +387,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                           const cfg = statusConfig[s];
                           const isActive = selectedInquiry.status === s;
                           return (
-                            <button key={s} onClick={() => updateStatus(selectedInquiry.id, s)}
-                              className="py-2.5 rounded-xl text-[12px] font-medium transition-all duration-200 active:scale-[0.96]"
+                            <button key={s} onClick={() => isSuperAdmin && updateStatus(selectedInquiry.id, s)}
+                              disabled={!isSuperAdmin}
+                              className="py-2.5 rounded-xl text-[12px] font-medium transition-all duration-200 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-60"
                               style={{
                                 color: isActive ? "white" : "hsl(220, 9%, 46%)",
                                 background: isActive ? cfg.color : "white",
