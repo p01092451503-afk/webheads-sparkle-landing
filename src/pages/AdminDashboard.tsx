@@ -263,6 +263,12 @@ export default function AdminDashboard() {
             <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => fetchFullAnalytics(days)} />
           )}
           {tab === "ai_usage" && <AIUsageDashboard />}
+          {tab === "sales_priority" && (
+            <SalesPriorityDashboard onSelectInquiry={(id) => {
+              setTab("inquiries");
+              // The AdminInquiries component will handle selecting by id
+            }} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
