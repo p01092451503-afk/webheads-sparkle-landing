@@ -137,6 +137,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               onClick={() => {
                 setSubmitted(false);
                 setPrivacyAgreed(false);
+                setMarketingAgreed(false);
               }}
               className="mt-3 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:opacity-80 bg-secondary text-foreground"
             >
