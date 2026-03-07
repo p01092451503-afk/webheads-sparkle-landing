@@ -58,7 +58,7 @@
     "formPhonePlaceholder": "010-XXXX-XXXX",
     "formEmail": "이메일",
     "formEmailPlaceholder": "email@company.com",
-    "formService": "관심 서비스",
+    "formService": "문의 서비스 (복수 선택 가능)",
     "formServicePlaceholder": "관심있는 서비스를 선택해 주세요.",
     "formMessage": "기타 문의내용",
     "formMessagePlaceholder": "도입 목적 및 기타 문의사항을 적어주세요.",
