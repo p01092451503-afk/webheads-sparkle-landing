@@ -50,6 +50,7 @@ serve(async (req) => {
       service: service || null,
       message: message || null,
       inquiry_type: inquiryType,
+      marketing_agreed: marketingAgreed,
       session_id: session_id || null,
     });
 
