@@ -354,7 +354,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
           <div className="flex-1" />
           {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
         </button>
-        {!isFrozen && (
+        {!isFrozen && !proposalFrozen && (
           <>
             <button
               onClick={freezeAnalysis}
