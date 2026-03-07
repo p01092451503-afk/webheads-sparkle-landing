@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp, Sparkles, Download, Plus, Minus } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Sparkles, Download, Plus, Minus, RefreshCw, Shield } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
