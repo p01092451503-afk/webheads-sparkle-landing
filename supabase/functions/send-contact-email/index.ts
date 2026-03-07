@@ -59,9 +59,20 @@ serve(async (req) => {
 
     console.log(`New inquiry saved: ${company} / ${name}`);
 
+    // Fetch notification settings from DB
+    const { data: notifRow } = await supabaseAdmin
+      .from("admin_settings")
+      .select("value")
+      .eq("key", "notifications")
+      .maybeSingle();
+    
+    const notifSettings = notifRow?.value as any || { email_on_new_inquiry: true, notification_email: DEFAULT_ADMIN_EMAIL };
+    const shouldSendEmail = notifSettings.email_on_new_inquiry !== false;
+    const adminEmail = notifSettings.notification_email || DEFAULT_ADMIN_EMAIL;
+
     // Send email notification to admin
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
-    if (resendApiKey) {
+    if (resendApiKey && shouldSendEmail) {
       try {
         const typeLabel = inquiryType === "demo" ? "데모 요청" : "상담 문의";
         const now = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
