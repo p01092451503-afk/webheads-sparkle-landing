@@ -912,8 +912,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
           <ChartCard title="CTA 클릭 - 페이지별" icon={<MousePointerClick className="w-4 h-4" />}>
             {ctaByPage.length === 0 ? <Empty msg="CTA 클릭 데이터 수집 중..." /> : ctaByPage.map(([p, c], i) => <BarRow key={p} rank={i+1} label={p} value={c} max={ctaByPage[0][1]} color="hsl(262, 60%, 55%)" />)}
           </ChartCard>
-        </div>
-        {/* CTA Conversion Attribution */}
+          {/* CTA Conversion Attribution */}
           <ChartCard title="CTA 전환 경로" icon={<GitBranch className="w-4 h-4" />}>
             {ctaAttribution.length === 0 ? <Empty msg="CTA 전환 경로 데이터 수집 중..." /> : ctaAttribution.slice(0, 10).map((d, i) => (
               <div key={d.flow} className="flex items-center gap-2 py-1.5">
