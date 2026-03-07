@@ -234,17 +234,43 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             {/* Service select */}
             <FormField label={t("contact.formService")}>
               <div className="relative">
-                <select
-                  value={form.service}
-                  onChange={(e) => setForm({ ...form, service: e.target.value })}
-                  className={`${inputBase} ${inputFocus} appearance-none pr-10 cursor-pointer`}
+                <button
+                  type="button"
+                  onClick={() => setShowServiceDropdown(!showServiceDropdown)}
+                  className={`${inputBase} ${inputFocus} text-left flex items-center justify-between cursor-pointer`}
                 >
-                  <option value="">{t("contact.formServicePlaceholder")}</option>
-                  {services.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
+                  <span className={form.service.length === 0 ? "text-muted-foreground/40" : "text-foreground"}>
+                    {form.service.length === 0
+                      ? t("contact.formServicePlaceholder")
+                      : form.service.join(", ")}
+                  </span>
+                  <ChevronDown className={`w-4 h-4 shrink-0 text-muted-foreground transition-transform ${showServiceDropdown ? "rotate-180" : ""}`} />
+                </button>
+                {showServiceDropdown && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto p-2">
+                    {services.map((s) => (
+                      <label
+                        key={s}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-md cursor-pointer hover:bg-muted transition-colors"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={form.service.includes(s)}
+                          onChange={() => {
+                            setForm(prev => ({
+                              ...prev,
+                              service: prev.service.includes(s)
+                                ? prev.service.filter(v => v !== s)
+                                : [...prev.service, s]
+                            }));
+                          }}
+                          className="w-4 h-4 rounded border-2 border-border accent-primary cursor-pointer shrink-0"
+                        />
+                        <span className="text-sm text-foreground">{s}</span>
+                      </label>
+                    ))}
+                  </div>
+                )}
               </div>
             </FormField>
 
