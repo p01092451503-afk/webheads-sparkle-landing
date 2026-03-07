@@ -1,12 +1,16 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useState, useRef, useCallback } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import SEO from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import LazySection from "@/components/shared/LazySection";
 import {
   Server, Wrench, Bot, Smartphone, ShieldCheck,
   MessageSquare, CreditCard, Film, ArrowRight, Phone, CheckCircle2,
-  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight, Rocket
+  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight, Rocket,
+  Download, Loader2
 } from "lucide-react";
 
 /* ── Service config ── */
