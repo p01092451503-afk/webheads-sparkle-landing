@@ -141,7 +141,7 @@ function LmsDetailSection() {
           <Bot className="w-5 h-5" style={{ color: "hsl(255,75%,58%)" }} />
           {t("lms.aiSection.title").replace(/\n/g, " ")}
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {aiFeatures.map((f, i) => (
             <div key={i} className="rounded-xl p-5 bg-white border border-border">
               <h4 className="font-bold text-sm text-foreground mb-1.5">{f.title}</h4>
