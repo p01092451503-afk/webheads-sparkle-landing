@@ -489,7 +489,7 @@ export default function OverviewPage() {
 
       {/* ── Why Webheads ── */}
       <LazySection fallbackHeight="400px">
-        <section className="relative py-20 overflow-hidden">
+        <section data-pdf-section className="relative py-20 overflow-hidden">
           <HeroPatternBg theme="blue-purple" />
           <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white mb-5">{t("overview.whyTitle")}</h2>
