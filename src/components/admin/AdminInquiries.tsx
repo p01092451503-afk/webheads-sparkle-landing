@@ -290,9 +290,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     {selectedInquiry.message && (
                       <div className="mt-4">
                         <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">문의 내용</p>
-                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(220,13%,93%)]">
-                          {selectedInquiry.message}
-                        </div>
+                        <div
+                          className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground border border-[hsl(220,13%,93%)] [&_div]:min-h-[1.2em]"
+                          dangerouslySetInnerHTML={{ __html: selectedInquiry.message }}
+                        />
                       </div>
                     )}
 
