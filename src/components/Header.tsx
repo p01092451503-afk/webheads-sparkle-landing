@@ -21,6 +21,7 @@ const serviceBlobColors: Record<string, string> = {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [showDate, setShowDate] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
   const supportRef = useRef<HTMLDivElement>(null);
   const [bannerDismissed, setBannerDismissed] = useState(() => {
@@ -71,6 +72,11 @@ export default function Header() {
 
   useEffect(() => {
     const timer = setTimeout(() => setBannerReady(true), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowDate(true), 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -130,12 +136,14 @@ export default function Header() {
               className={`shrink-0 tracking-tight mr-8 transition-colors duration-300 ${effectiveScrolled ? "text-foreground" : "text-white"}`}
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
-              {t("header.logo")}{(() => {
+              {t("header.logo")}<span
+                className={`inline-block transition-all duration-700 ease-out ${showDate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
+              >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
                 const mm = String(now.getMonth() + 1).padStart(2, "0");
                 const dd = String(now.getDate()).padStart(2, "0");
                 return mm + dd;
-              })()}
+              })()}</span>
             </Link>
 
             {/* Desktop Nav — all services inline */}
