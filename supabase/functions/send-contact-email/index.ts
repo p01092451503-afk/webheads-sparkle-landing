@@ -18,6 +18,7 @@ interface ContactFormData {
   service: string;
   message: string;
   inquiryType?: "consultation" | "demo";
+  marketingAgreed?: boolean;
   session_id?: string;
 }
 
