@@ -292,7 +292,7 @@ export default function LmsPage() {
       </section>
 
       {/* ═══ 7. AI Features ═══ */}
-      <section className="py-16 md:py-28 bg-background">
+      <section className="py-16 md:py-28" style={{ background: "var(--lms-section-alt)" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
           <div className="mb-10 md:mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.aiSection.sub")}</p>
