@@ -45,6 +45,14 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [deleting, setDeleting] = useState(false);
   const [proposalFrozen, setProposalFrozen] = useState(false);
 
+  const getAnalysisBadge = (inq: any): { label: string; className: string } | null => {
+    if (inq._is_frozen) return { label: "확정됨", className: "text-amber-700 bg-amber-100 dark:text-amber-300 dark:bg-amber-900/30" };
+    if (inq.proposal_data) return { label: "제안서완료", className: "text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/30" };
+    if (inq._pro_status === "completed" || inq._pro_status === "partial") return { label: "2차완료", className: "text-purple-700 bg-purple-100 dark:text-purple-300 dark:bg-purple-900/30" };
+    if (inq.ai_analysis || inq.ai_analysis_v2) return { label: "1차완료", className: "text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/30" };
+    return { label: "미분석", className: "text-muted-foreground bg-muted" };
+  };
+
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
       if (statusFilter !== "all" && inq.status !== statusFilter) return false;
