@@ -258,7 +258,7 @@ export default function InquiryProposal({ inquiry }: Props) {
 
           {/* Footer */}
           <div className="mt-8 pt-4 border-t border-[hsl(220,13%,93%)] text-center">
-            <p className="text-[0.84em] text-muted-foreground">
+            <p className="text-[0.9em] text-foreground">
               {companyInfo.name} | {companyInfo.address} | {companyInfo.phone} | {companyInfo.website}
             </p>
           </div>
