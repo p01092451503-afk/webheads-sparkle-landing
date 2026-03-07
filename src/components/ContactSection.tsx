@@ -249,16 +249,14 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
             {/* Message */}
             <FormField label={t("contact.formMessage")}>
-              <textarea
-                rows={4}
+              <RichTextEditor
+                value={form.message}
+                onChange={(html) => setForm({ ...form, message: html })}
                 placeholder={
                   inquiryType === "demo"
                     ? t("contact.formMessagePlaceholderDemo")
                     : t("contact.formMessagePlaceholder")
                 }
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className={`${inputBase} ${inputFocus} resize-none`}
               />
             </FormField>
 
