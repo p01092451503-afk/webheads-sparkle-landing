@@ -19,6 +19,7 @@ interface AdminServiceRequestsProps {
   setRequests: (r: any[]) => void;
   onRefresh: () => void;
   logActivity: (action: string, targetType?: string, targetId?: string, details?: any) => Promise<void>;
+  isSuperAdmin: boolean;
 }
 
 export default function AdminServiceRequests({ requests, setRequests, onRefresh, logActivity }: AdminServiceRequestsProps) {
