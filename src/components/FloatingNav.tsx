@@ -26,10 +26,10 @@ export default function FloatingNav() {
       : []),
     
     ...(location.pathname !== "/overview"
-      ? [{ to: "/overview", icon: FileText, label: "서비스 소개서", className: "bg-primary text-primary-foreground" }]
+      ? [{ to: "/overview", icon: FileText, label: t("floatingNav.overview"), className: "bg-primary text-primary-foreground" }]
       : []),
     ...(location.pathname !== "/blog"
-      ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
+      ? [{ to: "/blog", icon: BookOpen, label: t("floatingNav.insights"), className: "bg-foreground text-background" }]
       : []),
   ];
 
@@ -50,14 +50,14 @@ export default function FloatingNav() {
           </Link>
         )}
         {location.pathname !== "/overview" && (
-          <Link to="/overview" className="group relative w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label="서비스 소개서">
-            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">서비스 소개서</span>
+          <Link to="/overview" className="group relative w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.overview")}>
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.overview")}</span>
             <FileText className="w-5 h-5" />
           </Link>
         )}
         {location.pathname !== "/blog" && (
-          <Link to="/blog" className="group relative w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity border-2 border-primary/40" aria-label="LMS 인사이트">
-            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">LMS 인사이트</span>
+          <Link to="/blog" className="group relative w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity border-2 border-primary/40" aria-label={t("floatingNav.insights")}>
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.insights")}</span>
             <BookOpen className="w-5 h-5" />
           </Link>
         )}

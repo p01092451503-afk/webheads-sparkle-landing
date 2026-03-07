@@ -1577,7 +1577,9 @@
   "floatingNav": {
     "pricing": "Pricing",
     "smsKakao": "SMS · Kakao",
-    "support": "Support"
+    "support": "Support",
+    "overview": "Service Overview",
+    "insights": "LMS Insights"
   },
   "banner": {
     "text": "Build your e-learning platform with Webheads — Get 2 months free LMS when you sign up in March!",
