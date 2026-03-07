@@ -123,7 +123,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
       .select("*")
       .eq("inquiry_id", inquiry.id)
       .single();
-    if (data && (data as any).analysis_status === "completed") {
+    if (data && ((data as any).analysis_status === "completed" || (data as any).analysis_status === "partial")) {
       setAnalysis({
         customer_profile: (data as any).customer_profile,
         feature_mapping: (data as any).feature_mapping,
@@ -135,6 +135,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
         meeting_agenda: (data as any).meeting_agenda,
       });
       setIsFrozen(!!(data as any).is_frozen);
+      setIsPartial((data as any).analysis_status === "partial");
       setState("done");
     }
   };
