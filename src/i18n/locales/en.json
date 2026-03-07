@@ -1164,6 +1164,17 @@
             { "label": "Admin Workload", "value": "60%↓" },
             { "label": "Satisfaction", "value": "4.7/5" }
           ]
+        },
+        {
+          "org": "Lotte.com",
+          "industry": "Retail & E-commerce",
+          "challenge": "Over 3,000 franchise stores required training on new system updates, product operation manuals, and service policy changes — previously delivered through offline sessions and PDF manuals. Inconsistent training levels across franchises led to uneven CS quality, and quarterly Lotte.com system updates (order management, inventory, settlement) were not effectively communicated, causing repeated operational errors and customer complaints. Content production was outsourced, averaging 4-6 weeks per project at high cost.",
+          "result": "Deployed Webheads PRO with a dedicated franchise training portal and produced custom training content (video manuals, interactive simulations, quiz-based assessments) for Lotte.com's systems. System update training content was created and distributed within 1 week — 4x faster than before. Automated reminders via franchise-level progress dashboards ensured completion. Within 6 months, franchise operational errors decreased by 62% and CS-related complaints dropped by 45%.",
+          "metrics": [
+            { "label": "Error Reduction", "value": "62%" },
+            { "label": "CS Complaints", "value": "45%↓" },
+            { "label": "Content Delivery", "value": "4x↑" }
+          ]
         }
       ]
     },
