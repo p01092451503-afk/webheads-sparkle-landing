@@ -171,13 +171,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             onSubmit={handleSubmit}
             className="relative rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
           >
-            {/* Quick response badge */}
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-bold text-foreground tracking-tight border border-border">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                {t("contact.responseBadge")}
-              </span>
-            </div>
 
             {/* Inquiry type tabs */}
             {showDemo && (
