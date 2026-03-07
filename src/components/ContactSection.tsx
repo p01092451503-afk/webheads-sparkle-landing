@@ -231,6 +231,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             </div>
 
             {/* Service select */}
+            {inquiryType !== "demo" && (
             <FormField label={t("contact.formService")}>
               <div className="relative">
                 <select
@@ -246,6 +247,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                 <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none text-muted-foreground" />
               </div>
             </FormField>
+            )}
 
             {/* Message */}
             <FormField label={t("contact.formMessage")}>
