@@ -244,7 +244,7 @@ export default function InquiryProposal({ inquiry }: Props) {
           {/* Footer */}
           <div className="mt-8 pt-4 border-t border-[hsl(220,13%,93%)] text-center">
             <p className="text-[1.05em] text-muted-foreground">
-              WEBHEADS | 서울시 마포구 월드컵로114, 3층 | 02-540-4337 | www.webheads.co.kr
+              {companyInfo.name} | {companyInfo.address} | {companyInfo.phone} | {companyInfo.website}
             </p>
           </div>
         </div>
