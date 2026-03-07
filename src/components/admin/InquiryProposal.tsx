@@ -31,6 +31,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
   const [fontSize, setFontSize] = useState(13);
   const [frozen, setFrozen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const attemptedRestoreRef = useRef(false);
   const [companyInfo, setCompanyInfo] = useState({
     name: "WEBHEADS", address: "서울시 마포구 월드컵로114, 3층",
     phone: "02-540-4337", website: "www.webheads.co.kr",
