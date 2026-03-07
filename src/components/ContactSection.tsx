@@ -57,6 +57,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   });
   const [submitted, setSubmitted] = useState(false);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [marketingAgreed, setMarketingAgreed] = useState(false);
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -75,7 +76,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
     try {
       const { data, error: fnError } = await supabase.functions.invoke(
         "send-contact-email",
-        { body: { ...form, service: form.service.join(", "), inquiryType, session_id: sessionStorage.getItem("_sid") || undefined } }
+        { body: { ...form, service: form.service.join(", "), inquiryType, marketingAgreed, session_id: sessionStorage.getItem("_sid") || undefined } }
       );
       if (fnError) throw new Error(fnError.message);
       if (data?.error) throw new Error(data.error);
@@ -136,6 +137,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               onClick={() => {
                 setSubmitted(false);
                 setPrivacyAgreed(false);
+                setMarketingAgreed(false);
               }}
               className="mt-3 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all hover:opacity-80 bg-secondary text-foreground"
             >
@@ -300,7 +302,24 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               </span>
             </label>
 
-            {/* Error */}
+            {/* ── Marketing checkbox ── */}
+            <label className="flex items-start gap-3 cursor-pointer select-none group">
+              <input
+                type="checkbox"
+                checked={marketingAgreed}
+                onChange={(e) => setMarketingAgreed(e.target.checked)}
+                className="w-[18px] h-[18px] rounded border-2 border-border accent-primary cursor-pointer shrink-0 mt-0.5"
+              />
+              <div>
+                <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                  {t("contact.formMarketing")}
+                </span>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  {t("contact.formMarketingDesc")}
+                </p>
+              </div>
+            </label>
+
             {error && (
               <p className="text-sm text-center rounded-lg py-2.5 px-4 font-medium bg-destructive/10 text-destructive border border-destructive/20">
                 {error}

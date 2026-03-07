@@ -61,6 +61,8 @@
     "formEmailPlaceholder": "email@company.com",
     "formService": "Service of Interest (Multiple Selection)",
     "formServicePlaceholder": "Select a service",
+    "formMarketing": "[Optional] Marketing Consent",
+    "formMarketingDesc": "We'll only send important updates and promotions.",
     "formMessage": "Additional Details",
     "formMessagePlaceholder": "Please describe your goals and any questions.",
     "formSubmit": "Submit Inquiry",
