@@ -13,7 +13,7 @@ interface Props {
 
 type AnalysisState = "idle" | "analyzing" | "done" | "error";
 
-export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
+export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdmin, onReanalyze }: Props) {
   const [state, setState] = useState<AnalysisState>(inquiry.ai_analysis ? "done" : "idle");
   const [result, setResult] = useState<string>(inquiry.ai_analysis || "");
   const [error, setError] = useState<string>("");
