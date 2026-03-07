@@ -330,22 +330,6 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
             </button>
           </div>
 
-          <div className="flex items-center justify-between p-3 rounded-xl bg-[hsl(220,14%,97%)]">
-            <div>
-              <p className="text-[13px] font-medium text-foreground">고객지원 요청 알림</p>
-              <p className="text-[11px] text-muted-foreground">서비스 요청이 접수되면 이메일로 알림</p>
-            </div>
-            <button
-              onClick={() => {
-                const updated = { ...notifSettings, email_on_service_request: !notifSettings.email_on_service_request };
-                setNotifSettings(updated);
-                saveSettings("notifications", updated);
-              }}
-              className={`w-11 h-6 rounded-full transition-all relative ${notifSettings.email_on_service_request ? "bg-[hsl(221,83%,53%)]" : "bg-[hsl(220,13%,85%)]"}`}
-            >
-              <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${notifSettings.email_on_service_request ? "left-[22px]" : "left-0.5"}`} />
-            </button>
-          </div>
 
           <div className="flex flex-col gap-1.5">
             <label className="text-[12px] font-semibold text-muted-foreground pl-1">알림 수신 이메일</label>
