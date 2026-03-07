@@ -75,6 +75,11 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setShowDate(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   const showBanner = isKorean && bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
   return (
