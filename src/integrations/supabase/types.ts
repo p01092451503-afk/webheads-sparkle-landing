@@ -313,6 +313,47 @@ export type Database = {
         }
         Relationships: []
       }
+      proposal_edit_logs: {
+        Row: {
+          created_at: string
+          edit_summary: string | null
+          editor_email: string
+          editor_id: string
+          id: string
+          inquiry_id: string
+          new_data: Json | null
+          previous_data: Json | null
+        }
+        Insert: {
+          created_at?: string
+          edit_summary?: string | null
+          editor_email: string
+          editor_id: string
+          id?: string
+          inquiry_id: string
+          new_data?: Json | null
+          previous_data?: Json | null
+        }
+        Update: {
+          created_at?: string
+          edit_summary?: string | null
+          editor_email?: string
+          editor_id?: string
+          id?: string
+          inquiry_id?: string
+          new_data?: Json | null
+          previous_data?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proposal_edit_logs_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "contact_inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       service_requests: {
         Row: {
           amount: string | null
