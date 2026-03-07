@@ -163,7 +163,6 @@ export default function PageTracker() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [location.pathname]);
-  }, [location.pathname]);
 
   // Track CTA clicks
   const trackClick = useCallback((e: MouseEvent) => {
