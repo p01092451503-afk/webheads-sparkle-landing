@@ -186,10 +186,10 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdm
       <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
         <button
           onClick={analyze}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90"
           style={{ background: "linear-gradient(135deg, hsl(262, 83%, 58%), hsl(221, 83%, 53%))" }}
         >
-          AI 기초 분석
+          <Sparkles className="w-4 h-4" /> AI 기초 분석
         </button>
       </div>
     );
