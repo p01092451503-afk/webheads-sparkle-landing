@@ -354,7 +354,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
             </span>
           )}
           <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold" style={{ background: pc.bg, color: pc.text }}>
-            {analysis.strategic_score.priority}
+            {recalculatedPriority}
           </span>
           <span className="text-[10px] px-2 py-0.5 rounded-full bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)] font-semibold">
             {analysis.recommended_plan}
