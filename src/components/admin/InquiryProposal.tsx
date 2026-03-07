@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
+import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw, Lock, CheckCircle2 } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import webheadsLogo from "@/assets/webheads-logo.png";
@@ -28,6 +28,7 @@ export default function InquiryProposal({ inquiry }: Props) {
   const [error, setError] = useState("");
   const [expanded, setExpanded] = useState(true);
   const [fontSize, setFontSize] = useState(13);
+  const [frozen, setFrozen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [companyInfo, setCompanyInfo] = useState({
     name: "WEBHEADS", address: "서울시 마포구 월드컵로114, 3층",
@@ -219,9 +220,20 @@ export default function InquiryProposal({ inquiry }: Props) {
           <button onClick={exportPDF} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-[hsl(152,57%,42%)] bg-[hsl(152,57%,42%,0.08)] hover:bg-[hsl(152,57%,42%,0.14)] transition-all">
             <Download className="w-3 h-3" /> PDF
           </button>
-          <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-all">
-            <RefreshCw className="w-3 h-3" /> 재생성
-          </button>
+          {frozen ? (
+            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">
+              <Lock className="w-3 h-3" /> 확정됨
+            </span>
+          ) : (
+            <>
+              <button onClick={() => setFrozen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,48%)] transition-all">
+                <CheckCircle2 className="w-3 h-3" /> 확정
+              </button>
+              <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-all">
+                <RefreshCw className="w-3 h-3" /> 재생성
+              </button>
+            </>
+          )}
         </div>
       </div>
 
