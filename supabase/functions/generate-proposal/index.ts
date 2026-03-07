@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { getServiceContext } from "../_shared/service-catalog.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -110,10 +111,8 @@ serve(async (req) => {
 - 글로벌 CDN 기반 안정적 서비스 제공
 - 주요 고객: 대기업, 공공기관, 금융기관, 교육기관 등
 
-## Webheads 제품 정보:
-- 기본 제공: 순차학습, 객관식 Quiz, 수료증 발급, 관리자 대시보드, 모바일 반응형, 한/영 다국어, 글로벌 CDN(Plus 이상), 소셜 로그인, Zoom 연동, SMS/카카오 알림톡, AI 학습 독려, SEO 최적화, 디자인 템플릿
-- 커스터마이징 가능: STEP 잠금/해제 로직, 시나리오 Quiz, 대리점별 권한, 그룹 리포트, DRM, 추가 언어, 외부 시스템 연동
-- 플랜: Starter(월 30만원), Basic(월 50만원), Plus(월 70만원, 추천), Premium(월 100만원)
+## Webheads 서비스별 상세 정보:
+${getServiceContext(inquiry?.service)}
 
 **중요**: content 필드에서 표가 필요한 경우 마크다운 테이블 문법을 사용하세요.
 **중요**: 모든 내용은 한국어로 작성하세요.`;
