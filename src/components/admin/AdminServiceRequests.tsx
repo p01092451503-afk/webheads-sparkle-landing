@@ -22,7 +22,7 @@ interface AdminServiceRequestsProps {
   isSuperAdmin: boolean;
 }
 
-export default function AdminServiceRequests({ requests, setRequests, onRefresh, logActivity }: AdminServiceRequestsProps) {
+export default function AdminServiceRequests({ requests, setRequests, onRefresh, logActivity, isSuperAdmin }: AdminServiceRequestsProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");

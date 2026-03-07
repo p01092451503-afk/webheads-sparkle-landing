@@ -27,7 +27,7 @@ interface AdminInquiriesProps {
   isSuperAdmin: boolean;
 }
 
-export default function AdminInquiries({ inquiries, setInquiries, onRefresh, logActivity }: AdminInquiriesProps) {
+export default function AdminInquiries({ inquiries, setInquiries, onRefresh, logActivity, isSuperAdmin }: AdminInquiriesProps) {
   const [selectedInquiry, setSelectedInquiry] = useState<any | null>(null);
   const [statusFilter, setStatusFilter] = useState<InquiryStatus | "all">("all");
   const [searchQuery, setSearchQuery] = useState("");
