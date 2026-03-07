@@ -162,7 +162,7 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
       }
 
       const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry-pro", {
-        body: { inquiry: payload },
+        body: { inquiry: payload, ai_basic_analysis: payload.ai_analysis || null },
       });
 
       if (!fnError && !data?.error) {
