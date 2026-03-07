@@ -326,7 +326,7 @@ export default function LmsPage() {
       <ServiceMidCTA heading={t("lms.midCTA2.heading")} description={t("lms.midCTA2.description")} ctaText={t("lms.midCTA2.ctaText")} />
 
       {/* ═══ 10. Solutions — Light vs PRO ═══ */}
-      <section id="solutions" className="py-16 md:py-28 bg-secondary">
+      <section id="solutions" className="py-16 md:py-28 bg-background">
         <div className="container mx-auto px-5 md:px-6 max-w-7xl">
           <div className="mb-10 md:mb-16">
             <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: `hsl(var(--lms-primary))` }}>{t("lms.solutionsSection.sub")}</p>

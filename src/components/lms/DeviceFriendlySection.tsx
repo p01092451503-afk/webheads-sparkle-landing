@@ -26,7 +26,7 @@ export default function DeviceFriendlySection() {
   const features = t("lms.deviceSection.features", { returnObjects: true, defaultValue: [] }) as string[][];
 
   return (
-    <section className="py-20 md:py-28" style={{ background: "var(--lms-section-alt)" }}>
+    <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-5 md:px-6 max-w-5xl" ref={ref}>
         <div className="mb-12 md:mb-16">
           <p
