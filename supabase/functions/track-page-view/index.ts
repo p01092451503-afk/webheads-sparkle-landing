@@ -154,7 +154,12 @@ async function geoLookup(ip: string | null): Promise<{ country: string | null; c
         if (geo.status === "success") {
           country = geo.country || null;
           const parts = [geo.regionName, geo.city].filter(Boolean);
-          city = parts.length > 0 ? parts.join(" ") : null;
+          // Deduplicate when regionName and city are the same (e.g. "Seoul" + "Seoul")
+          if (parts.length === 2 && parts[0] === parts[1]) {
+            city = parts[0];
+          } else {
+            city = parts.length > 0 ? parts.join(" ") : null;
+          }
         }
       }
     } catch (geoErr) {
