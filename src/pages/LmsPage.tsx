@@ -498,6 +498,14 @@ export default function LmsPage() {
       {/* ═══ Mid CTA #3 — 요금제 확인 후 최종 전환 ═══ */}
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
+      {/* ═══ Case Studies — 도입 사례 ═══ */}
+      <ServiceCaseStudy
+        subheading={t("lms.caseStudy.sub")}
+        heading={t("lms.caseStudy.heading")}
+        description={t("lms.caseStudy.desc")}
+        cases={t("lms.caseStudy.cases", { returnObjects: true }) as any[]}
+      />
+
       {/* ═══ 13. Process ═══ */}
       <ServiceProcess
         steps={processSteps}
