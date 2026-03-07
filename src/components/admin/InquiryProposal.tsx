@@ -36,7 +36,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     phone: "02-540-4337", website: "www.webheads.co.kr",
   });
 
-  // Check persisted frozen state on mount
+  // Load company info + check frozen state + load saved proposal
   useEffect(() => {
     supabase.from("admin_settings").select("value").eq("key", "company_info").maybeSingle()
       .then(({ data }) => { if (data?.value) setCompanyInfo(data.value as any); });
@@ -46,6 +46,15 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
       .then(({ data }) => {
         if (data?.is_frozen) {
           setFrozen(true);
+        }
+      });
+
+    // Load saved proposal data
+    supabase.from("contact_inquiries").select("proposal_data").eq("id", inquiry.id).maybeSingle()
+      .then(({ data }) => {
+        if (data?.proposal_data) {
+          setProposal(data.proposal_data as any);
+          setState("done");
         }
       });
   }, [inquiry.id]);
@@ -88,11 +97,17 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
 
       setProposal(data.proposal);
       setState("done");
+
+      // Save proposal data to DB
+      await supabase
+        .from("contact_inquiries" as any)
+        .update({ proposal_data: data.proposal } as any)
+        .eq("id", inquiry.id);
     } catch (e: any) {
       setError(e.message || "제안서 생성에 실패했습니다");
       setState("error");
     }
-  }, [inquiry]);
+  }, [inquiry, companyInfo]);
 
   const exportPDF = useCallback(async () => {
     if (!proposal || !containerRef.current) return;
