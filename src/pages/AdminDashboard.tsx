@@ -96,6 +96,8 @@ export default function AdminDashboard() {
 
   // Initial data
   useEffect(() => {
+    if (!userId) return;
+
     const since7d = new Date();
     since7d.setDate(since7d.getDate() - 7);
 
@@ -107,8 +109,8 @@ export default function AdminDashboard() {
       setInquiries(inqRes.data || []);
       setServiceRequests(srRes.data || []);
       setPageViews(pvRes.data || []);
-    });
-  }, []);
+    }).catch(() => undefined);
+  }, [userId]);
 
   const fetchFullAnalytics = useCallback(async (days: number) => {
     const since = new Date();
