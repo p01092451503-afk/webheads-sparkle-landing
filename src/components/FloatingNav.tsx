@@ -50,7 +50,7 @@ export default function FloatingNav() {
           </Link>
         )}
         {location.pathname !== "/overview" && (
-          <Link to="/overview" className="group relative w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.overview")}>
+          <Link to="/overview" className="group relative w-10 h-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.overview")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.overview")}</span>
             <FileText className="w-5 h-5" />
           </Link>
