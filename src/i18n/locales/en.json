@@ -1591,7 +1591,8 @@
     "smsKakao": "SMS · Kakao",
     "support": "Support",
     "overview": "Service Overview",
-    "insights": "LMS Insights"
+    "insights": "LMS Insights",
+    "costSimulator": "Cost Simulator"
   },
   "banner": {
     "text": "Build your e-learning platform with Webheads — Get 2 months free LMS when you sign up in March!",
