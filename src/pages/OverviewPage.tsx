@@ -478,7 +478,7 @@ export default function OverviewPage() {
             </a>
             <a href="tel:02-540-4337" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
               <Phone className="w-4 h-4" />
-              장애 및 유지보수 : 02-540-4337
+              {t("overview.cta.phone2")}
             </a>
           </div>
           <p className="mt-6 text-xs text-muted-foreground">{t("overview.cta.note")}</p>
