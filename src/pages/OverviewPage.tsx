@@ -331,7 +331,7 @@ function ClientMarqueeGrid() {
       {clients.map((name, i) => (
         <span
           key={i}
-          className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-border bg-white text-muted-foreground"
+          className="inline-flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-semibold border border-border bg-white text-muted-foreground leading-none"
         >
           {name}
         </span>
