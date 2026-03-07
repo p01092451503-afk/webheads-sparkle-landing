@@ -741,15 +741,40 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
       <SectionGroup title="신규 방문자 분석 (3/4~)" number={9}>
-        <div className="flex items-center gap-1.5 px-1 mb-1">
+        <div className="flex flex-wrap items-center gap-1.5 px-1 mb-1">
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)]">
             <User className="w-3 h-3" /> 사람 접속만 표시
           </span>
+          <div className="flex items-center gap-1 ml-auto overflow-x-auto">
+            <button
+              onClick={() => setNewVisitorDateFilter("all")}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all whitespace-nowrap ${
+                newVisitorDateFilter === "all"
+                  ? "bg-[hsl(37,90%,51%)] text-white shadow-sm"
+                  : "bg-[hsl(40,25%,93%)] text-muted-foreground hover:bg-[hsl(40,25%,88%)]"
+              }`}
+            >
+              전체
+            </button>
+            {newVisitorData.availableDates.map((date) => (
+              <button
+                key={date}
+                onClick={() => setNewVisitorDateFilter(date === newVisitorDateFilter ? "all" : date)}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all whitespace-nowrap ${
+                  newVisitorDateFilter === date
+                    ? "bg-[hsl(37,90%,51%)] text-white shadow-sm"
+                    : "bg-[hsl(40,25%,93%)] text-muted-foreground hover:bg-[hsl(40,25%,88%)]"
+                }`}
+              >
+                {new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" })}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip="3월 4일 이후 최초 접속한 사람 방문자의 페이지뷰 수입니다." className="bg-[hsl(40,35%,90%)]" />
-          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip="3월 4일 이후 최초 접속한 고유 세션 수입니다." className="bg-[hsl(150,25%,90%)]" />
-          <MetricCard icon={<Wifi className="w-[18px] h-[18px]" />} label="고유 IP" value={newVisitorData.uniqueNewIPs} color="hsl(199, 89%, 48%)" tooltip="3월 4일 이후 신규 방문자의 중복 제거된 고유 IP 수입니다." className="bg-[hsl(200,30%,90%)]" />
+          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip={newVisitorDateFilter === "all" ? "3월 4일 이후 최초 접속한 사람 방문자의 페이지뷰 수입니다." : `${newVisitorDateFilter} 신규 방문 수`} className="bg-[hsl(40,35%,90%)]" />
+          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip={newVisitorDateFilter === "all" ? "3월 4일 이후 최초 접속한 고유 세션 수입니다." : `${newVisitorDateFilter} 신규 세션 수`} className="bg-[hsl(150,25%,90%)]" />
+          <MetricCard icon={<Wifi className="w-[18px] h-[18px]" />} label="고유 IP" value={newVisitorData.uniqueNewIPs} color="hsl(199, 89%, 48%)" tooltip={newVisitorDateFilter === "all" ? "3월 4일 이후 신규 방문자의 중복 제거된 고유 IP 수입니다." : `${newVisitorDateFilter} 고유 IP 수`} className="bg-[hsl(200,30%,90%)]" />
         </div>
         {newVisitorData.dailyNewArr.length > 0 && (
           <div className="bg-[hsl(40,25%,90%)] rounded-2xl border border-[hsl(220,13%,91%)] p-5 mt-3">
