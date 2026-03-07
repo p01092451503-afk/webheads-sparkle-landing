@@ -243,7 +243,7 @@ function AddOnServicesSection() {
     {/* Add-on header */}
     <section id="services" className="pt-16 pb-2" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="ADD-ON SERVICES" title="부가서비스 라인업" desc="LMS를 중심으로 교육 사업에 필요한 8가지 부가서비스를 원스톱으로 제공합니다. 각 서비스 페이지에서 상세한 기능·요금·도입 가이드를 확인하세요." />
+        <SectionHead sub={t("overview.addOnSection.sub")} title={t("overview.addOnSection.title")} desc={t("overview.addOnSection.desc")} />
       </div>
     </section>
 
