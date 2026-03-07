@@ -22,13 +22,13 @@ interface ServiceCaseStudyProps {
 export default function ServiceCaseStudy({ cases, subheading, heading, description, bg = "bg-background" }: ServiceCaseStudyProps) {
   return (
     <section className={`py-28 ${bg}`}>
-      <div className="container mx-auto px-6 max-w-5xl">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="mb-16">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{subheading}</p>
           <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{heading}</h2>
           <p className="text-muted-foreground mt-4 text-base">{description}</p>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className={`grid grid-cols-1 ${cases.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-5`}>
           {cases.map((c) => (
             <div key={c.org} className="rounded-3xl border border-border bg-secondary/50 overflow-hidden flex flex-col">
               <div className="px-7 pt-7 pb-5">
