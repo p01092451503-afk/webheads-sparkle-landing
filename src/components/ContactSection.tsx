@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RichTextEditor from "./RichTextEditor";
 import { Helmet } from "react-helmet-async";
-import { Send, Loader2, ChevronDown, Monitor, Lock } from "lucide-react";
+import { Send, Loader2, ChevronDown, Monitor, Lock, Phone } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 
@@ -109,6 +109,28 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           <p className="mt-4 text-sm text-muted-foreground">
             {t("contact.desc")}
           </p>
+
+          {/* ── Phone buttons + Response badge ── */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+            <a
+              href="tel:02-336-4338"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-2 text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              {t("footer.newPhone")}
+            </a>
+            <a
+              href="tel:02-540-4337"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-2 text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              {t("footer.maintenancePhone")}
+            </a>
+            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-bold text-foreground tracking-tight border border-border">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              {t("contact.responseBadge")}
+            </span>
+          </div>
         </div>
 
 
@@ -149,13 +171,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
             onSubmit={handleSubmit}
             className="relative rounded-2xl p-8 lg:p-10 flex flex-col gap-5 bg-card border border-border shadow-sm"
           >
-            {/* Quick response badge */}
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-bold text-foreground tracking-tight border border-border">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                {t("contact.responseBadge")}
-              </span>
-            </div>
 
             {/* Inquiry type tabs */}
             {showDemo && (
