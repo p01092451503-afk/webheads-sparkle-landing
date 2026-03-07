@@ -193,6 +193,11 @@ export default function CostSimulator() {
                   <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsCdn ? "translate-x-5" : "translate-x-0"}`} />
                 </button>
               </div>
+              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                {needsCdn
+                  ? "동영상 강의를 빠르고 끊김 없이 재생하기 위한 전용 영상 서버입니다. 수강생이 많을수록 필요합니다."
+                  : "YouTube·Vimeo 등 외부 플랫폼에 영상을 올리고 LMS에 링크만 연동하는 방식입니다. 별도 서버 비용이 없어 경제적입니다."}
+              </p>
 
               {/* Estimated usage */}
               {needsCdn && (
