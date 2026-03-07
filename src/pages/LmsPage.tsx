@@ -14,6 +14,7 @@ import LearnerJourneyMap from "@/components/lms/LearnerJourneyMap";
 
 import CompetitorComparison from "@/components/lms/CompetitorComparison";
 import DeviceFriendlySection from "@/components/lms/DeviceFriendlySection";
+import CostSimulator from "@/components/lms/CostSimulator";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
@@ -442,6 +443,9 @@ export default function LmsPage() {
 
       {/* ═══ 11. Competitor Comparison ═══ */}
       <CompetitorComparison />
+
+      {/* ═══ Cost Simulator ═══ */}
+      <CostSimulator />
 
       {/* ═══ 12. Plans — 요금제 ═══ */}
       <section id="plans" className="py-16 md:py-28" style={{ background: "linear-gradient(180deg, hsl(245, 30%, 96%) 0%, hsl(245, 20%, 93%) 100%)" }}>
