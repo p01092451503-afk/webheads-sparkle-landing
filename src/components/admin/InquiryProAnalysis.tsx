@@ -86,7 +86,7 @@ function buildInquiryPayload(inquiry: any) {
   };
 }
 
-export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
+export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdmin }: Props) {
   const [state, setState] = useState<AnalysisState>("idle");
   const [analysis, setAnalysis] = useState<ProAnalysis | null>(null);
   const [error, setError] = useState("");
