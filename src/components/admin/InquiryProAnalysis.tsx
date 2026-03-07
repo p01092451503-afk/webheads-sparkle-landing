@@ -434,19 +434,19 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
             {/* Strategic Score */}
             <div className="bg-white rounded-xl border border-[hsl(220,13%,91%)] p-4">
               <div className="flex items-center justify-between mb-3">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <p className="text-[11px] font-bold text-muted-foreground tracking-wide cursor-help border-b border-dashed border-muted-foreground/40">전략적 가치 스코어</p>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="max-w-[260px] text-[11px]">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button className="text-[11px] font-bold text-muted-foreground tracking-wide cursor-help border-b border-dashed border-muted-foreground/40 hover:text-foreground transition-colors">전략적 가치 스코어 ⓘ</button>
+                  </PopoverTrigger>
+                  <PopoverContent side="bottom" align="start" className="w-[280px] text-[11px] p-3">
                     <p className="font-semibold mb-1">계산식</p>
                     <p>각 항목 0~20점 × 5개 = 총점 0~100</p>
-                    <p className="mt-1 text-muted-foreground">
-                      {scoreItems.map(i => `${i.label}(${i.score})`).join(" + ")} = {recalculatedTotal}
+                    <p className="mt-1.5 text-muted-foreground leading-relaxed">
+                      {scoreItems.map(i => `${i.label}(${i.score})`).join(" + ")} = <span className="font-bold text-foreground">{recalculatedTotal}</span>
                     </p>
-                    <p className="mt-1">HIGH: 70~100 · MEDIUM: 40~69 · LOW: 0~39</p>
-                  </TooltipContent>
-                </Tooltip>
+                    <p className="mt-1.5 pt-1.5 border-t border-[hsl(220,13%,91%)]">HIGH: 70~100 · MEDIUM: 40~69 · LOW: 0~39</p>
+                  </PopoverContent>
+                </Popover>
                 <div className="flex items-center gap-2">
                   <span className="text-[18px] font-black text-foreground">{recalculatedTotal}</span>
                   <span className="text-[10px] text-muted-foreground">/100</span>
@@ -459,14 +459,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
                     <div className="flex-1">
                       <Progress value={item.percent} className="h-2" />
                     </div>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <span className="text-[11px] font-semibold text-foreground w-[46px] text-right cursor-help">{item.score}<span className="text-[9px] text-muted-foreground font-normal">/20</span></span>
-                      </TooltipTrigger>
-                      <TooltipContent side="left" className="text-[11px]">
-                        {item.label}: {item.score}점 (20점 만점)
-                      </TooltipContent>
-                    </Tooltip>
+                    <span className="text-[11px] font-semibold text-foreground w-[46px] text-right">{item.score}<span className="text-[9px] text-muted-foreground font-normal">/20</span></span>
                   </div>
                 ))}
               </div>
