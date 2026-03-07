@@ -1157,7 +1157,7 @@
           "org": "Korea Appraisers Association",
           "industry": "Professional Licensing",
           "challenge": "Over 15 annual training programs for 5,000+ certified appraisers — including mandatory continuing education, practical workshops, and ethics courses — were conducted entirely offline. Appraisers nationwide faced significant travel costs and scheduling conflicts, leading to poor attendance. Completion records were managed manually in spreadsheets, creating heavy administrative burden for government reporting.",
-          "result": "Built a dedicated online education platform (edu.kapanet.or.kr) on Webheads PRO. Implemented DRM-protected VOD lectures alongside live video sessions, integrated with member databases for automated completion tracking and certificate issuance. Nationwide access without time constraints dramatically improved attendance rates, while administrative workload was cut by more than half.",
+          "result": "Built a dedicated online education platform on Webheads PRO. Implemented DRM-protected VOD lectures alongside live video sessions, integrated with member databases for automated completion tracking and certificate issuance. Nationwide access without time constraints dramatically improved attendance rates, while administrative workload was cut by more than half.",
           "metrics": [
             { "label": "Attendance Rate", "value": "95%" },
             { "label": "Admin Workload", "value": "60%↓" },
