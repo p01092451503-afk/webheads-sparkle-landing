@@ -27,9 +27,9 @@ const serviceCards = [
 
 /* ── Helper: comparison cell icon ── */
 function CellIcon({ val }: { val: string }) {
-  if (val === "O") return <Check className="w-4 h-4 text-green-600 mx-auto" />;
-  if (val === "X") return <X className="w-4 h-4 text-red-400 mx-auto" />;
-  if (val === "△") return <Triangle className="w-3.5 h-3.5 text-yellow-500 mx-auto" />;
+  if (val === "O") return <span className="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mx-auto" style={{ background: "hsl(142,71%,93%)", color: "hsl(142,71%,35%)" }}>✓</span>;
+  if (val === "X") return <span className="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mx-auto" style={{ background: "hsl(0,80%,95%)", color: "hsl(0,70%,50%)" }}>✕</span>;
+  if (val === "△") return <span className="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mx-auto" style={{ background: "hsl(45,90%,92%)", color: "hsl(45,80%,40%)" }}>△</span>;
   return <span className="text-xs">{val}</span>;
 }
 
