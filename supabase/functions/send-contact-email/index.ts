@@ -31,7 +31,7 @@ serve(async (req) => {
     const formData: ContactFormData = await req.json();
     const { company, name, phone, email, service, message, inquiryType = "consultation", marketingAgreed = false, session_id } = formData;
 
-    if (!company || !name || !phone) {
+    if (!name || !phone) {
       return new Response(
         JSON.stringify({ error: "필수 항목이 누락되었습니다." }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
