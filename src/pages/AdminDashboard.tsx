@@ -22,18 +22,15 @@ const TabLoader = () => (
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings"];
-  const getValidTab = (value: string | null): Tab | null => {
-    if (!value) return null;
-    return validTabs.includes(value as Tab) ? (value as Tab) : null;
-  };
+  const getValidTab = (value: string | null): Tab | null =>
+    value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
   const [tab, setTabState] = useState<Tab>(() => {
-    const fromUrl = getValidTab(searchParams.get("tab"));
-    if (fromUrl) return fromUrl;
-    const fromStorage = getValidTab(localStorage.getItem("admin_active_tab"));
-    return fromStorage || "inquiries";
+    return getValidTab(searchParams.get("tab"))
+      ?? getValidTab(localStorage.getItem("admin_active_tab"))
+      ?? "inquiries";
   });
   const authCheckedRef = useRef(false);
   const [loading, setLoading] = useState(true);
@@ -49,24 +46,11 @@ export default function AdminDashboard() {
   const setTab = useCallback((t: Tab) => {
     setTabState(t);
     localStorage.setItem("admin_active_tab", t);
-    const nextParams = new URLSearchParams(searchParams);
-    nextParams.set("tab", t);
-    setSearchParams(nextParams, { replace: true });
-  }, [searchParams, setSearchParams]);
-
-  useEffect(() => {
-    const fromUrl = getValidTab(searchParams.get("tab"));
-    if (fromUrl && fromUrl !== tab) {
-      setTabState(fromUrl);
-      localStorage.setItem("admin_active_tab", fromUrl);
-      return;
-    }
-
-    if (!fromUrl) {
-      const stored = getValidTab(localStorage.getItem("admin_active_tab"));
-      if (stored && stored !== tab) setTabState(stored);
-    }
-  }, [searchParams, tab]);
+    // Update URL without triggering re-render cycle
+    const url = new URL(window.location.href);
+    url.searchParams.set("tab", t);
+    window.history.replaceState({}, "", url.toString());
+  }, []);
 
   // Auth check
   useEffect(() => {
