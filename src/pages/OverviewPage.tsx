@@ -603,13 +603,13 @@ export default function OverviewPage() {
           </h2>
           <p className="text-sm text-muted-foreground mb-8 whitespace-pre-line">{t("overview.cta.desc")}</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link to="/lms#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all text-white hover:opacity-90" style={{ background: "hsl(255,75%,58%)" }}>
-              {t("overview.cta.btn1")}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a href="tel:02-336-4338" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all border border-border text-foreground hover:bg-secondary">
+            <a href="tel:02-336-4338" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
               <Phone className="w-4 h-4" />
-              {t("overview.cta.btn2")}
+              신규도입 : 02-336-4338
+            </a>
+            <a href="tel:02-540-4337" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
+              <Phone className="w-4 h-4" />
+              장애 및 유지보수 : 02-540-4337
             </a>
           </div>
           <p className="mt-6 text-xs text-muted-foreground">{t("overview.cta.note")}</p>
