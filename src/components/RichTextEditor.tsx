@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback, useEffect } from "react";
-import { Bold, Italic, Underline, Strikethrough, Type, Palette, Expand, Shrink } from "lucide-react";
+import { Bold, Italic, Underline, Strikethrough, Type, Palette } from "lucide-react";
 
 interface Props {
   value: string;
