@@ -304,7 +304,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
         <button
           onClick={generate}
           disabled={!hasAnalysis}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
           style={{ background: "linear-gradient(135deg, hsl(152, 57%, 42%), hsl(160, 60%, 38%))" }}
         >
           <FileText className="w-4 h-4" />

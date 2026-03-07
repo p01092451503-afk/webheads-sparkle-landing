@@ -229,7 +229,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
       <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
         <button
           onClick={runAnalysis}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90"
           style={{ background: "linear-gradient(135deg, hsl(37, 90%, 51%), hsl(15, 90%, 55%))" }}
         >
           <Zap className="w-4 h-4" /> AI 영업 전략 리포트
