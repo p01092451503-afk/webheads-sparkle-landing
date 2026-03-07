@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RichTextEditor from "./RichTextEditor";
 import { Helmet } from "react-helmet-async";
 import { Send, Loader2, ChevronDown, Monitor, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
