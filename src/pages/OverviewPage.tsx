@@ -339,7 +339,6 @@ function ClientMarqueeGrid() {
 
 export default function OverviewPage() {
   const { t } = useTranslation();
-  const [pdfLoading, setPdfLoading] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const ovStrengths = t("overview.strengths", { returnObjects: true }) as { title: string; desc: string }[];
