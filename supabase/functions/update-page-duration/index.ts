@@ -26,8 +26,10 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
+    console.log("update-page-duration called:", { session_id, page_path, duration_seconds, scroll_depth });
+
     // Find the most recent matching page view and update duration + scroll depth
-    const { data: rows } = await supabase
+    const { data: rows, error: selectError } = await supabase
       .from("page_views")
       .select("id")
       .eq("session_id", session_id)
@@ -36,6 +38,8 @@ Deno.serve(async (req) => {
       .order("created_at", { ascending: false })
       .limit(1);
 
+    console.log("Found rows:", rows?.length, "selectError:", selectError);
+
     if (rows && rows.length > 0) {
       // Cap at 30 minutes to filter out idle tabs
       const capped = Math.min(Math.round(duration_seconds), 1800);
@@ -43,10 +47,11 @@ Deno.serve(async (req) => {
       if (typeof scroll_depth === "number" && scroll_depth > 0) {
         updateData.scroll_depth = Math.min(scroll_depth, 100);
       }
-      await supabase
+      const { error: updateError } = await supabase
         .from("page_views")
         .update(updateData)
         .eq("id", rows[0].id);
+      console.log("Update result for", rows[0].id, "error:", updateError);
     }
 
     return new Response(JSON.stringify({ ok: true }), {

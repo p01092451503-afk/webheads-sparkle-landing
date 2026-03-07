@@ -80,28 +80,33 @@ function sendDuration(pagePath: string, startTime: number) {
   const duration = (Date.now() - startTime) / 1000;
   if (duration < 1) return;
   const sessionId = getSessionId();
-  
-  // Also send scroll depth
   const scrollDepth = parseInt(sessionStorage.getItem(SCROLL_DEPTH_KEY) || "0", 10);
 
-  const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-page-duration`;
-  const body = JSON.stringify({
+  const body = {
     session_id: sessionId,
     page_path: pagePath,
     duration_seconds: duration,
     scroll_depth: scrollDepth > 0 ? scrollDepth : null,
-  });
-  
-  if (navigator.sendBeacon) {
-    const blob = new Blob([body], { type: "application/json" });
-    navigator.sendBeacon(url, blob);
-  } else {
+  };
+
+  // Use supabase functions.invoke which includes proper apikey header
+  // Use keepalive fetch as fallback for unload scenarios
+  try {
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/update-page-duration`;
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      "apikey": import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+    };
+    
+    // sendBeacon doesn't support custom headers, use keepalive fetch instead
     fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
+      headers,
+      body: JSON.stringify(body),
       keepalive: true,
     }).catch(() => {});
+  } catch {
+    // Silent fail for tracking
   }
 
   // Reset scroll depth for next page
