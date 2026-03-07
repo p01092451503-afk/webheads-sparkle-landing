@@ -87,7 +87,8 @@ serve(async (req) => {
 
         const emailHtml = `
           <div style="font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; background: #ffffff;">
-            <div style="background: #1a1a2e; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px;">
+            <div style="background: #1a1a2e; border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; text-align: center;">
+              <img src="${LOGO_URL}" alt="WEBHEADS" style="height: 36px; margin-bottom: 12px;" />
               <h1 style="color: #ffffff; font-size: 20px; margin: 0 0 4px;">📬 새로운 ${typeLabel}이 접수되었습니다</h1>
               <p style="color: #a0a0b8; font-size: 13px; margin: 0;">${now}</p>
             </div>
