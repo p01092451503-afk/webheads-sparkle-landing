@@ -27,6 +27,45 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdm
     }
   }, [inquiry.ai_analysis]);
 
+  const reanalyze = async () => {
+    // Reset all downstream: pro analysis + proposal
+    setState("analyzing");
+    setError("");
+    try {
+      // Clear ai_analysis on inquiry
+      await supabase
+        .from("contact_inquiries")
+        .update({ ai_analysis: null, proposal_data: null } as any)
+        .eq("id", inquiry.id);
+
+      // Delete pro analysis row
+      await supabase
+        .from("inquiry_analyses" as any)
+        .delete()
+        .eq("inquiry_id", inquiry.id);
+
+      // Run fresh analysis
+      const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry", {
+        body: { inquiry: { ...inquiry, ai_analysis: null } },
+      });
+      if (fnError) throw new Error(fnError.message);
+      if (data?.error) throw new Error(data.error);
+      const analysis = data.analysis;
+      setResult(analysis);
+      setState("done");
+
+      await supabase
+        .from("contact_inquiries")
+        .update({ ai_analysis: analysis } as any)
+        .eq("id", inquiry.id);
+      onAnalysisSaved?.(analysis);
+      onReanalyze?.();
+    } catch (e: any) {
+      setError(e.message || "재분석 중 오류가 발생했습니다.");
+      setState("error");
+    }
+  };
+
   const analyze = async () => {
     setState("analyzing");
     setError("");
