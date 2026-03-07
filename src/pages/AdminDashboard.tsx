@@ -24,8 +24,17 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings"];
-  const initialTab = (validTabs.includes(searchParams.get("tab") as Tab) ? searchParams.get("tab") : "inquiries") as Tab;
-  const [tab, setTabState] = useState<Tab>(initialTab);
+  const getValidTab = (value: string | null): Tab | null => {
+    if (!value) return null;
+    return validTabs.includes(value as Tab) ? (value as Tab) : null;
+  };
+
+  const [tab, setTabState] = useState<Tab>(() => {
+    const fromUrl = getValidTab(searchParams.get("tab"));
+    if (fromUrl) return fromUrl;
+    const fromStorage = getValidTab(localStorage.getItem("admin_active_tab"));
+    return fromStorage || "inquiries";
+  });
   const authCheckedRef = useRef(false);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
@@ -39,8 +48,25 @@ export default function AdminDashboard() {
 
   const setTab = useCallback((t: Tab) => {
     setTabState(t);
-    setSearchParams({ tab: t }, { replace: true });
-  }, [setSearchParams]);
+    localStorage.setItem("admin_active_tab", t);
+    const nextParams = new URLSearchParams(searchParams);
+    nextParams.set("tab", t);
+    setSearchParams(nextParams, { replace: true });
+  }, [searchParams, setSearchParams]);
+
+  useEffect(() => {
+    const fromUrl = getValidTab(searchParams.get("tab"));
+    if (fromUrl && fromUrl !== tab) {
+      setTabState(fromUrl);
+      localStorage.setItem("admin_active_tab", fromUrl);
+      return;
+    }
+
+    if (!fromUrl) {
+      const stored = getValidTab(localStorage.getItem("admin_active_tab"));
+      if (stored && stored !== tab) setTabState(stored);
+    }
+  }, [searchParams, tab]);
 
   // Auth check
   useEffect(() => {
