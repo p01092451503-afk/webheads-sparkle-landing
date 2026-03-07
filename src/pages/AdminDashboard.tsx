@@ -113,7 +113,8 @@ export default function AdminDashboard() {
       isMounted = false;
       window.clearTimeout(authTimeout);
     };
-  }, [navigate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Initial data
   useEffect(() => {
