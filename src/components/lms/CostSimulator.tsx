@@ -192,10 +192,10 @@ export default function CostSimulator() {
 
               {/* Estimated usage */}
               {needsCdn && (
-                <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1">
-                  <p>📊 예상 월 전송량: <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
-                  <p>💾 예상 저장공간: <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
-                </div>
+              <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
+                <p className="flex items-center gap-1.5"><LineChart className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 예상 월 전송량: <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
+                <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 예상 저장공간: <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
+              </div>
               )}
             </div>
           </div>
