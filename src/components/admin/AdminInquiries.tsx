@@ -422,13 +422,13 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
 
                     {/* AI Analysis */}
-                    <InquiryAIAnalysis inquiry={selectedInquiry} />
+                    <InquiryAIAnalysis inquiry={selectedInquiry} isSuperAdmin={isSuperAdmin} />
 
                     {/* AI Pro Analysis */}
-                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} />
+                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} isSuperAdmin={isSuperAdmin} />
 
                     {/* Proposal */}
-                    <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
+                    <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} isSuperAdmin={isSuperAdmin} />
 
                     {/* Delete */}
                     {/* 삭제 버튼 숨김 처리
