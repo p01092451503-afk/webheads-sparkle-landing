@@ -260,6 +260,14 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdm
         >
           <Download className="w-3 h-3" /> PDF
         </button>
+        {isSuperAdmin && (
+          <button
+            onClick={reanalyze}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold text-[hsl(0,84%,55%)] bg-[hsl(0,84%,55%,0.08)] hover:bg-[hsl(0,84%,55%,0.14)] transition-colors active:scale-[0.97]"
+          >
+            <RefreshCw className="w-3 h-3" /> 전체 재분석
+          </button>
+        )}
       </div>
 
       {expanded && (
