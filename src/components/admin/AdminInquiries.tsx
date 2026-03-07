@@ -419,6 +419,15 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       </div>
                     </div>
 
+                    {/* Auto Analysis Pipeline */}
+                    {!selectedInquiry.ai_analysis && !selectedInquiry.ai_analysis_v2 && (
+                      <AutoAnalysisPipeline
+                        inquiry={selectedInquiry}
+                        onComplete={() => onRefresh()}
+                        onStepDone={() => {}}
+                      />
+                    )}
+
                     {/* Visitor Stats */}
                     <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
 
