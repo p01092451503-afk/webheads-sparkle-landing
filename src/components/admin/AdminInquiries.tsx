@@ -294,19 +294,27 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     {/* Notes */}
                     <div className="mt-4">
                       <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">내부 메모</p>
-                      <textarea
-                        value={noteText}
-                        onChange={(e) => setNoteText(e.target.value)}
-                        rows={3}
-                        placeholder="메모를 입력하세요..."
-                        className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(220,13%,93%)] focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
-                      />
-                      <button onClick={saveNote} disabled={savingNote}
-                        className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.12)] transition-all active:scale-[0.96] disabled:opacity-50"
-                      >
-                        {savingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
-                        메모 저장
-                      </button>
+                      {isSuperAdmin ? (
+                        <>
+                          <textarea
+                            value={noteText}
+                            onChange={(e) => setNoteText(e.target.value)}
+                            rows={3}
+                            placeholder="메모를 입력하세요..."
+                            className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(220,13%,93%)] focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
+                          />
+                          <button onClick={saveNote} disabled={savingNote}
+                            className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.12)] transition-all active:scale-[0.96] disabled:opacity-50"
+                          >
+                            {savingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
+                            메모 저장
+                          </button>
+                        </>
+                      ) : (
+                        <div className="bg-white rounded-xl p-3.5 text-[13px] text-foreground whitespace-pre-wrap border border-[hsl(220,13%,93%)] min-h-[48px]">
+                          {selectedInquiry.notes || <span className="text-muted-foreground/30">메모 없음</span>}
+                        </div>
+                      )}
                     </div>
 
                     {/* Meeting Notes */}
