@@ -15,7 +15,13 @@ export default function FloatingNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const isLmsPage = location.pathname === "/lms" || location.pathname === "/";
   const isServiceRequest = location.pathname === "/service-request";
+
+  const scrollToCostSimulator = () => {
+    const el = document.getElementById("cost-simulator");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
 
   const mobileButtons = [
     ...(!isServiceRequest && location.pathname !== "/pricing"
