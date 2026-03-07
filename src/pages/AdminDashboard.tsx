@@ -52,6 +52,7 @@ export default function AdminDashboard() {
     };
 
     const checkAuth = async () => {
+      if (authCheckedRef.current) return;
       try {
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
         if (sessionError || !session) {
