@@ -126,8 +126,16 @@ export default function AdminDashboard() {
   }, []);
 
   const fetchInquiries = useCallback(async () => {
-    const { data } = await supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500);
-    setInquiries(data || []);
+    const [{ data: inqData }, { data: analysesData }] = await Promise.all([
+      supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500),
+      supabase.from("inquiry_analyses").select("inquiry_id, analysis_status, is_frozen").limit(500),
+    ]);
+    const analysisMap = new Map((analysesData || []).map((a: any) => [a.inquiry_id, a]));
+    const enriched = (inqData || []).map((inq: any) => {
+      const a = analysisMap.get(inq.id);
+      return { ...inq, _pro_status: a?.analysis_status || null, _is_frozen: a?.is_frozen || false };
+    });
+    setInquiries(enriched);
   }, []);
 
   const fetchServiceRequests = useCallback(async () => {
