@@ -210,7 +210,33 @@ ${inquiry.message || "(내용 없음)"}`;
       const durationMs = Date.now() - startTime;
       const usage = result.data.usage;
 
-      const content = result.data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
+      const rawContent = result.data.choices?.[0]?.message?.content || "{}";
+      
+      // Clean code fences if present despite instructions
+      let cleanedContent = rawContent.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
+      const fenceMatch = cleanedContent.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/i);
+      if (fenceMatch) cleanedContent = fenceMatch[1].trim();
+
+      let analysisJson: any;
+      try {
+        analysisJson = JSON.parse(cleanedContent);
+      } catch {
+        console.error("Failed to parse 1차 분석 JSON, returning raw text fallback. First 300:", rawContent.slice(0, 300));
+        // Fallback: return raw text as before for backward compat
+        await logAICall({
+          inquiry_id: inquiry?.id,
+          function_name: "analyze-inquiry",
+          model_used: usedModel,
+          prompt_tokens: usage?.prompt_tokens,
+          completion_tokens: usage?.completion_tokens,
+          total_tokens: usage?.total_tokens,
+          duration_ms: durationMs,
+          status: "partial",
+        });
+        return new Response(JSON.stringify({ analysis: rawContent, analysis_v2: null }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
 
       await logAICall({
         inquiry_id: inquiry?.id,
@@ -223,7 +249,7 @@ ${inquiry.message || "(내용 없음)"}`;
         status: "success",
       });
 
-      return new Response(JSON.stringify({ analysis: content }), {
+      return new Response(JSON.stringify({ analysis: rawContent, analysis_v2: analysisJson }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     } catch (e: any) {
