@@ -1084,7 +1084,7 @@
       { "title": "Mobile Optimized", "desc": "Responsive UI across PC, tablet, and mobile for seamless learning" },
       { "title": "Pre-set Features Only", "desc": "Operate quickly and reliably using the pre-configured standard feature set" }
     ],
-    "pro": { "name": "WEBHEADS PRO", "subtitle": "On-premise · SaaS | Strong Security & Customization", "desc": "A premium solution for organizations that need full customization and robust security. Choose between on-premise or SaaS deployment, with complete freedom to customize every feature.", "cta": "Inquire about PRO" },
+    "pro": { "name": "WEBHEADS PRO", "subtitle": "On-premise · SaaS | Strong Security & Customization", "desc": "A premium solution for organizations that need full customization and robust security. Choose between on-premise or SaaS deployment, with complete freedom to customize every element — from UI/UX design and feature modules to workflows. Build on dedicated servers for data sovereignty, integrate with existing enterprise systems (ERP, CRM, HR) via APIs, and apply white-labeling to perfectly reflect your brand identity.", "cta": "Inquire about PRO" },
     "proFeatures": [
       { "title": "DRM & Watermark", "desc": "Video security and anti-piracy via Catenoid, ZonePlayer, and more" },
       { "title": "ERP·CRM Integration", "desc": "Data process integration for effective value creation" },
