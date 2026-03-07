@@ -266,15 +266,7 @@ export default function LmsPage() {
       {/* ═══ 4. Industry Scenario Tabs ═══ */}
       <IndustryScenarioTabs />
 
-      {/* ═══ 5. Case Studies — 사회적 증명 (시나리오 직후 배치) ═══ */}
-      <ServiceCaseStudy
-        subheading={t("lms.caseStudy.sub")}
-        heading={t("lms.caseStudy.heading")}
-        description={t("lms.caseStudy.desc")}
-        cases={t("lms.caseStudy.cases", { returnObjects: true }) as any[]}
-      />
-
-      {/* ═══ Mid CTA #1 — 사례 확인 후 전환 유도 ═══ */}
+      {/* ═══ Mid CTA #1 ═══ */}
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
       {/* ═══ 6. All-in-One — 핵심 기능 ═══ */}
