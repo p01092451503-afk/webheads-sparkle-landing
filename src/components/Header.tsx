@@ -158,8 +158,8 @@ export default function Header() {
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
               <LanguageSwitcher scrolled={effectiveScrolled} />
-              <a
-                href="/lms#contact"
+              <Link
+                to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
                     ? "bg-foreground text-background hover:opacity-90"
@@ -167,7 +167,7 @@ export default function Header() {
                 }`}
               >
                 {t("header.cta")}
-              </a>
+              </Link>
               <div className="relative" ref={supportRef} onMouseEnter={() => setSupportOpen(true)} onMouseLeave={() => setSupportOpen(false)}>
                 <button
                   className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
@@ -305,12 +305,12 @@ export default function Header() {
                 </a>
               </div>
             )}
-            <a
-              href="/lms#contact"
+            <Link
+              to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
               className="mt-1 inline-block w-fit px-3 py-2.5 rounded-lg text-sm font-semibold text-foreground text-left"
             >
               {t("header.cta")}
-            </a>
+            </Link>
           </div>
         </div>
       )}
