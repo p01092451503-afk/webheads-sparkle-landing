@@ -147,6 +147,8 @@ export default function AdminDashboard() {
 
   // Realtime
   useEffect(() => {
+    if (!userId) return;
+
     const channel = supabase
       .channel('inquiries-realtime')
       .on('postgres_changes', {
@@ -159,8 +161,9 @@ export default function AdminDashboard() {
         setTimeout(() => setNewInquiryAlert(false), 5000);
       })
       .subscribe();
+
     return () => { supabase.removeChannel(channel); };
-  }, []);
+  }, [userId]);
 
   const fetchInquiries = useCallback(async () => {
     const { data } = await supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500);
