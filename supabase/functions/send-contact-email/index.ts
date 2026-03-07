@@ -9,6 +9,7 @@ const corsHeaders = {
 
 // Default admin email - will be overridden by DB settings
 const DEFAULT_ADMIN_EMAIL = "34bus@webheads.co.kr";
+const LOGO_URL = "https://webheads-service.lovable.app/images/webheads-logo.png";
 
 interface ContactFormData {
   company: string;
