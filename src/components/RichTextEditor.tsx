@@ -144,7 +144,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
       </div>
 
       {/* Editor */}
-      <div className="relative" style={{ resize: "vertical", overflow: "auto", minHeight: expanded ? 200 : 120 }}>
+      <div className="relative" style={{ resize: "vertical", overflow: "auto", minHeight: 120 }}>
         {isEmpty && (
           <div className="absolute top-0 left-0 right-0 px-4 py-3.5 text-sm text-muted-foreground/40 pointer-events-none select-none">
             {placeholder}
