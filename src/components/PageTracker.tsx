@@ -185,56 +185,91 @@ function sendDuration(pagePath: string) {
 export default function PageTracker() {
   const location = useLocation();
   const lastPath = useRef<string>("");
+  const isAdminRoute = location.pathname.startsWith("/admin");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [authReady, setAuthReady] = useState(false);
 
-  // Check if current user is an authenticated admin — skip all tracking if so
+  const setAdminSafely = useCallback((next: boolean) => {
+    setIsAdmin((prev) => (prev === next ? prev : next));
+  }, []);
+
+  const resolveAdminRole = useCallback((userId?: string | null) => {
+    if (!userId) {
+      setAdminSafely(false);
+      setAuthReady(true);
+      return;
+    }
+
+    supabase
+      .rpc("has_role", { _user_id: userId, _role: "admin" })
+      .then(({ data }) => setAdminSafely(Boolean(data)))
+      .catch(() => setAdminSafely(false))
+      .finally(() => setAuthReady(true));
+  }, [setAdminSafely]);
+
+  // Auth readiness + admin role check
   useEffect(() => {
-    const checkAdmin = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
-        const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
-        setIsAdmin(!!data);
-      } else {
-        setIsAdmin(false);
-      }
-    };
+    if (isAdminRoute) {
+      setAdminSafely(true);
+      setAuthReady(true);
+      return;
+    }
 
-    checkAdmin();
+    let isMounted = true;
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        void (async () => {
-          try {
-            const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
-            setIsAdmin(!!data);
-          } catch {
-            setIsAdmin(false);
-          }
-        })();
-      } else {
-        setIsAdmin(false);
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        if (!isMounted) return;
+        resolveAdminRole(session?.user?.id ?? null);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        setAdminSafely(false);
+        setAuthReady(true);
+      });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!isMounted) return;
+      if (event === "TOKEN_REFRESHED" || event === "INITIAL_SESSION") return;
+
+      if (event === "SIGNED_OUT") {
+        setAdminSafely(false);
+        setAuthReady(true);
+        return;
       }
+
+      resolveAdminRole(session?.user?.id ?? null);
     });
 
-    return () => subscription.unsubscribe();
-  }, []);
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, [isAdminRoute, resolveAdminRole, setAdminSafely]);
+
+  const trackingEnabled = authReady && !isAdminRoute && !isAdmin;
 
   // Global visibility listener (active dwell time)
   useEffect(() => {
+    if (!trackingEnabled) return;
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => document.removeEventListener("visibilitychange", onVisibilityChange);
-  }, []);
+  }, [trackingEnabled]);
 
   // Keep session alive on user activity
   useEffect(() => {
+    if (!trackingEnabled) return;
     const onActivity = () => touchSession();
     const events = ["mousemove", "keydown", "touchstart", "click", "scroll"] as const;
     events.forEach(e => window.addEventListener(e, onActivity, { passive: true }));
     return () => { events.forEach(e => window.removeEventListener(e, onActivity)); };
-  }, []);
+  }, [trackingEnabled]);
 
   // Scroll depth tracking
   useEffect(() => {
+    if (!trackingEnabled) return;
+
     let maxScroll = 0;
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -248,11 +283,12 @@ export default function PageTracker() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, [location.pathname, trackingEnabled]);
 
   // ─── 4. CTA click tracking with session context ───
   const trackClick = useCallback((e: MouseEvent) => {
-    if (isAdmin) return;
+    if (!trackingEnabled) return;
+
     const target = e.target as HTMLElement;
     const btn = target.closest("a[href], button") as HTMLElement | null;
     if (!btn) return;
@@ -282,16 +318,18 @@ export default function PageTracker() {
         visitor_id: getVisitorId(),
       },
     }).catch(() => {});
-  }, [isAdmin]);
+  }, [trackingEnabled]);
 
   useEffect(() => {
+    if (!trackingEnabled) return;
     document.addEventListener("click", trackClick, true);
     return () => document.removeEventListener("click", trackClick, true);
-  }, [trackClick]);
+  }, [trackClick, trackingEnabled]);
 
   // ─── Page view tracking ───
   useEffect(() => {
-    if (isAdmin) return;
+    if (!trackingEnabled) return;
+
     const path = location.pathname + location.hash;
     if (path === lastPath.current) return;
 
@@ -328,11 +366,12 @@ export default function PageTracker() {
     }).then(({ error }) => {
       if (error) console.error("Tracking error:", error);
     });
-  }, [location.pathname, location.hash, isAdmin]);
+  }, [location.pathname, location.hash, trackingEnabled]);
 
   // Send duration on tab close (once, no duplicate)
   useEffect(() => {
-    if (isAdmin) return;
+    if (!trackingEnabled) return;
+
     const handleUnload = () => {
       if (lastPath.current) {
         sendDuration(lastPath.current.split("#")[0]);
@@ -340,7 +379,7 @@ export default function PageTracker() {
     };
     window.addEventListener("beforeunload", handleUnload);
     return () => window.removeEventListener("beforeunload", handleUnload);
-  }, []);
+  }, [trackingEnabled]);
 
   return null;
 }
