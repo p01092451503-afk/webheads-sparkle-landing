@@ -434,7 +434,7 @@ export default function OverviewPage() {
       </section>
 
       {/* ── Company Stats ── */}
-      <section className="py-10" style={{ background: "linear-gradient(180deg, hsl(250,35%,94%) 0%, hsl(252,30%,97%) 100%)" }}>
+      <section data-pdf-section className="py-10" style={{ background: "linear-gradient(180deg, hsl(250,35%,94%) 0%, hsl(252,30%,97%) 100%)" }}>
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {ovStats.map((s, i) => {
