@@ -7,6 +7,8 @@ import autoTable from "jspdf-autotable";
 interface Props {
   inquiry: any;
   onAnalysisSaved?: (analysis: string) => void;
+  isSuperAdmin?: boolean;
+  onReanalyze?: () => void;
 }
 
 type AnalysisState = "idle" | "analyzing" | "done" | "error";
