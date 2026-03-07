@@ -191,10 +191,12 @@ ${inquiry.message || "(내용 없음)"}`;
     return new Response(JSON.stringify({ analysis: content }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
-  } catch (e) {
+  } catch (e: any) {
     console.error("Error:", e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }), {
-      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    const status = e?.status || 500;
+    const message = e?.message || (e instanceof Error ? e.message : "Unknown error");
+    return new Response(JSON.stringify({ error: message }), {
+      status, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 });
