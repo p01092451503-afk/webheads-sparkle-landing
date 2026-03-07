@@ -59,16 +59,20 @@ serve(async (req) => {
 
     console.log(`New inquiry saved: ${company} / ${name}`);
 
-    // Fetch notification settings from DB
-    const { data: notifRow } = await supabaseAdmin
+    // Fetch notification settings and auto-response templates from DB
+    const { data: settingsRows } = await supabaseAdmin
       .from("admin_settings")
-      .select("value")
-      .eq("key", "notifications")
-      .maybeSingle();
+      .select("key, value")
+      .in("key", ["notifications", "auto_response_templates"]);
     
-    const notifSettings = notifRow?.value as any || { email_on_new_inquiry: true, notification_email: DEFAULT_ADMIN_EMAIL };
+    const settingsMap: Record<string, any> = {};
+    (settingsRows || []).forEach((r: any) => { settingsMap[r.key] = r.value; });
+
+    const notifSettings = settingsMap.notifications || { email_on_new_inquiry: true, notification_email: DEFAULT_ADMIN_EMAIL };
     const shouldSendEmail = notifSettings.email_on_new_inquiry !== false;
     const adminEmail = notifSettings.notification_email || DEFAULT_ADMIN_EMAIL;
+
+    const autoResponseSettings = settingsMap.auto_response_templates || { enabled: false, templates: {} };
 
     // Send email notification to admin
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
@@ -142,10 +146,58 @@ serve(async (req) => {
         }
       } catch (emailErr) {
         console.error("Email notification error:", emailErr);
-        // Don't fail the request if email fails
       }
-    } else {
-      console.warn("RESEND_API_KEY not set, skipping email notification");
+    }
+
+    // Send auto-response email to customer
+    if (resendApiKey && email && autoResponseSettings.enabled) {
+      try {
+        const templateKey = inquiryType === "demo" ? "demo" : "consultation";
+        const template = autoResponseSettings.templates?.[templateKey];
+        if (template && template.subject && template.body) {
+          const replaceVars = (text: string) =>
+            text
+              .replace(/\{\{name\}\}/g, name)
+              .replace(/\{\{company\}\}/g, company)
+              .replace(/\{\{message\}\}/g, message || "(내용 없음)")
+              .replace(/\{\{service\}\}/g, service || "(미선택)");
+
+          const subject = replaceVars(template.subject);
+          const bodyText = replaceVars(template.body);
+          const bodyHtml = `
+            <div style="font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; background: #ffffff;">
+              <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px;">
+                <h1 style="color: #ffffff; font-size: 18px; margin: 0;">WEBHEADS</h1>
+              </div>
+              <div style="font-size: 14px; line-height: 1.8; color: #333; white-space: pre-wrap;">${bodyText}</div>
+              <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
+              <p style="color: #aaa; font-size: 11px; text-align: center;">본 메일은 자동 발송된 확인 메일입니다.</p>
+            </div>
+          `;
+
+          const autoRes = await fetch("https://api.resend.com/emails", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${resendApiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              from: "WEBHEADS <onboarding@resend.dev>",
+              to: [email],
+              subject,
+              html: bodyHtml,
+            }),
+          });
+
+          if (!autoRes.ok) {
+            console.error(`Auto-response failed [${autoRes.status}]: ${await autoRes.text()}`);
+          } else {
+            console.log(`Auto-response sent to ${email}`);
+          }
+        }
+      } catch (autoErr) {
+        console.error("Auto-response error:", autoErr);
+      }
     }
 
     return new Response(

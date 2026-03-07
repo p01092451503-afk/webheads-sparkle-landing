@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save } from "lucide-react";
+import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save, Mail, ToggleLeft, ToggleRight, ChevronDown, ChevronUp } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 interface AdminSettingsProps {
@@ -61,6 +61,24 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const [companySaving, setCompanySaving] = useState(false);
   const [companySaved, setCompanySaved] = useState(false);
 
+  // Auto-response templates
+  const [autoResponse, setAutoResponse] = useState({
+    enabled: true,
+    templates: {
+      consultation: {
+        subject: "[웹헤즈] 상담 문의가 접수되었습니다",
+        body: "안녕하세요, {{name}}님.\n\n{{company}}의 상담 문의가 정상적으로 접수되었습니다.\n담당자가 확인 후 빠른 시일 내에 연락드리겠습니다.\n\n문의 내용:\n{{message}}\n\n감사합니다.\nWEBHEADS 드림",
+      },
+      demo: {
+        subject: "[웹헤즈] 데모 요청이 접수되었습니다",
+        body: "안녕하세요, {{name}}님.\n\n{{company}}의 데모 요청이 정상적으로 접수되었습니다.\n담당자가 확인 후 데모 일정을 조율하여 연락드리겠습니다.\n\n문의 내용:\n{{message}}\n\n감사합니다.\nWEBHEADS 드림",
+      },
+    } as Record<string, { subject: string; body: string }>,
+  });
+  const [autoSaving, setAutoSaving] = useState(false);
+  const [autoSaved, setAutoSaved] = useState(false);
+  const [editingTemplate, setEditingTemplate] = useState<string | null>(null);
+
   const actionLabels: Record<string, string> = {
     login: "로그인", logout: "로그아웃", status_change: "상태 변경",
     note_update: "메모 수정", meeting_note_update: "미팅 내용 수정",
@@ -83,6 +101,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
       for (const row of data) {
         if (row.key === "notifications") setNotifSettings(row.value as any);
         if (row.key === "company_info") setCompanyInfo(row.value as any);
+        if (row.key === "auto_response_templates") setAutoResponse(row.value as any);
       }
     }
   }, []);
@@ -391,7 +410,101 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
         </div>
       </div>
 
-      {/* Admin Management - super_admin only */}
+      {/* Auto-Response Templates */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6 lg:col-span-2">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(199,89%,48%,0.08)]">
+              <Mail className="w-[18px] h-[18px] text-[hsl(199,89%,48%)]" />
+            </div>
+            <div>
+              <h3 className="text-[15px] font-semibold text-foreground">자동 응답 이메일 템플릿</h3>
+              <p className="text-[12px] text-muted-foreground">문의 접수 시 고객에게 자동 발송되는 확인 이메일</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                const updated = { ...autoResponse, enabled: !autoResponse.enabled };
+                setAutoResponse(updated);
+                saveSettings("auto_response_templates", updated);
+              }}
+              className={`w-11 h-6 rounded-full transition-all relative ${autoResponse.enabled ? "bg-[hsl(199,89%,48%)]" : "bg-[hsl(220,13%,85%)]"}`}
+            >
+              <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${autoResponse.enabled ? "left-[22px]" : "left-0.5"}`} />
+            </button>
+            <span className="text-[11px] font-medium text-muted-foreground">{autoResponse.enabled ? "활성" : "비활성"}</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          {Object.entries(autoResponse.templates).map(([key, tpl]) => {
+            const isEditing = editingTemplate === key;
+            const typeLabel = key === "demo" ? "데모 요청" : "상담 문의";
+            return (
+              <div key={key} className="rounded-xl border border-[hsl(220,13%,93%)] overflow-hidden">
+                <button
+                  onClick={() => setEditingTemplate(isEditing ? null : key)}
+                  className="w-full flex items-center justify-between p-4 hover:bg-[hsl(220,14%,97%)] transition-colors text-left"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full text-white"
+                      style={{ background: key === "demo" ? "hsl(262,60%,55%)" : "hsl(221,83%,53%)" }}
+                    >
+                      {typeLabel}
+                    </span>
+                    <span className="text-[13px] font-medium text-foreground">{tpl.subject}</span>
+                  </div>
+                  {isEditing ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+                </button>
+
+                {isEditing && (
+                  <div className="p-4 pt-0 flex flex-col gap-3 border-t border-[hsl(220,13%,95%)]">
+                    <div className="flex flex-col gap-1.5 mt-3">
+                      <label className="text-[12px] font-semibold text-muted-foreground pl-1">제목</label>
+                      <input
+                        type="text"
+                        value={tpl.subject}
+                        onChange={(e) => {
+                          const updated = { ...autoResponse, templates: { ...autoResponse.templates, [key]: { ...tpl, subject: e.target.value } } };
+                          setAutoResponse(updated);
+                        }}
+                        className="w-full rounded-xl px-4 py-3 text-[14px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(199,89%,48%)] transition-all"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[12px] font-semibold text-muted-foreground pl-1">본문</label>
+                      <textarea
+                        value={tpl.body}
+                        onChange={(e) => {
+                          const updated = { ...autoResponse, templates: { ...autoResponse.templates, [key]: { ...tpl, body: e.target.value } } };
+                          setAutoResponse(updated);
+                        }}
+                        rows={8}
+                        className="w-full rounded-xl px-4 py-3 text-[13px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(199,89%,48%)] transition-all resize-y leading-relaxed font-mono"
+                      />
+                      <p className="text-[10px] text-muted-foreground/50 pl-1">
+                        사용 가능 변수: <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{name}}"}</code> <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{company}}"}</code> <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{message}}"}</code> <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{service}}"}</code>
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          <button
+            onClick={() => saveSettings("auto_response_templates", autoResponse)}
+            disabled={autoSaving}
+            className="self-end flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-all disabled:opacity-50 mt-1"
+          >
+            {autoSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : autoSaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
+            {autoSaved ? "저장됨" : "템플릿 저장"}
+          </button>
+        </div>
+      </div>
+
+
       {isSuperAdmin && (
         <>
           <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
