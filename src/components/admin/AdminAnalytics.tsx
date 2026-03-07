@@ -134,7 +134,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       .sort((a, b) => b.total - a.total);
   }, [humanViews, filteredClicks, inquiries]);
 
-
+  const visitorTypeCounts = useMemo(() => {
     // Display name maps for granular visitor_type from DB
     const aiNames: Record<string, string> = {
       ai_openai: "OpenAI (GPTBot)", ai_anthropic: "Anthropic (Claude)",
