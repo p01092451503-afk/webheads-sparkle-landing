@@ -41,6 +41,26 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const [activityLogs, setActivityLogs] = useState<any[]>([]);
   const [logsLoading, setLogsLoading] = useState(false);
 
+  // Notification settings
+  const [notifSettings, setNotifSettings] = useState({
+    email_on_new_inquiry: true,
+    email_on_service_request: true,
+    notification_email: "34bus@webheads.co.kr",
+  });
+  const [notifSaving, setNotifSaving] = useState(false);
+  const [notifSaved, setNotifSaved] = useState(false);
+
+  // Company info
+  const [companyInfo, setCompanyInfo] = useState({
+    name: "WEBHEADS",
+    address: "서울시 마포구 월드컵로114, 3층",
+    phone: "02-540-4337",
+    website: "www.webheads.co.kr",
+    email: "34bus@webheads.co.kr",
+  });
+  const [companySaving, setCompanySaving] = useState(false);
+  const [companySaved, setCompanySaved] = useState(false);
+
   const actionLabels: Record<string, string> = {
     login: "로그인", logout: "로그아웃", status_change: "상태 변경",
     note_update: "메모 수정", meeting_note_update: "미팅 내용 수정",
