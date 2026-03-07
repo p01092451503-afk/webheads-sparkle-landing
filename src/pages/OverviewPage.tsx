@@ -1,16 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useState, useRef, useCallback } from "react";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+import { useRef } from "react";
 import SEO from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import LazySection from "@/components/shared/LazySection";
 import {
   Server, Wrench, Bot, Smartphone, ShieldCheck,
   MessageSquare, CreditCard, Film, ArrowRight, Phone, CheckCircle2,
-  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight, Rocket,
-  Download, Loader2
+  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight, Rocket
 } from "lucide-react";
 
 /* ── Service config ── */
@@ -342,7 +339,6 @@ function ClientMarqueeGrid() {
 
 export default function OverviewPage() {
   const { t } = useTranslation();
-  const [pdfLoading, setPdfLoading] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const ovStrengths = t("overview.strengths", { returnObjects: true }) as { title: string; desc: string }[];
@@ -351,133 +347,6 @@ export default function OverviewPage() {
 
   const statIcons = [Users, Clock, Award, Zap];
 
-  const handleDownloadPdf = useCallback(async () => {
-    if (!contentRef.current || pdfLoading) return;
-    setPdfLoading(true);
-
-    try {
-      // Hide header/footer/floating-nav during capture
-      const header = document.querySelector("header");
-      const footer = document.querySelector("footer");
-      const floatingNav = document.querySelector("[data-floating-nav]");
-      if (header) (header as HTMLElement).style.display = "none";
-      if (footer) (footer as HTMLElement).style.display = "none";
-      if (floatingNav) (floatingNav as HTMLElement).style.display = "none";
-
-      // Reduce hero top padding (normally compensates for fixed header)
-      const heroSection = contentRef.current.querySelector("[data-pdf-section]") as HTMLElement | null;
-      const origPt = heroSection?.style.paddingTop;
-      if (heroSection) heroSection.style.paddingTop = "40px";
-
-      // Force all lazy sections to render by scrolling through them
-      const pageEl = contentRef.current;
-      const totalH = pageEl.scrollHeight;
-      for (let y = 0; y < totalH; y += 300) {
-        window.scrollTo(0, y);
-        await new Promise((r) => setTimeout(r, 50));
-      }
-      window.scrollTo(0, 0);
-      await new Promise((r) => setTimeout(r, 800));
-
-      // Collect all pdf sections
-      const sections = Array.from(
-        pageEl.querySelectorAll("[data-pdf-section]")
-      ) as HTMLElement[];
-
-      if (sections.length === 0) {
-        console.error("No PDF sections found");
-        setPdfLoading(false);
-        return;
-      }
-
-      const A4_W = 210;
-      const A4_H = 297;
-      const MARGIN = 10;
-      const CONTENT_W = A4_W - MARGIN * 2;
-      const GAP = 3;
-
-      const pdf = new jsPDF("p", "mm", "a4");
-      let currentY = MARGIN;
-
-      for (const section of sections) {
-        const canvas = await html2canvas(section, {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: null,
-          windowWidth: 1280,
-        });
-
-        const scale = 2;
-        const widthPx = canvas.width / scale;
-        const heightPx = canvas.height / scale;
-        const scaleFactor = CONTENT_W / widthPx;
-        const heightMM = heightPx * scaleFactor;
-
-        // If section doesn't fit, add new page
-        const remaining = A4_H - MARGIN - currentY;
-        if (heightMM > remaining && currentY > MARGIN) {
-          pdf.addPage();
-          currentY = MARGIN;
-        }
-
-        // If a single section is taller than one page, split it across pages
-        if (heightMM > A4_H - MARGIN * 2) {
-          const imgData = canvas.toDataURL("image/png");
-          const pageContentH = A4_H - MARGIN * 2;
-          const totalPages = Math.ceil(heightMM / pageContentH);
-
-          for (let p = 0; p < totalPages; p++) {
-            if (p > 0 || currentY > MARGIN) {
-              if (p > 0) pdf.addPage();
-              currentY = MARGIN;
-            }
-            pdf.addImage(imgData, "PNG", MARGIN, currentY - p * pageContentH, CONTENT_W, heightMM);
-            // Clip by simply moving to next page
-          }
-          currentY = MARGIN + (heightMM % (A4_H - MARGIN * 2));
-          if (currentY < MARGIN + 5) currentY = MARGIN;
-        } else {
-          const imgData = canvas.toDataURL("image/png");
-          pdf.addImage(imgData, "PNG", MARGIN, currentY, CONTENT_W, heightMM);
-          currentY += heightMM + GAP;
-        }
-      }
-
-      // Add WEBHEADS. watermark to every page
-      const totalPages = pdf.getNumberOfPages();
-      for (let p = 1; p <= totalPages; p++) {
-        pdf.setPage(p);
-        pdf.saveGraphicsState();
-        // @ts-ignore – jsPDF GState
-        pdf.setGState(new pdf.GState({ opacity: 0.06 }));
-        pdf.setFont("helvetica", "bolditalic");
-        pdf.setFontSize(43);
-        pdf.setTextColor(30, 31, 46);
-        // Rotate and place centered
-        const cx = A4_W / 2;
-        const cy = A4_H / 2;
-        pdf.text("WEBHEADS.", cx, cy, { align: "center", angle: 35 });
-        pdf.restoreGraphicsState();
-      }
-
-      pdf.save("WEBHEADS_서비스소개서.pdf");
-    } catch (err) {
-      console.error("PDF generation failed:", err);
-    } finally {
-      // Restore header/footer/nav visibility
-      const header = document.querySelector("header");
-      const footer = document.querySelector("footer");
-      const floatingNav = document.querySelector("[data-floating-nav]");
-      if (header) (header as HTMLElement).style.display = "";
-      if (footer) (footer as HTMLElement).style.display = "";
-      if (floatingNav) (floatingNav as HTMLElement).style.display = "";
-      // Restore hero padding
-      const heroSection = contentRef.current?.querySelector("[data-pdf-section]") as HTMLElement | null;
-      if (heroSection) heroSection.style.paddingTop = "";
-      setPdfLoading(false);
-    }
-  }, [pdfLoading]);
 
   return (
     <div ref={contentRef} className="min-h-screen" style={{ background: "hsl(252, 30%, 97%)" }} data-page="overview">
@@ -616,29 +485,6 @@ export default function OverviewPage() {
         </div>
       </section>
 
-      {/* Floating PDF Download Button */}
-      <button
-        onClick={handleDownloadPdf}
-        disabled={pdfLoading}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold shadow-lg transition-all hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-wait print:hidden"
-        style={{
-          background: "hsl(var(--foreground))",
-          color: "hsl(var(--background))",
-          boxShadow: "0 8px 30px -6px hsl(0 0% 0% / 0.3)",
-        }}
-      >
-        {pdfLoading ? (
-          <>
-            <Loader2 className="w-4 h-4 animate-spin" />
-            PDF 생성 중...
-          </>
-        ) : (
-          <>
-            <Download className="w-4 h-4" />
-            PDF 다운로드
-          </>
-        )}
-      </button>
     </div>
   );
 }
