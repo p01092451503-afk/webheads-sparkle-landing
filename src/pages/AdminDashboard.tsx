@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, Zap, Target
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench
 } from "lucide-react";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
@@ -10,10 +10,8 @@ const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
-const AIUsageDashboard = lazy(() => import("@/components/admin/AIUsageDashboard"));
-const SalesPriorityDashboard = lazy(() => import("@/components/admin/SalesPriorityDashboard"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "ai_usage" | "sales_priority" | "activity" | "settings";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
 type UserRole = "super_admin" | "admin" | "user";
 
 const TabLoader = () => (
@@ -62,15 +60,8 @@ export default function AdminDashboard() {
       supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500),
       supabase.from("service_requests").select("*").order("created_at", { ascending: false }).limit(500),
       supabase.from("page_views").select("*").gte("created_at", since7d.toISOString()).order("created_at", { ascending: false }).limit(1000),
-      supabase.from("inquiry_analyses").select("inquiry_id, analysis_status, is_frozen").limit(500),
-    ]).then(([inqRes, srRes, pvRes, analysesRes]) => {
-      const analyses = analysesRes.data || [];
-      const analysisMap = new Map(analyses.map((a: any) => [a.inquiry_id, a]));
-      const enriched = (inqRes.data || []).map((inq: any) => {
-        const a = analysisMap.get(inq.id);
-        return { ...inq, _pro_status: a?.analysis_status || null, _is_frozen: a?.is_frozen || false };
-      });
-      setInquiries(enriched);
+    ]).then(([inqRes, srRes, pvRes]) => {
+      setInquiries(inqRes.data || []);
       setServiceRequests(srRes.data || []);
       setPageViews(pvRes.data || []);
     });
@@ -127,16 +118,8 @@ export default function AdminDashboard() {
   }, []);
 
   const fetchInquiries = useCallback(async () => {
-    const [{ data: inqData }, { data: analysesData }] = await Promise.all([
-      supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500),
-      supabase.from("inquiry_analyses").select("inquiry_id, analysis_status, is_frozen").limit(500),
-    ]);
-    const analysisMap = new Map((analysesData || []).map((a: any) => [a.inquiry_id, a]));
-    const enriched = (inqData || []).map((inq: any) => {
-      const a = analysisMap.get(inq.id);
-      return { ...inq, _pro_status: a?.analysis_status || null, _is_frozen: a?.is_frozen || false };
-    });
-    setInquiries(enriched);
+    const { data } = await supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500);
+    setInquiries(data || []);
   }, []);
 
   const fetchServiceRequests = useCallback(async () => {
@@ -161,9 +144,7 @@ export default function AdminDashboard() {
 
   const tabs: { key: Tab; icon: any; label: string }[] = [
     { key: "inquiries", icon: MessageSquare, label: "문의" },
-    { key: "sales_priority", icon: Target, label: "영업" },
     { key: "analytics", icon: BarChart3, label: "분석" },
-    { key: "ai_usage", icon: Zap, label: "AI" },
     { key: "settings", icon: Settings, label: "설정" },
   ];
 
@@ -261,13 +242,6 @@ export default function AdminDashboard() {
           )}
           {tab === "analytics" && (
             <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => fetchFullAnalytics(days)} />
-          )}
-          {tab === "ai_usage" && <AIUsageDashboard />}
-          {tab === "sales_priority" && (
-            <SalesPriorityDashboard onSelectInquiry={(id) => {
-              setTab("inquiries");
-              // The AdminInquiries component will handle selecting by id
-            }} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}

@@ -9,7 +9,6 @@ import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
 import InquiryProAnalysis from "./InquiryProAnalysis";
 import InquiryProposal from "./InquiryProposal";
-import AutoAnalysisPipeline from "./AutoAnalysisPipeline";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
@@ -44,14 +43,6 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [deleteError, setDeleteError] = useState("");
   const [deleting, setDeleting] = useState(false);
   const [proposalFrozen, setProposalFrozen] = useState(false);
-
-  const getAnalysisBadge = (inq: any): { label: string; className: string } | null => {
-    if (inq._is_frozen) return { label: "확정됨", className: "text-amber-700 bg-amber-100 dark:text-amber-300 dark:bg-amber-900/30" };
-    if (inq.proposal_data) return { label: "제안서완료", className: "text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/30" };
-    if (inq._pro_status === "completed" || inq._pro_status === "partial") return { label: "2차완료", className: "text-purple-700 bg-purple-100 dark:text-purple-300 dark:bg-purple-900/30" };
-    if (inq.ai_analysis || inq.ai_analysis_v2) return { label: "1차완료", className: "text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/30" };
-    return { label: "미분석", className: "text-muted-foreground bg-muted" };
-  };
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
@@ -254,14 +245,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-muted-foreground bg-[hsl(220,14%,96%)]">
                         {inq.inquiry_type === "demo" ? "데모" : "상담"}
                       </span>
-                      {(() => {
-                        const badge = getAnalysisBadge(inq);
-                        return badge ? (
-                          <span className={`text-[11px] font-medium px-2 py-0.5 rounded-md ${badge.className}`}>
-                            {badge.label}
-                          </span>
-                        ) : null;
-                      })()}
+                      {inq.ai_analysis && (
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(192,80%,40%)] bg-[hsl(192,80%,40%,0.08)]">AI분석</span>
+                      )}
                       {inq.notes && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">메모</span>
                       )}
@@ -432,26 +418,17 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       </div>
                     </div>
 
-                    {/* Auto Analysis Pipeline */}
-                    {!selectedInquiry.ai_analysis && !selectedInquiry.ai_analysis_v2 && (
-                      <AutoAnalysisPipeline
-                        inquiry={selectedInquiry}
-                        onComplete={() => onRefresh()}
-                        onStepDone={() => {}}
-                      />
-                    )}
-
                     {/* Visitor Stats */}
                     <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
 
                     {/* AI Analysis */}
-                    <InquiryAIAnalysis inquiry={selectedInquiry} isSuperAdmin={isSuperAdmin} />
+                    <InquiryAIAnalysis inquiry={selectedInquiry} />
 
                     {/* AI Pro Analysis */}
-                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} isSuperAdmin={isSuperAdmin} />
+                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} />
 
                     {/* Proposal */}
-                    <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} isSuperAdmin={isSuperAdmin} />
+                    <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
 
                     {/* Delete */}
                     {/* 삭제 버튼 숨김 처리

@@ -1,1 +1,0 @@
-ALTER TABLE public.contact_inquiries ADD COLUMN IF NOT EXISTS ai_analysis_v2 jsonb;

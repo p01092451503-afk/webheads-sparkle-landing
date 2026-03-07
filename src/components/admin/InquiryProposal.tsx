@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw, Lock, CheckCircle2, Edit3, Save, X, History, Clock, Shield } from "lucide-react";
+import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw, Lock, CheckCircle2, Edit3, Save, X, History, Clock } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import webheadsLogo from "@/assets/webheads-logo.png";
@@ -28,10 +28,9 @@ type ProposalState = "idle" | "loading" | "done" | "error";
 interface Props {
   inquiry: any;
   onFreeze?: () => void;
-  isSuperAdmin?: boolean;
 }
 
-export default function InquiryProposal({ inquiry, onFreeze, isSuperAdmin }: Props) {
+export default function InquiryProposal({ inquiry, onFreeze }: Props) {
   const [state, setState] = useState<ProposalState>("idle");
   const [proposal, setProposal] = useState<Proposal | null>(null);
   const [error, setError] = useState("");
@@ -120,7 +119,7 @@ export default function InquiryProposal({ inquiry, onFreeze, isSuperAdmin }: Pro
       const { data, error: fnError } = await supabase.functions.invoke("generate-proposal", {
         body: {
           inquiry,
-          ai_basic_analysis: inquiry.ai_analysis_v2 || inquiry.ai_analysis || null,
+          ai_basic_analysis: inquiry.ai_analysis || null,
           pro_analysis: proAnalysis,
           company_info: companyInfo,
         },
@@ -409,12 +408,6 @@ export default function InquiryProposal({ inquiry, onFreeze, isSuperAdmin }: Pro
                 <RefreshCw className="w-3 h-3" /> 재생성
               </button>
             </>
-          )}
-          {frozen && isSuperAdmin && !editing && (
-            <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-amber-700 bg-amber-100 hover:bg-amber-200 dark:text-amber-300 dark:bg-amber-900/30 dark:hover:bg-amber-900/50 transition-colors">
-              <Shield className="w-3 h-3" />
-              <RefreshCw className="w-3 h-3" /> 재작성
-            </button>
           )}
         </div>
       </div>

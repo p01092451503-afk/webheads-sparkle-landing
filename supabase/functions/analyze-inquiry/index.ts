@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -7,42 +6,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const PRIMARY_MODEL = "google/gemini-2.5-flash";
-const FALLBACK_MODEL = "google/gemini-2.5-flash-lite";
-
-async function logAICall(params: {
-  inquiry_id?: string;
-  function_name: string;
-  model_used?: string;
-  prompt_tokens?: number;
-  completion_tokens?: number;
-  total_tokens?: number;
-  duration_ms?: number;
-  status: string;
-  error_code?: string;
-  error_message?: string;
-}) {
-  try {
-    const url = Deno.env.get("SUPABASE_URL");
-    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (!url || !key) return;
-    const sb = createClient(url, key);
-    await sb.from("ai_call_logs").insert({
-      inquiry_id: params.inquiry_id || null,
-      function_name: params.function_name,
-      model_used: params.model_used || null,
-      prompt_tokens: params.prompt_tokens ?? null,
-      completion_tokens: params.completion_tokens ?? null,
-      total_tokens: params.total_tokens ?? null,
-      duration_ms: params.duration_ms ?? null,
-      status: params.status,
-      error_code: params.error_code || null,
-      error_message: params.error_message || null,
-    });
-  } catch (e) {
-    console.error("[ai_call_logs] insert failed:", e);
-  }
-}
+const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
+const FALLBACK_MODEL = "anthropic/claude-3-haiku";
 
 async function callAIWithFallback(
   apiKey: string,
@@ -76,16 +41,16 @@ async function callAIWithFallback(
 
     // Non-retriable error or last model — throw
     if (response.status === 402) {
-      throw { status: 402, message: "AI credits exhausted.", code: "402" };
+      throw { status: 402, message: "AI credits exhausted." };
     }
     if (response.status === 429) {
-      throw { status: 429, message: "Rate limit exceeded. Please try again later.", code: "429" };
+      throw { status: 429, message: "Rate limit exceeded. Please try again later." };
     }
     const t = await response.text();
     console.error("AI gateway error:", response.status, t);
-    throw { status: 500, message: `AI analysis failed (${response.status})`, code: String(response.status) };
+    throw { status: 500, message: `AI analysis failed (${response.status})` };
   }
-  throw { status: 500, message: "All AI models failed", code: "all_failed" };
+  throw { status: 500, message: "All AI models failed" };
 }
 
 const PRICING_CONTEXT = `
@@ -163,23 +128,40 @@ serve(async (req) => {
 ${PRICING_CONTEXT}
 
 ## 분석 지침
-고객 문의를 분석하여 반드시 아래 JSON 형식으로만 응답하세요.
-코드펜스(\`\`\`)를 사용하지 말고 순수 JSON만 반환하세요. 다른 텍스트는 절대 포함하지 마세요.
+고객 문의를 아래 구조로 분석해주세요. 각 섹션은 ### 제목과 --- 구분선으로 명확히 분리하고, 항목별로 줄바꿈을 충분히 넣어 읽기 쉽게 작성하세요. 이모지는 사용하지 마세요.
 
-{
-  "needs_summary": "고객 핵심 니즈를 1~2문장으로 요약",
-  "scale_estimate": "소규모 | 중규모 | 대규모",
-  "recommended_plan": "Starter | Basic | Plus | Premium",
-  "key_requirements": ["요구사항1", "요구사항2", ...],
-  "available_features": ["기본 제공 가능 기능1", ...],
-  "custom_features": [{"name": "기능명", "cost": "예상 비용"}],
-  "limited_features": [{"name": "기능명", "reason": "제한 사유", "alternative": "대안"}],
-  "pricing_fit": "예상 월 비용 범위 텍스트 (예: 월 70~100만원)",
-  "strategy_points": ["영업 시 강조할 포인트1", ...],
-  "special_notes": "특이사항 또는 주의점"
-}
+### 1. 요구사항 분석
+고객이 요청한 기능/요구사항을 항목별로 간결하게 정리합니다. 각 항목은 불릿(-)으로 나열합니다.
 
-각 필드를 빠짐없이 채워주세요. key_requirements는 최소 2개 이상 포함하세요.`;
+---
+
+### 2. 기본 제공 가능 기능
+웹헤즈 LMS에서 기본 제공 또는 기존 기능으로 충족 가능한 항목을 나열합니다.
+
+---
+
+### 3. 커스터마이징 필요 기능
+기본에 없지만 커스터마이징으로 구현 가능한 항목입니다. 각 항목에 대략적인 추가 비용을 괄호로 표기합니다.
+
+---
+
+### 4. 불가능 또는 제한 기능
+현재 솔루션으로 구현이 어렵거나 제한적인 항목과 대안을 제시합니다.
+
+---
+
+### 5. 추천 요금제 및 예상 비용
+- **추천 플랜**: 플랜명과 추천 이유
+- **월 기본료**: 금액
+- **예상 추가 비용**: 커스터마이징, 추가 용량 등 항목별 비용
+- **총 예상 월 비용**: 최소~최대 범위
+
+---
+
+### 6. 제안 전략 요약
+영업 시 강조할 포인트, 경쟁 우위, 주의사항을 간결하게 정리합니다.
+
+마크다운 형식으로 깔끔하게 작성하되, 각 섹션 사이에 --- 구분선을 반드시 넣고, 구체적인 숫자와 금액을 포함해주세요. 이모지는 절대 사용하지 마세요.`;
 
     const userMessage = `다음 고객 문의를 분석해주세요:
 
@@ -193,78 +175,22 @@ ${PRICING_CONTEXT}
 문의 내용:
 ${inquiry.message || "(내용 없음)"}`;
 
-    const startTime = Date.now();
-    let usedModel = "";
-    try {
-      const result = await callAIWithFallback(
-        LOVABLE_API_KEY,
-        {
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userMessage },
-          ],
-        },
-        inquiry?.id,
-      );
-      usedModel = result.usedModel;
-      const durationMs = Date.now() - startTime;
-      const usage = result.data.usage;
+    const { data } = await callAIWithFallback(
+      LOVABLE_API_KEY,
+      {
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userMessage },
+        ],
+      },
+      inquiry?.id,
+    );
 
-      const rawContent = result.data.choices?.[0]?.message?.content || "{}";
-      
-      // Clean code fences if present despite instructions
-      let cleanedContent = rawContent.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
-      const fenceMatch = cleanedContent.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/i);
-      if (fenceMatch) cleanedContent = fenceMatch[1].trim();
+    const content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
 
-      let analysisJson: any;
-      try {
-        analysisJson = JSON.parse(cleanedContent);
-      } catch {
-        console.error("Failed to parse 1차 분석 JSON, returning raw text fallback. First 300:", rawContent.slice(0, 300));
-        // Fallback: return raw text as before for backward compat
-        await logAICall({
-          inquiry_id: inquiry?.id,
-          function_name: "analyze-inquiry",
-          model_used: usedModel,
-          prompt_tokens: usage?.prompt_tokens,
-          completion_tokens: usage?.completion_tokens,
-          total_tokens: usage?.total_tokens,
-          duration_ms: durationMs,
-          status: "partial",
-        });
-        return new Response(JSON.stringify({ analysis: rawContent, analysis_v2: null }), {
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-
-      await logAICall({
-        inquiry_id: inquiry?.id,
-        function_name: "analyze-inquiry",
-        model_used: usedModel,
-        prompt_tokens: usage?.prompt_tokens,
-        completion_tokens: usage?.completion_tokens,
-        total_tokens: usage?.total_tokens,
-        duration_ms: durationMs,
-        status: "success",
-      });
-
-      return new Response(JSON.stringify({ analysis: rawContent, analysis_v2: analysisJson }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    } catch (e: any) {
-      const durationMs = Date.now() - startTime;
-      await logAICall({
-        inquiry_id: inquiry?.id,
-        function_name: "analyze-inquiry",
-        model_used: usedModel || null,
-        duration_ms: durationMs,
-        status: "failed",
-        error_code: e?.code || String(e?.status || "unknown"),
-        error_message: e?.message || "Unknown error",
-      });
-      throw e;
-    }
+    return new Response(JSON.stringify({ analysis: content }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (e: any) {
     console.error("Error:", e);
     const status = e?.status || 500;

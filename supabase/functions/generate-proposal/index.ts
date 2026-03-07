@@ -1,5 +1,4 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -7,42 +6,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const PRIMARY_MODEL = "google/gemini-2.5-flash";
-const FALLBACK_MODEL = "google/gemini-2.5-flash-lite";
-
-async function logAICall(params: {
-  inquiry_id?: string;
-  function_name: string;
-  model_used?: string;
-  prompt_tokens?: number;
-  completion_tokens?: number;
-  total_tokens?: number;
-  duration_ms?: number;
-  status: string;
-  error_code?: string;
-  error_message?: string;
-}) {
-  try {
-    const url = Deno.env.get("SUPABASE_URL");
-    const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-    if (!url || !key) return;
-    const sb = createClient(url, key);
-    await sb.from("ai_call_logs").insert({
-      inquiry_id: params.inquiry_id || null,
-      function_name: params.function_name,
-      model_used: params.model_used || null,
-      prompt_tokens: params.prompt_tokens ?? null,
-      completion_tokens: params.completion_tokens ?? null,
-      total_tokens: params.total_tokens ?? null,
-      duration_ms: params.duration_ms ?? null,
-      status: params.status,
-      error_code: params.error_code || null,
-      error_message: params.error_message || null,
-    });
-  } catch (e) {
-    console.error("[ai_call_logs] insert failed:", e);
-  }
-}
+const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
+const FALLBACK_MODEL = "anthropic/claude-3-haiku";
 
 async function callAIWithFallback(
   apiKey: string,
@@ -74,16 +39,16 @@ async function callAIWithFallback(
     }
 
     if (response.status === 402) {
-      throw { status: 402, message: "크레딧이 부족합니다.", code: "402" };
+      throw { status: 402, message: "크레딧이 부족합니다." };
     }
     if (response.status === 429) {
-      throw { status: 429, message: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요.", code: "429" };
+      throw { status: 429, message: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." };
     }
     const t = await response.text();
     console.error("AI gateway error:", response.status, t);
-    throw { status: 500, message: "AI 게이트웨이 오류", code: String(response.status) };
+    throw { status: 500, message: "AI 게이트웨이 오류" };
   }
-  throw { status: 500, message: "All AI models failed", code: "all_failed" };
+  throw { status: 500, message: "All AI models failed" };
 }
 
 serve(async (req) => {
@@ -170,8 +135,6 @@ ${pro_analysis ? JSON.stringify(pro_analysis, null, 2) : "분석 결과 없음"}
 
 위 정보를 종합하여, 고객에게 발송할 수 있는 전문 제안서를 JSON 형식으로 작성해주세요.`;
 
-    const startTime = Date.now();
-    let usedModel = "";
     let data: any;
     try {
       const result = await callAIWithFallback(
@@ -186,18 +149,7 @@ ${pro_analysis ? JSON.stringify(pro_analysis, null, 2) : "분석 결과 없음"}
         inquiry?.id,
       );
       data = result.data;
-      usedModel = result.usedModel;
     } catch (e: any) {
-      const durationMs = Date.now() - startTime;
-      await logAICall({
-        inquiry_id: inquiry?.id,
-        function_name: "generate-proposal",
-        model_used: usedModel || null,
-        duration_ms: durationMs,
-        status: "failed",
-        error_code: e?.code || String(e?.status || "unknown"),
-        error_message: e?.message || "Unknown error",
-      });
       if (e?.status) {
         return new Response(JSON.stringify({ error: e.message }), {
           status: e.status, headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -206,23 +158,9 @@ ${pro_analysis ? JSON.stringify(pro_analysis, null, 2) : "분석 결과 없음"}
       throw e;
     }
 
-    const durationMs = Date.now() - startTime;
-    const usage = data.usage;
     const content = data.choices?.[0]?.message?.content;
 
     if (!content) {
-      await logAICall({
-        inquiry_id: inquiry?.id,
-        function_name: "generate-proposal",
-        model_used: usedModel,
-        prompt_tokens: usage?.prompt_tokens,
-        completion_tokens: usage?.completion_tokens,
-        total_tokens: usage?.total_tokens,
-        duration_ms: durationMs,
-        status: "failed",
-        error_code: "empty_response",
-        error_message: "AI 응답이 비어있습니다",
-      });
       return new Response(JSON.stringify({ error: "AI 응답이 비어있습니다" }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -235,34 +173,11 @@ ${pro_analysis ? JSON.stringify(pro_analysis, null, 2) : "분석 결과 없음"}
       const cleaned = content.replace(/```json\s*/g, "").replace(/```\s*/g, "").trim();
       proposal = JSON.parse(cleaned);
     } catch {
-      await logAICall({
-        inquiry_id: inquiry?.id,
-        function_name: "generate-proposal",
-        model_used: usedModel,
-        prompt_tokens: usage?.prompt_tokens,
-        completion_tokens: usage?.completion_tokens,
-        total_tokens: usage?.total_tokens,
-        duration_ms: durationMs,
-        status: "failed",
-        error_code: "parse_error",
-        error_message: "AI 응답 파싱 실패",
-      });
       return new Response(JSON.stringify({ error: "AI 응답 파싱 실패", raw: content }), {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
-
-    await logAICall({
-      inquiry_id: inquiry?.id,
-      function_name: "generate-proposal",
-      model_used: usedModel,
-      prompt_tokens: usage?.prompt_tokens,
-      completion_tokens: usage?.completion_tokens,
-      total_tokens: usage?.total_tokens,
-      duration_ms: durationMs,
-      status: "success",
-    });
 
     return new Response(JSON.stringify({ proposal }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

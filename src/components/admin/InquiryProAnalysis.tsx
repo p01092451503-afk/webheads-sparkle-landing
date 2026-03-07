@@ -7,7 +7,6 @@ import { Progress } from "@/components/ui/progress";
 interface Props {
   inquiry: any;
   proposalFrozen?: boolean;
-  isSuperAdmin?: boolean;
 }
 
 interface ProAnalysis {
@@ -86,7 +85,7 @@ function buildInquiryPayload(inquiry: any) {
   };
 }
 
-export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdmin }: Props) {
+export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
   const [state, setState] = useState<AnalysisState>("idle");
   const [analysis, setAnalysis] = useState<ProAnalysis | null>(null);
   const [error, setError] = useState("");
@@ -166,7 +165,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
       }
 
       const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry-pro", {
-        body: { inquiry: payload, ai_basic_analysis: payload.ai_analysis_v2 || payload.ai_analysis || null },
+        body: { inquiry: payload, ai_basic_analysis: payload.ai_analysis || null },
       });
 
       if (!fnError && !data?.error) {
@@ -374,15 +373,6 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
               <RefreshCw className="w-3 h-3" /> 재분석
             </button>
           </>
-        )}
-        {isFrozen && isSuperAdmin && (
-          <button
-            onClick={runAnalysis}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold text-amber-700 bg-amber-100 hover:bg-amber-200 dark:text-amber-300 dark:bg-amber-900/30 dark:hover:bg-amber-900/50 transition-colors"
-          >
-            <Shield className="w-3 h-3" />
-            <RefreshCw className="w-3 h-3" /> 재분석
-          </button>
         )}
       </div>
 
