@@ -107,9 +107,13 @@ serve(async (req) => {
       });
     }
 
-    const systemPrompt = `당신은 웹헤즈(WEBHEADS)의 LMS 솔루션 전문 컨설턴트입니다. 고객 문의를 분석하여 최적의 제안 전략을 수립합니다.
+    const serviceContext = getServiceContext(inquiry.service);
 
-${PRICING_CONTEXT}
+    const systemPrompt = `당신은 웹헤즈(WEBHEADS)의 이러닝 솔루션 전문 컨설턴트입니다. 고객 문의를 분석하여 최적의 제안 전략을 수립합니다.
+
+${BASE_COMPANY_CONTEXT}
+
+${serviceContext}
 
 ## 분석 지침
 고객 문의를 아래 구조로 분석해주세요. 각 섹션은 ### 제목과 --- 구분선으로 명확히 분리하고, 항목별로 줄바꿈을 충분히 넣어 읽기 쉽게 작성하세요. 이모지는 사용하지 마세요.
