@@ -73,6 +73,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const searchBotSubCounts: Record<string, number> = {};
     const aiBotSubCounts: Record<string, number> = {};
     const aiBotPageMap: Record<string, Record<string, number>> = {};
+    const searchBotPageMap: Record<string, Record<string, number>> = {};
 
     filteredViews.forEach((v) => {
       const type = v.visitor_type || "human";
@@ -87,6 +88,8 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         searchBot++;
         const name = searchNames[type] || "기타";
         searchBotSubCounts[name] = (searchBotSubCounts[name] || 0) + 1;
+        if (!searchBotPageMap[name]) searchBotPageMap[name] = {};
+        searchBotPageMap[name][v.page_path] = (searchBotPageMap[name][v.page_path] || 0) + 1;
       } else if (type.startsWith("scraper")) {
         scraper++;
         const name = scraperNames[type] || "기타 스크래퍼";
@@ -102,7 +105,10 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     const aiBotPages: { bot: string; pages: [string, number][] }[] = Object.entries(aiBotPageMap)
       .map(([bot, pages]) => ({ bot, pages: Object.entries(pages).sort(([, a], [, b]) => b - a) }))
       .sort((a, b) => b.pages.reduce((s, [, c]) => s + c, 0) - a.pages.reduce((s, [, c]) => s + c, 0));
-    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs, searchBotSubs, aiBotSubs, aiBotPages };
+    const searchBotPages: { bot: string; pages: [string, number][] }[] = Object.entries(searchBotPageMap)
+      .map(([bot, pages]) => ({ bot, pages: Object.entries(pages).sort(([, a], [, b]) => b - a) }))
+      .sort((a, b) => b.pages.reduce((s, [, c]) => s + c, 0) - a.pages.reduce((s, [, c]) => s + c, 0));
+    return { human, searchBot, scraper, ai, total: human + searchBot + scraper + ai, scraperSubs, searchBotSubs, aiBotSubs, aiBotPages, searchBotPages };
   }, [filteredViews]);
 
   const deviceCounts = humanViews.reduce((acc, v) => {
