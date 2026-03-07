@@ -206,6 +206,8 @@ export default function AdminDashboard() {
     );
   }
 
+  if (!userId) return null;
+
   return (
     <div className="min-h-screen bg-[hsl(220,14%,96%)]">
       {/* Realtime Alert */}
