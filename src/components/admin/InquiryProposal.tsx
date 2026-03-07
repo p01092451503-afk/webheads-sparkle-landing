@@ -156,7 +156,7 @@ export default function InquiryProposal({ inquiry }: Props) {
       doc.setPage(i);
       doc.setFontSize(8);
       doc.setTextColor(150);
-      doc.text(`WEBHEADS  |  ${proposal.title}  |  ${i}/${pageCount}`, margin, 290);
+      doc.text(`WEBHEADS  |  서울시 마포구 월드컵로114, 3층  |  02-540-4337  |  www.webheads.co.kr  |  ${i}/${pageCount}`, margin, 290);
       doc.setTextColor(0);
     }
 
