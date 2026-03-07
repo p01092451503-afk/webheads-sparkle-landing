@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RichTextEditor from "./RichTextEditor";
 import { Helmet } from "react-helmet-async";
 import { Send, Loader2, ChevronDown, Monitor, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -248,16 +249,14 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
             {/* Message */}
             <FormField label={t("contact.formMessage")}>
-              <textarea
-                rows={4}
+              <RichTextEditor
+                value={form.message}
+                onChange={(html) => setForm({ ...form, message: html })}
                 placeholder={
                   inquiryType === "demo"
                     ? t("contact.formMessagePlaceholderDemo")
                     : t("contact.formMessagePlaceholder")
                 }
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className={`${inputBase} ${inputFocus} resize-none`}
               />
             </FormField>
 
