@@ -89,6 +89,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
   const [state, setState] = useState<AnalysisState>("idle");
   const [analysis, setAnalysis] = useState<ProAnalysis | null>(null);
   const [error, setError] = useState("");
+  const [isPartial, setIsPartial] = useState(false);
   const [expanded, setExpanded] = useState(true);
   const [emailCopied, setEmailCopied] = useState(false);
   const [isFrozen, setIsFrozen] = useState(false);
