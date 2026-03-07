@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw, Lock, CheckCircle2, Edit3, Save, X, History, Clock } from "lucide-react";
+import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw, Lock, CheckCircle2, Edit3, Save, X, History, Clock, Shield } from "lucide-react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import webheadsLogo from "@/assets/webheads-logo.png";
