@@ -61,6 +61,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [showServiceDropdown, setShowServiceDropdown] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
