@@ -1,0 +1,284 @@
+import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
+interface PlanRecommendation {
+  name: string;
+  monthly: number;
+  cdnIncluded: number; // GB
+  storageIncluded: number; // GB
+  cdnOverage: number; // per GB
+  storageOverage: number; // per GB
+  solutionType: string;
+  isMatch: boolean;
+  totalMonthly: number;
+  overageCdn: number;
+  overageStorage: number;
+}
+
+const PLANS: Omit<PlanRecommendation, "isMatch" | "totalMonthly" | "overageCdn" | "overageStorage">[] = [
+  { name: "Starter", monthly: 300000, cdnIncluded: 0, storageIncluded: 0, cdnOverage: 0, storageOverage: 0, solutionType: "임대형 (YouTube/Vimeo 연동)" },
+  { name: "Basic", monthly: 500000, cdnIncluded: 500, storageIncluded: 100, cdnOverage: 500, storageOverage: 1000, solutionType: "임대형 · CDN 포함" },
+  { name: "Plus", monthly: 700000, cdnIncluded: 1500, storageIncluded: 200, cdnOverage: 400, storageOverage: 800, solutionType: "임대형 · SaaS | 단독서버" },
+  { name: "Premium", monthly: 1000000, cdnIncluded: 2000, storageIncluded: 250, cdnOverage: 300, storageOverage: 500, solutionType: "임대형 · SaaS | 단독서버" },
+];
+
+// Rough heuristic: 1 learner/month ≈ 2GB CDN traffic, 0.5GB storage per 10 videos
+function estimateUsage(learners: number, videoHours: number) {
+  const cdnGB = Math.round(learners * 2.5);
+  const storageGB = Math.round(videoHours * 3); // ~3GB per hour of video
+  return { cdnGB, storageGB };
+}
+
+export default function CostSimulator() {
+  const { t } = useTranslation();
+  const [learners, setLearners] = useState(200);
+  const [videoHours, setVideoHours] = useState(30);
+  const [needsCdn, setNeedsCdn] = useState(true);
+
+  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours), [learners, videoHours]);
+
+  const recommendations = useMemo<PlanRecommendation[]>(() => {
+    return PLANS.map((plan) => {
+      if (plan.name === "Starter") {
+        // Starter uses external video hosting — no CDN/storage overage
+        return {
+          ...plan,
+          isMatch: !needsCdn,
+          totalMonthly: plan.monthly,
+          overageCdn: 0,
+          overageStorage: 0,
+        };
+      }
+
+      const overCdn = Math.max(0, cdnGB - plan.cdnIncluded);
+      const overStorage = Math.max(0, storageGB - plan.storageIncluded);
+      const overageCdn = overCdn * plan.cdnOverage;
+      const overageStorage = overStorage * plan.storageOverage;
+      const totalMonthly = plan.monthly + overageCdn + overageStorage;
+
+      return {
+        ...plan,
+        isMatch: true,
+        totalMonthly,
+        overageCdn,
+        overageStorage,
+      };
+    }).filter((p) => p.isMatch);
+  }, [cdnGB, storageGB, needsCdn]);
+
+  const bestPlan = useMemo(() => {
+    // Find the plan with the lowest total cost where overage is < 30% of base
+    const viable = recommendations.filter((p) => p.name !== "Starter");
+    if (!needsCdn) return recommendations.find((p) => p.name === "Starter") || viable[0];
+    
+    // Find best value: lowest total where overage is reasonable
+    const sorted = [...viable].sort((a, b) => a.totalMonthly - b.totalMonthly);
+    // If cheapest plan has >50% overage, recommend next tier
+    if (sorted[0] && (sorted[0].overageCdn + sorted[0].overageStorage) > sorted[0].monthly * 0.5) {
+      return sorted[1] || sorted[0];
+    }
+    return sorted[0];
+  }, [recommendations, needsCdn]);
+
+  const formatPrice = (n: number) => n.toLocaleString("ko-KR");
+
+  return (
+    <section className="py-16 md:py-28 bg-background">
+      <div className="container mx-auto px-5 md:px-6 max-w-5xl">
+        <div className="mb-10 md:mb-14 text-center">
+          <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
+            COST SIMULATOR
+          </p>
+          <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight">
+            우리 회사 규모에 얼마?
+          </h2>
+          <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base max-w-xl mx-auto">
+            월 수강생 수와 영상 콘텐츠 규모를 입력하면, 예상 비용과 최적 플랜을 즉시 확인할 수 있어요.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
+          {/* ── Left: Inputs ── */}
+          <div className="lg:col-span-2 flex flex-col gap-6">
+            <div className="rounded-2xl border border-border p-6 bg-secondary/30">
+              <div className="flex items-center gap-2 mb-6">
+                <Calculator className="w-5 h-5" style={{ color: "hsl(var(--lms-primary))" }} />
+                <h3 className="font-bold text-foreground text-base">규모 입력</h3>
+              </div>
+
+              {/* Learners slider */}
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-1.5">
+                    <Users className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">월 활성 수강생</span>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Info className="w-3.5 h-3.5 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent><p className="text-xs">매월 실제로 강의를 수강하는 학습자 수</p></TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <span className="text-lg font-bold tabular-nums" style={{ color: "hsl(var(--lms-primary))" }}>
+                    {learners.toLocaleString()}명
+                  </span>
+                </div>
+                <Slider
+                  value={[learners]}
+                  onValueChange={([v]) => setLearners(v)}
+                  min={10}
+                  max={5000}
+                  step={10}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
+                  <span>10명</span>
+                  <span>5,000명</span>
+                </div>
+              </div>
+
+              {/* Video hours slider */}
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-1.5">
+                    <MonitorPlay className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">등록 영상</span>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Info className="w-3.5 h-3.5 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent><p className="text-xs">LMS에 등록된 전체 영상의 총 시간</p></TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <span className="text-lg font-bold tabular-nums" style={{ color: "hsl(var(--lms-primary))" }}>
+                    {videoHours}시간
+                  </span>
+                </div>
+                <Slider
+                  value={[videoHours]}
+                  onValueChange={([v]) => setVideoHours(v)}
+                  min={1}
+                  max={500}
+                  step={1}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
+                  <span>1시간</span>
+                  <span>500시간</span>
+                </div>
+              </div>
+
+              {/* CDN toggle */}
+              <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border">
+                <div className="flex items-center gap-2">
+                  <HardDrive className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm font-medium text-foreground">CDN 영상 호스팅 필요</span>
+                </div>
+                <button
+                  onClick={() => setNeedsCdn(!needsCdn)}
+                  className={`relative w-11 h-6 rounded-full transition-colors ${needsCdn ? "" : "bg-muted"}`}
+                  style={needsCdn ? { background: "hsl(var(--lms-primary))" } : undefined}
+                >
+                  <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${needsCdn ? "translate-x-[22px]" : "translate-x-0.5"}`} />
+                </button>
+              </div>
+
+              {/* Estimated usage */}
+              {needsCdn && (
+                <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1">
+                  <p>📊 예상 월 전송량: <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
+                  <p>💾 예상 저장공간: <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── Right: Results ── */}
+          <div className="lg:col-span-3 flex flex-col gap-4">
+            {/* Best plan highlight */}
+            {bestPlan && (
+              <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(var(--lms-primary)), hsl(var(--lms-primary) / 0.85))" }}>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Sparkles className="w-4 h-4 text-white/80" />
+                    <span className="text-xs font-bold text-white/80 tracking-wider uppercase">추천 플랜</span>
+                  </div>
+                  <div className="flex items-end gap-3 mb-2">
+                    <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
+                    <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
+                  </div>
+                  <div className="flex items-end gap-1 mb-4">
+                    <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(bestPlan.totalMonthly)}</span>
+                    <span className="text-white/70 text-base mb-1">원/월</span>
+                  </div>
+                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0) && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {bestPlan.overageCdn > 0 && (
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
+                          CDN 초과분 +{formatPrice(bestPlan.overageCdn)}원
+                        </span>
+                      )}
+                      {bestPlan.overageStorage > 0 && (
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
+                          저장공간 초과분 +{formatPrice(bestPlan.overageStorage)}원
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  <a href="#contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-white transition-all hover:scale-[1.02]" style={{ color: "hsl(var(--lms-primary))" }}>
+                    이 플랜으로 상담 신청
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            )}
+
+            {/* All plans comparison */}
+            <div className="rounded-2xl border border-border overflow-hidden">
+              <div className="px-5 py-3.5 bg-muted/50 border-b border-border">
+                <span className="text-xs font-bold text-muted-foreground tracking-wider uppercase">전체 플랜 비교</span>
+              </div>
+              <div className="divide-y divide-border">
+                {recommendations.map((plan) => (
+                  <div
+                    key={plan.name}
+                    className={`flex items-center justify-between px-5 py-4 transition-colors ${plan.name === bestPlan?.name ? "bg-primary/5" : "bg-background hover:bg-muted/30"}`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {plan.name === bestPlan?.name && (
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ background: "hsl(var(--lms-primary))" }} />
+                      )}
+                      <div>
+                        <p className={`text-sm font-bold ${plan.name === bestPlan?.name ? "" : "text-foreground"}`} style={plan.name === bestPlan?.name ? { color: "hsl(var(--lms-primary))" } : undefined}>
+                          {plan.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">{plan.solutionType}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(plan.totalMonthly)}원</p>
+                      {plan.totalMonthly > plan.monthly && (
+                        <p className="text-[10px] text-muted-foreground">기본 {formatPrice(plan.monthly)} + 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-[11px] text-muted-foreground text-center leading-relaxed">
+              * 예상 비용은 참고용이며, 실제 비용은 사용 패턴에 따라 달라질 수 있습니다. VAT 별도.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
