@@ -80,6 +80,7 @@ function buildInquiryPayload(inquiry: any) {
     updated_at: inquiry.updated_at,
     status: inquiry.status,
     session_id: inquiry.session_id,
+    ai_analysis: inquiry.ai_analysis,
   };
 }
 
@@ -161,7 +162,7 @@ export default function InquiryProAnalysis({ inquiry }: Props) {
       }
 
       const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry-pro", {
-        body: { inquiry: payload },
+        body: { inquiry: payload, ai_basic_analysis: payload.ai_analysis || null },
       });
 
       if (!fnError && !data?.error) {
