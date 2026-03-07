@@ -416,6 +416,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     {/* AI Pro Analysis */}
                     <InquiryProAnalysis inquiry={selectedInquiry} />
 
+                    {/* Proposal */}
+                    <InquiryProposal inquiry={selectedInquiry} />
+
                     {/* Delete */}
                     {/* 삭제 버튼 숨김 처리
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
