@@ -452,7 +452,7 @@ export default function OverviewPage() {
       </section>
 
       {/* ── Company Intro + Strengths ── */}
-      <section className="py-16">
+      <section data-pdf-section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-12">
             <p className="text-sm font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "hsl(255,75%,58%)" }}>ABOUT WEBHEADS</p>
