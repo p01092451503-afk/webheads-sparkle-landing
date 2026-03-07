@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
   LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench
@@ -22,7 +22,11 @@ const TabLoader = () => (
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<Tab>("inquiries");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings"];
+  const initialTab = (validTabs.includes(searchParams.get("tab") as Tab) ? searchParams.get("tab") : "inquiries") as Tab;
+  const [tab, setTabState] = useState<Tab>(initialTab);
+  const authCheckedRef = useRef(false);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<UserRole>("admin");
@@ -32,6 +36,11 @@ export default function AdminDashboard() {
   const [clickEvents, setClickEvents] = useState<any[]>([]);
   const [newInquiryAlert, setNewInquiryAlert] = useState(false);
   const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
+
+  const setTab = useCallback((t: Tab) => {
+    setTabState(t);
+    setSearchParams({ tab: t }, { replace: true });
+  }, [setSearchParams]);
 
   // Auth check
   useEffect(() => {
@@ -43,6 +52,7 @@ export default function AdminDashboard() {
     };
 
     const checkAuth = async () => {
+      if (authCheckedRef.current) return;
       try {
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
         if (sessionError || !session) {
@@ -71,6 +81,7 @@ export default function AdminDashboard() {
         }
 
         if (!isMounted) return;
+        authCheckedRef.current = true;
         setUserRole(isSuperAdminRole ? "super_admin" : "admin");
         setUserId(uid);
       } catch {
