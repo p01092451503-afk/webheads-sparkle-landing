@@ -138,7 +138,7 @@ serve(async (req) => {
           const errBody = await emailRes.text();
           console.error(`Email send failed [${emailRes.status}]: ${errBody}`);
         } else {
-          console.log(`Notification email sent to ${ADMIN_EMAIL}`);
+          console.log(`Notification email sent to ${adminEmail}`);
         }
       } catch (emailErr) {
         console.error("Email notification error:", emailErr);
