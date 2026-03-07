@@ -508,6 +508,16 @@ export default function OverviewPage() {
         <AddOnServicesSection />
       </LazySection>
 
+      {/* ── Client References ── */}
+      <LazySection fallbackHeight="200px">
+        <section data-pdf-section className="py-16" style={{ background: "hsl(252, 30%, 97%)" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <SectionHead sub="CLIENT REFERENCES" title="대표 구축사례" desc="300개 이상의 기업·기관이 웹헤즈 LMS를 도입하여 운영하고 있습니다." />
+            <ClientMarqueeGrid />
+          </div>
+        </section>
+      </LazySection>
+
       {/* ── Why Webheads ── */}
       <LazySection fallbackHeight="400px">
         <section data-pdf-section className="relative py-20 overflow-hidden">
