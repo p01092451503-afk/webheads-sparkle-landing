@@ -1,0 +1,1 @@
+DELETE FROM inquiry_analyses WHERE inquiry_id = 'a9202764-699b-4bc0-8447-6ac9ac583676';
