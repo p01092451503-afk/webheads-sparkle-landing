@@ -351,6 +351,9 @@ export default function LmsPage() {
         </div>
       </section>
 
+      {/* Mid CTA — 중간 전환 유도 */}
+      <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
+
       {/* Learner Journey Map — 흰색 배경 */}
       <LearnerJourneyMap />
 
