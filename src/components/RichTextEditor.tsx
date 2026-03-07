@@ -142,12 +142,6 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           )}
         </div>
 
-        <div className="flex-1" />
-
-        {/* Expand/Shrink */}
-        <ToolBtn title={expanded ? "축소" : "확장"} onClick={() => setExpanded(!expanded)}>
-          {expanded ? <Shrink className="w-3.5 h-3.5" /> : <Expand className="w-3.5 h-3.5" />}
-        </ToolBtn>
       </div>
 
       {/* Editor */}
