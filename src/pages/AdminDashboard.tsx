@@ -146,7 +146,6 @@ export default function AdminDashboard() {
     { key: "inquiries", icon: MessageSquare, label: "문의" },
     { key: "analytics", icon: BarChart3, label: "분석" },
     { key: "settings", icon: Settings, label: "설정" },
-    { key: "service_requests", icon: Wrench, label: "고객지원" },
   ];
 
   const newCount = useMemo(() => inquiries.filter((i) => i.status === "new").length, [inquiries]);
