@@ -31,7 +31,12 @@ export default function RichTextEditor({ value, onChange, placeholder, className
   const [showColorPicker, setShowColorPicker] = useState(false);
   
   const [isEmpty, setIsEmpty] = useState(true);
+  const [editorHeight, setEditorHeight] = useState(120);
   const isComposing = useRef(false);
+  const initialized = useRef(false);
+  const isDragging = useRef(false);
+  const dragStartY = useRef(0);
+  const dragStartHeight = useRef(0);
   const initialized = useRef(false);
 
   // Set initial value once
