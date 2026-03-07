@@ -18,6 +18,7 @@ interface ContactFormData {
   service: string;
   message: string;
   inquiryType?: "consultation" | "demo";
+  marketingAgreed?: boolean;
   session_id?: string;
 }
 
@@ -28,7 +29,7 @@ serve(async (req) => {
 
   try {
     const formData: ContactFormData = await req.json();
-    const { company, name, phone, email, service, message, inquiryType = "consultation", session_id } = formData;
+    const { company, name, phone, email, service, message, inquiryType = "consultation", marketingAgreed = false, session_id } = formData;
 
     if (!company || !name || !phone) {
       return new Response(
@@ -49,6 +50,7 @@ serve(async (req) => {
       service: service || null,
       message: message || null,
       inquiry_type: inquiryType,
+      marketing_agreed: marketingAgreed,
       session_id: session_id || null,
     });
 
