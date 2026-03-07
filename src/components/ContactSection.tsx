@@ -126,17 +126,6 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               <Phone className="w-3.5 h-3.5" />
               {t("footer.maintenancePhone")}
             </a>
-            <button
-              type="button"
-              onClick={() => {
-                const formEl = document.querySelector('form');
-                formEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }}
-              className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-2 text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
-            >
-              <PenSquare className="w-3.5 h-3.5" />
-              {t("contact.writeInquiry")}
-            </button>
           </div>
         </div>
 
