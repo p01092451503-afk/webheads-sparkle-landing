@@ -7,7 +7,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const ADMIN_EMAIL = "34bus@webheads.co.kr";
+// Default admin email - will be overridden by DB settings
+const DEFAULT_ADMIN_EMAIL = "34bus@webheads.co.kr";
 
 interface ContactFormData {
   company: string;
