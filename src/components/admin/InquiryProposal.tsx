@@ -148,9 +148,10 @@ export default function InquiryProposal({ inquiry }: Props) {
         <button
           onClick={generate}
           disabled={!hasAnalysis}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[12px] font-semibold transition-all active:scale-[0.96] disabled:opacity-40 disabled:cursor-not-allowed text-white bg-[hsl(152,57%,42%)] hover:bg-[hsl(152,57%,38%)]"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all active:scale-[0.97] hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+          style={{ background: "linear-gradient(135deg, hsl(152, 57%, 42%), hsl(160, 60%, 38%))" }}
         >
-          <FileText className="w-3.5 h-3.5" />
+          <FileText className="w-4 h-4" />
           제안서 생성
         </button>
         {!hasAnalysis && (
