@@ -187,7 +187,20 @@ ${inquiry.message || "(내용 없음)"}`;
       inquiry?.id,
     );
 
-    const content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
+    let content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
+
+    // If AI returned JSON despite instructions, try to convert it to readable markdown
+    const trimmed = content.trim();
+    if (trimmed.startsWith("{") || trimmed.startsWith("```json") || trimmed.startsWith("```{")) {
+      try {
+        const cleaned = trimmed.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
+        const parsed = JSON.parse(cleaned);
+        content = jsonToMarkdown(parsed);
+      } catch {
+        // If JSON parse fails, strip code fences at least
+        content = trimmed.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
+      }
+    }
 
     return new Response(JSON.stringify({ analysis: content }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
