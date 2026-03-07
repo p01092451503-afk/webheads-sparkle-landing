@@ -474,7 +474,7 @@ export default function OverviewPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="tel:02-336-4338" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
               <Phone className="w-4 h-4" />
-              신규도입 : 02-336-4338
+              {t("overview.cta.phone1")}
             </a>
             <a href="tel:02-540-4337" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
               <Phone className="w-4 h-4" />
