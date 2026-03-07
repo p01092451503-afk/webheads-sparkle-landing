@@ -452,7 +452,7 @@ export default function OverviewPage() {
         // @ts-ignore – jsPDF GState
         pdf.setGState(new pdf.GState({ opacity: 0.06 }));
         pdf.setFont("helvetica", "bolditalic");
-        pdf.setFontSize(54);
+        pdf.setFontSize(43);
         pdf.setTextColor(30, 31, 46);
         // Rotate and place centered
         const cx = A4_W / 2;
