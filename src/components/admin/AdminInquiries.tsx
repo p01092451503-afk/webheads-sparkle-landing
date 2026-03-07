@@ -228,7 +228,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                   if (isSelected) { setSelectedInquiry(null); }
                   else {
                     setSelectedInquiry(inq); setNoteText(inq.notes || "");
-                    setMeetingNoteText(inq.meeting_notes || ""); setEditingMeetingNote(false);
+                    setMeetingNoteText(inq.meeting_notes || ""); setEditingMeetingNote(false); setProposalFrozen(false);
                     setTimeout(() => { itemRefs.current[inq.id]?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
                   }
                 }}
