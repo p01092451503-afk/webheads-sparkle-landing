@@ -377,6 +377,16 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
       </div>
 
       {expanded && (
+        <>
+        {isPartial && (
+          <div className="flex items-center gap-2 px-4 py-2.5 mb-3 rounded-xl border border-[hsl(45,93%,70%)] bg-[hsl(45,93%,95%)]">
+            <AlertTriangle className="w-4 h-4 text-[hsl(37,90%,41%)] shrink-0" />
+            <p className="text-[11px] font-medium text-[hsl(37,90%,31%)]">일부 분석 항목이 불완전합니다. 재분석을 권장합니다.</p>
+            {!isFrozen && (
+              <button onClick={runAnalysis} className="ml-auto text-[10px] font-semibold text-[hsl(221,83%,53%)] hover:underline shrink-0">재분석</button>
+            )}
+          </div>
+        )}
         <Tabs defaultValue="summary" className="w-full">
           <TabsList className="w-full justify-start bg-[hsl(220,14%,96%)] rounded-xl p-1 gap-0.5 h-auto flex-wrap">
             <TabsTrigger value="summary" className="text-[11px] px-3 py-1.5 rounded-lg data-[state=active]:bg-white">분석 요약</TabsTrigger>
