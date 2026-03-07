@@ -75,12 +75,39 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
     delete: "hsl(0, 84%, 60%)", update_service_request_status: "hsl(37, 90%, 51%)",
   };
 
+  const fetchSettings = useCallback(async () => {
+    const { data } = await supabase
+      .from("admin_settings")
+      .select("key, value");
+    if (data) {
+      for (const row of data) {
+        if (row.key === "notifications") setNotifSettings(row.value as any);
+        if (row.key === "company_info") setCompanyInfo(row.value as any);
+      }
+    }
+  }, []);
+
+  const saveSettings = async (key: string, value: any) => {
+    const setter = key === "notifications" ? setNotifSaving : setCompanySaving;
+    const savedSetter = key === "notifications" ? setNotifSaved : setCompanySaved;
+    setter(true);
+    await supabase
+      .from("admin_settings")
+      .update({ value, updated_at: new Date().toISOString() })
+      .eq("key", key);
+    setter(false);
+    savedSetter(true);
+    setTimeout(() => savedSetter(false), 2000);
+    await logActivity("update_settings", "settings", key, { key });
+  };
+
   useEffect(() => {
+    fetchSettings();
     if (isSuperAdmin) {
       fetchAdmins();
       fetchActivityLogs();
     }
-  }, [isSuperAdmin]);
+  }, [isSuperAdmin, fetchSettings]);
 
   const fetchAdmins = async () => {
     setAdminsLoading(true);
