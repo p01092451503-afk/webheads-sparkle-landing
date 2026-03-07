@@ -1,0 +1,1 @@
+UPDATE page_views SET visitor_type = 'search_bot_naver' WHERE user_agent ILIKE '%NAVER(inapp;%search;%' AND user_agent ILIKE '%NaverOM%' AND visitor_type = 'human'
