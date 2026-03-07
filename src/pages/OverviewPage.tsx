@@ -50,7 +50,7 @@ function SectionHead({ sub, title, desc, light = false }: { sub: string; title: 
    ══════════════════════════════════════════ */
 function LmsDetailSection() {
   const { t } = useTranslation();
-  const lmsStats = t("lms.stats", { returnObjects: true }) as { value: string; label: string; sub: string }[];
+  
   const lmsPlans = t("lms.plans", { returnObjects: true }) as any[];
   const compHeaders = t("lms.comparisonTable.headers", { returnObjects: true }) as string[];
   const compRows = t("lms.comparisonTable.rows", { returnObjects: true }) as string[][];
