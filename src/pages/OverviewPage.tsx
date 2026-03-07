@@ -65,13 +65,13 @@ function LmsDetailSection() {
   const proFeats = (t("lms.proFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
 
   return (
-    <section id="lms" className="py-16">
+    <>
+    {/* LMS Header + Light vs PRO */}
+    <section id="lms" className="pt-16 pb-4" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
         <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light(임대형)와 웹헤즈 PRO(구축형) — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
-
-        {/* Light vs PRO Features */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {[
             { name: "light", icon: Zap, color: "hsl(255,75%,58%)", feats: lightFeats },
             { name: "pro", icon: ShieldCheck, color: "hsl(220,90%,56%)", feats: proFeats },
@@ -98,9 +98,13 @@ function LmsDetailSection() {
             </div>
           ))}
         </div>
+      </div>
+    </section>
 
-        {/* LMS Comparison Table */}
-        <div className="rounded-2xl border border-border bg-white overflow-hidden mb-10">
+    {/* LMS Comparison Table */}
+    <section className="py-4" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <div className="rounded-2xl border border-border bg-white overflow-hidden">
           <div className="p-6 border-b border-border">
             <h3 className="font-bold text-base text-foreground">{t("lms.comparisonTable.title")}</h3>
           </div>
@@ -127,24 +131,30 @@ function LmsDetailSection() {
             </table>
           </div>
         </div>
+      </div>
+    </section>
 
-        {/* AI Features */}
-        <div className="mb-10">
-          <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
-            <Bot className="w-5 h-5" style={{ color: "hsl(255,75%,58%)" }} />
-            {t("lms.aiSection.title").replace(/\n/g, " ")}
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {aiFeatures.map((f, i) => (
-              <div key={i} className="rounded-xl p-5 bg-white border border-border">
-                <h4 className="font-bold text-sm text-foreground mb-1.5">{f.title}</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
+    {/* AI Features */}
+    <section className="py-4" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
+          <Bot className="w-5 h-5" style={{ color: "hsl(255,75%,58%)" }} />
+          {t("lms.aiSection.title").replace(/\n/g, " ")}
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {aiFeatures.map((f, i) => (
+            <div key={i} className="rounded-xl p-5 bg-white border border-border">
+              <h4 className="font-bold text-sm text-foreground mb-1.5">{f.title}</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+            </div>
+          ))}
         </div>
+      </div>
+    </section>
 
-        {/* LMS Pricing */}
+    {/* LMS Pricing */}
+    <section className="py-4" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
         <div className="rounded-2xl overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(220,45%,88%) 0%, hsl(222,40%,84%) 100%)" }}>
           <div className="p-7">
             <h3 className="font-bold text-base text-foreground mb-1">{t("lms.plansSection.title").replace(/\n/g, " ")}</h3>
@@ -174,9 +184,13 @@ function LmsDetailSection() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        {/* Competitor Comparison */}
-        <div className="rounded-2xl border border-border bg-white overflow-hidden mt-8">
+    {/* Competitor Comparison */}
+    <section className="pt-4 pb-16" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <div className="rounded-2xl border border-border bg-white overflow-hidden">
           <div className="p-6 border-b border-border">
             <h3 className="font-bold text-base text-foreground">{t("lms.competitorTable.title").replace(/\n/g, " ")}</h3>
             <p className="text-sm text-muted-foreground mt-1">{t("lms.competitorTable.desc")}</p>
@@ -210,6 +224,7 @@ function LmsDetailSection() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
@@ -227,74 +242,80 @@ function AddOnServicesSection() {
   const plansMap: Record<string, any[]> = { hosting: hostingPlans, maintenance: maintenancePlans, chatbot: chatbotPlans, appdev: appdevPlans };
 
   return (
-    <section id="services" className="py-16">
+    <>
+    {/* Add-on header */}
+    <section id="services" className="pt-16 pb-2" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
         <SectionHead sub="ADD-ON SERVICES" title="부가서비스 라인업" desc="LMS를 중심으로 교육 사업에 필요한 8가지 부가서비스를 원스톱으로 제공합니다. 각 서비스 페이지에서 상세한 기능·요금·도입 가이드를 확인하세요." />
-
-        <div className="space-y-5">
-          {ovServices.slice(1).map((svc, i) => {
-            const card = serviceCards[i];
-            if (!card) return null;
-            const Icon = card.icon;
-            const plans = plansMap[card.key] || null;
-
-            return (
-              <div key={card.key} className="rounded-2xl bg-white border border-border overflow-hidden shadow-sm">
-                <div className="p-7">
-                  <div className="flex items-start gap-4">
-                    <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: card.accent + "1a", color: card.accent }}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="font-bold text-base text-foreground">{svc.title}</h3>
-                        <a href={card.path} className="text-xs font-semibold flex items-center gap-0.5 shrink-0" style={{ color: card.accent }}>
-                          상세보기 <ChevronRight className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">{svc.desc}</p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {svc.highlights.map((h, j) => (
-                          <span key={j} className="px-2.5 py-0.5 rounded text-xs font-medium" style={{ background: card.accent + "12", color: card.accent }}>{h}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {plans && plans.length > 0 && (
-                    <div className="mt-5 pt-4 border-t border-border">
-                      <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">요금제</p>
-                      <div className={`grid gap-2 ${plans.length === 4 ? "grid-cols-2 lg:grid-cols-4" : "grid-cols-1 sm:grid-cols-3"}`}>
-                        {plans.map((plan: any, pi: number) => (
-                          <div key={pi} className={`rounded-lg p-4 border ${plan.highlight ? "border-[hsl(255,75%,58%)] bg-[hsl(255,75%,58%,0.03)]" : "border-border bg-secondary/30"} relative`}>
-                            {plan.badge && (
-                              <span className="absolute -top-2.5 left-3 px-2 py-0.5 rounded text-[10px] font-bold text-white" style={{ background: "hsl(255,75%,58%)" }}>{plan.badge}</span>
-                            )}
-                            <p className="font-bold text-sm text-foreground">{plan.name}</p>
-                            <p className="mt-1">
-                              <span className="text-base font-black text-foreground">{plan.price}</span>
-                              {plan.unit && <span className="text-xs text-muted-foreground ml-0.5">{plan.unit}</span>}
-                            </p>
-                            <ul className="mt-2.5 space-y-1.5">
-                              {(plan.features as any[]).slice(0, 2).map((f: any, fi: number) => (
-                                <li key={fi} className="flex items-start gap-1.5">
-                                  <Check className="w-3 h-3 mt-0.5 shrink-0 text-green-600" />
-                                  <span className="text-xs text-muted-foreground">{f.main}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
       </div>
     </section>
+
+    {/* Individual service cards */}
+    {ovServices.slice(1).map((svc, i) => {
+      const card = serviceCards[i];
+      if (!card) return null;
+      const Icon = card.icon;
+      const plans = plansMap[card.key] || null;
+
+      return (
+        <section key={card.key} className="py-2" data-pdf-section>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <div className="rounded-2xl bg-white border border-border overflow-hidden shadow-sm">
+              <div className="p-7">
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0" style={{ background: card.accent + "1a", color: card.accent }}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-bold text-base text-foreground">{svc.title}</h3>
+                      <a href={card.path} className="text-xs font-semibold flex items-center gap-0.5 shrink-0" style={{ color: card.accent }}>
+                        상세보기 <ChevronRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-3">{svc.desc}</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {svc.highlights.map((h, j) => (
+                        <span key={j} className="px-2.5 py-0.5 rounded text-xs font-medium" style={{ background: card.accent + "12", color: card.accent }}>{h}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {plans && plans.length > 0 && (
+                  <div className="mt-5 pt-4 border-t border-border">
+                    <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">요금제</p>
+                    <div className={`grid gap-2 ${plans.length === 4 ? "grid-cols-2 lg:grid-cols-4" : "grid-cols-1 sm:grid-cols-3"}`}>
+                      {plans.map((plan: any, pi: number) => (
+                        <div key={pi} className={`rounded-lg p-4 border ${plan.highlight ? "border-[hsl(255,75%,58%)] bg-[hsl(255,75%,58%,0.03)]" : "border-border bg-secondary/30"} relative`}>
+                          {plan.badge && (
+                            <span className="absolute -top-2.5 left-3 px-2 py-0.5 rounded text-[10px] font-bold text-white" style={{ background: "hsl(255,75%,58%)" }}>{plan.badge}</span>
+                          )}
+                          <p className="font-bold text-sm text-foreground">{plan.name}</p>
+                          <p className="mt-1">
+                            <span className="text-base font-black text-foreground">{plan.price}</span>
+                            {plan.unit && <span className="text-xs text-muted-foreground ml-0.5">{plan.unit}</span>}
+                          </p>
+                          <ul className="mt-2.5 space-y-1.5">
+                            {(plan.features as any[]).slice(0, 2).map((f: any, fi: number) => (
+                              <li key={fi} className="flex items-start gap-1.5">
+                                <Check className="w-3 h-3 mt-0.5 shrink-0 text-green-600" />
+                                <span className="text-xs text-muted-foreground">{f.main}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    })}
+    </>
   );
 }
 
@@ -317,34 +338,79 @@ export default function OverviewPage() {
     setPdfLoading(true);
 
     try {
-      // Scroll all lazy sections into view first
-      const lazyEls = contentRef.current.querySelectorAll("[data-lazy]");
-      lazyEls.forEach((el) => el.scrollIntoView());
-      await new Promise((r) => setTimeout(r, 500));
+      // Force all lazy sections to render by scrolling through them
+      const pageEl = contentRef.current;
+      const totalH = pageEl.scrollHeight;
+      for (let y = 0; y < totalH; y += 300) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+      window.scrollTo(0, 0);
+      await new Promise((r) => setTimeout(r, 800));
 
-      const canvas = await html2canvas(contentRef.current, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#f5f4f9",
-        windowWidth: 1280,
-        scrollY: -window.scrollY,
-      });
+      // Collect all pdf sections
+      const sections = Array.from(
+        pageEl.querySelectorAll("[data-pdf-section]")
+      ) as HTMLElement[];
 
-      const imgData = canvas.toDataURL("image/jpeg", 0.92);
-      const imgW = canvas.width;
-      const imgH = canvas.height;
+      if (sections.length === 0) {
+        console.error("No PDF sections found");
+        setPdfLoading(false);
+        return;
+      }
 
-      const pdfW = 210; // A4 mm
-      const pdfH = (imgH * pdfW) / imgW;
-      const pageH = 297; // A4 height mm
-      const totalPages = Math.ceil(pdfH / pageH);
+      const A4_W = 210;
+      const A4_H = 297;
+      const MARGIN = 10;
+      const CONTENT_W = A4_W - MARGIN * 2;
+      const GAP = 3;
 
       const pdf = new jsPDF("p", "mm", "a4");
+      let currentY = MARGIN;
 
-      for (let page = 0; page < totalPages; page++) {
-        if (page > 0) pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, -(page * pageH), pdfW, pdfH);
+      for (const section of sections) {
+        const canvas = await html2canvas(section, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          windowWidth: 1280,
+        });
+
+        const scale = 2;
+        const widthPx = canvas.width / scale;
+        const heightPx = canvas.height / scale;
+        const scaleFactor = CONTENT_W / widthPx;
+        const heightMM = heightPx * scaleFactor;
+
+        // If section doesn't fit, add new page
+        const remaining = A4_H - MARGIN - currentY;
+        if (heightMM > remaining && currentY > MARGIN) {
+          pdf.addPage();
+          currentY = MARGIN;
+        }
+
+        // If a single section is taller than one page, split it across pages
+        if (heightMM > A4_H - MARGIN * 2) {
+          const imgData = canvas.toDataURL("image/png");
+          const pageContentH = A4_H - MARGIN * 2;
+          const totalPages = Math.ceil(heightMM / pageContentH);
+
+          for (let p = 0; p < totalPages; p++) {
+            if (p > 0 || currentY > MARGIN) {
+              if (p > 0) pdf.addPage();
+              currentY = MARGIN;
+            }
+            pdf.addImage(imgData, "PNG", MARGIN, currentY - p * pageContentH, CONTENT_W, heightMM);
+            // Clip by simply moving to next page
+          }
+          currentY = MARGIN + (heightMM % (A4_H - MARGIN * 2));
+          if (currentY < MARGIN + 5) currentY = MARGIN;
+        } else {
+          const imgData = canvas.toDataURL("image/png");
+          pdf.addImage(imgData, "PNG", MARGIN, currentY, CONTENT_W, heightMM);
+          currentY += heightMM + GAP;
+        }
       }
 
       pdf.save("WEBHEADS_서비스소개서.pdf");
@@ -365,7 +431,7 @@ export default function OverviewPage() {
       />
 
       {/* ── HERO ── */}
-      <section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(210,40%,96%) 0%, hsl(220,30%,92%) 40%, hsl(210,35%,88%) 100%)" }}>
+      <section data-pdf-section className="relative pt-36 pb-24 overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(210,40%,96%) 0%, hsl(220,30%,92%) 40%, hsl(210,35%,88%) 100%)" }}>
         <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 30%, hsl(210,60%,92%,0.6), transparent)" }} />
         <div className="container mx-auto px-6 max-w-4xl relative z-10 text-center">
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-[0.15em] mb-6" style={{ background: "hsl(220,50%,30%,0.08)", color: "hsl(220,50%,35%)", border: "1px solid hsl(220,40%,50%,0.15)" }}>
@@ -389,7 +455,7 @@ export default function OverviewPage() {
       </section>
 
       {/* ── Company Stats ── */}
-      <section className="py-10" style={{ background: "linear-gradient(180deg, hsl(250,35%,94%) 0%, hsl(252,30%,97%) 100%)" }}>
+      <section data-pdf-section className="py-10" style={{ background: "linear-gradient(180deg, hsl(250,35%,94%) 0%, hsl(252,30%,97%) 100%)" }}>
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {ovStats.map((s, i) => {
@@ -407,7 +473,7 @@ export default function OverviewPage() {
       </section>
 
       {/* ── Company Intro + Strengths ── */}
-      <section className="py-16">
+      <section data-pdf-section className="py-16">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-12">
             <p className="text-sm font-bold tracking-[0.2em] uppercase mb-3" style={{ color: "hsl(255,75%,58%)" }}>ABOUT WEBHEADS</p>
@@ -444,7 +510,7 @@ export default function OverviewPage() {
 
       {/* ── Why Webheads ── */}
       <LazySection fallbackHeight="400px">
-        <section className="relative py-20 overflow-hidden">
+        <section data-pdf-section className="relative py-20 overflow-hidden">
           <HeroPatternBg theme="blue-purple" />
           <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight text-white mb-5">{t("overview.whyTitle")}</h2>
@@ -462,7 +528,7 @@ export default function OverviewPage() {
       </LazySection>
 
       {/* ── CTA — Contact ── */}
-      <section id="contact" className="py-16">
+      <section data-pdf-section id="contact" className="py-16">
         <div className="container mx-auto px-6 max-w-2xl text-center">
           <h2 className="text-2xl lg:text-3xl leading-tight tracking-tight mb-4" style={{ fontWeight: 900, color: "hsl(255,75%,58%)" }}>
             {t("overview.cta.title")}
