@@ -179,11 +179,11 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
 
             {/* Inquiry type tabs */}
             {showDemo && (
-              <div className="flex rounded-lg p-1 gap-1 bg-muted">
+              <div className="grid grid-cols-2 rounded-lg p-1 gap-1 bg-muted">
                 <button
                   type="button"
                   onClick={() => setInquiryType("consultation")}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
+                  className={`flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
                     inquiryType === "consultation"
                       ? "bg-background text-primary shadow-sm"
                       : "text-muted-foreground"
@@ -195,7 +195,7 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
                 <button
                   type="button"
                   onClick={() => setInquiryType("demo")}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
+                  className={`flex items-center justify-center gap-1.5 py-3 rounded-md text-sm font-bold transition-all duration-200 ${
                     inquiryType === "demo"
                       ? "bg-background text-primary shadow-sm"
                       : "text-muted-foreground"
