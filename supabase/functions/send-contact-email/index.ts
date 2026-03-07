@@ -180,7 +180,8 @@ serve(async (req) => {
           const bodyText = replaceVars(template.body);
           customerBodyHtml = `
             <div style="font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; max-width: 560px; margin: 0 auto; padding: 32px 24px; background: #ffffff;">
-              <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px;">
+              <div style="background: linear-gradient(135deg, #2563eb, #1d4ed8); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; text-align: center;">
+                <img src="${LOGO_URL}" alt="WEBHEADS" style="height: 36px; margin-bottom: 12px;" />
                 <h1 style="color: #ffffff; font-size: 18px; margin: 0;">WEBHEADS</h1>
               </div>
               <div style="font-size: 14px; line-height: 1.8; color: #333; white-space: pre-wrap;">${bodyText}</div>
