@@ -37,7 +37,6 @@ export default function RichTextEditor({ value, onChange, placeholder, className
   const isDragging = useRef(false);
   const dragStartY = useRef(0);
   const dragStartHeight = useRef(0);
-  const initialized = useRef(false);
 
   // Set initial value once
   useEffect(() => {
