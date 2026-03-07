@@ -38,14 +38,17 @@ export default function AdminDashboard() {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { navigate("/admin/login", { replace: true }); return; }
-      // Check role - prefer super_admin
-      const { data: roles } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id);
-      if (!roles || roles.length === 0) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
-      const hasAdmin = roles.some((r: any) => r.role === "admin" || r.role === "super_admin");
-      if (!hasAdmin) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
-      const isSuperAdmin = roles.some((r: any) => r.role === "super_admin");
-      setUserRole(isSuperAdmin ? "super_admin" : "admin");
-      setUserId(session.user.id);
+      // Check role using SECURITY DEFINER function to bypass RLS
+      const uid = session.user.id;
+      const [superRes, adminRes] = await Promise.all([
+        supabase.rpc("has_role", { _user_id: uid, _role: "super_admin" }),
+        supabase.rpc("has_role", { _user_id: uid, _role: "admin" }),
+      ]);
+      const isSuperAdminRole = superRes.data === true;
+      const isAdminRole = adminRes.data === true;
+      if (!isSuperAdminRole && !isAdminRole) { await supabase.auth.signOut(); navigate("/admin/login", { replace: true }); return; }
+      setUserRole(isSuperAdminRole ? "super_admin" : "admin");
+      setUserId(uid);
       setLoading(false);
     };
     checkAuth();
