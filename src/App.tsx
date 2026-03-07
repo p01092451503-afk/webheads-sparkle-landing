@@ -25,7 +25,7 @@ import SmsKakaoPage from "./pages/SmsKakaoPage";
 
 import BlogPage from "./pages/BlogPage";
 import EventPage from "./pages/EventPage";
-const OverviewPage = lazy(() => import("./pages/OverviewPage"));
+import OverviewPage from "./pages/OverviewPage";
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
