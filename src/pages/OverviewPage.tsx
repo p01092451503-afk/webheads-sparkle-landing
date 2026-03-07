@@ -507,7 +507,7 @@ export default function OverviewPage() {
       </LazySection>
 
       {/* ── CTA — Contact ── */}
-      <section id="contact" className="py-16">
+      <section data-pdf-section id="contact" className="py-16">
         <div className="container mx-auto px-6 max-w-2xl text-center">
           <h2 className="text-2xl lg:text-3xl leading-tight tracking-tight mb-4" style={{ fontWeight: 900, color: "hsl(255,75%,58%)" }}>
             {t("overview.cta.title")}
