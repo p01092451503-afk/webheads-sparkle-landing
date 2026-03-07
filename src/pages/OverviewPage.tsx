@@ -50,7 +50,7 @@ function SectionHead({ sub, title, desc, light = false }: { sub: string; title: 
    ══════════════════════════════════════════ */
 function LmsDetailSection() {
   const { t } = useTranslation();
-  const lmsStats = t("lms.stats", { returnObjects: true }) as { value: string; label: string; sub: string }[];
+  
   const lmsPlans = t("lms.plans", { returnObjects: true }) as any[];
   const compHeaders = t("lms.comparisonTable.headers", { returnObjects: true }) as string[];
   const compRows = t("lms.comparisonTable.rows", { returnObjects: true }) as string[][];
@@ -65,16 +65,6 @@ function LmsDetailSection() {
       <div className="container mx-auto px-6 max-w-5xl">
         <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light(임대형)와 웹헤즈 PRO(구축형) — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
-        {/* LMS Stats */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {lmsStats.map((s, i) => (
-            <div key={i} className="rounded-xl p-5 text-center border border-border w-[calc(50%-6px)] md:w-[220px]" style={{ background: "hsl(250,30%,96%)" }}>
-              <p className="text-2xl font-black text-foreground">{s.value}</p>
-              <p className="text-sm text-muted-foreground font-medium mt-1">{s.label}</p>
-              <p className="text-xs text-muted-foreground/60 mt-0.5">{s.sub}</p>
-            </div>
-          ))}
-        </div>
 
         {/* Light vs PRO Features */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
