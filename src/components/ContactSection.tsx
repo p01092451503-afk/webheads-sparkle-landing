@@ -198,6 +198,12 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
               </div>
             )}
 
+            {/* Response badge */}
+            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm text-foreground tracking-tight border border-border">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              {t("contact.responseBadge")}
+            </span>
+
             {/* Row 1: Company (optional) + Name */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <FormField label={t("contact.formCompany")}>
