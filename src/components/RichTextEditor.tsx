@@ -162,14 +162,6 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           style={{ wordBreak: "keep-all", minHeight: "inherit" }}
         />
       </div>
-      {/* Custom resize handle */}
-      <div className="flex justify-end px-1 pb-1">
-        <div className="w-5 h-5 flex items-center justify-center cursor-ns-resize text-muted-foreground/60 hover:text-muted-foreground transition-colors" title="드래그하여 크기 조절">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2 4h8M2 8h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-        </div>
-      </div>
     </div>
   );
 }
