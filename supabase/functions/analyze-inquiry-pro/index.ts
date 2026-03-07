@@ -239,7 +239,7 @@ serve(async (req) => {
     "reference_value": number (0~20, 레퍼런스/포트폴리오 가치),
     "urgency_score": number (0~20, 도입 시급성),
     "total": number (위 5개 항목의 합산, 0~100),
-    "priority": "HIGH(70~100) | MEDIUM(40~69) | LOW(0~39)"
+    "priority": "HIGH | MEDIUM | LOW"
   },
   "recommended_plan": "Starter | Basic | Plus | Premium",
   "response_email_draft": "string (아래 이메일 작성 가이드라인을 엄격히 준수한 한국어 비즈니스 이메일)",
