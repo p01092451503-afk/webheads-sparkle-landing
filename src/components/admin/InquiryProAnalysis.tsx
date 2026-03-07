@@ -334,6 +334,12 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
     recalculatedTotal >= 70 ? "HIGH" : recalculatedTotal >= 40 ? "MEDIUM" : "LOW";
   const pc = priorityColor[recalculatedPriority];
 
+  const bucketConfig = {
+    available: { label: "기본 제공", color: "hsl(152, 57%, 42%)", bg: "hsl(152, 57%, 42%, 0.08)" },
+    custom: { label: "커스터마이징", color: "hsl(37, 90%, 51%)", bg: "hsl(37, 90%, 51%, 0.08)" },
+    limited: { label: "제한/불가", color: "hsl(0, 84%, 60%)", bg: "hsl(0, 84%, 60%, 0.08)" },
+  };
+
   const severityConfig = {
     high: { color: "hsl(0, 84%, 60%)", bg: "hsl(0, 84%, 60%, 0.08)", label: "높음" },
     medium: { color: "hsl(37, 90%, 51%)", bg: "hsl(37, 90%, 51%, 0.08)", label: "보통" },
