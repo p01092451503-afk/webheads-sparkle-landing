@@ -81,6 +81,7 @@ export default function AdminDashboard() {
         }
 
         if (!isMounted) return;
+        authCheckedRef.current = true;
         setUserRole(isSuperAdminRole ? "super_admin" : "admin");
         setUserId(uid);
       } catch {
