@@ -8,6 +8,7 @@ import autoTable from "jspdf-autotable";
 interface Props {
   inquiry: any;
   onAnalysisSaved?: (analysis: string) => void;
+  isSuperAdmin?: boolean;
 }
 
 interface AnalysisV2 {
