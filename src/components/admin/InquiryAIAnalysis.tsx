@@ -1,17 +1,19 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, ChevronDown, ChevronUp, Sparkles, Download, Plus, Minus } from "lucide-react";
+import { Loader2, ChevronDown, ChevronUp, Sparkles, Download, Plus, Minus, RefreshCw } from "lucide-react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 interface Props {
   inquiry: any;
   onAnalysisSaved?: (analysis: string) => void;
+  isSuperAdmin?: boolean;
+  onReanalyze?: () => void;
 }
 
 type AnalysisState = "idle" | "analyzing" | "done" | "error";
 
-export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
+export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved, isSuperAdmin, onReanalyze }: Props) {
   const [state, setState] = useState<AnalysisState>(inquiry.ai_analysis ? "done" : "idle");
   const [result, setResult] = useState<string>(inquiry.ai_analysis || "");
   const [error, setError] = useState<string>("");
@@ -24,6 +26,45 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
       setState("done");
     }
   }, [inquiry.ai_analysis]);
+
+  const reanalyze = async () => {
+    // Reset all downstream: pro analysis + proposal
+    setState("analyzing");
+    setError("");
+    try {
+      // Clear ai_analysis on inquiry
+      await supabase
+        .from("contact_inquiries")
+        .update({ ai_analysis: null, proposal_data: null } as any)
+        .eq("id", inquiry.id);
+
+      // Delete pro analysis row
+      await supabase
+        .from("inquiry_analyses" as any)
+        .delete()
+        .eq("inquiry_id", inquiry.id);
+
+      // Run fresh analysis
+      const { data, error: fnError } = await supabase.functions.invoke("analyze-inquiry", {
+        body: { inquiry: { ...inquiry, ai_analysis: null } },
+      });
+      if (fnError) throw new Error(fnError.message);
+      if (data?.error) throw new Error(data.error);
+      const analysis = data.analysis;
+      setResult(analysis);
+      setState("done");
+
+      await supabase
+        .from("contact_inquiries")
+        .update({ ai_analysis: analysis } as any)
+        .eq("id", inquiry.id);
+      onAnalysisSaved?.(analysis);
+      onReanalyze?.();
+    } catch (e: any) {
+      setError(e.message || "재분석 중 오류가 발생했습니다.");
+      setState("error");
+    }
+  };
 
   const analyze = async () => {
     setState("analyzing");
@@ -219,6 +260,14 @@ export default function InquiryAIAnalysis({ inquiry, onAnalysisSaved }: Props) {
         >
           <Download className="w-3 h-3" /> PDF
         </button>
+        {isSuperAdmin && (
+          <button
+            onClick={reanalyze}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-semibold text-[hsl(0,84%,55%)] bg-[hsl(0,84%,55%,0.08)] hover:bg-[hsl(0,84%,55%,0.14)] transition-colors active:scale-[0.97]"
+          >
+            <RefreshCw className="w-3 h-3" /> 전체 재분석
+          </button>
+        )}
       </div>
 
       {expanded && (

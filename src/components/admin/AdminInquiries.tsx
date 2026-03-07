@@ -422,7 +422,19 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
 
                     {/* AI Analysis */}
-                    <InquiryAIAnalysis inquiry={selectedInquiry} />
+                    <InquiryAIAnalysis
+                      inquiry={selectedInquiry}
+                      isSuperAdmin={isSuperAdmin}
+                      onReanalyze={() => {
+                        // Force re-mount of pro analysis and proposal by updating selectedInquiry
+                        setSelectedInquiry((prev: any) => prev ? { ...prev, ai_analysis: null, proposal_data: null } : null);
+                        setProposalFrozen(false);
+                      }}
+                      onAnalysisSaved={(analysis) => {
+                        setSelectedInquiry((prev: any) => prev ? { ...prev, ai_analysis: analysis } : null);
+                        setInquiries((prev: any[]) => prev.map((i) => i.id === selectedInquiry.id ? { ...i, ai_analysis: analysis } : i));
+                      }}
+                    />
 
                     {/* AI Pro Analysis */}
                     <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} />

@@ -68,6 +68,59 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_call_logs: {
+        Row: {
+          completion_tokens: number | null
+          created_at: string | null
+          duration_ms: number | null
+          error_code: string | null
+          error_message: string | null
+          function_name: string
+          id: string
+          inquiry_id: string | null
+          model_used: string | null
+          prompt_tokens: number | null
+          status: string
+          total_tokens: number | null
+        }
+        Insert: {
+          completion_tokens?: number | null
+          created_at?: string | null
+          duration_ms?: number | null
+          error_code?: string | null
+          error_message?: string | null
+          function_name: string
+          id?: string
+          inquiry_id?: string | null
+          model_used?: string | null
+          prompt_tokens?: number | null
+          status?: string
+          total_tokens?: number | null
+        }
+        Update: {
+          completion_tokens?: number | null
+          created_at?: string | null
+          duration_ms?: number | null
+          error_code?: string | null
+          error_message?: string | null
+          function_name?: string
+          id?: string
+          inquiry_id?: string | null
+          model_used?: string | null
+          prompt_tokens?: number | null
+          status?: string
+          total_tokens?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_call_logs_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
+            referencedRelation: "contact_inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       click_events: {
         Row: {
           browser: string | null
@@ -116,6 +169,7 @@ export type Database = {
       contact_inquiries: {
         Row: {
           ai_analysis: string | null
+          ai_analysis_v2: Json | null
           company: string
           created_at: string
           email: string | null
@@ -135,6 +189,7 @@ export type Database = {
         }
         Insert: {
           ai_analysis?: string | null
+          ai_analysis_v2?: Json | null
           company: string
           created_at?: string
           email?: string | null
@@ -154,6 +209,7 @@ export type Database = {
         }
         Update: {
           ai_analysis?: string | null
+          ai_analysis_v2?: Json | null
           company?: string
           created_at?: string
           email?: string | null
