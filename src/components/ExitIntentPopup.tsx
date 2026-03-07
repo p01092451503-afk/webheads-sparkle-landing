@@ -59,15 +59,19 @@ export default function ExitIntentPopup() {
 
     setSubmitting(true);
     try {
-      await supabase.from("contact_inquiries").insert({
-        name: "Exit Popup Lead",
-        company: "-",
-        phone: "-",
-        email: trimmed,
-        inquiry_type: "exit_lead",
-        message: "Exit intent popup lead capture",
-        marketing_agreed: false,
+      const { error: fnError } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: "Exit Popup Lead",
+          company: "-",
+          phone: "-",
+          email: trimmed,
+          service: "",
+          message: "Exit intent popup lead capture",
+          inquiryType: "consultation",
+          marketingAgreed: false,
+        },
       });
+      if (fnError) throw fnError;
       setDone(true);
       try { sessionStorage.setItem(SUBMITTED_KEY, "1"); } catch {}
     } catch {
