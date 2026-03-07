@@ -23,7 +23,7 @@ interface Props {
   onFreeze?: () => void;
 }
 
-export default function InquiryProposal({ inquiry }: Props) {
+export default function InquiryProposal({ inquiry, onFreeze }: Props) {
   const [state, setState] = useState<ProposalState>("idle");
   const [proposal, setProposal] = useState<Proposal | null>(null);
   const [error, setError] = useState("");
