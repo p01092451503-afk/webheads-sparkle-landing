@@ -1,8 +1,8 @@
 import { useState, useCallback, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
+import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
 
 interface ProposalSection {
   heading: string;
