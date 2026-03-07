@@ -4,6 +4,7 @@ import { useRef } from "react";
 import SEO from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import LazySection from "@/components/shared/LazySection";
+import ContactSection from "@/components/ContactSection";
 import {
   Server, Wrench, Bot, Smartphone, ShieldCheck,
   MessageSquare, CreditCard, Film, ArrowRight, Phone, CheckCircle2,
