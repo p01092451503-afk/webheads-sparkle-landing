@@ -489,6 +489,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
       </div>
 
 
+      {isSuperAdmin && (
         <>
           <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
             <div className="flex items-center justify-between mb-6">
