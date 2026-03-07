@@ -65,13 +65,13 @@ function LmsDetailSection() {
   const proFeats = (t("lms.proFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
 
   return (
-    <section id="lms" className="py-16" data-pdf-section>
+    <>
+    {/* LMS Header + Light vs PRO */}
+    <section id="lms" className="pt-16 pb-4" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
         <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light(임대형)와 웹헤즈 PRO(구축형) — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
-
-        {/* Light vs PRO Features */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {[
             { name: "light", icon: Zap, color: "hsl(255,75%,58%)", feats: lightFeats },
             { name: "pro", icon: ShieldCheck, color: "hsl(220,90%,56%)", feats: proFeats },
@@ -98,9 +98,13 @@ function LmsDetailSection() {
             </div>
           ))}
         </div>
+      </div>
+    </section>
 
-        {/* LMS Comparison Table */}
-        <div className="rounded-2xl border border-border bg-white overflow-hidden mb-10">
+    {/* LMS Comparison Table */}
+    <section className="py-4" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <div className="rounded-2xl border border-border bg-white overflow-hidden">
           <div className="p-6 border-b border-border">
             <h3 className="font-bold text-base text-foreground">{t("lms.comparisonTable.title")}</h3>
           </div>
@@ -127,24 +131,30 @@ function LmsDetailSection() {
             </table>
           </div>
         </div>
+      </div>
+    </section>
 
-        {/* AI Features */}
-        <div className="mb-10">
-          <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
-            <Bot className="w-5 h-5" style={{ color: "hsl(255,75%,58%)" }} />
-            {t("lms.aiSection.title").replace(/\n/g, " ")}
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {aiFeatures.map((f, i) => (
-              <div key={i} className="rounded-xl p-5 bg-white border border-border">
-                <h4 className="font-bold text-sm text-foreground mb-1.5">{f.title}</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
+    {/* AI Features */}
+    <section className="py-4" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
+          <Bot className="w-5 h-5" style={{ color: "hsl(255,75%,58%)" }} />
+          {t("lms.aiSection.title").replace(/\n/g, " ")}
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {aiFeatures.map((f, i) => (
+            <div key={i} className="rounded-xl p-5 bg-white border border-border">
+              <h4 className="font-bold text-sm text-foreground mb-1.5">{f.title}</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+            </div>
+          ))}
         </div>
+      </div>
+    </section>
 
-        {/* LMS Pricing */}
+    {/* LMS Pricing */}
+    <section className="py-4" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
         <div className="rounded-2xl overflow-hidden" style={{ background: "linear-gradient(180deg, hsl(220,45%,88%) 0%, hsl(222,40%,84%) 100%)" }}>
           <div className="p-7">
             <h3 className="font-bold text-base text-foreground mb-1">{t("lms.plansSection.title").replace(/\n/g, " ")}</h3>
@@ -174,9 +184,13 @@ function LmsDetailSection() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        {/* Competitor Comparison */}
-        <div className="rounded-2xl border border-border bg-white overflow-hidden mt-8">
+    {/* Competitor Comparison */}
+    <section className="pt-4 pb-16" data-pdf-section>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <div className="rounded-2xl border border-border bg-white overflow-hidden">
           <div className="p-6 border-b border-border">
             <h3 className="font-bold text-base text-foreground">{t("lms.competitorTable.title").replace(/\n/g, " ")}</h3>
             <p className="text-sm text-muted-foreground mt-1">{t("lms.competitorTable.desc")}</p>
@@ -210,6 +224,7 @@ function LmsDetailSection() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
