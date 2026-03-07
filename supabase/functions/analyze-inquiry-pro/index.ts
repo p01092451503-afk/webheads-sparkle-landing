@@ -284,49 +284,37 @@ ${typeof ai_basic_analysis === 'string' ? ai_basic_analysis.slice(0, 4000) : JSO
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort("AI request timeout"), AI_TIMEOUT_MS);
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        temperature: 0.2,
-        max_tokens: 2500,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userMessage },
-        ],
-      }),
-      signal: controller.signal,
-    });
+    let data: any;
+    try {
+      const result = await callAIWithFallback(
+        LOVABLE_API_KEY,
+        {
+          temperature: 0.2,
+          max_tokens: 2500,
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userMessage },
+          ],
+        },
+        inquiryId ?? undefined,
+        controller.signal,
+      );
+      data = result.data;
+    } catch (e: any) {
+      clearTimeout(timeoutId);
+      if (e?.status) {
+        if (inquiryId && e.status >= 500) {
+          await upsertAnalysisRow({ inquiry_id: inquiryId, analysis_status: "failed", error_message: e.message });
+        }
+        return new Response(JSON.stringify({ error: e.message }), {
+          status: e.status, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      throw e;
+    }
 
     clearTimeout(timeoutId);
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again later." }), {
-          status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "AI credits exhausted." }), {
-          status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
-      const errorMessage = `AI analysis failed (${response.status})`;
-      if (inquiryId) {
-        await upsertAnalysisRow({ inquiry_id: inquiryId, analysis_status: "failed", error_message: errorMessage });
-      }
-      return new Response(JSON.stringify({ error: errorMessage }), {
-        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const data = await response.json();
     const rawContent = data.choices?.[0]?.message?.content || "";
 
     // Clean JSON: strip code fences, trim
