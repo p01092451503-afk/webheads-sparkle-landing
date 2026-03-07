@@ -437,7 +437,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     />
 
                     {/* AI Pro Analysis */}
-                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} />
+                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} isSuperAdmin={isSuperAdmin} />
 
                     {/* Proposal */}
                     <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
