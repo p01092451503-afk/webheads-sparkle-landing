@@ -119,7 +119,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
       const { data, error: fnError } = await supabase.functions.invoke("generate-proposal", {
         body: {
           inquiry,
-          ai_basic_analysis: inquiry.ai_analysis || null,
+          ai_basic_analysis: inquiry.ai_analysis_v2 || inquiry.ai_analysis || null,
           pro_analysis: proAnalysis,
           company_info: companyInfo,
         },

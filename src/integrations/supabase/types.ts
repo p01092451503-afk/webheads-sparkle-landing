@@ -169,6 +169,7 @@ export type Database = {
       contact_inquiries: {
         Row: {
           ai_analysis: string | null
+          ai_analysis_v2: Json | null
           company: string
           created_at: string
           email: string | null
@@ -188,6 +189,7 @@ export type Database = {
         }
         Insert: {
           ai_analysis?: string | null
+          ai_analysis_v2?: Json | null
           company: string
           created_at?: string
           email?: string | null
@@ -207,6 +209,7 @@ export type Database = {
         }
         Update: {
           ai_analysis?: string | null
+          ai_analysis_v2?: Json | null
           company?: string
           created_at?: string
           email?: string | null
