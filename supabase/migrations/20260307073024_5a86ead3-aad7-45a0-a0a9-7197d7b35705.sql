@@ -1,0 +1,1 @@
+ALTER TABLE public.contact_inquiries ADD COLUMN marketing_agreed boolean NOT NULL DEFAULT false;

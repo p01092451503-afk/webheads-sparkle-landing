@@ -121,6 +121,7 @@ export type Database = {
           email: string | null
           id: string
           inquiry_type: string
+          marketing_agreed: boolean
           meeting_notes: string | null
           message: string | null
           name: string
@@ -138,6 +139,7 @@ export type Database = {
           email?: string | null
           id?: string
           inquiry_type?: string
+          marketing_agreed?: boolean
           meeting_notes?: string | null
           message?: string | null
           name: string
@@ -155,6 +157,7 @@ export type Database = {
           email?: string | null
           id?: string
           inquiry_type?: string
+          marketing_agreed?: boolean
           meeting_notes?: string | null
           message?: string | null
           name?: string
