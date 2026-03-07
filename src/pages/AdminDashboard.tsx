@@ -61,8 +61,15 @@ export default function AdminDashboard() {
       supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500),
       supabase.from("service_requests").select("*").order("created_at", { ascending: false }).limit(500),
       supabase.from("page_views").select("*").gte("created_at", since7d.toISOString()).order("created_at", { ascending: false }).limit(1000),
-    ]).then(([inqRes, srRes, pvRes]) => {
-      setInquiries(inqRes.data || []);
+      supabase.from("inquiry_analyses").select("inquiry_id, analysis_status, is_frozen").limit(500),
+    ]).then(([inqRes, srRes, pvRes, analysesRes]) => {
+      const analyses = analysesRes.data || [];
+      const analysisMap = new Map(analyses.map((a: any) => [a.inquiry_id, a]));
+      const enriched = (inqRes.data || []).map((inq: any) => {
+        const a = analysisMap.get(inq.id);
+        return { ...inq, _pro_status: a?.analysis_status || null, _is_frozen: a?.is_frozen || false };
+      });
+      setInquiries(enriched);
       setServiceRequests(srRes.data || []);
       setPageViews(pvRes.data || []);
     });
@@ -119,8 +126,16 @@ export default function AdminDashboard() {
   }, []);
 
   const fetchInquiries = useCallback(async () => {
-    const { data } = await supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500);
-    setInquiries(data || []);
+    const [{ data: inqData }, { data: analysesData }] = await Promise.all([
+      supabase.from("contact_inquiries").select("*").order("created_at", { ascending: false }).limit(500),
+      supabase.from("inquiry_analyses").select("inquiry_id, analysis_status, is_frozen").limit(500),
+    ]);
+    const analysisMap = new Map((analysesData || []).map((a: any) => [a.inquiry_id, a]));
+    const enriched = (inqData || []).map((inq: any) => {
+      const a = analysisMap.get(inq.id);
+      return { ...inq, _pro_status: a?.analysis_status || null, _is_frozen: a?.is_frozen || false };
+    });
+    setInquiries(enriched);
   }, []);
 
   const fetchServiceRequests = useCallback(async () => {
