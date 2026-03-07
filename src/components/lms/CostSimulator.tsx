@@ -93,7 +93,7 @@ export default function CostSimulator() {
             COST SIMULATOR
           </p>
           <h2 className="font-bold text-foreground leading-tight text-2xl md:text-4xl lg:text-5xl tracking-tight">
-            우리 회사 규모에 얼마?
+            우리 회사 규모에 적당한 요금제는?
           </h2>
           <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base max-w-xl mx-auto">
             월 수강생 수와 영상 콘텐츠 규모를 입력하면, 예상 비용과 최적 플랜을 즉시 확인할 수 있어요.
