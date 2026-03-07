@@ -239,10 +239,6 @@ export default function InquiryProposal({ inquiry }: Props) {
 
       {expanded && (
         <div data-proposal-content className="bg-white rounded-xl border border-[hsl(220,13%,93%)] p-5 sm:p-6" style={{ fontSize: `${fontSize}px` }}>
-          {/* Logo */}
-          <div className="flex justify-end mb-6">
-            <img src={webheadsLogo} alt="WEBHEADS" className="h-8 object-contain mix-blend-multiply" />
-          </div>
 
           {/* Title */}
           <h2 className="text-[1.2em] font-bold text-foreground tracking-[-0.02em] mb-2">{proposal.title}</h2>
