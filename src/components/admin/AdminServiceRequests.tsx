@@ -204,7 +204,8 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
                         <button
                           key={s}
                           onClick={() => updateStatus(r.id, s)}
-                          className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all ${
+                          disabled={!isSuperAdmin}
+                          className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all disabled:cursor-not-allowed disabled:opacity-60 ${
                             status === s
                               ? "bg-primary text-primary-foreground"
                               : "bg-muted text-muted-foreground hover:text-foreground"
@@ -214,10 +215,11 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
                         </button>
                       ))}
                       <div className="flex-1" />
-                      <button
-                        onClick={() => deleteRequest(r.id)}
-                        className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
-                      >
+                      {isSuperAdmin && (
+                        <button
+                          onClick={() => deleteRequest(r.id)}
+                          className="p-2 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors"
+                        >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
