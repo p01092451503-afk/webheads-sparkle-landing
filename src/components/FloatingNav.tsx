@@ -26,10 +26,10 @@ export default function FloatingNav() {
       : []),
     
     ...(location.pathname !== "/overview"
-      ? [{ to: "/overview", icon: FileText, label: "서비스 소개서", className: "bg-primary text-primary-foreground" }]
+      ? [{ to: "/overview", icon: FileText, label: t("floatingNav.overview"), className: "bg-primary text-primary-foreground" }]
       : []),
     ...(location.pathname !== "/blog"
-      ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
+      ? [{ to: "/blog", icon: BookOpen, label: t("floatingNav.insights"), className: "bg-foreground text-background" }]
       : []),
   ];
 
