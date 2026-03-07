@@ -34,9 +34,9 @@ export default function AdminLogin() {
         .catch(() => undefined);
     };
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "TOKEN_REFRESHED" || event === "INITIAL_SESSION") return;
       handleSession(session as { user: { id: string } } | null);
-    });
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       handleSession(session as { user: { id: string } } | null);
