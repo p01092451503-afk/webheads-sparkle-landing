@@ -121,7 +121,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     const rows = filteredInquiries.map((inq) => [
       new Date(inq.created_at).toLocaleString("ko-KR"),
       statusConfig[inq.status as InquiryStatus]?.label || inq.status,
-      inq.inquiry_type === "demo" ? "데모" : "상담",
+      inq.inquiry_type === "demo" ? "데모" : inq.inquiry_type === "exit_lead" ? "Exit 리드" : "상담",
       inq.company, inq.name, inq.phone, inq.email || "", inq.service || "",
       (inq.message || "").replace(/\n/g, " "), (inq.notes || "").replace(/\n/g, " "),
     ]);
