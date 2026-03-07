@@ -185,6 +185,28 @@ function sendDuration(pagePath: string) {
 export default function PageTracker() {
   const location = useLocation();
   const lastPath = useRef<string>("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check if current user is an authenticated admin — skip all tracking if so
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+        setIsAdmin(!!data);
+      }
+    };
+    checkAdmin();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      if (session?.user) {
+        const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+        setIsAdmin(!!data);
+      } else {
+        setIsAdmin(false);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   // Global visibility listener (active dwell time)
   useEffect(() => {
