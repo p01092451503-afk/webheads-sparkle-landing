@@ -80,6 +80,7 @@ function buildInquiryPayload(inquiry: any) {
     updated_at: inquiry.updated_at,
     status: inquiry.status,
     session_id: inquiry.session_id,
+    ai_analysis: inquiry.ai_analysis,
   };
 }
 
