@@ -317,34 +317,79 @@ export default function OverviewPage() {
     setPdfLoading(true);
 
     try {
-      // Scroll all lazy sections into view first
-      const lazyEls = contentRef.current.querySelectorAll("[data-lazy]");
-      lazyEls.forEach((el) => el.scrollIntoView());
-      await new Promise((r) => setTimeout(r, 500));
+      // Force all lazy sections to render by scrolling through them
+      const pageEl = contentRef.current;
+      const totalH = pageEl.scrollHeight;
+      for (let y = 0; y < totalH; y += 300) {
+        window.scrollTo(0, y);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+      window.scrollTo(0, 0);
+      await new Promise((r) => setTimeout(r, 800));
 
-      const canvas = await html2canvas(contentRef.current, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: "#f5f4f9",
-        windowWidth: 1280,
-        scrollY: -window.scrollY,
-      });
+      // Collect all pdf sections
+      const sections = Array.from(
+        pageEl.querySelectorAll("[data-pdf-section]")
+      ) as HTMLElement[];
 
-      const imgData = canvas.toDataURL("image/jpeg", 0.92);
-      const imgW = canvas.width;
-      const imgH = canvas.height;
+      if (sections.length === 0) {
+        console.error("No PDF sections found");
+        setPdfLoading(false);
+        return;
+      }
 
-      const pdfW = 210; // A4 mm
-      const pdfH = (imgH * pdfW) / imgW;
-      const pageH = 297; // A4 height mm
-      const totalPages = Math.ceil(pdfH / pageH);
+      const A4_W = 210;
+      const A4_H = 297;
+      const MARGIN = 10;
+      const CONTENT_W = A4_W - MARGIN * 2;
+      const GAP = 3;
 
       const pdf = new jsPDF("p", "mm", "a4");
+      let currentY = MARGIN;
 
-      for (let page = 0; page < totalPages; page++) {
-        if (page > 0) pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, -(page * pageH), pdfW, pdfH);
+      for (const section of sections) {
+        const canvas = await html2canvas(section, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          windowWidth: 1280,
+        });
+
+        const scale = 2;
+        const widthPx = canvas.width / scale;
+        const heightPx = canvas.height / scale;
+        const scaleFactor = CONTENT_W / widthPx;
+        const heightMM = heightPx * scaleFactor;
+
+        // If section doesn't fit, add new page
+        const remaining = A4_H - MARGIN - currentY;
+        if (heightMM > remaining && currentY > MARGIN) {
+          pdf.addPage();
+          currentY = MARGIN;
+        }
+
+        // If a single section is taller than one page, split it across pages
+        if (heightMM > A4_H - MARGIN * 2) {
+          const imgData = canvas.toDataURL("image/png");
+          const pageContentH = A4_H - MARGIN * 2;
+          const totalPages = Math.ceil(heightMM / pageContentH);
+
+          for (let p = 0; p < totalPages; p++) {
+            if (p > 0 || currentY > MARGIN) {
+              if (p > 0) pdf.addPage();
+              currentY = MARGIN;
+            }
+            pdf.addImage(imgData, "PNG", MARGIN, currentY - p * pageContentH, CONTENT_W, heightMM);
+            // Clip by simply moving to next page
+          }
+          currentY = MARGIN + (heightMM % (A4_H - MARGIN * 2));
+          if (currentY < MARGIN + 5) currentY = MARGIN;
+        } else {
+          const imgData = canvas.toDataURL("image/png");
+          pdf.addImage(imgData, "PNG", MARGIN, currentY, CONTENT_W, heightMM);
+          currentY += heightMM + GAP;
+        }
       }
 
       pdf.save("WEBHEADS_서비스소개서.pdf");
