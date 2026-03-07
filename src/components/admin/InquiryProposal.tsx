@@ -37,27 +37,30 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     phone: "02-540-4337", website: "www.webheads.co.kr",
   });
 
-  // Load company info + check frozen state + load saved proposal
+  // Load company info + frozen/proposal state for current inquiry
   useEffect(() => {
+    setState("idle");
+    setProposal(null);
+    setError("");
+    setFrozen(false);
+    attemptedRestoreRef.current = false;
+
     supabase.from("admin_settings").select("value").eq("key", "company_info").maybeSingle()
       .then(({ data }) => { if (data?.value) setCompanyInfo(data.value as any); });
 
-    // Check if inquiry_analyses is_frozen
-    supabase.from("inquiry_analyses").select("is_frozen").eq("inquiry_id", inquiry.id).maybeSingle()
-      .then(({ data }) => {
-        if (data?.is_frozen) {
-          setFrozen(true);
-        }
-      });
+    Promise.all([
+      supabase.from("inquiry_analyses").select("is_frozen").eq("inquiry_id", inquiry.id).maybeSingle(),
+      supabase.from("contact_inquiries").select("proposal_data").eq("id", inquiry.id).maybeSingle(),
+    ]).then(([frozenResult, proposalResult]) => {
+      const isFrozen = !!frozenResult.data?.is_frozen;
+      const savedProposal = proposalResult.data?.proposal_data as Proposal | null;
 
-    // Load saved proposal data
-    supabase.from("contact_inquiries").select("proposal_data").eq("id", inquiry.id).maybeSingle()
-      .then(({ data }) => {
-        if (data?.proposal_data) {
-          setProposal(data.proposal_data as any);
-          setState("done");
-        }
-      });
+      setFrozen(isFrozen);
+      if (savedProposal) {
+        setProposal(savedProposal);
+        setState("done");
+      }
+    });
   }, [inquiry.id]);
 
   const generate = useCallback(async () => {
