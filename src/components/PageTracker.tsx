@@ -4,14 +4,33 @@ import { supabase } from "@/integrations/supabase/client";
 
 const SCROLL_DEPTH_KEY = "_scroll_depth";
 const FIRST_VISIT_KEY = "_wh_visited";
+const SESSION_LAST_ACTIVE_KEY = "_wh_last_active";
+const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 minutes
 
 function getSessionId() {
+  const now = Date.now();
+  const lastActive = parseInt(sessionStorage.getItem(SESSION_LAST_ACTIVE_KEY) || "0", 10);
   let id = sessionStorage.getItem("_sid");
+
+  // If session exists but inactive for 30+ minutes, create new session
+  if (id && lastActive > 0 && (now - lastActive) > SESSION_TIMEOUT_MS) {
+    id = crypto.randomUUID();
+    sessionStorage.setItem("_sid", id);
+  }
+
   if (!id) {
     id = crypto.randomUUID();
     sessionStorage.setItem("_sid", id);
   }
+
+  // Update last active timestamp
+  sessionStorage.setItem(SESSION_LAST_ACTIVE_KEY, String(now));
   return id;
+}
+
+/** Call periodically to keep session alive on user activity */
+function touchSession() {
+  sessionStorage.setItem(SESSION_LAST_ACTIVE_KEY, String(Date.now()));
 }
 
 function isFirstVisit(): boolean {
@@ -117,6 +136,14 @@ export default function PageTracker() {
   const location = useLocation();
   const lastPath = useRef<string>("");
   const pageStartTime = useRef<number>(Date.now());
+
+  // Keep session alive on user activity (mouse, keyboard, touch)
+  useEffect(() => {
+    const onActivity = () => touchSession();
+    const events = ["mousemove", "keydown", "touchstart", "click", "scroll"] as const;
+    events.forEach(e => window.addEventListener(e, onActivity, { passive: true }));
+    return () => { events.forEach(e => window.removeEventListener(e, onActivity)); };
+  }, []);
 
   // Track scroll depth
   useEffect(() => {
