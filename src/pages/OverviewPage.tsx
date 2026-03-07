@@ -281,7 +281,7 @@ function AddOnServicesSection() {
 
                 {plans && plans.length > 0 && (
                   <div className="mt-5 pt-4 border-t border-border">
-                    <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">요금제</p>
+                    <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">{t("overview.pricing")}</p>
                     <div className={`grid gap-2 ${plans.length === 4 ? "grid-cols-2 lg:grid-cols-4" : "grid-cols-1 sm:grid-cols-3"}`}>
                       {plans.map((plan: any, pi: number) => (
                         <div key={pi} className={`rounded-lg p-4 border ${plan.highlight ? "border-[hsl(255,75%,58%)] bg-[hsl(255,75%,58%,0.03)]" : "border-border bg-secondary/30"} relative`}>
