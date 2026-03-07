@@ -42,6 +42,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteError, setDeleteError] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [proposalFrozen, setProposalFrozen] = useState(false);
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
