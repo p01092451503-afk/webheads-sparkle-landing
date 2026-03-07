@@ -303,6 +303,8 @@ function AddOnServicesSection() {
    ══════════════════════════════════════════ */
 export default function OverviewPage() {
   const { t } = useTranslation();
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const ovStrengths = t("overview.strengths", { returnObjects: true }) as { title: string; desc: string }[];
   const ovStats = t("overview.stats", { returnObjects: true }) as { value: string; label: string }[];
@@ -310,8 +312,51 @@ export default function OverviewPage() {
 
   const statIcons = [Users, Clock, Award, Zap];
 
+  const handleDownloadPdf = useCallback(async () => {
+    if (!contentRef.current || pdfLoading) return;
+    setPdfLoading(true);
+
+    try {
+      // Scroll all lazy sections into view first
+      const lazyEls = contentRef.current.querySelectorAll("[data-lazy]");
+      lazyEls.forEach((el) => el.scrollIntoView());
+      await new Promise((r) => setTimeout(r, 500));
+
+      const canvas = await html2canvas(contentRef.current, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: "#f5f4f9",
+        windowWidth: 1280,
+        scrollY: -window.scrollY,
+      });
+
+      const imgData = canvas.toDataURL("image/jpeg", 0.92);
+      const imgW = canvas.width;
+      const imgH = canvas.height;
+
+      const pdfW = 210; // A4 mm
+      const pdfH = (imgH * pdfW) / imgW;
+      const pageH = 297; // A4 height mm
+      const totalPages = Math.ceil(pdfH / pageH);
+
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      for (let page = 0; page < totalPages; page++) {
+        if (page > 0) pdf.addPage();
+        pdf.addImage(imgData, "JPEG", 0, -(page * pageH), pdfW, pdfH);
+      }
+
+      pdf.save("WEBHEADS_서비스소개서.pdf");
+    } catch (err) {
+      console.error("PDF generation failed:", err);
+    } finally {
+      setPdfLoading(false);
+    }
+  }, [pdfLoading]);
+
   return (
-    <div className="min-h-screen" style={{ background: "hsl(252, 30%, 97%)" }} data-page="overview">
+    <div ref={contentRef} className="min-h-screen" style={{ background: "hsl(252, 30%, 97%)" }} data-page="overview">
       <SEO
         title={t("overview.seo.title")}
         description={t("overview.seo.description")}
