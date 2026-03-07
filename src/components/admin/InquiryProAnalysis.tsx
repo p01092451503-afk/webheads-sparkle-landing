@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 
 interface Props {
   inquiry: any;
+  proposalFrozen?: boolean;
 }
 
 interface ProAnalysis {
