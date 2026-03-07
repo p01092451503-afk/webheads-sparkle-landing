@@ -143,7 +143,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
       </div>
 
       {/* Editor */}
-      <div className="relative">
+      <div className="relative" style={{ resize: "vertical", overflow: "auto", minHeight: expanded ? 200 : 120 }}>
         {isEmpty && (
           <div className="absolute top-0 left-0 right-0 px-4 py-3.5 text-sm text-muted-foreground/40 pointer-events-none select-none">
             {placeholder}
@@ -156,8 +156,8 @@ export default function RichTextEditor({ value, onChange, placeholder, className
           onBlur={updateValue}
           onFocus={() => { setShowSizePicker(false); setShowColorPicker(false); }}
           dangerouslySetInnerHTML={value ? { __html: value } : undefined}
-          className={`px-4 py-3.5 text-sm outline-none text-foreground overflow-y-auto transition-all duration-200 ${expanded ? "min-h-[200px] max-h-[400px]" : "min-h-[120px] max-h-[200px]"}`}
-          style={{ wordBreak: "keep-all" }}
+          className="px-4 py-3.5 text-sm outline-none text-foreground h-full"
+          style={{ wordBreak: "keep-all", minHeight: "inherit" }}
         />
       </div>
     </div>
