@@ -128,12 +128,30 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     if (!contentEl) return;
 
     try {
+      // Temporarily boost font size and width for PDF readability
+      const originalFontSize = contentEl.style.fontSize;
+      const originalWidth = contentEl.style.width;
+      const originalMaxWidth = contentEl.style.maxWidth;
+      const originalPadding = contentEl.style.padding;
+
+      contentEl.style.fontSize = "18px";
+      contentEl.style.width = "1200px";
+      contentEl.style.maxWidth = "1200px";
+      contentEl.style.padding = "48px";
+
       const canvas = await html2canvas(contentEl, {
         scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: "#ffffff",
+        width: 1200,
       });
+
+      // Restore original styles
+      contentEl.style.fontSize = originalFontSize;
+      contentEl.style.width = originalWidth;
+      contentEl.style.maxWidth = originalMaxWidth;
+      contentEl.style.padding = originalPadding;
 
       const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
       const imgWidth = 190;
