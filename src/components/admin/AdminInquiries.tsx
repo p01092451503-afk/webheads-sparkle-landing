@@ -32,6 +32,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [searchQuery, setSearchQuery] = useState("");
   const [noteText, setNoteText] = useState("");
   const [savingNote, setSavingNote] = useState(false);
+  const [meetingNoteText, setMeetingNoteText] = useState("");
+  const [savingMeetingNote, setSavingMeetingNote] = useState(false);
+  const [editingMeetingNote, setEditingMeetingNote] = useState(false);
   const itemRefs = useRef<Record<string, HTMLDivElement>>({});
   const [deleteTarget, setDeleteTarget] = useState<any | null>(null);
   const [deletePassword, setDeletePassword] = useState("");
