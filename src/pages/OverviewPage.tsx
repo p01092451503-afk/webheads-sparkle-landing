@@ -465,6 +465,16 @@ export default function OverviewPage() {
     } catch (err) {
       console.error("PDF generation failed:", err);
     } finally {
+      // Restore header/footer/nav visibility
+      const header = document.querySelector("header");
+      const footer = document.querySelector("footer");
+      const floatingNav = document.querySelector("[data-floating-nav]");
+      if (header) (header as HTMLElement).style.display = "";
+      if (footer) (footer as HTMLElement).style.display = "";
+      if (floatingNav) (floatingNav as HTMLElement).style.display = "";
+      // Restore hero padding
+      const heroSection = contentRef.current?.querySelector("[data-pdf-section]") as HTMLElement | null;
+      if (heroSection) heroSection.style.paddingTop = "";
       setPdfLoading(false);
     }
   }, [pdfLoading]);
