@@ -321,6 +321,7 @@ export default function PageTracker() {
 
   // Send duration on tab close (once, no duplicate)
   useEffect(() => {
+    if (isAdmin) return;
     const handleUnload = () => {
       if (lastPath.current) {
         sendDuration(lastPath.current.split("#")[0]);
