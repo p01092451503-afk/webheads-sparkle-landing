@@ -245,6 +245,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       {inq.notes && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">📝 메모</span>
                       )}
+                      {inq.meeting_notes && (
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(262,60%,55%)] bg-[hsl(262,60%,55%,0.08)]">📋 미팅</span>
+                      )}
                     </div>
                     <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">
                       {inq.company}<span className="font-normal text-muted-foreground"> · {inq.name}</span>
