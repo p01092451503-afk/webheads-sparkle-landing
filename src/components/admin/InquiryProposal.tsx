@@ -189,6 +189,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
   }, [inquiry.id, onFreeze]);
 
   if (state === "idle" && !frozen) {
+    const hasAnalysis = !!inquiry.ai_analysis;
     return (
       <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
         <button
@@ -205,6 +206,10 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
         )}
       </div>
     );
+  }
+
+  if (state === "idle" && frozen) {
+    return null;
   }
 
   if (state === "loading") {
