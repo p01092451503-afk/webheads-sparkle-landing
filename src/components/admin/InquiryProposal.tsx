@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, FileText, Download, ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
 import html2canvas from "html2canvas";
