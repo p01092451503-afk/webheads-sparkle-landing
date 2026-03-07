@@ -216,7 +216,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
         {/* Left: Inquiry List */}
         <div
            className={`flex flex-col gap-2 shrink-0 transition-all duration-300 ${
-            selectedInquiry ? "w-full lg:w-[320px] xl:w-[340px]" : "w-full"
+            selectedInquiry ? "w-full lg:w-[240px] xl:w-[260px]" : "w-full"
           }`}
           style={{ maxHeight: selectedInquiry ? "calc(100vh - 220px)" : undefined, overflowY: selectedInquiry ? "auto" : undefined }}
         >
