@@ -137,6 +137,14 @@ export default function PageTracker() {
   const lastPath = useRef<string>("");
   const pageStartTime = useRef<number>(Date.now());
 
+  // Keep session alive on user activity (mouse, keyboard, touch)
+  useEffect(() => {
+    const onActivity = () => touchSession();
+    const events = ["mousemove", "keydown", "touchstart", "click", "scroll"] as const;
+    events.forEach(e => window.addEventListener(e, onActivity, { passive: true }));
+    return () => { events.forEach(e => window.removeEventListener(e, onActivity)); };
+  }, []);
+
   // Track scroll depth
   useEffect(() => {
     let maxScroll = 0;
@@ -154,6 +162,7 @@ export default function PageTracker() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, [location.pathname]);
   }, [location.pathname]);
 
   // Track CTA clicks

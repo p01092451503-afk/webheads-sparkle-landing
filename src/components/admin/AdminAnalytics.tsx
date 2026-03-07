@@ -40,6 +40,20 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   const totalViews = humanViews.length;
   const uniqueSessions = new Set(humanViews.map((v) => v.session_id)).size;
 
+  // Bounce rate: sessions with only 1 page view
+  const bounceRate = useMemo(() => {
+    const sessionPageCounts: Record<string, number> = {};
+    humanViews.forEach((v) => {
+      if (v.session_id) {
+        sessionPageCounts[v.session_id] = (sessionPageCounts[v.session_id] || 0) + 1;
+      }
+    });
+    const sessions = Object.values(sessionPageCounts);
+    if (sessions.length === 0) return 0;
+    const bounced = sessions.filter((c) => c === 1).length;
+    return Math.round((bounced / sessions.length) * 100);
+  }, [humanViews]);
+
   const visitorTypeCounts = useMemo(() => {
     // Display name maps for granular visitor_type from DB
     const aiNames: Record<string, string> = {
