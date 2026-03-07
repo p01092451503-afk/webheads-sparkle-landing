@@ -76,6 +76,17 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setSavingNote(false);
   };
 
+  const saveMeetingNote = async () => {
+    if (!selectedInquiry) return;
+    setSavingMeetingNote(true);
+    await supabase.from("contact_inquiries").update({ meeting_notes: meetingNoteText } as any).eq("id", selectedInquiry.id);
+    setInquiries((prev: any[]) => prev.map((i) => (i.id === selectedInquiry.id ? { ...i, meeting_notes: meetingNoteText } : i)));
+    setSelectedInquiry({ ...selectedInquiry, meeting_notes: meetingNoteText });
+    logActivity("meeting_note_update", "inquiry", selectedInquiry.id);
+    setSavingMeetingNote(false);
+    setEditingMeetingNote(false);
+  };
+
   const deleteInquiry = async () => {
     if (!deleteTarget) return;
     setDeleting(true);
