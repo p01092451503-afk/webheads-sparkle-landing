@@ -64,7 +64,7 @@ export default function ExitIntentPopup() {
         company: "-",
         phone: "-",
         email: trimmed,
-        inquiry_type: "consultation",
+        inquiry_type: "exit_lead",
         message: "Exit intent popup lead capture",
         marketing_agreed: false,
       });
