@@ -175,40 +175,17 @@ ${PRICING_CONTEXT}
 문의 내용:
 ${inquiry.message || "(내용 없음)"}`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+    const { data } = await callAIWithFallback(
+      LOVABLE_API_KEY,
+      {
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userMessage },
         ],
-      }),
-    });
+      },
+      inquiry?.id,
+    );
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again later." }), {
-          status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "AI credits exhausted." }), {
-          status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
-      return new Response(JSON.stringify({ error: "AI analysis failed" }), {
-        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const data = await response.json();
     const content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
 
     return new Response(JSON.stringify({ analysis: content }), {
