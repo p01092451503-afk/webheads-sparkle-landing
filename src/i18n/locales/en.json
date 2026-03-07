@@ -1143,7 +1143,7 @@
       "desc": "See how organizations transformed their training with Webheads LMS.",
       "cases": [
         {
-          "org": "Insurance Corp.",
+          "org": "H Insurance Corp.",
           "industry": "Finance & Insurance",
           "challenge": "With over 1,200 sales staff and HQ employees requiring annual mandatory compliance training (Insurance Business Act, Financial Consumer Protection Act, AML), offline training incurred ~$230K/year in venue, instructor, and travel costs. Managing attendance across 120 nationwide branches was difficult, and gathering completion records for FSS audits took 2+ weeks each time.",
           "result": "Deployed Webheads PRO with SAP SuccessFactors integration, AI-driven completion reminders, and automated certificate generation. Reduced compliance admin time by 75%, saved $92K in training costs within 6 months, and raised employee satisfaction from 3.2 to 4.6 out of 5.",
@@ -1154,14 +1154,14 @@
           ]
         },
         {
-          "org": "월급쟁이부자들",
-          "industry": "Real Estate Education",
-          "challenge": "Operating real estate investment courses exclusively through offline lectures with no online presence. As enrollments grew, securing venues became difficult, and students outside Seoul faced high dropout rates due to travel burden. Lecture recordings were shared via simple file sharing, leading to frequent content leaks. Three staff members spent 60+ hours weekly on manual enrollment, payment, and completion processing.",
-          "result": "Built an online education platform from scratch with Webheads LMS. DRM video protection completely eliminated content leaks, while PG payment integration and automated enrollment management streamlined the entire journey from signup to certification. The offline-to-online transition triggered explosive nationwide enrollment growth, making them Korea's #1 real estate education platform within one year. Administrative workload was reduced by over 80%, and student numbers grew 5x.",
+          "org": "Korea Appraisers Association",
+          "industry": "Professional Licensing",
+          "challenge": "Over 15 annual training programs for 5,000+ certified appraisers — including mandatory continuing education, practical workshops, and ethics courses — were conducted entirely offline. Appraisers nationwide faced significant travel costs and scheduling conflicts, leading to poor attendance. Completion records were managed manually in spreadsheets, creating heavy administrative burden for government reporting.",
+          "result": "Built a dedicated online education platform (edu.kapanet.or.kr) on Webheads PRO. Implemented DRM-protected VOD lectures alongside live video sessions, integrated with member databases for automated completion tracking and certificate issuance. Nationwide access without time constraints dramatically improved attendance rates, while administrative workload was cut by more than half.",
           "metrics": [
-            { "label": "Student Growth", "value": "500%" },
-            { "label": "Admin Workload", "value": "80%↓" },
-            { "label": "Content Leaks", "value": "0" }
+            { "label": "Attendance Rate", "value": "95%" },
+            { "label": "Admin Workload", "value": "60%↓" },
+            { "label": "Satisfaction", "value": "4.7/5" }
           ]
         }
       ]
