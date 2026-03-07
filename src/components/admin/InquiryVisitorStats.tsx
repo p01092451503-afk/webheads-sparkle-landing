@@ -142,9 +142,17 @@ export default function InquiryVisitorStats({ sessionId }: Props) {
         />
       </div>
 
-      {/* Page Flow */}
+      {/* Page Flow - collapsible */}
       <div className="mt-4">
-        <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">페이지 이동 경로</p>
+        <button
+          type="button"
+          onClick={() => setShowPageFlow(!showPageFlow)}
+          className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide hover:text-foreground transition-colors"
+        >
+          페이지 이동 경로
+          {showPageFlow ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+        </button>
+        {showPageFlow && (
         <div className="bg-white rounded-xl p-3 border border-[hsl(220,13%,93%)]">
           <div className="flex flex-wrap items-center gap-1">
             {pagesWithTime.map((p, i) => (
@@ -167,6 +175,7 @@ export default function InquiryVisitorStats({ sessionId }: Props) {
             총 {views.length}페이지 방문
           </p>
         </div>
+        )}
       </div>
       </>}
     </div>
