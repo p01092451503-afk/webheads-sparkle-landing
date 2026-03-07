@@ -203,10 +203,14 @@ export default function PageTracker() {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
-        supabase
-          .rpc("has_role", { _user_id: session.user.id, _role: "admin" })
-          .then(({ data }) => setIsAdmin(!!data))
-          .catch(() => setIsAdmin(false));
+        void (async () => {
+          try {
+            const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "admin" });
+            setIsAdmin(!!data);
+          } catch {
+            setIsAdmin(false);
+          }
+        })();
       } else {
         setIsAdmin(false);
       }
