@@ -155,7 +155,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   const topLocations = useMemo(() => {
     const locationCounts = humanViews.reduce((acc, v) => {
-      const loc = v.city || v.country || "알 수 없음";
+      const loc = dedupeLocation(v.city || v.country) || "알 수 없음";
       acc[loc] = (acc[loc] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
