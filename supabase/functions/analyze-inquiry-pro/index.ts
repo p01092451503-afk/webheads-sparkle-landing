@@ -233,13 +233,13 @@ serve(async (req) => {
     }
   ],
   "strategic_score": {
-    "revenue_potential": number,
-    "purchase_intent": number,
-    "build_complexity": number,
-    "reference_value": number,
-    "urgency_score": number,
-    "total": number,
-    "priority": "HIGH | MEDIUM | LOW"
+    "revenue_potential": number (0~20, 예상 매출 규모 및 반복 수익 가능성),
+    "purchase_intent": number (0~20, 구매 의사 및 도입 확정 수준),
+    "build_complexity": number (0~20, 구축 난이도가 낮을수록 높은 점수. 쉬우면 18~20, 어려우면 2~5),
+    "reference_value": number (0~20, 레퍼런스/포트폴리오 가치),
+    "urgency_score": number (0~20, 도입 시급성),
+    "total": number (위 5개 항목의 합산, 0~100),
+    "priority": "HIGH(70~100) | MEDIUM(40~69) | LOW(0~39)"
   },
   "recommended_plan": "Starter | Basic | Plus | Premium",
   "response_email_draft": "string (아래 이메일 작성 가이드라인을 엄격히 준수한 한국어 비즈니스 이메일)",
