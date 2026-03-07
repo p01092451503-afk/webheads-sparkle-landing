@@ -471,17 +471,17 @@ export default function OverviewPage() {
             {t("overview.cta.title")}
           </h2>
           <p className="text-sm text-muted-foreground mb-8 whitespace-pre-line">{t("overview.cta.desc")}</p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="tel:02-336-4338" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
-              <Phone className="w-4 h-4" />
+          <div className="flex flex-col sm:flex-row gap-3 justify-center flex-wrap">
+            <a href="tel:02-336-4338" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90 whitespace-nowrap" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
+              <Phone className="w-4 h-4 shrink-0" />
               {t("overview.cta.phone1")}
             </a>
-            <a href="tel:02-540-4337" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
-              <Phone className="w-4 h-4" />
+            <a href="tel:02-540-4337" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90 whitespace-nowrap" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
+              <Phone className="w-4 h-4 shrink-0" />
               {t("overview.cta.phone2")}
             </a>
-            <Link to="/lms#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
-              <PenSquare className="w-4 h-4" />
+            <Link to="/lms#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-bold text-sm transition-all border-2 hover:opacity-90 whitespace-nowrap" style={{ borderColor: "hsl(255,75%,58%)", color: "hsl(255,75%,58%)" }}>
+              <PenSquare className="w-4 h-4 shrink-0" />
               {t("contact.writeInquiry")}
             </Link>
           </div>
