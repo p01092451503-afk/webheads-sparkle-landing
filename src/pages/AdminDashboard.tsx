@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense } from "react
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, Zap
 } from "lucide-react";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
@@ -10,8 +10,9 @@ const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
+const AIUsageDashboard = lazy(() => import("@/components/admin/AIUsageDashboard"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
+type Tab = "inquiries" | "service_requests" | "analytics" | "ai_usage" | "activity" | "settings";
 type UserRole = "super_admin" | "admin" | "user";
 
 const TabLoader = () => (
