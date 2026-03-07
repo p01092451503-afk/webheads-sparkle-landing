@@ -309,26 +309,30 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
 
   if (!analysis) return null;
 
-  const priorityColor = {
+  const priorityColor: Record<"HIGH" | "MEDIUM" | "LOW", { bg: string; text: string }> = {
     HIGH: { bg: "hsl(0, 84%, 60%)", text: "white" },
     MEDIUM: { bg: "hsl(37, 90%, 51%)", text: "white" },
     LOW: { bg: "hsl(220, 9%, 75%)", text: "white" },
   };
-  const pc = priorityColor[analysis.strategic_score.priority] || priorityColor.LOW;
 
-  const bucketConfig = {
-    available: { label: "기본 제공", color: "hsl(152, 57%, 42%)", bg: "hsl(152, 57%, 42%, 0.08)" },
-    custom: { label: "커스터마이징", color: "hsl(37, 90%, 51%)", bg: "hsl(37, 90%, 51%, 0.08)" },
-    limited: { label: "제한/불가", color: "hsl(0, 84%, 60%)", bg: "hsl(0, 84%, 60%, 0.08)" },
+  const clampScore = (value: unknown) => {
+    const num = Number(value);
+    if (!Number.isFinite(num)) return 0;
+    return Math.max(0, Math.min(20, Math.round(num)));
   };
 
   const scoreItems = [
-    { key: "revenue_potential", label: "수익 잠재력", value: analysis.strategic_score.revenue_potential },
-    { key: "purchase_intent", label: "구매 의향", value: analysis.strategic_score.purchase_intent },
-    { key: "build_complexity", label: "구축 용이성", value: 100 - analysis.strategic_score.build_complexity },
-    { key: "reference_value", label: "레퍼런스 가치", value: analysis.strategic_score.reference_value },
-    { key: "urgency_score", label: "긴급도", value: analysis.strategic_score.urgency_score },
-  ];
+    { key: "revenue_potential", label: "수익 잠재력", score: clampScore(analysis.strategic_score.revenue_potential) },
+    { key: "purchase_intent", label: "구매 의향", score: clampScore(analysis.strategic_score.purchase_intent) },
+    { key: "build_complexity", label: "구축 용이성", score: clampScore(analysis.strategic_score.build_complexity) },
+    { key: "reference_value", label: "레퍼런스 가치", score: clampScore(analysis.strategic_score.reference_value) },
+    { key: "urgency_score", label: "긴급도", score: clampScore(analysis.strategic_score.urgency_score) },
+  ].map((item) => ({ ...item, percent: (item.score / 20) * 100 }));
+
+  const recalculatedTotal = scoreItems.reduce((sum, item) => sum + item.score, 0);
+  const recalculatedPriority: "HIGH" | "MEDIUM" | "LOW" =
+    recalculatedTotal >= 70 ? "HIGH" : recalculatedTotal >= 40 ? "MEDIUM" : "LOW";
+  const pc = priorityColor[recalculatedPriority];
 
   const severityConfig = {
     high: { color: "hsl(0, 84%, 60%)", bg: "hsl(0, 84%, 60%, 0.08)", label: "높음" },
