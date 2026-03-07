@@ -363,6 +363,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   // 신규 방문자 분석: 3/4 이전에 한 번이라도 접속한 IP/session은 제외
   const newVisitorCutoff = new Date("2026-03-04T00:00:00");
+  const [newVisitorDateFilter, setNewVisitorDateFilter] = useState<string>("all");
 
   const newVisitorData = useMemo(() => {
     // 3월 3일까지의 모든 기존 방문자 식별자(IP + session_id) 수집
@@ -380,17 +381,21 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (v.visitor_type && v.visitor_type !== "human") return false;
       const ipKey = v.ip_address ? `ip:${v.ip_address}` : null;
       const sidKey = v.session_id ? `sid:${v.session_id}` : null;
-      // IP 또는 session_id가 기존에 존재하면 제외
       if (ipKey && oldVisitorIds.has(ipKey)) return false;
       if (sidKey && oldVisitorIds.has(sidKey)) return false;
       return true;
     });
 
-    const totalNew = newVisitors.length;
-    const uniqueNewSessions = new Set(newVisitors.map((v) => v.session_id)).size;
-    const uniqueNewIPs = new Set(newVisitors.filter((v) => v.ip_address).map((v) => v.ip_address)).size;
+    // 날짜 필터 적용
+    const filteredNewVisitors = newVisitorDateFilter === "all"
+      ? newVisitors
+      : newVisitors.filter((v) => toLocalDateKey(new Date(v.created_at)) === newVisitorDateFilter);
 
-    // 일별 추이
+    const totalNew = filteredNewVisitors.length;
+    const uniqueNewSessions = new Set(filteredNewVisitors.map((v) => v.session_id)).size;
+    const uniqueNewIPs = new Set(filteredNewVisitors.filter((v) => v.ip_address).map((v) => v.ip_address)).size;
+
+    // 일별 추이 (항상 전체 데이터 기준)
     const dailyNew: Record<string, number> = {};
     newVisitors.forEach((v) => {
       const key = toLocalDateKey(new Date(v.created_at));
@@ -404,19 +409,22 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         count,
       }));
 
+    // 사용 가능한 날짜 목록
+    const availableDates = Object.keys(dailyNew).sort().reverse();
+
     // 랜딩 페이지
     const landingPages: Record<string, number> = {};
-    newVisitors.forEach((v) => { landingPages[v.page_path] = (landingPages[v.page_path] || 0) + 1; });
+    filteredNewVisitors.forEach((v) => { landingPages[v.page_path] = (landingPages[v.page_path] || 0) + 1; });
     const topLandingPages = Object.entries(landingPages).sort(([, a], [, b]) => b - a);
 
     // 디바이스
     const devices: Record<string, number> = {};
-    newVisitors.forEach((v) => { devices[v.device_type || "unknown"] = (devices[v.device_type || "unknown"] || 0) + 1; });
+    filteredNewVisitors.forEach((v) => { devices[v.device_type || "unknown"] = (devices[v.device_type || "unknown"] || 0) + 1; });
     const topDevices = Object.entries(devices).sort(([, a], [, b]) => b - a);
 
     // 지역
     const locations: Record<string, number> = {};
-    newVisitors.forEach((v) => {
+    filteredNewVisitors.forEach((v) => {
       const loc = v.city || v.country || "알 수 없음";
       locations[loc] = (locations[loc] || 0) + 1;
     });
@@ -424,18 +432,18 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
     // 유입 경로
     const referrers: Record<string, number> = {};
-    newVisitors.forEach((v) => {
+    filteredNewVisitors.forEach((v) => {
       try { const ref = v.referrer ? new URL(v.referrer).hostname : "직접 방문"; referrers[ref] = (referrers[ref] || 0) + 1; } catch { referrers["기타"] = (referrers["기타"] || 0) + 1; }
     });
     const topReferrers = Object.entries(referrers).sort(([, a], [, b]) => b - a);
 
     // 브라우저
     const browsers: Record<string, number> = {};
-    newVisitors.forEach((v) => { browsers[v.browser || "Unknown"] = (browsers[v.browser || "Unknown"] || 0) + 1; });
+    filteredNewVisitors.forEach((v) => { browsers[v.browser || "Unknown"] = (browsers[v.browser || "Unknown"] || 0) + 1; });
     const topBrowsers = Object.entries(browsers).sort(([, a], [, b]) => b - a);
 
-    return { totalNew, uniqueNewSessions, uniqueNewIPs, dailyNewArr, topLandingPages, topDevices, topLocations, topReferrers, topBrowsers };
-  }, [pageViews]);
+    return { totalNew, uniqueNewSessions, uniqueNewIPs, dailyNewArr, availableDates, topLandingPages, topDevices, topLocations, topReferrers, topBrowsers };
+  }, [pageViews, newVisitorDateFilter]);
 
   return (
     <div className="flex flex-col gap-5">
