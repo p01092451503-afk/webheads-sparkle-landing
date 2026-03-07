@@ -1,0 +1,1 @@
+ALTER TABLE public.contact_inquiries ADD COLUMN IF NOT EXISTS proposal_data jsonb DEFAULT NULL;

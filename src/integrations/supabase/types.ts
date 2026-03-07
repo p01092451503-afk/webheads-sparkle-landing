@@ -127,6 +127,7 @@ export type Database = {
           name: string
           notes: string | null
           phone: string
+          proposal_data: Json | null
           service: string | null
           session_id: string | null
           status: string
@@ -145,6 +146,7 @@ export type Database = {
           name: string
           notes?: string | null
           phone: string
+          proposal_data?: Json | null
           service?: string | null
           session_id?: string | null
           status?: string
@@ -163,6 +165,7 @@ export type Database = {
           name?: string
           notes?: string | null
           phone?: string
+          proposal_data?: Json | null
           service?: string | null
           session_id?: string | null
           status?: string
