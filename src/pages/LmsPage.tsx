@@ -14,6 +14,7 @@ import LearnerJourneyMap from "@/components/lms/LearnerJourneyMap";
 
 import CompetitorComparison from "@/components/lms/CompetitorComparison";
 import DeviceFriendlySection from "@/components/lms/DeviceFriendlySection";
+import CostSimulator from "@/components/lms/CostSimulator";
 import {
   Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
