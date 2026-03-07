@@ -163,7 +163,21 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     );
   };
 
+  const handleFreeze = useCallback(async () => {
+    setFrozen(true);
+    onFreeze?.();
+    // Persist frozen state
+    await supabase
+      .from("inquiry_analyses" as any)
+      .update({ is_frozen: true } as any)
+      .eq("inquiry_id", inquiry.id);
+  }, [inquiry.id, onFreeze]);
+
   if (state === "idle") {
+    // If already frozen, don't show generate button at all
+    if (frozen) {
+      return null;
+    }
     const hasAnalysis = !!inquiry.ai_analysis;
     return (
       <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
