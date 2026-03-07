@@ -280,6 +280,7 @@ export default function PageTracker() {
 
   // ─── Page view tracking ───
   useEffect(() => {
+    if (isAdmin) return;
     const path = location.pathname + location.hash;
     if (path === lastPath.current) return;
 
