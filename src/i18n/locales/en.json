@@ -1697,5 +1697,17 @@
       "infoTitle": "KakaoTalk Alert Guide",
       "infoDesc": "You must sign up for a KakaoTalk business channel, register your profile, and manage templates. Only approved template messages can be sent, and individual messaging is not supported. For details on template approval and management, please contact your representative."
     }
+  },
+  "exitPopup": {
+    "title": "Still have questions?",
+    "desc": "Leave your email and we'll send you a personalized LMS consultation guide. No sales calls, we promise.",
+    "placeholder": "Enter your email address",
+    "cta": "Get Free Consultation Guide",
+    "sending": "Sending...",
+    "invalidEmail": "Please enter a valid email address",
+    "error": "Something went wrong. Please try again.",
+    "thankTitle": "Thank you!",
+    "thankDesc": "We'll send your personalized consultation guide shortly. Expect to hear from us within 2 hours.",
+    "privacy": "Your email is used solely for sending consultation materials and is managed per our Privacy Policy."
   }
 }
