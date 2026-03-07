@@ -8,6 +8,7 @@ import {
 import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
 import InquiryProAnalysis from "./InquiryProAnalysis";
+import InquiryProposal from "./InquiryProposal";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
