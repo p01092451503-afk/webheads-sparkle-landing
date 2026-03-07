@@ -375,6 +375,15 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen, isSuperAdm
             </button>
           </>
         )}
+        {isFrozen && isSuperAdmin && (
+          <button
+            onClick={runAnalysis}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold text-amber-700 bg-amber-100 hover:bg-amber-200 dark:text-amber-300 dark:bg-amber-900/30 dark:hover:bg-amber-900/50 transition-colors"
+          >
+            <Shield className="w-3 h-3" />
+            <RefreshCw className="w-3 h-3" /> 재분석
+          </button>
+        )}
       </div>
 
       {expanded && (
