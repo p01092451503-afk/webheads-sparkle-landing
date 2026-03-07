@@ -49,6 +49,12 @@ export default function FloatingNav() {
             <Send className="w-5 h-5" />
           </Link>
         )}
+        {location.pathname !== "/overview" && (
+          <Link to="/overview" className="group relative w-10 h-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label="서비스 소개서">
+            <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">서비스 소개서</span>
+            <FileText className="w-5 h-5" />
+          </Link>
+        )}
         {location.pathname !== "/blog" && (
           <Link to="/blog" className="group relative w-10 h-10 rounded-xl bg-foreground text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity border-2 border-primary/40" aria-label="LMS 인사이트">
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">LMS 인사이트</span>
