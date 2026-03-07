@@ -486,6 +486,8 @@ export default function OverviewPage() {
         </div>
       </section>
 
+      <ContactSection />
+
     </div>
   );
 }
