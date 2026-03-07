@@ -320,8 +320,26 @@ function AddOnServicesSection() {
 }
 
 /* ══════════════════════════════════════════
-   MAIN PAGE
+   Client Reference Grid (for Overview PDF)
    ══════════════════════════════════════════ */
+function ClientMarqueeGrid() {
+  const { t } = useTranslation();
+  const clients = t("lms.clients", { returnObjects: true }) as string[];
+
+  return (
+    <div className="flex flex-wrap justify-center gap-x-1 gap-y-3">
+      {clients.map((name, i) => (
+        <span
+          key={i}
+          className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-border bg-white text-muted-foreground"
+        >
+          {name}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export default function OverviewPage() {
   const { t } = useTranslation();
   const [pdfLoading, setPdfLoading] = useState(false);
