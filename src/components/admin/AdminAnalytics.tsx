@@ -149,7 +149,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (!ipMap[ip].lastVisit || v.created_at > ipMap[ip].lastVisit!) ipMap[ip].lastVisit = v.created_at;
     });
     return Object.entries(ipMap)
-      .map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: d.city || d.country || null, lastVisit: d.lastVisit }))
+      .map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: dedupeLocation(d.city || d.country || null), lastVisit: d.lastVisit }))
       .sort((a, b) => b.count - a.count);
   }, [humanViews]);
 
