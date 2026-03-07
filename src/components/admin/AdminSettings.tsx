@@ -61,6 +61,24 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const [companySaving, setCompanySaving] = useState(false);
   const [companySaved, setCompanySaved] = useState(false);
 
+  // Auto-response templates
+  const [autoResponse, setAutoResponse] = useState({
+    enabled: true,
+    templates: {
+      consultation: {
+        subject: "[웹헤즈] 상담 문의가 접수되었습니다",
+        body: "안녕하세요, {{name}}님.\n\n{{company}}의 상담 문의가 정상적으로 접수되었습니다.\n담당자가 확인 후 빠른 시일 내에 연락드리겠습니다.\n\n문의 내용:\n{{message}}\n\n감사합니다.\nWEBHEADS 드림",
+      },
+      demo: {
+        subject: "[웹헤즈] 데모 요청이 접수되었습니다",
+        body: "안녕하세요, {{name}}님.\n\n{{company}}의 데모 요청이 정상적으로 접수되었습니다.\n담당자가 확인 후 데모 일정을 조율하여 연락드리겠습니다.\n\n문의 내용:\n{{message}}\n\n감사합니다.\nWEBHEADS 드림",
+      },
+    } as Record<string, { subject: string; body: string }>,
+  });
+  const [autoSaving, setAutoSaving] = useState(false);
+  const [autoSaved, setAutoSaved] = useState(false);
+  const [editingTemplate, setEditingTemplate] = useState<string | null>(null);
+
   const actionLabels: Record<string, string> = {
     login: "로그인", logout: "로그아웃", status_change: "상태 변경",
     note_update: "메모 수정", meeting_note_update: "미팅 내용 수정",
