@@ -214,7 +214,7 @@ export default function InquiryProposal({ inquiry }: Props) {
       </div>
 
       {expanded && (
-        <div className="bg-white rounded-xl border border-[hsl(220,13%,93%)] p-5 sm:p-6" style={{ fontSize: `${fontSize}px` }}>
+        <div data-proposal-content className="bg-white rounded-xl border border-[hsl(220,13%,93%)] p-5 sm:p-6" style={{ fontSize: `${fontSize}px` }}>
           {/* Title */}
           <h2 className="text-[1.2em] font-bold text-foreground tracking-[-0.02em] mb-2">{proposal.title}</h2>
           <p className="text-[0.85em] text-muted-foreground mb-6 leading-relaxed">{proposal.summary}</p>
