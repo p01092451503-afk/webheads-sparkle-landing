@@ -257,14 +257,17 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
   return (
     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]" ref={containerRef}>
       {/* Header */}
-      <div className="flex items-center justify-between mb-3">
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="flex items-center gap-2 text-[12px] font-bold text-foreground tracking-wide"
-        >
-          <FileText className="w-4 h-4 text-[hsl(152,57%,42%)]" />
-          제안서
-          {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+      <div className="flex items-center gap-2 mb-3">
+        <button onClick={() => setExpanded(!expanded)} className="flex items-center gap-2 flex-1 text-left">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-bold text-white" style={{ background: frozen ? "linear-gradient(135deg, hsl(152, 50%, 38%), hsl(160, 55%, 42%))" : "linear-gradient(135deg, hsl(152, 57%, 42%), hsl(160, 60%, 38%))" }}>
+            {frozen ? <Lock className="w-3.5 h-3.5" /> : <FileText className="w-3.5 h-3.5" />} 제안서
+          </span>
+          {frozen && (
+            <span className="text-[9px] px-2 py-0.5 rounded-full font-bold text-white bg-[hsl(152,50%,40%)] flex items-center gap-1">
+              <Lock className="w-2.5 h-2.5" /> 확정
+            </span>
+          )}
+          {expanded ? <ChevronUp className="w-3.5 h-3.5 text-muted-foreground" /> : <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />}
         </button>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1 bg-[hsl(220,14%,96%)] rounded-lg px-2 py-1">
