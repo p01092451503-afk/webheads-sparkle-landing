@@ -598,20 +598,19 @@ export const blogPostsKo: BlogPost[] = [
   {
     id: "aws-elearning-case-studies",
     category: "trend",
-    title: "AWS 클라우드 LMS 도입 기업 사례 분석: 맑은소프트·Upskilled·글로벌 대학의 성공 전략",
+    title: "AWS 클라우드 LMS 도입 기업 사례 분석: Upskilled·Geniusee·글로벌 대학의 성공 전략",
     summary: "AWS 기반 LMS를 도입한 국내외 기업·교육기관의 실제 사례를 통해 성능 개선, 비용 절감, 글로벌 확장 효과를 분석합니다.",
     content: [
-      "사례 1: 맑은소프트(한국) — 국내 대표 LMS 기업 맑은소프트는 트래픽 급증 시 서버 불안정 문제를 해결하기 위해 AWS 마이그레이션을 단행했습니다. AWS Auto Scaling과 DynamoDB를 도입하여 피크 시간 트래픽 처리 능력을 3배 이상 향상시켰으며, CloudFront를 통해 해외 학습자의 접근 속도를 50% 개선했습니다. 결과적으로 글로벌 LMS 시장 진출의 기술적 기반을 확보했습니다.",
-      "사례 2: Upskilled(호주) — 호주의 온라인 교육 기업 Upskilled은 AWS에서 클라우드 네이티브 LMS를 운영하면서, 혁신적인 보안 프레임워크를 구축했습니다. AWS WAF, GuardDuty, Security Hub를 조합한 다층 보안 아키텍처로 사이버 위협을 사전 탐지하고, 예측적 위협 분석(Predictive Threat Analytics)을 적용하여 보안 인시던트를 90% 이상 감소시켰습니다.",
-      "사례 3: Geniusee 이러닝 플랫폼(글로벌) — WordPress 기반 이러닝 솔루션을 AWS 서버리스 아키텍처로 마이그레이션한 사례입니다. AWS Lambda, API Gateway, DynamoDB를 활용하여 서버 관리 부담을 완전히 제거하고, 동시 접속자 수에 관계없이 자동 확장되는 인프라를 구현했습니다. 서버 관리 인력 비용이 월 $8,000에서 $0으로 감소했으며, 응답 시간이 평균 2.1초에서 0.4초로 개선되었습니다.",
-      "사례 4: 대규모 대학교(미국/EU) — Moodle LMS를 AWS 레퍼런스 아키텍처 기반으로 운영하는 다수의 대학들이 있습니다. Multi-AZ Aurora, ElastiCache Redis, EFS를 조합한 고가용성 아키텍처로 학기 초 수강신청 트래픽(평상시 대비 20배)을 안정적으로 처리합니다. 한 대학의 경우 On-Premise에서 AWS로 전환 후 인프라 운영 비용이 연간 42% 감소했으며, 시스템 가동률이 99.5%에서 99.99%로 향상되었습니다.",
+      "사례 1: Upskilled(호주) — 호주의 온라인 교육 기업 Upskilled은 AWS에서 클라우드 네이티브 LMS를 운영하면서, 혁신적인 보안 프레임워크를 구축했습니다. AWS WAF, GuardDuty, Security Hub를 조합한 다층 보안 아키텍처로 사이버 위협을 사전 탐지하고, 예측적 위협 분석(Predictive Threat Analytics)을 적용하여 보안 인시던트를 90% 이상 감소시켰습니다.",
+      "사례 2: Geniusee 이러닝 플랫폼(글로벌) — WordPress 기반 이러닝 솔루션을 AWS 서버리스 아키텍처로 마이그레이션한 사례입니다. AWS Lambda, API Gateway, DynamoDB를 활용하여 서버 관리 부담을 완전히 제거하고, 동시 접속자 수에 관계없이 자동 확장되는 인프라를 구현했습니다. 서버 관리 인력 비용이 월 $8,000에서 $0으로 감소했으며, 응답 시간이 평균 2.1초에서 0.4초로 개선되었습니다.",
+      "사례 3: 대규모 대학교(미국/EU) — Moodle LMS를 AWS 레퍼런스 아키텍처 기반으로 운영하는 다수의 대학들이 있습니다. Multi-AZ Aurora, ElastiCache Redis, EFS를 조합한 고가용성 아키텍처로 학기 초 수강신청 트래픽(평상시 대비 20배)을 안정적으로 처리합니다. 한 대학의 경우 On-Premise에서 AWS로 전환 후 인프라 운영 비용이 연간 42% 감소했으며, 시스템 가동률이 99.5%에서 99.99%로 향상되었습니다.",
       "공통 성공 요인 분석: ① 단계적 마이그레이션 — 빅뱅 전환이 아닌 비핵심 시스템부터 순차 이전하여 리스크를 최소화합니다. ② IaC(Infrastructure as Code) — CloudFormation 또는 Terraform으로 인프라를 코드화하여 재현 가능한 환경을 구축합니다. ③ 모니터링 우선 — CloudWatch 대시보드, X-Ray 트레이싱을 선행 구축하여 성능 병목을 실시간 파악합니다.",
       "비용 효과 종합: 분석 대상 기업들의 2024~2025년 평균 데이터에 따르면, AWS 전환 후 인프라 비용은 35~55% 절감, 서비스 가용성은 99.9% 이상 달성, 콘텐츠 전송 속도는 2~5배 향상되었습니다. 특히 Auto Scaling 도입으로 피크/비피크 시간대의 비용 격차를 60% 이상 줄인 것이 핵심 절감 포인트입니다.",
       "웹헤즈는 국내외 다양한 AWS LMS 구축·운영 레퍼런스를 보유하고 있으며, 고객사의 현재 인프라 상태와 목표에 맞는 최적의 마이그레이션 전략을 제안합니다. PoC(Proof of Concept) 환경 구축부터 프로덕션 전환까지 전 과정을 지원합니다."
     ],
     date: "2025-10-20",
     readTime: "15분",
-    keywords: ["AWS LMS 사례", "클라우드 마이그레이션", "맑은소프트", "이러닝 인프라", "AWS 비용 절감"],
+    keywords: ["AWS LMS 사례", "클라우드 마이그레이션", "이러닝 인프라", "AWS 비용 절감"],
   },
   {
     id: "aws-serverless-elearning",
