@@ -108,6 +108,37 @@ const PRICING_CONTEXT = `
 - 다국어 지원
 `;
 
+/** Convert JSON object to readable markdown when AI ignores format instructions */
+function jsonToMarkdown(obj: Record<string, unknown>, depth = 0): string {
+  const lines: string[] = [];
+  for (const [key, value] of Object.entries(obj)) {
+    const heading = key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+    if (typeof value === "string") {
+      lines.push(`${"###".slice(0, 3)} ${heading}\n${value}\n`);
+    } else if (Array.isArray(value)) {
+      lines.push(`### ${heading}`);
+      for (const item of value) {
+        if (typeof item === "string") {
+          lines.push(`- ${item}`);
+        } else if (typeof item === "object" && item !== null) {
+          const parts = Object.entries(item).map(([k, v]) => `**${k}**: ${v}`).join(" / ");
+          lines.push(`- ${parts}`);
+        }
+      }
+      lines.push("");
+    } else if (typeof value === "object" && value !== null) {
+      lines.push(`### ${heading}`);
+      for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+        lines.push(`- **${k}**: ${typeof v === "object" ? JSON.stringify(v) : v}`);
+      }
+      lines.push("");
+    } else {
+      lines.push(`- **${heading}**: ${value}`);
+    }
+  }
+  return lines.join("\n");
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -161,7 +192,8 @@ ${PRICING_CONTEXT}
 ### 6. 제안 전략 요약
 영업 시 강조할 포인트, 경쟁 우위, 주의사항을 간결하게 정리합니다.
 
-마크다운 형식으로 깔끔하게 작성하되, 각 섹션 사이에 --- 구분선을 반드시 넣고, 구체적인 숫자와 금액을 포함해주세요. 이모지는 절대 사용하지 마세요.`;
+마크다운 형식으로 깔끔하게 작성하되, 각 섹션 사이에 --- 구분선을 반드시 넣고, 구체적인 숫자와 금액을 포함해주세요. 이모지는 절대 사용하지 마세요.
+절대 JSON 형식으로 응답하지 마세요. 반드시 사람이 읽기 쉬운 마크다운 산문 형식으로만 작성하세요. JSON 객체, 배열, 중괄호, 대괄호 등의 코드 구조는 포함하지 마세요.`;
 
     const userMessage = `다음 고객 문의를 분석해주세요:
 
@@ -186,7 +218,20 @@ ${inquiry.message || "(내용 없음)"}`;
       inquiry?.id,
     );
 
-    const content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
+    let content = data.choices?.[0]?.message?.content || "분석 결과를 생성할 수 없습니다.";
+
+    // If AI returned JSON despite instructions, try to convert it to readable markdown
+    const trimmed = content.trim();
+    if (trimmed.startsWith("{") || trimmed.startsWith("```json") || trimmed.startsWith("```{")) {
+      try {
+        const cleaned = trimmed.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
+        const parsed = JSON.parse(cleaned);
+        content = jsonToMarkdown(parsed);
+      } catch {
+        // If JSON parse fails, strip code fences at least
+        content = trimmed.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?\s*```\s*$/i, "").trim();
+      }
+    }
 
     return new Response(JSON.stringify({ analysis: content }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
