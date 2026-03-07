@@ -431,6 +431,23 @@ export default function OverviewPage() {
         }
       }
 
+      // Add WEBHEADS. watermark to every page
+      const totalPages = pdf.getNumberOfPages();
+      for (let p = 1; p <= totalPages; p++) {
+        pdf.setPage(p);
+        pdf.saveGraphicsState();
+        // @ts-ignore – jsPDF GState
+        pdf.setGState(new pdf.GState({ opacity: 0.06 }));
+        pdf.setFont("helvetica", "bolditalic");
+        pdf.setFontSize(54);
+        pdf.setTextColor(30, 31, 46);
+        // Rotate and place centered
+        const cx = A4_W / 2;
+        const cy = A4_H / 2;
+        pdf.text("WEBHEADS.", cx, cy, { align: "center", angle: 35 });
+        pdf.restoreGraphicsState();
+      }
+
       pdf.save("WEBHEADS_서비스소개서.pdf");
     } catch (err) {
       console.error("PDF generation failed:", err);
