@@ -36,10 +36,19 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     phone: "02-540-4337", website: "www.webheads.co.kr",
   });
 
+  // Check persisted frozen state on mount
   useEffect(() => {
     supabase.from("admin_settings").select("value").eq("key", "company_info").maybeSingle()
       .then(({ data }) => { if (data?.value) setCompanyInfo(data.value as any); });
-  }, []);
+
+    // Check if inquiry_analyses is_frozen
+    supabase.from("inquiry_analyses").select("is_frozen").eq("inquiry_id", inquiry.id).maybeSingle()
+      .then(({ data }) => {
+        if (data?.is_frozen) {
+          setFrozen(true);
+        }
+      });
+  }, [inquiry.id]);
 
   const generate = useCallback(async () => {
     setState("loading");
