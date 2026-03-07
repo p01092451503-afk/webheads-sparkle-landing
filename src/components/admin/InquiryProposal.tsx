@@ -20,6 +20,7 @@ type ProposalState = "idle" | "loading" | "done" | "error";
 
 interface Props {
   inquiry: any;
+  onFreeze?: () => void;
 }
 
 export default function InquiryProposal({ inquiry }: Props) {
