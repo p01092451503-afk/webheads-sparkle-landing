@@ -281,6 +281,116 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
         </form>
       </div>
 
+      {/* Notification Settings */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(37,90%,51%,0.08)]">
+            <Bell className="w-[18px] h-[18px] text-[hsl(37,90%,51%)]" />
+          </div>
+          <div>
+            <h3 className="text-[15px] font-semibold text-foreground">알림 설정</h3>
+            <p className="text-[12px] text-muted-foreground">새 문의 접수 시 이메일 알림</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-between p-3 rounded-xl bg-[hsl(220,14%,97%)]">
+            <div>
+              <p className="text-[13px] font-medium text-foreground">새 문의 접수 알림</p>
+              <p className="text-[11px] text-muted-foreground">문의가 접수되면 이메일로 알림</p>
+            </div>
+            <button
+              onClick={() => {
+                const updated = { ...notifSettings, email_on_new_inquiry: !notifSettings.email_on_new_inquiry };
+                setNotifSettings(updated);
+                saveSettings("notifications", updated);
+              }}
+              className={`w-11 h-6 rounded-full transition-all relative ${notifSettings.email_on_new_inquiry ? "bg-[hsl(221,83%,53%)]" : "bg-[hsl(220,13%,85%)]"}`}
+            >
+              <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${notifSettings.email_on_new_inquiry ? "left-[22px]" : "left-0.5"}`} />
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between p-3 rounded-xl bg-[hsl(220,14%,97%)]">
+            <div>
+              <p className="text-[13px] font-medium text-foreground">고객지원 요청 알림</p>
+              <p className="text-[11px] text-muted-foreground">서비스 요청이 접수되면 이메일로 알림</p>
+            </div>
+            <button
+              onClick={() => {
+                const updated = { ...notifSettings, email_on_service_request: !notifSettings.email_on_service_request };
+                setNotifSettings(updated);
+                saveSettings("notifications", updated);
+              }}
+              className={`w-11 h-6 rounded-full transition-all relative ${notifSettings.email_on_service_request ? "bg-[hsl(221,83%,53%)]" : "bg-[hsl(220,13%,85%)]"}`}
+            >
+              <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${notifSettings.email_on_service_request ? "left-[22px]" : "left-0.5"}`} />
+            </button>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-[12px] font-semibold text-muted-foreground pl-1">알림 수신 이메일</label>
+            <input
+              type="email"
+              value={notifSettings.notification_email}
+              onChange={(e) => setNotifSettings({ ...notifSettings, notification_email: e.target.value })}
+              className="w-full rounded-xl px-4 py-3 text-[14px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(221,83%,53%)] transition-all"
+            />
+          </div>
+
+          <button
+            onClick={() => saveSettings("notifications", notifSettings)}
+            disabled={notifSaving}
+            className="self-end flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(37,90%,51%)] hover:bg-[hsl(37,90%,45%)] transition-all disabled:opacity-50"
+          >
+            {notifSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : notifSaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
+            {notifSaved ? "저장됨" : "저장"}
+          </button>
+        </div>
+      </div>
+
+      {/* Company Info */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(152,57%,42%,0.08)]">
+            <Building2 className="w-[18px] h-[18px] text-[hsl(152,57%,42%)]" />
+          </div>
+          <div>
+            <h3 className="text-[15px] font-semibold text-foreground">회사 정보</h3>
+            <p className="text-[12px] text-muted-foreground">제안서 및 이메일에 사용되는 정보</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          {[
+            { label: "회사명", key: "name" as const },
+            { label: "주소", key: "address" as const },
+            { label: "전화번호", key: "phone" as const },
+            { label: "웹사이트", key: "website" as const },
+            { label: "이메일", key: "email" as const },
+          ].map((field) => (
+            <div key={field.key} className="flex flex-col gap-1.5">
+              <label className="text-[12px] font-semibold text-muted-foreground pl-1">{field.label}</label>
+              <input
+                type="text"
+                value={companyInfo[field.key]}
+                onChange={(e) => setCompanyInfo({ ...companyInfo, [field.key]: e.target.value })}
+                className="w-full rounded-xl px-4 py-3 text-[14px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(152,57%,42%)] transition-all"
+              />
+            </div>
+          ))}
+
+          <button
+            onClick={() => saveSettings("company_info", companyInfo)}
+            disabled={companySaving}
+            className="self-end flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(152,57%,42%)] hover:bg-[hsl(152,57%,35%)] transition-all disabled:opacity-50 mt-1"
+          >
+            {companySaving ? <Loader2 className="w-3 h-3 animate-spin" /> : companySaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
+            {companySaved ? "저장됨" : "저장"}
+          </button>
+        </div>
+      </div>
+
       {/* Admin Management - super_admin only */}
       {isSuperAdmin && (
         <>
