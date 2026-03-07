@@ -215,8 +215,8 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
       <div className="flex gap-4 items-start">
         {/* Left: Inquiry List */}
         <div
-          className={`flex flex-col gap-2 shrink-0 transition-all duration-300 ${
-            selectedInquiry ? "w-full lg:w-[380px] xl:w-[420px]" : "w-full"
+           className={`flex flex-col gap-2 shrink-0 transition-all duration-300 ${
+            selectedInquiry ? "w-full lg:w-[320px] xl:w-[340px]" : "w-full"
           }`}
           style={{ maxHeight: selectedInquiry ? "calc(100vh - 220px)" : undefined, overflowY: selectedInquiry ? "auto" : undefined }}
         >
