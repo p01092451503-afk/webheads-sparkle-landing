@@ -497,6 +497,143 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
           </div>
         </>
       )}
+
+      {/* Company Info */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(152,57%,42%,0.08)]">
+            <Building2 className="w-[18px] h-[18px] text-[hsl(152,57%,42%)]" />
+          </div>
+          <div>
+            <h3 className="text-[15px] font-semibold text-foreground">회사 정보</h3>
+            <p className="text-[12px] text-muted-foreground">제안서 및 이메일에 사용되는 정보</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          {[
+            { label: "회사명", key: "name" as const },
+            { label: "주소", key: "address" as const },
+            { label: "전화번호", key: "phone" as const },
+            { label: "웹사이트", key: "website" as const },
+            { label: "이메일", key: "email" as const },
+          ].map((field) => (
+            <div key={field.key} className="flex flex-col gap-1.5">
+              <label className="text-[12px] font-semibold text-muted-foreground pl-1">{field.label}</label>
+              <input
+                type="text"
+                value={companyInfo[field.key]}
+                onChange={(e) => setCompanyInfo({ ...companyInfo, [field.key]: e.target.value })}
+                className="w-full rounded-xl px-4 py-3 text-[14px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(152,57%,42%)] transition-all"
+              />
+            </div>
+          ))}
+
+          <button
+            onClick={() => saveSettings("company_info", companyInfo)}
+            disabled={companySaving}
+            className="self-end flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(152,57%,42%)] hover:bg-[hsl(152,57%,35%)] transition-all disabled:opacity-50 mt-1"
+          >
+            {companySaving ? <Loader2 className="w-3 h-3 animate-spin" /> : companySaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
+            {companySaved ? "저장됨" : "저장"}
+          </button>
+        </div>
+      </div>
+
+      {/* Auto-Response Templates */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6 lg:col-span-2">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(199,89%,48%,0.08)]">
+              <Mail className="w-[18px] h-[18px] text-[hsl(199,89%,48%)]" />
+            </div>
+            <div>
+              <h3 className="text-[15px] font-semibold text-foreground">자동 응답 이메일 템플릿</h3>
+              <p className="text-[12px] text-muted-foreground">문의 접수 시 고객에게 자동 발송되는 확인 이메일</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => {
+                const updated = { ...autoResponse, enabled: !autoResponse.enabled };
+                setAutoResponse(updated);
+                saveSettings("auto_response_templates", updated);
+              }}
+              className={`w-11 h-6 rounded-full transition-all relative ${autoResponse.enabled ? "bg-[hsl(199,89%,48%)]" : "bg-[hsl(220,13%,85%)]"}`}
+            >
+              <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${autoResponse.enabled ? "left-[22px]" : "left-0.5"}`} />
+            </button>
+            <span className="text-[11px] font-medium text-muted-foreground">{autoResponse.enabled ? "활성" : "비활성"}</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+          {Object.entries(autoResponse.templates).map(([key, tpl]) => {
+            const isEditing = editingTemplate === key;
+            const typeLabel = key === "demo" ? "데모 요청" : "상담 문의";
+            return (
+              <div key={key} className="rounded-xl border border-[hsl(220,13%,93%)] overflow-hidden">
+                <button
+                  onClick={() => setEditingTemplate(isEditing ? null : key)}
+                  className="w-full flex items-center justify-between p-4 hover:bg-[hsl(220,14%,97%)] transition-colors text-left"
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full text-white"
+                      style={{ background: key === "demo" ? "hsl(262,60%,55%)" : "hsl(221,83%,53%)" }}
+                    >
+                      {typeLabel}
+                    </span>
+                    <span className="text-[13px] font-medium text-foreground">{tpl.subject}</span>
+                  </div>
+                  {isEditing ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+                </button>
+
+                {isEditing && (
+                  <div className="p-4 pt-0 flex flex-col gap-3 border-t border-[hsl(220,13%,95%)]">
+                    <div className="flex flex-col gap-1.5 mt-3">
+                      <label className="text-[12px] font-semibold text-muted-foreground pl-1">제목</label>
+                      <input
+                        type="text"
+                        value={tpl.subject}
+                        onChange={(e) => {
+                          const updated = { ...autoResponse, templates: { ...autoResponse.templates, [key]: { ...tpl, subject: e.target.value } } };
+                          setAutoResponse(updated);
+                        }}
+                        className="w-full rounded-xl px-4 py-3 text-[14px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(199,89%,48%)] transition-all"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <label className="text-[12px] font-semibold text-muted-foreground pl-1">본문</label>
+                      <textarea
+                        value={tpl.body}
+                        onChange={(e) => {
+                          const updated = { ...autoResponse, templates: { ...autoResponse.templates, [key]: { ...tpl, body: e.target.value } } };
+                          setAutoResponse(updated);
+                        }}
+                        rows={8}
+                        className="w-full rounded-xl px-4 py-3 text-[13px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(199,89%,48%)] transition-all resize-y leading-relaxed font-mono"
+                      />
+                      <p className="text-[10px] text-muted-foreground/50 pl-1">
+                        사용 가능 변수: <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{name}}"}</code> <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{company}}"}</code> <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{message}}"}</code> <code className="px-1 py-0.5 rounded bg-[hsl(220,14%,93%)] text-[10px]">{"{{service}}"}</code>
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+
+          <button
+            onClick={() => saveSettings("auto_response_templates", autoResponse)}
+            disabled={autoSaving}
+            className="self-end flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-all disabled:opacity-50 mt-1"
+          >
+            {autoSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : autoSaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
+            {autoSaved ? "저장됨" : "템플릿 저장"}
+          </button>
+        </div>
+      </div>
+
       </div>{/* end grid */}
 
       {/* Create Admin Dialog */}
