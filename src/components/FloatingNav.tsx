@@ -77,6 +77,15 @@ export default function FloatingNav() {
 
       {/* Mobile — action buttons, bottom right above scroll buttons */}
       <div className="fixed right-3 bottom-32 z-50 md:hidden flex flex-col items-center gap-2">
+        {isLmsPage && (
+          <button
+            onClick={scrollToCostSimulator}
+            className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg bg-[hsl(var(--lms-primary))] text-white"
+            aria-label={t("floatingNav.costSimulator")}
+          >
+            <Calculator className="w-4 h-4" />
+          </button>
+        )}
         {mobileButtons.map((btn) => (
             <Link
               key={btn.to}

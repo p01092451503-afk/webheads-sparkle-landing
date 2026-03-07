@@ -86,7 +86,7 @@ export default function CostSimulator() {
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
 
   return (
-    <section className="py-16 md:py-28 bg-background">
+    <section id="cost-simulator" className="py-16 md:py-28 bg-background">
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         <div className="mb-10 md:mb-14 text-center">
           <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
