@@ -220,9 +220,20 @@ export default function InquiryProposal({ inquiry }: Props) {
           <button onClick={exportPDF} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-[hsl(152,57%,42%)] bg-[hsl(152,57%,42%,0.08)] hover:bg-[hsl(152,57%,42%,0.14)] transition-all">
             <Download className="w-3 h-3" /> PDF
           </button>
-          <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-all">
-            <RefreshCw className="w-3 h-3" /> 재생성
-          </button>
+          {frozen ? (
+            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">
+              <Lock className="w-3 h-3" /> 확정됨
+            </span>
+          ) : (
+            <>
+              <button onClick={() => setFrozen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,48%)] transition-all">
+                <CheckCircle2 className="w-3 h-3" /> 확정
+              </button>
+              <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-all">
+                <RefreshCw className="w-3 h-3" /> 재생성
+              </button>
+            </>
+          )}
         </div>
       </div>
 
