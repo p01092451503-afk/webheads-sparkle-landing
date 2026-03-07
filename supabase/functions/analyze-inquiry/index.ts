@@ -6,8 +6,8 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
-const FALLBACK_MODEL = "anthropic/claude-3-haiku";
+const PRIMARY_MODEL = "google/gemini-3-flash-preview";
+const FALLBACK_MODEL = "google/gemini-2.5-flash";
 
 async function callAIWithFallback(
   apiKey: string,
