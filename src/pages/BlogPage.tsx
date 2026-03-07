@@ -85,8 +85,10 @@ export default function BlogPage() {
         p.title.toLowerCase().includes(q) ||
         p.summary.toLowerCase().includes(q) ||
         p.keywords.some((kw) => kw.toLowerCase().includes(q))
-      );
+    );
     }
+    // Sort by date descending (newest first)
+    posts = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     return posts;
   }, [blogPosts, searchQuery, activeCategory]);
 
