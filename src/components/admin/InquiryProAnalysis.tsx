@@ -583,6 +583,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
             </div>
           </TabsContent>
         </Tabs>
+        </>
       )}
     </div>
   );
