@@ -6,6 +6,51 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const PRIMARY_MODEL = "google/gemini-2.0-flash-001";
+const FALLBACK_MODEL = "anthropic/claude-3-haiku";
+
+async function callAIWithFallback(
+  apiKey: string,
+  body: Record<string, unknown>,
+  inquiryId?: string,
+): Promise<{ data: any; usedModel: string }> {
+  const models = [PRIMARY_MODEL, FALLBACK_MODEL];
+  for (let i = 0; i < models.length; i++) {
+    const model = models[i];
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...body, model }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(`[AI] model_used: ${model}, inquiry_id: ${inquiryId ?? "unknown"}`);
+      return { data, usedModel: model };
+    }
+
+    if (i < models.length - 1 && (response.status === 429 || response.status >= 500)) {
+      console.warn(`[AI] ${model} failed with ${response.status}, waiting 1s before fallback...`);
+      await new Promise((r) => setTimeout(r, 1000));
+      continue;
+    }
+
+    if (response.status === 402) {
+      throw { status: 402, message: "크레딧이 부족합니다." };
+    }
+    if (response.status === 429) {
+      throw { status: 429, message: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." };
+    }
+    const t = await response.text();
+    console.error("AI gateway error:", response.status, t);
+    throw { status: 500, message: "AI 게이트웨이 오류" };
+  }
+  throw { status: 500, message: "All AI models failed" };
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
