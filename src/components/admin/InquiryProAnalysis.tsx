@@ -199,6 +199,7 @@ export default function InquiryProAnalysis({ inquiry, proposalFrozen }: Props) {
       const data = await invokeProAnalysis(payload);
       setProgressStep("done");
       setAnalysis(data.analysis);
+      setIsPartial(data.status === "partial");
       setState("done");
     } catch (e: any) {
       setError(e.message || "Pro 분석 중 오류가 발생했습니다.");
