@@ -29,7 +29,7 @@ export default function RichTextEditor({ value, onChange, placeholder, className
   const editorRef = useRef<HTMLDivElement>(null);
   const [showSizePicker, setShowSizePicker] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  
   const [isEmpty, setIsEmpty] = useState(true);
   const isComposing = useRef(false);
   const initialized = useRef(false);
