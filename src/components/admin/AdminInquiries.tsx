@@ -121,7 +121,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     const rows = filteredInquiries.map((inq) => [
       new Date(inq.created_at).toLocaleString("ko-KR"),
       statusConfig[inq.status as InquiryStatus]?.label || inq.status,
-      inq.inquiry_type === "demo" ? "데모" : "상담",
+      inq.inquiry_type === "demo" ? "데모" : inq.inquiry_type === "exit_lead" ? "Exit 리드" : "상담",
       inq.company, inq.name, inq.phone, inq.email || "", inq.service || "",
       (inq.message || "").replace(/\n/g, " "), (inq.notes || "").replace(/\n/g, " "),
     ]);
@@ -243,7 +243,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                         {sc.label}
                       </span>
                       <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-muted-foreground bg-[hsl(220,14%,96%)]">
-                        {inq.inquiry_type === "demo" ? "데모" : "상담"}
+                        {inq.inquiry_type === "demo" ? "데모" : inq.inquiry_type === "exit_lead" ? "Exit 리드" : "상담"}
                       </span>
                       {inq.ai_analysis && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(192,80%,40%)] bg-[hsl(192,80%,40%,0.08)]">AI분석</span>
