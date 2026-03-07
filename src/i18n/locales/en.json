@@ -1144,7 +1144,7 @@
       "desc": "See how organizations transformed their training with Webheads LMS.",
       "cases": [
         {
-          "org": "H Insurance Corp.",
+          "org": "Hanwha General Insurance",
           "industry": "Finance & Insurance",
           "challenge": "With over 1,200 sales staff and HQ employees requiring annual mandatory compliance training (Insurance Business Act, Financial Consumer Protection Act, AML), offline training incurred ~$230K/year in venue, instructor, and travel costs. Managing attendance across 120 nationwide branches was difficult, and gathering completion records for FSS audits took 2+ weeks each time.",
           "result": "Deployed Webheads PRO with SAP SuccessFactors integration, AI-driven completion reminders, and automated certificate generation. Reduced compliance admin time by 75%, saved $92K in training costs within 6 months, and raised employee satisfaction from 3.2 to 4.6 out of 5.",
