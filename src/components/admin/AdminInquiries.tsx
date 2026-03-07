@@ -42,6 +42,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [deletePassword, setDeletePassword] = useState("");
   const [deleteError, setDeleteError] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [proposalFrozen, setProposalFrozen] = useState(false);
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
@@ -227,7 +228,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                   if (isSelected) { setSelectedInquiry(null); }
                   else {
                     setSelectedInquiry(inq); setNoteText(inq.notes || "");
-                    setMeetingNoteText(inq.meeting_notes || ""); setEditingMeetingNote(false);
+                    setMeetingNoteText(inq.meeting_notes || ""); setEditingMeetingNote(false); setProposalFrozen(false);
                     setTimeout(() => { itemRefs.current[inq.id]?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
                   }
                 }}
@@ -414,10 +415,10 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     <InquiryAIAnalysis inquiry={selectedInquiry} />
 
                     {/* AI Pro Analysis */}
-                    <InquiryProAnalysis inquiry={selectedInquiry} />
+                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} />
 
                     {/* Proposal */}
-                    <InquiryProposal inquiry={selectedInquiry} />
+                    <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
 
                     {/* Delete */}
                     {/* 삭제 버튼 숨김 처리

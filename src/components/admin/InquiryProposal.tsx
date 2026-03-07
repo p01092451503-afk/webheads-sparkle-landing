@@ -20,9 +20,10 @@ type ProposalState = "idle" | "loading" | "done" | "error";
 
 interface Props {
   inquiry: any;
+  onFreeze?: () => void;
 }
 
-export default function InquiryProposal({ inquiry }: Props) {
+export default function InquiryProposal({ inquiry, onFreeze }: Props) {
   const [state, setState] = useState<ProposalState>("idle");
   const [proposal, setProposal] = useState<Proposal | null>(null);
   const [error, setError] = useState("");
@@ -226,7 +227,7 @@ export default function InquiryProposal({ inquiry }: Props) {
             </span>
           ) : (
             <>
-              <button onClick={() => setFrozen(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,48%)] transition-all">
+              <button onClick={() => { setFrozen(true); onFreeze?.(); }} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-white bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,48%)] transition-all">
                 <CheckCircle2 className="w-3 h-3" /> 확정
               </button>
               <button onClick={generate} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-all">
