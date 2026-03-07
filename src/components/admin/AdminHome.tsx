@@ -46,7 +46,7 @@ export default function AdminHome({ inquiries, pageViews, onNavigate }: AdminHom
       if (v.device_type) deviceCounts[v.device_type] = (deviceCounts[v.device_type] || 0) + 1;
       if (v.browser) browserCounts[v.browser] = (browserCounts[v.browser] || 0) + 1;
       if (v.page_path) topPages[v.page_path] = (topPages[v.page_path] || 0) + 1;
-      const loc = v.city || v.country;
+      const loc = dedupeLocation(v.city || v.country);
       if (loc) locationCounts[loc] = (locationCounts[loc] || 0) + 1;
       if (v.duration_seconds && v.duration_seconds > 0) { totalDwell += v.duration_seconds; dwellCount++; }
       if (v.scroll_depth && v.scroll_depth > 0) { totalScroll += v.scroll_depth; scrollCount++; }

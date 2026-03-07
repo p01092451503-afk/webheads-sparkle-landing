@@ -431,7 +431,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     // 지역
     const locations: Record<string, number> = {};
     filteredNewVisitors.forEach((v) => {
-      const loc = v.city || v.country || "알 수 없음";
+      const loc = dedupeLocation(v.city || v.country) || "알 수 없음";
       locations[loc] = (locations[loc] || 0) + 1;
     });
     const topLocations = Object.entries(locations).sort(([, a], [, b]) => b - a);
