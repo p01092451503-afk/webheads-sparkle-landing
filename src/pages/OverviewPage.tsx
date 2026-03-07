@@ -267,7 +267,7 @@ function AddOnServicesSection() {
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="font-bold text-base text-foreground">{svc.title}</h3>
                       <a href={card.path} className="text-xs font-semibold flex items-center gap-0.5 shrink-0" style={{ color: card.accent }}>
-                        상세보기 <ChevronRight className="w-3.5 h-3.5" />
+                        {t("overview.viewDetail")} <ChevronRight className="w-3.5 h-3.5" />
                       </a>
                     </div>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-3">{svc.desc}</p>
