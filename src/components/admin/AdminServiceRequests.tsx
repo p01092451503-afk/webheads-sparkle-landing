@@ -45,12 +45,14 @@ export default function AdminServiceRequests({ requests, setRequests, onRefresh,
   }, [requests, statusFilter, typeFilter, searchQuery]);
 
   const updateStatus = async (id: string, status: RequestStatus) => {
+    if (!isSuperAdmin) return;
     await supabase.from("service_requests").update({ status }).eq("id", id);
     setRequests(requests.map((r) => (r.id === id ? { ...r, status } : r)));
     await logActivity("update_service_request_status", "service_request", id, { status });
   };
 
   const deleteRequest = async (id: string) => {
+    if (!isSuperAdmin) return;
     if (!confirm("정말 삭제하시겠습니까?")) return;
     await supabase.from("service_requests").delete().eq("id", id);
     setRequests(requests.filter((r) => r.id !== id));
