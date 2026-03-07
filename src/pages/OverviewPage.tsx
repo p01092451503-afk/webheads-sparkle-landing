@@ -65,7 +65,7 @@ function LmsDetailSection() {
   const proFeats = (t("lms.proFeatures", { returnObjects: true }) as { title: string; desc: string }[]).slice(0, 6);
 
   return (
-    <section id="lms" className="py-16">
+    <section id="lms" className="py-16" data-pdf-section>
       <div className="container mx-auto px-6 max-w-5xl">
         <SectionHead sub="CORE SERVICE" title="LMS (학습 관리 시스템)" desc="웹헤즈 Light(임대형)와 웹헤즈 PRO(구축형) — 비즈니스 목적에 맞는 최적의 LMS를 선택하세요." />
 
