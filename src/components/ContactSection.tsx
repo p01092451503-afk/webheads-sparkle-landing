@@ -109,6 +109,28 @@ export default function ContactSection({ showDemo = false }: { showDemo?: boolea
           <p className="mt-4 text-sm text-muted-foreground">
             {t("contact.desc")}
           </p>
+
+          {/* ── Phone buttons + Response badge ── */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+            <a
+              href="tel:02-336-4338"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-2 text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              {t("footer.newPhone")}
+            </a>
+            <a
+              href="tel:02-540-4337"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-4 py-2 text-sm font-bold text-primary hover:bg-primary/5 transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5" />
+              {t("footer.maintenancePhone")}
+            </a>
+            <span className="inline-flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm font-bold text-foreground tracking-tight border border-border">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              {t("contact.responseBadge")}
+            </span>
+          </div>
         </div>
 
 
