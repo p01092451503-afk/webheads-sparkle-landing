@@ -55,7 +55,86 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Math.round((bounced / sessions.length) * 100);
   }, [humanViews]);
 
-  const visitorTypeCounts = useMemo(() => {
+  // 2. Bounce rate per landing page
+  const bounceByPage = useMemo(() => {
+    const sessionData: Record<string, { landing: string; pageCount: number; firstTime: string }> = {};
+    humanViews.forEach((v) => {
+      if (!v.session_id) return;
+      if (!sessionData[v.session_id]) {
+        sessionData[v.session_id] = { landing: v.page_path, pageCount: 0, firstTime: v.created_at };
+      }
+      sessionData[v.session_id].pageCount++;
+      if (v.created_at < sessionData[v.session_id].firstTime) {
+        sessionData[v.session_id].landing = v.page_path;
+        sessionData[v.session_id].firstTime = v.created_at;
+      }
+    });
+    const pageStats: Record<string, { total: number; bounced: number }> = {};
+    Object.values(sessionData).forEach((s) => {
+      if (!pageStats[s.landing]) pageStats[s.landing] = { total: 0, bounced: 0 };
+      pageStats[s.landing].total++;
+      if (s.pageCount === 1) pageStats[s.landing].bounced++;
+    });
+    return Object.entries(pageStats)
+      .map(([path, d]) => ({ path, rate: d.total > 0 ? Math.round((d.bounced / d.total) * 100) : 0, total: d.total, bounced: d.bounced }))
+      .filter((d) => d.total >= 2)
+      .sort((a, b) => b.rate - a.rate);
+  }, [humanViews]);
+
+  // 3. Visitor frequency analysis (via visitor_id)
+  const visitorFrequency = useMemo(() => {
+    const vidSessions: Record<string, Set<string>> = {};
+    humanViews.forEach((v) => {
+      const vid = (v as any).visitor_id;
+      if (!vid || !v.session_id) return;
+      if (!vidSessions[vid]) vidSessions[vid] = new Set();
+      vidSessions[vid].add(v.session_id);
+    });
+    const freq: Record<string, number> = { "1회": 0, "2회": 0, "3~5회": 0, "6~10회": 0, "11회+": 0 };
+    Object.values(vidSessions).forEach((sessions) => {
+      const c = sessions.size;
+      if (c === 1) freq["1회"]++;
+      else if (c === 2) freq["2회"]++;
+      else if (c <= 5) freq["3~5회"]++;
+      else if (c <= 10) freq["6~10회"]++;
+      else freq["11회+"]++;
+    });
+    const totalVisitors = Object.values(vidSessions).length;
+    return { freq: Object.entries(freq).filter(([, v]) => v > 0), totalVisitors };
+  }, [humanViews]);
+
+  // 4. CTA conversion attribution: session path → CTA click → inquiry
+  const ctaAttribution = useMemo(() => {
+    const sessionPages: Record<string, { path: string; time: string }[]> = {};
+    humanViews.forEach((v) => {
+      if (!v.session_id) return;
+      if (!sessionPages[v.session_id]) sessionPages[v.session_id] = [];
+      sessionPages[v.session_id].push({ path: v.page_path, time: v.created_at });
+    });
+    const ctaSessionPages: Record<string, string> = {};
+    filteredClicks.forEach((c) => {
+      if (c.session_id) ctaSessionPages[c.session_id] = c.page_path;
+    });
+    const inquirySessionIds = new Set(inquiries.filter((i: any) => i.session_id).map((i: any) => i.session_id));
+    const flowCounts: Record<string, { total: number; converted: number }> = {};
+    Object.entries(ctaSessionPages).forEach(([sid, ctaPage]) => {
+      const pages = sessionPages[sid];
+      if (!pages) return;
+      const sorted = [...pages].sort((a, b) => a.time.localeCompare(b.time));
+      const uniquePages = [...new Set(sorted.map((p) => p.path))];
+      const flow = uniquePages.length <= 3
+        ? uniquePages.join(" → ") + " → [CTA]"
+        : `${uniquePages[0]} → ... → ${ctaPage} → [CTA]`;
+      if (!flowCounts[flow]) flowCounts[flow] = { total: 0, converted: 0 };
+      flowCounts[flow].total++;
+      if (inquirySessionIds.has(sid)) flowCounts[flow].converted++;
+    });
+    return Object.entries(flowCounts)
+      .map(([flow, d]) => ({ flow, ...d }))
+      .sort((a, b) => b.total - a.total);
+  }, [humanViews, filteredClicks, inquiries]);
+
+
     // Display name maps for granular visitor_type from DB
     const aiNames: Record<string, string> = {
       ai_openai: "OpenAI (GPTBot)", ai_anthropic: "Anthropic (Claude)",
