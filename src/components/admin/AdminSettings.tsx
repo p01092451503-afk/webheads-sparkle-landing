@@ -184,12 +184,6 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div>
-        <h2 className="text-[20px] font-bold tracking-[-0.03em] text-foreground">설정</h2>
-        <p className="text-[13px] text-muted-foreground mt-0.5">
-          {isSuperAdmin ? "계정 · 보안 · 관리자 관리" : "계정 및 보안 설정"}
-        </p>
-      </div>
 
       {/* Password Change */}
       <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
