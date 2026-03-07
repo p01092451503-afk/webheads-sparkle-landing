@@ -25,6 +25,9 @@ export default function FloatingNav() {
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
       : []),
     
+    ...(location.pathname !== "/overview"
+      ? [{ to: "/overview", icon: FileText, label: "서비스 소개서", className: "bg-primary text-primary-foreground" }]
+      : []),
     ...(location.pathname !== "/blog"
       ? [{ to: "/blog", icon: BookOpen, label: "인사이트", className: "bg-foreground text-background" }]
       : []),
