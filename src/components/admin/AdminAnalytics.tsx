@@ -363,6 +363,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
   // 신규 방문자 분석: 3/4 이전에 한 번이라도 접속한 IP/session은 제외
   const newVisitorCutoff = new Date("2026-03-04T00:00:00");
+  const [newVisitorDateFilter, setNewVisitorDateFilter] = useState<string>("all");
 
   const newVisitorData = useMemo(() => {
     // 3월 3일까지의 모든 기존 방문자 식별자(IP + session_id) 수집
@@ -380,17 +381,21 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       if (v.visitor_type && v.visitor_type !== "human") return false;
       const ipKey = v.ip_address ? `ip:${v.ip_address}` : null;
       const sidKey = v.session_id ? `sid:${v.session_id}` : null;
-      // IP 또는 session_id가 기존에 존재하면 제외
       if (ipKey && oldVisitorIds.has(ipKey)) return false;
       if (sidKey && oldVisitorIds.has(sidKey)) return false;
       return true;
     });
 
-    const totalNew = newVisitors.length;
-    const uniqueNewSessions = new Set(newVisitors.map((v) => v.session_id)).size;
-    const uniqueNewIPs = new Set(newVisitors.filter((v) => v.ip_address).map((v) => v.ip_address)).size;
+    // 날짜 필터 적용
+    const filteredNewVisitors = newVisitorDateFilter === "all"
+      ? newVisitors
+      : newVisitors.filter((v) => toLocalDateKey(new Date(v.created_at)) === newVisitorDateFilter);
 
-    // 일별 추이
+    const totalNew = filteredNewVisitors.length;
+    const uniqueNewSessions = new Set(filteredNewVisitors.map((v) => v.session_id)).size;
+    const uniqueNewIPs = new Set(filteredNewVisitors.filter((v) => v.ip_address).map((v) => v.ip_address)).size;
+
+    // 일별 추이 (항상 전체 데이터 기준)
     const dailyNew: Record<string, number> = {};
     newVisitors.forEach((v) => {
       const key = toLocalDateKey(new Date(v.created_at));
@@ -404,19 +409,22 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
         count,
       }));
 
+    // 사용 가능한 날짜 목록
+    const availableDates = Object.keys(dailyNew).sort().reverse();
+
     // 랜딩 페이지
     const landingPages: Record<string, number> = {};
-    newVisitors.forEach((v) => { landingPages[v.page_path] = (landingPages[v.page_path] || 0) + 1; });
+    filteredNewVisitors.forEach((v) => { landingPages[v.page_path] = (landingPages[v.page_path] || 0) + 1; });
     const topLandingPages = Object.entries(landingPages).sort(([, a], [, b]) => b - a);
 
     // 디바이스
     const devices: Record<string, number> = {};
-    newVisitors.forEach((v) => { devices[v.device_type || "unknown"] = (devices[v.device_type || "unknown"] || 0) + 1; });
+    filteredNewVisitors.forEach((v) => { devices[v.device_type || "unknown"] = (devices[v.device_type || "unknown"] || 0) + 1; });
     const topDevices = Object.entries(devices).sort(([, a], [, b]) => b - a);
 
     // 지역
     const locations: Record<string, number> = {};
-    newVisitors.forEach((v) => {
+    filteredNewVisitors.forEach((v) => {
       const loc = v.city || v.country || "알 수 없음";
       locations[loc] = (locations[loc] || 0) + 1;
     });
@@ -424,18 +432,18 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
 
     // 유입 경로
     const referrers: Record<string, number> = {};
-    newVisitors.forEach((v) => {
+    filteredNewVisitors.forEach((v) => {
       try { const ref = v.referrer ? new URL(v.referrer).hostname : "직접 방문"; referrers[ref] = (referrers[ref] || 0) + 1; } catch { referrers["기타"] = (referrers["기타"] || 0) + 1; }
     });
     const topReferrers = Object.entries(referrers).sort(([, a], [, b]) => b - a);
 
     // 브라우저
     const browsers: Record<string, number> = {};
-    newVisitors.forEach((v) => { browsers[v.browser || "Unknown"] = (browsers[v.browser || "Unknown"] || 0) + 1; });
+    filteredNewVisitors.forEach((v) => { browsers[v.browser || "Unknown"] = (browsers[v.browser || "Unknown"] || 0) + 1; });
     const topBrowsers = Object.entries(browsers).sort(([, a], [, b]) => b - a);
 
-    return { totalNew, uniqueNewSessions, uniqueNewIPs, dailyNewArr, topLandingPages, topDevices, topLocations, topReferrers, topBrowsers };
-  }, [pageViews]);
+    return { totalNew, uniqueNewSessions, uniqueNewIPs, dailyNewArr, availableDates, topLandingPages, topDevices, topLocations, topReferrers, topBrowsers };
+  }, [pageViews, newVisitorDateFilter]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -733,15 +741,40 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
       </SectionGroup>
 
       <SectionGroup title="신규 방문자 분석 (3/4~)" number={9}>
-        <div className="flex items-center gap-1.5 px-1 mb-1">
+        <div className="flex flex-wrap items-center gap-1.5 px-1 mb-1">
           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-[hsl(152,57%,42%,0.1)] text-[hsl(152,57%,42%)]">
             <User className="w-3 h-3" /> 사람 접속만 표시
           </span>
+          <div className="flex items-center gap-1 ml-auto overflow-x-auto">
+            <button
+              onClick={() => setNewVisitorDateFilter("all")}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all whitespace-nowrap ${
+                newVisitorDateFilter === "all"
+                  ? "bg-[hsl(37,90%,51%)] text-white shadow-sm"
+                  : "bg-[hsl(40,25%,93%)] text-muted-foreground hover:bg-[hsl(40,25%,88%)]"
+              }`}
+            >
+              전체
+            </button>
+            {newVisitorData.availableDates.map((date) => (
+              <button
+                key={date}
+                onClick={() => setNewVisitorDateFilter(date === newVisitorDateFilter ? "all" : date)}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all whitespace-nowrap ${
+                  newVisitorDateFilter === date
+                    ? "bg-[hsl(37,90%,51%)] text-white shadow-sm"
+                    : "bg-[hsl(40,25%,93%)] text-muted-foreground hover:bg-[hsl(40,25%,88%)]"
+                }`}
+              >
+                {new Date(date).toLocaleDateString("ko-KR", { month: "short", day: "numeric" })}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip="3월 4일 이후 최초 접속한 사람 방문자의 페이지뷰 수입니다." className="bg-[hsl(40,35%,90%)]" />
-          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip="3월 4일 이후 최초 접속한 고유 세션 수입니다." className="bg-[hsl(150,25%,90%)]" />
-          <MetricCard icon={<Wifi className="w-[18px] h-[18px]" />} label="고유 IP" value={newVisitorData.uniqueNewIPs} color="hsl(199, 89%, 48%)" tooltip="3월 4일 이후 신규 방문자의 중복 제거된 고유 IP 수입니다." className="bg-[hsl(200,30%,90%)]" />
+          <MetricCard icon={<Users className="w-[18px] h-[18px]" />} label="신규 방문 수" value={newVisitorData.totalNew} color="hsl(37, 90%, 51%)" tooltip={newVisitorDateFilter === "all" ? "3월 4일 이후 최초 접속한 사람 방문자의 페이지뷰 수입니다." : `${newVisitorDateFilter} 신규 방문 수`} className="bg-[hsl(40,35%,90%)]" />
+          <MetricCard icon={<Globe className="w-[18px] h-[18px]" />} label="신규 세션" value={newVisitorData.uniqueNewSessions} color="hsl(152, 57%, 42%)" tooltip={newVisitorDateFilter === "all" ? "3월 4일 이후 최초 접속한 고유 세션 수입니다." : `${newVisitorDateFilter} 신규 세션 수`} className="bg-[hsl(150,25%,90%)]" />
+          <MetricCard icon={<Wifi className="w-[18px] h-[18px]" />} label="고유 IP" value={newVisitorData.uniqueNewIPs} color="hsl(199, 89%, 48%)" tooltip={newVisitorDateFilter === "all" ? "3월 4일 이후 신규 방문자의 중복 제거된 고유 IP 수입니다." : `${newVisitorDateFilter} 고유 IP 수`} className="bg-[hsl(200,30%,90%)]" />
         </div>
         {newVisitorData.dailyNewArr.length > 0 && (
           <div className="bg-[hsl(40,25%,90%)] rounded-2xl border border-[hsl(220,13%,91%)] p-5 mt-3">
