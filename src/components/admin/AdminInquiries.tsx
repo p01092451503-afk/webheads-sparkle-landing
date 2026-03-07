@@ -95,6 +95,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setDeleting(true);
     setDeleteError("");
     try {
+      // Verify password by re-authenticating
       const { data: { user } } = await supabase.auth.getUser();
       if (!user?.email) throw new Error("인증 오류");
       const { error: authError } = await supabase.auth.signInWithPassword({
@@ -145,18 +146,6 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     if (diff < 1440) return `${Math.floor(diff / 60)}시간 전`;
     if (diff < 10080) return `${Math.floor(diff / 1440)}일 전`;
     return d.toLocaleDateString("ko-KR", { month: "short", day: "numeric" });
-  };
-
-  const selectInquiry = (inq: any) => {
-    if (selectedInquiry?.id === inq.id) {
-      setSelectedInquiry(null);
-    } else {
-      setSelectedInquiry(inq);
-      setNoteText(inq.notes || "");
-      setMeetingNoteText(inq.meeting_notes || "");
-      setEditingMeetingNote(false);
-      setProposalFrozen(false);
-    }
   };
 
   return (
@@ -211,151 +200,253 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
         </div>
       </div>
 
-      {/* 2-Panel Layout: List (left) + Detail (right) on desktop */}
-      <div className="flex gap-4 items-start">
-        {/* Left: Inquiry List */}
-        <div
-           className={`flex flex-col gap-2 shrink-0 transition-all duration-300 ${
-            selectedInquiry ? "w-full lg:w-[240px] xl:w-[260px]" : "w-full"
-          }`}
-          style={{ maxHeight: selectedInquiry ? "calc(100vh - 220px)" : undefined, overflowY: selectedInquiry ? "auto" : undefined }}
-        >
-          {filteredInquiries.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] py-20 text-center">
-              <MessageSquare className="w-10 h-10 mx-auto mb-3 text-muted-foreground/20" />
-              <p className="text-[13px] text-muted-foreground/50">{searchQuery || statusFilter !== "all" ? "조건에 맞는 문의가 없습니다" : "접수된 문의가 없습니다"}</p>
-            </div>
-          ) : filteredInquiries.map((inq) => {
-            const sc = statusConfig[inq.status as InquiryStatus] || statusConfig.new;
-            const isSelected = selectedInquiry?.id === inq.id;
-            return (
-              <div key={inq.id} ref={(el) => { if (el) itemRefs.current[inq.id] = el; }}
-                onClick={() => selectInquiry(inq)}
-                className="bg-white rounded-2xl overflow-hidden transition-all duration-200 cursor-pointer group"
-                style={{
-                  scrollMarginTop: "120px",
-                  borderLeft: `3px solid ${sc.color}`,
-                  border: isSelected ? `1.5px solid hsl(221, 83%, 53%)` : `1px solid hsl(220, 13%, 91%)`,
-                  borderLeftWidth: "3px",
-                  borderLeftColor: sc.color,
-                  boxShadow: isSelected ? "0 0 0 3px hsl(221 83% 53% / 0.06)" : "none",
+      {/* List */}
+      <div className="flex flex-col gap-2">
+        {filteredInquiries.length === 0 ? (
+          <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] py-20 text-center">
+            <MessageSquare className="w-10 h-10 mx-auto mb-3 text-muted-foreground/20" />
+            <p className="text-[13px] text-muted-foreground/50">{searchQuery || statusFilter !== "all" ? "조건에 맞는 문의가 없습니다" : "접수된 문의가 없습니다"}</p>
+          </div>
+        ) : filteredInquiries.map((inq) => {
+          const sc = statusConfig[inq.status as InquiryStatus] || statusConfig.new;
+          const isSelected = selectedInquiry?.id === inq.id;
+          return (
+            <div key={inq.id} ref={(el) => { if (el) itemRefs.current[inq.id] = el; }}
+              className="bg-white rounded-2xl overflow-hidden transition-all duration-200"
+              style={{
+                scrollMarginTop: "120px",
+                borderLeft: `3px solid ${sc.color}`,
+                border: isSelected ? `1.5px solid hsl(221, 83%, 53%)` : `1px solid hsl(220, 13%, 91%)`,
+                borderLeftWidth: "3px",
+                borderLeftColor: sc.color,
+                boxShadow: isSelected ? "0 0 0 3px hsl(221 83% 53% / 0.06)" : "none",
+              }}
+            >
+              {/* Summary */}
+              <div
+                onClick={() => {
+                  if (isSelected) { setSelectedInquiry(null); }
+                  else {
+                    setSelectedInquiry(inq); setNoteText(inq.notes || "");
+                    setMeetingNoteText(inq.meeting_notes || ""); setEditingMeetingNote(false); setProposalFrozen(false);
+                    setTimeout(() => { itemRefs.current[inq.id]?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
+                  }
                 }}
+                className="group p-4 sm:p-5 cursor-pointer"
               >
-                <div className="p-4 sm:p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                        <span className="text-[11px] font-bold px-2.5 py-1 rounded-full text-white" style={{ background: sc.color }}>
-                          {sc.label}
-                        </span>
-                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-muted-foreground bg-[hsl(220,14%,96%)]">
-                          {inq.inquiry_type === "demo" ? "데모" : "상담"}
-                        </span>
-                        {inq.ai_analysis && (
-                          <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(192,80%,40%)] bg-[hsl(192,80%,40%,0.08)]">AI분석</span>
-                        )}
-                        {inq.notes && (
-                          <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">메모</span>
-                        )}
-                        {inq.meeting_notes && (
-                          <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(262,60%,55%)] bg-[hsl(262,60%,55%,0.08)]">미팅완료</span>
-                        )}
-                      </div>
-                      <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">
-                        {inq.company}<span className="font-normal text-muted-foreground"> · {inq.name}</span>
-                      </p>
-                      <div className="flex items-center gap-3 mt-1 flex-wrap">
-                        <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Phone className="w-3 h-3" />{inq.phone}</span>
-                        {inq.email && <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Mail className="w-3 h-3" />{inq.email}</span>}
-                        {inq.service && <span className="text-[12px] text-muted-foreground/60">· {inq.service}</span>}
-                      </div>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full text-white"
+                        style={{ background: sc.color }}
+                      >
+                        {sc.label}
+                      </span>
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-muted-foreground bg-[hsl(220,14%,96%)]">
+                        {inq.inquiry_type === "demo" ? "데모" : "상담"}
+                      </span>
+                      {inq.ai_analysis && (
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(192,80%,40%)] bg-[hsl(192,80%,40%,0.08)]">AI분석</span>
+                      )}
+                      {inq.notes && (
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">메모</span>
+                      )}
+                      {inq.meeting_notes && (
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(262,60%,55%)] bg-[hsl(262,60%,55%,0.08)]">미팅완료</span>
+                      )}
                     </div>
-                    <div className="flex flex-col items-end gap-1 shrink-0">
-                      <span className="text-[11px] text-muted-foreground/50">{formatDate(inq.created_at)}</span>
-                      <div className="flex items-center gap-1.5 mt-1">
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setDeleteTarget(inq); setDeletePassword(""); setDeleteError(""); }}
-                          className="p-1.5 rounded-lg text-muted-foreground/30 hover:text-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,60%,0.06)] transition-all opacity-0 group-hover:opacity-100"
-                          title="삭제"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                        <ChevronRight
-                          className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-all"
-                          style={{ transform: isSelected ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
-                        />
-                      </div>
+                    <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">
+                      {inq.company}<span className="font-normal text-muted-foreground"> · {inq.name}</span>
+                    </p>
+                    <div className="flex items-center gap-3 mt-1 flex-wrap">
+                      <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Phone className="w-3 h-3" />{inq.phone}</span>
+                      {inq.email && <span className="flex items-center gap-1 text-[12px] text-muted-foreground"><Mail className="w-3 h-3" />{inq.email}</span>}
+                      {inq.service && <span className="text-[12px] text-muted-foreground/60">· {inq.service}</span>}
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1 shrink-0">
+                    <span className="text-[11px] text-muted-foreground/50">{formatDate(inq.created_at)}</span>
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setDeleteTarget(inq); setDeletePassword(""); setDeleteError(""); }}
+                        className="p-1.5 rounded-lg text-muted-foreground/30 hover:text-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,60%,0.06)] transition-all opacity-0 group-hover:opacity-100"
+                        title="삭제"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                      <ChevronRight
+                        className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-all"
+                        style={{ transform: isSelected ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
+                      />
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Mobile: inline detail (lg 이하) */}
-                {isSelected && (
-                  <div className="px-4 sm:px-5 pb-5 pt-0 lg:hidden">
-                    <InquiryDetail
-                      selectedInquiry={selectedInquiry}
-                      isSuperAdmin={isSuperAdmin}
-                      noteText={noteText}
-                      setNoteText={setNoteText}
-                      saveNote={saveNote}
-                      savingNote={savingNote}
-                      meetingNoteText={meetingNoteText}
-                      setMeetingNoteText={setMeetingNoteText}
-                      saveMeetingNote={saveMeetingNote}
-                      savingMeetingNote={savingMeetingNote}
-                      editingMeetingNote={editingMeetingNote}
-                      setEditingMeetingNote={setEditingMeetingNote}
-                      updateStatus={updateStatus}
-                      proposalFrozen={proposalFrozen}
-                      setProposalFrozen={setProposalFrozen}
-                    />
+              {/* Detail */}
+              {isSelected && (
+                <div className="px-4 sm:px-5 pb-5 pt-0">
+                  <div className="rounded-xl p-5 bg-[hsl(220,14%,97%)] border border-[hsl(220,13%,93%)]">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <DetailRow icon={Building2} label="회사명" value={selectedInquiry.company} />
+                      <DetailRow icon={User} label="담당자" value={selectedInquiry.name} />
+                      <DetailRow icon={Phone} label="연락처" value={selectedInquiry.phone} isLink href={`tel:${selectedInquiry.phone}`} />
+                      {selectedInquiry.email && <DetailRow icon={Mail} label="이메일" value={selectedInquiry.email} isLink href={`mailto:${selectedInquiry.email}`} />}
+                      {selectedInquiry.service && <DetailRow icon={FileText} label="관심 서비스" value={selectedInquiry.service} />}
+                      <DetailRow icon={Calendar} label="접수일" value={new Date(selectedInquiry.created_at).toLocaleString("ko-KR")} />
+                    </div>
+
+                    {selectedInquiry.message && (
+                      <div className="mt-4">
+                        <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">문의 내용</p>
+                        <div
+                          className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground border border-[hsl(220,13%,93%)] [&_div]:min-h-[1.2em] whitespace-pre-wrap"
+                          dangerouslySetInnerHTML={{ __html: selectedInquiry.message }}
+                        />
+                      </div>
+                    )}
+
+                    {/* Notes */}
+                    <div className="mt-4">
+                      <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">내부 메모</p>
+                      {isSuperAdmin ? (
+                        <>
+                          <textarea
+                            value={noteText}
+                            onChange={(e) => setNoteText(e.target.value)}
+                            rows={3}
+                            placeholder="메모를 입력하세요..."
+                            className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(220,13%,93%)] focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
+                          />
+                          <button onClick={saveNote} disabled={savingNote}
+                            className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.12)] transition-all active:scale-[0.96] disabled:opacity-50"
+                          >
+                            {savingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
+                            메모 저장
+                          </button>
+                        </>
+                      ) : (
+                        <div className="bg-white rounded-xl p-3.5 text-[13px] text-foreground whitespace-pre-wrap border border-[hsl(220,13%,93%)] min-h-[48px]">
+                          {selectedInquiry.notes || <span className="text-muted-foreground/30">메모 없음</span>}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Meeting Notes */}
+                    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-[11px] font-semibold text-muted-foreground tracking-wide flex items-center gap-1.5">
+                          <ClipboardList className="w-3.5 h-3.5" /> 미팅 내용
+                        </p>
+                        {isSuperAdmin && selectedInquiry.meeting_notes && !editingMeetingNote && (
+                          <button
+                            onClick={() => setEditingMeetingNote(true)}
+                            className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-[hsl(262,60%,55%)] hover:bg-[hsl(262,60%,55%,0.06)] transition-all"
+                          >
+                            <Edit3 className="w-3 h-3" /> 수정
+                          </button>
+                        )}
+                      </div>
+                      {isSuperAdmin ? (
+                        <>
+                          {!selectedInquiry.meeting_notes && !editingMeetingNote ? (
+                            <button
+                              onClick={() => setEditingMeetingNote(true)}
+                              className="w-full py-4 rounded-xl border-2 border-dashed border-[hsl(220,13%,91%)] text-[12px] text-muted-foreground/50 hover:border-[hsl(262,60%,55%,0.3)] hover:text-[hsl(262,60%,55%)] transition-all"
+                            >
+                              + 미팅 내용 기록하기
+                            </button>
+                          ) : editingMeetingNote ? (
+                            <>
+                              <textarea
+                                value={meetingNoteText}
+                                onChange={(e) => setMeetingNoteText(e.target.value)}
+                                rows={5}
+                                placeholder="미팅 일시, 참석자, 논의 내용, 후속 조치 등을 기록하세요..."
+                                className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(262,60%,55%,0.3)] focus:border-[hsl(262,60%,55%)] focus:ring-2 focus:ring-[hsl(262,60%,55%,0.08)] transition-all"
+                                autoFocus
+                              />
+                              <div className="flex gap-2 mt-2">
+                                <button onClick={saveMeetingNote} disabled={savingMeetingNote}
+                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(262,60%,55%)] hover:bg-[hsl(262,60%,45%)] transition-all active:scale-[0.96] disabled:opacity-50"
+                                >
+                                  {savingMeetingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                                  저장
+                                </button>
+                                <button
+                                  onClick={() => { setEditingMeetingNote(false); setMeetingNoteText(selectedInquiry.meeting_notes || ""); }}
+                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all"
+                                >
+                                  취소
+                                </button>
+                              </div>
+                            </>
+                          ) : (
+                            <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(262,60%,55%,0.15)]">
+                              {selectedInquiry.meeting_notes}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(262,60%,55%,0.15)] min-h-[48px]">
+                          {selectedInquiry.meeting_notes || <span className="text-muted-foreground/30">미팅 내용 없음</span>}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Status */}
+                    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
+                      <p className="text-[11px] font-semibold text-muted-foreground mb-3 tracking-wide">상태 변경</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        {(Object.keys(statusConfig) as InquiryStatus[]).map((s) => {
+                          const cfg = statusConfig[s];
+                          const isActive = selectedInquiry.status === s;
+                          return (
+                            <button key={s} onClick={() => isSuperAdmin && updateStatus(selectedInquiry.id, s)}
+                              disabled={!isSuperAdmin}
+                              className="py-2.5 rounded-xl text-[12px] font-medium transition-all duration-200 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-60"
+                              style={{
+                                color: isActive ? "white" : "hsl(220, 9%, 46%)",
+                                background: isActive ? cfg.color : "white",
+                                border: isActive ? `1.5px solid ${cfg.color}` : "1.5px solid hsl(220, 13%, 91%)",
+                              }}
+                            >
+                              {cfg.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Visitor Stats */}
+                    <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
+
+                    {/* AI Analysis */}
+                    <InquiryAIAnalysis inquiry={selectedInquiry} />
+
+                    {/* AI Pro Analysis */}
+                    <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} />
+
+                    {/* Proposal */}
+                    <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
+
+                    {/* Delete */}
+                    {/* 삭제 버튼 숨김 처리
+                    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
+                      <button
+                        onClick={() => { setDeleteTarget(selectedInquiry); setDeletePassword(""); setDeleteError(""); }}
+                        className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] hover:bg-[hsl(0,84%,60%,0.1)] transition-all active:scale-[0.96]"
+                      >
+                        <Trash2 className="w-3 h-3" /> 문의 삭제
+                      </button>
+                    </div>
+                    */}
                   </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Right: Detail Panel (desktop only) */}
-        {selectedInquiry && (
-          <div
-            className="hidden lg:block flex-1 min-w-0 sticky top-4"
-            style={{ maxHeight: "calc(100vh - 220px)", overflowY: "auto" }}
-          >
-            <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5">
-              {/* Close button */}
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-[15px] font-bold text-foreground">
-                  {selectedInquiry.company} · {selectedInquiry.name}
-                </h3>
-                <button
-                  onClick={() => setSelectedInquiry(null)}
-                  className="p-1.5 rounded-lg text-muted-foreground hover:bg-[hsl(220,14%,96%)] transition-all"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-              <InquiryDetail
-                key={selectedInquiry.id}
-                selectedInquiry={selectedInquiry}
-                isSuperAdmin={isSuperAdmin}
-                noteText={noteText}
-                setNoteText={setNoteText}
-                saveNote={saveNote}
-                savingNote={savingNote}
-                meetingNoteText={meetingNoteText}
-                setMeetingNoteText={setMeetingNoteText}
-                saveMeetingNote={saveMeetingNote}
-                savingMeetingNote={savingMeetingNote}
-                editingMeetingNote={editingMeetingNote}
-                setEditingMeetingNote={setEditingMeetingNote}
-                updateStatus={updateStatus}
-                proposalFrozen={proposalFrozen}
-                setProposalFrozen={setProposalFrozen}
-              />
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          );
+        })}
       </div>
 
       {/* Password-confirmed Delete Dialog */}
@@ -400,180 +491,6 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </div>
-  );
-}
-
-// --- Detail Component (shared between mobile inline & desktop panel) ---
-interface InquiryDetailProps {
-  selectedInquiry: any;
-  isSuperAdmin: boolean;
-  noteText: string;
-  setNoteText: (v: string) => void;
-  saveNote: () => void;
-  savingNote: boolean;
-  meetingNoteText: string;
-  setMeetingNoteText: (v: string) => void;
-  saveMeetingNote: () => void;
-  savingMeetingNote: boolean;
-  editingMeetingNote: boolean;
-  setEditingMeetingNote: (v: boolean) => void;
-  updateStatus: (id: string, status: InquiryStatus) => void;
-  proposalFrozen: boolean;
-  setProposalFrozen: (v: boolean) => void;
-}
-
-function InquiryDetail({
-  selectedInquiry, isSuperAdmin,
-  noteText, setNoteText, saveNote, savingNote,
-  meetingNoteText, setMeetingNoteText, saveMeetingNote, savingMeetingNote,
-  editingMeetingNote, setEditingMeetingNote,
-  updateStatus, proposalFrozen, setProposalFrozen,
-}: InquiryDetailProps) {
-  return (
-    <div className="rounded-xl p-5 bg-[hsl(220,14%,97%)] border border-[hsl(220,13%,93%)]">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <DetailRow icon={Building2} label="회사명" value={selectedInquiry.company} />
-        <DetailRow icon={User} label="담당자" value={selectedInquiry.name} />
-        <DetailRow icon={Phone} label="연락처" value={selectedInquiry.phone} isLink href={`tel:${selectedInquiry.phone}`} />
-        {selectedInquiry.email && <DetailRow icon={Mail} label="이메일" value={selectedInquiry.email} isLink href={`mailto:${selectedInquiry.email}`} />}
-        {selectedInquiry.service && <DetailRow icon={FileText} label="관심 서비스" value={selectedInquiry.service} />}
-        <DetailRow icon={Calendar} label="접수일" value={new Date(selectedInquiry.created_at).toLocaleString("ko-KR")} />
-      </div>
-
-      {selectedInquiry.message && (
-        <div className="mt-4">
-          <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">문의 내용</p>
-          <div
-            className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground border border-[hsl(220,13%,93%)] [&_div]:min-h-[1.2em] whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{ __html: selectedInquiry.message }}
-          />
-        </div>
-      )}
-
-      {/* Notes */}
-      <div className="mt-4">
-        <p className="text-[11px] font-semibold text-muted-foreground mb-2 tracking-wide">내부 메모</p>
-        {isSuperAdmin ? (
-          <>
-            <textarea
-              value={noteText}
-              onChange={(e) => setNoteText(e.target.value)}
-              rows={3}
-              placeholder="메모를 입력하세요..."
-              className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(220,13%,93%)] focus:border-[hsl(221,83%,53%)] focus:ring-2 focus:ring-[hsl(221,83%,53%,0.08)] transition-all"
-            />
-            <button onClick={saveNote} disabled={savingNote}
-              className="mt-2 flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.12)] transition-all active:scale-[0.96] disabled:opacity-50"
-            >
-              {savingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
-              메모 저장
-            </button>
-          </>
-        ) : (
-          <div className="bg-white rounded-xl p-3.5 text-[13px] text-foreground whitespace-pre-wrap border border-[hsl(220,13%,93%)] min-h-[48px]">
-            {selectedInquiry.notes || <span className="text-muted-foreground/30">메모 없음</span>}
-          </div>
-        )}
-      </div>
-
-      {/* Meeting Notes */}
-      <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-[11px] font-semibold text-muted-foreground tracking-wide flex items-center gap-1.5">
-            <ClipboardList className="w-3.5 h-3.5" /> 미팅 내용
-          </p>
-          {isSuperAdmin && selectedInquiry.meeting_notes && !editingMeetingNote && (
-            <button
-              onClick={() => setEditingMeetingNote(true)}
-              className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-[hsl(262,60%,55%)] hover:bg-[hsl(262,60%,55%,0.06)] transition-all"
-            >
-              <Edit3 className="w-3 h-3" /> 수정
-            </button>
-          )}
-        </div>
-        {isSuperAdmin ? (
-          <>
-            {!selectedInquiry.meeting_notes && !editingMeetingNote ? (
-              <button
-                onClick={() => setEditingMeetingNote(true)}
-                className="w-full py-4 rounded-xl border-2 border-dashed border-[hsl(220,13%,91%)] text-[12px] text-muted-foreground/50 hover:border-[hsl(262,60%,55%,0.3)] hover:text-[hsl(262,60%,55%)] transition-all"
-              >
-                + 미팅 내용 기록하기
-              </button>
-            ) : editingMeetingNote ? (
-              <>
-                <textarea
-                  value={meetingNoteText}
-                  onChange={(e) => setMeetingNoteText(e.target.value)}
-                  rows={5}
-                  placeholder="미팅 일시, 참석자, 논의 내용, 후속 조치 등을 기록하세요..."
-                  className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(262,60%,55%,0.3)] focus:border-[hsl(262,60%,55%)] focus:ring-2 focus:ring-[hsl(262,60%,55%,0.08)] transition-all"
-                  autoFocus
-                />
-                <div className="flex gap-2 mt-2">
-                  <button onClick={saveMeetingNote} disabled={savingMeetingNote}
-                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(262,60%,55%)] hover:bg-[hsl(262,60%,45%)] transition-all active:scale-[0.96] disabled:opacity-50"
-                  >
-                    {savingMeetingNote ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
-                    저장
-                  </button>
-                  <button
-                    onClick={() => { setEditingMeetingNote(false); setMeetingNoteText(selectedInquiry.meeting_notes || ""); }}
-                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all"
-                  >
-                    취소
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(262,60%,55%,0.15)]">
-                {selectedInquiry.meeting_notes}
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(262,60%,55%,0.15)] min-h-[48px]">
-            {selectedInquiry.meeting_notes || <span className="text-muted-foreground/30">미팅 내용 없음</span>}
-          </div>
-        )}
-      </div>
-
-      {/* Status */}
-      <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
-        <p className="text-[11px] font-semibold text-muted-foreground mb-3 tracking-wide">상태 변경</p>
-        <div className="grid grid-cols-4 gap-2">
-          {(Object.keys(statusConfig) as InquiryStatus[]).map((s) => {
-            const cfg = statusConfig[s];
-            const isActive = selectedInquiry.status === s;
-            return (
-              <button key={s} onClick={() => isSuperAdmin && updateStatus(selectedInquiry.id, s)}
-                disabled={!isSuperAdmin}
-                className="py-2.5 rounded-xl text-[12px] font-medium transition-all duration-200 active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-60"
-                style={{
-                  color: isActive ? "white" : "hsl(220, 9%, 46%)",
-                  background: isActive ? cfg.color : "white",
-                  border: isActive ? `1.5px solid ${cfg.color}` : "1.5px solid hsl(220, 13%, 91%)",
-                }}
-              >
-                {cfg.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Visitor Stats */}
-      <InquiryVisitorStats sessionId={selectedInquiry.session_id} />
-
-      {/* AI Analysis */}
-      <InquiryAIAnalysis inquiry={selectedInquiry} />
-
-      {/* AI Pro Analysis */}
-      <InquiryProAnalysis inquiry={selectedInquiry} proposalFrozen={proposalFrozen} />
-
-      {/* Proposal */}
-      <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
     </div>
   );
 }
