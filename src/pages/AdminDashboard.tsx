@@ -56,14 +56,27 @@ export default function AdminDashboard() {
   // Auth check
   useEffect(() => {
     let isMounted = true;
+    authResolvedRef.current = false;
 
     const redirectToLogin = () => {
       if (!isMounted) return;
       navigate("/admin/login", { replace: true });
     };
 
+    const authTimeout = window.setTimeout(() => {
+      if (!isMounted || authResolvedRef.current) return;
+      setLoading(false);
+      redirectToLogin();
+    }, 10000);
+
     const checkAuth = async () => {
-      if (authCheckedRef.current) return;
+      if (authCheckedRef.current) {
+        authResolvedRef.current = true;
+        window.clearTimeout(authTimeout);
+        if (isMounted) setLoading(false);
+        return;
+      }
+
       try {
         const { data: { session }, error: sessionError } = await supabase.auth.getSession();
         if (sessionError || !session) {
@@ -98,15 +111,11 @@ export default function AdminDashboard() {
       } catch {
         redirectToLogin();
       } finally {
+        authResolvedRef.current = true;
+        window.clearTimeout(authTimeout);
         if (isMounted) setLoading(false);
       }
     };
-
-    const authTimeout = window.setTimeout(() => {
-      if (!isMounted) return;
-      setLoading(false);
-      redirectToLogin();
-    }, 10000);
 
     checkAuth();
 
