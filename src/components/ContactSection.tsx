@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RichTextEditor from "./RichTextEditor";
 import { Helmet } from "react-helmet-async";
-import { Send, Loader2, ChevronDown, Monitor, Lock, Phone } from "lucide-react";
+import { Send, Loader2, ChevronDown, Monitor, Lock, Phone, MessageSquarePen } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "react-i18next";
 
