@@ -266,10 +266,19 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                   </div>
                   <div className="flex flex-col items-end gap-1 shrink-0">
                     <span className="text-[11px] text-muted-foreground/50">{formatDate(inq.created_at)}</span>
-                    <ChevronRight
-                      className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-all mt-1"
-                      style={{ transform: isSelected ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
-                    />
+                    <div className="flex items-center gap-1.5 mt-1">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setDeleteTarget(inq); setDeletePassword(""); setDeleteError(""); }}
+                        className="p-1.5 rounded-lg text-muted-foreground/30 hover:text-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,60%,0.06)] transition-all opacity-0 group-hover:opacity-100"
+                        title="삭제"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                      <ChevronRight
+                        className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground transition-all"
+                        style={{ transform: isSelected ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
