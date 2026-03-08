@@ -277,7 +277,7 @@ export default function CostSimulator() {
                         </span>
                         <span className="flex items-center gap-1.5">
                           <Server className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          단독서버 추가 비용: <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>월 200,000원</span>
+                          단독서버 추가 비용: <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>월 250,000원</span>
                         </span>
                       </div>
                     </div>
