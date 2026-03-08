@@ -137,11 +137,12 @@ export default function Header() {
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}<span
-                className={`inline-block transition-all duration-700 ease-out ${showDate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
+                className={`inline-block transition-all duration-700 ease-out relative group/date ${showDate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
                 style={{ color: "#6B7280" }}
               >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-                return `${now.getMonth() + 1}/${now.getDate()}`;
+                const days = ["일", "월", "화", "수", "목", "금", "토"];
+                return <>{`${now.getMonth() + 1}/${now.getDate()}`}<span className="inline-block max-w-0 overflow-hidden opacity-0 group-hover/date:max-w-[2em] group-hover/date:opacity-100 transition-all duration-300 ease-out align-baseline" style={{ fontSize: "0.7em" }}>{days[now.getDay()]}</span></>;
               })()}</span>
             </Link>
 
