@@ -132,7 +132,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setEditExpense(exp);
     setFormCategoryId(exp.category_id || "");
     setFormClientId(exp.client_id || "none");
-    setFormAmount(exp.amount ? exp.amount.toLocaleString("ko-KR") : "");
+    setFormSupplyAmount(exp.supply_amount ? exp.supply_amount.toLocaleString("ko-KR") : "");
+    setFormTaxAmount(exp.tax_amount ? exp.tax_amount.toLocaleString("ko-KR") : "");
     setFormDescription(exp.description || "");
     setFormMemo(exp.memo || "");
     setModalOpen(true);
