@@ -27,7 +27,7 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 type FilterType = "all" | "paid" | "unpaid" | "managed";
 type SortType = "unpaid" | "date" | "name";
 // Editing cell now includes paymentType
-type EditingCell = { clientId: string; field: "amount" | "paid_date"; paymentType?: string } | null;
+type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes"; paymentType?: string } | null;
 
 // Default visible columns
 const DEFAULT_VISIBLE_TYPES = ["hosting", "maintenance", "sms", "ssl", "commission"];
@@ -198,15 +198,30 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [clientData, viewYear, viewMonth, onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date", paymentType: string = "hosting") => {
+  const saveClientNotes = useCallback(async (clientId: string, notes: string) => {
+    try {
+      const { error } = await supabase.from("clients").update({ notes: notes || null }).eq("id", clientId);
+      if (error) throw error;
+      showSaved(`${clientId}-notes`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "비고 저장 중 오류가 발생했습니다");
+    }
+  }, [onRefresh, showSaved]);
+
+  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting") => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
-    const payment = client.byType[paymentType];
-    if (field === "amount") {
-      setEditValue(payment?.amount ? payment.amount.toLocaleString("ko-KR") : "");
+    if (field === "notes") {
+      setEditValue(client.notes || "");
     } else {
-      setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
+      const payment = client.byType[paymentType];
+      if (field === "amount") {
+        setEditValue(payment?.amount ? payment.amount.toLocaleString("ko-KR") : "");
+      } else {
+        setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
+      }
     }
     setEditing({ clientId, field, paymentType });
   };
@@ -235,7 +250,11 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
   const commitEdit = () => {
     if (!editing) return;
-    saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
+    if (editing.field === "notes") {
+      saveClientNotes(editing.clientId, editValue);
+    } else {
+      saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
+    }
     setEditing(null);
   };
 
@@ -598,7 +617,29 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       </div>
                     </td>
 
-                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.notes || "-"}</td>
+                    <td className="px-2 py-1.5">
+                      <div className="relative">
+                        {editing?.clientId === c.id && editing.field === "notes" ? (
+                          <input
+                            ref={inputRef}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={commitEdit}
+                            onKeyDown={handleKeyDown}
+                            placeholder="비고 입력"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                          />
+                        ) : (
+                          <button
+                            onClick={() => startEditing(c.id, "notes")}
+                            className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text truncate max-w-[80px]"
+                          >
+                            {c.notes || "-"}
+                          </button>
+                        )}
+                        <SavedCheck cellKey={`${c.id}-notes`} />
+                      </div>
+                    </td>
                     <td className={`px-3 py-3 text-right font-medium whitespace-nowrap ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
                       {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
                     </td>
