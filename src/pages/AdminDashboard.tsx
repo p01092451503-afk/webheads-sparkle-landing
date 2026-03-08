@@ -356,6 +356,9 @@ export default function AdminDashboard() {
           {tab === "payments" && (
             <AdminPayments isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
           )}
+          {tab === "expenses" && (
+            <ExpenseManager isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
