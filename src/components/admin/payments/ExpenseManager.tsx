@@ -490,33 +490,33 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label className="text-[13px]">공급가액 *</Label>
+              <Label className="text-[13px]">합계 금액 (부가세 포함) *</Label>
               <Input
-                value={formSupplyAmount}
+                value={formTotalAmount}
                 onChange={(e) => {
                   const num = e.target.value.replace(/[^0-9]/g, "");
-                  setFormSupplyAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                  setFormTotalAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
                 }}
                 placeholder="0"
                 className="h-9 text-[13px] text-right"
               />
             </div>
-            <div className="space-y-1.5">
-              <Label className="text-[13px]">세액</Label>
-              <Input
-                value={formTaxAmount}
-                onChange={(e) => {
-                  const num = e.target.value.replace(/[^0-9]/g, "");
-                  setFormTaxAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
-                }}
-                placeholder="0"
-                className="h-9 text-[13px] text-right"
-              />
-            </div>
-            <div className="flex items-center justify-between px-1 py-2 rounded-lg bg-[hsl(220,14%,96%)]">
-              <span className="text-[13px] font-medium text-muted-foreground pl-2">합계</span>
-              <span className="text-[15px] font-bold pr-2">{formatWon(formTotal)}</span>
-            </div>
+            {formTotal > 0 && (
+              <div className="rounded-lg bg-[hsl(220,14%,96%)] px-3 py-2.5 space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] text-muted-foreground">공급가액</span>
+                  <span className="text-[13px] font-medium">{formatWon(formSupplyCalc)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[12px] text-muted-foreground">세액 (10%)</span>
+                  <span className="text-[13px] font-medium">{formatWon(formTaxCalc)}</span>
+                </div>
+                <div className="flex items-center justify-between border-t border-[hsl(220,13%,88%)] pt-1">
+                  <span className="text-[12px] font-semibold text-foreground">합계</span>
+                  <span className="text-[14px] font-bold">{formatWon(formTotal)}</span>
+                </div>
+              </div>
+            )}
             <div className="space-y-1.5">
               <Label className="text-[13px]">내용</Label>
               <Input value={formDescription} onChange={(e) => setFormDescription(e.target.value)} placeholder="지출 내용" className="h-9 text-[13px]" />
