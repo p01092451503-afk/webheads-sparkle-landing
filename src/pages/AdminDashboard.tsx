@@ -51,6 +51,8 @@ export default function AdminDashboard() {
   const [clickEvents, setClickEvents] = useState<any[]>([]);
   const [newInquiryAlert, setNewInquiryAlert] = useState(false);
   const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
+  const [allowedTabs, setAllowedTabs] = useState<string[] | null>(null);
+  const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
 
   const setTab = useCallback((t: Tab) => {
     setTabState(t);
