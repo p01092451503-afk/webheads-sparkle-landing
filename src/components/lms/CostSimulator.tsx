@@ -398,6 +398,26 @@ export default function CostSimulator() {
               </div>
             )}
 
+            {/* Upgrade nudge */}
+            {upgradeNudge && (
+              <div className="rounded-2xl border p-4 flex items-start gap-3" style={{ borderColor: "hsl(var(--lms-primary) / 0.3)", background: "hsl(var(--lms-primary) / 0.05)" }}>
+                <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.12)" }}>
+                  <TrendingUp className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-foreground mb-1">
+                    {upgradeNudge.toPlan} 플랜이 더 경제적입니다
+                  </p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {upgradeNudge.savings > 0
+                      ? <>현재 {upgradeNudge.fromPlan} 플랜은 초과 요금이 많아, <span className="font-semibold" style={{ color: "hsl(var(--lms-primary))" }}>{upgradeNudge.toPlan}</span> 플랜으로 변경 시 월 <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatPrice(upgradeNudge.savings)}원</span> 절감할 수 있습니다.</>
+                      : <>{upgradeNudge.fromPlan} 플랜의 초과 비용이 상위 플랜과의 차액에 근접합니다. <span className="font-semibold" style={{ color: "hsl(var(--lms-primary))" }}>{upgradeNudge.toPlan}</span> 플랜을 고려해 보세요.</>
+                    }
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* All plans comparison */}
             <div className="rounded-2xl border border-border overflow-hidden">
               <div className="px-5 py-3.5 bg-muted/50 border-b border-border">
