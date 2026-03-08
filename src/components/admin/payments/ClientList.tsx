@@ -617,7 +617,29 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       </div>
                     </td>
 
-                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.notes || "-"}</td>
+                    <td className="px-2 py-1.5">
+                      <div className="relative">
+                        {editing?.clientId === c.id && editing.field === "notes" ? (
+                          <input
+                            ref={inputRef}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={commitEdit}
+                            onKeyDown={handleKeyDown}
+                            placeholder="비고 입력"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                          />
+                        ) : (
+                          <button
+                            onClick={() => startEditing(c.id, "notes")}
+                            className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text truncate max-w-[80px]"
+                          >
+                            {c.notes || "-"}
+                          </button>
+                        )}
+                        <SavedCheck cellKey={`${c.id}-notes`} />
+                      </div>
+                    </td>
                     <td className={`px-3 py-3 text-right font-medium whitespace-nowrap ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
                       {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
                     </td>
