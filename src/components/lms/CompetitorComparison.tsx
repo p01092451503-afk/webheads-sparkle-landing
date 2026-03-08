@@ -1,19 +1,20 @@
 import { useTranslation } from "react-i18next";
 
-function StatusText({ value }: { value: string }) {
+function StatusText({ value, bold = true }: { value: string; bold?: boolean }) {
   const { i18n } = useTranslation();
   const lang = i18n.language;
+  const weight = bold ? "font-bold" : "font-normal";
 
   if (value === "O") {
-    return <span className="text-sm font-bold text-primary mx-auto block text-center">{lang === "ko" ? "기본 제공" : "Included"}</span>;
+    return <span className={`text-sm ${weight} text-primary mx-auto block text-center`}>{lang === "ko" ? "기본 제공" : "Included"}</span>;
   }
   if (value === "X") {
-    return <span className="text-sm font-bold text-destructive/50 mx-auto block text-center">{lang === "ko" ? "불가" : "N/A"}</span>;
+    return <span className={`text-sm ${weight} text-destructive/50 mx-auto block text-center`}>{lang === "ko" ? "불가" : "N/A"}</span>;
   }
   if (value === "△") {
-    return <span className="text-sm font-bold text-muted-foreground mx-auto block text-center">{lang === "ko" ? "제한적" : "Limited"}</span>;
+    return <span className={`text-sm ${weight} text-muted-foreground mx-auto block text-center`}>{lang === "ko" ? "제한적" : "Limited"}</span>;
   }
-  return <span className="text-sm font-bold text-foreground text-center block">{value}</span>;
+  return <span className={`text-sm ${weight} text-foreground text-center block`}>{value}</span>;
 }
 
 export default function CompetitorComparison() {
@@ -51,7 +52,7 @@ export default function CompetitorComparison() {
                     <td className="px-6 py-3.5 font-medium text-foreground">{row[0]}</td>
                     {row.slice(1).map((v, j) => (
                       <td key={j} className={`px-4 py-3.5 text-center ${j === row.length - 2 ? "bg-primary/5" : ""}`}>
-                        <StatusText value={v} />
+                        <StatusText value={v} bold={j === row.length - 2} />
                       </td>
                     ))}
                   </tr>
