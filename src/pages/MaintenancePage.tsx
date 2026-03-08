@@ -111,7 +111,7 @@ export default function MaintenancePage() {
       <TestimonialSection bg="bg-background" testimonials={testimonials} />
 
       {/* FAQ - G */}
-      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName="유지보수 서비스" />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("maintenance.seo.title")} />
 
       {/* Contact - W */}
       <ContactSection />
