@@ -15,6 +15,13 @@ const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPaymen
 type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments";
 type UserRole = "super_admin" | "admin" | "user";
 
+const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
+  { key: "analytics", icon: BarChart3, label: "분석" },
+  { key: "inquiries", icon: MessageSquare, label: "문의" },
+  { key: "payments", icon: CreditCard, label: "입금관리" },
+  { key: "settings", icon: Settings, label: "설정" },
+];
+
 const TabLoader = () => (
   <div className="flex items-center justify-center py-20">
     <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
