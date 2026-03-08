@@ -226,6 +226,9 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             defaultFilter={clientListFilter}
           />
         )}
+        {subView === "expenses" && (
+          <ExpenseManager clients={clients} />
+        )}
         {subView === "calendar" && (
           <PaymentCalendar clients={clients} payments={payments} onNavigate={handleNavigate} />
         )}
