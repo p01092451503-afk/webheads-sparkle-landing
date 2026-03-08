@@ -315,7 +315,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 -mb-px overflow-x-auto scrollbar-hide pl-4">
+          <div className="flex gap-1 -mb-px overflow-x-auto scrollbar-hide">
             {tabs.map((t) => {
               const isActive = tab === t.key;
               return (
