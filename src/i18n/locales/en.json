@@ -642,7 +642,10 @@
     "testimonials": [
       { "name": "M. Ko", "role": "Mobile Team", "org": "V Cyber University", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "We built both iOS and Android apps, and learners can seamlessly continue from web to app." },
       { "name": "J. Nam", "role": "Education Planning Lead", "org": "W Corporate Training", "rating": 5, "date": "2025.01", "period": "5th year", "content": "After enabling push notifications, app return rates significantly increased." },
-      { "name": "D. Hwang", "role": "CEO", "org": "X Startup", "rating": 4, "date": "2024.08", "period": "3rd year", "content": "We got our MVP on the App Store in less than a month. They even handled App Store rejection responses." }
+      { "name": "D. Hwang", "role": "CEO", "org": "X Startup", "rating": 4, "date": "2024.08", "period": "3rd year", "content": "We got our MVP on the App Store in less than a month. They even handled App Store rejection responses." },
+      { "name": "M. Jeon", "role": "Service Operations", "org": "AJ Distance Education", "rating": 5, "date": "2025.02", "period": "4th year", "content": "After adding offline download, subway learners skyrocketed. People love studying without worrying about data." },
+      { "name": "S. Yang", "role": "Planning Lead", "org": "AK Corporate Education", "rating": 4, "date": "2024.11", "period": "3rd year", "content": "They matched the app design to our CI perfectly. Employees think it's an in-house app." },
+      { "name": "S. Lim", "role": "Developer", "org": "AL EdTech", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "I used to worry about the app breaking with every OS update, but they handle it proactively." }
     ]
   },
   "drm": {
