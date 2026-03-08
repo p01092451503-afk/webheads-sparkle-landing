@@ -222,7 +222,6 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       setTimeout(() => inputRef.current?.focus(), 30);
     }
   }, [editing]);
-  };
 
   const commitEdit = () => {
     if (!editing) return;
