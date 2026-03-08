@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { BookOpen, TrendingUp, Lightbulb, ArrowRight, Calendar, Clock, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { BlogPost, blogPostsKo, blogPostsEn, categoryConfigKo, categoryConfigEn } from "@/data/blogPosts";
+import { BlogPost, blogPostsKo, blogPostsEn, categoryConfigKo, categoryConfigEn, blogPostsJa, categoryConfigJa } from "@/data/blogPosts";
 
 const POSTS_PER_PAGE = 10;
 
@@ -22,7 +22,7 @@ const categoryColors: Record<Category, string> = {
 };
 
 function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpanded: boolean; onToggle: () => void; lang: string }) {
-  const catConfig = lang === "en" ? categoryConfigEn : categoryConfigKo;
+  const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
   const label = catConfig[post.category].label;
   const Icon = categoryIcons[post.category];
   const color = categoryColors[post.category];
@@ -39,7 +39,7 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
             <Calendar className="w-3 h-3" /><time itemProp="datePublished" dateTime={post.date}>{post.date}</time>
           </span>
           <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-            <Clock className="w-3 h-3" />{post.readTime} {lang === "en" ? "read" : "읽기"}
+            <Clock className="w-3 h-3" />{post.readTime} {lang === "en" ? "read" : lang === "ja" ? "読み" : "읽기"}
           </span>
         </div>
         <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight" itemProp="headline" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{post.title}</h2>
@@ -57,7 +57,7 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
           ))}
         </div>
         <button onClick={onToggle} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline underline-offset-2 transition-colors">
-          {isExpanded ? (lang === "en" ? "Collapse" : "접기") : (lang === "en" ? "Read more" : "자세히 읽기")}
+          {isExpanded ? (lang === "en" ? "Collapse" : lang === "ja" ? "閉じる" : "접기") : (lang === "en" ? "Read more" : lang === "ja" ? "続きを読む" : "자세히 읽기")}
           <ArrowRight className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90" : ""}`} />
         </button>
       </div>
@@ -71,8 +71,8 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const lang = i18n.language?.startsWith("en") ? "en" : "ko";
-  const blogPosts = lang === "en" ? blogPostsEn : blogPostsKo;
+  const lang = i18n.language?.startsWith("en") ? "en" : i18n.language?.startsWith("ja") ? "ja" : "ko";
+  const blogPosts = lang === "en" ? blogPostsEn : lang === "ja" ? blogPostsJa : blogPostsKo;
 
   const filteredPosts = useMemo(() => {
     let posts = blogPosts;
@@ -107,14 +107,14 @@ export default function BlogPage() {
     setExpandedId(null);
   };
 
-  const catConfig = lang === "en" ? categoryConfigEn : categoryConfigKo;
+  const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
   const allCategories: (Category | "all")[] = ["all", "guide", "trend", "tip"];
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: lang === "en" ? "WEBHEADS LMS Insights" : "웹헤즈 LMS 인사이트",
-    description: lang === "en" ? "LMS adoption guides, e-learning trends, and AI education insights from WEBHEADS" : "LMS 도입 가이드, 이러닝 트렌드, AI 교육 솔루션 인사이트를 제공하는 웹헤즈 블로그",
+    name: lang === "en" ? "WEBHEADS LMS Insights" : lang === "ja" ? "WEBHEADS LMSインサイト" : "웹헤즈 LMS 인사이트",
+    description: lang === "en" ? "LMS adoption guides, e-learning trends, and AI education insights from WEBHEADS" : lang === "ja" ? "LMS導入ガイド、eラーニングトレンド、AI教育インサイトを提供するWEBHEADSブログ" : "LMS 도입 가이드, 이러닝 트렌드, AI 교육 솔루션 인사이트를 제공하는 웹헤즈 블로그",
     url: "https://service.webheads.co.kr/blog",
     publisher: { "@type": "Organization", name: "Webheads", url: "https://service.webheads.co.kr" },
     blogPost: blogPosts.map((p) => ({
@@ -125,8 +125,8 @@ export default function BlogPage() {
   return (
     <>
       <SEO
-        title={lang === "en" ? "LMS Insights | E-Learning Trends & Guides — WEBHEADS" : "LMS 인사이트 | 이러닝 트렌드 · 도입 가이드 — 웹헤즈"}
-        description={lang === "en" ? "LMS adoption checklists, AI-based learning trends, e-learning platform cost guides and more professional insights for corporate training managers." : "LMS 도입 체크리스트, AI 기반 학습관리 트렌드, 이러닝 플랫폼 비용 가이드 등 기업교육 담당자를 위한 전문 인사이트를 제공합니다."}
+        title={lang === "en" ? "LMS Insights | E-Learning Trends & Guides — WEBHEADS" : lang === "ja" ? "LMSインサイト | eラーニングトレンド・導入ガイド — WEBHEADS" : "LMS 인사이트 | 이러닝 트렌드 · 도입 가이드 — 웹헤즈"}
+        description={lang === "en" ? "LMS adoption checklists, AI-based learning trends, e-learning platform cost guides and more professional insights for corporate training managers." : lang === "ja" ? "LMS導入チェックリスト、AI基盤学習管理トレンド、eラーニングプラットフォーム費用ガイドなど企業教育担当者向けの専門インサイトを提供します。" : "LMS 도입 체크리스트, AI 기반 학습관리 트렌드, 이러닝 플랫폼 비용 가이드 등 기업교육 담당자를 위한 전문 인사이트를 제공합니다."}
         keywords="LMS, e-learning, AI LMS, learning management system, education platform"
         path="/blog"
       />
@@ -136,10 +136,11 @@ export default function BlogPage() {
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <span className="inline-flex items-center gap-1.5 px-4 py-1.5 mb-5 rounded-full text-xs font-semibold tracking-wider uppercase bg-foreground text-background">Blog & Insights</span>
           <h1 className="text-3xl md:text-5xl font-extrabold text-foreground leading-tight mb-4" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", letterSpacing: "-0.02em" }}>
-            {lang === "en" ? "WEBHEADS LMS Insights" : "웹헤즈 LMS 인사이트"}
+            {lang === "en" ? "WEBHEADS LMS Insights" : lang === "ja" ? "WEBHEADS LMSインサイト" : "웹헤즈 LMS 인사이트"}
           </h1>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
             {lang === "en" ? (<>From e-learning adoption to AI learning trends,<br className="hidden md:block" />professional guides for corporate training managers.</>)
+              : lang === "ja" ? (<>eラーニングソリューション導入からAI学習管理トレンドまで、<br className="hidden md:block" />企業教育担当者向けの専門ガイドを提供します。</>)
               : (<>이러닝 솔루션 도입부터 AI 학습관리 트렌드까지,<br className="hidden md:block" />기업교육 담당자를 위한 전문 가이드를 제공합니다.</>)}
           </p>
           {/* Search Bar */}
@@ -149,12 +150,12 @@ export default function BlogPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              placeholder={lang === "en" ? "Search by keyword, title, or tag..." : "키워드, 제목, 태그로 검색..."}
+              placeholder={lang === "en" ? "Search by keyword, title, or tag..." : lang === "ja" ? "キーワード、タイトル、タグで検索..." : "키워드, 제목, 태그로 검색..."}
               className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-border bg-card text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 transition-shadow"
             />
             {searchQuery && (
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
-                {filteredPosts.length}{lang === "en" ? " results" : "건"}
+                {filteredPosts.length}{lang === "en" ? " results" : lang === "ja" ? "件" : "건"}
               </span>
             )}
           </div>
@@ -163,7 +164,7 @@ export default function BlogPage() {
             {allCategories.map((cat) => {
               const isActive = activeCategory === cat;
               const Icon = cat === "all" ? null : categoryIcons[cat];
-              const label = cat === "all" ? (lang === "en" ? "All" : "전체") : catConfig[cat].label;
+              const label = cat === "all" ? (lang === "en" ? "All" : lang === "ja" ? "全て" : "전체") : catConfig[cat].label;
               const color = cat === "all" ? "hsl(var(--primary))" : categoryColors[cat];
               return (
                 <button
@@ -190,8 +191,8 @@ export default function BlogPage() {
           {paginatedPosts.length === 0 ? (
             <div className="text-center py-16">
               <Search className="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" />
-              <p className="text-muted-foreground text-lg font-medium">{lang === "en" ? "No results found" : "검색 결과가 없습니다"}</p>
-              <p className="text-muted-foreground/60 text-sm mt-1">{lang === "en" ? "Try different keywords" : "다른 키워드로 검색해보세요"}</p>
+              <p className="text-muted-foreground text-lg font-medium">{lang === "en" ? "No results found" : lang === "ja" ? "検索結果がありません" : "검색 결과가 없습니다"}</p>
+              <p className="text-muted-foreground/60 text-sm mt-1">{lang === "en" ? "Try different keywords" : lang === "ja" ? "別のキーワードで検索してください" : "다른 키워드로 검색해보세요"}</p>
             </div>
           ) : (
             <div className="flex flex-col gap-8">
@@ -243,13 +244,13 @@ export default function BlogPage() {
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="rounded-2xl bg-primary/5 border border-primary/10 p-8 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
-              {lang === "en" ? "Not sure where to start with LMS adoption?" : "LMS 도입, 어디서부터 시작해야 할지 모르겠다면?"}
+              {lang === "en" ? "Not sure where to start with LMS adoption?" : lang === "ja" ? "LMS導入、どこから始めればいいかわからない？" : "LMS 도입, 어디서부터 시작해야 할지 모르겠다면?"}
             </h2>
             <p className="text-muted-foreground mb-6 text-sm md:text-base">
-              {lang === "en" ? "Get a free consultation from WEBHEADS experts with 16 years of experience." : "16년 경험의 웹헤즈 전문 컨설턴트가 무료로 상담해드립니다."}
+              {lang === "en" ? "Get a free consultation from WEBHEADS experts with 16 years of experience." : lang === "ja" ? "16年の経験を持つWEBHEADS専門コンサルタントが無料でご相談いたします。" : "16년 경험의 웹헤즈 전문 컨설턴트가 무료로 상담해드립니다."}
             </p>
             <Link to="/lms#contact" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md">
-              {lang === "en" ? "Request Free Consultation" : "무료 상담 신청하기"}
+              {lang === "en" ? "Request Free Consultation" : lang === "ja" ? "無料相談を申し込む" : "무료 상담 신청하기"}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
