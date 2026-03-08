@@ -15,10 +15,10 @@ interface SEOProps {
 export const BASE_URL = "https://service.webheads.co.kr";
 const OG_IMAGE = `${BASE_URL}/og-image.png`;
 
-const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string }> = {
-  ko: { og: "ko_KR", siteName: "웹헤즈", suffix: "웹헤즈" },
-  en: { og: "en_US", siteName: "WEBHEADS", suffix: "WEBHEADS" },
-  ja: { og: "ja_JP", siteName: "WEBHEADS", suffix: "WEBHEADS" },
+const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string; imageAlt: string }> = {
+  ko: { og: "ko_KR", siteName: "웹헤즈", suffix: "웹헤즈", imageAlt: "대표 이미지" },
+  en: { og: "en_US", siteName: "WEBHEADS", suffix: "WEBHEADS", imageAlt: "Cover Image" },
+  ja: { og: "ja_JP", siteName: "WEBHEADS", suffix: "WEBHEADS", imageAlt: "代表イメージ" },
 };
 
 export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb, ogImage }: SEOProps) {
