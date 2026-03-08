@@ -605,7 +605,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                 </div>
                                 {/* Invoice + memo row */}
                                 {payment && payment.amount > 0 && (
-                                  <div className="flex items-center gap-0.5 px-0.5">
+                                  <div className="flex items-center justify-end gap-0.5 pr-5">
                                     <button
                                       onClick={() => cycleInvoiceStatus(c.id, typeValue)}
                                       className={`text-[9px] px-1.5 py-0.5 rounded font-medium transition-all hover:opacity-80 ${getInvoiceStatusColor(invoiceStatus)}`}
