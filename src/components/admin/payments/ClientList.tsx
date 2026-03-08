@@ -459,19 +459,22 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                 {visibleTypes.map((typeValue) => {
                   const typeInfo = PAYMENT_TYPES.find((t) => t.value === typeValue);
                   if (!typeInfo) return null;
-                  return (
+                    const isDefault = DEFAULT_VISIBLE_TYPES.includes(typeValue);
+                    return (
                     <th key={typeValue} className="text-right px-1 py-3 font-semibold w-[95px]">
                       <div className="flex items-center justify-end gap-1">
                         <span className={`text-[11px] px-1.5 py-0.5 rounded ${typeInfo.color}`}>
                           {typeInfo.label}
                         </span>
-                        <button
-                          onClick={() => toggleType(typeValue)}
-                          className="p-0.5 rounded hover:bg-[hsl(220,14%,90%)] text-muted-foreground/50 hover:text-muted-foreground transition-colors"
-                          title="열 숨기기"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
+                        {!isDefault && (
+                          <button
+                            onClick={() => toggleType(typeValue)}
+                            className="p-0.5 rounded hover:bg-[hsl(220,14%,90%)] text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+                            title="열 숨기기"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        )}
                       </div>
                     </th>
                   );
