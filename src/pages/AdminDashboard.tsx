@@ -281,7 +281,7 @@ export default function AdminDashboard() {
 
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[hsl(220,13%,91%)]">
-        <div className="max-w-[1120px] mx-auto px-5 sm:px-6">
+        <div className="max-w-[1600px] mx-auto px-5 sm:px-6">
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center gap-2">
               <span style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontStyle: "italic", fontSize: "1.79rem", letterSpacing: "-0.03em" }} className="text-foreground">WEBHEADS.<span style={{ color: "#6B7280" }}>{(() => {
