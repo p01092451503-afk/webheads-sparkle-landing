@@ -9,6 +9,7 @@ const ClientList = lazy(() => import("./ClientList"));
 const ClientDetail = lazy(() => import("./ClientDetail"));
 const PaymentModal = lazy(() => import("./PaymentModal"));
 const ClientModal = lazy(() => import("./ClientModal"));
+const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
 
 interface Client {
   id: string;
