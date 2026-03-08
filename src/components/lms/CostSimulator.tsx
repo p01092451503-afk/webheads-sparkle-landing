@@ -331,7 +331,7 @@ export default function CostSimulator() {
                     <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(bestPlan.totalMonthly)}</span>
                     <span className="text-white/70 text-base mb-1">원/월</span>
                   </div>
-                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0) && (
+                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
                     <div className="flex flex-wrap gap-2 mb-4">
                       {bestPlan.overageCdn > 0 && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
@@ -341,6 +341,11 @@ export default function CostSimulator() {
                       {bestPlan.overageStorage > 0 && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
                           저장공간 초과분 +{formatPrice(bestPlan.overageStorage)}원
+                        </span>
+                      )}
+                      {needsSecurePlayer && bestPlan.name !== "Starter" && (
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
+                          보안 플레이어 +{formatPrice(SECURE_PLAYER_COST)}원
                         </span>
                       )}
                     </div>
