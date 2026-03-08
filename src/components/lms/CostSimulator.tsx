@@ -419,7 +419,7 @@ export default function CostSimulator() {
                   })()}
 
 
-                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
+                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer || (needsDedicatedServer && learners >= 500)) && (
                     <div className="flex flex-wrap gap-2 mb-4">
                       {bestPlan.overageCdn > 0 && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
@@ -434,6 +434,11 @@ export default function CostSimulator() {
                       {needsSecurePlayer && bestPlan.name !== "Starter" && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
                           {t("costSim.secureAddon", { amount: formatPrice(SECURE_PLAYER_COST) })}
+                        </span>
+                      )}
+                      {needsDedicatedServer && learners >= 500 && (
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
+                          {t("costSim.dedicatedAddon", { amount: formatPrice(DEDICATED_SERVER_COST) })}
                         </span>
                       )}
                     </div>
