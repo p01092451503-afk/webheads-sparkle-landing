@@ -223,6 +223,22 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [editing]);
 
+  const toggleUnpaid = useCallback(async (clientId: string, paymentType: string) => {
+    const client = clientData.find((c) => c.id === clientId);
+    if (!client) return;
+    const payment = client.byType[paymentType];
+    if (!payment) return;
+
+    try {
+      const { error } = await supabase.from("payments").update({ is_unpaid: !payment.is_unpaid }).eq("id", payment.id);
+      if (error) throw error;
+      showSaved(`${clientId}-${paymentType}-status`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "상태 변경 중 오류가 발생했습니다");
+    }
+  }, [clientData, onRefresh, showSaved]);
+
   const commitEdit = () => {
     if (!editing) return;
     saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
