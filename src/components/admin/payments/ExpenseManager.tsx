@@ -75,6 +75,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
   const [formClientId, setFormClientId] = useState("none");
+  const [formVendorId, setFormVendorId] = useState("none");
   const [formSupplyAmount, setFormSupplyAmount] = useState("");
   const [formTaxAmount, setFormTaxAmount] = useState("");
   const [formDescription, setFormDescription] = useState("");
