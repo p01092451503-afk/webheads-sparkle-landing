@@ -1341,6 +1341,72 @@ export const blogPostsKo: BlogPost[] = [
 
 export const blogPostsEn: BlogPost[] = [
   {
+    id: "lms-subscription-vs-onetime-ltv",
+    category: "guide",
+    title: "LMS Subscription vs One-Time Payment: Which Model Generates Higher LTV?",
+    summary: "A data-driven analysis of LTV differences across education platform pricing models (subscription, one-time, hybrid) with recommendations for optimal revenue structures.",
+    content: [
+      "Education platform revenue models fall into three categories: ① Subscription ② One-time Purchase ③ Hybrid (subscription + individual purchases). As of 2025, platforms adopting subscription models show average LTV (Lifetime Value) 2.3× higher than one-time purchase platforms. However, subscription isn't the right answer for every education business.",
+      "Subscription advantages: ① Predictable recurring revenue (MRR/ARR) — favorable for fundraising and business planning ② Churn Rate becomes the core KPI, driving service quality improvement ③ Easy upselling — ARPU growth via Basic → Pro → Enterprise tier upgrades ④ Continuous content consumption incentive — subscription retention motivation translates to higher learning engagement. Disadvantages: Higher entry barrier reduces conversion rates 30–40% vs. one-time; constant pressure to maintain content freshness.",
+      "One-time purchase advantages: ① Higher conversion rate — lower psychological barrier of 'buy only what you need' ② Better for initial cash flow ③ Content quality itself becomes the competitive edge, driving viral effects ④ Ideal for annual mandatory training courses requiring only once-yearly completion. Disadvantages: Low repeat purchase rates create dependence on CAC; revenue prediction difficulty.",
+      "When hybrid is optimal: ① Bundle basic courses as subscription; sell specialized certifications and advanced courses individually ② Differentiate B2B (annual site license subscription) vs. B2C (one-time purchase) ③ Freemium — design free trial → paid subscription conversion funnel. Case: A Korean IT education platform saw LTV increase 18% vs. subscription-only and 67% vs. one-time-only after switching to hybrid.",
+      "LTV maximization strategies: ① Duration-based discounts (monthly < quarterly < annual) to encourage long-term subscriptions ② Completion certificates, badges as subscription retention incentives ③ Learning management dashboards and reports as value-adds for enterprise group subscriptions ④ Churn prediction AI for proactive retention promotions when cancellation signals are detected.",
+      "WEBHEADS LMS supports subscription, one-time, and hybrid billing models with PG integrations (Toss Payments, KG Inicis) and automatic tax invoice issuance included by default. Revenue simulation and LTV analytics dashboards help design optimal revenue structures."
+    ],
+    date: "2026-03-12",
+    readTime: "13 min",
+    keywords: ["subscription model", "one-time payment", "LTV", "pricing model", "education platform revenue", "MRR", "SaaS pricing"],
+  },
+  {
+    id: "education-platform-pg-integration-guide",
+    category: "guide",
+    title: "Complete PG Integration Guide for Education Platforms — Toss Payments vs KG Inicis vs NICEpay",
+    summary: "A practical guide covering PG selection criteria, integration architecture, fee structures, settlement cycles, and partial refund handling optimized for education platforms.",
+    content: [
+      "PG (Payment Gateway) integration for education platforms has unique requirements compared to e-commerce: ① Subscription billing (recurring payments/billing keys) ② Partial refunds (pro-rated based on course progress) ③ Complex discount application (course vouchers, coupons, promotions) ④ B2B payment support (corporate cards, tax invoices, deferred billing). Support levels for these four requirements are the key evaluation criteria when selecting a PG provider.",
+      "Toss Payments: ① Developer-friendly REST API with excellent documentation and sandbox environment — shortest integration time (avg. 3–5 days) ② One-stop integration for simple payments (Toss Pay, Naver Pay, Kakao Pay) ③ Excellent recurring payment (billing key) API stability ④ Intuitive dashboard UI/UX for non-developers to track revenue and settlements. Fees: Credit card 2.3–3.3%, settlement cycle D+2 to D+7.",
+      "KG Inicis: ① Largest merchant base in Korea with extensive financial/government references ② Strong B2B payment infrastructure — corporate card payments, tax invoice integration ③ Widest payment method diversity — virtual accounts, bank transfers, mobile payments ④ Top-tier security certifications (PCI-DSS, ISMS). Fees: Volume-based negotiation, advantageous for high-volume transactions.",
+      "NICEpay: ① Stability backed by NICE Group (NICE Credit Rating, NICE Information Service) financial infrastructure ② Strong international payment support (global cards, PayPal, Alipay) — ideal for platforms targeting overseas learners ③ Recurring payment + installment combination options ④ Advanced real-time transaction monitoring and fraud detection (FDS). Fees: Credit card 2.5–3.5%, international payments separate.",
+      "Education platform PG architecture: ① Frontend — PG SDK payment window call ② Backend — Payment approval verification (amount tampering prevention), webhook for payment status ③ Course enrollment — Automatic LMS access grant upon payment completion ④ Refund processing — Automatic partial refund calculation based on course progress (per education law). Dual PG setup (Primary + Fallback) recommended for outage resilience.",
+      "WEBHEADS provides Toss Payments and KG Inicis integration by default, with NICEpay, Mobilians, and other PG options available. Education-specific features (progress-based partial refunds, subscription billing, B2B deferred invoicing) are included in the PG integration module, reducing payment development time by 70%."
+    ],
+    date: "2026-03-11",
+    readTime: "14 min",
+    keywords: ["PG integration", "Toss Payments", "KG Inicis", "NICEpay", "education payment", "recurring billing", "billing key"],
+  },
+  {
+    id: "refund-policy-platform-trust-automation",
+    category: "tip",
+    title: "How Refund Policies Impact Learning Platform Trust — And How to Automate Them",
+    summary: "A data-driven analysis of how refund policy design affects conversion and repeat purchase rates on education platforms, with LMS refund process automation strategies.",
+    content: [
+      "On learning platforms, refund policy is far more than a CS issue. According to Baymard Institute, education platforms with clear refund policies show 17% higher purchase conversion rates, and those with generous policies (e.g., unconditional 7-day refund) see 23% higher repeat purchase rates. Paradoxically, making refunds easier increases revenue.",
+      "Legal framework for education platform refunds: ① E-Commerce Act — Digital content allows 7-day withdrawal before 'use begins'; restrictions possible after use starts ② Education Act — Pro-rated refund formulas based on enrollment period and progress for registered courses ③ Consumer Dispute Resolution Standards — Mid-term cancellation of online education services requires pro-rated calculation of remaining period. Refund policies must be designed at the intersection of these three regulations.",
+      "Refund automation architecture: ① Request intake — Learner clicks 'Request Refund' in LMS → selects reason → auto-submitted ② Auto-calculation — Refund amount computed based on enrollment date, current progress, payment amount, coupon/discount history per legal standards ③ Approval workflow — Small amounts (under ₩100K) auto-approved; large amounts require admin approval ④ PG refund API call — Immediate auto-refund to original payment method upon approval ⑤ Access revocation — LMS course access automatically revoked upon refund completion.",
+      "Business improvement through refund data analysis: ① Refund reason analysis — High 'content expectation mismatch' rates signal need for better detail pages and previews ② Refund timing analysis — Concentration within 48 hours of course start indicates onboarding process weakness ③ Per-course refund rate comparison — Courses with 2×+ average refund rate need content quality review ④ Post-refund repurchase tracking — Analyzing how refund experiences affect future purchases.",
+      "WEBHEADS LMS includes progress-linked automatic refund calculation, PG refund API auto-calls, admin approval workflows, and refund analytics dashboards by default. Built-in refund formulas compliant with education and e-commerce laws enable fully automated refund processes with zero legal risk."
+    ],
+    date: "2026-03-11",
+    readTime: "12 min",
+    keywords: ["refund policy", "refund automation", "learning platform", "e-commerce law", "PG refund", "customer trust"],
+  },
+  {
+    id: "b2b-education-billing-automation",
+    category: "tip",
+    title: "From B2B Corporate Training Sales to Automated Tax Invoicing & Deferred Billing",
+    summary: "An analysis of B2B corporate training payment complexities (deferred billing, tax invoices, procurement approval processes) with LMS automation system design.",
+    content: [
+      "B2B corporate training payments are fundamentally different from B2C online course purchases: ① Payment decision-maker (procurement/training team) and user (learner) are separate ② Corporate cards or deferred billing (invoice → month-end settlement) are primary payment methods ③ Internal procurement approval process (requisition → dept. head approval → procurement PO) required ④ Annual contracts (site licenses) are standard, making renewal management critical.",
+      "Tax invoice automation: ① E-tax invoice API integration — Use ASP providers (SmartBill, BusinessOn) or PG add-on services linked to the National Tax Service ② Issuance triggers — Auto-issue upon payment completion or month-end consolidated issuance options ③ Reverse issuance — Support for buyer-initiated invoice issuance with seller approval ④ Amended invoices — Auto-issue amended tax invoices for refunds and cancellations. Note: Auto-alerts must manage the next-month 10th transmission deadline to the tax authority.",
+      "Deferred billing system: ① Credit management — Set per-company credit limits with automatic payment blocking when exceeded ② Auto-invoice generation — Aggregate monthly usage (learners × unit price, add-on module fees) into PDF invoices for auto-generation and email delivery ③ Receivables management — Auto-reminders at D-7, D-3, D-day, D+7 before/after payment deadline ④ Overdue handling — Service access restriction or admin alerts when deadlines are exceeded.",
+      "Contract renewal automation: ① Auto-alerts 90 days before expiry → auto-generated renewal proposals (including prior year usage stats and recommended upgrades) ② Auto-renewal option — Automatic extension without additional procedures when contract includes auto-renewal clause ③ Price adjustment management — Auto-calculation of inflation-adjusted pricing with advance notification.",
+      "WEBHEADS integrates B2B-specialized deferred billing, e-tax invoice auto-issuance (SmartBill integration), credit management, and contract renewal automation into LMS by default. Managing the entire B2B education lifecycle from sales to settlement on a single platform reduces sales and finance team administrative work by 80%."
+    ],
+    date: "2026-03-10",
+    readTime: "12 min",
+    keywords: ["B2B payment", "tax invoice", "deferred billing", "corporate training payment", "billing automation", "contract renewal"],
+  },
+  {
     id: "ai-tutor-lms-case-study",
     category: "guide",
     title: "What Happens When You Add an AI Tutor to Your LMS — Real-World Case Studies",
