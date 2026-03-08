@@ -76,17 +76,14 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [formCategoryId, setFormCategoryId] = useState("");
   const [formClientId, setFormClientId] = useState("none");
   const [formVendorId, setFormVendorId] = useState("none");
-  const [formSupplyAmount, setFormSupplyAmount] = useState("");
-  const [formTaxAmount, setFormTaxAmount] = useState("");
+  const [formTotalAmount, setFormTotalAmount] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [formMemo, setFormMemo] = useState("");
   const [formInvoiceIssued, setFormInvoiceIssued] = useState(false);
 
-  const formTotal = useMemo(() => {
-    const supply = parseInt(formSupplyAmount.replace(/[^0-9]/g, "")) || 0;
-    const tax = parseInt(formTaxAmount.replace(/[^0-9]/g, "")) || 0;
-    return supply + tax;
-  }, [formSupplyAmount, formTaxAmount]);
+  const formTotal = useMemo(() => parseInt(formTotalAmount.replace(/[^0-9]/g, "")) || 0, [formTotalAmount]);
+  const formSupplyCalc = useMemo(() => Math.round(formTotal / 1.1), [formTotal]);
+  const formTaxCalc = useMemo(() => formTotal - formSupplyCalc, [formTotal, formSupplyCalc]);
 
   const isCurrentMonth = viewYear === now.getFullYear() && viewMonth === (now.getMonth() + 1);
 
