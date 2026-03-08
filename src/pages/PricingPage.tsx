@@ -182,28 +182,41 @@ export default function PricingPage() {
   const INFRA_SPECS = lang === "en" ? INFRA_SPECS_EN : lang === "ja" ? INFRA_SPECS_JA : INFRA_SPECS_KO;
   const OVERAGE_SPECS = lang === "en" ? OVERAGE_SPECS_EN : lang === "ja" ? OVERAGE_SPECS_JA : OVERAGE_SPECS_KO;
 
-  const sectionTitles = lang === "en"
-    ? { monthly: "Monthly Fee", basic: "Base Specs", recommend: "Recommended For", additional: "Additional Features", special: "Special Features", infra: "Infrastructure & Security", overage: "Overage Charges", item: "Item" }
-    : { monthly: "월 이용료", basic: "기본 사양", recommend: "추천 대상", additional: "추가 제공", special: "특별 제공", infra: "인프라 · 보안", overage: "초과 사용 요금", item: "항목" };
+  const T3 = (en: string, ja: string, ko: string) => lang === "en" ? en : lang === "ja" ? ja : ko;
+
+  const sectionTitles = {
+    monthly: T3("Monthly Fee", "月額利用料", "월 이용료"),
+    basic: T3("Base Specs", "基本仕様", "기본 사양"),
+    recommend: T3("Recommended For", "推奨対象", "추천 대상"),
+    additional: T3("Additional Features", "追加提供", "추가 제공"),
+    special: T3("Special Features", "特別提供", "특별 제공"),
+    infra: T3("Infrastructure & Security", "インフラ・セキュリティ", "인프라 · 보안"),
+    overage: T3("Overage Charges", "超過使用料金", "초과 사용 요금"),
+    item: T3("Item", "項目", "항목"),
+  };
 
   const heroTitle = lang === "en"
     ? <>Flexible Plans,<br />Transparent Pricing</>
+    : lang === "ja"
+    ? <>多様なオプションと<br />合理的な料金プランをご提供します</>
     : <>다양한 옵션과<br />합리적인 요금제를 제공합니다</>;
-  const heroDesc = lang === "en"
-    ? "Start at an affordable price with no hidden fees."
-    : "합리적인 가격으로 부담없이 시작하세요";
-  const heroCta = lang === "en" ? "Contact Us" : "문의하기";
-  const detailTitle = lang === "en" ? "Detailed Plan Comparison" : "요금제 상세 비교";
-  const monthlyLabel = lang === "en" ? "Monthly Fee" : "월 금액";
-  const ctaTitle = lang === "en" ? "Need a custom quote?" : "맞춤 견적이 필요하신가요?";
-  const ctaDesc = lang === "en"
-    ? "We'll recommend the best plan based on your organization's size and requirements."
-    : "기관의 규모와 요구사항에 맞는 최적의 요금제를 안내해드립니다.";
-  const ctaCta = lang === "en" ? "Request Custom Quote" : "맞춤 견적 요청";
-  const seoTitle = lang === "en" ? "Pricing — WEBHEADS LMS" : "요금제 — 웹헤즈 LMS";
-  const seoDesc = lang === "en"
-    ? "Compare WEBHEADS LMS plans and choose the right one for your organization. From Starter to Premium."
-    : "웹헤즈 LMS 요금제를 비교하고 기관에 맞는 플랜을 선택하세요. Starter부터 Premium까지 다양한 옵션을 제공합니다.";
+  const heroDesc = T3("Start at an affordable price with no hidden fees.", "合理的な価格で気軽にスタートしましょう", "합리적인 가격으로 부담없이 시작하세요");
+  const heroCta = T3("Contact Us", "お問い合わせ", "문의하기");
+  const detailTitle = T3("Detailed Plan Comparison", "料金プラン詳細比較", "요금제 상세 비교");
+  const monthlyLabel = T3("Monthly Fee", "月額料金", "월 금액");
+  const ctaTitle = T3("Need a custom quote?", "カスタム見積もりが必要ですか？", "맞춤 견적이 필요하신가요?");
+  const ctaDesc = T3(
+    "We'll recommend the best plan based on your organization's size and requirements.",
+    "機関の規模と要件に合った最適な料金プランをご案内いたします。",
+    "기관의 규모와 요구사항에 맞는 최적의 요금제를 안내해드립니다."
+  );
+  const ctaCta = T3("Request Custom Quote", "カスタム見積もりを依頼", "맞춤 견적 요청");
+  const seoTitle = T3("Pricing — WEBHEADS LMS", "料金プラン — WEBHEADS LMS", "요금제 — 웹헤즈 LMS");
+  const seoDesc = T3(
+    "Compare WEBHEADS LMS plans and choose the right one for your organization. From Starter to Premium.",
+    "WEBHEADS LMSの料金プランを比較し、機関に最適なプランをお選びください。StarterからPremiumまで多様なオプションをご提供します。",
+    "웹헤즈 LMS 요금제를 비교하고 기관에 맞는 플랜을 선택하세요. Starter부터 Premium까지 다양한 옵션을 제공합니다."
+  );
 
   return (
     <>
