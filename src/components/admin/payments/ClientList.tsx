@@ -40,8 +40,22 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   const [editValue, setEditValue] = useState("");
   const [savedCells, setSavedCells] = useState<Set<string>>(new Set());
   const [visibleTypes, setVisibleTypes] = useState<string[]>(DEFAULT_VISIBLE_TYPES);
+  const [annualClients, setAnnualClients] = useState<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Fetch annual contract clients
+  useEffect(() => {
+    supabase
+      .from("client_recurring_fees" as any)
+      .select("client_id, billing_cycle")
+      .eq("billing_cycle", "annual")
+      .eq("is_active", true)
+      .then(({ data }) => {
+        if (data) {
+          setAnnualClients(new Set((data as any[]).map((d) => d.client_id)));
+        }
+      });
+  }, []);
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
   const [viewYear, setViewYear] = useState(now.getFullYear());
   const [viewMonth, setViewMonth] = useState(now.getMonth() + 1);
