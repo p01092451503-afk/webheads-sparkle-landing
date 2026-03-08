@@ -244,13 +244,13 @@ export default function BlogPage() {
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="rounded-2xl bg-primary/5 border border-primary/10 p-8 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
-              {lang === "en" ? "Not sure where to start with LMS adoption?" : "LMS 도입, 어디서부터 시작해야 할지 모르겠다면?"}
+              {lang === "en" ? "Not sure where to start with LMS adoption?" : lang === "ja" ? "LMS導入、どこから始めればいいかわからない？" : "LMS 도입, 어디서부터 시작해야 할지 모르겠다면?"}
             </h2>
             <p className="text-muted-foreground mb-6 text-sm md:text-base">
-              {lang === "en" ? "Get a free consultation from WEBHEADS experts with 16 years of experience." : "16년 경험의 웹헤즈 전문 컨설턴트가 무료로 상담해드립니다."}
+              {lang === "en" ? "Get a free consultation from WEBHEADS experts with 16 years of experience." : lang === "ja" ? "16年の経験を持つWEBHEADS専門コンサルタントが無料でご相談いたします。" : "16년 경험의 웹헤즈 전문 컨설턴트가 무료로 상담해드립니다."}
             </p>
             <Link to="/lms#contact" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-primary text-primary-foreground font-bold text-sm hover:opacity-90 transition-opacity shadow-md">
-              {lang === "en" ? "Request Free Consultation" : "무료 상담 신청하기"}
+              {lang === "en" ? "Request Free Consultation" : lang === "ja" ? "無料相談を申し込む" : "무료 상담 신청하기"}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
