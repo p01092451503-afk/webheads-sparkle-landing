@@ -176,6 +176,53 @@ export default function PaymentDashboard({ clients, payments, onNavigate }: Prop
           </div>
         </div>
       </div>
+
+      {/* Annual Contract Renewals */}
+      {annualFees.length > 0 && (
+        <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
+          <div className="flex items-center gap-2 mb-4">
+            <CalendarDays className="w-4 h-4 text-muted-foreground" />
+            <h3 className="text-[14px] font-semibold">연간 계약 갱신 현황</h3>
+          </div>
+          <div className="space-y-2">
+            {annualFees
+              .filter((f) => f.contract_start_date)
+              .map((f) => {
+                const client = clients.find((c) => c.id === f.client_id);
+                if (!client) return null;
+                const renewal = getNextRenewalDate(f.contract_start_date!);
+                return (
+                  <button
+                    key={f.id}
+                    onClick={() => onNavigate("detail", client.id)}
+                    className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-[hsl(220,14%,96%)] transition-colors text-left"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-medium">{client.name}</span>
+                      <Badge className={`${getPaymentTypeColor(f.payment_type)} text-[10px]`}>
+                        {getPaymentTypeLabel(f.payment_type)}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-[12px] text-muted-foreground">{formatWon(f.amount)}/년</span>
+                      <span className={`text-[12px] font-medium ${
+                        renewal.daysLeft <= 30 ? "text-red-600" : renewal.daysLeft <= 90 ? "text-amber-600" : "text-muted-foreground"
+                      }`}>
+                        {renewal.date} {renewal.daysLeft <= 90 && `(${renewal.daysLeft}일)`}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })
+              .filter(Boolean)}
+            {annualFees.filter((f) => !f.contract_start_date).length > 0 && (
+              <p className="text-[11px] text-muted-foreground px-3 pt-1">
+                계약시작일 미설정: {annualFees.filter((f) => !f.contract_start_date).length}건
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
