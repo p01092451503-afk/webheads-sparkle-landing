@@ -22,7 +22,7 @@ const categoryColors: Record<Category, string> = {
 };
 
 function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpanded: boolean; onToggle: () => void; lang: string }) {
-  const catConfig = lang === "en" ? categoryConfigEn : categoryConfigKo;
+  const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
   const label = catConfig[post.category].label;
   const Icon = categoryIcons[post.category];
   const color = categoryColors[post.category];
