@@ -154,9 +154,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   };
 
   const handleSubmit = async () => {
-    const supplyAmount = parseInt(formSupplyAmount.replace(/[^0-9]/g, "")) || 0;
-    const taxAmount = parseInt(formTaxAmount.replace(/[^0-9]/g, "")) || 0;
-    const amount = supplyAmount + taxAmount;
+    const amount = formTotal;
+    const supplyAmount = formSupplyCalc;
+    const taxAmount = formTaxCalc;
     if (!formCategoryId || amount <= 0) {
       toast.error("카테고리와 금액을 입력해주세요");
       return;
