@@ -46,7 +46,7 @@ test('Fix future dates (after 2026-03-09) in blog posts', () => {
 
     // Replace
     for (const [oldDate, newDate] of Object.entries(dateMap)) {
-      text = text.replaceAll(`"${oldDate}"`, `"${newDate}"`);
+      text = text.split(`"${oldDate}"`).join(`"${newDate}"`);
     }
 
     fs.writeFileSync(p, text, 'utf-8');
