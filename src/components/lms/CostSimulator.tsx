@@ -60,8 +60,10 @@ export default function CostSimulator() {
     return PLAN_DEFS.map((plan) => {
       const solutionType = getSolutionType(plan.typeKey);
       const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
+      const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
       if (plan.name === "Starter") {
-        return { ...plan, solutionType, isMatch: !needsCdn, totalMonthly: plan.monthly, overageCdn: 0, overageStorage: 0 };
+        const starterTotal = plan.monthly + dedicatedAddon;
+        return { ...plan, solutionType, isMatch: !needsCdn, totalMonthly: starterTotal, overageCdn: 0, overageStorage: 0 };
       }
       if (!needsCdn) {
         return { ...plan, solutionType, isMatch: false, totalMonthly: 0, overageCdn: 0, overageStorage: 0 };
@@ -70,7 +72,7 @@ export default function CostSimulator() {
       const overStorage = Math.max(0, storageGB - plan.storageIncluded);
       const overageCdn = overCdn * plan.cdnOverage;
       const overageStorage = overStorage * plan.storageOverage;
-      const totalMonthly = plan.monthly + overageCdn + overageStorage + secureAddon;
+      const totalMonthly = plan.monthly + overageCdn + overageStorage + secureAddon + dedicatedAddon;
       return { ...plan, solutionType, isMatch: true, totalMonthly, overageCdn, overageStorage };
     }).filter((p) => p.isMatch);
   // eslint-disable-next-line react-hooks/exhaustive-deps
