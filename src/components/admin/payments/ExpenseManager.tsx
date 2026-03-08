@@ -350,7 +350,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">카테고리</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">내용</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">고객사</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">협력사</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">공급가액</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">세액</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">합계</th>
