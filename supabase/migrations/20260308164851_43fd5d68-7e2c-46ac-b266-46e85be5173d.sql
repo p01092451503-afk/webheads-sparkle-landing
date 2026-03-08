@@ -1,0 +1,1 @@
+ALTER TABLE public.expenses ADD COLUMN invoice_issued boolean NOT NULL DEFAULT false;

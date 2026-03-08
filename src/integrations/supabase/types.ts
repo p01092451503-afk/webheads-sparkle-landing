@@ -338,6 +338,7 @@ export type Database = {
           created_at: string
           description: string | null
           id: string
+          invoice_issued: boolean
           is_paid: boolean
           memo: string | null
           month: number
@@ -354,6 +355,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          invoice_issued?: boolean
           is_paid?: boolean
           memo?: string | null
           month: number
@@ -370,6 +372,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          invoice_issued?: boolean
           is_paid?: boolean
           memo?: string | null
           month?: number
