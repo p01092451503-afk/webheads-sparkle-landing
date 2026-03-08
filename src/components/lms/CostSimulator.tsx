@@ -38,6 +38,8 @@ export default function CostSimulator() {
   const [videoHours, setVideoHours] = useState(30);
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
+  const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
+  const SECURE_PLAYER_COST = 300000;
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, completionRate), [learners, videoHours, completionRate]);
 
