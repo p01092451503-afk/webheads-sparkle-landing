@@ -196,6 +196,9 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             onAddClient={handleAddClient}
           />
         )}
+        {subView === "calendar" && (
+          <PaymentCalendar clients={clients} payments={payments} onNavigate={handleNavigate} />
+        )}
         {subView === "detail" && selectedClient && (
           <ClientDetail
             client={selectedClient}
