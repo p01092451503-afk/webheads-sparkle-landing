@@ -132,7 +132,7 @@ export default function Header() {
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}<span
-                className={`inline-block transition-all duration-700 ease-out relative group/date ${showDate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
+                className="inline-block relative group/date"
                 style={{ color: "#6B7280" }}
               >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
