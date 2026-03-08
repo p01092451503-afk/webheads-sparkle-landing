@@ -252,6 +252,30 @@ export default function CostSimulator() {
                   : "YouTube·Vimeo 등 외부 플랫폼에 영상을 올리고 LMS에 링크만 연동하는 방식입니다. 별도 서버 비용이 없어 경제적입니다."}
               </p>
 
+              {/* Secure Player toggle */}
+              {needsCdn && (
+              <>
+                <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-medium text-foreground">보안 플레이어 (DRM)</span>
+                  </div>
+                  <button
+                    onClick={() => setNeedsSecurePlayer(!needsSecurePlayer)}
+                    className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${needsSecurePlayer ? "" : "bg-muted"}`}
+                    style={needsSecurePlayer ? { background: "hsl(var(--lms-primary))" } : undefined}
+                  >
+                    <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsSecurePlayer ? "translate-x-5" : "translate-x-0"}`} />
+                  </button>
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                  {needsSecurePlayer
+                    ? "Widevine·FairPlay 등 멀티 DRM이 적용된 보안 플레이어입니다. 월 300,000원이 추가됩니다."
+                    : "영상 다운로드 방지 및 불법 복제 차단이 필요한 경우 활성화하세요."}
+                </p>
+              </>
+              )}
+
               {/* Estimated usage */}
               {needsCdn && (
               <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
