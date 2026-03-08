@@ -351,29 +351,36 @@ export default function CostSimulator() {
 
               {/* Dedicated server recommendation */}
               {learners >= 500 && (
-                <div className="mt-4 rounded-xl p-4 border bg-background" style={{ borderColor: "hsl(var(--lms-primary) / 0.25)" }}>
-                  <div className="flex items-start gap-2.5">
-                    <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.1)" }}>
-                      <Server className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                <>
+                  <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4" style={ needsDedicatedServer ? { borderColor: "hsl(var(--lms-primary) / 0.4)", background: "hsl(var(--lms-primary) / 0.04)" } : undefined }>
+                    <div className="flex items-center gap-2">
+                      <Server className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm font-medium text-foreground">{t("costSim.dedicatedToggle")}</span>
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-foreground mb-1">{t("costSim.dedicatedTitle")}</p>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">
-                        {t("costSim.dedicatedDesc", { num: learners.toLocaleString() } as TOptions)}
-                      </p>
-                      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-muted-foreground">
-                        <span className="flex items-center gap-1.5">
-                          <Globe className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          {t("costSim.estWebTraffic", { amount: Math.round(learners * 0.8).toLocaleString() } as TOptions)}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Server className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          {t("costSim.dedicatedCost")}
-                        </span>
-                      </div>
-                    </div>
+                    <button
+                      onClick={() => setNeedsDedicatedServer(!needsDedicatedServer)}
+                      className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${needsDedicatedServer ? "" : "bg-muted"}`}
+                      style={needsDedicatedServer ? { background: "hsl(var(--lms-primary))" } : undefined}
+                    >
+                      <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsDedicatedServer ? "translate-x-5" : "translate-x-0"}`} />
+                    </button>
                   </div>
-                </div>
+                  <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                    {t("costSim.dedicatedToggleDesc")}
+                  </p>
+                  {needsDedicatedServer && (
+                    <div className="mt-2 rounded-xl p-3.5 text-xs text-muted-foreground space-y-1.5" style={{ background: "hsl(var(--lms-primary) / 0.05)" }}>
+                      <p className="flex items-center gap-1.5">
+                        <Globe className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                        {t("costSim.estWebTraffic", { amount: Math.round(learners * 0.8).toLocaleString() } as TOptions)}
+                      </p>
+                      <p className="flex items-center gap-1.5">
+                        <Server className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                        {t("costSim.dedicatedCost")}
+                      </p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
