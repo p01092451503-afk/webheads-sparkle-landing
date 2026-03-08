@@ -346,6 +346,7 @@ export type Database = {
           supply_amount: number
           tax_amount: number
           updated_at: string
+          vendor_id: string | null
           year: number
         }
         Insert: {
@@ -363,6 +364,7 @@ export type Database = {
           supply_amount?: number
           tax_amount?: number
           updated_at?: string
+          vendor_id?: string | null
           year: number
         }
         Update: {
@@ -380,6 +382,7 @@ export type Database = {
           supply_amount?: number
           tax_amount?: number
           updated_at?: string
+          vendor_id?: string | null
           year?: number
         }
         Relationships: [
@@ -395,6 +398,13 @@ export type Database = {
             columns: ["client_id"]
             isOneToOne: false
             referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expenses_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "vendors"
             referencedColumns: ["id"]
           },
         ]
@@ -714,6 +724,27 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      vendors: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
         }
         Relationships: []
       }
