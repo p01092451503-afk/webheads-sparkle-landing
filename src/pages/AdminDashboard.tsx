@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard
 } from "lucide-react";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
@@ -10,8 +10,9 @@ const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
+const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments";
 type UserRole = "super_admin" | "admin" | "user";
 
 const TabLoader = () => (
@@ -224,6 +225,7 @@ export default function AdminDashboard() {
 
   const tabs: { key: Tab; icon: any; label: string }[] = [
     { key: "inquiries", icon: MessageSquare, label: "문의" },
+    { key: "payments", icon: CreditCard, label: "입금관리" },
     { key: "analytics", icon: BarChart3, label: "분석" },
     { key: "settings", icon: Settings, label: "설정" },
   ];
@@ -327,6 +329,9 @@ export default function AdminDashboard() {
           )}
           {tab === "analytics" && (
             <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => fetchFullAnalytics(days)} />
+          )}
+          {tab === "payments" && (
+            <AdminPayments isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
