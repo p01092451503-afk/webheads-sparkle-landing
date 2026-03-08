@@ -34,6 +34,7 @@ interface Expense {
   paid_date: string | null;
   memo: string | null;
   invoice_issued: boolean;
+  vendor_name: string | null;
 }
 
 interface Vendor {
