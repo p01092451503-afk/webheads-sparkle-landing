@@ -324,6 +324,26 @@ export default function CostSimulator() {
               </>
               )}
 
+              {/* Annual contract toggle */}
+              <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4">
+                <div className="flex items-center gap-2">
+                  <CalendarCheck className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm font-medium text-foreground">연간 계약 (10% 할인)</span>
+                </div>
+                <button
+                  onClick={() => setIsAnnual(!isAnnual)}
+                  className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${isAnnual ? "" : "bg-muted"}`}
+                  style={isAnnual ? { background: "hsl(var(--lms-primary))" } : undefined}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${isAnnual ? "translate-x-5" : "translate-x-0"}`} />
+                </button>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                {isAnnual
+                  ? "연간 계약 시 월 이용료의 10%가 할인됩니다. (12개월 선결제 기준)"
+                  : "연간 계약을 선택하면 월별 대비 10% 할인된 금액으로 이용할 수 있습니다."}
+              </p>
+
               {/* Estimated usage */}
               {needsCdn && (
               <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
