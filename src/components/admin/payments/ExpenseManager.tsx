@@ -65,9 +65,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
   const [formClientId, setFormClientId] = useState("none");
-  const [formAmount, setFormAmount] = useState("");
+  const [formSupplyAmount, setFormSupplyAmount] = useState("");
+  const [formTaxAmount, setFormTaxAmount] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [formMemo, setFormMemo] = useState("");
+
+  const formTotal = useMemo(() => {
+    const supply = parseInt(formSupplyAmount.replace(/[^0-9]/g, "")) || 0;
+    const tax = parseInt(formTaxAmount.replace(/[^0-9]/g, "")) || 0;
+    return supply + tax;
+  }, [formSupplyAmount, formTaxAmount]);
 
   const isCurrentMonth = viewYear === now.getFullYear() && viewMonth === (now.getMonth() + 1);
 
