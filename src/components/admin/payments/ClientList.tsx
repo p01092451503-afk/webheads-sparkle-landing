@@ -299,7 +299,6 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         <Check className="w-2.5 h-2.5 text-white" />
       </span>
     );
-    );
   };
 
   const handleExportExcel = useCallback(() => {
