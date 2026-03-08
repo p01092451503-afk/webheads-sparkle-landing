@@ -440,7 +440,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                   const typeInfo = PAYMENT_TYPES.find((t) => t.value === typeValue);
                   if (!typeInfo) return null;
                   return (
-                    <th key={typeValue} className="text-right px-2 py-3 font-semibold w-[110px]">
+                    <th key={typeValue} className="text-right px-1 py-3 font-semibold w-[95px]">
                       <div className="flex items-center justify-end gap-1">
                         <span className={`text-[11px] px-1.5 py-0.5 rounded ${typeInfo.color}`}>
                           {typeInfo.label}
