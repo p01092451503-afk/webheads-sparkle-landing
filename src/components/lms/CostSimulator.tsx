@@ -270,9 +270,15 @@ export default function CostSimulator() {
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
                         월 활성 수강생 <span className="font-semibold text-foreground">{learners.toLocaleString()}명</span> 규모에서는 영상 CDN 외에도 웹 트래픽(페이지 로딩·API 호출·퀴즈·출결 등)이 상당합니다. 안정적인 서비스를 위해 공유 호스팅 대신 <span className="font-semibold text-foreground">단독서버 구성</span>을 권장드립니다.
                       </p>
-                      <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                        <Globe className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                        <span>예상 웹 트래픽: 월 <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{Math.round(learners * 0.8).toLocaleString()}GB</span> 이상</span>
+                      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-muted-foreground">
+                        <span className="flex items-center gap-1.5">
+                          <Globe className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
+                          예상 웹 트래픽: 월 <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{Math.round(learners * 0.8).toLocaleString()}GB</span> 이상
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Server className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
+                          단독서버 추가 비용: <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>월 200,000원</span>
+                        </span>
                       </div>
                     </div>
                   </div>
