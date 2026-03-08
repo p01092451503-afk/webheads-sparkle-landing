@@ -107,6 +107,22 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
     }
   };
 
+  const handleToggleUnpaid = async (payment: Payment) => {
+    try {
+      const newUnpaid = !payment.is_unpaid;
+      const updates: any = { is_unpaid: newUnpaid };
+      if (!newUnpaid && !payment.paid_date) {
+        updates.paid_date = new Date().toISOString().split("T")[0];
+      }
+      const { error } = await supabase.from("payments").update(updates).eq("id", payment.id);
+      if (error) throw error;
+      toast.success(newUnpaid ? "미납으로 변경되었습니다" : "입금완료로 변경되었습니다");
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "상태 변경 실패");
+    }
+  };
+
   const handleEditClient = (client: Client) => {
     setEditClient(client);
     setClientModalOpen(true);
