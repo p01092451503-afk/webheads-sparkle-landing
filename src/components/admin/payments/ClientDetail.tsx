@@ -5,27 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor } from "./paymentTypes";
-
-interface Client {
-  id: string;
-  client_no: number;
-  name: string;
-  expected_payment_day: string | null;
-  notes: string | null;
-  is_active: boolean;
-}
-
-interface Payment {
-  id: string;
-  client_id: string;
-  year: number;
-  month: number;
-  amount: number;
-  paid_date: string | null;
-  is_unpaid: boolean;
-  memo: string | null;
-  payment_type: string;
-}
+import type { PaymentClient as Client, PaymentRecord as Payment } from "./paymentTypes";
+import RecurringFeeManager from "./RecurringFeeManager";
 
 interface Props {
   client: Client;
@@ -116,6 +97,11 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
             <Plus className="w-3 h-3 mr-1" />입금 추가
           </Button>
         </div>
+      </div>
+
+      {/* Recurring Fee Settings */}
+      <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
+        <RecurringFeeManager clientId={client.id} clientName={client.name} />
       </div>
 
       {/* Summary Cards */}

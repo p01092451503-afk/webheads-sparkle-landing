@@ -11,22 +11,11 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 import { PAYMENT_TYPES } from "./paymentTypes";
+import type { PaymentRecord as Payment } from "./paymentTypes";
 
 interface Client {
   id: string;
   name: string;
-}
-
-interface Payment {
-  id: string;
-  client_id: string;
-  year: number;
-  month: number;
-  amount: number;
-  paid_date: string | null;
-  is_unpaid: boolean;
-  memo: string | null;
-  payment_type: string;
 }
 
 interface Props {

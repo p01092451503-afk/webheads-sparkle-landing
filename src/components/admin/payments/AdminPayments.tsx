@@ -11,26 +11,8 @@ const PaymentModal = lazy(() => import("./PaymentModal"));
 const ClientModal = lazy(() => import("./ClientModal"));
 const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
 
-interface Client {
-  id: string;
-  client_no: number;
-  name: string;
-  expected_payment_day: string | null;
-  notes: string | null;
-  is_active: boolean;
-}
-
-interface Payment {
-  id: string;
-  client_id: string;
-  year: number;
-  month: number;
-  amount: number;
-  paid_date: string | null;
-  is_unpaid: boolean;
-  memo: string | null;
-  payment_type: string;
-}
+type Client = import("./paymentTypes").PaymentClient;
+type Payment = import("./paymentTypes").PaymentRecord;
 
 type SubView = "dashboard" | "clients" | "detail" | "calendar";
 

@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
-import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, X, FileText, MessageSquare } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -8,28 +8,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import * as XLSX from "xlsx";
-import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor } from "./paymentTypes";
-
-interface Client {
-  id: string;
-  client_no: number;
-  name: string;
-  expected_payment_day: string | null;
-  notes: string | null;
-  is_active: boolean;
-}
-
-interface Payment {
-  id: string;
-  client_id: string;
-  year: number;
-  month: number;
-  amount: number;
-  paid_date: string | null;
-  is_unpaid: boolean;
-  memo: string | null;
-  payment_type: string;
-}
+import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor, INVOICE_STATUSES, getInvoiceStatusLabel, getInvoiceStatusColor } from "./paymentTypes";
+import type { PaymentClient as Client, PaymentRecord as Payment } from "./paymentTypes";
 
 interface Props {
   clients: Client[];
@@ -253,6 +233,46 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       setEditing(null);
     }
   };
+
+  const cycleInvoiceStatus = useCallback(async (clientId: string, paymentType: string) => {
+    const client = clientData.find((c) => c.id === clientId);
+    if (!client) return;
+    const payment = client.byType[paymentType];
+    if (!payment) return;
+
+    const order = ["none", "pre", "post", "done"];
+    const currentIdx = order.indexOf(payment.invoice_status || "none");
+    const nextStatus = order[(currentIdx + 1) % order.length];
+    const now = nextStatus === "done" ? new Date().toISOString().split("T")[0] : payment.invoice_date;
+
+    try {
+      const { error } = await supabase.from("payments").update({
+        invoice_status: nextStatus,
+        invoice_date: nextStatus === "done" ? now : payment.invoice_date,
+      }).eq("id", payment.id);
+      if (error) throw error;
+      showSaved(`${clientId}-${paymentType}-invoice`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "계산서 상태 변경 중 오류가 발생했습니다");
+    }
+  }, [clientData, onRefresh, showSaved]);
+
+  const saveMemo = useCallback(async (clientId: string, paymentType: string, memo: string) => {
+    const client = clientData.find((c) => c.id === clientId);
+    if (!client) return;
+    const payment = client.byType[paymentType];
+    if (!payment) return;
+
+    try {
+      const { error } = await supabase.from("payments").update({ memo }).eq("id", payment.id);
+      if (error) throw error;
+      showSaved(`${clientId}-${paymentType}-memo`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "메모 저장 중 오류가 발생했습니다");
+    }
+  }, [clientData, onRefresh, showSaved]);
 
   const toggleType = (typeValue: string) => {
     setVisibleTypes((prev) =>
@@ -541,9 +561,10 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue;
                       const cellKey = `${c.id}-${typeValue}-amount`;
                       const isUnpaid = payment?.is_unpaid;
+                      const invoiceStatus = payment?.invoice_status || "none";
 
                       return (
-                        <td key={typeValue} className="px-1 py-1.5">
+                        <td key={typeValue} className="px-1 py-1">
                           <div className="relative">
                             {isEditingThis ? (
                               <input
@@ -556,28 +577,68 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                 onBlur={commitEdit}
                                 onKeyDown={handleKeyDown}
                                 placeholder="0"
-                                className="w-full h-8 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                                className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
                               />
                             ) : (
-                              <div className="flex items-center gap-0.5">
-                                <button
-                                  onClick={() => startEditing(c.id, "amount", typeValue)}
-                                  className={`flex-1 h-8 px-2 text-right text-[12px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
-                                >
-                                  {payment?.amount ? formatWon(payment.amount) : "-"}
-                                </button>
-                                {payment && payment.amount > 0 && (
+                              <div className="space-y-0.5">
+                                {/* Amount row */}
+                                <div className="flex items-center gap-0.5">
                                   <button
-                                    onClick={() => toggleUnpaid(c.id, typeValue)}
-                                    className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold transition-all ${
-                                      isUnpaid
-                                        ? "bg-red-100 text-red-600 hover:bg-red-200"
-                                        : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
-                                    }`}
-                                    title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                    onClick={() => startEditing(c.id, "amount", typeValue)}
+                                    className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
                                   >
-                                    {isUnpaid ? "!" : "✓"}
+                                    {payment?.amount ? formatWon(payment.amount) : "-"}
                                   </button>
+                                  {payment && payment.amount > 0 && (
+                                    <button
+                                      onClick={() => toggleUnpaid(c.id, typeValue)}
+                                      className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold transition-all ${
+                                        isUnpaid
+                                          ? "bg-red-100 text-red-600 hover:bg-red-200"
+                                          : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
+                                      }`}
+                                      title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                    >
+                                      {isUnpaid ? "!" : "✓"}
+                                    </button>
+                                  )}
+                                </div>
+                                {/* Invoice + memo row */}
+                                {payment && payment.amount > 0 && (
+                                  <div className="flex items-center gap-0.5 px-0.5">
+                                    <button
+                                      onClick={() => cycleInvoiceStatus(c.id, typeValue)}
+                                      className={`text-[9px] px-1.5 py-0.5 rounded font-medium transition-all hover:opacity-80 ${getInvoiceStatusColor(invoiceStatus)}`}
+                                      title="계산서 상태 변경"
+                                    >
+                                      {getInvoiceStatusLabel(invoiceStatus)}
+                                    </button>
+                                    <Popover>
+                                      <PopoverTrigger asChild>
+                                        <button
+                                          className={`p-0.5 rounded transition-colors ${payment.memo ? "text-[hsl(221,83%,53%)]" : "text-muted-foreground/30 hover:text-muted-foreground/60"}`}
+                                          title={payment.memo || "메모 추가"}
+                                        >
+                                          <MessageSquare className="w-3 h-3" />
+                                        </button>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-56 p-2" align="start">
+                                        <textarea
+                                          defaultValue={payment.memo || ""}
+                                          placeholder="메모 입력..."
+                                          rows={3}
+                                          className="w-full px-2 py-1.5 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] resize-none focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
+                                          onBlur={(e) => {
+                                            if (e.target.value !== (payment.memo || "")) {
+                                              saveMemo(c.id, typeValue, e.target.value);
+                                            }
+                                          }}
+                                        />
+                                      </PopoverContent>
+                                    </Popover>
+                                    <SavedCheck cellKey={`${c.id}-${typeValue}-invoice`} />
+                                    <SavedCheck cellKey={`${c.id}-${typeValue}-memo`} />
+                                  </div>
                                 )}
                               </div>
                             )}
