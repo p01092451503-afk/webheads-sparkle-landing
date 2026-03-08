@@ -340,7 +340,7 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <div className="max-w-[1120px] mx-auto px-5 sm:px-6 py-6">
+      <div className={`mx-auto px-5 sm:px-6 py-6 ${tab === "payments" ? "max-w-[1600px]" : "max-w-[1120px]"}`}>
         <Suspense fallback={<TabLoader />}>
           {tab === "inquiries" && (
             <AdminInquiries inquiries={inquiries} setInquiries={setInquiries} onRefresh={fetchInquiries} logActivity={logActivity} isSuperAdmin={isSuperAdmin} />
