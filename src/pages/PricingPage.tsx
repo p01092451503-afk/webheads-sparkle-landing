@@ -162,6 +162,13 @@ const OVERAGE_SPECS_EN: { label: string; unit: string; values: string[] }[] = [
   { label: "Secure Player", unit: "monthly", values: ["—", "300,000 KRW", "300,000 KRW", "300,000 KRW"] },
 ];
 
+const OVERAGE_SPECS_JA: { label: string; unit: string; values: string[] }[] = [
+  { label: "転送量", unit: "1GBあたり", values: ["—", "500ウォン", "400ウォン", "300ウォン"] },
+  { label: "ストレージ", unit: "1GBあたり", values: ["—", "1,000ウォン", "800ウォン", "500ウォン"] },
+  { label: "トランスコーディング", unit: "1GBあたり", values: ["—", "2,200ウォン", "2,000ウォン", "2,000ウォン"] },
+  { label: "セキュアプレイヤー", unit: "月", values: ["—", "300,000ウォン", "300,000ウォン", "300,000ウォン"] },
+];
+
 export default function PricingPage() {
   const { t, i18n } = useTranslation();
   const lang = i18n.language?.startsWith("en") ? "en" : "ko";
