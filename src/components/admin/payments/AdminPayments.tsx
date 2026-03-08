@@ -31,7 +31,7 @@ interface Payment {
   memo: string | null;
 }
 
-type SubView = "dashboard" | "clients" | "detail";
+type SubView = "dashboard" | "clients" | "detail" | "calendar";
 
 const Loader = () => (
   <div className="flex items-center justify-center py-20">
