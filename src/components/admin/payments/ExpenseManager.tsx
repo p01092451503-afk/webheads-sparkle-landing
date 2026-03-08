@@ -376,8 +376,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   <td className="px-4 py-3 text-center">
                     <button onClick={() => togglePaid(exp)}>
                       {exp.is_paid
-                        ? <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 cursor-pointer text-[11px]">지출완료</Badge>
-                        : <Badge className="bg-red-100 text-red-700 hover:bg-red-200 cursor-pointer text-[11px]">미지출</Badge>
+                        ? <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 cursor-pointer text-[11px] whitespace-nowrap">지출완료</Badge>
+                        : <Badge className="bg-red-100 text-red-700 hover:bg-red-200 cursor-pointer text-[11px] whitespace-nowrap">미지출</Badge>
                       }
                     </button>
                   </td>
