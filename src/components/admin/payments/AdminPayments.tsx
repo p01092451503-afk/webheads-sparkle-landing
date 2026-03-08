@@ -238,6 +238,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             onEditClient={handleEditClient}
             onAddClient={handleAddClient}
             onRefresh={fetchData}
+            defaultFilter={clientListFilter}
           />
         )}
         {subView === "calendar" && (
