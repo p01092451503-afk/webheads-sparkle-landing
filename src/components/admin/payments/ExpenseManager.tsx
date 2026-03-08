@@ -162,6 +162,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       tax_amount: taxAmount,
       description: formDescription || null,
       memo: formMemo || null,
+      invoice_issued: formInvoiceIssued,
     };
 
     try {
