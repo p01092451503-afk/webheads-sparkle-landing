@@ -166,6 +166,36 @@ export type Database = {
         }
         Relationships: []
       }
+      clients: {
+        Row: {
+          client_no: number | null
+          created_at: string | null
+          expected_payment_day: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          notes: string | null
+        }
+        Insert: {
+          client_no?: number | null
+          created_at?: string | null
+          expected_payment_day?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          notes?: string | null
+        }
+        Update: {
+          client_no?: number | null
+          created_at?: string | null
+          expected_payment_day?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          notes?: string | null
+        }
+        Relationships: []
+      }
       contact_inquiries: {
         Row: {
           ai_analysis: string | null
@@ -374,6 +404,53 @@ export type Database = {
           visitor_type?: string | null
         }
         Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number | null
+          client_id: string
+          created_at: string | null
+          id: string
+          is_unpaid: boolean | null
+          memo: string | null
+          month: number
+          paid_date: string | null
+          updated_at: string | null
+          year: number
+        }
+        Insert: {
+          amount?: number | null
+          client_id: string
+          created_at?: string | null
+          id?: string
+          is_unpaid?: boolean | null
+          memo?: string | null
+          month: number
+          paid_date?: string | null
+          updated_at?: string | null
+          year: number
+        }
+        Update: {
+          amount?: number | null
+          client_id?: string
+          created_at?: string | null
+          id?: string
+          is_unpaid?: boolean | null
+          memo?: string | null
+          month?: number
+          paid_date?: string | null
+          updated_at?: string | null
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       proposal_edit_logs: {
         Row: {
