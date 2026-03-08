@@ -223,6 +223,22 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [editing]);
 
+  const toggleUnpaid = useCallback(async (clientId: string, paymentType: string) => {
+    const client = clientData.find((c) => c.id === clientId);
+    if (!client) return;
+    const payment = client.byType[paymentType];
+    if (!payment) return;
+
+    try {
+      const { error } = await supabase.from("payments").update({ is_unpaid: !payment.is_unpaid }).eq("id", payment.id);
+      if (error) throw error;
+      showSaved(`${clientId}-${paymentType}-status`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "상태 변경 중 오류가 발생했습니다");
+    }
+  }, [clientData, onRefresh, showSaved]);
+
   const commitEdit = () => {
     if (!editing) return;
     saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
@@ -524,6 +540,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       const payment = c.byType[typeValue];
                       const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue;
                       const cellKey = `${c.id}-${typeValue}-amount`;
+                      const isUnpaid = payment?.is_unpaid;
 
                       return (
                         <td key={typeValue} className="px-1 py-1.5">
@@ -542,14 +559,30 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                 className="w-full h-8 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
                               />
                             ) : (
-                              <button
-                                onClick={() => startEditing(c.id, "amount", typeValue)}
-                                className="w-full h-8 px-2 text-right text-[12px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text"
-                              >
-                                {payment?.amount ? formatWon(payment.amount) : "-"}
-                              </button>
+                              <div className="flex items-center gap-0.5">
+                                <button
+                                  onClick={() => startEditing(c.id, "amount", typeValue)}
+                                  className={`flex-1 h-8 px-2 text-right text-[12px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
+                                >
+                                  {payment?.amount ? formatWon(payment.amount) : "-"}
+                                </button>
+                                {payment && payment.amount > 0 && (
+                                  <button
+                                    onClick={() => toggleUnpaid(c.id, typeValue)}
+                                    className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold transition-all ${
+                                      isUnpaid
+                                        ? "bg-red-100 text-red-600 hover:bg-red-200"
+                                        : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
+                                    }`}
+                                    title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                  >
+                                    {isUnpaid ? "!" : "✓"}
+                                  </button>
+                                )}
+                              </div>
                             )}
                             <SavedCheck cellKey={cellKey} />
+                            <SavedCheck cellKey={`${c.id}-${typeValue}-status`} />
                           </div>
                         </td>
                       );
