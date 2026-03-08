@@ -22,7 +22,7 @@ import {
   DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
   ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award,
   Sparkles, ArrowRight, Rocket, CreditCard, Database, Layers, HardDriveDownload, Settings, PackageCheck,
-  BookOpen
+  BookOpen, Calculator
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState, useMemo, useEffect } from "react";
