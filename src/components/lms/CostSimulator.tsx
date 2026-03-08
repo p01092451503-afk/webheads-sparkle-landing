@@ -55,7 +55,9 @@ export default function CostSimulator() {
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(false);
   const SECURE_PLAYER_COST = 300000;
+  const ANNUAL_DISCOUNT = 0.1; // 10% discount
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, storageInput, completionRate), [learners, storageInput, completionRate]);
 
