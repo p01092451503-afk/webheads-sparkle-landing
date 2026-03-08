@@ -124,13 +124,7 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Resolve channel name → ID (supports both "general" and "C1234..." formats)
-    let channelId: string;
-    if (channelName.startsWith("C") && /^C[A-Z0-9]+$/.test(channelName)) {
-      channelId = channelName; // Already a channel ID
-    } else {
-      channelId = await resolveChannelId(channelName);
-    }
+    const channel = formatChannel(channelName);
 
     const blocks = buildBlocks(notification);
     const fallbackText = `${notification.title}`;
