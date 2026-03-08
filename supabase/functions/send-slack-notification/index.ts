@@ -27,18 +27,19 @@ function getHeaders() {
   };
 }
 
-// Resolve channel name to channel ID using conversations.list
+// Resolve channel name to channel ID using conversations.list (POST to avoid gateway GET issues)
 async function resolveChannelId(channelName: string): Promise<string> {
   const name = channelName.replace(/^#/, "").toLowerCase();
   let cursor: string | undefined;
 
   do {
-    const params = new URLSearchParams({ types: "public_channel,private_channel", limit: "200" });
-    if (cursor) params.set("cursor", cursor);
+    const body: Record<string, any> = { types: "public_channel,private_channel", limit: 200 };
+    if (cursor) body.cursor = cursor;
 
-    const res = await fetch(`${GATEWAY_URL}/conversations.list?${params}`, {
-      method: "GET",
+    const res = await fetch(`${GATEWAY_URL}/conversations.list`, {
+      method: "POST",
       headers: getHeaders(),
+      body: JSON.stringify(body),
     });
     const data = await res.json();
     if (!data.ok) throw new Error(`conversations.list failed: ${data.error}`);

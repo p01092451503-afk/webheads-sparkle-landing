@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import ErrorBoundary from "./components/ErrorBoundary";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -47,44 +48,46 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <PageTracker />
-        <Layout>
-          <Suspense fallback={<div className="min-h-screen" />}>
-            <Routes>
-              <Route path="/" element={<LmsPage />} />
-              <Route path="/lms" element={<LmsPage />} />
-              <Route path="/hosting" element={<HostingPage />} />
-              <Route path="/chatbot" element={<ChatbotPage />} />
-              <Route path="/app" element={<AppDevPage />} />
-              <Route path="/content" element={<ContentPage />} />
-              <Route path="/drm" element={<DrmPage />} />
-              <Route path="/channel" element={<ChannelPage />} />
-              <Route path="/pg" element={<PgPage />} />
-              <Route path="/maintenance" element={<MaintenancePage />} />
-              <Route path="/service-request" element={<ServiceRequestPage />} />
-              <Route path="/pricing" element={<PricingPage />} />
-              <Route path="/sms-kakao" element={<SmsKakaoPage />} />
-              
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/event" element={<EventPage />} />
-              <Route path="/overview" element={<OverviewPage />} />
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              {/* <Route path="/about" element={<AboutPage />} /> */}
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </Layout>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ScrollToTop />
+          <PageTracker />
+          <Layout>
+            <Suspense fallback={<div className="min-h-screen" />}>
+              <Routes>
+                <Route path="/" element={<LmsPage />} />
+                <Route path="/lms" element={<LmsPage />} />
+                <Route path="/hosting" element={<HostingPage />} />
+                <Route path="/chatbot" element={<ChatbotPage />} />
+                <Route path="/app" element={<AppDevPage />} />
+                <Route path="/content" element={<ContentPage />} />
+                <Route path="/drm" element={<DrmPage />} />
+                <Route path="/channel" element={<ChannelPage />} />
+                <Route path="/pg" element={<PgPage />} />
+                <Route path="/maintenance" element={<MaintenancePage />} />
+                <Route path="/service-request" element={<ServiceRequestPage />} />
+                <Route path="/pricing" element={<PricingPage />} />
+                <Route path="/sms-kakao" element={<SmsKakaoPage />} />
+                
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/event" element={<EventPage />} />
+                <Route path="/overview" element={<OverviewPage />} />
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                {/* <Route path="/about" element={<AboutPage />} /> */}
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </Layout>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
