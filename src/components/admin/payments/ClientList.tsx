@@ -198,15 +198,30 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [clientData, viewYear, viewMonth, onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date", paymentType: string = "hosting") => {
+  const saveClientNotes = useCallback(async (clientId: string, notes: string) => {
+    try {
+      const { error } = await supabase.from("clients").update({ notes: notes || null }).eq("id", clientId);
+      if (error) throw error;
+      showSaved(`${clientId}-notes`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "비고 저장 중 오류가 발생했습니다");
+    }
+  }, [onRefresh, showSaved]);
+
+  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting") => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
-    const payment = client.byType[paymentType];
-    if (field === "amount") {
-      setEditValue(payment?.amount ? payment.amount.toLocaleString("ko-KR") : "");
+    if (field === "notes") {
+      setEditValue(client.notes || "");
     } else {
-      setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
+      const payment = client.byType[paymentType];
+      if (field === "amount") {
+        setEditValue(payment?.amount ? payment.amount.toLocaleString("ko-KR") : "");
+      } else {
+        setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
+      }
     }
     setEditing({ clientId, field, paymentType });
   };
