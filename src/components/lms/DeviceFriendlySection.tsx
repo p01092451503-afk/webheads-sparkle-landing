@@ -99,8 +99,8 @@ export default function DeviceFriendlySection() {
 
                 <h3 className="font-bold text-lg text-foreground mb-2">{label}</h3>
                 <p
-                  className="text-sm leading-relaxed text-muted-foreground mb-4"
-                  style={{ wordBreak: "keep-all" }}
+                  className="text-sm leading-relaxed text-muted-foreground mb-4 w-full overflow-hidden"
+                  style={{ wordBreak: "break-word", overflowWrap: "break-word" }}
                 >
                   {t(`lms.deviceSection.${label.toLowerCase()}`)}
                 </p>
