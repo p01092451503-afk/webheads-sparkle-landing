@@ -166,6 +166,44 @@ export type Database = {
         }
         Relationships: []
       }
+      client_recurring_fees: {
+        Row: {
+          amount: number
+          client_id: string
+          created_at: string
+          id: string
+          is_active: boolean
+          payment_type: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          client_id: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          payment_type?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          client_id?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          payment_type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_recurring_fees_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clients: {
         Row: {
           client_no: number | null
@@ -411,6 +449,9 @@ export type Database = {
           client_id: string
           created_at: string | null
           id: string
+          invoice_date: string | null
+          invoice_status: string
+          is_recurring: boolean
           is_unpaid: boolean | null
           memo: string | null
           month: number
@@ -424,6 +465,9 @@ export type Database = {
           client_id: string
           created_at?: string | null
           id?: string
+          invoice_date?: string | null
+          invoice_status?: string
+          is_recurring?: boolean
           is_unpaid?: boolean | null
           memo?: string | null
           month: number
@@ -437,6 +481,9 @@ export type Database = {
           client_id?: string
           created_at?: string | null
           id?: string
+          invoice_date?: string | null
+          invoice_status?: string
+          is_recurring?: boolean
           is_unpaid?: boolean | null
           memo?: string | null
           month?: number
