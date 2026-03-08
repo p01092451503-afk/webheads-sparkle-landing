@@ -32,6 +32,14 @@ Deno.serve(async (req) => {
 
     let created = 0;
     for (const fee of fees) {
+      // For annual billing, only generate in the contract renewal month
+      if (fee.billing_cycle === "annual") {
+        if (!fee.contract_start_date) continue;
+        const startDate = new Date(fee.contract_start_date);
+        const contractMonth = startDate.getMonth() + 1;
+        if (month !== contractMonth) continue;
+      }
+
       // Check if payment already exists for this client/type/month
       const { data: existing } = await supabase
         .from("payments")
@@ -52,7 +60,7 @@ Deno.serve(async (req) => {
           is_unpaid: true,
           is_recurring: true,
           invoice_status: "none",
-          memo: null,
+          memo: fee.billing_cycle === "annual" ? "연간 계약" : null,
         });
         if (!insertError) created++;
       }
