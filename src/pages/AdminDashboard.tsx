@@ -330,6 +330,9 @@ export default function AdminDashboard() {
           {tab === "analytics" && (
             <AdminAnalytics pageViews={pageViews} inquiries={inquiries} clickEvents={clickEvents} onRefresh={(days: number) => fetchFullAnalytics(days)} />
           )}
+          {tab === "payments" && (
+            <AdminPayments isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
