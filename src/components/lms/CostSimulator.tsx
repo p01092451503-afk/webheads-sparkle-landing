@@ -47,9 +47,15 @@ export default function CostSimulator() {
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const [isAnnual, setIsAnnual] = useState(false);
+  const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   const SECURE_PLAYER_COST = 300000;
+  const DEDICATED_SERVER_COST = 250000;
   const ANNUAL_DISCOUNT = 0.1;
 
+  const handleLearnersChange = (v: number) => {
+    setLearners(v);
+    if (v < 500) setNeedsDedicatedServer(false);
+  };
   const getSolutionType = (typeKey: string) => t(`costSim.solutionTypes.${typeKey}`);
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, storageInput, completionRate), [learners, storageInput, completionRate]);
@@ -58,8 +64,10 @@ export default function CostSimulator() {
     return PLAN_DEFS.map((plan) => {
       const solutionType = getSolutionType(plan.typeKey);
       const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
+      const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
       if (plan.name === "Starter") {
-        return { ...plan, solutionType, isMatch: !needsCdn, totalMonthly: plan.monthly, overageCdn: 0, overageStorage: 0 };
+        const starterTotal = plan.monthly + dedicatedAddon;
+        return { ...plan, solutionType, isMatch: !needsCdn, totalMonthly: starterTotal, overageCdn: 0, overageStorage: 0 };
       }
       if (!needsCdn) {
         return { ...plan, solutionType, isMatch: false, totalMonthly: 0, overageCdn: 0, overageStorage: 0 };
@@ -68,11 +76,11 @@ export default function CostSimulator() {
       const overStorage = Math.max(0, storageGB - plan.storageIncluded);
       const overageCdn = overCdn * plan.cdnOverage;
       const overageStorage = overStorage * plan.storageOverage;
-      const totalMonthly = plan.monthly + overageCdn + overageStorage + secureAddon;
+      const totalMonthly = plan.monthly + overageCdn + overageStorage + secureAddon + dedicatedAddon;
       return { ...plan, solutionType, isMatch: true, totalMonthly, overageCdn, overageStorage };
     }).filter((p) => p.isMatch);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cdnGB, storageGB, needsCdn, needsSecurePlayer, lang]);
+  }, [cdnGB, storageGB, needsCdn, needsSecurePlayer, needsDedicatedServer, learners, lang]);
 
   const bestPlan = useMemo(() => {
     const viable = recommendations.filter((p) => p.name !== "Starter");
@@ -159,7 +167,7 @@ export default function CostSimulator() {
                       value={learners}
                       onChange={(e) => {
                         const v = Math.min(2000, Math.max(10, Number(e.target.value) || 10));
-                        setLearners(v);
+                        handleLearnersChange(v);
                       }}
                       className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
@@ -173,7 +181,7 @@ export default function CostSimulator() {
                 </div>
                 <Slider
                   value={[learners]}
-                  onValueChange={([v]) => setLearners(v)}
+                  onValueChange={([v]) => handleLearnersChange(v)}
                   min={10}
                   max={2000}
                   step={10}
@@ -347,29 +355,36 @@ export default function CostSimulator() {
 
               {/* Dedicated server recommendation */}
               {learners >= 500 && (
-                <div className="mt-4 rounded-xl p-4 border bg-background" style={{ borderColor: "hsl(var(--lms-primary) / 0.25)" }}>
-                  <div className="flex items-start gap-2.5">
-                    <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.1)" }}>
-                      <Server className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                <>
+                  <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4" style={ needsDedicatedServer ? { borderColor: "hsl(var(--lms-primary) / 0.4)", background: "hsl(var(--lms-primary) / 0.04)" } : undefined }>
+                    <div className="flex items-center gap-2">
+                      <Server className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm font-medium text-foreground">{t("costSim.dedicatedToggle")}</span>
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-foreground mb-1">{t("costSim.dedicatedTitle")}</p>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">
-                        {t("costSim.dedicatedDesc", { num: learners.toLocaleString() } as TOptions)}
-                      </p>
-                      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-muted-foreground">
-                        <span className="flex items-center gap-1.5">
-                          <Globe className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          {t("costSim.estWebTraffic", { amount: Math.round(learners * 0.8).toLocaleString() } as TOptions)}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Server className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          {t("costSim.dedicatedCost")}
-                        </span>
-                      </div>
-                    </div>
+                    <button
+                      onClick={() => setNeedsDedicatedServer(!needsDedicatedServer)}
+                      className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${needsDedicatedServer ? "" : "bg-muted"}`}
+                      style={needsDedicatedServer ? { background: "hsl(var(--lms-primary))" } : undefined}
+                    >
+                      <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsDedicatedServer ? "translate-x-5" : "translate-x-0"}`} />
+                    </button>
                   </div>
-                </div>
+                  <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                    {t("costSim.dedicatedToggleDesc")}
+                  </p>
+                  {needsDedicatedServer && (
+                    <div className="mt-2 rounded-xl p-3.5 text-xs text-muted-foreground space-y-1.5" style={{ background: "hsl(var(--lms-primary) / 0.05)" }}>
+                      <p className="flex items-center gap-1.5">
+                        <Globe className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                        {t("costSim.estWebTraffic", { amount: Math.round(learners * 0.8).toLocaleString() } as TOptions)}
+                      </p>
+                      <p className="flex items-center gap-1.5">
+                        <Server className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                        {t("costSim.dedicatedCost")}
+                      </p>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -408,7 +423,7 @@ export default function CostSimulator() {
                   })()}
 
 
-                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
+                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer || (needsDedicatedServer && learners >= 500)) && (
                     <div className="flex flex-wrap gap-2 mb-4">
                       {bestPlan.overageCdn > 0 && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
@@ -423,6 +438,11 @@ export default function CostSimulator() {
                       {needsSecurePlayer && bestPlan.name !== "Starter" && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
                           {t("costSim.secureAddon", { amount: formatPrice(SECURE_PLAYER_COST) })}
+                        </span>
+                      )}
+                      {needsDedicatedServer && learners >= 500 && (
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
+                          {t("costSim.dedicatedAddon", { amount: formatPrice(DEDICATED_SERVER_COST) })}
                         </span>
                       )}
                     </div>
