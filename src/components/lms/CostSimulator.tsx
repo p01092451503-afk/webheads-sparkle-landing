@@ -154,9 +154,21 @@ export default function CostSimulator() {
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                  <span className="text-lg font-bold tabular-nums" style={{ color: "hsl(var(--lms-primary))" }}>
-                    {videoHours}시간
-                  </span>
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="number"
+                      value={videoHours}
+                      onChange={(e) => {
+                        const v = Math.min(500, Math.max(1, Number(e.target.value) || 1));
+                        setVideoHours(v);
+                      }}
+                      className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
+                      style={{ color: "hsl(var(--lms-primary))" }}
+                      min={1}
+                      max={500}
+                    />
+                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>시간</span>
+                  </div>
                 </div>
                 <Slider
                   value={[videoHours]}
