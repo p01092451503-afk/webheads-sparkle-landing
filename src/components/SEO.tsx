@@ -90,7 +90,7 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImageUrl} />
-      <meta name="twitter:image:alt" content={`${fullTitle} 대표 이미지`} />
+      <meta name="twitter:image:alt" content={`${fullTitle} — ${locale.imageAlt}`} />
 
       {/* JSON-LD */}
       {jsonLd && (
