@@ -533,12 +533,17 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                   <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
                     <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
                     <td className="px-3 py-3 whitespace-nowrap">
-                      <button
-                        onClick={() => onNavigate("detail", c.id)}
-                        className="font-medium text-[hsl(221,83%,53%)] hover:underline"
-                      >
-                        {c.name}
-                      </button>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => onNavigate("detail", c.id)}
+                          className="font-medium text-[hsl(221,83%,53%)] hover:underline"
+                        >
+                          {c.name}
+                        </button>
+                        {annualClients.has(c.id) && (
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 font-medium">연간</span>
+                        )}
+                      </div>
                     </td>
                     <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.expected_payment_day || "-"}</td>
 
