@@ -339,6 +339,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">세액</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">합계</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">지출일</th>
+                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">계산서</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">메모</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">관리</th>
