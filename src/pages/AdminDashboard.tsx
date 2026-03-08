@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt
 } from "lucide-react";
+import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
 const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
@@ -32,6 +33,7 @@ const TabLoader = () => (
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  useSessionTimeout();
   const [searchParams] = useSearchParams();
   const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses"];
   const getValidTab = (value: string | null): Tab | null =>
