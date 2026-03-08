@@ -378,8 +378,34 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         </div>
       </div>
 
-      {/* Table */}
+      {/* Month Navigation + Table */}
       <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+        {/* Month Selector */}
+        <div className="flex items-center justify-between px-5 py-3 border-b border-[hsl(220,13%,91%)]">
+          <div className="flex items-center gap-2">
+            <button onClick={() => goMonth(-1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-[14px] font-semibold min-w-[100px] text-center">
+              {viewYear}년 {viewMonth}월
+            </span>
+            <button onClick={() => goMonth(1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            {!isCurrentMonth && (
+              <button
+                onClick={() => { setViewYear(now.getFullYear()); setViewMonth(now.getMonth() + 1); }}
+                className="ml-2 px-2.5 py-1 rounded-lg text-[11px] font-medium text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.14)] transition-colors"
+              >
+                이번 달
+              </button>
+            )}
+          </div>
+          {!isCurrentMonth && (
+            <span className="text-[11px] text-muted-foreground">과거 데이터 조회 중</span>
+          )}
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-[13px]">
             <thead>
@@ -390,7 +416,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[120px]">입금일 ✎</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">비고</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[120px]">미납금</th>
-                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[130px]">이달 금액 ✎</th>
+                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[130px]">{viewMonth}월 금액 ✎</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[90px]">관리</th>
               </tr>
