@@ -130,6 +130,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const getCategoryName = (id: string | null) => categories.find((c) => c.id === id)?.name || "미분류";
   const getCategoryColor = (id: string | null) => categories.find((c) => c.id === id)?.color || "bg-gray-100 text-gray-600";
   const getClientName = (id: string | null) => clients.find((c) => c.id === id)?.name || null;
+  const getVendorName = (id: string | null) => vendors.find((v) => v.id === id)?.name || null;
 
   const openAddModal = () => {
     setEditExpense(null);
