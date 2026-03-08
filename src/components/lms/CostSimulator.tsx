@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp } from "lucide-react";
+import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -55,7 +55,9 @@ export default function CostSimulator() {
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(false);
   const SECURE_PLAYER_COST = 300000;
+  const ANNUAL_DISCOUNT = 0.1; // 10% discount
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, storageInput, completionRate), [learners, storageInput, completionRate]);
 
@@ -322,6 +324,26 @@ export default function CostSimulator() {
               </>
               )}
 
+              {/* Annual contract toggle */}
+              <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4">
+                <div className="flex items-center gap-2">
+                  <CalendarCheck className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm font-medium text-foreground">연간 계약 (10% 할인)</span>
+                </div>
+                <button
+                  onClick={() => setIsAnnual(!isAnnual)}
+                  className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${isAnnual ? "" : "bg-muted"}`}
+                  style={isAnnual ? { background: "hsl(var(--lms-primary))" } : undefined}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${isAnnual ? "translate-x-5" : "translate-x-0"}`} />
+                </button>
+              </div>
+              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                {isAnnual
+                  ? "연간 계약 시 월 이용료의 10%가 할인됩니다. (12개월 선결제 기준)"
+                  : "연간 계약을 선택하면 월별 대비 10% 할인된 금액으로 이용할 수 있습니다."}
+              </p>
+
               {/* Estimated usage */}
               {needsCdn && (
               <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
@@ -373,10 +395,25 @@ export default function CostSimulator() {
                     <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
                     <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
                   </div>
-                  <div className="flex items-end gap-1 mb-4">
-                    <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(bestPlan.totalMonthly)}</span>
-                    <span className="text-white/70 text-base mb-1">원/월</span>
-                  </div>
+                  {(() => {
+                    const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
+                    return (
+                      <>
+                        <div className="flex items-end gap-1 mb-1">
+                          <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(displayMonthly)}</span>
+                          <span className="text-white/70 text-base mb-1">원/월</span>
+                        </div>
+                        {isAnnual && (
+                          <div className="flex items-center gap-2 mb-4">
+                            <span className="text-xs text-white/50 line-through tabular-nums">{formatPrice(bestPlan.totalMonthly)}원/월</span>
+                            <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>10% 할인</span>
+                            <span className="text-xs text-white/60">연 {formatPrice(displayMonthly * 12)}원</span>
+                          </div>
+                        )}
+                        {!isAnnual && <div className="mb-4" />}
+                      </>
+                    );
+                  })()}
                   {/* 월 예상 수익 */}
                   <div className="rounded-xl p-3.5 mb-4" style={{ background: "hsla(0, 0%, 100%, 0.12)" }}>
                     <div className="flex items-center justify-between mb-1.5">
@@ -398,16 +435,31 @@ export default function CostSimulator() {
                     <div className="flex items-end gap-2">
                       <span className="font-extrabold text-white text-2xl tabular-nums">{formatPrice(monthlyRevenue)}원</span>
                     </div>
-                    <div className="mt-2 pt-2 border-t border-white/15 flex items-center justify-between text-xs">
-                      <span className="text-white/60">순이익 (수익 − 플랫폼 비용)</span>
-                      <span className="font-bold text-white tabular-nums">{formatPrice(monthlyRevenue - bestPlan.totalMonthly)}원</span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs mt-1">
-                      <span className="text-white/60">ROI</span>
-                      <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
-                        {bestPlan.totalMonthly > 0 ? `${Math.round(((monthlyRevenue - bestPlan.totalMonthly) / bestPlan.totalMonthly) * 100)}%` : "∞"}
-                      </span>
-                    </div>
+                    {(() => {
+                      const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
+                      return (
+                        <>
+                          <div className="mt-2 pt-2 border-t border-white/15 flex items-center justify-between text-xs">
+                            <span className="text-white/60">순이익 (수익 − 플랫폼 비용)</span>
+                            <span className="font-bold text-white tabular-nums">{formatPrice(monthlyRevenue - displayMonthly)}원</span>
+                          </div>
+                          <div className="flex items-center justify-between text-xs mt-1">
+                            <span className="text-white/60">ROI</span>
+                            <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
+                              {displayMonthly > 0 ? `${Math.round(((monthlyRevenue - displayMonthly) / displayMonthly) * 100)}%` : "∞"}
+                            </span>
+                          </div>
+                          {isAnnual && (
+                            <div className="flex items-center justify-between text-xs mt-1">
+                              <span className="text-white/60">연간 절감액</span>
+                              <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
+                                {formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT * 12))}원
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })()}
                   </div>
 
                   {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
@@ -459,11 +511,14 @@ export default function CostSimulator() {
 
             {/* All plans comparison */}
             <div className="rounded-2xl border border-border overflow-hidden">
-              <div className="px-5 py-3.5 bg-muted/50 border-b border-border">
+              <div className="px-5 py-3.5 bg-muted/50 border-b border-border flex items-center justify-between">
                 <span className="text-xs font-bold text-muted-foreground tracking-wider uppercase">전체 플랜 비교</span>
+                {isAnnual && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>연간 10% 할인 적용</span>}
               </div>
               <div className="divide-y divide-border">
-                {recommendations.map((plan) => (
+                {recommendations.map((plan) => {
+                  const discounted = isAnnual ? Math.round(plan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : plan.totalMonthly;
+                  return (
                   <div
                     key={plan.name}
                     className={`flex items-center justify-between px-5 py-4 transition-colors ${plan.name === bestPlan?.name ? "bg-primary/5" : "bg-background hover:bg-muted/30"}`}
@@ -480,13 +535,17 @@ export default function CostSimulator() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(plan.totalMonthly)}원</p>
-                      {plan.totalMonthly > plan.monthly && (
+                      <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(discounted)}원/월</p>
+                      {isAnnual && (
+                        <p className="text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(plan.totalMonthly)}원</p>
+                      )}
+                      {!isAnnual && plan.totalMonthly > plan.monthly && (
                         <p className="text-[10px] text-muted-foreground">기본 {formatPrice(plan.monthly)} + 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>
                       )}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
