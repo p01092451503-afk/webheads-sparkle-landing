@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useCallback } from "react";
-import { Search, Plus, Edit2, CreditCard, Check, Download } from "lucide-react";
+import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -57,8 +57,20 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   const inputRef = useRef<HTMLInputElement>(null);
 
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-  const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth() + 1;
+  const [viewYear, setViewYear] = useState(now.getFullYear());
+  const [viewMonth, setViewMonth] = useState(now.getMonth() + 1);
+
+  const isCurrentMonth = viewYear === now.getFullYear() && viewMonth === (now.getMonth() + 1);
+
+  const goMonth = (delta: number) => {
+    let m = viewMonth + delta;
+    let y = viewYear;
+    if (m > 12) { m = 1; y += 1; }
+    if (m < 1) { m = 12; y -= 1; }
+    setViewYear(y);
+    setViewMonth(m);
+    setEditing(null);
+  };
 
   const clientData = useMemo(() => {
     return clients.map((c) => {
@@ -68,12 +80,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
       // For inline editing, find hosting payment for current month
       const thisMonth = payments.find(
-        (p) => p.client_id === c.id && p.year === currentYear && p.month === currentMonth && (p.payment_type === "hosting" || !p.payment_type)
+        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && (p.payment_type === "hosting" || !p.payment_type)
       );
 
       // Count of other payment types this month
       const otherThisMonth = payments.filter(
-        (p) => p.client_id === c.id && p.year === currentYear && p.month === currentMonth && p.payment_type && p.payment_type !== "hosting"
+        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && p.payment_type && p.payment_type !== "hosting"
       );
 
       const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
@@ -85,7 +97,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
       return { ...c, unpaidTotal, thisMonth, otherThisMonth, status };
     });
-  }, [clients, payments, currentYear, currentMonth]);
+  }, [clients, payments, viewYear, viewMonth]);
 
   const filtered = useMemo(() => {
     let list = clientData;
@@ -133,8 +145,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         } else {
           const { error } = await supabase.from("payments").insert({
             client_id: clientId,
-            year: currentYear,
-            month: currentMonth,
+            year: viewYear,
+            month: viewMonth,
             amount: numAmount,
             is_unpaid: false,
             payment_type: "hosting",
@@ -149,7 +161,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           // If short format like 3-8 or 03-08
           if (/^\d{1,2}-\d{1,2}$/.test(cleaned)) {
             const [m, d] = cleaned.split("-");
-            dateStr = `${currentYear}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+            dateStr = `${viewYear}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
           } else if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(cleaned)) {
             const parts = cleaned.split("-");
             dateStr = `${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
@@ -169,8 +181,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         } else if (dateStr) {
           const { error } = await supabase.from("payments").insert({
             client_id: clientId,
-            year: currentYear,
-            month: currentMonth,
+            year: viewYear,
+            month: viewMonth,
             amount: 0,
             paid_date: dateStr,
             is_unpaid: false,
@@ -185,7 +197,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     } catch (e: any) {
       toast.error(e.message || "저장 중 오류가 발생했습니다");
     }
-  }, [clientData, currentYear, currentMonth, onRefresh, showSaved]);
+  }, [clientData, viewYear, viewMonth, onRefresh, showSaved]);
 
   const startEditing = (clientId: string, field: "amount" | "paid_date") => {
     const client = clientData.find((c) => c.id === clientId);
@@ -366,8 +378,34 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         </div>
       </div>
 
-      {/* Table */}
+      {/* Month Navigation + Table */}
       <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+        {/* Month Selector */}
+        <div className="flex items-center justify-between px-5 py-3 border-b border-[hsl(220,13%,91%)]">
+          <div className="flex items-center gap-2">
+            <button onClick={() => goMonth(-1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-[14px] font-semibold min-w-[100px] text-center">
+              {viewYear}년 {viewMonth}월
+            </span>
+            <button onClick={() => goMonth(1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            {!isCurrentMonth && (
+              <button
+                onClick={() => { setViewYear(now.getFullYear()); setViewMonth(now.getMonth() + 1); }}
+                className="ml-2 px-2.5 py-1 rounded-lg text-[11px] font-medium text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.14)] transition-colors"
+              >
+                이번 달
+              </button>
+            )}
+          </div>
+          {!isCurrentMonth && (
+            <span className="text-[11px] text-muted-foreground">과거 데이터 조회 중</span>
+          )}
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-[13px]">
             <thead>
@@ -378,7 +416,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[120px]">입금일 ✎</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">비고</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[120px]">미납금</th>
-                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[130px]">이달 금액 ✎</th>
+                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[130px]">{viewMonth}월 금액 ✎</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[90px]">관리</th>
               </tr>
