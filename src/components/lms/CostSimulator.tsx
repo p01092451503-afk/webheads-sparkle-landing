@@ -121,7 +121,7 @@ export default function CostSimulator() {
                       type="number"
                       value={learners}
                       onChange={(e) => {
-                        const v = Math.min(5000, Math.max(10, Number(e.target.value) || 10));
+                        const v = Math.min(3000, Math.max(10, Number(e.target.value) || 10));
                         setLearners(v);
                       }}
                       className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
