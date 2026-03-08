@@ -63,6 +63,18 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const [notifSaving, setNotifSaving] = useState(false);
   const [notifSaved, setNotifSaved] = useState(false);
 
+  // Slack notification settings
+  const [slackSettings, setSlackSettings] = useState({
+    enabled: true,
+    channel: "general",
+    notify_new_inquiry: true,
+    notify_service_request: true,
+    notify_site_error: true,
+  });
+  const [slackSaving, setSlackSaving] = useState(false);
+  const [slackSaved, setSlackSaved] = useState(false);
+  const [slackTesting, setSlackTesting] = useState(false);
+
   // Company info
   const [companyInfo, setCompanyInfo] = useState({
     name: "WEBHEADS",
