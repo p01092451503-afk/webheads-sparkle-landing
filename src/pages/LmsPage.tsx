@@ -22,7 +22,7 @@ import {
   DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
   ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award,
   Sparkles, ArrowRight, Rocket, CreditCard, Database, Layers, HardDriveDownload, Settings, PackageCheck,
-  BookOpen
+  BookOpen, Calculator
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState, useMemo, useEffect } from "react";
@@ -236,6 +236,10 @@ export default function LmsPage() {
             </a>
             <a href="#solutions" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
               {t("lms.hero.cta2")}
+            </a>
+            <a href="#cost-simulator" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10 flex items-center gap-2" style={{ backdropFilter: "blur(8px)" }}>
+              <Calculator className="w-4 h-4" />
+              {t("floatingNav.costSimulator")}
             </a>
           </div>
           <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
