@@ -155,6 +155,31 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
 
   const selectedClient = clients.find((c) => c.id === selectedClientId);
 
+  // Notification: clients with expected_payment_day within ±2 days of today, no payment this month
+  const imminentClients = useMemo(() => {
+    const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+    const todayDate = now.getDate();
+    const cy = now.getFullYear();
+    const cm = now.getMonth() + 1;
+
+    return clients.filter((c) => {
+      if (!c.is_active) return false;
+      const dayMatch = c.expected_payment_day?.match(/(\d+)/);
+      if (!dayMatch) return false;
+      const expectedDay = parseInt(dayMatch[1]);
+      if (isNaN(expectedDay)) return false;
+
+      // Within ±2 days
+      if (Math.abs(expectedDay - todayDate) > 2) return false;
+
+      // No payment registered this month
+      const hasPayment = payments.some(
+        (p) => p.client_id === c.id && p.year === cy && p.month === cm && p.paid_date && !p.is_unpaid
+      );
+      return !hasPayment;
+    });
+  }, [clients, payments]);
+
   // Sub-navigation tabs
   const subTabs = [
     { key: "dashboard" as SubView, label: "대시보드" },
@@ -164,6 +189,23 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
 
   return (
     <div className="space-y-4">
+      {/* Notification Banner */}
+      {imminentClients.length > 0 && subView !== "detail" && (
+        <button
+          onClick={() => {
+            setClientListFilter("unpaid");
+            setSubView("clients");
+          }}
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 text-left hover:bg-amber-100 transition-colors"
+        >
+          <Bell className="w-4.5 h-4.5 text-amber-600 shrink-0" />
+          <span className="text-[13px] font-medium text-amber-800">
+            📢 납부일 임박: {imminentClients[0].name}
+            {imminentClients.length > 1 && ` 외 ${imminentClients.length - 1}건`}
+            {" "}— 이번 달 입금 미확인
+          </span>
+        </button>
+      )}
       {/* Sub-tabs (only show when not in detail) */}
       {subView !== "detail" && (
         <div className="flex gap-1 bg-white rounded-xl p-1 border border-[hsl(220,13%,91%)] w-fit">
