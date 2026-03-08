@@ -367,8 +367,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                       } catch { toast.error("변경 실패"); }
                     }}>
                       {exp.invoice_issued
-                        ? <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer text-[11px]">발급</Badge>
-                        : <Badge className="bg-gray-100 text-gray-500 hover:bg-gray-200 cursor-pointer text-[11px]">미발급</Badge>
+                        ? <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer text-[11px] whitespace-nowrap">발급</Badge>
+                        : <Badge className="bg-gray-100 text-gray-500 hover:bg-gray-200 cursor-pointer text-[11px] whitespace-nowrap">미발급</Badge>
                       }
                     </button>
                   </td>
