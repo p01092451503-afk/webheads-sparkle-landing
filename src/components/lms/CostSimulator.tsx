@@ -87,6 +87,30 @@ export default function CostSimulator() {
     return sorted[0];
   }, [recommendations, needsCdn]);
 
+  // Upgrade nudge: detect when a plan's overage makes a higher-tier plan more economical
+  const upgradeNudge = useMemo<{ fromPlan: string; toPlan: string; savings: number } | null>(() => {
+    if (!bestPlan || !needsCdn) return null;
+    const planOrder = ["Basic", "Plus", "Premium"];
+    const bestIdx = planOrder.indexOf(bestPlan.name);
+    if (bestIdx < 0) return null;
+    const overage = bestPlan.overageCdn + bestPlan.overageStorage;
+    if (overage <= 0) return null;
+    // Check if next tier's total cost would be cheaper
+    const nextTierName = planOrder[bestIdx + 1];
+    if (!nextTierName) return null;
+    const nextTier = recommendations.find((p) => p.name === nextTierName);
+    if (!nextTier) return null;
+    // Nudge if: next tier total is cheaper, OR overage exceeds 70% of base-price difference
+    const baseDiff = nextTier.monthly - bestPlan.monthly;
+    if (nextTier.totalMonthly < bestPlan.totalMonthly) {
+      return { fromPlan: bestPlan.name, toPlan: nextTier.name, savings: bestPlan.totalMonthly - nextTier.totalMonthly };
+    }
+    if (overage >= baseDiff * 0.7) {
+      return { fromPlan: bestPlan.name, toPlan: nextTier.name, savings: 0 };
+    }
+    return null;
+  }, [bestPlan, recommendations, needsCdn]);
+
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
 
   return (
