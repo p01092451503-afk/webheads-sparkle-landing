@@ -57,8 +57,20 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   const inputRef = useRef<HTMLInputElement>(null);
 
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-  const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth() + 1;
+  const [viewYear, setViewYear] = useState(now.getFullYear());
+  const [viewMonth, setViewMonth] = useState(now.getMonth() + 1);
+
+  const isCurrentMonth = viewYear === now.getFullYear() && viewMonth === (now.getMonth() + 1);
+
+  const goMonth = (delta: number) => {
+    let m = viewMonth + delta;
+    let y = viewYear;
+    if (m > 12) { m = 1; y += 1; }
+    if (m < 1) { m = 12; y -= 1; }
+    setViewYear(y);
+    setViewMonth(m);
+    setEditing(null);
+  };
 
   const clientData = useMemo(() => {
     return clients.map((c) => {
