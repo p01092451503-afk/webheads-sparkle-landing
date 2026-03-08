@@ -18,17 +18,23 @@ const OG_IMAGE = `${BASE_URL}/og-image.png`;
 const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string }> = {
   ko: { og: "ko_KR", siteName: "웹헤즈", suffix: "웹헤즈" },
   en: { og: "en_US", siteName: "WEBHEADS", suffix: "WEBHEADS" },
+  ja: { og: "ja_JP", siteName: "WEBHEADS", suffix: "WEBHEADS" },
+  "zh-CN": { og: "zh_CN", siteName: "WEBHEADS", suffix: "WEBHEADS" },
+  "zh-TW": { og: "zh_TW", siteName: "WEBHEADS", suffix: "WEBHEADS" },
 };
 
 export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb, ogImage }: SEOProps) {
   const { i18n } = useTranslation();
-  const lang = i18n.language?.substring(0, 2) || "ko";
+  const lang = i18n.language || "ko";
   const locale = LOCALE_MAP[lang] || LOCALE_MAP.ko;
 
   const fullTitle = `${title} | ${locale.suffix}`;
   const canonicalUrl = `${BASE_URL}${path}`;
   const koUrl = `${BASE_URL}${path}`;
   const enUrl = `${BASE_URL}${path}?lang=en`;
+  const jaUrl = `${BASE_URL}${path}?lang=ja`;
+  const zhCnUrl = `${BASE_URL}${path}?lang=zh-CN`;
+  const zhTwUrl = `${BASE_URL}${path}?lang=zh-TW`;
   const ogImageUrl = ogImage ? `${BASE_URL}${ogImage}` : OG_IMAGE;
 
   const faqSchema = faqJsonLd && faqJsonLd.length > 0
@@ -68,6 +74,9 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <link rel="canonical" href={canonicalUrl} />
       <link rel="alternate" hrefLang="ko" href={koUrl} />
       <link rel="alternate" hrefLang="en" href={enUrl} />
+      <link rel="alternate" hrefLang="ja" href={jaUrl} />
+      <link rel="alternate" hrefLang="zh-CN" href={zhCnUrl} />
+      <link rel="alternate" hrefLang="zh-TW" href={zhTwUrl} />
       <link rel="alternate" hrefLang="x-default" href={koUrl} />
 
       {/* Open Graph */}
