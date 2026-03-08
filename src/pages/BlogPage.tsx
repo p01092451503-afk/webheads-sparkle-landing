@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import { BookOpen, TrendingUp, Lightbulb, ArrowRight, Calendar, Clock, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { BlogPost, blogPostsKo, blogPostsEn, categoryConfigKo, categoryConfigEn } from "@/data/blogPosts";
+import { BlogPost, blogPostsKo, blogPostsEn, categoryConfigKo, categoryConfigEn, blogPostsJa, categoryConfigJa } from "@/data/blogPosts";
 
 const POSTS_PER_PAGE = 10;
 
