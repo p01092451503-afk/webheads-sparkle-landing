@@ -45,6 +45,19 @@ const MAIN_SPECS_EN: SpecRow[] = [
   },
 ];
 
+const MAIN_SPECS_JA: SpecRow[] = [
+  {
+    label: "月間転送量",
+    values: ["CDN未使用", "500GB", "1,500GB", "2,000GB"],
+    sub: ["YouTube/Vimeo連携", "30分講義 約1,700名受講", "30分講義 約5,100名受講", "30分講義 約6,800名受講"],
+  },
+  {
+    label: "ストレージ",
+    values: ["—", "100GB", "200GB", "250GB"],
+    sub: ["", "標準画質30分講義 約332講", "標準画質30分講義 約664講", "標準画質30分講義 約830講"],
+  },
+];
+
 const ADDITIONAL_SPECS_KO: SpecRow[] = [
   { label: "회원 수", values: ["무제한", "무제한", "무제한", "무제한"] },
   { label: "트랜스코딩", values: ["—", "20GB", "20GB", "20GB"] },
