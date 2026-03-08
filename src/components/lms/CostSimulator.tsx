@@ -25,10 +25,19 @@ const PLANS: Omit<PlanRecommendation, "isMatch" | "totalMonthly" | "overageCdn" 
   { name: "Premium", monthly: 1000000, cdnIncluded: 2000, storageIncluded: 250, cdnOverage: 300, storageOverage: 500, solutionType: "임대형 · SaaS | 단독서버" },
 ];
 
+// Pricing page reference: 500GB ÷ 1,700 views of 30-min lecture ≈ 0.294GB/view
+// → 0.588GB per hour per learner
+const CDN_GB_PER_HOUR_PER_LEARNER = 0.588;
+// Pricing page reference: 100GB ÷ 332 lectures (30-min) ≈ 0.301GB per 30-min
+// → 0.602GB per hour of video content
+const STORAGE_GB_PER_VIDEO_HOUR = 0.602;
+
 function estimateUsage(learners: number, videoHours: number, completionRate: number) {
   const rate = completionRate / 100;
-  const cdnGB = Math.round(learners * 2.5 * rate);
-  const storageGB = Math.round(videoHours * 3);
+  // Each learner watches (videoHours × completionRate) hours, each hour ≈ 0.588GB transfer
+  const cdnGB = Math.round(learners * videoHours * rate * CDN_GB_PER_HOUR_PER_LEARNER);
+  // Storage depends only on total uploaded video content
+  const storageGB = Math.round(videoHours * STORAGE_GB_PER_VIDEO_HOUR);
   return { cdnGB, storageGB };
 }
 
