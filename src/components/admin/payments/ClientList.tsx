@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import * as XLSX from "xlsx";
+import { getPaymentTypeLabel } from "./paymentTypes";
 
 interface Client {
   id: string;
@@ -26,6 +27,7 @@ interface Payment {
   paid_date: string | null;
   is_unpaid: boolean;
   memo: string | null;
+  payment_type: string;
 }
 
 interface Props {
@@ -64,8 +66,14 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         .filter((p) => p.client_id === c.id && p.is_unpaid)
         .reduce((s, p) => s + (p.amount || 0), 0);
 
+      // For inline editing, find hosting payment for current month
       const thisMonth = payments.find(
-        (p) => p.client_id === c.id && p.year === currentYear && p.month === currentMonth
+        (p) => p.client_id === c.id && p.year === currentYear && p.month === currentMonth && (p.payment_type === "hosting" || !p.payment_type)
+      );
+
+      // Count of other payment types this month
+      const otherThisMonth = payments.filter(
+        (p) => p.client_id === c.id && p.year === currentYear && p.month === currentMonth && p.payment_type && p.payment_type !== "hosting"
       );
 
       const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
@@ -75,7 +83,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       else if (unpaidTotal > 0 || (thisMonth && thisMonth.is_unpaid)) status = "unpaid";
       else status = "paid";
 
-      return { ...c, unpaidTotal, thisMonth, status };
+      return { ...c, unpaidTotal, thisMonth, otherThisMonth, status };
     });
   }, [clients, payments, currentYear, currentMonth]);
 
@@ -129,6 +137,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
             month: currentMonth,
             amount: numAmount,
             is_unpaid: false,
+            payment_type: "hosting",
           });
           if (error) throw error;
         }
@@ -165,6 +174,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
             amount: 0,
             paid_date: dateStr,
             is_unpaid: false,
+            payment_type: "hosting",
           });
           if (error) throw error;
         }
@@ -260,8 +270,14 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           .reduce((s, p) => s + (p.amount || 0), 0);
 
         const thisMonthP = payments.find(
-          (p) => p.client_id === c.id && p.year === cy && p.month === cm
+          (p) => p.client_id === c.id && p.year === cy && p.month === cm && (p.payment_type === "hosting" || !p.payment_type)
         );
+
+        // Collect other payment types for this month
+        const otherTypes = payments
+          .filter((p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type && p.payment_type !== "hosting")
+          .map((p) => `${getPaymentTypeLabel(p.payment_type)}:${p.amount?.toLocaleString()}`)
+          .join(", ");
 
         const row: Record<string, any> = {
           "No": c.client_no,
@@ -270,16 +286,16 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           "입금일": thisMonthP?.paid_date?.replace(/-/g, ".") || "",
           "비고": c.notes || "",
           "미납금": unpaidTotal,
+          "기타항목(이달)": otherTypes || "",
         };
 
         let total = 0;
         monthCols.forEach((mc) => {
-          const p = payments.find(
-            (p) => p.client_id === c.id && p.year === mc.year && p.month === mc.month
-          );
-          const amt = p?.amount || 0;
-          row[mc.label] = amt;
-          total += amt;
+          const monthTotal = payments
+            .filter((p) => p.client_id === c.id && p.year === mc.year && p.month === mc.month)
+            .reduce((s, p) => s + (p.amount || 0), 0);
+          row[mc.label] = monthTotal;
+          total += monthTotal;
         });
 
         row["총합"] = total;
@@ -290,7 +306,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
     // Set column widths
     ws["!cols"] = [
-      { wch: 5 }, { wch: 18 }, { wch: 10 }, { wch: 12 }, { wch: 15 }, { wch: 14 },
+      { wch: 5 }, { wch: 18 }, { wch: 10 }, { wch: 12 }, { wch: 15 }, { wch: 14 }, { wch: 20 },
       ...monthCols.map(() => ({ wch: 12 })),
       { wch: 14 },
     ];

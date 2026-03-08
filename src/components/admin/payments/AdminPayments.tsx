@@ -29,6 +29,7 @@ interface Payment {
   paid_date: string | null;
   is_unpaid: boolean;
   memo: string | null;
+  payment_type: string;
 }
 
 type SubView = "dashboard" | "clients" | "detail" | "calendar";

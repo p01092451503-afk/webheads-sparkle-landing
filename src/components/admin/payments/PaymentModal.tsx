@@ -10,6 +10,7 @@ import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
+import { PAYMENT_TYPES } from "./paymentTypes";
 
 interface Client {
   id: string;
@@ -25,6 +26,7 @@ interface Payment {
   paid_date: string | null;
   is_unpaid: boolean;
   memo: string | null;
+  payment_type: string;
 }
 
 interface Props {
@@ -38,6 +40,7 @@ interface Props {
     paid_date: string | null;
     is_unpaid: boolean;
     memo: string;
+    payment_type: string;
   }) => void;
   clients: Client[];
   editPayment?: Payment | null;
@@ -53,6 +56,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
   const [paidDate, setPaidDate] = useState<Date | undefined>(undefined);
   const [isUnpaid, setIsUnpaid] = useState(false);
   const [memo, setMemo] = useState("");
+  const [paymentType, setPaymentType] = useState("hosting");
   const [clientSearch, setClientSearch] = useState("");
 
   useEffect(() => {
@@ -65,6 +69,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
         setPaidDate(editPayment.paid_date ? new Date(editPayment.paid_date) : undefined);
         setIsUnpaid(editPayment.is_unpaid);
         setMemo(editPayment.memo || "");
+        setPaymentType(editPayment.payment_type || "hosting");
       } else {
         setClientId(preselectedClientId || "");
         setYear(now.getFullYear().toString());
@@ -73,6 +78,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
         setPaidDate(undefined);
         setIsUnpaid(false);
         setMemo("");
+        setPaymentType("hosting");
       }
       setClientSearch("");
     }
@@ -94,6 +100,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
       paid_date: paidDate ? format(paidDate, "yyyy-MM-dd") : null,
       is_unpaid: isUnpaid,
       memo,
+      payment_type: paymentType,
     });
   };
 
@@ -103,7 +110,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="sm:max-w-[420px]">
+      <DialogContent className="sm:max-w-[440px]">
         <DialogHeader>
           <DialogTitle className="text-[16px]">{editPayment ? "입금 수정" : "입금 등록"}</DialogTitle>
         </DialogHeader>
@@ -126,6 +133,21 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
                 </div>
                 {filteredClients.map((c) => (
                   <SelectItem key={c.id} value={c.id} className="text-[13px]">{c.name}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Payment Type */}
+          <div className="space-y-1.5">
+            <Label className="text-[13px]">입금 항목</Label>
+            <Select value={paymentType} onValueChange={setPaymentType}>
+              <SelectTrigger className="h-9 text-[13px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {PAYMENT_TYPES.map((t) => (
+                  <SelectItem key={t.value} value={t.value} className="text-[13px]">{t.label}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
