@@ -81,7 +81,7 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={`${fullTitle} 대표 이미지`} />
+      <meta property="og:image:alt" content={`${fullTitle} — ${locale.imageAlt}`} />
       <meta property="og:locale" content={locale.og} />
       <meta property="og:site_name" content={locale.siteName} />
 
