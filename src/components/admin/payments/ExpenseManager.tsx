@@ -527,13 +527,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               <Input value={formDescription} onChange={(e) => setFormDescription(e.target.value)} placeholder="지출 내용" className="h-9 text-[13px]" />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-[13px]">고객사 연동 (선택)</Label>
-              <Select value={formClientId} onValueChange={setFormClientId}>
+              <Label className="text-[13px]">협력사 (선택)</Label>
+              <Select value={formVendorId} onValueChange={setFormVendorId}>
                 <SelectTrigger className="h-9 text-[13px]"><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none" className="text-[13px]">연동 없음</SelectItem>
-                  {clients.map((c) => (
-                    <SelectItem key={c.id} value={c.id} className="text-[13px]">{c.name}</SelectItem>
+                  <SelectItem value="none" className="text-[13px]">선택 없음</SelectItem>
+                  {vendors.filter((v) => v.is_active).map((v) => (
+                    <SelectItem key={v.id} value={v.id} className="text-[13px]">{v.name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
