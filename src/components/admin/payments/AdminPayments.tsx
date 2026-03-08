@@ -201,7 +201,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
         >
           <Bell className="w-4.5 h-4.5 text-amber-600 shrink-0" />
           <span className="text-[13px] font-medium text-amber-800">
-            📢 납부일 임박: {imminentClients[0].name}
+            납부일 임박: {imminentClients[0].name}
             {imminentClients.length > 1 && ` 외 ${imminentClients.length - 1}건`}
             {" "}— 이번 달 입금 미확인
           </span>
