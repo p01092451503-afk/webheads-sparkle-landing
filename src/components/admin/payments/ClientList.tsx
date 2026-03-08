@@ -246,6 +246,44 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   };
 
+  const toggleExpand = (clientId: string) => {
+    setExpandedClients((prev) => {
+      const next = new Set(prev);
+      if (next.has(clientId)) next.delete(clientId);
+      else next.add(clientId);
+      return next;
+    });
+  };
+
+  const addPaymentType = async (clientId: string, paymentType: string) => {
+    try {
+      const { error } = await supabase.from("payments").insert({
+        client_id: clientId,
+        year: viewYear,
+        month: viewMonth,
+        amount: 0,
+        is_unpaid: false,
+        payment_type: paymentType,
+      });
+      if (error) throw error;
+      toast.success(`${getPaymentTypeLabel(paymentType)} 항목이 추가되었습니다`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "추가 중 오류가 발생했습니다");
+    }
+  };
+
+  const deletePaymentEntry = async (paymentId: string) => {
+    try {
+      const { error } = await supabase.from("payments").delete().eq("id", paymentId);
+      if (error) throw error;
+      toast.success("항목이 삭제되었습니다");
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "삭제 중 오류가 발생했습니다");
+    }
+  };
+
   const statusBadge = (status: string) => {
     switch (status) {
       case "paid": return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 text-[11px]">납부완료</Badge>;
@@ -260,6 +298,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       <span className="absolute -right-1 -top-1 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center animate-in zoom-in-50 duration-200">
         <Check className="w-2.5 h-2.5 text-white" />
       </span>
+    );
     );
   };
 
