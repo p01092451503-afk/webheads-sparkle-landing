@@ -71,8 +71,8 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const lang = i18n.language?.startsWith("en") ? "en" : "ko";
-  const blogPosts = lang === "en" ? blogPostsEn : blogPostsKo;
+  const lang = i18n.language?.startsWith("en") ? "en" : i18n.language?.startsWith("ja") ? "ja" : "ko";
+  const blogPosts = lang === "en" ? blogPostsEn : lang === "ja" ? blogPostsJa : blogPostsKo;
 
   const filteredPosts = useMemo(() => {
     let posts = blogPosts;

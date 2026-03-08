@@ -21,6 +21,8 @@ export const categoryConfigEn = {
   tip: { label: "Practical Tip" },
 };
 
+export { categoryConfigJa, blogPostsJa } from "./blogPostsJa";
+
 export const blogPostsKo: BlogPost[] = [
   {
     id: "lms-checklist-2026",
