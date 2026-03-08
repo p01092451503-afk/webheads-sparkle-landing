@@ -135,6 +135,20 @@ export default function AdminDashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Fetch menu permissions
+  useEffect(() => {
+    if (!userId) return;
+    supabase.from("admin_settings").select("value").eq("key", "admin_menu_permissions").maybeSingle()
+      .then(({ data }) => {
+        if (data?.value && typeof data.value === "object") {
+          const perms = (data.value as Record<string, string[]>)[userId];
+          if (perms && Array.isArray(perms)) {
+            setAllowedTabs(perms);
+          }
+        }
+      });
+  }, [userId]);
+
   // Initial data
   useEffect(() => {
     if (!userId) return;
