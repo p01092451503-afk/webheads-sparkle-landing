@@ -26,12 +26,11 @@ const PLANS: Omit<PlanRecommendation, "isMatch" | "totalMonthly" | "overageCdn" 
 ];
 
 // Pricing 기준: 500GB ÷ 1,700명(30분 강의) = 0.294GB/30분 = 0.588GB/시간
-// CDN 전송량 = 수강생 × 총 영상시간 × 완강률 × 시간당 전송량
-// 저장공간 = 영상시간 × 시간당 저장량(약 3GB/시간)
-function estimateUsage(learners: number, videoHours: number, completionRate: number) {
-  const rate = completionRate / 100;
+// CDN 전송량 = 수강생 × 월 평균 시청시간 × 시간당 전송량
+// 저장공간 = 등록 영상시간 × 시간당 저장량(약 3GB/시간)
+function estimateUsage(learners: number, videoHours: number, monthlyViewHours: number) {
   const GB_PER_HOUR = 0.588; // pricing 페이지 기준 비트레이트
-  const cdnGB = Math.round(learners * videoHours * rate * GB_PER_HOUR);
+  const cdnGB = Math.round(learners * monthlyViewHours * GB_PER_HOUR);
   const storageGB = Math.round(videoHours * 3);
   return { cdnGB, storageGB };
 }
