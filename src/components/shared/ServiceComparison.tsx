@@ -5,15 +5,15 @@ function StatusText({ value }: { value: string }) {
   const lang = i18n.language;
 
   if (value === "O") {
-    return <span className="text-sm font-normal text-primary mx-auto block text-center">{lang === "ko" ? "기본 제공" : "Included"}</span>;
+    return <span className="text-sm font-bold text-primary mx-auto block text-center">{lang === "ko" ? "기본 제공" : "Included"}</span>;
   }
   if (value === "X") {
-    return <span className="text-sm font-normal text-destructive/50 mx-auto block text-center">{lang === "ko" ? "불가" : "N/A"}</span>;
+    return <span className="text-sm font-bold text-destructive/50 mx-auto block text-center">{lang === "ko" ? "불가" : "N/A"}</span>;
   }
   if (value === "△") {
-    return <span className="text-sm font-normal text-muted-foreground mx-auto block text-center">{lang === "ko" ? "제한적" : "Limited"}</span>;
+    return <span className="text-sm font-bold text-muted-foreground mx-auto block text-center">{lang === "ko" ? "제한적" : "Limited"}</span>;
   }
-  return <span className="text-sm font-normal text-foreground text-center block">{value}</span>;
+  return <span className="text-sm font-bold text-foreground text-center block">{value}</span>;
 }
 
 interface ComparisonRow {
@@ -41,16 +41,10 @@ export default function ServiceComparison({ headers, rows, subheading, heading, 
         </div>
         <div className="rounded-2xl border border-border bg-background overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm table-fixed">
-              <colgroup>
-                <col className="w-[22%]" />
-                <col className="w-[36%]" />
-                <col className="w-[21%]" />
-                <col className="w-[21%]" />
-              </colgroup>
+            <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted">
-                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground">{headers[0]}</th>
+                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground w-[35%]">{headers[0]}</th>
                   {headers.slice(1).map((h, i) => (
                     <th key={h} className={`text-center px-4 py-4 font-bold text-sm ${i === 0 ? "text-primary bg-primary/5" : "text-foreground"}`}>{h}</th>
                   ))}
