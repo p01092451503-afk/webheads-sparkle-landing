@@ -195,43 +195,43 @@ export default function CostSimulator() {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5">
                     <GraduationCap className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-semibold text-foreground">평균 완강률</span>
+                    <span className="text-sm font-semibold text-foreground">수강생당 월 시청시간</span>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger>
                           <Info className="w-3.5 h-3.5 text-muted-foreground" />
                         </TooltipTrigger>
-                        <TooltipContent><p className="text-xs max-w-[200px]">수강생이 전체 콘텐츠 중 평균적으로 시청하는 비율. 완강률이 높을수록 CDN 전송량이 증가합니다.</p></TooltipContent>
+                        <TooltipContent><p className="text-xs max-w-[200px]">수강생 1명이 한 달 동안 평균적으로 시청하는 영상 시간. 시청 시간이 길수록 CDN 전송량이 증가합니다.</p></TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </div>
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={completionRate}
+                      value={monthlyViewHours}
                       onChange={(e) => {
-                        const v = Math.min(100, Math.max(10, Number(e.target.value) || 10));
-                        setCompletionRate(v);
+                        const v = Math.min(50, Math.max(1, Number(e.target.value) || 1));
+                        setMonthlyViewHours(v);
                       }}
                       className="w-12 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
-                      min={10}
-                      max={100}
+                      min={1}
+                      max={50}
                     />
-                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>%</span>
+                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>시간</span>
                   </div>
                 </div>
                 <Slider
-                  value={[completionRate]}
-                  onValueChange={([v]) => setCompletionRate(v)}
-                  min={10}
-                  max={100}
-                  step={5}
+                  value={[monthlyViewHours]}
+                  onValueChange={([v]) => setMonthlyViewHours(v)}
+                  min={1}
+                  max={50}
+                  step={1}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
-                  <span>10%</span>
-                  <span>100%</span>
+                  <span>1시간</span>
+                  <span>50시간</span>
                 </div>
               </div>
 
