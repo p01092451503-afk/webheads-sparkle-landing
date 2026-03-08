@@ -28,7 +28,6 @@ interface Payment {
   memo: string | null;
   payment_type: string;
 }
-}
 
 interface Props {
   clients: Client[];
