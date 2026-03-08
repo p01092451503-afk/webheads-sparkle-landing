@@ -82,7 +82,7 @@ export default function FloatingNav() {
         <button
           onClick={handleCostSimulator}
           className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg text-white animate-pulse"
-          style={{ background: "linear-gradient(135deg, hsl(0, 85%, 55%), hsl(345, 90%, 45%))" }}
+          style={{ background: "hsl(0, 55%, 50%)" }}
           aria-label={t("floatingNav.costSimulator")}
         >
           <Calculator className="w-4 h-4" />
