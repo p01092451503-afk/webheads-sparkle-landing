@@ -140,7 +140,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   };
 
   const handleSubmit = async () => {
-    const amount = parseInt(formAmount.replace(/[^0-9]/g, "")) || 0;
+    const supplyAmount = parseInt(formSupplyAmount.replace(/[^0-9]/g, "")) || 0;
+    const taxAmount = parseInt(formTaxAmount.replace(/[^0-9]/g, "")) || 0;
+    const amount = supplyAmount + taxAmount;
     if (!formCategoryId || amount <= 0) {
       toast.error("카테고리와 금액을 입력해주세요");
       return;
@@ -152,6 +154,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       year: viewYear,
       month: viewMonth,
       amount,
+      supply_amount: supplyAmount,
+      tax_amount: taxAmount,
       description: formDescription || null,
       memo: formMemo || null,
     };
