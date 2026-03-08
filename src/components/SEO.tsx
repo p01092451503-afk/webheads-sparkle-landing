@@ -71,8 +71,6 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <link rel="alternate" hrefLang="ko" href={koUrl} />
       <link rel="alternate" hrefLang="en" href={enUrl} />
       <link rel="alternate" hrefLang="ja" href={jaUrl} />
-      <link rel="alternate" hrefLang="zh-CN" href={zhCnUrl} />
-      <link rel="alternate" hrefLang="zh-TW" href={zhTwUrl} />
       <link rel="alternate" hrefLang="x-default" href={koUrl} />
 
       {/* Open Graph */}

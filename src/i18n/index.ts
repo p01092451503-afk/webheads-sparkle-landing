@@ -26,14 +26,6 @@ export const loadLocale = async (lng: string) => {
     const ja = await import('./locales/ja.json');
     return ja.default;
   }
-  if (lng === 'zh-CN') {
-    const zhCN = await import('./locales/zh-CN.json');
-    return zhCN.default;
-  }
-  if (lng === 'zh-TW') {
-    const zhTW = await import('./locales/zh-TW.json');
-    return zhTW.default;
-  }
   const en = await import('./locales/en.json');
   return en.default;
 };
