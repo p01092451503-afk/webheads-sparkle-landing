@@ -21,7 +21,6 @@ const serviceBlobColors: Record<string, string> = {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [showDate, setShowDate] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
   const supportRef = useRef<HTMLDivElement>(null);
   const [bannerDismissed, setBannerDismissed] = useState(() => {
@@ -75,10 +74,6 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowDate(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   const showBanner = isKorean && bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
@@ -137,7 +132,7 @@ export default function Header() {
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}<span
-                className={`inline-block transition-all duration-700 ease-out relative group/date ${showDate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
+                className="inline-block relative group/date"
                 style={{ color: "#6B7280" }}
               >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
