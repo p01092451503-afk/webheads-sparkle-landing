@@ -12,7 +12,7 @@ const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments";
 type UserRole = "super_admin" | "admin" | "user";
 
 const TabLoader = () => (
