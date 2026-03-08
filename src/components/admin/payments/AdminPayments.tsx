@@ -10,11 +10,12 @@ const ClientDetail = lazy(() => import("./ClientDetail"));
 const PaymentModal = lazy(() => import("./PaymentModal"));
 const ClientModal = lazy(() => import("./ClientModal"));
 const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
+const ExpenseManager = lazy(() => import("./ExpenseManager"));
 
 type Client = import("./paymentTypes").PaymentClient;
 type Payment = import("./paymentTypes").PaymentRecord;
 
-type SubView = "dashboard" | "clients" | "detail" | "calendar";
+type SubView = "dashboard" | "clients" | "detail" | "calendar" | "expenses";
 
 const Loader = () => (
   <div className="flex items-center justify-center py-20">
@@ -167,6 +168,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
   const subTabs = [
     { key: "dashboard" as SubView, label: "대시보드" },
     { key: "clients" as SubView, label: "고객사 관리" },
+    { key: "expenses" as SubView, label: "지출 관리" },
     { key: "calendar" as SubView, label: "캘린더" },
   ];
 
@@ -223,6 +225,9 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             onRefresh={fetchData}
             defaultFilter={clientListFilter}
           />
+        )}
+        {subView === "expenses" && (
+          <ExpenseManager clients={clients} />
         )}
         {subView === "calendar" && (
           <PaymentCalendar clients={clients} payments={payments} onNavigate={handleNavigate} />

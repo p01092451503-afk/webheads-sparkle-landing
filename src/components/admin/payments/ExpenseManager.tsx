@@ -1,0 +1,433 @@
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+
+interface ExpenseCategory {
+  id: string;
+  name: string;
+  color: string;
+  sort_order: number;
+  is_active: boolean;
+}
+
+interface Expense {
+  id: string;
+  category_id: string | null;
+  client_id: string | null;
+  year: number;
+  month: number;
+  amount: number;
+  description: string | null;
+  is_paid: boolean;
+  paid_date: string | null;
+  memo: string | null;
+}
+
+interface Client {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  clients: { id: string; name: string }[];
+}
+
+const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
+
+export default function ExpenseManager({ clients }: Props) {
+  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+  const [viewYear, setViewYear] = useState(now.getFullYear());
+  const [viewMonth, setViewMonth] = useState(now.getMonth() + 1);
+  const [categories, setCategories] = useState<ExpenseCategory[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editExpense, setEditExpense] = useState<Expense | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [catModalOpen, setCatModalOpen] = useState(false);
+  const [newCatName, setNewCatName] = useState("");
+  const [catFilter, setCatFilter] = useState<string>("all");
+
+  // Form state
+  const [formCategoryId, setFormCategoryId] = useState("");
+  const [formClientId, setFormClientId] = useState("none");
+  const [formAmount, setFormAmount] = useState("");
+  const [formDescription, setFormDescription] = useState("");
+  const [formMemo, setFormMemo] = useState("");
+
+  const isCurrentMonth = viewYear === now.getFullYear() && viewMonth === (now.getMonth() + 1);
+
+  const goMonth = (delta: number) => {
+    let m = viewMonth + delta;
+    let y = viewYear;
+    if (m > 12) { m = 1; y += 1; }
+    if (m < 1) { m = 12; y -= 1; }
+    setViewYear(y);
+    setViewMonth(m);
+  };
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    const [catRes, expRes] = await Promise.all([
+      supabase.from("expense_categories" as any).select("*").order("sort_order"),
+      supabase.from("expenses" as any).select("*").eq("year", viewYear).eq("month", viewMonth).order("created_at"),
+    ]);
+    if (catRes.data) setCategories(catRes.data as any);
+    if (expRes.data) setExpenses(expRes.data as any);
+    setLoading(false);
+  }, [viewYear, viewMonth]);
+
+  useEffect(() => { fetchData(); }, [fetchData]);
+
+  const filtered = useMemo(() => {
+    if (catFilter === "all") return expenses;
+    return expenses.filter((e) => e.category_id === catFilter);
+  }, [expenses, catFilter]);
+
+  const totalExpense = useMemo(() => expenses.reduce((s, e) => s + (e.amount || 0), 0), [expenses]);
+  const unpaidTotal = useMemo(() => expenses.filter((e) => !e.is_paid).reduce((s, e) => s + (e.amount || 0), 0), [expenses]);
+  const paidTotal = useMemo(() => expenses.filter((e) => e.is_paid).reduce((s, e) => s + (e.amount || 0), 0), [expenses]);
+
+  const getCategoryName = (id: string | null) => categories.find((c) => c.id === id)?.name || "미분류";
+  const getCategoryColor = (id: string | null) => categories.find((c) => c.id === id)?.color || "bg-gray-100 text-gray-600";
+  const getClientName = (id: string | null) => clients.find((c) => c.id === id)?.name || null;
+
+  const openAddModal = () => {
+    setEditExpense(null);
+    setFormCategoryId(categories[0]?.id || "");
+    setFormClientId("none");
+    setFormAmount("");
+    setFormDescription("");
+    setFormMemo("");
+    setModalOpen(true);
+  };
+
+  const openEditModal = (exp: Expense) => {
+    setEditExpense(exp);
+    setFormCategoryId(exp.category_id || "");
+    setFormClientId(exp.client_id || "none");
+    setFormAmount(exp.amount ? exp.amount.toLocaleString("ko-KR") : "");
+    setFormDescription(exp.description || "");
+    setFormMemo(exp.memo || "");
+    setModalOpen(true);
+  };
+
+  const handleSubmit = async () => {
+    const amount = parseInt(formAmount.replace(/[^0-9]/g, "")) || 0;
+    if (!formCategoryId || amount <= 0) {
+      toast.error("카테고리와 금액을 입력해주세요");
+      return;
+    }
+
+    const data = {
+      category_id: formCategoryId,
+      client_id: formClientId === "none" ? null : formClientId,
+      year: viewYear,
+      month: viewMonth,
+      amount,
+      description: formDescription || null,
+      memo: formMemo || null,
+    };
+
+    try {
+      if (editExpense) {
+        const { error } = await supabase.from("expenses" as any).update(data as any).eq("id", editExpense.id);
+        if (error) throw error;
+        toast.success("수정되었습니다");
+      } else {
+        const { error } = await supabase.from("expenses" as any).insert({ ...data, is_paid: false } as any);
+        if (error) throw error;
+        toast.success("지출이 등록되었습니다");
+      }
+      setModalOpen(false);
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "저장 중 오류 발생");
+    }
+  };
+
+  const togglePaid = async (exp: Expense) => {
+    try {
+      const updates: any = { is_paid: !exp.is_paid };
+      if (!exp.is_paid) updates.paid_date = new Date().toISOString().split("T")[0];
+      const { error } = await supabase.from("expenses" as any).update(updates).eq("id", exp.id);
+      if (error) throw error;
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "상태 변경 실패");
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!deleteId) return;
+    try {
+      const { error } = await supabase.from("expenses" as any).delete().eq("id", deleteId);
+      if (error) throw error;
+      toast.success("삭제되었습니다");
+      setDeleteId(null);
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "삭제 실패");
+    }
+  };
+
+  const addCategory = async () => {
+    if (!newCatName.trim()) return;
+    try {
+      const maxOrder = Math.max(0, ...categories.map((c) => c.sort_order));
+      const { error } = await supabase.from("expense_categories" as any).insert({
+        name: newCatName.trim(),
+        sort_order: maxOrder + 1,
+        color: "bg-gray-100 text-gray-600",
+      } as any);
+      if (error) throw error;
+      setNewCatName("");
+      fetchData();
+      toast.success("카테고리가 추가되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "추가 실패");
+    }
+  };
+
+  const deleteCategory = async (id: string) => {
+    try {
+      const { error } = await supabase.from("expense_categories" as any).delete().eq("id", id);
+      if (error) throw error;
+      fetchData();
+      toast.success("카테고리가 삭제되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "삭제 실패");
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button onClick={() => goMonth(-1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <span className="text-[14px] font-semibold min-w-[100px] text-center">{viewYear}년 {viewMonth}월</span>
+          <button onClick={() => goMonth(1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+            <ChevronRight className="w-4 h-4" />
+          </button>
+          {!isCurrentMonth && (
+            <button
+              onClick={() => { setViewYear(now.getFullYear()); setViewMonth(now.getMonth() + 1); }}
+              className="ml-2 px-2.5 py-1 rounded-lg text-[11px] font-medium text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.14)] transition-colors"
+            >
+              이번 달
+            </button>
+          )}
+        </div>
+        <div className="flex gap-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="outline" className="h-9 text-[13px]">
+                <Settings2 className="w-3.5 h-3.5 mr-1" />카테고리 관리
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[260px] p-3" align="end">
+              <div className="space-y-2">
+                <p className="text-[12px] font-semibold text-muted-foreground">지출 카테고리</p>
+                {categories.map((cat) => (
+                  <div key={cat.id} className="flex items-center justify-between gap-2">
+                    <Badge className={`${cat.color} text-[10px]`}>{cat.name}</Badge>
+                    <button onClick={() => deleteCategory(cat.id)} className="p-1 rounded hover:bg-red-50 text-muted-foreground hover:text-red-600">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+                <div className="flex gap-1.5 pt-1">
+                  <Input
+                    value={newCatName}
+                    onChange={(e) => setNewCatName(e.target.value)}
+                    placeholder="새 카테고리"
+                    className="h-7 text-[12px]"
+                    onKeyDown={(e) => e.key === "Enter" && addCategory()}
+                  />
+                  <Button size="sm" onClick={addCategory} className="h-7 px-2 text-[11px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+                    <Plus className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <Button size="sm" onClick={openAddModal} className="h-9 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+            <Plus className="w-3.5 h-3.5 mr-1" />지출 등록
+          </Button>
+        </div>
+      </div>
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
+          <p className="text-[12px] text-muted-foreground mb-1">이달 총 지출</p>
+          <p className="text-xl font-bold">{formatWon(totalExpense)}</p>
+        </div>
+        <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
+          <p className="text-[12px] text-muted-foreground mb-1">지출완료</p>
+          <p className="text-xl font-bold text-emerald-600">{formatWon(paidTotal)}</p>
+        </div>
+        <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
+          <p className="text-[12px] text-muted-foreground mb-1">미지출</p>
+          <p className={`text-xl font-bold ${unpaidTotal > 0 ? "text-red-600" : ""}`}>{formatWon(unpaidTotal)}</p>
+        </div>
+      </div>
+
+      {/* Expense Table */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+        <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)] flex items-center justify-between">
+          <h3 className="text-[14px] font-semibold">지출 내역</h3>
+          <Select value={catFilter} onValueChange={setCatFilter}>
+            <SelectTrigger className="w-[130px] h-8 text-[12px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all" className="text-[12px]">전체 카테고리</SelectItem>
+              {categories.map((c) => (
+                <SelectItem key={c.id} value={c.id} className="text-[12px]">{c.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px]">
+            <thead>
+              <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">카테고리</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">내용</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">고객사</th>
+                <th className="text-right px-4 py-3 font-semibold text-muted-foreground">금액</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">지출일</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">메모</th>
+                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
+                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filtered.map((exp) => (
+                <tr key={exp.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)]">
+                  <td className="px-4 py-3">
+                    <Badge className={`${getCategoryColor(exp.category_id)} text-[10px]`}>
+                      {getCategoryName(exp.category_id)}
+                    </Badge>
+                  </td>
+                  <td className="px-4 py-3">{exp.description || "-"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{getClientName(exp.client_id) || "-"}</td>
+                  <td className="px-4 py-3 text-right font-medium">{formatWon(exp.amount)}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{exp.paid_date?.replace(/-/g, ".") || "-"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{exp.memo || "-"}</td>
+                  <td className="px-4 py-3 text-center">
+                    <button onClick={() => togglePaid(exp)}>
+                      {exp.is_paid
+                        ? <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 cursor-pointer text-[11px]">지출완료</Badge>
+                        : <Badge className="bg-red-100 text-red-700 hover:bg-red-200 cursor-pointer text-[11px]">미지출</Badge>
+                      }
+                    </button>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center justify-center gap-1">
+                      <button onClick={() => openEditModal(exp)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground">
+                        <Edit2 className="w-3.5 h-3.5" />
+                      </button>
+                      <button onClick={() => setDeleteId(exp.id)} className="p-1.5 rounded-lg hover:bg-red-50 text-muted-foreground hover:text-red-600">
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {filtered.length === 0 && (
+                <tr><td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">
+                  {loading ? "불러오는 중..." : "등록된 지출이 없습니다"}
+                </td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Add/Edit Modal */}
+      <Dialog open={modalOpen} onOpenChange={(v) => !v && setModalOpen(false)}>
+        <DialogContent className="sm:max-w-[420px]">
+          <DialogHeader>
+            <DialogTitle className="text-[16px]">{editExpense ? "지출 수정" : "지출 등록"}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 mt-2">
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">카테고리 *</Label>
+              <Select value={formCategoryId} onValueChange={setFormCategoryId}>
+                <SelectTrigger className="h-9 text-[13px]"><SelectValue placeholder="선택" /></SelectTrigger>
+                <SelectContent>
+                  {categories.filter((c) => c.is_active).map((c) => (
+                    <SelectItem key={c.id} value={c.id} className="text-[13px]">{c.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">금액 *</Label>
+              <Input
+                value={formAmount}
+                onChange={(e) => {
+                  const num = e.target.value.replace(/[^0-9]/g, "");
+                  setFormAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                }}
+                placeholder="0"
+                className="h-9 text-[13px] text-right"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">내용</Label>
+              <Input value={formDescription} onChange={(e) => setFormDescription(e.target.value)} placeholder="지출 내용" className="h-9 text-[13px]" />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">고객사 연동 (선택)</Label>
+              <Select value={formClientId} onValueChange={setFormClientId}>
+                <SelectTrigger className="h-9 text-[13px]"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none" className="text-[13px]">연동 없음</SelectItem>
+                  {clients.map((c) => (
+                    <SelectItem key={c.id} value={c.id} className="text-[13px]">{c.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">메모</Label>
+              <Input value={formMemo} onChange={(e) => setFormMemo(e.target.value)} placeholder="메모 (선택)" className="h-9 text-[13px]" />
+            </div>
+            <Button onClick={handleSubmit} className="w-full h-10 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+              {editExpense ? "수정" : "등록"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation */}
+      <AlertDialog open={!!deleteId} onOpenChange={(v) => !v && setDeleteId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>지출 삭제</AlertDialogTitle>
+            <AlertDialogDescription>이 지출 내역을 삭제하시겠습니까?</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>취소</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">삭제</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+}
