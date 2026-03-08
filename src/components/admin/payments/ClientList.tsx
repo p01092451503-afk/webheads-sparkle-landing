@@ -274,6 +274,9 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           </Select>
         </div>
         <div className="flex gap-2">
+          <Button size="sm" variant="outline" onClick={handleExportExcel} className="h-9 text-[13px]">
+            <Download className="w-3.5 h-3.5 mr-1" />Excel 내보내기
+          </Button>
           <Button size="sm" variant="outline" onClick={onAddClient} className="h-9 text-[13px]">
             <Plus className="w-3.5 h-3.5 mr-1" />고객사 추가
           </Button>
