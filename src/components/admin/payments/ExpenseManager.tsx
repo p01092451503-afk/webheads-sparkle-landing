@@ -291,6 +291,32 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   return (
     <div className="space-y-4">
+      {/* View Toggle */}
+      <div className="flex gap-1 bg-white rounded-xl p-1 border border-[hsl(220,13%,91%)] w-fit">
+        <button
+          onClick={() => setShowStats(false)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+            !showStats ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+          }`}
+        >
+          <List className="w-3.5 h-3.5" />내역
+        </button>
+        <button
+          onClick={() => setShowStats(true)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+            showStats ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+          }`}
+        >
+          <BarChart3 className="w-3.5 h-3.5" />통계
+        </button>
+      </div>
+
+      {showStats ? (
+        <Suspense fallback={<div className="flex items-center justify-center py-20"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div>}>
+          <ExpenseStatistics allExpenses={allExpenses} categories={categories} vendors={vendors} />
+        </Suspense>
+      ) : (
+      <>
       {/* Header */}
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
         <div className="flex items-center gap-2">
