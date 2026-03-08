@@ -906,7 +906,10 @@
     "testimonials": [
       { "name": "H. Jang", "role": "Dev Team Lead", "org": "S e-Learning Company", "rating": 5, "date": "2024.09", "period": "6th year", "content": "Toss Payments integration took less than a week. They even set up subscription automation, eliminating our monthly manual work." },
       { "name": "S. Moon", "role": "Finance Manager", "org": "T Cyber University", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Auto-generated settlement reports mean no more Excel work for tax invoices and VAT filing." },
-      { "name": "D. Shin", "role": "Business Director", "org": "U Global Education", "rating": 4, "date": "2024.11", "period": "4th year", "content": "International students had trouble paying until we added Stripe. Global revenue has noticeably increased." }
+      { "name": "D. Shin", "role": "Business Director", "org": "U Global Education", "rating": 4, "date": "2024.11", "period": "4th year", "content": "International students had trouble paying until we added Stripe. Global revenue has noticeably increased." },
+      { "name": "H. Lee", "role": "Service Planning", "org": "AS Professional Training", "rating": 5, "date": "2025.02", "period": "3rd year", "content": "Adding KakaoPay, NaverPay, and TossPay boosted payment conversion rates by over 30%." },
+      { "name": "D. Kim", "role": "Operations Lead", "org": "AT Continuing Education", "rating": 4, "date": "2024.12", "period": "5th year", "content": "Installment payment options significantly increased enrollment rates by reducing learner financial burden." },
+      { "name": "Y. Choi", "role": "Business Support", "org": "AU Cyber University", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Auto-retry on failed payments is great. We used to chase each one manually — now it's all handled automatically." }
     ],
     "processSection": { "sub": "PROCESS", "title": "How PG Payment\nIntegration Works", "desc": "From merchant contracts to settlement automation, we support the entire process." },
     "processSteps": [
