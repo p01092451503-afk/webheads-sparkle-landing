@@ -140,17 +140,17 @@ export default function CostSimulator() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
           {/* ── Left: Inputs ── */}
           <div className="lg:col-span-2 flex flex-col gap-6">
-            <div className="rounded-2xl border border-border p-6 bg-secondary/30">
-              <div className="flex items-center gap-2 mb-6">
+            <div className="rounded-2xl border border-border p-5 bg-secondary/30">
+              <div className="flex items-center gap-2 mb-4">
                 <Calculator className="w-5 h-5" style={{ color: "hsl(var(--lms-primary))" }} />
                 <h3 className="font-bold text-foreground text-base">{t("costSim.inputTitle")}</h3>
               </div>
 
               {/* Learners slider */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-3">
+              <div className="mb-5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <Users className="w-4 h-4 text-muted-foreground" />
+                    <Users className="w-3.5 h-3.5 text-muted-foreground" />
                     <span className="text-sm font-semibold text-foreground">{t("costSim.learners")}</span>
                     <TooltipProvider>
                       <Tooltip>
@@ -169,13 +169,13 @@ export default function CostSimulator() {
                         const v = Math.min(2000, Math.max(10, Number(e.target.value) || 10));
                         handleLearnersChange(v);
                       }}
-                      className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
+                      className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={10}
                       max={2000}
                     />
                     {t("costSim.learnersUnit") && (
-                      <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{t("costSim.learnersUnit")}</span>
+                      <span className="text-base font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{t("costSim.learnersUnit")}</span>
                     )}
                   </div>
                 </div>
@@ -187,17 +187,17 @@ export default function CostSimulator() {
                   step={10}
                   className="w-full"
                 />
-                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
                   <span>10{t("costSim.learnersUnit")}</span>
                   <span>2,000{t("costSim.learnersUnit")}</span>
                 </div>
               </div>
 
               {/* Storage GB slider */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-3">
+              <div className="mb-5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <HardDrive className="w-4 h-4 text-muted-foreground" />
+                    <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />
                     <span className="text-sm font-semibold text-foreground">{t("costSim.storage")}</span>
                     <TooltipProvider>
                       <Tooltip>
@@ -216,12 +216,12 @@ export default function CostSimulator() {
                         const v = Math.min(500, Math.max(1, Number(e.target.value) || 1));
                         setStorageInput(v);
                       }}
-                      className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
+                      className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={1}
                       max={500}
                     />
-                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>GB</span>
+                    <span className="text-base font-bold" style={{ color: "hsl(var(--lms-primary))" }}>GB</span>
                   </div>
                 </div>
                 <Slider
@@ -232,20 +232,20 @@ export default function CostSimulator() {
                   step={1}
                   className="w-full"
                 />
-                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
                   <span>1GB</span>
                   <span>500GB</span>
                 </div>
-                <p className="text-[10px] text-muted-foreground mt-1">
+                <p className="text-[10px] text-muted-foreground mt-0.5">
                   {t("costSim.storageRef", { num: Math.round(storageInput / 0.3) } as TOptions)}
                 </p>
               </div>
 
               {/* Completion rate slider */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-3">
+              <div className="mb-5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <GraduationCap className="w-4 h-4 text-muted-foreground" />
+                    <GraduationCap className="w-3.5 h-3.5 text-muted-foreground" />
                     <span className="text-sm font-semibold text-foreground">{t("costSim.completion")}</span>
                     <TooltipProvider>
                       <Tooltip>
@@ -264,12 +264,12 @@ export default function CostSimulator() {
                         const v = Math.min(100, Math.max(10, Number(e.target.value) || 10));
                         setCompletionRate(v);
                       }}
-                      className="w-12 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
+                      className="w-12 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={10}
                       max={100}
                     />
-                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>%</span>
+                    <span className="text-base font-bold" style={{ color: "hsl(var(--lms-primary))" }}>%</span>
                   </div>
                 </div>
                 <Slider
@@ -280,16 +280,16 @@ export default function CostSimulator() {
                   step={5}
                   className="w-full"
                 />
-                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
                   <span>10%</span>
                   <span>100%</span>
                 </div>
               </div>
 
               {/* CDN toggle */}
-              <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border">
+              <div className="flex items-center justify-between rounded-xl p-3 bg-background border border-border">
                 <div className="flex items-center gap-2">
-                  <HardDrive className="w-4 h-4 text-muted-foreground" />
+                  <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />
                   <span className="text-sm font-medium text-foreground">{t("costSim.cdnToggle")}</span>
                 </div>
                 <button
@@ -300,16 +300,16 @@ export default function CostSimulator() {
                   <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsCdn ? "translate-x-5" : "translate-x-0"}`} />
                 </button>
               </div>
-              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+              <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed pl-1">
                 {needsCdn ? t("costSim.cdnOnDesc") : t("costSim.cdnOffDesc")}
               </p>
 
               {/* Secure Player toggle */}
               {needsCdn && (
               <>
-                <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4">
+                <div className="flex items-center justify-between rounded-xl p-3 bg-background border border-border mt-2.5">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-muted-foreground" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-muted-foreground" />
                     <span className="text-sm font-medium text-foreground">{t("costSim.secureToggle")}</span>
                   </div>
                   <button
@@ -320,16 +320,16 @@ export default function CostSimulator() {
                     <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsSecurePlayer ? "translate-x-5" : "translate-x-0"}`} />
                   </button>
                 </div>
-                <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed pl-1">
                   {needsSecurePlayer ? t("costSim.secureOnDesc") : t("costSim.secureOffDesc")}
                 </p>
               </>
               )}
 
               {/* Annual contract toggle */}
-              <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4">
+              <div className="flex items-center justify-between rounded-xl p-3 bg-background border border-border mt-2.5">
                 <div className="flex items-center gap-2">
-                  <CalendarCheck className="w-4 h-4 text-muted-foreground" />
+                  <CalendarCheck className="w-3.5 h-3.5 text-muted-foreground" />
                   <span className="text-sm font-medium text-foreground">{t("costSim.annualToggle")}</span>
                 </div>
                 <button
@@ -340,25 +340,25 @@ export default function CostSimulator() {
                   <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${isAnnual ? "translate-x-5" : "translate-x-0"}`} />
                 </button>
               </div>
-              <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+              <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed pl-1">
                 {isAnnual ? t("costSim.annualOnDesc") : t("costSim.annualOffDesc")}
               </p>
 
               {/* Estimated usage */}
               {needsCdn && (
-              <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
+              <div className="mt-3 rounded-xl p-3 bg-muted/50 text-xs text-muted-foreground space-y-1">
                 <p className="flex items-center gap-1.5"><BarChart3 className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estTransfer")} <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
                 <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estStorage")} <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
                 <p className="flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estCompletion")} <span className="font-semibold text-foreground">{completionRate}%</span></p>
               </div>
               )}
 
-              {/* Dedicated server recommendation */}
+              {/* Dedicated server toggle */}
               {learners >= 500 && (
                 <>
-                  <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4" style={ needsDedicatedServer ? { borderColor: "hsl(var(--lms-primary) / 0.4)", background: "hsl(var(--lms-primary) / 0.04)" } : undefined }>
+                  <div className="flex items-center justify-between rounded-xl p-3 bg-background border border-border mt-2.5" style={ needsDedicatedServer ? { borderColor: "hsl(var(--lms-primary) / 0.4)", background: "hsl(var(--lms-primary) / 0.04)" } : undefined }>
                     <div className="flex items-center gap-2">
-                      <Server className="w-4 h-4 text-muted-foreground" />
+                      <Server className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm font-medium text-foreground">{t("costSim.dedicatedToggle")}</span>
                     </div>
                     <button
@@ -369,11 +369,11 @@ export default function CostSimulator() {
                       <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsDedicatedServer ? "translate-x-5" : "translate-x-0"}`} />
                     </button>
                   </div>
-                  <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                  <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed pl-1">
                     {t("costSim.dedicatedToggleDesc")}
                   </p>
                   {needsDedicatedServer && (
-                    <div className="mt-2 rounded-xl p-3.5 text-xs text-muted-foreground space-y-1.5" style={{ background: "hsl(var(--lms-primary) / 0.05)" }}>
+                    <div className="mt-1.5 rounded-xl p-3 text-xs text-muted-foreground space-y-1" style={{ background: "hsl(var(--lms-primary) / 0.05)" }}>
                       <p className="flex items-center gap-1.5">
                         <Globe className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
                         {t("costSim.estWebTraffic", { amount: Math.round(learners * 0.8).toLocaleString() } as TOptions)}
