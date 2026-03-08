@@ -132,7 +132,7 @@ export default function CostSimulator() {
                       className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={10}
-                      max={5000}
+                      max={2000}
                     />
                     <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>명</span>
                   </div>
