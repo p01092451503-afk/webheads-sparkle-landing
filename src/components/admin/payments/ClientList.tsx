@@ -250,7 +250,11 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
   const commitEdit = () => {
     if (!editing) return;
-    saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
+    if (editing.field === "notes") {
+      saveClientNotes(editing.clientId, editValue);
+    } else {
+      saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
+    }
     setEditing(null);
   };
 
