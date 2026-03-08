@@ -168,7 +168,7 @@ export default function PgPage() {
           </div>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 rounded-xl border border-border bg-background px-6 py-4">
-            <p className="text-foreground font-semibold text-sm text-center sm:text-left" style={{ wordBreak: "keep-all" }}>서류 준비가 번거로우신가요? <span className="font-normal text-muted-foreground">WEBHEADS가 가맹점 등록부터 연동까지 원스톱으로 지원합니다.</span></p>
+            <p className="text-foreground font-semibold text-sm text-center sm:text-left" style={{ wordBreak: "keep-all" }}>{t("pg.pgGuideDocsCTA")}</p>
             <a href="#contact" className="shrink-0 inline-flex px-5 py-2.5 rounded-2xl font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">{t("pg.hero.cta1")}</a>
           </div>
         </div>
