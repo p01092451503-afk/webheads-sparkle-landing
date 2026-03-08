@@ -111,8 +111,8 @@ export default function CostSimulator() {
     return null;
   }, [bestPlan, recommendations, needsCdn]);
 
-  const AVG_TUITION = 60000; // 강좌당 평균 수강료
-  const monthlyRevenue = learners * AVG_TUITION;
+  const [avgTuition, setAvgTuition] = useState(60000);
+  const monthlyRevenue = learners * avgTuition;
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
 
