@@ -45,6 +45,7 @@ export default function CostSimulator() {
 
   const recommendations = useMemo<PlanRecommendation[]>(() => {
     return PLANS.map((plan) => {
+      const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
       if (plan.name === "Starter") {
         return { ...plan, isMatch: !needsCdn, totalMonthly: plan.monthly, overageCdn: 0, overageStorage: 0 };
       }
@@ -55,10 +56,10 @@ export default function CostSimulator() {
       const overStorage = Math.max(0, storageGB - plan.storageIncluded);
       const overageCdn = overCdn * plan.cdnOverage;
       const overageStorage = overStorage * plan.storageOverage;
-      const totalMonthly = plan.monthly + overageCdn + overageStorage;
+      const totalMonthly = plan.monthly + overageCdn + overageStorage + secureAddon;
       return { ...plan, isMatch: true, totalMonthly, overageCdn, overageStorage };
     }).filter((p) => p.isMatch);
-  }, [cdnGB, storageGB, needsCdn]);
+  }, [cdnGB, storageGB, needsCdn, needsSecurePlayer]);
 
   const bestPlan = useMemo(() => {
     const viable = recommendations.filter((p) => p.name !== "Starter");
