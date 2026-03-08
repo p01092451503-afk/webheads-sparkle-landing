@@ -615,6 +615,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      </>
+      )}
     </div>
   );
 }
