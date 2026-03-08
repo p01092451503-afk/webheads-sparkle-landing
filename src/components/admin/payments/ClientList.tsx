@@ -700,7 +700,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                     {/* + column spacer */}
                     {hiddenTypes.length > 0 && <td className="px-2 py-3" />}
 
-                    <td className="px-4 py-3 text-center">{statusBadge(c.status)}</td>
+                    <td className="px-4 py-3 text-center">{statusBadge(c.status, c.id)}</td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-center">
                         <button
