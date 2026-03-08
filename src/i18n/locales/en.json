@@ -708,7 +708,10 @@
     "testimonials": [
       { "name": "H. Lim", "role": "Content Security", "org": "G Online Education", "rating": 5, "date": "2024.08", "period": "6th year", "content": "Before DRM, leaked videos were everywhere. After applying it, not a single one has appeared." },
       { "name": "E. Jo", "role": "Operations Director", "org": "H Cyber University", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "Learners used to complain about plugin installations. Now it just plays in the browser — complaints have nearly disappeared." },
-      { "name": "J. Seo", "role": "Security Lead", "org": "I Finance Institute", "rating": 4, "date": "2025.01", "period": "4th year", "content": "In finance, security audits are strict. Being able to pull DRM status reports from the dashboard makes audits much easier." }
+      { "name": "J. Seo", "role": "Security Lead", "org": "I Finance Institute", "rating": 4, "date": "2025.01", "period": "4th year", "content": "In finance, security audits are strict. Being able to pull DRM status reports from the dashboard makes audits much easier." },
+      { "name": "S. Bae", "role": "Content Lead", "org": "AM Professional Training", "rating": 5, "date": "2025.02", "period": "5th year", "content": "Watermarks make screen captures pointless. Leak attempt count is at zero." },
+      { "name": "H. Yoon", "role": "Academic Admin", "org": "AN Distance University", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "DRM works well on mobile too, so there's no security concern even when students study via the app." },
+      { "name": "J. Kang", "role": "CEO", "org": "AO Language Education", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Premium lecture videos no longer appear on torrent sites. Paid membership conversion rates rose as well." }
     ],
     "processSection": { "sub": "PROCESS", "title": "How DRM\nImplementation Works", "desc": "Our dedicated engineers support you from consultation to ongoing operations." },
     "processSteps": [
