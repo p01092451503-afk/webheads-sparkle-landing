@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X } from "lucide-react";
+import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ interface Expense {
   id: string;
   category_id: string | null;
   client_id: string | null;
+  vendor_id: string | null;
   year: number;
   month: number;
   amount: number;
@@ -33,6 +34,12 @@ interface Expense {
   paid_date: string | null;
   memo: string | null;
   invoice_issued: boolean;
+}
+
+interface Vendor {
+  id: string;
+  name: string;
+  is_active: boolean;
 }
 
 interface Client {
@@ -50,6 +57,8 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 
 export default function ExpenseManager({ clients: externalClients, isSuperAdmin, logActivity }: Props) {
   const [internalClients, setInternalClients] = useState<Client[]>([]);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [newVendorName, setNewVendorName] = useState("");
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
   const [viewYear, setViewYear] = useState(now.getFullYear());
   const [viewMonth, setViewMonth] = useState(now.getMonth() + 1);
@@ -66,6 +75,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
   const [formClientId, setFormClientId] = useState("none");
+  const [formVendorId, setFormVendorId] = useState("none");
   const [formSupplyAmount, setFormSupplyAmount] = useState("");
   const [formTaxAmount, setFormTaxAmount] = useState("");
   const [formDescription, setFormDescription] = useState("");
@@ -91,14 +101,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const [catRes, expRes, clientRes] = await Promise.all([
+    const [catRes, expRes, clientRes, vendorRes] = await Promise.all([
       supabase.from("expense_categories" as any).select("*").order("sort_order"),
       supabase.from("expenses" as any).select("*").eq("year", viewYear).eq("month", viewMonth).order("created_at"),
       !externalClients ? supabase.from("clients").select("id, name").order("name") : Promise.resolve({ data: null }),
+      supabase.from("vendors" as any).select("*").order("name"),
     ]);
     if (catRes.data) setCategories(catRes.data as any);
     if (expRes.data) setExpenses(expRes.data as any);
     if (clientRes.data) setInternalClients(clientRes.data as Client[]);
+    if (vendorRes.data) setVendors(vendorRes.data as any);
     setLoading(false);
   }, [viewYear, viewMonth, externalClients]);
 
@@ -118,11 +130,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const getCategoryName = (id: string | null) => categories.find((c) => c.id === id)?.name || "미분류";
   const getCategoryColor = (id: string | null) => categories.find((c) => c.id === id)?.color || "bg-gray-100 text-gray-600";
   const getClientName = (id: string | null) => clients.find((c) => c.id === id)?.name || null;
+  const getVendorName = (id: string | null) => vendors.find((v) => v.id === id)?.name || null;
 
   const openAddModal = () => {
     setEditExpense(null);
     setFormCategoryId(categories[0]?.id || "");
     setFormClientId("none");
+    setFormVendorId("none");
     setFormSupplyAmount("");
     setFormTaxAmount("");
     setFormDescription("");
@@ -135,6 +149,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setEditExpense(exp);
     setFormCategoryId(exp.category_id || "");
     setFormClientId(exp.client_id || "none");
+    setFormVendorId(exp.vendor_id || "none");
     setFormSupplyAmount(exp.supply_amount ? exp.supply_amount.toLocaleString("ko-KR") : "");
     setFormTaxAmount(exp.tax_amount ? exp.tax_amount.toLocaleString("ko-KR") : "");
     setFormDescription(exp.description || "");
@@ -155,6 +170,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     const data = {
       category_id: formCategoryId,
       client_id: formClientId === "none" ? null : formClientId,
+      vendor_id: formVendorId === "none" ? null : formVendorId,
       year: viewYear,
       month: viewMonth,
       amount,
@@ -236,6 +252,30 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     }
   };
 
+  const addVendor = async () => {
+    if (!newVendorName.trim()) return;
+    try {
+      const { error } = await supabase.from("vendors" as any).insert({ name: newVendorName.trim() } as any);
+      if (error) throw error;
+      setNewVendorName("");
+      fetchData();
+      toast.success("협력사가 추가되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "추가 실패");
+    }
+  };
+
+  const deleteVendor = async (id: string) => {
+    try {
+      const { error } = await supabase.from("vendors" as any).delete().eq("id", id);
+      if (error) throw error;
+      fetchData();
+      toast.success("협력사가 삭제되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "삭제 실패");
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Header */}
@@ -290,6 +330,39 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               </div>
             </PopoverContent>
           </Popover>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="outline" className="h-9 text-[13px]">
+                <Building2 className="w-3.5 h-3.5 mr-1" />협력사 관리
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[260px] p-3" align="end">
+              <div className="space-y-2">
+                <p className="text-[12px] font-semibold text-muted-foreground">협력사 목록</p>
+                {vendors.map((v) => (
+                  <div key={v.id} className="flex items-center justify-between gap-2">
+                    <span className="text-[12px] text-foreground">{v.name}</span>
+                    <button onClick={() => deleteVendor(v.id)} className="p-1 rounded hover:bg-red-50 text-muted-foreground hover:text-red-600">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+                {vendors.length === 0 && <p className="text-[11px] text-muted-foreground">등록된 협력사가 없습니다</p>}
+                <div className="flex gap-1.5 pt-1">
+                  <Input
+                    value={newVendorName}
+                    onChange={(e) => setNewVendorName(e.target.value)}
+                    placeholder="새 협력사"
+                    className="h-7 text-[12px]"
+                    onKeyDown={(e) => e.key === "Enter" && addVendor()}
+                  />
+                  <Button size="sm" onClick={addVendor} className="h-7 px-2 text-[11px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+                    <Plus className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
           <Button size="sm" onClick={openAddModal} className="h-9 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
             <Plus className="w-3.5 h-3.5 mr-1" />지출 등록
           </Button>
@@ -334,7 +407,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">카테고리</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">내용</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">고객사</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">협력사</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">공급가액</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">세액</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">합계</th>
@@ -354,7 +427,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                     </Badge>
                   </td>
                   <td className="px-4 py-3">{exp.description || "-"}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{getClientName(exp.client_id) || "-"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{getVendorName(exp.vendor_id) || getClientName(exp.client_id) || "-"}</td>
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.supply_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
@@ -454,13 +527,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               <Input value={formDescription} onChange={(e) => setFormDescription(e.target.value)} placeholder="지출 내용" className="h-9 text-[13px]" />
             </div>
             <div className="space-y-1.5">
-              <Label className="text-[13px]">고객사 연동 (선택)</Label>
-              <Select value={formClientId} onValueChange={setFormClientId}>
+              <Label className="text-[13px]">협력사 (선택)</Label>
+              <Select value={formVendorId} onValueChange={setFormVendorId}>
                 <SelectTrigger className="h-9 text-[13px]"><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none" className="text-[13px]">연동 없음</SelectItem>
-                  {clients.map((c) => (
-                    <SelectItem key={c.id} value={c.id} className="text-[13px]">{c.name}</SelectItem>
+                  <SelectItem value="none" className="text-[13px]">선택 없음</SelectItem>
+                  {vendors.filter((v) => v.is_active).map((v) => (
+                    <SelectItem key={v.id} value={v.id} className="text-[13px]">{v.name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
