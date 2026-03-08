@@ -225,6 +225,7 @@ export default function AdminDashboard() {
 
   const tabs: { key: Tab; icon: any; label: string }[] = [
     { key: "inquiries", icon: MessageSquare, label: "문의" },
+    { key: "payments", icon: CreditCard, label: "입금관리" },
     { key: "analytics", icon: BarChart3, label: "분석" },
     { key: "settings", icon: Settings, label: "설정" },
   ];
