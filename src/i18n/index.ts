@@ -18,8 +18,6 @@ export const SUPPORTED_LOCALES = [
   { code: 'ko', label: '한국어', short: 'KO' },
   { code: 'en', label: 'English', short: 'EN' },
   { code: 'ja', label: '日本語', short: 'JA' },
-  { code: 'zh-CN', label: '简体中文', short: '简' },
-  { code: 'zh-TW', label: '繁體中文', short: '繁' },
 ] as const;
 
 export const loadLocale = async (lng: string) => {
