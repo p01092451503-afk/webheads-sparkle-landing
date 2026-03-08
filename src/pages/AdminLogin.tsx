@@ -1,24 +1,56 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Lock, Loader2, Mail, Shield } from "lucide-react";
 
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_SECONDS = 30;
+const LOCKOUT_STORAGE_KEY = "admin_login_lockout";
+
+function getLockoutState(): { attempts: number; lockedUntil: number | null } {
+  try {
+    const raw = sessionStorage.getItem(LOCKOUT_STORAGE_KEY);
+    if (!raw) return { attempts: 0, lockedUntil: null };
+    return JSON.parse(raw);
+  } catch {
+    return { attempts: 0, lockedUntil: null };
+  }
+}
+
+function setLockoutState(state: { attempts: number; lockedUntil: number | null }) {
+  sessionStorage.setItem(LOCKOUT_STORAGE_KEY, JSON.stringify(state));
+}
+
 export default function AdminLogin() {
   const savedEmail = localStorage.getItem("admin_saved_email") || "";
-  const savedPassword = localStorage.getItem("admin_saved_password") || "";
   const [email, setEmail] = useState(savedEmail);
-  const [password, setPassword] = useState(savedPassword);
+  const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(!!savedEmail);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [lockoutRemaining, setLockoutRemaining] = useState(0);
   const navigate = useNavigate();
+
+  // Check lockout on mount and tick down
+  useEffect(() => {
+    const tick = () => {
+      const state = getLockoutState();
+      if (state.lockedUntil && state.lockedUntil > Date.now()) {
+        setLockoutRemaining(Math.ceil((state.lockedUntil - Date.now()) / 1000));
+      } else {
+        setLockoutRemaining(0);
+      }
+    };
+    tick();
+    const interval = setInterval(tick, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const hasAdminAccess = async (userId: string) => {
     const { data, error } = await supabase.rpc("has_role", {
       _user_id: userId,
       _role: "admin",
     });
-
     if (error) return false;
     return data === true;
   };
@@ -26,7 +58,6 @@ export default function AdminLogin() {
   useEffect(() => {
     const handleSession = (session: { user: { id: string } } | null) => {
       if (!session?.user) return;
-
       hasAdminAccess(session.user.id)
         .then((ok) => {
           if (ok) navigate("/admin", { replace: true });
@@ -48,12 +79,29 @@ export default function AdminLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Rate limiting check
+    const lockState = getLockoutState();
+    if (lockState.lockedUntil && lockState.lockedUntil > Date.now()) {
+      const remaining = Math.ceil((lockState.lockedUntil - Date.now()) / 1000);
+      setError(`로그인 시도가 제한되었습니다. ${remaining}초 후 다시 시도해주세요.`);
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ email, password });
     if (authError) {
-      setError("이메일 또는 비밀번호가 올바르지 않습니다.");
+      const newAttempts = (lockState.attempts || 0) + 1;
+      if (newAttempts >= MAX_ATTEMPTS) {
+        const lockedUntil = Date.now() + LOCKOUT_SECONDS * 1000;
+        setLockoutState({ attempts: newAttempts, lockedUntil });
+        setError(`로그인 ${MAX_ATTEMPTS}회 실패. ${LOCKOUT_SECONDS}초간 로그인이 제한됩니다.`);
+      } else {
+        setLockoutState({ attempts: newAttempts, lockedUntil: null });
+        setError(`이메일 또는 비밀번호가 올바르지 않습니다. (${newAttempts}/${MAX_ATTEMPTS})`);
+      }
       setLoading(false);
       return;
     }
@@ -66,16 +114,22 @@ export default function AdminLogin() {
       return;
     }
 
+    // Reset lockout on success
+    setLockoutState({ attempts: 0, lockedUntil: null });
+
+    // Only save email (never password)
     if (rememberMe) {
       localStorage.setItem("admin_saved_email", email);
-      localStorage.setItem("admin_saved_password", password);
     } else {
       localStorage.removeItem("admin_saved_email");
-      localStorage.removeItem("admin_saved_password");
     }
+    // Clean up legacy password storage
+    localStorage.removeItem("admin_saved_password");
 
     navigate("/admin", { replace: true });
   };
+
+  const isLocked = lockoutRemaining > 0;
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4"
@@ -172,7 +226,7 @@ export default function AdminLogin() {
               className="w-4 h-4 rounded accent-primary cursor-pointer"
             />
             <span className="text-[13px] text-muted-foreground" style={{ fontWeight: 500 }}>
-              아이디 / 비밀번호 저장
+              이메일 저장
             </span>
           </label>
 
@@ -194,9 +248,23 @@ export default function AdminLogin() {
             </div>
           )}
 
+          {isLocked && (
+            <div
+              className="flex items-center justify-center gap-2 rounded-2xl py-3 px-4 text-[13px] font-semibold"
+              style={{
+                background: "hsl(37 90% 51% / 0.08)",
+                color: "hsl(37 90% 40%)",
+                border: "1px solid hsl(37 90% 51% / 0.15)",
+              }}
+            >
+              <Lock className="w-3.5 h-3.5" />
+              {lockoutRemaining}초 후 다시 시도할 수 있습니다
+            </div>
+          )}
+
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || isLocked}
             className="w-full py-4 rounded-2xl text-[15px] flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
             style={{
               fontWeight: 600,
@@ -211,6 +279,8 @@ export default function AdminLogin() {
                 <Loader2 className="w-[18px] h-[18px] animate-spin" />
                 로그인 중...
               </>
+            ) : isLocked ? (
+              "로그인 제한 중"
             ) : (
               "로그인"
             )}
