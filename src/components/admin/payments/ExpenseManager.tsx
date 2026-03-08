@@ -101,14 +101,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const [catRes, expRes, clientRes] = await Promise.all([
+    const [catRes, expRes, clientRes, vendorRes] = await Promise.all([
       supabase.from("expense_categories" as any).select("*").order("sort_order"),
       supabase.from("expenses" as any).select("*").eq("year", viewYear).eq("month", viewMonth).order("created_at"),
       !externalClients ? supabase.from("clients").select("id, name").order("name") : Promise.resolve({ data: null }),
+      supabase.from("vendors" as any).select("*").order("name"),
     ]);
     if (catRes.data) setCategories(catRes.data as any);
     if (expRes.data) setExpenses(expRes.data as any);
     if (clientRes.data) setInternalClients(clientRes.data as Client[]);
+    if (vendorRes.data) setVendors(vendorRes.data as any);
     setLoading(false);
   }, [viewYear, viewMonth, externalClients]);
 
