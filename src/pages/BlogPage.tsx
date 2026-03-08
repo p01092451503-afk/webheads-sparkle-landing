@@ -39,7 +39,7 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
             <Calendar className="w-3 h-3" /><time itemProp="datePublished" dateTime={post.date}>{post.date}</time>
           </span>
           <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-            <Clock className="w-3 h-3" />{post.readTime} {lang === "en" ? "read" : "읽기"}
+            <Clock className="w-3 h-3" />{post.readTime} {lang === "en" ? "read" : lang === "ja" ? "読み" : "읽기"}
           </span>
         </div>
         <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight" itemProp="headline" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{post.title}</h2>
