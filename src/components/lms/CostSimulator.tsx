@@ -260,17 +260,19 @@ export default function CostSimulator() {
 
               {/* Dedicated server recommendation */}
               {learners >= 500 && (
-                <div className="mt-4 rounded-xl p-4 border border-amber-300/50 bg-amber-50/50 dark:bg-amber-950/20 dark:border-amber-500/30">
+                <div className="mt-4 rounded-xl p-4 border bg-background" style={{ borderColor: "hsl(var(--lms-primary) / 0.25)" }}>
                   <div className="flex items-start gap-2.5">
-                    <Server className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 shrink-0" />
+                    <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.1)" }}>
+                      <Server className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                    </div>
                     <div>
-                      <p className="text-sm font-semibold text-amber-800 dark:text-amber-300 mb-1">단독서버를 권장합니다</p>
-                      <p className="text-[11px] text-amber-700/80 dark:text-amber-400/70 leading-relaxed">
-                        월 활성 수강생 {learners.toLocaleString()}명 규모에서는 영상 CDN 외에도 <span className="font-medium">웹 트래픽(페이지 로딩·API 호출·퀴즈·출결 등)</span>이 상당합니다. 안정적인 서비스를 위해 공유 호스팅 대신 <span className="font-medium">단독서버 구성</span>을 권장드립니다.
+                      <p className="text-sm font-bold text-foreground mb-1">단독서버를 권장합니다</p>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                        월 활성 수강생 <span className="font-semibold text-foreground">{learners.toLocaleString()}명</span> 규모에서는 영상 CDN 외에도 웹 트래픽(페이지 로딩·API 호출·퀴즈·출결 등)이 상당합니다. 안정적인 서비스를 위해 공유 호스팅 대신 <span className="font-semibold text-foreground">단독서버 구성</span>을 권장드립니다.
                       </p>
-                      <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-amber-700/60 dark:text-amber-400/50">
-                        <Globe className="w-3 h-3" />
-                        <span>예상 웹 트래픽: 월 <span className="font-semibold text-amber-800 dark:text-amber-300">{Math.round(learners * 0.8).toLocaleString()}GB</span> 이상</span>
+                      <div className="mt-2.5 flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                        <Globe className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
+                        <span>예상 웹 트래픽: 월 <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{Math.round(learners * 0.8).toLocaleString()}GB</span> 이상</span>
                       </div>
                     </div>
                   </div>
