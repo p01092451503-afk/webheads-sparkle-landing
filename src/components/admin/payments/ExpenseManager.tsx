@@ -32,6 +32,7 @@ interface Expense {
   is_paid: boolean;
   paid_date: string | null;
   memo: string | null;
+  invoice_issued: boolean;
 }
 
 interface Client {
@@ -69,6 +70,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [formTaxAmount, setFormTaxAmount] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [formMemo, setFormMemo] = useState("");
+  const [formInvoiceIssued, setFormInvoiceIssued] = useState(false);
 
   const formTotal = useMemo(() => {
     const supply = parseInt(formSupplyAmount.replace(/[^0-9]/g, "")) || 0;
@@ -125,6 +127,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormTaxAmount("");
     setFormDescription("");
     setFormMemo("");
+    setFormInvoiceIssued(false);
     setModalOpen(true);
   };
 
@@ -136,6 +139,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormTaxAmount(exp.tax_amount ? exp.tax_amount.toLocaleString("ko-KR") : "");
     setFormDescription(exp.description || "");
     setFormMemo(exp.memo || "");
+    setFormInvoiceIssued(exp.invoice_issued || false);
     setModalOpen(true);
   };
 
@@ -158,6 +162,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       tax_amount: taxAmount,
       description: formDescription || null,
       memo: formMemo || null,
+      invoice_issued: formInvoiceIssued,
     };
 
     try {
@@ -334,6 +339,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">세액</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">합계</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">지출일</th>
+                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">계산서</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">메모</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">관리</th>
@@ -353,6 +359,19 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.paid_date?.replace(/-/g, ".") || "-"}</td>
+                  <td className="px-4 py-3 text-center">
+                    <button onClick={async () => {
+                      try {
+                        await supabase.from("expenses" as any).update({ invoice_issued: !exp.invoice_issued } as any).eq("id", exp.id);
+                        fetchData();
+                      } catch { toast.error("변경 실패"); }
+                    }}>
+                      {exp.invoice_issued
+                        ? <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer text-[11px]">발급</Badge>
+                        : <Badge className="bg-gray-100 text-gray-500 hover:bg-gray-200 cursor-pointer text-[11px]">미발급</Badge>
+                      }
+                    </button>
+                  </td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.memo || "-"}</td>
                   <td className="px-4 py-3 text-center">
                     <button onClick={() => togglePaid(exp)}>
@@ -375,7 +394,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={10} className="px-4 py-12 text-center text-muted-foreground">
+                <tr><td colSpan={11} className="px-4 py-12 text-center text-muted-foreground">
                   {loading ? "불러오는 중..." : "등록된 지출이 없습니다"}
                 </td></tr>
               )}
@@ -450,6 +469,17 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               <Label className="text-[13px]">메모</Label>
               <Input value={formMemo} onChange={(e) => setFormMemo(e.target.value)} placeholder="메모 (선택)" className="h-9 text-[13px]" />
             </div>
+            <label className="flex items-center gap-2 cursor-pointer select-none pl-1">
+              <input
+                type="checkbox"
+                checked={formInvoiceIssued}
+                onChange={(e) => setFormInvoiceIssued(e.target.checked)}
+                className="w-4 h-4 rounded accent-[hsl(221,83%,53%)] cursor-pointer"
+              />
+              <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>
+                세금계산서 발급
+              </span>
+            </label>
             <Button onClick={handleSubmit} className="w-full h-10 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
               {editExpense ? "수정" : "등록"}
             </Button>
