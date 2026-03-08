@@ -10,6 +10,7 @@ const ClientDetail = lazy(() => import("./ClientDetail"));
 const PaymentModal = lazy(() => import("./PaymentModal"));
 const ClientModal = lazy(() => import("./ClientModal"));
 const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
+const ExpenseManager = lazy(() => import("./ExpenseManager"));
 
 type Client = import("./paymentTypes").PaymentClient;
 type Payment = import("./paymentTypes").PaymentRecord;
