@@ -1345,6 +1345,18 @@
     "thankDesc": "入力いただいたメールアドレスにカスタム相談資料をお送りします。平均2時間以内にご連絡いたします。",
     "privacy": "入力いただいたメールアドレスは相談資料の送付目的でのみ使用され、プライバシーポリシーに基づいて管理されます。"
   },
+  "supportPage": {
+    "seoTitle": "カスタマーサポート | WEBHEADS",
+    "seoDesc": "WEBHEADSカスタマーサポート — SMS充電やリモートサポートをリクエストしてください。",
+    "heroTitle": "WEBHEADS カスタマーサポート",
+    "heroDesc": "必要なサービスをお選びください",
+    "smsTitle": "SMS充電",
+    "smsDesc": "メッセージ発送件数を充電し、現況を確認します",
+    "smsCta": "充電する",
+    "remoteTitle": "リモートサポート",
+    "remoteDesc": "リモートサポートで迅速に問題を解決します",
+    "remoteCta": "リクエストする"
+  },
   "costSim": {
     "sub": "COST SIMULATOR",
     "title": "貴社の規模に最適なプランは？",
