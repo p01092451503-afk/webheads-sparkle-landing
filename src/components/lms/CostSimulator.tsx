@@ -44,7 +44,7 @@ export default function CostSimulator() {
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const SECURE_PLAYER_COST = 300000;
 
-  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, completionRate), [learners, videoHours, completionRate]);
+  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, monthlyViewHours), [learners, videoHours, monthlyViewHours]);
 
   const recommendations = useMemo<PlanRecommendation[]>(() => {
     return PLANS.map((plan) => {
