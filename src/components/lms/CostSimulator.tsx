@@ -111,8 +111,8 @@ export default function CostSimulator() {
     return null;
   }, [bestPlan, recommendations, needsCdn]);
 
-  const AVG_TUITION = 60000; // 강좌당 평균 수강료
-  const monthlyRevenue = learners * AVG_TUITION;
+  const [avgTuition, setAvgTuition] = useState(60000);
+  const monthlyRevenue = learners * avgTuition;
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
 
@@ -380,7 +380,20 @@ export default function CostSimulator() {
                   {/* 월 예상 수익 */}
                   <div className="rounded-xl p-3.5 mb-4" style={{ background: "hsla(0, 0%, 100%, 0.12)" }}>
                     <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-white/70">월 예상 수익 (수강생 × 60,000원)</span>
+                      <span className="text-xs font-semibold text-white/70">월 예상 수익 (수강생 ×
+                        <input
+                          type="number"
+                          value={avgTuition}
+                          onChange={(e) => {
+                            const v = Math.min(1000000, Math.max(0, Number(e.target.value) || 0));
+                            setAvgTuition(v);
+                          }}
+                          className="w-20 mx-1 text-center text-xs font-bold tabular-nums bg-white/20 rounded px-1.5 py-0.5 text-white border-none outline-none focus:bg-white/30"
+                          min={0}
+                          max={1000000}
+                          step={10000}
+                        />원)
+                      </span>
                     </div>
                     <div className="flex items-end gap-2">
                       <span className="font-extrabold text-white text-2xl tabular-nums">{formatPrice(monthlyRevenue)}원</span>
