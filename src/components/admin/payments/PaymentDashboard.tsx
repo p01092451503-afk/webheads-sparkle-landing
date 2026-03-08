@@ -164,10 +164,10 @@ export default function PaymentDashboard({ clients, payments, onNavigate }: Prop
 
         {/* Top 10 Unpaid */}
         <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
-          <h3 className="text-[14px] font-semibold mb-4">미납 TOP 10</h3>
+          <h3 className="text-[14px] font-semibold mb-4">호스팅료 TOP 10</h3>
           <div className="space-y-2">
             {top10Unpaid.length === 0 && (
-              <p className="text-[13px] text-muted-foreground py-8 text-center">미납 고객사가 없습니다</p>
+              <p className="text-[13px] text-muted-foreground py-8 text-center">호스팅료 데이터가 없습니다</p>
             )}
             {top10Unpaid.map((item, i) => (
               <button
@@ -176,10 +176,15 @@ export default function PaymentDashboard({ clients, payments, onNavigate }: Prop
                 className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-[hsl(220,14%,96%)] transition-colors text-left"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-red-100 text-red-600 text-[11px] font-bold flex items-center justify-center">{i + 1}</span>
+                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 text-[11px] font-bold flex items-center justify-center">{i + 1}</span>
                   <span className="text-[13px] font-medium">{item.client!.name}</span>
                 </div>
-                <span className="text-[13px] font-semibold text-red-600">{formatWon(item.amount)}</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[13px] font-semibold">{formatWon(item.amount)}</span>
+                  {item.unpaid > 0 && (
+                    <span className="text-[11px] text-red-600 font-medium">미납 {formatWon(item.unpaid)}</span>
+                  )}
+                </div>
               </button>
             ))}
           </div>
