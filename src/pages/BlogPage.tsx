@@ -136,10 +136,11 @@ export default function BlogPage() {
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <span className="inline-flex items-center gap-1.5 px-4 py-1.5 mb-5 rounded-full text-xs font-semibold tracking-wider uppercase bg-foreground text-background">Blog & Insights</span>
           <h1 className="text-3xl md:text-5xl font-extrabold text-foreground leading-tight mb-4" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif", letterSpacing: "-0.02em" }}>
-            {lang === "en" ? "WEBHEADS LMS Insights" : "웹헤즈 LMS 인사이트"}
+            {lang === "en" ? "WEBHEADS LMS Insights" : lang === "ja" ? "WEBHEADS LMSインサイト" : "웹헤즈 LMS 인사이트"}
           </h1>
           <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-8" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>
             {lang === "en" ? (<>From e-learning adoption to AI learning trends,<br className="hidden md:block" />professional guides for corporate training managers.</>)
+              : lang === "ja" ? (<>eラーニングソリューション導入からAI学習管理トレンドまで、<br className="hidden md:block" />企業教育担当者向けの専門ガイドを提供します。</>)
               : (<>이러닝 솔루션 도입부터 AI 학습관리 트렌드까지,<br className="hidden md:block" />기업교육 담당자를 위한 전문 가이드를 제공합니다.</>)}
           </p>
           {/* Search Bar */}
