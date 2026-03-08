@@ -199,6 +199,7 @@ export default function ExpenseStatistics({ allExpenses, categories, vendors }: 
         </div>
       </div>
 
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Category Breakdown */}
         <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5">
           <h3 className="text-[14px] font-semibold mb-4">카테고리별 비중</h3>
