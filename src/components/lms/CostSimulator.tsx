@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp } from "lucide-react";
+import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -26,38 +26,38 @@ const PLANS: Omit<PlanRecommendation, "isMatch" | "totalMonthly" | "overageCdn" 
 ];
 
 // ── Pricing-page-aligned constants ──
-// 500GB ÷ 1,700 views of 30-min lecture ≈ 0.294GB per 30-min session → 0.588GB/hour
-const GB_PER_HOUR_VIEWED = 0.588;
-// 100GB ÷ 332 lectures (30-min each) ≈ 0.301GB per 30-min → 0.602GB/hour of stored video
+// 500GB CDN ÷ 1,700 views of 30-min lecture ≈ 0.294GB per 30-min session → 0.588GB/hour viewed
+const GB_CDN_PER_HOUR_VIEWED = 0.588;
+// 100GB storage ÷ 332 lectures (30-min each) ≈ 0.301GB per 30-min → 0.602GB/hour of stored video
 const STORAGE_GB_PER_VIDEO_HOUR = 0.602;
 
 // ── Realistic per-learner monthly viewing model ──
-// Learners don't watch the ENTIRE library every month.
 // Typical corporate/academy learner watches 5–15 hours of assigned curriculum per month.
 // We cap per-learner monthly viewing at the total library size.
 const BASE_MONTHLY_HOURS_PER_LEARNER = 10; // realistic average monthly study hours
 
-function estimateUsage(learners: number, videoHours: number, completionRate: number) {
+function estimateUsage(learners: number, storageInput: number, completionRate: number) {
   const rate = completionRate / 100;
+  // Derive equivalent video hours from storage GB input
+  const videoHours = storageInput / STORAGE_GB_PER_VIDEO_HOUR;
   // Each learner watches up to BASE hours/month, capped at total library size
   const hoursPerLearner = Math.min(BASE_MONTHLY_HOURS_PER_LEARNER, videoHours) * rate;
   // Total monthly CDN transfer = learners × hours watched × GB per hour
-  const cdnGB = Math.round(learners * hoursPerLearner * GB_PER_HOUR_VIEWED);
-  // Storage = total uploaded content (independent of learner count)
-  const storageGB = Math.round(videoHours * STORAGE_GB_PER_VIDEO_HOUR);
-  return { cdnGB, storageGB };
+  const cdnGB = Math.round(learners * hoursPerLearner * GB_CDN_PER_HOUR_VIEWED);
+  // Storage = direct user input in GB
+  return { cdnGB, storageGB: storageInput };
 }
 
 export default function CostSimulator() {
   const { t } = useTranslation();
   const [learners, setLearners] = useState(200);
-  const [videoHours, setVideoHours] = useState(30);
+  const [storageInput, setStorageInput] = useState(20);
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const SECURE_PLAYER_COST = 300000;
 
-  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, completionRate), [learners, videoHours, completionRate]);
+  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, storageInput, completionRate), [learners, storageInput, completionRate]);
 
   const recommendations = useMemo<PlanRecommendation[]>(() => {
     return PLANS.map((plan) => {
@@ -185,49 +185,52 @@ export default function CostSimulator() {
                 </div>
               </div>
 
-              {/* Video hours slider */}
+              {/* Storage GB slider */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5">
-                    <MonitorPlay className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-semibold text-foreground">등록 영상</span>
+                    <HardDrive className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">동영상 용량</span>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger>
                           <Info className="w-3.5 h-3.5 text-muted-foreground" />
                         </TooltipTrigger>
-                        <TooltipContent><p className="text-xs">LMS에 등록된 전체 영상의 총 시간</p></TooltipContent>
+                        <TooltipContent><p className="text-xs max-w-[220px]">LMS에 업로드할 전체 동영상 파일의 총 용량 (GB). 일반화질(SD) 30분 강의 1개 ≈ 약 0.3GB</p></TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </div>
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={videoHours}
+                      value={storageInput}
                       onChange={(e) => {
                         const v = Math.min(500, Math.max(1, Number(e.target.value) || 1));
-                        setVideoHours(v);
+                        setStorageInput(v);
                       }}
                       className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={1}
                       max={500}
                     />
-                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>시간</span>
+                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>GB</span>
                   </div>
                 </div>
                 <Slider
-                  value={[videoHours]}
-                  onValueChange={([v]) => setVideoHours(v)}
+                  value={[storageInput]}
+                  onValueChange={([v]) => setStorageInput(v)}
                   min={1}
                   max={500}
                   step={1}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
-                  <span>1시간</span>
-                  <span>500시간</span>
+                  <span>1GB</span>
+                  <span>500GB</span>
                 </div>
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  참고: 일반화질(SD) 30분 강의 약 {Math.round(storageInput / 0.3)}개 분량
+                </p>
               </div>
 
               {/* Completion rate slider */}
