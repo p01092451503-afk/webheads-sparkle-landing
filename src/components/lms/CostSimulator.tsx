@@ -141,7 +141,7 @@ export default function CostSimulator() {
                   value={[learners]}
                   onValueChange={([v]) => setLearners(v)}
                   min={10}
-                  max={5000}
+                  max={2000}
                   step={10}
                   className="w-full"
                 />
