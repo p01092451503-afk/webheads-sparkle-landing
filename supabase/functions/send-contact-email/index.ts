@@ -74,6 +74,8 @@ serve(async (req) => {
         body: JSON.stringify({
           type: "new_inquiry",
           title: `새로운 ${typeLabel}이 접수되었습니다`,
+          dashboard_tab: "inquiries",
+          message_preview: message || undefined,
           details: {
             "유형": typeLabel,
             "회사명": company || "(미입력)",

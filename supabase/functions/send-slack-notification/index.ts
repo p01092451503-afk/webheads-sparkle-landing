@@ -13,6 +13,9 @@ interface SlackNotification {
   title: string;
   details?: Record<string, string>;
   urgency?: "normal" | "high";
+  message_preview?: string;
+  inquiry_id?: string;
+  dashboard_tab?: string;
 }
 
 function getHeaders() {
@@ -52,11 +55,15 @@ async function sendSlackMessage(channelId: string, blocks: any[], text: string) 
   return data;
 }
 
+const DASHBOARD_URL = "https://webheads-service.lovable.app/admin";
+
 function buildBlocks(notification: SlackNotification) {
   const emoji = notification.type === "new_inquiry" ? "📬"
     : notification.type === "service_request" ? "🔧"
     : notification.type === "site_error" ? "🚨"
     : "📢";
+
+  const urgencyBar = notification.urgency === "high" ? "🔴 *긴급*  " : "";
 
   const blocks: any[] = [
     {
@@ -76,14 +83,43 @@ function buildBlocks(notification: SlackNotification) {
     }
   }
 
-  const now = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+  // Message preview block
+  if (notification.message_preview) {
+    const preview = notification.message_preview.length > 300
+      ? notification.message_preview.slice(0, 300) + "…"
+      : notification.message_preview;
+    blocks.push(
+      { type: "divider" },
+      {
+        type: "section",
+        text: { type: "mrkdwn", text: `💬 *문의 내용 미리보기:*\n>${preview.replace(/\n/g, "\n>")}` },
+      }
+    );
+  }
+
+  // Action buttons
+  const tab = notification.dashboard_tab || (notification.type === "new_inquiry" ? "inquiries" : notification.type === "service_request" ? "service-requests" : "");
+  const dashboardLink = tab ? `${DASHBOARD_URL}?tab=${tab}` : DASHBOARD_URL;
+
+  const actions: any[] = [
+    {
+      type: "button",
+      text: { type: "plain_text", text: "📋 대시보드 열기", emoji: true },
+      url: dashboardLink,
+      style: "primary",
+    },
+  ];
+
   blocks.push(
     { type: "divider" },
-    {
-      type: "context",
-      elements: [{ type: "mrkdwn", text: `⏰ ${now} | <https://webheads-service.lovable.app/admin|관리자 대시보드 열기>` }],
-    }
+    { type: "actions", elements: actions }
   );
+
+  const now = new Date().toLocaleString("ko-KR", { timeZone: "Asia/Seoul" });
+  blocks.push({
+    type: "context",
+    elements: [{ type: "mrkdwn", text: `${urgencyBar}⏰ ${now}` }],
+  });
 
   return blocks;
 }

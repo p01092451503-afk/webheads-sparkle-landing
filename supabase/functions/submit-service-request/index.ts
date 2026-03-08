@@ -70,6 +70,7 @@ serve(async (req) => {
         body: JSON.stringify({
           type: "service_request",
           title: `새로운 ${typeLabel}이 접수되었습니다`,
+          dashboard_tab: "service-requests",
           details: {
             "유형": typeLabel,
             "회사명": company,
