@@ -255,7 +255,9 @@ export default function PricingPage() {
                 <div className="p-8 flex flex-col gap-5 flex-1">
                   <div>
                     <h3 className={`font-bold text-3xl tracking-tight ${plan.highlight ? "" : "text-foreground"}`} style={plan.highlight ? { color: "hsl(var(--lms-primary))" } : undefined}>{plan.name}</h3>
-                    {plan.solutionType && <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide min-h-[32px]">{plan.solutionType}</p>}
+                    {plan.solutionType && <p className="text-xs font-medium text-muted-foreground mt-1.5 tracking-wide">{plan.solutionType}</p>}
+                    {plan.specs && <p className="text-[11px] font-semibold mt-1 tracking-wide" style={{ color: plan.highlight ? "hsl(var(--lms-primary))" : "hsl(var(--primary))" }}>{plan.specs}</p>}
+                    <div className="min-h-[8px]" />
                     <div className={`h-px mt-4 ${plan.highlight ? "opacity-20" : "bg-border"}`} style={plan.highlight ? { background: "hsl(var(--lms-primary))" } : undefined} />
                   </div>
                   <div>
