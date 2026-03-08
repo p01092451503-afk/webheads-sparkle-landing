@@ -326,33 +326,6 @@ export default function CostSimulator() {
               </>
               )}
 
-              {/* Annual contract toggle */}
-              <div className="flex items-center justify-between rounded-xl p-3 bg-background border border-border mt-2.5">
-                <div className="flex items-center gap-2">
-                  <CalendarCheck className="w-3.5 h-3.5 text-muted-foreground" />
-                  <span className="text-sm font-medium text-foreground">{t("costSim.annualToggle")}</span>
-                </div>
-                <button
-                  onClick={() => setIsAnnual(!isAnnual)}
-                  className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${isAnnual ? "" : "bg-muted"}`}
-                  style={isAnnual ? { background: "hsl(var(--lms-primary))" } : undefined}
-                >
-                  <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${isAnnual ? "translate-x-5" : "translate-x-0"}`} />
-                </button>
-              </div>
-              <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed pl-1">
-                {isAnnual ? t("costSim.annualOnDesc") : t("costSim.annualOffDesc")}
-              </p>
-
-              {/* Estimated usage */}
-              {needsCdn && (
-              <div className="mt-3 rounded-xl p-3 bg-muted/50 text-xs text-muted-foreground space-y-1">
-                <p className="flex items-center gap-1.5"><BarChart3 className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estTransfer")} <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
-                <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estStorage")} <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
-                <p className="flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estCompletion")} <span className="font-semibold text-foreground">{completionRate}%</span></p>
-              </div>
-              )}
-
               {/* Dedicated server toggle */}
               {learners >= 500 && (
                 <>
@@ -385,6 +358,33 @@ export default function CostSimulator() {
                     </div>
                   )}
                 </>
+              )}
+
+              {/* Annual contract toggle */}
+              <div className="flex items-center justify-between rounded-xl p-3 bg-background border border-border mt-2.5">
+                <div className="flex items-center gap-2">
+                  <CalendarCheck className="w-3.5 h-3.5 text-muted-foreground" />
+                  <span className="text-sm font-medium text-foreground">{t("costSim.annualToggle")}</span>
+                </div>
+                <button
+                  onClick={() => setIsAnnual(!isAnnual)}
+                  className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${isAnnual ? "" : "bg-muted"}`}
+                  style={isAnnual ? { background: "hsl(var(--lms-primary))" } : undefined}
+                >
+                  <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${isAnnual ? "translate-x-5" : "translate-x-0"}`} />
+                </button>
+              </div>
+              <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed pl-1">
+                {isAnnual ? t("costSim.annualOnDesc") : t("costSim.annualOffDesc")}
+              </p>
+
+              {/* Estimated usage */}
+              {needsCdn && (
+              <div className="mt-3 rounded-xl p-3 bg-muted/50 text-xs text-muted-foreground space-y-1">
+                <p className="flex items-center gap-1.5"><BarChart3 className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estTransfer")} <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
+                <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estStorage")} <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
+                <p className="flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> {t("costSim.estCompletion")} <span className="font-semibold text-foreground">{completionRate}%</span></p>
+              </div>
               )}
             </div>
           </div>
