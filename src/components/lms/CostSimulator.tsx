@@ -398,10 +398,15 @@ export default function CostSimulator() {
                     <Sparkles className="w-4 h-4 text-white/80" />
                     <span className="text-xs font-bold text-white/80 tracking-wider uppercase">{t("costSim.recommended")}</span>
                   </div>
-                  <div className="flex items-end gap-3 mb-2">
+                  <div className="flex items-end gap-3 mb-1">
                     <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
                     <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
                   </div>
+                  <p className="text-[11px] font-semibold text-white/50 mb-2 tracking-wide">
+                    {bestPlan.cdnIncluded > 0
+                      ? t("costSim.planSpecs", { cdn: bestPlan.cdnIncluded.toLocaleString(), storage: bestPlan.storageIncluded.toLocaleString() })
+                      : t("costSim.planSpecsNone")}
+                  </p>
                   {(() => {
                     const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
                     return (

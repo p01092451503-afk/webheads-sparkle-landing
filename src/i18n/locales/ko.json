@@ -1792,6 +1792,8 @@
     "dedicatedToggle": "단독서버(WEB) 추가 (월 250,000원)",
     "dedicatedToggleDesc": "500명 이상 규모에서 안정적인 서비스를 위해 권장됩니다.",
     "dedicatedAddon": "단독서버(WEB): +{{amount}}",
+    "planSpecs": "기본 전송량 {{cdn}}GB · 저장공간 {{storage}}GB",
+    "planSpecsNone": "CDN 미사용 · 저장공간 없음",
     "recommended": "추천 플랜",
     "perMonth": "원/월",
     "discount": "10% 할인",
