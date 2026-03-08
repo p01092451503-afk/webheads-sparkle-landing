@@ -403,16 +403,32 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label className="text-[13px]">금액 *</Label>
+              <Label className="text-[13px]">공급가액 *</Label>
               <Input
-                value={formAmount}
+                value={formSupplyAmount}
                 onChange={(e) => {
                   const num = e.target.value.replace(/[^0-9]/g, "");
-                  setFormAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                  setFormSupplyAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
                 }}
                 placeholder="0"
                 className="h-9 text-[13px] text-right"
               />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">세액</Label>
+              <Input
+                value={formTaxAmount}
+                onChange={(e) => {
+                  const num = e.target.value.replace(/[^0-9]/g, "");
+                  setFormTaxAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                }}
+                placeholder="0"
+                className="h-9 text-[13px] text-right"
+              />
+            </div>
+            <div className="flex items-center justify-between px-1 py-2 rounded-lg bg-[hsl(220,14%,96%)]">
+              <span className="text-[13px] font-medium text-muted-foreground pl-2">합계</span>
+              <span className="text-[15px] font-bold pr-2">{formatWon(formTotal)}</span>
             </div>
             <div className="space-y-1.5">
               <Label className="text-[13px]">내용</Label>
