@@ -1781,6 +1781,8 @@
     "dedicatedToggle": "Dedicated Server (WEB) (+₩250,000/mo)",
     "dedicatedToggleDesc": "Recommended for 500+ learners to ensure stable performance.",
     "dedicatedAddon": "Dedicated Server (WEB): +{{amount}}",
+    "planSpecs": "Transfer {{cdn}}GB · Storage {{storage}}GB",
+    "planSpecsNone": "No CDN · No Storage",
     "recommended": "Recommended Plan",
     "perMonth": "/mo",
     "discount": "10% Off",

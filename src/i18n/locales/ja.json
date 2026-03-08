@@ -1377,6 +1377,8 @@
     "dedicatedToggle": "専用サーバー(WEB) 追加（月250,000ウォン）",
     "dedicatedToggleDesc": "500名以上の規模で安定したサービスのために推奨されます。",
     "dedicatedAddon": "専用サーバー(WEB)：+{{amount}}",
+    "planSpecs": "基本転送量 {{cdn}}GB · ストレージ {{storage}}GB",
+    "planSpecsNone": "CDN未使用 · ストレージなし",
     "recommended": "おすすめプラン",
     "perMonth": "ウォン/月",
     "discount": "10%割引",
