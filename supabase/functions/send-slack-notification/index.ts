@@ -13,6 +13,9 @@ interface SlackNotification {
   title: string;
   details?: Record<string, string>;
   urgency?: "normal" | "high";
+  message_preview?: string;
+  inquiry_id?: string;
+  dashboard_tab?: string;
 }
 
 function getHeaders() {
