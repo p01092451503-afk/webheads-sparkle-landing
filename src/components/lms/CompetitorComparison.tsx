@@ -40,7 +40,7 @@ export default function CompetitorComparison() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-muted">
-                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground w-[35%]">{headers[0]}</th>
+                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground w-[22%]">{headers[0]}</th>
                   {headers.slice(1).map((h, i) => (
                     <th key={h} className={`text-center px-4 py-4 font-bold text-sm ${i === headers.length - 2 ? "text-primary bg-primary/5" : "text-foreground"}`}>{h}</th>
                   ))}
