@@ -1,8 +1,22 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { AlertTriangle, CheckCircle, Users, TrendingUp } from "lucide-react";
+import { AlertTriangle, CheckCircle, Users, TrendingUp, CalendarDays } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { supabase } from "@/integrations/supabase/client";
+import { getPaymentTypeLabel, getPaymentTypeColor } from "./paymentTypes";
+import { getNextRenewalDate } from "./RecurringFeeManager";
 
 import type { PaymentClient as Client, PaymentRecord as Payment } from "./paymentTypes";
+
+interface RecurringFee {
+  id: string;
+  client_id: string;
+  payment_type: string;
+  amount: number;
+  is_active: boolean;
+  billing_cycle: string;
+  contract_start_date: string | null;
+}
 
 interface Props {
   clients: Client[];
