@@ -81,7 +81,7 @@ export default function FloatingNav() {
       <div className="fixed right-3 bottom-32 z-50 md:hidden flex flex-col items-center gap-2">
         <button
           onClick={handleCostSimulator}
-          className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg text-white animate-pulse"
+          className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg text-white"
           style={{ background: "hsl(0, 55%, 50%)" }}
           aria-label={t("floatingNav.costSimulator")}
         >
