@@ -170,6 +170,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     const data = {
       category_id: formCategoryId,
       client_id: formClientId === "none" ? null : formClientId,
+      vendor_id: formVendorId === "none" ? null : formVendorId,
       year: viewYear,
       month: viewMonth,
       amount,
