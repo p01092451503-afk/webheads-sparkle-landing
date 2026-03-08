@@ -9,6 +9,7 @@ const ClientList = lazy(() => import("./ClientList"));
 const ClientDetail = lazy(() => import("./ClientDetail"));
 const PaymentModal = lazy(() => import("./PaymentModal"));
 const ClientModal = lazy(() => import("./ClientModal"));
+const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
 
 interface Client {
   id: string;
@@ -30,7 +31,7 @@ interface Payment {
   memo: string | null;
 }
 
-type SubView = "dashboard" | "clients" | "detail";
+type SubView = "dashboard" | "clients" | "detail" | "calendar";
 
 const Loader = () => (
   <div className="flex items-center justify-center py-20">
@@ -157,6 +158,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
   const subTabs = [
     { key: "dashboard" as SubView, label: "대시보드" },
     { key: "clients" as SubView, label: "고객사 관리" },
+    { key: "calendar" as SubView, label: "캘린더" },
   ];
 
   return (
@@ -193,6 +195,9 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             onEditClient={handleEditClient}
             onAddClient={handleAddClient}
           />
+        )}
+        {subView === "calendar" && (
+          <PaymentCalendar clients={clients} payments={payments} onNavigate={handleNavigate} />
         )}
         {subView === "detail" && selectedClient && (
           <ClientDetail
