@@ -409,7 +409,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         </div>
 
         <div className="overflow-x-auto">
-          <table className="min-w-[1200px] w-full text-[13px]">
+          <table className="min-w-[1560px] w-full text-[13px]">
             <thead>
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[45px] whitespace-nowrap">No</th>
