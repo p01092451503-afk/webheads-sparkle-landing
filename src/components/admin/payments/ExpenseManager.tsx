@@ -26,6 +26,8 @@ interface Expense {
   year: number;
   month: number;
   amount: number;
+  supply_amount: number;
+  tax_amount: number;
   description: string | null;
   is_paid: boolean;
   paid_date: string | null;
