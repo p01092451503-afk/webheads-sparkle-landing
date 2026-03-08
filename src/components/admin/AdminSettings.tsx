@@ -128,6 +128,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
         if (row.key === "company_info") setCompanyInfo(row.value as any);
         if (row.key === "auto_response_templates") setAutoResponse(row.value as any);
         if (row.key === "admin_menu_permissions") setMenuPermissions((row.value as any) || {});
+        if (row.key === "slack_notifications") setSlackSettings(prev => ({ ...prev, ...(row.value as any) }));
       }
     }
   }, []);
