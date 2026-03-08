@@ -149,6 +149,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormCategoryId(exp.category_id || "");
     setFormClientId(exp.client_id || "none");
     setFormVendorId(exp.vendor_id || "none");
+    setFormVendorName(exp.vendor_name || "");
     setFormTotalAmount(exp.amount ? exp.amount.toLocaleString("ko-KR") : "");
     setFormDescription(exp.description || "");
     setFormMemo(exp.memo || "");
