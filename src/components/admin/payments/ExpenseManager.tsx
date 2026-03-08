@@ -57,6 +57,8 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 
 export default function ExpenseManager({ clients: externalClients, isSuperAdmin, logActivity }: Props) {
   const [internalClients, setInternalClients] = useState<Client[]>([]);
+  const [vendors, setVendors] = useState<Vendor[]>([]);
+  const [newVendorName, setNewVendorName] = useState("");
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
   const [viewYear, setViewYear] = useState(now.getFullYear());
   const [viewMonth, setViewMonth] = useState(now.getMonth() + 1);
