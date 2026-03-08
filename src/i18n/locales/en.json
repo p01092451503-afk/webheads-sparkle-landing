@@ -832,6 +832,7 @@
       { "doc": "Settlement Bank Account Copy", "detail": "Copy of the corporate (or individual business) bank account for receiving PG settlements. The account name must match the registered business name." },
       { "doc": "Service URL & Terms of Service", "detail": "Your live service URL must have published Terms of Service, Privacy Policy, and Refund Policy pages. The PG review team will verify your actual service." }
     ],
+    "pgGuideDocsCTA": "Is document preparation a hassle? WEBHEADS provides one-stop support from merchant registration to integration.",
     "domesticPgSection": {
       "sub": "DOMESTIC PG PROVIDERS",
       "title": "Korea's Top 4\nPayment Systems for E-Learning",
