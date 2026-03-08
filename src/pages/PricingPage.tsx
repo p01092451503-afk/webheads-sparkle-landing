@@ -174,13 +174,13 @@ export default function PricingPage() {
   const lang = i18n.language?.startsWith("en") ? "en" : i18n.language?.startsWith("ja") ? "ja" : "ko";
   const plans = t("lms.plans", { returnObjects: true }) as any[];
 
-  const PRICES = lang === "en" ? PRICES_EN : PRICES_KO;
-  const PRICE_SUB = lang === "en" ? PRICE_SUB_EN : PRICE_SUB_KO;
-  const MAIN_SPECS = lang === "en" ? MAIN_SPECS_EN : MAIN_SPECS_KO;
-  const ADDITIONAL_SPECS = lang === "en" ? ADDITIONAL_SPECS_EN : ADDITIONAL_SPECS_KO;
-  const SPECIAL_FEATURES = lang === "en" ? SPECIAL_FEATURES_EN : SPECIAL_FEATURES_KO;
-  const INFRA_SPECS = lang === "en" ? INFRA_SPECS_EN : INFRA_SPECS_KO;
-  const OVERAGE_SPECS = lang === "en" ? OVERAGE_SPECS_EN : OVERAGE_SPECS_KO;
+  const PRICES = lang === "en" ? PRICES_EN : lang === "ja" ? PRICES_JA : PRICES_KO;
+  const PRICE_SUB = lang === "en" ? PRICE_SUB_EN : lang === "ja" ? PRICE_SUB_JA : PRICE_SUB_KO;
+  const MAIN_SPECS = lang === "en" ? MAIN_SPECS_EN : lang === "ja" ? MAIN_SPECS_JA : MAIN_SPECS_KO;
+  const ADDITIONAL_SPECS = lang === "en" ? ADDITIONAL_SPECS_EN : lang === "ja" ? ADDITIONAL_SPECS_JA : ADDITIONAL_SPECS_KO;
+  const SPECIAL_FEATURES = lang === "en" ? SPECIAL_FEATURES_EN : lang === "ja" ? SPECIAL_FEATURES_JA : SPECIAL_FEATURES_KO;
+  const INFRA_SPECS = lang === "en" ? INFRA_SPECS_EN : lang === "ja" ? INFRA_SPECS_JA : INFRA_SPECS_KO;
+  const OVERAGE_SPECS = lang === "en" ? OVERAGE_SPECS_EN : lang === "ja" ? OVERAGE_SPECS_JA : OVERAGE_SPECS_KO;
 
   const sectionTitles = lang === "en"
     ? { monthly: "Monthly Fee", basic: "Base Specs", recommend: "Recommended For", additional: "Additional Features", special: "Special Features", infra: "Infrastructure & Security", overage: "Overage Charges", item: "Item" }
