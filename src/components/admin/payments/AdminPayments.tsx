@@ -158,6 +158,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
   const subTabs = [
     { key: "dashboard" as SubView, label: "대시보드" },
     { key: "clients" as SubView, label: "고객사 관리" },
+    { key: "calendar" as SubView, label: "캘린더" },
   ];
 
   return (
