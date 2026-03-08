@@ -25,18 +25,25 @@ const PLANS: Omit<PlanRecommendation, "isMatch" | "totalMonthly" | "overageCdn" 
   { name: "Premium", monthly: 1000000, cdnIncluded: 2000, storageIncluded: 250, cdnOverage: 300, storageOverage: 500, solutionType: "임대형 · SaaS | 단독서버" },
 ];
 
-// Pricing page reference: 500GB ÷ 1,700 views of 30-min lecture ≈ 0.294GB/view
-// → 0.588GB per hour per learner
-const CDN_GB_PER_HOUR_PER_LEARNER = 0.588;
-// Pricing page reference: 100GB ÷ 332 lectures (30-min) ≈ 0.301GB per 30-min
-// → 0.602GB per hour of video content
+// ── Pricing-page-aligned constants ──
+// 500GB ÷ 1,700 views of 30-min lecture ≈ 0.294GB per 30-min session → 0.588GB/hour
+const GB_PER_HOUR_VIEWED = 0.588;
+// 100GB ÷ 332 lectures (30-min each) ≈ 0.301GB per 30-min → 0.602GB/hour of stored video
 const STORAGE_GB_PER_VIDEO_HOUR = 0.602;
+
+// ── Realistic per-learner monthly viewing model ──
+// Learners don't watch the ENTIRE library every month.
+// Typical corporate/academy learner watches 5–15 hours of assigned curriculum per month.
+// We cap per-learner monthly viewing at the total library size.
+const BASE_MONTHLY_HOURS_PER_LEARNER = 10; // realistic average monthly study hours
 
 function estimateUsage(learners: number, videoHours: number, completionRate: number) {
   const rate = completionRate / 100;
-  // Each learner watches (videoHours × completionRate) hours, each hour ≈ 0.588GB transfer
-  const cdnGB = Math.round(learners * videoHours * rate * CDN_GB_PER_HOUR_PER_LEARNER);
-  // Storage depends only on total uploaded video content
+  // Each learner watches up to BASE hours/month, capped at total library size
+  const hoursPerLearner = Math.min(BASE_MONTHLY_HOURS_PER_LEARNER, videoHours) * rate;
+  // Total monthly CDN transfer = learners × hours watched × GB per hour
+  const cdnGB = Math.round(learners * hoursPerLearner * GB_PER_HOUR_VIEWED);
+  // Storage = total uploaded content (independent of learner count)
   const storageGB = Math.round(videoHours * STORAGE_GB_PER_VIDEO_HOUR);
   return { cdnGB, storageGB };
 }
