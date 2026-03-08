@@ -415,6 +415,7 @@ export type Database = {
           memo: string | null
           month: number
           paid_date: string | null
+          payment_type: string
           updated_at: string | null
           year: number
         }
@@ -427,6 +428,7 @@ export type Database = {
           memo?: string | null
           month: number
           paid_date?: string | null
+          payment_type?: string
           updated_at?: string | null
           year: number
         }
@@ -439,6 +441,7 @@ export type Database = {
           memo?: string | null
           month?: number
           paid_date?: string | null
+          payment_type?: string
           updated_at?: string | null
           year?: number
         }
