@@ -41,6 +41,18 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const [activityLogs, setActivityLogs] = useState<any[]>([]);
   const [logsLoading, setLogsLoading] = useState(false);
 
+  // Menu permissions per admin
+  const [menuPermissions, setMenuPermissions] = useState<Record<string, string[]>>({});
+  const [menuPermSaving, setMenuPermSaving] = useState(false);
+  const [menuPermSaved, setMenuPermSaved] = useState(false);
+
+  const MENU_OPTIONS = [
+    { key: "analytics", label: "분석" },
+    { key: "inquiries", label: "문의" },
+    { key: "payments", label: "입금관리" },
+    { key: "settings", label: "설정" },
+  ];
+
   // Notification settings
   const [notifSettings, setNotifSettings] = useState({
     email_on_new_inquiry: true,
