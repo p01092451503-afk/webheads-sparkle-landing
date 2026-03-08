@@ -347,6 +347,7 @@ export type Database = {
           tax_amount: number
           updated_at: string
           vendor_id: string | null
+          vendor_name: string | null
           year: number
         }
         Insert: {
@@ -365,6 +366,7 @@ export type Database = {
           tax_amount?: number
           updated_at?: string
           vendor_id?: string | null
+          vendor_name?: string | null
           year: number
         }
         Update: {
@@ -383,6 +385,7 @@ export type Database = {
           tax_amount?: number
           updated_at?: string
           vendor_id?: string | null
+          vendor_name?: string | null
           year?: number
         }
         Relationships: [
