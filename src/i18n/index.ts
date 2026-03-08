@@ -9,14 +9,6 @@ const browserLang = navigator.language?.substring(0, 2) || 'ko';
 function resolveLocale(lang: string): string {
   if (lang === 'ko') return 'ko';
   if (lang === 'ja') return 'ja';
-  if (lang === 'zh') {
-    // Check full navigator.language for traditional Chinese regions
-    const fullLang = navigator.language?.toLowerCase() || '';
-    if (fullLang.includes('tw') || fullLang.includes('hk') || fullLang.includes('hant')) {
-      return 'zh-TW';
-    }
-    return 'zh-CN';
-  }
   return 'en';
 }
 
