@@ -1749,6 +1749,18 @@
     "thankDesc": "We'll send your personalized consultation guide shortly. Expect to hear from us within 2 hours.",
     "privacy": "Your email is used solely for sending consultation materials and is managed per our Privacy Policy."
   },
+  "supportPage": {
+    "seoTitle": "Customer Support | WEBHEADS",
+    "seoDesc": "WEBHEADS Customer Support — Request SMS top-up or remote support.",
+    "heroTitle": "WEBHEADS Customer Support",
+    "heroDesc": "Select the service you need",
+    "smsTitle": "SMS Top-up",
+    "smsDesc": "Top up your SMS balance and check usage status",
+    "smsCta": "Top Up",
+    "remoteTitle": "Remote Support",
+    "remoteDesc": "Get quick remote assistance from our support team",
+    "remoteCta": "Request"
+  },
   "costSim": {
     "sub": "COST SIMULATOR",
     "title": "Which plan fits your organization?",
