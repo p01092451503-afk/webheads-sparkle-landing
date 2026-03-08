@@ -171,7 +171,7 @@ const OVERAGE_SPECS_JA: { label: string; unit: string; values: string[] }[] = [
 
 export default function PricingPage() {
   const { t, i18n } = useTranslation();
-  const lang = i18n.language?.startsWith("en") ? "en" : "ko";
+  const lang = i18n.language?.startsWith("en") ? "en" : i18n.language?.startsWith("ja") ? "ja" : "ko";
   const plans = t("lms.plans", { returnObjects: true }) as any[];
 
   const PRICES = lang === "en" ? PRICES_EN : PRICES_KO;
