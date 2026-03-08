@@ -54,6 +54,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   const [editing, setEditing] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState("");
   const [savedCells, setSavedCells] = useState<Set<string>>(new Set());
+  const [expandedClients, setExpandedClients] = useState<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
 
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
