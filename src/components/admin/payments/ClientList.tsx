@@ -130,6 +130,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
             month: currentMonth,
             amount: numAmount,
             is_unpaid: false,
+            payment_type: "hosting",
           });
           if (error) throw error;
         }
