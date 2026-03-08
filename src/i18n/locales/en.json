@@ -1749,7 +1749,7 @@
     "estStorage": "Est. Storage:",
     "estCompletion": "Applied Completion Rate:",
     "dedicatedTitle": "Dedicated Server Recommended",
-    "dedicatedDesc": "With {{count}} monthly active learners, web traffic (page loads, API calls, quizzes, attendance, etc.) is substantial beyond video CDN. We recommend a dedicated server for stable service.",
+    "dedicatedDesc": "With {{num}} monthly active learners, web traffic (page loads, API calls, quizzes, attendance, etc.) is substantial beyond video CDN. We recommend a dedicated server for stable service.",
     "estWebTraffic": "Est. Web Traffic: {{amount}}GB+/month",
     "dedicatedCost": "Dedicated Server: +₩250,000/month",
     "recommended": "Recommended Plan",

@@ -843,7 +843,7 @@
     "estStorage": "予想ストレージ：",
     "estCompletion": "適用完了率：",
     "dedicatedTitle": "専用サーバーを推奨します",
-    "dedicatedDesc": "月間アクティブ受講者{{count}}名規模では、映像CDN以外にもWebトラフィック（ページ読み込み・API呼び出し・クイズ・出席など）が相当量あります。安定したサービスのため専用サーバー構成を推奨します。",
+    "dedicatedDesc": "月間アクティブ受講者{{num}}名規模では、映像CDN以外にもWebトラフィック（ページ読み込み・API呼び出し・クイズ・出席など）が相当量あります。安定したサービスのため専用サーバー構成を推奨します。",
     "estWebTraffic": "予想Webトラフィック：月{{amount}}GB以上",
     "dedicatedCost": "専用サーバー追加費用：月250,000ウォン",
     "recommended": "おすすめプラン",
