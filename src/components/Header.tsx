@@ -140,7 +140,7 @@ export default function Header() {
                 return (
                   <span className="relative">
                     <span className="transition-opacity duration-300 group-hover/date:opacity-0">{`${now.getMonth() + 1}/${now.getDate()}`}</span>
-                    <span className="absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover/date:opacity-100 whitespace-nowrap" style={{ fontSize: "0.75em" }}>{days[now.getDay()]}</span>
+                    <span className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/date:opacity-100 whitespace-nowrap">{days[now.getDay()]}</span>
                   </span>
                 );
               })()}</span>
