@@ -74,6 +74,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [catModalOpen, setCatModalOpen] = useState(false);
   const [newCatName, setNewCatName] = useState("");
   const [catFilter, setCatFilter] = useState<string>("all");
+  const [showStats, setShowStats] = useState(false);
+  const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
