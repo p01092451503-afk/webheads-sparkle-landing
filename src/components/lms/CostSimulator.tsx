@@ -105,8 +105,8 @@ export default function CostSimulator() {
     return null;
   }, [bestPlan, recommendations, needsCdn]);
 
-  const [avgTuition, setAvgTuition] = useState(60000);
-  const monthlyRevenue = learners * avgTuition;
+
+
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
   const currency = (amount: string) => {
@@ -406,53 +406,7 @@ export default function CostSimulator() {
                       </>
                     );
                   })()}
-                  {/* Revenue */}
-                  <div className="rounded-xl p-3.5 mb-4" style={{ background: "hsla(0, 0%, 100%, 0.12)" }}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-white/70">{t("costSim.revenueLabel")}
-                        <input
-                          type="number"
-                          value={avgTuition}
-                          onChange={(e) => {
-                            const v = Math.min(1000000, Math.max(0, Number(e.target.value) || 0));
-                            setAvgTuition(v);
-                          }}
-                          className="w-20 mx-1 text-center text-xs font-bold tabular-nums bg-white/20 rounded px-1.5 py-0.5 text-white border-none outline-none focus:bg-white/30"
-                          min={0}
-                          max={1000000}
-                          step={10000}
-                        />{t("costSim.revenueUnit")}
-                      </span>
-                    </div>
-                    <div className="flex items-end gap-2">
-                      <span className="font-extrabold text-white text-2xl tabular-nums">{currency(formatPrice(monthlyRevenue))}</span>
-                    </div>
-                    {(() => {
-                      const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
-                      return (
-                        <>
-                          <div className="mt-2 pt-2 border-t border-white/15 flex items-center justify-between text-xs">
-                            <span className="text-white/60">{t("costSim.netProfit")}</span>
-                            <span className="font-bold text-white tabular-nums">{currency(formatPrice(monthlyRevenue - displayMonthly))}</span>
-                          </div>
-                          <div className="flex items-center justify-between text-xs mt-1">
-                            <span className="text-white/60">ROI</span>
-                            <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
-                              {displayMonthly > 0 ? `${Math.round(((monthlyRevenue - displayMonthly) / displayMonthly) * 100)}%` : "∞"}
-                            </span>
-                          </div>
-                          {isAnnual && (
-                            <div className="flex items-center justify-between text-xs mt-1">
-                              <span className="text-white/60">{t("costSim.annualSavings")}</span>
-                              <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
-                                {currency(formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT * 12)))}
-                              </span>
-                            </div>
-                          )}
-                        </>
-                      );
-                    })()}
-                  </div>
+
 
                   {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
                     <div className="flex flex-wrap gap-2 mb-4">
