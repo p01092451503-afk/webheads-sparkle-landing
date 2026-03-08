@@ -460,6 +460,7 @@ export default function CostSimulator() {
                         </>
                       );
                     })()}
+                  </div>
 
                   {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
                     <div className="flex flex-wrap gap-2 mb-4">
