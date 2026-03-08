@@ -139,6 +139,15 @@ const INFRA_SPECS_EN: SpecRow[] = [
   { label: "Analytics Page", values: ["✓", "✓", "✓", "✓"] },
 ];
 
+const INFRA_SPECS_JA: SpecRow[] = [
+  { label: "開発ドメイン", values: ["1つ提供", "1つ提供", "1つ提供", "1つ提供"] },
+  {
+    label: "セキュリティ",
+    values: ["基本セキュリティ、SSL", "基本セキュリティ、WAF & Shield、Firewallなど", "基本セキュリティ、WAF & Shield、Firewallなど", "別途お問い合わせ"],
+  },
+  { label: "統計ページ", values: ["✓", "✓", "✓", "✓"] },
+];
+
 const OVERAGE_SPECS_KO: { label: string; unit: string; values: string[] }[] = [
   { label: "전송량", unit: "1GB당", values: ["—", "500원", "400원", "300원"] },
   { label: "저장공간", unit: "1GB당", values: ["—", "1,000원", "800원", "500원"] },
