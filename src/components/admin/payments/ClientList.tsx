@@ -35,6 +35,7 @@ interface Props {
   onEditClient: (client: Client) => void;
   onAddClient: () => void;
   onRefresh: () => void;
+  defaultFilter?: FilterType;
 }
 
 const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
@@ -43,9 +44,9 @@ type FilterType = "all" | "paid" | "unpaid" | "managed";
 type SortType = "unpaid" | "date" | "name";
 type EditingCell = { clientId: string; field: "amount" | "paid_date" } | null;
 
-export default function ClientList({ clients, payments, onNavigate, onAddPayment, onEditClient, onAddClient, onRefresh }: Props) {
+export default function ClientList({ clients, payments, onNavigate, onAddPayment, onEditClient, onAddClient, onRefresh, defaultFilter }: Props) {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<FilterType>("all");
+  const [filter, setFilter] = useState<FilterType>(defaultFilter || "all");
   const [sort, setSort] = useState<SortType>("name");
   const [editing, setEditing] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState("");
