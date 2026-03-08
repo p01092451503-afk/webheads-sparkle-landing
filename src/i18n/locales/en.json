@@ -971,7 +971,10 @@
     "testimonials": [
       { "name": "M. Song", "role": "HRD Manager", "org": "P Enterprise", "rating": 4, "date": "2024.10", "period": "4th year", "content": "The video quality is clearly different. Employees keep asking if these are external training videos." },
       { "name": "J. Yoon", "role": "Instructional Designer", "org": "Q Public Education", "rating": 5, "date": "2024.12", "period": "7th year", "content": "After adding interactive content, learner engagement changed dramatically. Branching scenarios are especially effective." },
-      { "name": "D. Kang", "role": "Education Team", "org": "R Medical Institution", "rating": 3, "date": "2025.02", "period": "2nd year", "content": "Medical procedures are hard to explain in text, but 3D animation makes them much easier to understand." }
+      { "name": "D. Kang", "role": "Education Team", "org": "R Medical Institution", "rating": 3, "date": "2025.02", "period": "2nd year", "content": "Medical procedures are hard to explain in text, but 3D animation makes them much easier to understand." },
+      { "name": "J. Park", "role": "Talent Development", "org": "AV Financial Group", "rating": 5, "date": "2024.11", "period": "6th year", "content": "Mandatory training content auto-updates whenever regulations change. We only need to manage the training schedule." },
+      { "name": "N. Kim", "role": "Content Planner", "org": "AW EdTech", "rating": 4, "date": "2025.01", "period": "3rd year", "content": "We added AI narration in 8 languages — quality is nearly indistinguishable from professional voice actors. Saved 70% on costs." },
+      { "name": "S. Lee", "role": "Education Operations", "org": "AX Public Academy", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "Just send PPT materials and they transform them into interactive content. Production burden is way down, and QA is thorough." }
     ]
   },
   "landing": {
