@@ -785,7 +785,10 @@
     "testimonials": [
       { "name": "S. Baek", "role": "Education Operations Manager", "org": "J Vocational Training", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "Setting up auto-SMS for non-completers noticeably increased our completion rates." },
       { "name": "N. Kwon", "role": "CS Team Lead", "org": "K Cyber University", "rating": 5, "date": "2025.01", "period": "8th year", "content": "After Channel Talk integration, our agents can see learner enrollment status instantly. Support time was cut by more than half." },
-      { "name": "J. Yoo", "role": "Marketing Lead", "org": "L e-Learning Company", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "Switching to KakaoTalk alerts significantly reduced messaging costs, and click-through rates are much higher than SMS." }
+      { "name": "J. Yoo", "role": "Marketing Lead", "org": "L e-Learning Company", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "Switching to KakaoTalk alerts significantly reduced messaging costs, and click-through rates are much higher than SMS." },
+      { "name": "D. Jung", "role": "Education Ops Manager", "org": "AP Continuing Education", "rating": 5, "date": "2025.02", "period": "4th year", "content": "Auto-nudge messages to non-completers boosted completion rates by over 25%. Manual follow-ups feel like ancient history." },
+      { "name": "H. Oh", "role": "IT Team Lead", "org": "AQ Corporate Academy", "rating": 4, "date": "2024.11", "period": "3rd year", "content": "With learner progress visible right in Channel Talk, agents no longer need to ask 'How far did you get in the course?'" },
+      { "name": "Y. Han", "role": "CRM Manager", "org": "AR Online Education", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "A/B testing send times pushed our open rate above 40%. Love being able to operate on data." }
     ],
     "processSection": { "sub": "PROCESS", "title": "How Channel/SMS\nIntegration Works", "desc": "From LMS integration to automation setup, our dedicated engineers support every step." },
     "processSteps": [
