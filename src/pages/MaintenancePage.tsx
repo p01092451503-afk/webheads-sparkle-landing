@@ -35,6 +35,7 @@ export default function MaintenancePage() {
     <div className="min-h-screen bg-background">
       <SEO title={t("maintenance.seo.title")} description={t("maintenance.seo.description")} keywords={t("maintenance.seo.keywords")} path="/maintenance" breadcrumb={[{ name: t("maintenance.seo.title"), url: `${BASE_URL}/maintenance` }]} jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("maintenance.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("maintenance.seo.description"), "areaServed": "KR", "serviceType": t("maintenance.seo.title"), "url": `${BASE_URL}/maintenance`, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "300", "bestRating": "5", "worstRating": "1" } }} faqJsonLd={faqs} />
 
+      {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">
         <HeroPatternBg theme="blue-purple" />
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center">
@@ -48,7 +49,7 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats - W */}
       <section className="py-[4.8rem] bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
@@ -57,7 +58,7 @@ export default function MaintenancePage() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features - G */}
       <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -66,18 +67,24 @@ export default function MaintenancePage() {
             <p className="text-muted-foreground mt-4 text-base">{t("maintenance.featuresSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-background hover:bg-muted transition-colors duration-200 flex flex-col gap-3"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-secondary shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
+            {features.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-background hover:bg-muted transition-colors duration-200 flex flex-col gap-3 border border-border hover:shadow-md"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-secondary shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
           </div>
         </div>
       </section>
 
+      {/* BeforeAfter - W */}
       <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("maintenance.beforeAfterSection.sub")} heading={t("maintenance.beforeAfterSection.heading")} description={t("maintenance.beforeAfterSection.desc")} />
-      <ServiceMidCTA heading={t("maintenance.midCTA.heading")} description={t("maintenance.midCTA.description")} />
-      <ServiceExtraFeatures bg="bg-secondary" features={devFeatures} subheading={t("maintenance.extraSection.sub")} heading={t("maintenance.extraSection.heading")} description={t("maintenance.extraSection.desc")} />
-      <ServiceProcess bg="bg-background" steps={processSteps} subheading={t("maintenance.processSection.sub")} heading={t("maintenance.processSection.heading")} description={t("maintenance.processSection.desc")} />
-      <ServiceComparison bg="bg-secondary" headers={comparisonHeaders} rows={comparisonRows} subheading={t("maintenance.comparisonSection.sub")} heading={t("maintenance.comparisonSection.heading")} description={t("maintenance.comparisonSection.desc")} />
 
-      {/* Plans */}
+      {/* MidCTA - Blue */}
+      <ServiceMidCTA heading={t("maintenance.midCTA.heading")} description={t("maintenance.midCTA.description")} />
+
+      {/* ExtraFeatures - G */}
+      <ServiceExtraFeatures bg="bg-secondary" features={devFeatures} subheading={t("maintenance.extraSection.sub")} heading={t("maintenance.extraSection.heading")} description={t("maintenance.extraSection.desc")} />
+
+      {/* Comparison - W */}
+      <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("maintenance.comparisonSection.sub")} heading={t("maintenance.comparisonSection.heading")} description={t("maintenance.comparisonSection.desc")} />
+
+      {/* Plans - Gradient */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -94,9 +101,19 @@ export default function MaintenancePage() {
         </div>
       </section>
 
+      {/* CaseStudy - W */}
       <ServiceCaseStudy bg="bg-background" cases={caseStudies} subheading={t("maintenance.caseStudySection.sub")} heading={t("maintenance.caseStudySection.heading")} description={t("maintenance.caseStudySection.desc")} />
-      <TestimonialSection bg="bg-secondary" testimonials={testimonials} />
-      <ServiceFAQ bg="bg-background" faqs={faqs} serviceName="유지보수 서비스" />
+
+      {/* Process - G */}
+      <ServiceProcess bg="bg-secondary" steps={processSteps} subheading={t("maintenance.processSection.sub")} heading={t("maintenance.processSection.heading")} description={t("maintenance.processSection.desc")} />
+
+      {/* Testimonials - W */}
+      <TestimonialSection bg="bg-background" testimonials={testimonials} />
+
+      {/* FAQ - G */}
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName="유지보수 서비스" />
+
+      {/* Contact - W */}
       <ContactSection />
     </div>
   );

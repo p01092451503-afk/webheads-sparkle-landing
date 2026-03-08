@@ -52,7 +52,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats - W */}
       <section className="py-[4.8rem] bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
@@ -61,7 +61,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      {/* LMS Features */}
+      {/* LMS Features - G */}
       <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -70,12 +70,15 @@ export default function AppDevPage() {
             <p className="text-muted-foreground mt-4 text-base">{t("appdev.lmsFeaturesSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {lmsFeatures.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
+            {lmsFeatures.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-background hover:bg-muted transition-colors duration-200 flex flex-col gap-3 border border-border hover:shadow-md"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-secondary shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
           </div>
         </div>
       </section>
 
+      {/* BeforeAfter - W */}
       <ServiceBeforeAfter bg="bg-background" items={beforeAfter} subheading={t("appdev.beforeAfterSection.sub")} heading={t("appdev.beforeAfterSection.heading")} description={t("appdev.beforeAfterSection.desc")} />
+
+      {/* MidCTA - Blue */}
       <ServiceMidCTA heading={t("appdev.midCTA.heading")} description={t("appdev.midCTA.description")} ctaText={t("appdev.midCTA.ctaText")} />
 
       {/* Other Apps */}
@@ -92,7 +95,7 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      {/* Dev Stack */}
+      {/* Dev Stack - W */}
       <section className="py-24 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-12">
@@ -105,12 +108,16 @@ export default function AppDevPage() {
         </div>
       </section>
 
+      {/* AppType Comparison - G */}
       <AppTypeComparisonSection />
-      <StoreSubmissionSection />
-      <ServiceProcess bg="bg-secondary" steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
-      <ServiceComparison bg="bg-background" headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
 
-      {/* Plans */}
+      {/* Store Submission - W */}
+      <StoreSubmissionSection />
+
+      {/* Comparison - G */}
+      <ServiceComparison bg="bg-secondary" headers={comparisonHeaders} rows={comparisonRows} subheading={t("appdev.comparisonSection.sub")} heading={t("appdev.comparisonSection.heading")} description={t("appdev.comparisonSection.desc")} />
+
+      {/* Plans - Gradient */}
       <section id="plans" className="py-28" style={{ background: "var(--plans-bg)" }}>
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -128,9 +135,19 @@ export default function AppDevPage() {
         </div>
       </section>
 
-      <ServiceCaseStudy bg="bg-secondary" cases={caseStudies} subheading={t("appdev.caseStudySection.sub")} heading={t("appdev.caseStudySection.heading")} description={t("appdev.caseStudySection.desc")} />
+      {/* CaseStudy - W */}
+      <ServiceCaseStudy bg="bg-background" cases={caseStudies} subheading={t("appdev.caseStudySection.sub")} heading={t("appdev.caseStudySection.heading")} description={t("appdev.caseStudySection.desc")} />
+
+      {/* Process - G */}
+      <ServiceProcess bg="bg-secondary" steps={processSteps} subheading={t("appdev.processSection.sub")} heading={t("appdev.processSection.heading")} description={t("appdev.processSection.desc")} />
+
+      {/* Testimonials - W */}
       <TestimonialSection bg="bg-background" testimonials={testimonials} />
+
+      {/* FAQ - G */}
       <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("appdev.seo.title")} />
+
+      {/* Contact - W */}
       <ContactSection />
     </div>
   );
