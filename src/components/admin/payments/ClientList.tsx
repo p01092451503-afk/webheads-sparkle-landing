@@ -215,7 +215,13 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
     }
     setEditing({ clientId, field, paymentType });
-    setTimeout(() => inputRef.current?.focus(), 50);
+  };
+
+  useEffect(() => {
+    if (editing) {
+      setTimeout(() => inputRef.current?.focus(), 30);
+    }
+  }, [editing]);
   };
 
   const commitEdit = () => {
