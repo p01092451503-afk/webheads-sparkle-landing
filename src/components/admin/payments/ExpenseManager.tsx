@@ -252,6 +252,30 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     }
   };
 
+  const addVendor = async () => {
+    if (!newVendorName.trim()) return;
+    try {
+      const { error } = await supabase.from("vendors" as any).insert({ name: newVendorName.trim() } as any);
+      if (error) throw error;
+      setNewVendorName("");
+      fetchData();
+      toast.success("협력사가 추가되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "추가 실패");
+    }
+  };
+
+  const deleteVendor = async (id: string) => {
+    try {
+      const { error } = await supabase.from("vendors" as any).delete().eq("id", id);
+      if (error) throw error;
+      fetchData();
+      toast.success("협력사가 삭제되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "삭제 실패");
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Header */}
