@@ -39,7 +39,7 @@ export default function CostSimulator() {
   const { t } = useTranslation();
   const [learners, setLearners] = useState(200);
   const [videoHours, setVideoHours] = useState(30);
-  const [completionRate, setCompletionRate] = useState(70);
+  const [monthlyViewHours, setMonthlyViewHours] = useState(5);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const SECURE_PLAYER_COST = 300000;
