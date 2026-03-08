@@ -32,6 +32,7 @@ interface Expense {
   is_paid: boolean;
   paid_date: string | null;
   memo: string | null;
+  invoice_issued: boolean;
 }
 
 interface Client {
