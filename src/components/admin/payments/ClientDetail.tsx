@@ -16,6 +16,7 @@ interface Props {
   onEditPayment: (payment: Payment) => void;
   onDeletePayment: (paymentId: string) => void;
   onEditClient: () => void;
+  onToggleUnpaid: (payment: Payment) => void;
 }
 
 const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
