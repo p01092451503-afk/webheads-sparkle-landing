@@ -25,7 +25,7 @@ const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string 
 
 export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb, ogImage }: SEOProps) {
   const { i18n } = useTranslation();
-  const lang = i18n.language?.substring(0, 2) || "ko";
+  const lang = i18n.language || "ko";
   const locale = LOCALE_MAP[lang] || LOCALE_MAP.ko;
 
   const fullTitle = `${title} | ${locale.suffix}`;
