@@ -404,15 +404,15 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-[13px]">
+          <table className="min-w-[1200px] w-full text-[13px]">
             <thead>
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[50px]">No</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">고객사명</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[80px]">예상납부일</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[100px]">입금일 ✎</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">비고</th>
-                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[100px]">미납금</th>
+                <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[45px] whitespace-nowrap">No</th>
+                <th className="text-left px-3 py-3 font-semibold text-muted-foreground min-w-[120px] whitespace-nowrap">고객사명</th>
+                <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[75px] whitespace-nowrap">예상납부일</th>
+                <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[90px] whitespace-nowrap">입금일 ✎</th>
+                <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[60px] whitespace-nowrap">비고</th>
+                <th className="text-right px-3 py-3 font-semibold text-muted-foreground w-[100px] whitespace-nowrap">미납금</th>
 
                 {/* Dynamic payment type columns */}
                 {visibleTypes.map((typeValue) => {
@@ -473,8 +473,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
                 return (
                   <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
-                    <td className="px-4 py-3 text-muted-foreground">{c.client_no}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
+                    <td className="px-3 py-3 whitespace-nowrap">
                       <button
                         onClick={() => onNavigate("detail", c.id)}
                         className="font-medium text-[hsl(221,83%,53%)] hover:underline"
@@ -482,7 +482,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                         {c.name}
                       </button>
                     </td>
-                    <td className="px-4 py-3 text-muted-foreground">{c.expected_payment_day || "-"}</td>
+                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.expected_payment_day || "-"}</td>
 
                     {/* Editable: 입금일 (hosting) */}
                     <td className="px-2 py-1.5">
@@ -509,8 +509,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       </div>
                     </td>
 
-                    <td className="px-4 py-3 text-muted-foreground">{c.notes || "-"}</td>
-                    <td className={`px-4 py-3 text-right font-medium ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
+                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.notes || "-"}</td>
+                    <td className={`px-3 py-3 text-right font-medium whitespace-nowrap ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
                       {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
                     </td>
 
