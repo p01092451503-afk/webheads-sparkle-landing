@@ -390,7 +390,10 @@
     "testimonials": [
       { "name": "J. Kim", "role": "Education Operations Lead", "org": "M Cyber University", "rating": 5, "date": "2024.11", "period": "3rd year", "content": "Honestly, I wasn't sure how much a chatbot could do, but within 2 weeks it was handling almost all repetitive questions." },
       { "name": "D. Lee", "role": "Platform Manager", "org": "N Corporate Training Center", "rating": 4, "date": "2025.01", "period": "5th year", "content": "Many learners ask questions at night or on weekends. The chatbot's instant responses have noticeably improved completion rates." },
-      { "name": "S. Oh", "role": "CS Leader", "org": "O Education Company", "rating": 3, "date": "2024.09", "period": "2nd year", "content": "With chatbots on both KakaoTalk and the website, learners can ask questions wherever they're comfortable." }
+      { "name": "S. Oh", "role": "CS Leader", "org": "O Education Company", "rating": 3, "date": "2024.09", "period": "2nd year", "content": "With chatbots on both KakaoTalk and the website, learners can ask questions wherever they're comfortable." },
+      { "name": "M. Hwang", "role": "LMS Operations", "org": "AG Vocational Training", "rating": 5, "date": "2025.02", "period": "4th year", "content": "We trained 200 FAQs and accuracy exceeds 95%. Phone inquiries to the ops team dropped by more than half." },
+      { "name": "S. Park", "role": "Academic Dean", "org": "AH Cyber University", "rating": 4, "date": "2024.10", "period": "3rd year", "content": "English and Chinese learners can ask questions in their own language and get instant answers. Multi-language support is a huge differentiator." },
+      { "name": "S. Noh", "role": "IT Planning", "org": "AI Public Education", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "Unanswered questions are collected and shown to us, so we can continuously improve the FAQ. The bot keeps getting smarter." }
     ]
   },
   "appdev": {
