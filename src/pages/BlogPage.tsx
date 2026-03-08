@@ -107,7 +107,7 @@ export default function BlogPage() {
     setExpandedId(null);
   };
 
-  const catConfig = lang === "en" ? categoryConfigEn : categoryConfigKo;
+  const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
   const allCategories: (Category | "all")[] = ["all", "guide", "trend", "tip"];
 
   const jsonLd = {
