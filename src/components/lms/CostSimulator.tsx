@@ -268,7 +268,7 @@ export default function CostSimulator() {
                     <div>
                       <p className="text-sm font-bold text-foreground mb-1">단독서버를 권장합니다</p>
                       <p className="text-[11px] text-muted-foreground leading-relaxed">
-                        월 활성 수강생 <span className="font-semibold text-foreground">{learners.toLocaleString()}명</span> 규모에서는 영상 CDN 외에도 웹 트래픽(페이지 로딩·API 호출·퀴즈·출결 등)이 상당합니다. 안정적인 서비스를 위해 월 활성 수강생 <span className="font-semibold text-foreground">{learners.toLocaleString()}명</span> 규모에서는 영상 CDN 외에도 웹 트래픽(페이지 로딩·API 호출·퀴즈·출결 등)이 상당합니다. 안정적인 서비스를 위해 공용서버 대신 <span className="font-semibold text-foreground">단독서버 구성</span>을 권장드립니다. <span className="font-semibold text-foreground">단독서버 구성</span>을 권장드립니다.
+                        월 활성 수강생 <span className="font-semibold text-foreground">{learners.toLocaleString()}명</span> 규모에서는 영상 CDN 외에도 웹 트래픽(페이지 로딩·API 호출·퀴즈·출결 등)이 상당합니다. 안정적인 서비스를 위해 공용서버 대신 <span className="font-semibold text-foreground">단독서버 구성</span>을 권장드립니다.
                       </p>
                       <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-muted-foreground">
                         <span className="flex items-center gap-1.5">
