@@ -132,17 +132,10 @@ export default function Header() {
               style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic" }}
             >
               {t("header.logo")}<span
-                className="inline-block relative group/date"
                 style={{ color: "#6B7280" }}
               >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-                const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-                return (
-                  <span className="relative">
-                    <span className="transition-opacity duration-300 group-hover/date:opacity-0">{`${now.getMonth() + 1}/${now.getDate()}`}</span>
-                    <span className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/date:opacity-100 whitespace-nowrap">{days[now.getDay()]}</span>
-                  </span>
-                );
+                return `${now.getMonth() + 1}/${now.getDate()}`;
               })()}</span>
             </Link>
 
