@@ -119,6 +119,15 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   useEffect(() => { fetchData(); }, [fetchData]);
 
+  // Fetch all expenses for statistics
+  useEffect(() => {
+    if (!showStats) return;
+    (async () => {
+      const { data } = await supabase.from("expenses" as any).select("*").order("year", { ascending: false });
+      if (data) setAllExpenses(data as any);
+    })();
+  }, [showStats]);
+
   const clients = externalClients || internalClients;
 
   const filtered = useMemo(() => {
