@@ -1,8 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { ArrowLeft, Plus, Edit2, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor } from "./paymentTypes";
 
 interface Client {
   id: string;
@@ -22,6 +24,7 @@ interface Payment {
   paid_date: string | null;
   is_unpaid: boolean;
   memo: string | null;
+  payment_type: string;
 }
 
 interface Props {
@@ -37,6 +40,8 @@ interface Props {
 const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 
 export default function ClientDetail({ client, payments, onBack, onAddPayment, onEditPayment, onDeletePayment, onEditClient }: Props) {
+  const [typeFilter, setTypeFilter] = useState<string>("all");
+
   const clientPayments = useMemo(
     () => payments
       .filter((p) => p.client_id === client.id)
@@ -44,12 +49,27 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
     [payments, client.id]
   );
 
+  const filteredPayments = useMemo(
+    () => typeFilter === "all" ? clientPayments : clientPayments.filter((p) => p.payment_type === typeFilter),
+    [clientPayments, typeFilter]
+  );
+
   const unpaidTotal = useMemo(
     () => clientPayments.filter((p) => p.is_unpaid).reduce((s, p) => s + (p.amount || 0), 0),
     [clientPayments]
   );
 
-  // Chart: last 12 months
+  // Unpaid by type
+  const unpaidByType = useMemo(() => {
+    const map = new Map<string, number>();
+    clientPayments.filter((p) => p.is_unpaid).forEach((p) => {
+      const t = p.payment_type || "hosting";
+      map.set(t, (map.get(t) || 0) + (p.amount || 0));
+    });
+    return map;
+  }, [clientPayments]);
+
+  // Chart: last 12 months (hosting only for chart clarity)
   const chartData = useMemo(() => {
     const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
     const data: { month: string; amount: number }[] = [];
@@ -57,10 +77,18 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
       let m = now.getMonth() + 1 - i;
       let y = now.getFullYear();
       if (m <= 0) { m += 12; y -= 1; }
-      const p = clientPayments.find((p) => p.year === y && p.month === m && !p.is_unpaid);
-      data.push({ month: `${m}월`, amount: p?.amount || 0 });
+      const total = clientPayments
+        .filter((p) => p.year === y && p.month === m && !p.is_unpaid)
+        .reduce((s, p) => s + (p.amount || 0), 0);
+      data.push({ month: `${m}월`, amount: total });
     }
     return data;
+  }, [clientPayments]);
+
+  // Unique payment types used by this client
+  const usedTypes = useMemo(() => {
+    const types = new Set(clientPayments.map((p) => p.payment_type || "hosting"));
+    return Array.from(types);
   }, [clientPayments]);
 
   return (
@@ -90,17 +118,29 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
         </div>
       </div>
 
-      {/* Summary + Chart */}
-      <div className="grid lg:grid-cols-2 gap-6">
+      {/* Summary Cards */}
+      <div className="grid lg:grid-cols-3 gap-4">
         <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
-          <h3 className="text-[14px] font-semibold mb-2">미납 현황</h3>
+          <h3 className="text-[14px] font-semibold mb-2">총 미납 현황</h3>
           <p className={`text-2xl font-bold ${unpaidTotal > 0 ? "text-red-600" : "text-emerald-600"}`}>
             {unpaidTotal > 0 ? formatWon(unpaidTotal) : "미납 없음"}
           </p>
-          <p className="text-[12px] text-muted-foreground mt-1">총 {clientPayments.length}건의 기록</p>
+          {unpaidByType.size > 0 && (
+            <div className="mt-3 space-y-1.5">
+              {Array.from(unpaidByType.entries()).map(([type, amount]) => (
+                <div key={type} className="flex items-center justify-between text-[12px]">
+                  <Badge className={`${getPaymentTypeColor(type)} hover:opacity-90 text-[10px]`}>{getPaymentTypeLabel(type)}</Badge>
+                  <span className="text-red-600 font-medium">{formatWon(amount)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <p className="text-[12px] text-muted-foreground mt-2">총 {clientPayments.length}건의 기록</p>
         </div>
-        <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
-          <h3 className="text-[14px] font-semibold mb-3">월별 입금 추이 (12개월)</h3>
+
+        {/* Chart */}
+        <div className="lg:col-span-2 bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
+          <h3 className="text-[14px] font-semibold mb-3">월별 입금 추이 (12개월, 전체 항목)</h3>
           <div className="h-[160px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={chartData}>
@@ -117,8 +157,19 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
 
       {/* Payment History */}
       <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
-        <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)]">
+        <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)] flex items-center justify-between">
           <h3 className="text-[14px] font-semibold">입금 내역</h3>
+          <Select value={typeFilter} onValueChange={setTypeFilter}>
+            <SelectTrigger className="w-[130px] h-8 text-[12px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all" className="text-[12px]">전체 항목</SelectItem>
+              {PAYMENT_TYPES.map((t) => (
+                <SelectItem key={t.value} value={t.value} className="text-[12px]">{t.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-[13px]">
@@ -126,6 +177,7 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">연도</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">월</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground">항목</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">금액</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">입금일</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">메모</th>
@@ -134,10 +186,15 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
               </tr>
             </thead>
             <tbody>
-              {clientPayments.map((p) => (
+              {filteredPayments.map((p) => (
                 <tr key={p.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)]">
                   <td className="px-4 py-3">{p.year}</td>
                   <td className="px-4 py-3">{p.month}월</td>
+                  <td className="px-4 py-3">
+                    <Badge className={`${getPaymentTypeColor(p.payment_type || "hosting")} hover:opacity-90 text-[10px]`}>
+                      {getPaymentTypeLabel(p.payment_type || "hosting")}
+                    </Badge>
+                  </td>
                   <td className={`px-4 py-3 text-right font-medium ${p.is_unpaid ? "text-red-600" : ""}`}>
                     {formatWon(p.amount || 0)}
                   </td>
@@ -161,8 +218,8 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
                   </td>
                 </tr>
               ))}
-              {clientPayments.length === 0 && (
-                <tr><td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">입금 내역이 없습니다</td></tr>
+              {filteredPayments.length === 0 && (
+                <tr><td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">입금 내역이 없습니다</td></tr>
               )}
             </tbody>
           </table>
