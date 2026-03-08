@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2 } from "lucide-react";
+import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2, BarChart3, List, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+
+const ExpenseStatistics = lazy(() => import("./ExpenseStatistics"));
 
 interface ExpenseCategory {
   id: string;
@@ -72,6 +74,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [catModalOpen, setCatModalOpen] = useState(false);
   const [newCatName, setNewCatName] = useState("");
   const [catFilter, setCatFilter] = useState<string>("all");
+  const [showStats, setShowStats] = useState(false);
+  const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
@@ -114,6 +118,15 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   }, [viewYear, viewMonth, externalClients]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
+
+  // Fetch all expenses for statistics
+  useEffect(() => {
+    if (!showStats) return;
+    (async () => {
+      const { data } = await supabase.from("expenses" as any).select("*").order("year", { ascending: false });
+      if (data) setAllExpenses(data as any);
+    })();
+  }, [showStats]);
 
   const clients = externalClients || internalClients;
 
@@ -278,6 +291,32 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   return (
     <div className="space-y-4">
+      {/* View Toggle */}
+      <div className="flex gap-1 bg-white rounded-xl p-1 border border-[hsl(220,13%,91%)] w-fit">
+        <button
+          onClick={() => setShowStats(false)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+            !showStats ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+          }`}
+        >
+          <List className="w-3.5 h-3.5" />내역
+        </button>
+        <button
+          onClick={() => setShowStats(true)}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+            showStats ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+          }`}
+        >
+          <BarChart3 className="w-3.5 h-3.5" />통계
+        </button>
+      </div>
+
+      {showStats ? (
+        <Suspense fallback={<div className="flex items-center justify-center py-20"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div>}>
+          <ExpenseStatistics allExpenses={allExpenses} categories={categories} vendors={vendors} />
+        </Suspense>
+      ) : (
+      <>
       {/* Header */}
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
         <div className="flex items-center gap-2">
@@ -576,6 +615,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      </>
+      )}
     </div>
   );
 }
