@@ -229,7 +229,7 @@ export default function CostSimulator() {
                   <span>500GB</span>
                 </div>
                 <p className="text-[10px] text-muted-foreground mt-1">
-                  {t("costSim.storageRef", { count: Math.round(storageInput / 0.3) })}
+                  {t("costSim.storageRef", { num: Math.round(storageInput / 0.3) } as TOptions)}
                 </p>
               </div>
 
