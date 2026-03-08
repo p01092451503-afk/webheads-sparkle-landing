@@ -74,6 +74,14 @@ const ADDITIONAL_SPECS_EN: SpecRow[] = [
   { label: "Admin Accounts", values: ["Unlimited", "Unlimited", "Unlimited", "Unlimited"] },
 ];
 
+const ADDITIONAL_SPECS_JA: SpecRow[] = [
+  { label: "会員数", values: ["無制限", "無制限", "無制限", "無制限"] },
+  { label: "トランスコーディング", values: ["—", "20GB", "20GB", "20GB"] },
+  { label: "担当者", values: ["LMS専任担当者配置", "LMS専任担当者配置", "LMS専任担当者配置", "LMS専任担当者配置"] },
+  { label: "サポート", values: ["定期アップデート", "定期アップデート", "定期アップデート", "定期アップデート、セキュリティレポート"] },
+  { label: "管理者アカウント", values: ["無制限", "無制限", "無制限", "無制限"] },
+];
+
 const SPECIAL_FEATURES_KO = [
   "라이브(ZOOM)",
   "SMS/카카오 알림톡 발송 API 연동",
