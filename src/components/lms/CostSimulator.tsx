@@ -199,9 +199,21 @@ export default function CostSimulator() {
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                  <span className="text-lg font-bold tabular-nums" style={{ color: "hsl(var(--lms-primary))" }}>
-                    {completionRate}%
-                  </span>
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="number"
+                      value={completionRate}
+                      onChange={(e) => {
+                        const v = Math.min(100, Math.max(10, Number(e.target.value) || 10));
+                        setCompletionRate(v);
+                      }}
+                      className="w-12 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
+                      style={{ color: "hsl(var(--lms-primary))" }}
+                      min={10}
+                      max={100}
+                    />
+                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>%</span>
+                  </div>
                 </div>
                 <Slider
                   value={[completionRate]}
