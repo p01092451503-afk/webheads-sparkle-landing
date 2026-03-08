@@ -360,7 +360,7 @@ export default function CostSimulator() {
                       <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-muted-foreground">
                         <span className="flex items-center gap-1.5">
                           <Globe className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          {t("costSim.estWebTraffic", { amount: Math.round(learners * 0.8).toLocaleString() })}
+                          {t("costSim.estWebTraffic", { amount: Math.round(learners * 0.8).toLocaleString() } as TOptions)}
                         </span>
                         <span className="flex items-center gap-1.5">
                           <Server className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
