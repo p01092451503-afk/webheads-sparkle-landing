@@ -127,6 +127,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormTaxAmount("");
     setFormDescription("");
     setFormMemo("");
+    setFormInvoiceIssued(false);
     setModalOpen(true);
   };
 
