@@ -869,6 +869,7 @@
       }
     ],
     "partnersSection": { "sub": "PG PARTNERS", "title": "Integrated Domestic &\nGlobal PG Partners", "desc": "We select and integrate the optimal PG provider for your business model." },
+    "bestForLabel": "Best for",
     "pgPartners": [
       { "name": "Toss Payments", "category": "Domestic PG", "desc": "Unified credit card & quick pay" },
       { "name": "KG Inicis", "category": "Domestic PG", "desc": "Korea's #1 payment infrastructure" },

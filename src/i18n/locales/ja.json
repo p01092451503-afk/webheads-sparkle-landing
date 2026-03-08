@@ -782,7 +782,8 @@
         "bestFor": "受講料分納・自動振替が必要な教育機関"
       }
     ],
-    "partnersSection": { "sub": "連携PG社", "title": "国内外主要\nPG社連携", "desc": "お客様のビジネスモデルに最適なPG社を選択して連携します。" },
+    "partnersSection": { "sub": "パートナー", "title": "主要決済パートナー", "desc": "お客様のビジネスモデルに最適なPG会社を選定して連携します。" },
+    "bestForLabel": "おすすめ用途",
     "pgPartners": [
       { "name": "トスペイメンツ", "category": "国内PG", "desc": "クレジットカード・簡単決済統合" },
       { "name": "KGイニシス", "category": "国内PG", "desc": "国内1位決済インフラ" },
