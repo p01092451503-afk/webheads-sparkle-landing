@@ -31,6 +31,19 @@ export default function PaymentDashboard({ clients, payments, onNavigate }: Prop
   const currentYear = now.getFullYear();
   const currentMonth = now.getMonth() + 1;
 
+  const [annualFees, setAnnualFees] = useState<RecurringFee[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("client_recurring_fees" as any)
+      .select("*")
+      .eq("billing_cycle", "annual")
+      .eq("is_active", true)
+      .then(({ data }) => {
+        if (data) setAnnualFees(data as any);
+      });
+  }, []);
+
   const activeClients = useMemo(() => clients.filter((c) => c.is_active), [clients]);
 
   const totalUnpaid = useMemo(
