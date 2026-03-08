@@ -263,7 +263,7 @@ export default function AdminDashboard() {
             <div className="flex items-center gap-2">
               <span style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontStyle: "italic", fontSize: "1.79rem", letterSpacing: "-0.03em" }} className="text-foreground">WEBHEADS.<span style={{ color: "#6B7280" }}>{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-                return `${now.getMonth() + 1}/${now.getDate()}`;
+                return `${now.getMonth() + 1}.${now.getDate()}`;
               })()}</span></span>
               {!isSuperAdmin && (
                 <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-[hsl(220,14%,93%)] text-muted-foreground">읽기 전용</span>

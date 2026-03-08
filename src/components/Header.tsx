@@ -135,7 +135,7 @@ export default function Header() {
                 style={{ color: "#6B7280" }}
               >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-                return `${now.getMonth() + 1}/${now.getDate()}`;
+                return `${now.getMonth() + 1}.${now.getDate()}`;
               })()}</span>
             </Link>
 
