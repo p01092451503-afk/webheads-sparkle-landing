@@ -113,8 +113,8 @@ export default function BlogPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: lang === "en" ? "WEBHEADS LMS Insights" : "웹헤즈 LMS 인사이트",
-    description: lang === "en" ? "LMS adoption guides, e-learning trends, and AI education insights from WEBHEADS" : "LMS 도입 가이드, 이러닝 트렌드, AI 교육 솔루션 인사이트를 제공하는 웹헤즈 블로그",
+    name: lang === "en" ? "WEBHEADS LMS Insights" : lang === "ja" ? "WEBHEADS LMSインサイト" : "웹헤즈 LMS 인사이트",
+    description: lang === "en" ? "LMS adoption guides, e-learning trends, and AI education insights from WEBHEADS" : lang === "ja" ? "LMS導入ガイド、eラーニングトレンド、AI教育インサイトを提供するWEBHEADSブログ" : "LMS 도입 가이드, 이러닝 트렌드, AI 교육 솔루션 인사이트를 제공하는 웹헤즈 블로그",
     url: "https://service.webheads.co.kr/blog",
     publisher: { "@type": "Organization", name: "Webheads", url: "https://service.webheads.co.kr" },
     blogPost: blogPosts.map((p) => ({
