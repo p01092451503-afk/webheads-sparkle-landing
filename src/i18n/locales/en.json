@@ -261,7 +261,10 @@
     "testimonials": [
       { "name": "Y. Choi", "role": "CTO", "org": "D EdTech", "rating": 4, "date": "2025.02", "period": "5th year", "content": "Had a server issue at 3 AM and got a call within 5 minutes. Everything was back to normal in under 30 minutes." },
       { "name": "S. Han", "role": "Education Ops Team", "org": "E Cyber University", "rating": 5, "date": "2024.10", "period": "9th year", "content": "We don't have in-house developers, so we can't handle security updates or server management ourselves. Having it all taken care of lets us focus on operations." },
-      { "name": "W. Jung", "role": "IT Manager", "org": "F Education Association", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "The monthly reports are so well-organized that I can use them directly for executive presentations." }
+      { "name": "W. Jung", "role": "IT Manager", "org": "F Education Association", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "The monthly reports are so well-organized that I can use them directly for executive presentations." },
+      { "name": "T. Ryu", "role": "Service Planning", "org": "AD Online Education", "rating": 5, "date": "2025.01", "period": "3rd year", "content": "Feature requests get included in the next scheduled update. Communication is fast and results match our expectations." },
+      { "name": "J. Ahn", "role": "Operations Director", "org": "AE Legal Education Center", "rating": 4, "date": "2024.11", "period": "7th year", "content": "PHP upgrades and security patches are handled automatically, so we only need to focus on educational content." },
+      { "name": "J. Song", "role": "CEO", "org": "AF EdTech", "rating": 3, "date": "2025.02", "period": "2nd year", "content": "They notify us before issues even occur. Knowing the monitoring is solid gives us real peace of mind." }
     ]
   },
   "chatbot": {
