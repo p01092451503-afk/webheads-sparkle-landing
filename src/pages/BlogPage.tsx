@@ -57,7 +57,7 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
           ))}
         </div>
         <button onClick={onToggle} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline underline-offset-2 transition-colors">
-          {isExpanded ? (lang === "en" ? "Collapse" : "접기") : (lang === "en" ? "Read more" : "자세히 읽기")}
+          {isExpanded ? (lang === "en" ? "Collapse" : lang === "ja" ? "閉じる" : "접기") : (lang === "en" ? "Read more" : lang === "ja" ? "続きを読む" : "자세히 읽기")}
           <ArrowRight className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90" : ""}`} />
         </button>
       </div>
