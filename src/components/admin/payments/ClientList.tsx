@@ -296,10 +296,36 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     );
   };
 
-  const statusBadge = (status: string) => {
+  const toggleClientStatus = useCallback(async (clientId: string, currentStatus: string) => {
+    if (currentStatus === "managed") return;
+    const client = clientData.find((c) => c.id === clientId);
+    if (!client) return;
+
+    const monthPayments = client.monthPayments;
+    if (monthPayments.length === 0) return;
+
+    const newUnpaid = currentStatus === "unpaid" ? false : true;
+    try {
+      for (const p of monthPayments) {
+        const updates: any = { is_unpaid: newUnpaid };
+        if (!newUnpaid && !p.paid_date) {
+          updates.paid_date = new Date().toISOString().split("T")[0];
+        }
+        await supabase.from("payments").update(updates).eq("id", p.id);
+      }
+      showSaved(`${clientId}-status`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "상태 변경 중 오류가 발생했습니다");
+    }
+  }, [clientData, onRefresh, showSaved]);
+
+  const statusBadge = (status: string, clientId: string) => {
+    const isManaged = status === "managed";
+    const base = "cursor-pointer transition-all hover:scale-105 text-[11px]";
     switch (status) {
-      case "paid": return <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 text-[11px]">납부완료</Badge>;
-      case "unpaid": return <Badge className="bg-red-100 text-red-700 hover:bg-red-100 text-[11px]">미납</Badge>;
+      case "paid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-emerald-100 text-emerald-700 hover:bg-emerald-200 ${base}`}>납부완료</Badge>;
+      case "unpaid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-red-100 text-red-700 hover:bg-red-200 ${base}`}>미납</Badge>;
       case "managed": return <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100 text-[11px]">따로관리</Badge>;
     }
   };
