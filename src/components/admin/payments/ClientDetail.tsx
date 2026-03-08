@@ -188,10 +188,12 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
                   <td className="px-4 py-3 text-muted-foreground">{p.paid_date?.replace(/-/g, ".") || "-"}</td>
                   <td className="px-4 py-3 text-muted-foreground">{p.memo || "-"}</td>
                   <td className="px-4 py-3 text-center">
-                    {p.is_unpaid
-                      ? <Badge className="bg-red-100 text-red-700 hover:bg-red-100 text-[11px]">미납</Badge>
-                      : <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 text-[11px]">완료</Badge>
-                    }
+                    <button onClick={() => onToggleUnpaid(p)}>
+                      {p.is_unpaid
+                        ? <Badge className="bg-red-100 text-red-700 hover:bg-red-200 cursor-pointer text-[11px]">미납</Badge>
+                        : <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-200 cursor-pointer text-[11px]">완료</Badge>
+                      }
+                    </button>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-center gap-1">
