@@ -19,14 +19,17 @@ interface Props {
   onClose: () => void;
   onSubmit: (data: { client_no: number; name: string; expected_payment_day: string; notes: string; is_active: boolean }) => void;
   editClient?: Client | null;
+  clients?: Client[];
 }
 
-export default function ClientModal({ open, onClose, onSubmit, editClient }: Props) {
+export default function ClientModal({ open, onClose, onSubmit, editClient, clients = [] }: Props) {
   const [clientNo, setClientNo] = useState("");
   const [name, setName] = useState("");
   const [expectedDay, setExpectedDay] = useState("");
   const [notes, setNotes] = useState("");
   const [isActive, setIsActive] = useState(true);
+
+  const nextNo = Math.max(0, ...clients.map((c) => c.client_no || 0)) + 1;
 
   useEffect(() => {
     if (open) {
@@ -37,7 +40,7 @@ export default function ClientModal({ open, onClose, onSubmit, editClient }: Pro
         setNotes(editClient.notes || "");
         setIsActive(editClient.is_active);
       } else {
-        setClientNo("");
+        setClientNo(nextNo.toString());
         setName("");
         setExpectedDay("");
         setNotes("");

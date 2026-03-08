@@ -255,6 +255,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
           onClose={() => setClientModalOpen(false)}
           onSubmit={handleSubmitClient}
           editClient={editClient}
+          clients={clients}
         />
       </Suspense>
 
