@@ -126,13 +126,13 @@ export default function CostSimulator() {
                       type="number"
                       value={learners}
                       onChange={(e) => {
-                        const v = Math.min(5000, Math.max(10, Number(e.target.value) || 10));
+                        const v = Math.min(2000, Math.max(10, Number(e.target.value) || 10));
                         setLearners(v);
                       }}
                       className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={10}
-                      max={5000}
+                      max={2000}
                     />
                     <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>명</span>
                   </div>
@@ -141,13 +141,13 @@ export default function CostSimulator() {
                   value={[learners]}
                   onValueChange={([v]) => setLearners(v)}
                   min={10}
-                  max={5000}
+                  max={2000}
                   step={10}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
                   <span>10명</span>
-                  <span>5,000명</span>
+                  <span>2,000명</span>
                 </div>
               </div>
 
