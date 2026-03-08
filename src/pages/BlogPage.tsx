@@ -164,7 +164,7 @@ export default function BlogPage() {
             {allCategories.map((cat) => {
               const isActive = activeCategory === cat;
               const Icon = cat === "all" ? null : categoryIcons[cat];
-              const label = cat === "all" ? (lang === "en" ? "All" : "전체") : catConfig[cat].label;
+              const label = cat === "all" ? (lang === "en" ? "All" : lang === "ja" ? "全て" : "전체") : catConfig[cat].label;
               const color = cat === "all" ? "hsl(var(--primary))" : categoryColors[cat];
               return (
                 <button
