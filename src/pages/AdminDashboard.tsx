@@ -15,6 +15,13 @@ const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPaymen
 type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments";
 type UserRole = "super_admin" | "admin" | "user";
 
+const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
+  { key: "analytics", icon: BarChart3, label: "분석" },
+  { key: "inquiries", icon: MessageSquare, label: "문의" },
+  { key: "payments", icon: CreditCard, label: "입금관리" },
+  { key: "settings", icon: Settings, label: "설정" },
+];
+
 const TabLoader = () => (
   <div className="flex items-center justify-center py-20">
     <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
@@ -44,6 +51,7 @@ export default function AdminDashboard() {
   const [clickEvents, setClickEvents] = useState<any[]>([]);
   const [newInquiryAlert, setNewInquiryAlert] = useState(false);
   const [analyticsLoaded, setAnalyticsLoaded] = useState(false);
+  const [allowedTabs, setAllowedTabs] = useState<string[] | null>(null);
 
   const setTab = useCallback((t: Tab) => {
     setTabState(t);
@@ -126,6 +134,20 @@ export default function AdminDashboard() {
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Fetch menu permissions
+  useEffect(() => {
+    if (!userId) return;
+    supabase.from("admin_settings").select("value").eq("key", "admin_menu_permissions").maybeSingle()
+      .then(({ data }) => {
+        if (data?.value && typeof data.value === "object") {
+          const perms = (data.value as Record<string, string[]>)[userId];
+          if (perms && Array.isArray(perms)) {
+            setAllowedTabs(perms);
+          }
+        }
+      });
+  }, [userId]);
 
   // Initial data
   useEffect(() => {
@@ -223,12 +245,11 @@ export default function AdminDashboard() {
 
   const isSuperAdmin = userRole === "super_admin";
 
-  const tabs: { key: Tab; icon: any; label: string }[] = [
-    { key: "analytics", icon: BarChart3, label: "분석" },
-    { key: "inquiries", icon: MessageSquare, label: "문의" },
-    { key: "payments", icon: CreditCard, label: "입금관리" },
-    { key: "settings", icon: Settings, label: "설정" },
-  ];
+  // Super admins see all tabs; regular admins see only allowed tabs
+  const tabs = useMemo(() => {
+    if (isSuperAdmin || !allowedTabs) return ALL_TABS;
+    return ALL_TABS.filter((t) => allowedTabs.includes(t.key));
+  }, [isSuperAdmin, allowedTabs]);
 
   const newCount = useMemo(() => inquiries.filter((i) => i.status === "new").length, [inquiries]);
 

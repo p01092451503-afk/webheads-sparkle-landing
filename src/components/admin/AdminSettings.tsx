@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save, Mail, ToggleLeft, ToggleRight, ChevronDown, ChevronUp } from "lucide-react";
+import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save, Mail, ToggleLeft, ToggleRight, ChevronDown, ChevronUp, Menu } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 interface AdminSettingsProps {
@@ -40,6 +40,18 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   // Activity logs
   const [activityLogs, setActivityLogs] = useState<any[]>([]);
   const [logsLoading, setLogsLoading] = useState(false);
+
+  // Menu permissions per admin
+  const [menuPermissions, setMenuPermissions] = useState<Record<string, string[]>>({});
+  const [menuPermSaving, setMenuPermSaving] = useState(false);
+  const [menuPermSaved, setMenuPermSaved] = useState(false);
+
+  const MENU_OPTIONS = [
+    { key: "analytics", label: "분석" },
+    { key: "inquiries", label: "문의" },
+    { key: "payments", label: "입금관리" },
+    { key: "settings", label: "설정" },
+  ];
 
   // Notification settings
   const [notifSettings, setNotifSettings] = useState({
@@ -102,6 +114,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
         if (row.key === "notifications") setNotifSettings(row.value as any);
         if (row.key === "company_info") setCompanyInfo(row.value as any);
         if (row.key === "auto_response_templates") setAutoResponse(row.value as any);
+        if (row.key === "admin_menu_permissions") setMenuPermissions((row.value as any) || {});
       }
     }
   }, []);
@@ -498,7 +511,89 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
         </>
       )}
 
-      
+      {/* Menu Permissions - Super Admin only */}
+      {isSuperAdmin && admins.length > 0 && (
+        <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6 lg:col-span-2">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(199,89%,48%,0.08)]">
+                <Menu className="w-[18px] h-[18px] text-[hsl(199,89%,48%)]" />
+              </div>
+              <div>
+                <h3 className="text-[15px] font-semibold text-foreground">메뉴 접근 권한</h3>
+                <p className="text-[12px] text-muted-foreground">관리자별 접근 가능한 메뉴를 설정합니다</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {admins.map((admin) => {
+              const perms = menuPermissions[admin.user_id] || MENU_OPTIONS.map((m) => m.key);
+              const isSA = admin.role === "super_admin";
+              return (
+                <div key={admin.user_id} className="rounded-xl border border-[hsl(220,13%,93%)] p-4">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-[13px] font-semibold text-foreground">{admin.email}</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white"
+                      style={{ background: isSA ? "hsl(37,90%,51%)" : "hsl(221,83%,53%)" }}
+                    >
+                      {isSA ? "최고관리자" : "관리자"}
+                    </span>
+                    {isSA && <span className="text-[11px] text-muted-foreground">(전체 접근)</span>}
+                  </div>
+                  {isSA ? (
+                    <p className="text-[12px] text-muted-foreground">최고관리자는 모든 메뉴에 접근할 수 있습니다.</p>
+                  ) : (
+                    <div className="flex flex-wrap gap-2">
+                      {MENU_OPTIONS.map((menu) => {
+                        const isAllowed = perms.includes(menu.key);
+                        return (
+                          <button
+                            key={menu.key}
+                            onClick={() => {
+                              const updated = isAllowed
+                                ? perms.filter((p) => p !== menu.key)
+                                : [...perms, menu.key];
+                              if (updated.length === 0) return;
+                              setMenuPermissions((prev) => ({ ...prev, [admin.user_id]: updated }));
+                            }}
+                            className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-all border ${
+                              isAllowed
+                                ? "bg-[hsl(221,83%,53%)] text-white border-[hsl(221,83%,53%)]"
+                                : "bg-white text-muted-foreground border-[hsl(220,13%,91%)] hover:border-[hsl(220,13%,85%)]"
+                            }`}
+                          >
+                            {menu.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            <button
+              onClick={async () => {
+                setMenuPermSaving(true);
+                await supabase
+                  .from("admin_settings")
+                  .update({ value: menuPermissions as any, updated_at: new Date().toISOString() })
+                  .eq("key", "admin_menu_permissions");
+                await logActivity("update_menu_permissions", "settings", "admin_menu_permissions");
+                setMenuPermSaving(false);
+                setMenuPermSaved(true);
+                setTimeout(() => setMenuPermSaved(false), 2000);
+              }}
+              disabled={menuPermSaving}
+              className="self-end flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-all disabled:opacity-50"
+            >
+              {menuPermSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : menuPermSaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
+              {menuPermSaved ? "저장됨" : "권한 저장"}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Auto-Response Templates */}
       <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6 lg:col-span-2">
