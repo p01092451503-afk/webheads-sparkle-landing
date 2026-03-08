@@ -127,39 +127,6 @@ export default function CostSimulator() {
                 </div>
               </div>
 
-              {/* Completion rate slider */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-1.5">
-                    <GraduationCap className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-semibold text-foreground">평균 완강률</span>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="w-3.5 h-3.5 text-muted-foreground" />
-                        </TooltipTrigger>
-                        <TooltipContent><p className="text-xs max-w-[200px]">수강생이 전체 콘텐츠 중 평균적으로 시청하는 비율. 완강률이 높을수록 CDN 전송량이 증가합니다.</p></TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  <span className="text-lg font-bold tabular-nums" style={{ color: "hsl(var(--lms-primary))" }}>
-                    {completionRate}%
-                  </span>
-                </div>
-                <Slider
-                  value={[completionRate]}
-                  onValueChange={([v]) => setCompletionRate(v)}
-                  min={10}
-                  max={100}
-                  step={5}
-                  className="w-full"
-                />
-                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
-                  <span>10%</span>
-                  <span>100%</span>
-                </div>
-              </div>
-
               {/* Video hours slider */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
@@ -190,6 +157,39 @@ export default function CostSimulator() {
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
                   <span>1시간</span>
                   <span>500시간</span>
+                </div>
+              </div>
+
+              {/* Completion rate slider */}
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-1.5">
+                    <GraduationCap className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">평균 완강률</span>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Info className="w-3.5 h-3.5 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent><p className="text-xs max-w-[200px]">수강생이 전체 콘텐츠 중 평균적으로 시청하는 비율. 완강률이 높을수록 CDN 전송량이 증가합니다.</p></TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <span className="text-lg font-bold tabular-nums" style={{ color: "hsl(var(--lms-primary))" }}>
+                    {completionRate}%
+                  </span>
+                </div>
+                <Slider
+                  value={[completionRate]}
+                  onValueChange={([v]) => setCompletionRate(v)}
+                  min={10}
+                  max={100}
+                  step={5}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
+                  <span>10%</span>
+                  <span>100%</span>
                 </div>
               </div>
 
