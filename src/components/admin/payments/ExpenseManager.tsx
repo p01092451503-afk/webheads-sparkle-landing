@@ -139,6 +139,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormTaxAmount(exp.tax_amount ? exp.tax_amount.toLocaleString("ko-KR") : "");
     setFormDescription(exp.description || "");
     setFormMemo(exp.memo || "");
+    setFormInvoiceIssued(exp.invoice_issued || false);
     setModalOpen(true);
   };
 
