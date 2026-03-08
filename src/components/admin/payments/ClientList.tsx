@@ -8,28 +8,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import * as XLSX from "xlsx";
-import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor } from "./paymentTypes";
-
-interface Client {
-  id: string;
-  client_no: number;
-  name: string;
-  expected_payment_day: string | null;
-  notes: string | null;
-  is_active: boolean;
-}
-
-interface Payment {
-  id: string;
-  client_id: string;
-  year: number;
-  month: number;
-  amount: number;
-  paid_date: string | null;
-  is_unpaid: boolean;
-  memo: string | null;
-  payment_type: string;
-}
+import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor, INVOICE_STATUSES, getInvoiceStatusLabel, getInvoiceStatusColor } from "./paymentTypes";
+import type { PaymentClient as Client, PaymentRecord as Payment } from "./paymentTypes";
 
 interface Props {
   clients: Client[];

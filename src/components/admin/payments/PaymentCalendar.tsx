@@ -2,26 +2,7 @@ import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface Client {
-  id: string;
-  client_no: number;
-  name: string;
-  expected_payment_day: string | null;
-  notes: string | null;
-  is_active: boolean;
-}
-
-interface Payment {
-  id: string;
-  client_id: string;
-  year: number;
-  month: number;
-  amount: number;
-  paid_date: string | null;
-  is_unpaid: boolean;
-  memo: string | null;
-  payment_type: string;
-}
+import type { PaymentClient as Client, PaymentRecord as Payment } from "./paymentTypes";
 
 interface Props {
   clients: Client[];
