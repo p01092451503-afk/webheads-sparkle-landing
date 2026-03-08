@@ -269,8 +269,14 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           .reduce((s, p) => s + (p.amount || 0), 0);
 
         const thisMonthP = payments.find(
-          (p) => p.client_id === c.id && p.year === cy && p.month === cm
+          (p) => p.client_id === c.id && p.year === cy && p.month === cm && (p.payment_type === "hosting" || !p.payment_type)
         );
+
+        // Collect other payment types for this month
+        const otherTypes = payments
+          .filter((p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type && p.payment_type !== "hosting")
+          .map((p) => `${getPaymentTypeLabel(p.payment_type)}:${p.amount?.toLocaleString()}`)
+          .join(", ");
 
         const row: Record<string, any> = {
           "No": c.client_no,
@@ -279,16 +285,16 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           "입금일": thisMonthP?.paid_date?.replace(/-/g, ".") || "",
           "비고": c.notes || "",
           "미납금": unpaidTotal,
+          "기타항목(이달)": otherTypes || "",
         };
 
         let total = 0;
         monthCols.forEach((mc) => {
-          const p = payments.find(
-            (p) => p.client_id === c.id && p.year === mc.year && p.month === mc.month
-          );
-          const amt = p?.amount || 0;
-          row[mc.label] = amt;
-          total += amt;
+          const monthTotal = payments
+            .filter((p) => p.client_id === c.id && p.year === mc.year && p.month === mc.month)
+            .reduce((s, p) => s + (p.amount || 0), 0);
+          row[mc.label] = monthTotal;
+          total += monthTotal;
         });
 
         row["총합"] = total;
