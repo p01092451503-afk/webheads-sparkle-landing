@@ -27,30 +27,15 @@ function getHeaders() {
   };
 }
 
-// Resolve channel name to channel ID using conversations.list (POST to avoid gateway GET issues)
-async function resolveChannelId(channelName: string): Promise<string> {
-  const name = channelName.replace(/^#/, "").toLowerCase();
-  let cursor: string | undefined;
-
-  do {
-    const body: Record<string, any> = { types: "public_channel,private_channel", limit: 200 };
-    if (cursor) body.cursor = cursor;
-
-    const res = await fetch(`${GATEWAY_URL}/conversations.list`, {
-      method: "POST",
-      headers: getHeaders(),
-      body: JSON.stringify(body),
-    });
-    const data = await res.json();
-    if (!data.ok) throw new Error(`conversations.list failed: ${data.error}`);
-
-    for (const ch of data.channels || []) {
-      if (ch.name === name) return ch.id;
-    }
-    cursor = data.response_metadata?.next_cursor;
-  } while (cursor);
-
-  throw new Error(`Slack 채널 '#${name}'을 찾을 수 없습니다. 채널명을 확인해주세요.`);
+// Format channel for chat.postMessage (accepts #name or channel ID)
+function formatChannel(channelName: string): string {
+  // Already a channel ID
+  if (channelName.startsWith("C") && /^C[A-Z0-9]+$/.test(channelName)) {
+    return channelName;
+  }
+  // Ensure # prefix for channel name lookup
+  const name = channelName.replace(/^#/, "");
+  return `#${name}`;
 }
 
 async function sendSlackMessage(channelId: string, blocks: any[], text: string) {
@@ -139,18 +124,12 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Resolve channel name → ID (supports both "general" and "C1234..." formats)
-    let channelId: string;
-    if (channelName.startsWith("C") && /^C[A-Z0-9]+$/.test(channelName)) {
-      channelId = channelName; // Already a channel ID
-    } else {
-      channelId = await resolveChannelId(channelName);
-    }
+    const channel = formatChannel(channelName);
 
     const blocks = buildBlocks(notification);
     const fallbackText = `${notification.title}`;
 
-    await sendSlackMessage(channelId, blocks, fallbackText);
+    await sendSlackMessage(channel, blocks, fallbackText);
 
     return new Response(JSON.stringify({ ok: true }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
