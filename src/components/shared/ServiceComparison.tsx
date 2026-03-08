@@ -5,15 +5,15 @@ function StatusText({ value }: { value: string }) {
   const lang = i18n.language;
 
   if (value === "O") {
-    return <span className="text-sm font-medium text-primary mx-auto block text-center">{lang === "ko" ? "기본 제공" : "Included"}</span>;
+    return <span className="text-sm font-normal text-primary mx-auto block text-center">{lang === "ko" ? "기본 제공" : "Included"}</span>;
   }
   if (value === "X") {
-    return <span className="text-sm font-medium text-destructive/50 mx-auto block text-center">{lang === "ko" ? "불가" : "N/A"}</span>;
+    return <span className="text-sm font-normal text-destructive/50 mx-auto block text-center">{lang === "ko" ? "불가" : "N/A"}</span>;
   }
   if (value === "△") {
-    return <span className="text-sm font-medium text-muted-foreground mx-auto block text-center">{lang === "ko" ? "제한적" : "Limited"}</span>;
+    return <span className="text-sm font-normal text-muted-foreground mx-auto block text-center">{lang === "ko" ? "제한적" : "Limited"}</span>;
   }
-  return <span className="text-sm font-medium text-foreground text-center block">{value}</span>;
+  return <span className="text-sm font-normal text-foreground text-center block">{value}</span>;
 }
 
 interface ComparisonRow {
