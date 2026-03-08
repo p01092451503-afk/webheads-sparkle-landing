@@ -348,9 +348,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                     </Badge>
                   </td>
                   <td className="px-4 py-3">{exp.description || "-"}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{getClientName(exp.client_id) || "-"}</td>
-                  <td className="px-4 py-3 text-right font-medium">{formatWon(exp.amount)}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{exp.paid_date?.replace(/-/g, ".") || "-"}</td>
+                  <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.supply_amount || 0)}</td>
+                  <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
+                  <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.memo || "-"}</td>
                   <td className="px-4 py-3 text-center">
                     <button onClick={() => togglePaid(exp)}>
