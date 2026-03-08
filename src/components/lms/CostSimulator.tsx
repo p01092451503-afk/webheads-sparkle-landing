@@ -25,12 +25,9 @@ const PLANS: Omit<PlanRecommendation, "isMatch" | "totalMonthly" | "overageCdn" 
   { name: "Premium", monthly: 1000000, cdnIncluded: 2000, storageIncluded: 250, cdnOverage: 300, storageOverage: 500, solutionType: "임대형 · SaaS | 단독서버" },
 ];
 
-// Pricing 기준: 500GB ÷ 1,700명(30분 강의) = 0.294GB/30분 = 0.588GB/시간
-// CDN 전송량 = 수강생 × 월 평균 시청시간 × 시간당 전송량
-// 저장공간 = 등록 영상시간 × 시간당 저장량(약 3GB/시간)
-function estimateUsage(learners: number, videoHours: number, monthlyViewHours: number) {
-  const GB_PER_HOUR = 0.588; // pricing 페이지 기준 비트레이트
-  const cdnGB = Math.round(learners * monthlyViewHours * GB_PER_HOUR);
+function estimateUsage(learners: number, videoHours: number, completionRate: number) {
+  const rate = completionRate / 100;
+  const cdnGB = Math.round(learners * 2.5 * rate);
   const storageGB = Math.round(videoHours * 3);
   return { cdnGB, storageGB };
 }
@@ -39,12 +36,12 @@ export default function CostSimulator() {
   const { t } = useTranslation();
   const [learners, setLearners] = useState(200);
   const [videoHours, setVideoHours] = useState(30);
-  const [monthlyViewHours, setMonthlyViewHours] = useState(5);
+  const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const SECURE_PLAYER_COST = 300000;
 
-  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, monthlyViewHours), [learners, videoHours, monthlyViewHours]);
+  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, completionRate), [learners, videoHours, completionRate]);
 
   const recommendations = useMemo<PlanRecommendation[]>(() => {
     return PLANS.map((plan) => {
@@ -120,13 +117,13 @@ export default function CostSimulator() {
                       type="number"
                       value={learners}
                       onChange={(e) => {
-                        const v = Math.min(3000, Math.max(10, Number(e.target.value) || 10));
+                        const v = Math.min(5000, Math.max(10, Number(e.target.value) || 10));
                         setLearners(v);
                       }}
                       className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={10}
-                      max={3000}
+                      max={5000}
                     />
                     <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>명</span>
                   </div>
@@ -135,13 +132,13 @@ export default function CostSimulator() {
                   value={[learners]}
                   onValueChange={([v]) => setLearners(v)}
                   min={10}
-                  max={3000}
+                  max={5000}
                   step={10}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
                   <span>10명</span>
-                  <span>3,000명</span>
+                  <span>5,000명</span>
                 </div>
               </div>
 
@@ -195,43 +192,43 @@ export default function CostSimulator() {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5">
                     <GraduationCap className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-semibold text-foreground">수강생당 월 시청시간</span>
+                    <span className="text-sm font-semibold text-foreground">평균 완강률</span>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger>
                           <Info className="w-3.5 h-3.5 text-muted-foreground" />
                         </TooltipTrigger>
-                        <TooltipContent><p className="text-xs max-w-[200px]">수강생 1명이 한 달 동안 평균적으로 시청하는 영상 시간. 시청 시간이 길수록 CDN 전송량이 증가합니다.</p></TooltipContent>
+                        <TooltipContent><p className="text-xs max-w-[200px]">수강생이 전체 콘텐츠 중 평균적으로 시청하는 비율. 완강률이 높을수록 CDN 전송량이 증가합니다.</p></TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </div>
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={monthlyViewHours}
+                      value={completionRate}
                       onChange={(e) => {
-                        const v = Math.min(50, Math.max(1, Number(e.target.value) || 1));
-                        setMonthlyViewHours(v);
+                        const v = Math.min(100, Math.max(10, Number(e.target.value) || 10));
+                        setCompletionRate(v);
                       }}
                       className="w-12 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
-                      min={1}
-                      max={50}
+                      min={10}
+                      max={100}
                     />
-                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>시간</span>
+                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>%</span>
                   </div>
                 </div>
                 <Slider
-                  value={[monthlyViewHours]}
-                  onValueChange={([v]) => setMonthlyViewHours(v)}
-                  min={1}
-                  max={50}
-                  step={1}
+                  value={[completionRate]}
+                  onValueChange={([v]) => setCompletionRate(v)}
+                  min={10}
+                  max={100}
+                  step={5}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
-                  <span>1시간</span>
-                  <span>50시간</span>
+                  <span>10%</span>
+                  <span>100%</span>
                 </div>
               </div>
 
@@ -284,7 +281,7 @@ export default function CostSimulator() {
               <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
                 <p className="flex items-center gap-1.5"><BarChart3 className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 예상 월 전송량: <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
                 <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 예상 저장공간: <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
-                <p className="flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 수강생당 월 시청: <span className="font-semibold text-foreground">{monthlyViewHours}시간</span></p>
+                <p className="flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 적용 완강률: <span className="font-semibold text-foreground">{completionRate}%</span></p>
               </div>
               )}
 
