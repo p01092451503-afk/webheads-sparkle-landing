@@ -108,6 +108,19 @@ const SPECIAL_FEATURES_EN = [
   "Social Login (Google, Kakao, Naver, Facebook)",
 ];
 
+const SPECIAL_FEATURES_JA = [
+  "ライブ（ZOOM）",
+  "SMS/カカオアラートトーク送信API連携",
+  "検索エンジン最適化",
+  "デザインテンプレート提供",
+  "AI学習促進機能",
+  "管理者ダッシュボード",
+  "定期アップデート",
+  "修了証テンプレート",
+  "モバイルWebサービス",
+  "ソーシャルログイン（Google、カカオ、Naver、Facebook）",
+];
+
 const INFRA_SPECS_KO: SpecRow[] = [
   { label: "개발 도메인", values: ["1개 제공", "1개 제공", "1개 제공", "1개 제공"] },
   {
