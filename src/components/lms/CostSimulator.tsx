@@ -1,16 +1,16 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3 } from "lucide-react";
+import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface PlanRecommendation {
   name: string;
   monthly: number;
-  cdnIncluded: number; // GB
-  storageIncluded: number; // GB
-  cdnOverage: number; // per GB
-  storageOverage: number; // per GB
+  cdnIncluded: number;
+  storageIncluded: number;
+  cdnOverage: number;
+  storageOverage: number;
   solutionType: string;
   isMatch: boolean;
   totalMonthly: number;
@@ -25,10 +25,10 @@ const PLANS: Omit<PlanRecommendation, "isMatch" | "totalMonthly" | "overageCdn" 
   { name: "Premium", monthly: 1000000, cdnIncluded: 2000, storageIncluded: 250, cdnOverage: 300, storageOverage: 500, solutionType: "임대형 · SaaS | 단독서버" },
 ];
 
-// Rough heuristic: 1 learner/month ≈ 2GB CDN traffic, 0.5GB storage per 10 videos
-function estimateUsage(learners: number, videoHours: number) {
-  const cdnGB = Math.round(learners * 2.5);
-  const storageGB = Math.round(videoHours * 3); // ~3GB per hour of video
+function estimateUsage(learners: number, videoHours: number, completionRate: number) {
+  const rate = completionRate / 100;
+  const cdnGB = Math.round(learners * 2.5 * rate);
+  const storageGB = Math.round(videoHours * 3);
   return { cdnGB, storageGB };
 }
 
@@ -36,51 +36,32 @@ export default function CostSimulator() {
   const { t } = useTranslation();
   const [learners, setLearners] = useState(200);
   const [videoHours, setVideoHours] = useState(30);
+  const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
 
-  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours), [learners, videoHours]);
+  const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, completionRate), [learners, videoHours, completionRate]);
 
   const recommendations = useMemo<PlanRecommendation[]>(() => {
     return PLANS.map((plan) => {
       if (plan.name === "Starter") {
-        return {
-          ...plan,
-          isMatch: !needsCdn,
-          totalMonthly: plan.monthly,
-          overageCdn: 0,
-          overageStorage: 0,
-        };
+        return { ...plan, isMatch: !needsCdn, totalMonthly: plan.monthly, overageCdn: 0, overageStorage: 0 };
       }
-
-      // CDN plans only show when CDN is needed
       if (!needsCdn) {
         return { ...plan, isMatch: false, totalMonthly: 0, overageCdn: 0, overageStorage: 0 };
       }
-
       const overCdn = Math.max(0, cdnGB - plan.cdnIncluded);
       const overStorage = Math.max(0, storageGB - plan.storageIncluded);
       const overageCdn = overCdn * plan.cdnOverage;
       const overageStorage = overStorage * plan.storageOverage;
       const totalMonthly = plan.monthly + overageCdn + overageStorage;
-
-      return {
-        ...plan,
-        isMatch: true,
-        totalMonthly,
-        overageCdn,
-        overageStorage,
-      };
+      return { ...plan, isMatch: true, totalMonthly, overageCdn, overageStorage };
     }).filter((p) => p.isMatch);
   }, [cdnGB, storageGB, needsCdn]);
 
   const bestPlan = useMemo(() => {
-    // Find the plan with the lowest total cost where overage is < 30% of base
     const viable = recommendations.filter((p) => p.name !== "Starter");
     if (!needsCdn) return recommendations.find((p) => p.name === "Starter") || viable[0];
-    
-    // Find best value: lowest total where overage is reasonable
     const sorted = [...viable].sort((a, b) => a.totalMonthly - b.totalMonthly);
-    // If cheapest plan has >50% overage, recommend next tier
     if (sorted[0] && (sorted[0].overageCdn + sorted[0].overageStorage) > sorted[0].monthly * 0.5) {
       return sorted[1] || sorted[0];
     }
@@ -146,6 +127,39 @@ export default function CostSimulator() {
                 </div>
               </div>
 
+              {/* Completion rate slider */}
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-1.5">
+                    <GraduationCap className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">평균 완강률</span>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Info className="w-3.5 h-3.5 text-muted-foreground" />
+                        </TooltipTrigger>
+                        <TooltipContent><p className="text-xs max-w-[200px]">수강생이 전체 콘텐츠 중 평균적으로 시청하는 비율. 완강률이 높을수록 CDN 전송량이 증가합니다.</p></TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                  <span className="text-lg font-bold tabular-nums" style={{ color: "hsl(var(--lms-primary))" }}>
+                    {completionRate}%
+                  </span>
+                </div>
+                <Slider
+                  value={[completionRate]}
+                  onValueChange={([v]) => setCompletionRate(v)}
+                  min={10}
+                  max={100}
+                  step={5}
+                  className="w-full"
+                />
+                <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
+                  <span>10%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+
               {/* Video hours slider */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
@@ -204,6 +218,7 @@ export default function CostSimulator() {
               <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
                 <p className="flex items-center gap-1.5"><BarChart3 className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 예상 월 전송량: <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
                 <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 예상 저장공간: <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
+                <p className="flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 적용 완강률: <span className="font-semibold text-foreground">{completionRate}%</span></p>
               </div>
               )}
             </div>
@@ -211,7 +226,6 @@ export default function CostSimulator() {
 
           {/* ── Right: Results ── */}
           <div className="lg:col-span-3 flex flex-col gap-4">
-            {/* Best plan highlight */}
             {bestPlan && (
               <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(var(--lms-primary)), hsl(var(--lms-primary) / 0.85))" }}>
                 <div className="relative z-10">
