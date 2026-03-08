@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useCallback } from "react";
-import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Trash2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import * as XLSX from "xlsx";
-import { getPaymentTypeLabel } from "./paymentTypes";
+import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor } from "./paymentTypes";
 
 interface Client {
   id: string;
@@ -54,6 +54,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   const [editing, setEditing] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState("");
   const [savedCells, setSavedCells] = useState<Set<string>>(new Set());
+  const [expandedClients, setExpandedClients] = useState<Set<string>>(new Set());
   const inputRef = useRef<HTMLInputElement>(null);
 
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
@@ -78,24 +79,27 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         .filter((p) => p.client_id === c.id && p.is_unpaid)
         .reduce((s, p) => s + (p.amount || 0), 0);
 
-      // For inline editing, find hosting payment for current month
-      const thisMonth = payments.find(
-        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && (p.payment_type === "hosting" || !p.payment_type)
+      // All payments for this client in the viewed month
+      const monthPayments = payments.filter(
+        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth
       );
 
-      // Count of other payment types this month
-      const otherThisMonth = payments.filter(
-        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && p.payment_type && p.payment_type !== "hosting"
+      // For inline editing, find hosting payment
+      const thisMonth = monthPayments.find(
+        (p) => p.payment_type === "hosting" || !p.payment_type
       );
+
+      // Total for the month across all types
+      const monthTotal = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
 
       const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
 
       let status: "paid" | "unpaid" | "managed";
       if (isManaged) status = "managed";
-      else if (unpaidTotal > 0 || (thisMonth && thisMonth.is_unpaid)) status = "unpaid";
+      else if (unpaidTotal > 0 || monthPayments.some((p) => p.is_unpaid)) status = "unpaid";
       else status = "paid";
 
-      return { ...c, unpaidTotal, thisMonth, otherThisMonth, status };
+      return { ...c, unpaidTotal, thisMonth, monthPayments, monthTotal, status };
     });
   }, [clients, payments, viewYear, viewMonth]);
 
@@ -239,6 +243,44 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           setEditing(null);
         }
       }
+    }
+  };
+
+  const toggleExpand = (clientId: string) => {
+    setExpandedClients((prev) => {
+      const next = new Set(prev);
+      if (next.has(clientId)) next.delete(clientId);
+      else next.add(clientId);
+      return next;
+    });
+  };
+
+  const addPaymentType = async (clientId: string, paymentType: string) => {
+    try {
+      const { error } = await supabase.from("payments").insert({
+        client_id: clientId,
+        year: viewYear,
+        month: viewMonth,
+        amount: 0,
+        is_unpaid: false,
+        payment_type: paymentType,
+      });
+      if (error) throw error;
+      toast.success(`${getPaymentTypeLabel(paymentType)} 항목이 추가되었습니다`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "추가 중 오류가 발생했습니다");
+    }
+  };
+
+  const deletePaymentEntry = async (paymentId: string) => {
+    try {
+      const { error } = await supabase.from("payments").delete().eq("id", paymentId);
+      if (error) throw error;
+      toast.success("항목이 삭제되었습니다");
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "삭제 중 오류가 발생했습니다");
     }
   };
 
@@ -425,98 +467,175 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
               {filtered.map((c) => {
                 const isEditingDate = editing?.clientId === c.id && editing.field === "paid_date";
                 const isEditingAmount = editing?.clientId === c.id && editing.field === "amount";
+                const isExpanded = expandedClients.has(c.id);
+                const hasMultipleTypes = c.monthPayments.length > 1 || c.monthPayments.some((p: Payment) => p.payment_type !== "hosting");
+                // Types already used this month
+                const usedTypes = c.monthPayments.map((p: Payment) => p.payment_type || "hosting");
+                const availableTypes = PAYMENT_TYPES.filter((t) => !usedTypes.includes(t.value));
 
                 return (
-                  <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
-                    <td className="px-4 py-3 text-muted-foreground">{c.client_no}</td>
-                    <td className="px-4 py-3">
-                      <button
-                        onClick={() => onNavigate("detail", c.id)}
-                        className="font-medium text-[hsl(221,83%,53%)] hover:underline"
-                      >
-                        {c.name}
-                      </button>
-                    </td>
-                    <td className="px-4 py-3 text-muted-foreground">{c.expected_payment_day || "-"}</td>
-
-                    {/* Editable: 입금일 */}
-                    <td className="px-2 py-1.5">
-                      <div className="relative">
-                        {isEditingDate ? (
-                          <input
-                            ref={inputRef}
-                            value={editValue}
-                            onChange={(e) => setEditValue(e.target.value)}
-                            onBlur={commitEdit}
-                            onKeyDown={(e) => handleKeyDown(e, c.id, "paid_date")}
-                            placeholder="3.8"
-                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
-                          />
-                        ) : (
-                          <button
-                            onClick={() => startEditing(c.id, "paid_date")}
-                            className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
-                          >
-                            {c.thisMonth?.paid_date ? c.thisMonth.paid_date.replace(/-/g, ".") : "-"}
-                          </button>
-                        )}
-                        <SavedCheck cellKey={`${c.id}-paid_date`} />
-                      </div>
-                    </td>
-
-                    <td className="px-4 py-3 text-muted-foreground">{c.notes || "-"}</td>
-                    <td className={`px-4 py-3 text-right font-medium ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
-                      {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
-                    </td>
-
-                    {/* Editable: 이달 금액 */}
-                    <td className="px-2 py-1.5">
-                      <div className="relative">
-                        {isEditingAmount ? (
-                          <input
-                            ref={inputRef}
-                            value={editValue}
-                            onChange={(e) => {
-                              const num = e.target.value.replace(/[^0-9]/g, "");
-                              setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
-                            }}
-                            onBlur={commitEdit}
-                            onKeyDown={(e) => handleKeyDown(e, c.id, "amount")}
-                            placeholder="0"
-                            className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
-                          />
-                        ) : (
-                          <button
-                            onClick={() => startEditing(c.id, "amount")}
-                            className="w-full h-8 px-2 text-right text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text"
-                          >
-                            {c.thisMonth ? formatWon(c.thisMonth.amount || 0) : "-"}
-                          </button>
-                        )}
-                        <SavedCheck cellKey={`${c.id}-amount`} />
-                      </div>
-                    </td>
-
-                    <td className="px-4 py-3 text-center">{statusBadge(c.status)}</td>
-                    <td className="px-4 py-3">
-                      <div className="flex items-center justify-center gap-1">
+                  <>
+                    <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
+                      <td className="px-4 py-3 text-muted-foreground">{c.client_no}</td>
+                      <td className="px-4 py-3">
                         <button
-                          onClick={() => onEditClient(c)}
-                          className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors"
-                          title="수정"
+                          onClick={() => onNavigate("detail", c.id)}
+                          className="font-medium text-[hsl(221,83%,53%)] hover:underline"
                         >
-                          <Edit2 className="w-3.5 h-3.5" />
+                          {c.name}
                         </button>
-                        <button
-                          onClick={() => onAddPayment(c.id)}
-                          className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors"
-                          title="입금 등록"
-                        >
-                          <CreditCard className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground">{c.expected_payment_day || "-"}</td>
+
+                      {/* Editable: 입금일 (hosting) */}
+                      <td className="px-2 py-1.5">
+                        <div className="relative">
+                          {isEditingDate ? (
+                            <input
+                              ref={inputRef}
+                              value={editValue}
+                              onChange={(e) => setEditValue(e.target.value)}
+                              onBlur={commitEdit}
+                              onKeyDown={(e) => handleKeyDown(e, c.id, "paid_date")}
+                              placeholder="3.8"
+                              className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                            />
+                          ) : (
+                            <button
+                              onClick={() => startEditing(c.id, "paid_date")}
+                              className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
+                            >
+                              {c.thisMonth?.paid_date ? c.thisMonth.paid_date.replace(/-/g, ".") : "-"}
+                            </button>
+                          )}
+                          <SavedCheck cellKey={`${c.id}-paid_date`} />
+                        </div>
+                      </td>
+
+                      <td className="px-4 py-3 text-muted-foreground">{c.notes || "-"}</td>
+                      <td className={`px-4 py-3 text-right font-medium ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
+                        {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
+                      </td>
+
+                      {/* Month total / hosting amount */}
+                      <td className="px-2 py-1.5">
+                        <div className="relative">
+                          {isEditingAmount ? (
+                            <input
+                              ref={inputRef}
+                              value={editValue}
+                              onChange={(e) => {
+                                const num = e.target.value.replace(/[^0-9]/g, "");
+                                setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                              }}
+                              onBlur={commitEdit}
+                              onKeyDown={(e) => handleKeyDown(e, c.id, "amount")}
+                              placeholder="0"
+                              className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                            />
+                          ) : (
+                            <button
+                              onClick={() => startEditing(c.id, "amount")}
+                              className="w-full h-8 px-2 text-right text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text"
+                            >
+                              {c.monthTotal > 0 ? formatWon(c.monthTotal) : "-"}
+                            </button>
+                          )}
+                          <SavedCheck cellKey={`${c.id}-amount`} />
+                        </div>
+                      </td>
+
+                      <td className="px-4 py-3 text-center">{statusBadge(c.status)}</td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center justify-center gap-1">
+                          <button
+                            onClick={() => onEditClient(c)}
+                            className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors"
+                            title="수정"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => toggleExpand(c.id)}
+                            className={`p-1.5 rounded-lg transition-colors ${isExpanded ? "bg-[hsl(221,83%,53%,0.08)] text-[hsl(221,83%,53%)]" : "hover:bg-[hsl(220,14%,93%)] text-muted-foreground"}`}
+                            title="입금 항목 관리"
+                          >
+                            {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+
+                    {/* Expanded: payment type sub-rows */}
+                    {isExpanded && (
+                      <>
+                        {c.monthPayments.map((p: Payment) => (
+                          <tr key={p.id} className="bg-[hsl(220,14%,97.5%)] border-b border-[hsl(220,13%,95%)]">
+                            <td className="px-4 py-2" />
+                            <td className="px-4 py-2" colSpan={2}>
+                              <Badge className={`${getPaymentTypeColor(p.payment_type || "hosting")} hover:opacity-90 text-[10px]`}>
+                                {getPaymentTypeLabel(p.payment_type || "hosting")}
+                              </Badge>
+                            </td>
+                            <td className="px-4 py-2 text-[12px] text-muted-foreground">
+                              {p.paid_date ? p.paid_date.replace(/-/g, ".") : "-"}
+                            </td>
+                            <td className="px-4 py-2 text-[12px] text-muted-foreground">{p.memo || "-"}</td>
+                            <td className="px-4 py-2 text-right text-[12px]">
+                              {p.is_unpaid ? <span className="text-red-600 font-medium">{formatWon(p.amount || 0)}</span> : "-"}
+                            </td>
+                            <td className="px-4 py-2 text-right text-[12px] font-medium">
+                              {formatWon(p.amount || 0)}
+                            </td>
+                            <td className="px-4 py-2 text-center">
+                              {p.is_unpaid
+                                ? <Badge className="bg-red-100 text-red-700 hover:bg-red-100 text-[10px]">미납</Badge>
+                                : <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 text-[10px]">완료</Badge>
+                              }
+                            </td>
+                            <td className="px-4 py-2">
+                              <div className="flex items-center justify-center gap-1">
+                                <button
+                                  onClick={() => onAddPayment(c.id)}
+                                  className="p-1 rounded-lg hover:bg-[hsl(220,14%,90%)] text-muted-foreground transition-colors"
+                                  title="수정"
+                                >
+                                  <Edit2 className="w-3 h-3" />
+                                </button>
+                                <button
+                                  onClick={() => deletePaymentEntry(p.id)}
+                                  className="p-1 rounded-lg hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-colors"
+                                  title="삭제"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                        {/* Add new payment type row */}
+                        {availableTypes.length > 0 && (
+                          <tr className="bg-[hsl(220,14%,98%)] border-b border-[hsl(220,13%,93%)]">
+                            <td className="px-4 py-2" />
+                            <td className="px-4 py-2" colSpan={8}>
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="text-[11px] text-muted-foreground mr-1">항목 추가:</span>
+                                {availableTypes.map((t) => (
+                                  <button
+                                    key={t.value}
+                                    onClick={() => addPaymentType(c.id, t.value)}
+                                    className={`px-2.5 py-1 rounded-md text-[11px] font-medium border transition-all hover:opacity-80 ${t.color} border-transparent`}
+                                  >
+                                    + {t.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </>
+                    )}
+                  </>
                 );
               })}
               {filtered.length === 0 && (
