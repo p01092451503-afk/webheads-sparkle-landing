@@ -111,6 +111,9 @@ export default function CostSimulator() {
     return null;
   }, [bestPlan, recommendations, needsCdn]);
 
+  const AVG_TUITION = 60000; // 강좌당 평균 수강료
+  const monthlyRevenue = learners * AVG_TUITION;
+
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
 
   return (
@@ -371,6 +374,26 @@ export default function CostSimulator() {
                     <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(bestPlan.totalMonthly)}</span>
                     <span className="text-white/70 text-base mb-1">원/월</span>
                   </div>
+                  {/* 월 예상 수익 */}
+                  <div className="rounded-xl p-3.5 mb-4" style={{ background: "hsla(0, 0%, 100%, 0.12)" }}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-xs font-semibold text-white/70">월 예상 수익 (수강생 × 60,000원)</span>
+                    </div>
+                    <div className="flex items-end gap-2">
+                      <span className="font-extrabold text-white text-2xl tabular-nums">{formatPrice(monthlyRevenue)}원</span>
+                    </div>
+                    <div className="mt-2 pt-2 border-t border-white/15 flex items-center justify-between text-xs">
+                      <span className="text-white/60">순이익 (수익 − 플랫폼 비용)</span>
+                      <span className="font-bold text-white tabular-nums">{formatPrice(monthlyRevenue - bestPlan.totalMonthly)}원</span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs mt-1">
+                      <span className="text-white/60">ROI</span>
+                      <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
+                        {bestPlan.totalMonthly > 0 ? `${Math.round(((monthlyRevenue - bestPlan.totalMonthly) / bestPlan.totalMonthly) * 100)}%` : "∞"}
+                      </span>
+                    </div>
+                  </div>
+
                   {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
                     <div className="flex flex-wrap gap-2 mb-4">
                       {bestPlan.overageCdn > 0 && (
