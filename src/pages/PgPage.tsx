@@ -41,7 +41,7 @@ export default function PgPage() {
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats - W */}
       <section className="py-[4.8rem] bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-border">
@@ -50,35 +50,36 @@ export default function PgPage() {
         </div>
       </section>
 
-      {/* Payment Methods */}
-      <section className="py-20 bg-secondary border-b border-border">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <div className="mb-10">
-            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.paymentMethodsSection.sub")}</p>
-            <h2 className="font-bold text-foreground leading-tight text-3xl lg:text-4xl tracking-tight whitespace-pre-line">{t("pg.paymentMethodsSection.title")}</h2>
-          </div>
-          <div className="flex flex-wrap gap-2.5">
-            {paymentMethods.map((method: string) => (<span key={method} className="px-4 py-2 rounded-full border border-border bg-background text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors">{method}</span>))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="py-28 bg-background">
+      {/* Features - G */}
+      <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
             <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.featuresSection.sub")}</p>
             <h2 className="font-bold text-foreground leading-tight text-4xl lg:text-5xl tracking-tight whitespace-pre-line">{t("pg.featuresSection.title")}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {features.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-secondary hover:bg-muted transition-colors duration-200 flex flex-col gap-3"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-background shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
+            {features.map((f: any) => (<div key={f.title} className="rounded-2xl p-7 bg-background hover:bg-muted transition-colors duration-200 flex flex-col gap-3 border border-border hover:shadow-md"><div className="w-10 h-10 rounded-xl flex items-center justify-center bg-secondary shadow-sm"><f.icon className="w-5 h-5 text-primary" /></div><h3 className="font-bold text-foreground text-base tracking-tight">{f.title}</h3><p className="text-muted-foreground text-sm leading-relaxed flex-1">{f.desc}</p><div className="flex flex-wrap gap-1.5 mt-1">{f.tags.map((tag: string) => (<span key={tag} className="text-xs px-2.5 py-1 rounded-full font-medium bg-primary/10 text-primary">{tag}</span>))}</div></div>))}
           </div>
         </div>
       </section>
 
+      {/* Payment Methods - W */}
+      <section className="py-20 bg-background border-b border-border">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="mb-10">
+            <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-4">{t("pg.paymentMethodsSection.sub")}</p>
+            <h2 className="font-bold text-foreground leading-tight text-3xl lg:text-4xl tracking-tight whitespace-pre-line">{t("pg.paymentMethodsSection.title")}</h2>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            {paymentMethods.map((method: string) => (<span key={method} className="px-4 py-2 rounded-full border border-border bg-secondary text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-colors">{method}</span>))}
+          </div>
+        </div>
+      </section>
+
+      {/* MidCTA - Blue */}
       <ServiceMidCTA heading={t("pg.midCTA.heading")} description={t("pg.midCTA.description")} />
 
-      {/* Domestic PG Providers */}
+      {/* Domestic PG Providers - G */}
       <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -113,7 +114,7 @@ export default function PgPage() {
         </div>
       </section>
 
-      {/* PG Partners */}
+      {/* PG Partners - W */}
       <section id="partners" className="py-28 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -127,7 +128,7 @@ export default function PgPage() {
         </div>
       </section>
 
-      {/* PG Selection Guide */}
+      {/* PG Selection Guide - G */}
       <section className="py-28 bg-secondary">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="mb-16">
@@ -173,6 +174,7 @@ export default function PgPage() {
         </div>
       </section>
 
+      {/* Process - W */}
       <ServiceProcess bg="bg-background" 
         steps={processSteps}
         heading={t("pg.processSection.title")}
@@ -180,8 +182,13 @@ export default function PgPage() {
         description={t("pg.processSection.desc")}
       />
 
+      {/* Testimonials - G */}
       <TestimonialSection bg="bg-secondary" testimonials={testimonials} />
+
+      {/* FAQ - W */}
       <ServiceFAQ bg="bg-background" faqs={faqs} serviceName={t("pg.seo.title")} />
+
+      {/* Contact - W */}
       <ContactSection />
     </div>
   );
