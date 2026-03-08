@@ -221,6 +221,18 @@ export default function CostSimulator() {
                 <p className="flex items-center gap-1.5"><GraduationCap className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} /> 적용 완강률: <span className="font-semibold text-foreground">{completionRate}%</span></p>
               </div>
               )}
+
+              {learners >= 500 && (
+              <div className="mt-4 rounded-xl p-3.5 border border-amber-300/50 bg-amber-50/50 dark:bg-amber-950/20 dark:border-amber-500/30 text-xs space-y-1">
+                <p className="flex items-center gap-1.5 font-semibold text-amber-700 dark:text-amber-400">
+                  <Info className="w-3.5 h-3.5 shrink-0" />
+                  단독서버를 권장합니다
+                </p>
+                <p className="text-amber-600/80 dark:text-amber-400/70 leading-relaxed pl-5">
+                  월 활성 수강생이 500명 이상인 경우, 안정적인 서비스를 위해 단독서버(On-premise) 구성을 권장합니다. 웹 트래픽·동시접속 등은 상담 시 별도 안내해 드립니다.
+                </p>
+              </div>
+              )}
             </div>
           </div>
 
