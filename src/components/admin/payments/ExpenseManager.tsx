@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
+const ExpenseStatistics = lazy(() => import("./ExpenseStatistics"));
+
 interface ExpenseCategory {
   id: string;
   name: string;
