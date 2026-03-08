@@ -237,7 +237,7 @@ export default function LmsPage() {
             <a href="#solutions" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
               {t("lms.hero.cta2")}
             </a>
-            <a href="#cost-simulator" className="px-7 py-3.5 rounded-xl font-bold text-base transition-all hover:scale-[1.03] flex items-center gap-2 text-white" style={{ background: "hsl(0, 55%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
+            <a href="#cost-simulator" className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
               <Calculator className="w-4 h-4" />
               {t("floatingNav.costSimulator")}
             </a>
