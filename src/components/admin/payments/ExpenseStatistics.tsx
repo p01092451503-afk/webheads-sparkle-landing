@@ -58,6 +58,31 @@ export default function ExpenseStatistics({ allExpenses, categories, vendors }: 
     });
   }, [allExpenses, cy, cm]);
 
+  // Monthly stacked by category (last 12 months)
+  const categoryKeys = useMemo(() => categories.map((c) => c.id), [categories]);
+  const monthlyStackData = useMemo(() => {
+    const months: { label: string; year: number; month: number }[] = [];
+    for (let i = 11; i >= 0; i--) {
+      let m = cm - i;
+      let y = cy;
+      while (m <= 0) { m += 12; y -= 1; }
+      months.push({ label: `${m}월`, year: y, month: m });
+    }
+    return months.map(({ label, year, month }) => {
+      const row: Record<string, any> = { label };
+      const monthExpenses = allExpenses.filter((e) => e.year === year && e.month === month);
+      categories.forEach((cat) => {
+        row[cat.id] = monthExpenses
+          .filter((e) => e.category_id === cat.id)
+          .reduce((s, e) => s + (e.amount || 0), 0);
+      });
+      row["__none__"] = monthExpenses
+        .filter((e) => !e.category_id)
+        .reduce((s, e) => s + (e.amount || 0), 0);
+      return row;
+    });
+  }, [allExpenses, categories, cy, cm]);
+
   // Category breakdown (all time in loaded data)
   const categoryData = useMemo(() => {
     const map = new Map<string, number>();
