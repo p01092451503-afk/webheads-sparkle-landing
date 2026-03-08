@@ -359,6 +359,19 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.paid_date?.replace(/-/g, ".") || "-"}</td>
+                  <td className="px-4 py-3 text-center">
+                    <button onClick={async () => {
+                      try {
+                        await supabase.from("expenses" as any).update({ invoice_issued: !exp.invoice_issued } as any).eq("id", exp.id);
+                        fetchData();
+                      } catch { toast.error("변경 실패"); }
+                    }}>
+                      {exp.invoice_issued
+                        ? <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer text-[11px]">발급</Badge>
+                        : <Badge className="bg-gray-100 text-gray-500 hover:bg-gray-200 cursor-pointer text-[11px]">미발급</Badge>
+                      }
+                    </button>
+                  </td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.memo || "-"}</td>
                   <td className="px-4 py-3 text-center">
                     <button onClick={() => togglePaid(exp)}>
