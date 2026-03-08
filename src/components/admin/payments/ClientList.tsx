@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useCallback } from "react";
+import { useState, useMemo, useRef, useCallback, useEffect } from "react";
 import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -215,8 +215,13 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
     }
     setEditing({ clientId, field, paymentType });
-    setTimeout(() => inputRef.current?.focus(), 0);
   };
+
+  useEffect(() => {
+    if (editing) {
+      setTimeout(() => inputRef.current?.focus(), 30);
+    }
+  }, [editing]);
 
   const commitEdit = () => {
     if (!editing) return;
