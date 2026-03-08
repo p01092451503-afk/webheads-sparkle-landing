@@ -245,12 +245,11 @@ export default function AdminDashboard() {
 
   const isSuperAdmin = userRole === "super_admin";
 
-  const tabs: { key: Tab; icon: any; label: string }[] = [
-    { key: "analytics", icon: BarChart3, label: "분석" },
-    { key: "inquiries", icon: MessageSquare, label: "문의" },
-    { key: "payments", icon: CreditCard, label: "입금관리" },
-    { key: "settings", icon: Settings, label: "설정" },
-  ];
+  // Super admins see all tabs; regular admins see only allowed tabs
+  const tabs = useMemo(() => {
+    if (isSuperAdmin || !allowedTabs) return ALL_TABS;
+    return ALL_TABS.filter((t) => allowedTabs.includes(t.key));
+  }, [isSuperAdmin, allowedTabs]);
 
   const newCount = useMemo(() => inquiries.filter((i) => i.status === "new").length, [inquiries]);
 
