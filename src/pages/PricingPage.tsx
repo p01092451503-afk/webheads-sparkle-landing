@@ -14,8 +14,10 @@ const TIERS = ["Starter", "Basic", "Plus", "Premium"] as const;
 
 const PRICES_KO = ["300,000원", "500,000원", "700,000원", "1,000,000원"];
 const PRICES_EN = ["300,000 KRW", "500,000 KRW", "700,000 KRW", "1,000,000 KRW"];
+const PRICES_JA = ["300,000ウォン", "500,000ウォン", "700,000ウォン", "1,000,000ウォン"];
 const PRICE_SUB_KO = ["/월(VAT 별도)", "/월(VAT 별도)", "/월(VAT 별도)", "/월(VAT 별도)"];
 const PRICE_SUB_EN = ["/mo (excl. VAT)", "/mo (excl. VAT)", "/mo (excl. VAT)", "/mo (excl. VAT)"];
+const PRICE_SUB_JA = ["/月（VAT別）", "/月（VAT別）", "/月（VAT別）", "/月（VAT別）"];
 
 const MAIN_SPECS_KO: SpecRow[] = [
   {
