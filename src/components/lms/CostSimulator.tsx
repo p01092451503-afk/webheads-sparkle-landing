@@ -260,25 +260,35 @@ export default function CostSimulator() {
 
               {/* Dedicated server recommendation */}
               {learners >= 500 && (
-                <div className="mt-4 rounded-xl p-4 border bg-background" style={{ borderColor: "hsl(var(--lms-primary) / 0.25)" }}>
-                  <div className="flex items-start gap-2.5">
-                    <div className="mt-0.5 shrink-0 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.1)" }}>
-                      <Server className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-primary))" }} />
+                <div
+                  className="mt-5 rounded-2xl p-5 border-0 relative overflow-hidden"
+                  style={{
+                    background: "linear-gradient(135deg, hsl(var(--lms-primary) / 0.06) 0%, hsl(var(--lms-primary) / 0.12) 100%)",
+                    boxShadow: "0 2px 16px -4px hsl(var(--lms-primary) / 0.15), inset 0 1px 0 hsl(var(--lms-primary) / 0.1)",
+                  }}
+                >
+                  {/* Accent left bar */}
+                  <div className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full" style={{ background: "hsl(var(--lms-primary))" }} />
+
+                  <div className="flex items-start gap-3.5 pl-2">
+                    <div className="mt-0.5 shrink-0 w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.15)", boxShadow: "0 2px 8px -2px hsl(var(--lms-primary) / 0.2)" }}>
+                      <Server className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-foreground mb-1">단독서버를 권장합니다</p>
-                      <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[0.9rem] font-extrabold text-foreground mb-1.5 tracking-tight">단독서버를 권장합니다</p>
+                      <p className="text-xs text-muted-foreground leading-[1.7]" style={{ wordBreak: "keep-all" }}>
                         월 활성 수강생 <span className="font-semibold text-foreground">{learners.toLocaleString()}명</span> 규모에서는 영상 CDN 외에도 웹 트래픽(페이지 로딩·API 호출·퀴즈·출결 등)이 상당합니다. 안정적인 서비스를 위해 공용서버 대신 <span className="font-semibold text-foreground">단독서버 구성</span>을 권장드립니다.
                       </p>
-                      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[11px] text-muted-foreground">
-                        <span className="flex items-center gap-1.5">
-                          <Globe className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          예상 웹 트래픽: 월 <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{Math.round(learners * 0.8).toLocaleString()}GB</span> 이상
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Server className="w-3 h-3" style={{ color: "hsl(var(--lms-primary))" }} />
-                          단독서버 추가 비용: <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>월 250,000원</span>
-                        </span>
+
+                      <div className="mt-3.5 flex flex-col sm:flex-row gap-2.5">
+                        <div className="flex items-center gap-2 rounded-lg px-3 py-2 bg-background/70 backdrop-blur-sm">
+                          <Globe className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(var(--lms-primary))" }} />
+                          <span className="text-[11px] text-muted-foreground">예상 웹 트래픽: 월 <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{Math.round(learners * 0.8).toLocaleString()}GB</span> 이상</span>
+                        </div>
+                        <div className="flex items-center gap-2 rounded-lg px-3 py-2 bg-background/70 backdrop-blur-sm">
+                          <Server className="w-3.5 h-3.5 shrink-0" style={{ color: "hsl(var(--lms-primary))" }} />
+                          <span className="text-[11px] text-muted-foreground">단독서버 추가 비용: <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>월 250,000원</span></span>
+                        </div>
                       </div>
                     </div>
                   </div>
