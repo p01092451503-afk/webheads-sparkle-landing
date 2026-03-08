@@ -145,8 +145,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         } else {
           const { error } = await supabase.from("payments").insert({
             client_id: clientId,
-            year: currentYear,
-            month: currentMonth,
+            year: viewYear,
+            month: viewMonth,
             amount: numAmount,
             is_unpaid: false,
             payment_type: "hosting",
@@ -161,7 +161,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           // If short format like 3-8 or 03-08
           if (/^\d{1,2}-\d{1,2}$/.test(cleaned)) {
             const [m, d] = cleaned.split("-");
-            dateStr = `${currentYear}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+            dateStr = `${viewYear}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
           } else if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(cleaned)) {
             const parts = cleaned.split("-");
             dateStr = `${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
@@ -181,8 +181,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         } else if (dateStr) {
           const { error } = await supabase.from("payments").insert({
             client_id: clientId,
-            year: currentYear,
-            month: currentMonth,
+            year: viewYear,
+            month: viewMonth,
             amount: 0,
             paid_date: dateStr,
             is_unpaid: false,
@@ -197,7 +197,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     } catch (e: any) {
       toast.error(e.message || "저장 중 오류가 발생했습니다");
     }
-  }, [clientData, currentYear, currentMonth, onRefresh, showSaved]);
+  }, [clientData, viewYear, viewMonth, onRefresh, showSaved]);
 
   const startEditing = (clientId: string, field: "amount" | "paid_date") => {
     const client = clientData.find((c) => c.id === clientId);
