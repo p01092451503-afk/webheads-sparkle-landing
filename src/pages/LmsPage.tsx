@@ -410,7 +410,7 @@ export default function LmsPage() {
                   <thead>
                     <tr className="border-b border-border" style={{ background: "var(--lms-gradient-subtle)" }}>
                       {(t("lms.comparisonTable.headers", { returnObjects: true }) as string[]).map((header, i) => (
-                        <th key={i} className={`px-5 py-4 text-left font-bold text-foreground whitespace-nowrap ${i === 0 ? "min-w-[120px]" : "min-w-[180px]"}`}>{header}</th>
+                        <th key={i} className={`px-5 py-4 text-left font-bold text-foreground whitespace-nowrap ${i === 0 ? "w-[35%] min-w-[200px]" : "min-w-[180px]"}`}>{header}</th>
                       ))}
                     </tr>
                   </thead>
