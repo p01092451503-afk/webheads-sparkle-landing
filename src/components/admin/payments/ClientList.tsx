@@ -234,6 +234,46 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   };
 
+  const cycleInvoiceStatus = useCallback(async (clientId: string, paymentType: string) => {
+    const client = clientData.find((c) => c.id === clientId);
+    if (!client) return;
+    const payment = client.byType[paymentType];
+    if (!payment) return;
+
+    const order = ["none", "pre", "post", "done"];
+    const currentIdx = order.indexOf(payment.invoice_status || "none");
+    const nextStatus = order[(currentIdx + 1) % order.length];
+    const now = nextStatus === "done" ? new Date().toISOString().split("T")[0] : payment.invoice_date;
+
+    try {
+      const { error } = await supabase.from("payments").update({
+        invoice_status: nextStatus,
+        invoice_date: nextStatus === "done" ? now : payment.invoice_date,
+      }).eq("id", payment.id);
+      if (error) throw error;
+      showSaved(`${clientId}-${paymentType}-invoice`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "계산서 상태 변경 중 오류가 발생했습니다");
+    }
+  }, [clientData, onRefresh, showSaved]);
+
+  const saveMemo = useCallback(async (clientId: string, paymentType: string, memo: string) => {
+    const client = clientData.find((c) => c.id === clientId);
+    if (!client) return;
+    const payment = client.byType[paymentType];
+    if (!payment) return;
+
+    try {
+      const { error } = await supabase.from("payments").update({ memo }).eq("id", payment.id);
+      if (error) throw error;
+      showSaved(`${clientId}-${paymentType}-memo`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "메모 저장 중 오류가 발생했습니다");
+    }
+  }, [clientData, onRefresh, showSaved]);
+
   const toggleType = (typeValue: string) => {
     setVisibleTypes((prev) =>
       prev.includes(typeValue)
