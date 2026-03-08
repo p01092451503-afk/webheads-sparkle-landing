@@ -34,6 +34,7 @@ interface Expense {
   paid_date: string | null;
   memo: string | null;
   invoice_issued: boolean;
+  vendor_name: string | null;
 }
 
 interface Vendor {
@@ -76,6 +77,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [formCategoryId, setFormCategoryId] = useState("");
   const [formClientId, setFormClientId] = useState("none");
   const [formVendorId, setFormVendorId] = useState("none");
+  const [formVendorName, setFormVendorName] = useState("");
   const [formTotalAmount, setFormTotalAmount] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [formMemo, setFormMemo] = useState("");
@@ -134,6 +136,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormCategoryId(categories[0]?.id || "");
     setFormClientId("none");
     setFormVendorId("none");
+    setFormVendorName("");
     setFormTotalAmount("");
     setFormDescription("");
     setFormMemo("");
@@ -146,6 +149,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormCategoryId(exp.category_id || "");
     setFormClientId(exp.client_id || "none");
     setFormVendorId(exp.vendor_id || "none");
+    setFormVendorName(exp.vendor_name || "");
     setFormTotalAmount(exp.amount ? exp.amount.toLocaleString("ko-KR") : "");
     setFormDescription(exp.description || "");
     setFormMemo(exp.memo || "");
@@ -174,6 +178,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       description: formDescription || null,
       memo: formMemo || null,
       invoice_issued: formInvoiceIssued,
+      vendor_name: formVendorName.trim() || null,
     };
 
     try {
@@ -422,7 +427,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                     </Badge>
                   </td>
                   <td className="px-4 py-3">{exp.description || "-"}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{getVendorName(exp.vendor_id) || getClientName(exp.client_id) || "-"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{exp.vendor_name || getVendorName(exp.vendor_id) || getClientName(exp.client_id) || "-"}</td>
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.supply_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
@@ -523,15 +528,18 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             </div>
             <div className="space-y-1.5">
               <Label className="text-[13px]">협력사 (선택)</Label>
-              <Select value={formVendorId} onValueChange={setFormVendorId}>
-                <SelectTrigger className="h-9 text-[13px]"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none" className="text-[13px]">선택 없음</SelectItem>
-                  {vendors.filter((v) => v.is_active).map((v) => (
-                    <SelectItem key={v.id} value={v.id} className="text-[13px]">{v.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Input
+                value={formVendorName}
+                onChange={(e) => setFormVendorName(e.target.value)}
+                placeholder="협력사명 직접 입력"
+                className="h-9 text-[13px]"
+                list="vendor-suggestions"
+              />
+              <datalist id="vendor-suggestions">
+                {vendors.filter((v) => v.is_active).map((v) => (
+                  <option key={v.id} value={v.name} />
+                ))}
+              </datalist>
             </div>
             <div className="space-y-1.5">
               <Label className="text-[13px]">메모</Label>
