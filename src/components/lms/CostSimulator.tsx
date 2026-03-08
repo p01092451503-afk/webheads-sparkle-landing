@@ -105,8 +105,8 @@ export default function CostSimulator() {
     return null;
   }, [bestPlan, recommendations, needsCdn]);
 
-  const [avgTuition, setAvgTuition] = useState(60000);
-  const monthlyRevenue = learners * avgTuition;
+
+
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
   const currency = (amount: string) => {
