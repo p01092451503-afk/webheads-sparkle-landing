@@ -147,7 +147,7 @@ export default function CostSimulator() {
                 />
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
                   <span>10명</span>
-                  <span>5,000명</span>
+                  <span>2,000명</span>
                 </div>
               </div>
 
