@@ -473,8 +473,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
                 return (
                   <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
-                    <td className="px-4 py-3 text-muted-foreground">{c.client_no}</td>
-                    <td className="px-4 py-3">
+                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
+                    <td className="px-3 py-3 whitespace-nowrap">
                       <button
                         onClick={() => onNavigate("detail", c.id)}
                         className="font-medium text-[hsl(221,83%,53%)] hover:underline"
@@ -482,7 +482,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                         {c.name}
                       </button>
                     </td>
-                    <td className="px-4 py-3 text-muted-foreground">{c.expected_payment_day || "-"}</td>
+                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.expected_payment_day || "-"}</td>
 
                     {/* Editable: 입금일 (hosting) */}
                     <td className="px-2 py-1.5">
