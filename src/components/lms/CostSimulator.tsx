@@ -181,7 +181,7 @@ export default function CostSimulator() {
                 </div>
                 <Slider
                   value={[learners]}
-                  onValueChange={([v]) => setLearners(v)}
+                  onValueChange={([v]) => handleLearnersChange(v)}
                   min={10}
                   max={2000}
                   step={10}
