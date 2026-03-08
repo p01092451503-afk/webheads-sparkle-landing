@@ -191,8 +191,8 @@ export default function BlogPage() {
           {paginatedPosts.length === 0 ? (
             <div className="text-center py-16">
               <Search className="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" />
-              <p className="text-muted-foreground text-lg font-medium">{lang === "en" ? "No results found" : "검색 결과가 없습니다"}</p>
-              <p className="text-muted-foreground/60 text-sm mt-1">{lang === "en" ? "Try different keywords" : "다른 키워드로 검색해보세요"}</p>
+              <p className="text-muted-foreground text-lg font-medium">{lang === "en" ? "No results found" : lang === "ja" ? "検索結果がありません" : "검색 결과가 없습니다"}</p>
+              <p className="text-muted-foreground/60 text-sm mt-1">{lang === "en" ? "Try different keywords" : lang === "ja" ? "別のキーワードで検索してください" : "다른 키워드로 검색해보세요"}</p>
             </div>
           ) : (
             <div className="flex flex-col gap-8">
