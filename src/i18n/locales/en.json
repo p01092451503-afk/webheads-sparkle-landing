@@ -175,7 +175,10 @@
     "testimonials": [
       { "name": "T. Kim", "role": "IT Infrastructure Lead", "org": "A Cyber University", "rating": 5, "date": "2024.09", "period": "7th year", "content": "We sometimes get 3,000+ concurrent users at semester start, and there's never any lag or downtime. No more stressing about server scaling." },
       { "name": "S. Lee", "role": "Operations Manager", "org": "B Vocational Training", "rating": 4, "date": "2025.01", "period": "3rd year", "content": "Our old hosting went down 2-3 times a month. Since switching, it hasn't happened once. Support calls dropped dramatically." },
-      { "name": "J. Park", "role": "CEO", "org": "C EdTech", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "International learners say video loading is much faster now. Quick response via KakaoTalk when issues arise — very reliable." }
+      { "name": "J. Park", "role": "CEO", "org": "C EdTech", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "International learners say video loading is much faster now. Quick response via KakaoTalk when issues arise — very reliable." },
+      { "name": "H. Jo", "role": "Systems Ops Team", "org": "AA Continuing Education", "rating": 5, "date": "2025.02", "period": "4th year", "content": "Migrated from AWS to IDC and cut costs by 40%. Performance actually improved, and the transition was zero-downtime." },
+      { "name": "H. Kim", "role": "Academic Affairs Lead", "org": "AB Graduate School", "rating": 4, "date": "2024.12", "period": "6th year", "content": "During graduation season, grade lookups spike, but CDN keeps things snappy. Student complaints dropped noticeably." },
+      { "name": "W. Jung", "role": "Dev Lead", "org": "AC Professional Training", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Backups run automatically, so there's no worry about data loss. Quarterly recovery tests give us extra confidence." }
     ]
   },
   "maintenance": {
@@ -258,7 +261,10 @@
     "testimonials": [
       { "name": "Y. Choi", "role": "CTO", "org": "D EdTech", "rating": 4, "date": "2025.02", "period": "5th year", "content": "Had a server issue at 3 AM and got a call within 5 minutes. Everything was back to normal in under 30 minutes." },
       { "name": "S. Han", "role": "Education Ops Team", "org": "E Cyber University", "rating": 5, "date": "2024.10", "period": "9th year", "content": "We don't have in-house developers, so we can't handle security updates or server management ourselves. Having it all taken care of lets us focus on operations." },
-      { "name": "W. Jung", "role": "IT Manager", "org": "F Education Association", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "The monthly reports are so well-organized that I can use them directly for executive presentations." }
+      { "name": "W. Jung", "role": "IT Manager", "org": "F Education Association", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "The monthly reports are so well-organized that I can use them directly for executive presentations." },
+      { "name": "T. Ryu", "role": "Service Planning", "org": "AD Online Education", "rating": 5, "date": "2025.01", "period": "3rd year", "content": "Feature requests get included in the next scheduled update. Communication is fast and results match our expectations." },
+      { "name": "J. Ahn", "role": "Operations Director", "org": "AE Legal Education Center", "rating": 4, "date": "2024.11", "period": "7th year", "content": "PHP upgrades and security patches are handled automatically, so we only need to focus on educational content." },
+      { "name": "J. Song", "role": "CEO", "org": "AF EdTech", "rating": 3, "date": "2025.02", "period": "2nd year", "content": "They notify us before issues even occur. Knowing the monitoring is solid gives us real peace of mind." }
     ]
   },
   "chatbot": {
@@ -384,7 +390,10 @@
     "testimonials": [
       { "name": "J. Kim", "role": "Education Operations Lead", "org": "M Cyber University", "rating": 5, "date": "2024.11", "period": "3rd year", "content": "Honestly, I wasn't sure how much a chatbot could do, but within 2 weeks it was handling almost all repetitive questions." },
       { "name": "D. Lee", "role": "Platform Manager", "org": "N Corporate Training Center", "rating": 4, "date": "2025.01", "period": "5th year", "content": "Many learners ask questions at night or on weekends. The chatbot's instant responses have noticeably improved completion rates." },
-      { "name": "S. Oh", "role": "CS Leader", "org": "O Education Company", "rating": 3, "date": "2024.09", "period": "2nd year", "content": "With chatbots on both KakaoTalk and the website, learners can ask questions wherever they're comfortable." }
+      { "name": "S. Oh", "role": "CS Leader", "org": "O Education Company", "rating": 3, "date": "2024.09", "period": "2nd year", "content": "With chatbots on both KakaoTalk and the website, learners can ask questions wherever they're comfortable." },
+      { "name": "M. Hwang", "role": "LMS Operations", "org": "AG Vocational Training", "rating": 5, "date": "2025.02", "period": "4th year", "content": "We trained 200 FAQs and accuracy exceeds 95%. Phone inquiries to the ops team dropped by more than half." },
+      { "name": "S. Park", "role": "Academic Dean", "org": "AH Cyber University", "rating": 4, "date": "2024.10", "period": "3rd year", "content": "English and Chinese learners can ask questions in their own language and get instant answers. Multi-language support is a huge differentiator." },
+      { "name": "S. Noh", "role": "IT Planning", "org": "AI Public Education", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "Unanswered questions are collected and shown to us, so we can continuously improve the FAQ. The bot keeps getting smarter." }
     ]
   },
   "appdev": {
@@ -633,7 +642,10 @@
     "testimonials": [
       { "name": "M. Ko", "role": "Mobile Team", "org": "V Cyber University", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "We built both iOS and Android apps, and learners can seamlessly continue from web to app." },
       { "name": "J. Nam", "role": "Education Planning Lead", "org": "W Corporate Training", "rating": 5, "date": "2025.01", "period": "5th year", "content": "After enabling push notifications, app return rates significantly increased." },
-      { "name": "D. Hwang", "role": "CEO", "org": "X Startup", "rating": 4, "date": "2024.08", "period": "3rd year", "content": "We got our MVP on the App Store in less than a month. They even handled App Store rejection responses." }
+      { "name": "D. Hwang", "role": "CEO", "org": "X Startup", "rating": 4, "date": "2024.08", "period": "3rd year", "content": "We got our MVP on the App Store in less than a month. They even handled App Store rejection responses." },
+      { "name": "M. Jeon", "role": "Service Operations", "org": "AJ Distance Education", "rating": 5, "date": "2025.02", "period": "4th year", "content": "After adding offline download, subway learners skyrocketed. People love studying without worrying about data." },
+      { "name": "S. Yang", "role": "Planning Lead", "org": "AK Corporate Education", "rating": 4, "date": "2024.11", "period": "3rd year", "content": "They matched the app design to our CI perfectly. Employees think it's an in-house app." },
+      { "name": "S. Lim", "role": "Developer", "org": "AL EdTech", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "I used to worry about the app breaking with every OS update, but they handle it proactively." }
     ]
   },
   "drm": {
@@ -696,7 +708,10 @@
     "testimonials": [
       { "name": "H. Lim", "role": "Content Security", "org": "G Online Education", "rating": 5, "date": "2024.08", "period": "6th year", "content": "Before DRM, leaked videos were everywhere. After applying it, not a single one has appeared." },
       { "name": "E. Jo", "role": "Operations Director", "org": "H Cyber University", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "Learners used to complain about plugin installations. Now it just plays in the browser — complaints have nearly disappeared." },
-      { "name": "J. Seo", "role": "Security Lead", "org": "I Finance Institute", "rating": 4, "date": "2025.01", "period": "4th year", "content": "In finance, security audits are strict. Being able to pull DRM status reports from the dashboard makes audits much easier." }
+      { "name": "J. Seo", "role": "Security Lead", "org": "I Finance Institute", "rating": 4, "date": "2025.01", "period": "4th year", "content": "In finance, security audits are strict. Being able to pull DRM status reports from the dashboard makes audits much easier." },
+      { "name": "S. Bae", "role": "Content Lead", "org": "AM Professional Training", "rating": 5, "date": "2025.02", "period": "5th year", "content": "Watermarks make screen captures pointless. Leak attempt count is at zero." },
+      { "name": "H. Yoon", "role": "Academic Admin", "org": "AN Distance University", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "DRM works well on mobile too, so there's no security concern even when students study via the app." },
+      { "name": "J. Kang", "role": "CEO", "org": "AO Language Education", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Premium lecture videos no longer appear on torrent sites. Paid membership conversion rates rose as well." }
     ],
     "processSection": { "sub": "PROCESS", "title": "How DRM\nImplementation Works", "desc": "Our dedicated engineers support you from consultation to ongoing operations." },
     "processSteps": [
@@ -773,7 +788,10 @@
     "testimonials": [
       { "name": "S. Baek", "role": "Education Operations Manager", "org": "J Vocational Training", "rating": 4, "date": "2024.12", "period": "3rd year", "content": "Setting up auto-SMS for non-completers noticeably increased our completion rates." },
       { "name": "N. Kwon", "role": "CS Team Lead", "org": "K Cyber University", "rating": 5, "date": "2025.01", "period": "8th year", "content": "After Channel Talk integration, our agents can see learner enrollment status instantly. Support time was cut by more than half." },
-      { "name": "J. Yoo", "role": "Marketing Lead", "org": "L e-Learning Company", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "Switching to KakaoTalk alerts significantly reduced messaging costs, and click-through rates are much higher than SMS." }
+      { "name": "J. Yoo", "role": "Marketing Lead", "org": "L e-Learning Company", "rating": 3, "date": "2024.10", "period": "2nd year", "content": "Switching to KakaoTalk alerts significantly reduced messaging costs, and click-through rates are much higher than SMS." },
+      { "name": "D. Jung", "role": "Education Ops Manager", "org": "AP Continuing Education", "rating": 5, "date": "2025.02", "period": "4th year", "content": "Auto-nudge messages to non-completers boosted completion rates by over 25%. Manual follow-ups feel like ancient history." },
+      { "name": "H. Oh", "role": "IT Team Lead", "org": "AQ Corporate Academy", "rating": 4, "date": "2024.11", "period": "3rd year", "content": "With learner progress visible right in Channel Talk, agents no longer need to ask 'How far did you get in the course?'" },
+      { "name": "Y. Han", "role": "CRM Manager", "org": "AR Online Education", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "A/B testing send times pushed our open rate above 40%. Love being able to operate on data." }
     ],
     "processSection": { "sub": "PROCESS", "title": "How Channel/SMS\nIntegration Works", "desc": "From LMS integration to automation setup, our dedicated engineers support every step." },
     "processSteps": [
@@ -891,7 +909,10 @@
     "testimonials": [
       { "name": "H. Jang", "role": "Dev Team Lead", "org": "S e-Learning Company", "rating": 5, "date": "2024.09", "period": "6th year", "content": "Toss Payments integration took less than a week. They even set up subscription automation, eliminating our monthly manual work." },
       { "name": "S. Moon", "role": "Finance Manager", "org": "T Cyber University", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Auto-generated settlement reports mean no more Excel work for tax invoices and VAT filing." },
-      { "name": "D. Shin", "role": "Business Director", "org": "U Global Education", "rating": 4, "date": "2024.11", "period": "4th year", "content": "International students had trouble paying until we added Stripe. Global revenue has noticeably increased." }
+      { "name": "D. Shin", "role": "Business Director", "org": "U Global Education", "rating": 4, "date": "2024.11", "period": "4th year", "content": "International students had trouble paying until we added Stripe. Global revenue has noticeably increased." },
+      { "name": "H. Lee", "role": "Service Planning", "org": "AS Professional Training", "rating": 5, "date": "2025.02", "period": "3rd year", "content": "Adding KakaoPay, NaverPay, and TossPay boosted payment conversion rates by over 30%." },
+      { "name": "D. Kim", "role": "Operations Lead", "org": "AT Continuing Education", "rating": 4, "date": "2024.12", "period": "5th year", "content": "Installment payment options significantly increased enrollment rates by reducing learner financial burden." },
+      { "name": "Y. Choi", "role": "Business Support", "org": "AU Cyber University", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Auto-retry on failed payments is great. We used to chase each one manually — now it's all handled automatically." }
     ],
     "processSection": { "sub": "PROCESS", "title": "How PG Payment\nIntegration Works", "desc": "From merchant contracts to settlement automation, we support the entire process." },
     "processSteps": [
@@ -953,7 +974,10 @@
     "testimonials": [
       { "name": "M. Song", "role": "HRD Manager", "org": "P Enterprise", "rating": 4, "date": "2024.10", "period": "4th year", "content": "The video quality is clearly different. Employees keep asking if these are external training videos." },
       { "name": "J. Yoon", "role": "Instructional Designer", "org": "Q Public Education", "rating": 5, "date": "2024.12", "period": "7th year", "content": "After adding interactive content, learner engagement changed dramatically. Branching scenarios are especially effective." },
-      { "name": "D. Kang", "role": "Education Team", "org": "R Medical Institution", "rating": 3, "date": "2025.02", "period": "2nd year", "content": "Medical procedures are hard to explain in text, but 3D animation makes them much easier to understand." }
+      { "name": "D. Kang", "role": "Education Team", "org": "R Medical Institution", "rating": 3, "date": "2025.02", "period": "2nd year", "content": "Medical procedures are hard to explain in text, but 3D animation makes them much easier to understand." },
+      { "name": "J. Park", "role": "Talent Development", "org": "AV Financial Group", "rating": 5, "date": "2024.11", "period": "6th year", "content": "Mandatory training content auto-updates whenever regulations change. We only need to manage the training schedule." },
+      { "name": "N. Kim", "role": "Content Planner", "org": "AW EdTech", "rating": 4, "date": "2025.01", "period": "3rd year", "content": "We added AI narration in 8 languages — quality is nearly indistinguishable from professional voice actors. Saved 70% on costs." },
+      { "name": "S. Lee", "role": "Education Operations", "org": "AX Public Academy", "rating": 3, "date": "2024.12", "period": "2nd year", "content": "Just send PPT materials and they transform them into interactive content. Production burden is way down, and QA is thorough." }
     ]
   },
   "landing": {
