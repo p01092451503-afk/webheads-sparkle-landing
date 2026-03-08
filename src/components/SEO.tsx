@@ -15,10 +15,10 @@ interface SEOProps {
 export const BASE_URL = "https://service.webheads.co.kr";
 const OG_IMAGE = `${BASE_URL}/og-image.png`;
 
-const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string }> = {
-  ko: { og: "ko_KR", siteName: "웹헤즈", suffix: "웹헤즈" },
-  en: { og: "en_US", siteName: "WEBHEADS", suffix: "WEBHEADS" },
-  ja: { og: "ja_JP", siteName: "WEBHEADS", suffix: "WEBHEADS" },
+const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string; imageAlt: string }> = {
+  ko: { og: "ko_KR", siteName: "웹헤즈", suffix: "웹헤즈", imageAlt: "대표 이미지" },
+  en: { og: "en_US", siteName: "WEBHEADS", suffix: "WEBHEADS", imageAlt: "Cover Image" },
+  ja: { og: "ja_JP", siteName: "WEBHEADS", suffix: "WEBHEADS", imageAlt: "代表イメージ" },
 };
 
 export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb, ogImage }: SEOProps) {
@@ -81,7 +81,7 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content={`${fullTitle} 대표 이미지`} />
+      <meta property="og:image:alt" content={`${fullTitle} — ${locale.imageAlt}`} />
       <meta property="og:locale" content={locale.og} />
       <meta property="og:site_name" content={locale.siteName} />
 
@@ -90,7 +90,7 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImageUrl} />
-      <meta name="twitter:image:alt" content={`${fullTitle} 대표 이미지`} />
+      <meta name="twitter:image:alt" content={`${fullTitle} — ${locale.imageAlt}`} />
 
       {/* JSON-LD */}
       {jsonLd && (
