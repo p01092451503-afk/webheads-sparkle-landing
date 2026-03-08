@@ -155,7 +155,7 @@ export default function BlogPage() {
             />
             {searchQuery && (
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-muted-foreground">
-                {filteredPosts.length}{lang === "en" ? " results" : "건"}
+                {filteredPosts.length}{lang === "en" ? " results" : lang === "ja" ? "件" : "건"}
               </span>
             )}
           </div>
