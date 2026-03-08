@@ -47,7 +47,9 @@ export default function CostSimulator() {
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const [isAnnual, setIsAnnual] = useState(false);
+  const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   const SECURE_PLAYER_COST = 300000;
+  const DEDICATED_SERVER_COST = 250000;
   const ANNUAL_DISCOUNT = 0.1;
 
   const getSolutionType = (typeKey: string) => t(`costSim.solutionTypes.${typeKey}`);
