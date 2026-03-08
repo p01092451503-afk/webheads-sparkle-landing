@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe } from "lucide-react";
+import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -38,11 +38,14 @@ export default function CostSimulator() {
   const [videoHours, setVideoHours] = useState(30);
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
+  const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
+  const SECURE_PLAYER_COST = 300000;
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, videoHours, completionRate), [learners, videoHours, completionRate]);
 
   const recommendations = useMemo<PlanRecommendation[]>(() => {
     return PLANS.map((plan) => {
+      const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
       if (plan.name === "Starter") {
         return { ...plan, isMatch: !needsCdn, totalMonthly: plan.monthly, overageCdn: 0, overageStorage: 0 };
       }
@@ -53,10 +56,10 @@ export default function CostSimulator() {
       const overStorage = Math.max(0, storageGB - plan.storageIncluded);
       const overageCdn = overCdn * plan.cdnOverage;
       const overageStorage = overStorage * plan.storageOverage;
-      const totalMonthly = plan.monthly + overageCdn + overageStorage;
+      const totalMonthly = plan.monthly + overageCdn + overageStorage + secureAddon;
       return { ...plan, isMatch: true, totalMonthly, overageCdn, overageStorage };
     }).filter((p) => p.isMatch);
-  }, [cdnGB, storageGB, needsCdn]);
+  }, [cdnGB, storageGB, needsCdn, needsSecurePlayer]);
 
   const bestPlan = useMemo(() => {
     const viable = recommendations.filter((p) => p.name !== "Starter");
@@ -249,6 +252,30 @@ export default function CostSimulator() {
                   : "YouTube·Vimeo 등 외부 플랫폼에 영상을 올리고 LMS에 링크만 연동하는 방식입니다. 별도 서버 비용이 없어 경제적입니다."}
               </p>
 
+              {/* Secure Player toggle */}
+              {needsCdn && (
+              <>
+                <div className="flex items-center justify-between rounded-xl p-3.5 bg-background border border-border mt-4">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-medium text-foreground">보안 플레이어 (DRM)</span>
+                  </div>
+                  <button
+                    onClick={() => setNeedsSecurePlayer(!needsSecurePlayer)}
+                    className={`relative shrink-0 w-11 h-6 rounded-full transition-colors overflow-hidden ${needsSecurePlayer ? "" : "bg-muted"}`}
+                    style={needsSecurePlayer ? { background: "hsl(var(--lms-primary))" } : undefined}
+                  >
+                    <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${needsSecurePlayer ? "translate-x-5" : "translate-x-0"}`} />
+                  </button>
+                </div>
+                <p className="text-[11px] text-muted-foreground mt-2 leading-relaxed pl-1">
+                  {needsSecurePlayer
+                    ? "Widevine·FairPlay 등 멀티 DRM이 적용된 보안 플레이어입니다. 월 300,000원이 추가됩니다."
+                    : "영상 다운로드 방지 및 불법 복제 차단이 필요한 경우 활성화하세요."}
+                </p>
+              </>
+              )}
+
               {/* Estimated usage */}
               {needsCdn && (
               <div className="mt-4 rounded-xl p-3.5 bg-muted/50 text-xs text-muted-foreground space-y-1.5">
@@ -304,7 +331,7 @@ export default function CostSimulator() {
                     <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(bestPlan.totalMonthly)}</span>
                     <span className="text-white/70 text-base mb-1">원/월</span>
                   </div>
-                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0) && (
+                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
                     <div className="flex flex-wrap gap-2 mb-4">
                       {bestPlan.overageCdn > 0 && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
@@ -314,6 +341,11 @@ export default function CostSimulator() {
                       {bestPlan.overageStorage > 0 && (
                         <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
                           저장공간 초과분 +{formatPrice(bestPlan.overageStorage)}원
+                        </span>
+                      )}
+                      {needsSecurePlayer && bestPlan.name !== "Starter" && (
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
+                          보안 플레이어 +{formatPrice(SECURE_PLAYER_COST)}원
                         </span>
                       )}
                     </div>
