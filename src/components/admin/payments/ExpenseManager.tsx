@@ -23,6 +23,7 @@ interface Expense {
   id: string;
   category_id: string | null;
   client_id: string | null;
+  vendor_id: string | null;
   year: number;
   month: number;
   amount: number;
@@ -33,6 +34,12 @@ interface Expense {
   paid_date: string | null;
   memo: string | null;
   invoice_issued: boolean;
+}
+
+interface Vendor {
+  id: string;
+  name: string;
+  is_active: boolean;
 }
 
 interface Client {
