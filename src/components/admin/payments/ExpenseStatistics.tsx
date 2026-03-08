@@ -58,6 +58,31 @@ export default function ExpenseStatistics({ allExpenses, categories, vendors }: 
     });
   }, [allExpenses, cy, cm]);
 
+  // Monthly stacked by category (last 12 months)
+  const categoryKeys = useMemo(() => categories.map((c) => c.id), [categories]);
+  const monthlyStackData = useMemo(() => {
+    const months: { label: string; year: number; month: number }[] = [];
+    for (let i = 11; i >= 0; i--) {
+      let m = cm - i;
+      let y = cy;
+      while (m <= 0) { m += 12; y -= 1; }
+      months.push({ label: `${m}월`, year: y, month: m });
+    }
+    return months.map(({ label, year, month }) => {
+      const row: Record<string, any> = { label };
+      const monthExpenses = allExpenses.filter((e) => e.year === year && e.month === month);
+      categories.forEach((cat) => {
+        row[cat.id] = monthExpenses
+          .filter((e) => e.category_id === cat.id)
+          .reduce((s, e) => s + (e.amount || 0), 0);
+      });
+      row["__none__"] = monthExpenses
+        .filter((e) => !e.category_id)
+        .reduce((s, e) => s + (e.amount || 0), 0);
+      return row;
+    });
+  }, [allExpenses, categories, cy, cm]);
+
   // Category breakdown (all time in loaded data)
   const categoryData = useMemo(() => {
     const map = new Map<string, number>();
@@ -137,6 +162,38 @@ export default function ExpenseStatistics({ allExpenses, categories, vendors }: 
                 contentStyle={{ fontSize: 12, borderRadius: 12, border: "1px solid hsl(220,13%,91%)" }}
               />
               <Bar dataKey="total" fill="hsl(221,83%,53%)" radius={[6, 6, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Monthly Category Stack Chart */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5">
+        <h3 className="text-[14px] font-semibold mb-4">월별 카테고리별 지출</h3>
+        <div className="h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={monthlyStackData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(220,13%,91%)" />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(220,9%,46%)" }} />
+              <YAxis tick={{ fontSize: 11, fill: "hsl(220,9%,46%)" }} tickFormatter={(v) => v >= 10000 ? `${(v / 10000).toFixed(0)}만` : v.toLocaleString()} />
+              <Tooltip
+                formatter={(value: number, name: string) => {
+                  const cat = categories.find((c) => c.id === name);
+                  return [formatWon(value), cat?.name || "미분류"];
+                }}
+                contentStyle={{ fontSize: 12, borderRadius: 12, border: "1px solid hsl(220,13%,91%)" }}
+              />
+              {categories.map((cat, i) => (
+                <Bar key={cat.id} dataKey={cat.id} stackId="cat" fill={PIE_COLORS[i % PIE_COLORS.length]} />
+              ))}
+              <Bar dataKey="__none__" stackId="cat" fill="hsl(220,13%,85%)" />
+              <Legend
+                formatter={(value) => {
+                  const cat = categories.find((c) => c.id === value);
+                  return <span className="text-[11px]">{cat?.name || "미분류"}</span>;
+                }}
+                iconSize={8}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>
