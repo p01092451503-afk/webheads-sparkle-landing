@@ -357,7 +357,6 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
             </button>
           </div>
 
-
           <div className="flex flex-col gap-1.5">
             <label className="text-[12px] font-semibold text-muted-foreground pl-1">알림 수신 이메일</label>
             <input
@@ -376,6 +375,111 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
             {notifSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : notifSaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
             {notifSaved ? "저장됨" : "저장"}
           </button>
+        </div>
+      </div>
+
+      {/* Slack Notification Settings */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(329, 70%, 54%, 0.08)" }}>
+            <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.124 2.521a2.528 2.528 0 0 1 2.52-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.52V8.834zm-1.271 0a2.528 2.528 0 0 1-2.521 2.521 2.528 2.528 0 0 1-2.521-2.521V2.522A2.528 2.528 0 0 1 15.166 0a2.528 2.528 0 0 1 2.521 2.522v6.312zm-2.521 10.124a2.528 2.528 0 0 1 2.521 2.52A2.528 2.528 0 0 1 15.166 24a2.528 2.528 0 0 1-2.521-2.522v-2.52h2.521zm0-1.271a2.528 2.528 0 0 1-2.521-2.521 2.528 2.528 0 0 1 2.521-2.521h6.312A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.521h-6.312z" fill="hsl(329, 70%, 54%)"/>
+            </svg>
+          </div>
+          <div>
+            <h3 className="text-[15px] font-semibold text-foreground">Slack 알림</h3>
+            <p className="text-[12px] text-muted-foreground">문의·장애 발생 시 Slack으로 알림</p>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {/* Master toggle */}
+          <div className="flex items-center justify-between p-3 rounded-xl bg-[hsl(220,14%,97%)]">
+            <div>
+              <p className="text-[13px] font-medium text-foreground">Slack 알림 활성화</p>
+              <p className="text-[11px] text-muted-foreground">모든 Slack 알림을 켜거나 끕니다</p>
+            </div>
+            <button
+              onClick={() => setSlackSettings(prev => ({ ...prev, enabled: !prev.enabled }))}
+              className={`w-11 h-6 rounded-full transition-all relative ${slackSettings.enabled ? "bg-[hsl(221,83%,53%)]" : "bg-[hsl(220,13%,85%)]"}`}
+            >
+              <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${slackSettings.enabled ? "left-[22px]" : "left-0.5"}`} />
+            </button>
+          </div>
+
+          {/* Channel */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-[12px] font-semibold text-muted-foreground pl-1">Slack 채널명</label>
+            <input
+              type="text"
+              value={slackSettings.channel}
+              onChange={(e) => setSlackSettings(prev => ({ ...prev, channel: e.target.value }))}
+              placeholder="general"
+              className="w-full rounded-xl px-4 py-3 text-[14px] outline-none text-foreground bg-[hsl(220,14%,96%)] border-[1.5px] border-transparent focus:border-[hsl(221,83%,53%)] transition-all"
+            />
+            <p className="text-[11px] text-muted-foreground pl-1"># 없이 채널명만 입력</p>
+          </div>
+
+          {/* Per-type toggles */}
+          {[
+            { key: "notify_new_inquiry" as const, label: "신규 문의 알림", desc: "새 문의가 접수되면 알림" },
+            { key: "notify_service_request" as const, label: "고객지원 요청 알림", desc: "SMS 충전·원격 지원 요청 시 알림" },
+            { key: "notify_site_error" as const, label: "사이트 장애 알림", desc: "사이트 오류 감지 시 알림" },
+          ].map((item) => (
+            <div key={item.key} className="flex items-center justify-between p-3 rounded-xl bg-[hsl(220,14%,97%)]">
+              <div>
+                <p className="text-[13px] font-medium text-foreground">{item.label}</p>
+                <p className="text-[11px] text-muted-foreground">{item.desc}</p>
+              </div>
+              <button
+                onClick={() => setSlackSettings(prev => ({ ...prev, [item.key]: !prev[item.key] }))}
+                className={`w-11 h-6 rounded-full transition-all relative ${slackSettings[item.key] ? "bg-[hsl(221,83%,53%)]" : "bg-[hsl(220,13%,85%)]"}`}
+              >
+                <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${slackSettings[item.key] ? "left-[22px]" : "left-0.5"}`} />
+              </button>
+            </div>
+          ))}
+
+          <div className="flex items-center gap-2 justify-end">
+            {/* Test button */}
+            <button
+              onClick={async () => {
+                setSlackTesting(true);
+                try {
+                  const { error } = await supabase.functions.invoke("send-slack-notification", {
+                    body: { type: "custom", title: "테스트 알림", details: { "상태": "Slack 연동 테스트 성공 ✅" }, urgency: "normal" },
+                  });
+                  if (error) throw error;
+                  alert("테스트 알림이 전송되었습니다!");
+                } catch (e: any) {
+                  alert("전송 실패: " + (e.message || "알 수 없는 오류"));
+                }
+                setSlackTesting(false);
+              }}
+              disabled={slackTesting || !slackSettings.enabled}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all disabled:opacity-50"
+            >
+              {slackTesting ? <Loader2 className="w-3 h-3 animate-spin" /> : null}
+              테스트 전송
+            </button>
+
+            {/* Save button */}
+            <button
+              onClick={async () => {
+                setSlackSaving(true);
+                await supabase.from("admin_settings").upsert({ key: "slack_notifications", value: slackSettings as any, updated_at: new Date().toISOString() }, { onConflict: "key" });
+                setSlackSaving(false);
+                setSlackSaved(true);
+                setTimeout(() => setSlackSaved(false), 2000);
+                await logActivity("update_settings", "settings", "slack_notifications");
+              }}
+              disabled={slackSaving}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[12px] font-semibold text-white" style={{ background: "hsl(329, 70%, 54%)" }}
+            >
+              {slackSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : slackSaved ? <Check className="w-3 h-3" /> : <Save className="w-3 h-3" />}
+              {slackSaved ? "저장됨" : "저장"}
+            </button>
+          </div>
         </div>
       </div>
 

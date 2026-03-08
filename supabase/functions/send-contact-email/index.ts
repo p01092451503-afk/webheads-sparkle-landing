@@ -62,6 +62,32 @@ serve(async (req) => {
 
     console.log(`New inquiry saved: ${company} / ${name}`);
 
+    // Send Slack notification (fire-and-forget)
+    try {
+      const typeLabel = inquiryType === "demo" ? "데모 요청" : "상담 문의";
+      await fetch(`${supabaseUrl}/functions/v1/send-slack-notification`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${supabaseServiceKey}`,
+        },
+        body: JSON.stringify({
+          type: "new_inquiry",
+          title: `새로운 ${typeLabel}이 접수되었습니다`,
+          details: {
+            "유형": typeLabel,
+            "회사명": company || "(미입력)",
+            "이름": name,
+            "연락처": phone,
+            ...(email ? { "이메일": email } : {}),
+            ...(service ? { "서비스": service } : {}),
+          },
+        }),
+      });
+    } catch (slackErr) {
+      console.error("Slack notification error (non-blocking):", slackErr);
+    }
+
     // Fetch notification settings and auto-response templates from DB
     const { data: settingsRows } = await supabaseAdmin
       .from("admin_settings")
