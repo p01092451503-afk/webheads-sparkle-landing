@@ -79,24 +79,27 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         .filter((p) => p.client_id === c.id && p.is_unpaid)
         .reduce((s, p) => s + (p.amount || 0), 0);
 
-      // For inline editing, find hosting payment for current month
-      const thisMonth = payments.find(
-        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && (p.payment_type === "hosting" || !p.payment_type)
+      // All payments for this client in the viewed month
+      const monthPayments = payments.filter(
+        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth
       );
 
-      // Count of other payment types this month
-      const otherThisMonth = payments.filter(
-        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && p.payment_type && p.payment_type !== "hosting"
+      // For inline editing, find hosting payment
+      const thisMonth = monthPayments.find(
+        (p) => p.payment_type === "hosting" || !p.payment_type
       );
+
+      // Total for the month across all types
+      const monthTotal = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
 
       const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
 
       let status: "paid" | "unpaid" | "managed";
       if (isManaged) status = "managed";
-      else if (unpaidTotal > 0 || (thisMonth && thisMonth.is_unpaid)) status = "unpaid";
+      else if (unpaidTotal > 0 || monthPayments.some((p) => p.is_unpaid)) status = "unpaid";
       else status = "paid";
 
-      return { ...c, unpaidTotal, thisMonth, otherThisMonth, status };
+      return { ...c, unpaidTotal, thisMonth, monthPayments, monthTotal, status };
     });
   }, [clients, payments, viewYear, viewMonth]);
 
