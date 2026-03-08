@@ -52,7 +52,7 @@ export default function CompetitorComparison() {
                     <td className="px-6 py-3.5 font-medium text-foreground">{row[0]}</td>
                     {row.slice(1).map((v, j) => (
                       <td key={j} className={`px-4 py-3.5 text-center ${j === row.length - 2 ? "bg-primary/5" : ""}`}>
-                        <StatusText value={v} />
+                        <StatusText value={v} bold={j === row.length - 2} />
                       </td>
                     ))}
                   </tr>
