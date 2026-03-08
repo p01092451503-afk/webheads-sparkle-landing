@@ -41,10 +41,16 @@ export default function ServiceComparison({ headers, rows, subheading, heading, 
         </div>
         <div className="rounded-2xl border border-border bg-background overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-sm table-fixed">
+              <colgroup>
+                <col className="w-[22%]" />
+                <col className="w-[36%]" />
+                <col className="w-[21%]" />
+                <col className="w-[21%]" />
+              </colgroup>
               <thead>
                 <tr className="border-b border-border bg-muted">
-                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground w-[35%]">{headers[0]}</th>
+                  <th className="text-left px-6 py-4 font-semibold text-muted-foreground">{headers[0]}</th>
                   {headers.slice(1).map((h, i) => (
                     <th key={h} className={`text-center px-4 py-4 font-bold text-sm ${i === 0 ? "text-primary bg-primary/5" : "text-foreground"}`}>{h}</th>
                   ))}
