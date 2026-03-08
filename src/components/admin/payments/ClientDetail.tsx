@@ -99,6 +99,11 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
         </div>
       </div>
 
+      {/* Recurring Fee Settings */}
+      <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
+        <RecurringFeeManager clientId={client.id} clientName={client.name} />
+      </div>
+
       {/* Summary Cards */}
       <div className="grid lg:grid-cols-3 gap-4">
         <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
