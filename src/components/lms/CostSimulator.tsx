@@ -395,10 +395,25 @@ export default function CostSimulator() {
                     <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
                     <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
                   </div>
-                  <div className="flex items-end gap-1 mb-4">
-                    <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(bestPlan.totalMonthly)}</span>
-                    <span className="text-white/70 text-base mb-1">원/월</span>
-                  </div>
+                  {(() => {
+                    const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
+                    return (
+                      <>
+                        <div className="flex items-end gap-1 mb-1">
+                          <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(displayMonthly)}</span>
+                          <span className="text-white/70 text-base mb-1">원/월</span>
+                        </div>
+                        {isAnnual && (
+                          <div className="flex items-center gap-2 mb-4">
+                            <span className="text-xs text-white/50 line-through tabular-nums">{formatPrice(bestPlan.totalMonthly)}원/월</span>
+                            <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>10% 할인</span>
+                            <span className="text-xs text-white/60">연 {formatPrice(displayMonthly * 12)}원</span>
+                          </div>
+                        )}
+                        {!isAnnual && <div className="mb-4" />}
+                      </>
+                    );
+                  })()}
                   {/* 월 예상 수익 */}
                   <div className="rounded-xl p-3.5 mb-4" style={{ background: "hsla(0, 0%, 100%, 0.12)" }}>
                     <div className="flex items-center justify-between mb-1.5">
