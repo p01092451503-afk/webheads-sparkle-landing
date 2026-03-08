@@ -167,7 +167,38 @@ export default function ExpenseStatistics({ allExpenses, categories, vendors }: 
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      {/* Monthly Category Stack Chart */}
+      <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5">
+        <h3 className="text-[14px] font-semibold mb-4">월별 카테고리별 지출</h3>
+        <div className="h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={monthlyStackData} margin={{ top: 5, right: 10, left: 10, bottom: 5 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(220,13%,91%)" />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(220,9%,46%)" }} />
+              <YAxis tick={{ fontSize: 11, fill: "hsl(220,9%,46%)" }} tickFormatter={(v) => v >= 10000 ? `${(v / 10000).toFixed(0)}만` : v.toLocaleString()} />
+              <Tooltip
+                formatter={(value: number, name: string) => {
+                  const cat = categories.find((c) => c.id === name);
+                  return [formatWon(value), cat?.name || "미분류"];
+                }}
+                contentStyle={{ fontSize: 12, borderRadius: 12, border: "1px solid hsl(220,13%,91%)" }}
+              />
+              {categories.map((cat, i) => (
+                <Bar key={cat.id} dataKey={cat.id} stackId="cat" fill={PIE_COLORS[i % PIE_COLORS.length]} />
+              ))}
+              <Bar dataKey="__none__" stackId="cat" fill="hsl(220,13%,85%)" />
+              <Legend
+                formatter={(value) => {
+                  const cat = categories.find((c) => c.id === value);
+                  return <span className="text-[11px]">{cat?.name || "미분류"}</span>;
+                }}
+                iconSize={8}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
         {/* Category Breakdown */}
         <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-5">
           <h3 className="text-[14px] font-semibold mb-4">카테고리별 비중</h3>
