@@ -293,6 +293,59 @@
         { "label": "稼働率", "value": "99.9%" }
       ]
     },
+    "techSpecsSection": {
+      "sub": "技術仕様",
+      "title": "検証済みAIエンジンと\nエンタープライズ級アーキテクチャ",
+      "desc": "最新の大規模言語モデルと安定したインフラを基盤に、正確で迅速な応答を提供します。"
+    },
+    "techSpecs": {
+      "llmModels": {
+        "title": "対応LLMモデル",
+        "items": [
+          { "name": "GPT-4o", "provider": "OpenAI", "desc": "最新のマルチモーダルモデルでテキスト・画像を同時に理解し、複雑な教育上の問い合わせにも正確なコンテキスト把握と回答を提供します。", "badge": "標準搭載" },
+          { "name": "GPT-4o mini", "provider": "OpenAI", "desc": "GPT-4o比で軽量化されたモデルで、単純なFAQ回答や大量トラフィック処理時にコスト効率よく運用できます。", "badge": "コスト最適化" },
+          { "name": "Claude 3.5 Sonnet", "provider": "Anthropic", "desc": "長文ドキュメント（最大200Kトークン）の分析に強みを持つモデルで、シラバス・規則集など大容量ドキュメント基盤の回答に適しています。", "badge": "長文特化" },
+          { "name": "カスタムモデル", "provider": "カスタム開発", "desc": "機関専用データでファインチューニングした専用モデルを構築し、特定ドメインに最適化された回答品質を保証します。", "badge": "Enterprise" }
+        ]
+      },
+      "architecture": {
+        "title": "システムアーキテクチャ",
+        "items": [
+          { "label": "RAGパイプライン", "value": "ベクトルDB（Pinecone/Weaviate）基盤のリアルタイムドキュメント検索およびコンテキスト増強生成" },
+          { "label": "エンベディングモデル", "value": "OpenAI text-embedding-3-large（3,072次元）/ 韓国語特化KoSimCSE" },
+          { "label": "オーケストレーション", "value": "LangChain基盤マルチステップエージェント・Tool Calling・Function Calling対応" },
+          { "label": "インフラ", "value": "AWS/GCP基盤オートスケーリング・コンテナ（Docker/K8s）・99.9% SLA保証" },
+          { "label": "応答速度", "value": "平均500ms以内の初回トークン応答・ストリーミング方式リアルタイム出力" },
+          { "label": "同時接続", "value": "最大10,000名の同時会話処理・キュー基盤の負荷分散" }
+        ]
+      },
+      "performance": {
+        "title": "パフォーマンス指標",
+        "items": [
+          { "metric": "応答精度", "value": "92%+", "desc": "RAG + ファインチューニング適用時" },
+          { "metric": "初回応答速度", "value": "<500ms", "desc": "ストリーミング基準" },
+          { "metric": "稼働率", "value": "99.9%", "desc": "SLA保証" },
+          { "metric": "コンテキストウィンドウ", "value": "128K", "desc": "トークン基準（GPT-4o）" }
+        ]
+      }
+    },
+    "archDiagram": {
+      "title": "リクエスト処理フロー（Request Flow）",
+      "user": "ユーザー",
+      "userSub": "質問入力",
+      "channel": "チャネル連携",
+      "channelSub": "Web/カカオ/アプリ",
+      "orchestrator": "LangChain",
+      "orchestratorSub": "オーケストレーション",
+      "rag": "Vector DB",
+      "ragSub": "RAG検索",
+      "llm": "LLM",
+      "llmSub": "GPT-4o / Claude",
+      "response": "AI応答",
+      "responseSub": "ストリーミング出力",
+      "legendCore": "コアエンジン",
+      "legendModule": "連携モジュール"
+    },
     "processSection": { "sub": "導入プロセス", "title": "AIチャットボット\n導入プロセス", "desc": "要件分析からカスタムトレーニングまで、体系的に進行します。" },
     "processSteps": [
       { "title": "要件分析", "desc": "機関の主な問い合わせ類型、LMS環境、対応チャネルを分析し、チャットボットの応答範囲と連携方式を設計します。", "tag": "1〜2日" },
