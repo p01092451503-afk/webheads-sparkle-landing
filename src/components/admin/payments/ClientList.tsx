@@ -306,7 +306,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
     // Set column widths
     ws["!cols"] = [
-      { wch: 5 }, { wch: 18 }, { wch: 10 }, { wch: 12 }, { wch: 15 }, { wch: 14 },
+      { wch: 5 }, { wch: 18 }, { wch: 10 }, { wch: 12 }, { wch: 15 }, { wch: 14 }, { wch: 20 },
       ...monthCols.map(() => ({ wch: 12 })),
       { wch: 14 },
     ];
