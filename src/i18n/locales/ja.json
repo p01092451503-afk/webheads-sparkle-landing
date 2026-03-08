@@ -827,7 +827,7 @@
     "learnersUnit": "名",
     "storage": "動画容量",
     "storageTooltip": "LMSにアップロードする動画ファイルの合計容量（GB）。SD画質30分講義1本 ≈ 約0.3GB",
-    "storageRef": "参考：SD画質30分講義 約{{count}}本分",
+    "storageRef": "参考：SD画質30分講義 約{{num}}本分",
     "completion": "平均完了率",
     "completionTooltip": "受講者がコンテンツ全体のうち平均的に視聴する割合。完了率が高いほどCDN転送量が増加します。",
     "cdnToggle": "CDN動画ホスティングが必要",

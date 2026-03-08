@@ -1744,7 +1744,7 @@
     "learnersUnit": "명",
     "storage": "동영상 용량",
     "storageTooltip": "LMS에 업로드할 전체 동영상 파일의 총 용량 (GB). 일반화질(SD) 30분 강의 1개 ≈ 약 0.3GB",
-    "storageRef": "참고: 일반화질(SD) 30분 강의 약 {{count}}개 분량",
+    "storageRef": "참고: 일반화질(SD) 30분 강의 약 {{num}}개 분량",
     "completion": "평균 완강률",
     "completionTooltip": "수강생이 전체 콘텐츠 중 평균적으로 시청하는 비율. 완강률이 높을수록 CDN 전송량이 증가합니다.",
     "cdnToggle": "CDN 영상 호스팅 필요",

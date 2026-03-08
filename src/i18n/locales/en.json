@@ -1733,7 +1733,7 @@
     "learnersUnit": "",
     "storage": "Video Storage",
     "storageTooltip": "Total size of all video files to upload to LMS (GB). One 30-min SD lecture ≈ 0.3 GB",
-    "storageRef": "Ref: approx. {{count}} SD lectures (30 min each)",
+    "storageRef": "Ref: approx. {{num}} SD lectures (30 min each)",
     "completion": "Avg. Completion Rate",
     "completionTooltip": "Average percentage of content watched by learners. Higher rates increase CDN transfer.",
     "cdnToggle": "CDN Video Hosting Required",
