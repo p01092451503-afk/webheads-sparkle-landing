@@ -237,6 +237,70 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     );
   };
 
+  const handleExportExcel = useCallback(() => {
+    const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+    const cy = now.getFullYear();
+    const cm = now.getMonth() + 1;
+
+    // Generate last 13 months columns
+    const monthCols: { year: number; month: number; label: string }[] = [];
+    for (let i = 12; i >= 0; i--) {
+      let m = cm - i;
+      let y = cy;
+      if (m <= 0) { m += 12; y -= 1; }
+      monthCols.push({ year: y, month: m, label: `${y}.${String(m).padStart(2, "0")}` });
+    }
+
+    const rows = clients
+      .filter((c) => c.is_active)
+      .sort((a, b) => (a.client_no || 0) - (b.client_no || 0))
+      .map((c) => {
+        const unpaidTotal = payments
+          .filter((p) => p.client_id === c.id && p.is_unpaid)
+          .reduce((s, p) => s + (p.amount || 0), 0);
+
+        const thisMonthP = payments.find(
+          (p) => p.client_id === c.id && p.year === cy && p.month === cm
+        );
+
+        const row: Record<string, any> = {
+          "No": c.client_no,
+          "고객사명": c.name,
+          "예상납부일": c.expected_payment_day || "",
+          "입금일": thisMonthP?.paid_date?.replace(/-/g, ".") || "",
+          "비고": c.notes || "",
+          "미납금": unpaidTotal,
+        };
+
+        let total = 0;
+        monthCols.forEach((mc) => {
+          const p = payments.find(
+            (p) => p.client_id === c.id && p.year === mc.year && p.month === mc.month
+          );
+          const amt = p?.amount || 0;
+          row[mc.label] = amt;
+          total += amt;
+        });
+
+        row["총합"] = total;
+        return row;
+      });
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+
+    // Set column widths
+    ws["!cols"] = [
+      { wch: 5 }, { wch: 18 }, { wch: 10 }, { wch: 12 }, { wch: 15 }, { wch: 14 },
+      ...monthCols.map(() => ({ wch: 12 })),
+      { wch: 14 },
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "고객사 입금현황");
+    XLSX.writeFile(wb, `입금현황_${cy}${String(cm).padStart(2, "0")}.xlsx`);
+    toast.success("Excel 파일이 다운로드되었습니다");
+  }, [clients, payments]);
+
   return (
     <div className="space-y-4">
       {/* Controls */}
