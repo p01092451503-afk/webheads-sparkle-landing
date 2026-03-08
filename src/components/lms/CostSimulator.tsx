@@ -51,7 +51,7 @@ function estimateUsage(learners: number, storageInput: number, completionRate: n
 export default function CostSimulator() {
   const { t } = useTranslation();
   const [learners, setLearners] = useState(200);
-  const [videoHours, setVideoHours] = useState(30);
+  const [storageInput, setStorageInput] = useState(20);
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
