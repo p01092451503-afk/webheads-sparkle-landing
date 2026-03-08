@@ -503,6 +503,11 @@ export default function CostSimulator() {
                           {plan.name}
                         </p>
                         <p className="text-xs text-muted-foreground">{plan.solutionType}</p>
+                        <p className="text-[10px] text-muted-foreground/60 font-medium">
+                          {plan.cdnIncluded > 0
+                            ? t("costSim.planSpecs", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded.toLocaleString() })
+                            : t("costSim.planSpecsNone")}
+                        </p>
                       </div>
                     </div>
                     <div className="text-right">
