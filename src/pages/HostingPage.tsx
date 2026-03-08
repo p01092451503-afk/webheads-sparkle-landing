@@ -112,7 +112,7 @@ export default function HostingPage() {
       <TestimonialSection bg="bg-background" testimonials={testimonials} />
 
       {/* FAQ - G */}
-      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName="호스팅 서비스" />
+      <ServiceFAQ bg="bg-secondary" faqs={faqs} serviceName={t("hosting.seo.title")} />
 
       {/* Contact - W */}
       <ContactSection />
