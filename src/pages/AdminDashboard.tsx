@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt
 } from "lucide-react";
+import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
 const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
