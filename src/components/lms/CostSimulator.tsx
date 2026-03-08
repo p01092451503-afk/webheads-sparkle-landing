@@ -76,7 +76,7 @@ export default function CostSimulator() {
       return { ...plan, solutionType, isMatch: true, totalMonthly, overageCdn, overageStorage };
     }).filter((p) => p.isMatch);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cdnGB, storageGB, needsCdn, needsSecurePlayer, lang]);
+  }, [cdnGB, storageGB, needsCdn, needsSecurePlayer, needsDedicatedServer, learners, lang]);
 
   const bestPlan = useMemo(() => {
     const viable = recommendations.filter((p) => p.name !== "Starter");
