@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { PAYMENT_TYPES, getPaymentTypeLabel, getPaymentTypeColor } from "./paymentTypes";
 import type { PaymentClient as Client, PaymentRecord as Payment } from "./paymentTypes";
+import RecurringFeeManager from "./RecurringFeeManager";
 
 interface Props {
   client: Client;
