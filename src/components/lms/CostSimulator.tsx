@@ -511,11 +511,14 @@ export default function CostSimulator() {
 
             {/* All plans comparison */}
             <div className="rounded-2xl border border-border overflow-hidden">
-              <div className="px-5 py-3.5 bg-muted/50 border-b border-border">
+              <div className="px-5 py-3.5 bg-muted/50 border-b border-border flex items-center justify-between">
                 <span className="text-xs font-bold text-muted-foreground tracking-wider uppercase">전체 플랜 비교</span>
+                {isAnnual && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>연간 10% 할인 적용</span>}
               </div>
               <div className="divide-y divide-border">
-                {recommendations.map((plan) => (
+                {recommendations.map((plan) => {
+                  const discounted = isAnnual ? Math.round(plan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : plan.totalMonthly;
+                  return (
                   <div
                     key={plan.name}
                     className={`flex items-center justify-between px-5 py-4 transition-colors ${plan.name === bestPlan?.name ? "bg-primary/5" : "bg-background hover:bg-muted/30"}`}
@@ -532,13 +535,17 @@ export default function CostSimulator() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(plan.totalMonthly)}원</p>
-                      {plan.totalMonthly > plan.monthly && (
+                      <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(discounted)}원/월</p>
+                      {isAnnual && (
+                        <p className="text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(plan.totalMonthly)}원</p>
+                      )}
+                      {!isAnnual && plan.totalMonthly > plan.monthly && (
                         <p className="text-[10px] text-muted-foreground">기본 {formatPrice(plan.monthly)} + 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>
                       )}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
