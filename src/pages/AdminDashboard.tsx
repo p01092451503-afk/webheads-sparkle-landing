@@ -10,6 +10,7 @@ const AdminAnalytics = lazy(() => import("@/components/admin/AdminAnalytics"));
 const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
+const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
 
 type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings";
 type UserRole = "super_admin" | "admin" | "user";
