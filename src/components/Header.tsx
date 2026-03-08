@@ -138,6 +138,7 @@ export default function Header() {
             >
               {t("header.logo")}<span
                 className={`inline-block transition-all duration-700 ease-out ${showDate ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
+                style={{ color: "#6B7280" }}
               >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
                 return `${now.getMonth() + 1}/${now.getDate()}`;
