@@ -129,7 +129,7 @@ Deno.serve(async (req) => {
     const blocks = buildBlocks(notification);
     const fallbackText = `${notification.title}`;
 
-    await sendSlackMessage(channelId, blocks, fallbackText);
+    await sendSlackMessage(channel, blocks, fallbackText);
 
     return new Response(JSON.stringify({ ok: true }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
