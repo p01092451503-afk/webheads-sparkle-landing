@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck } from "lucide-react";
+import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -86,6 +86,30 @@ export default function CostSimulator() {
     }
     return sorted[0];
   }, [recommendations, needsCdn]);
+
+  // Upgrade nudge: detect when a plan's overage makes a higher-tier plan more economical
+  const upgradeNudge = useMemo<{ fromPlan: string; toPlan: string; savings: number } | null>(() => {
+    if (!bestPlan || !needsCdn) return null;
+    const planOrder = ["Basic", "Plus", "Premium"];
+    const bestIdx = planOrder.indexOf(bestPlan.name);
+    if (bestIdx < 0) return null;
+    const overage = bestPlan.overageCdn + bestPlan.overageStorage;
+    if (overage <= 0) return null;
+    // Check if next tier's total cost would be cheaper
+    const nextTierName = planOrder[bestIdx + 1];
+    if (!nextTierName) return null;
+    const nextTier = recommendations.find((p) => p.name === nextTierName);
+    if (!nextTier) return null;
+    // Nudge if: next tier total is cheaper, OR overage exceeds 70% of base-price difference
+    const baseDiff = nextTier.monthly - bestPlan.monthly;
+    if (nextTier.totalMonthly < bestPlan.totalMonthly) {
+      return { fromPlan: bestPlan.name, toPlan: nextTier.name, savings: bestPlan.totalMonthly - nextTier.totalMonthly };
+    }
+    if (overage >= baseDiff * 0.7) {
+      return { fromPlan: bestPlan.name, toPlan: nextTier.name, savings: 0 };
+    }
+    return null;
+  }, [bestPlan, recommendations, needsCdn]);
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
 
@@ -370,6 +394,26 @@ export default function CostSimulator() {
                     이 플랜으로 상담 신청
                     <ArrowRight className="w-4 h-4" />
                   </a>
+                </div>
+              </div>
+            )}
+
+            {/* Upgrade nudge */}
+            {upgradeNudge && (
+              <div className="rounded-2xl border p-4 flex items-start gap-3" style={{ borderColor: "hsl(var(--lms-primary) / 0.3)", background: "hsl(var(--lms-primary) / 0.05)" }}>
+                <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.12)" }}>
+                  <TrendingUp className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-foreground mb-1">
+                    {upgradeNudge.toPlan} 플랜이 더 경제적입니다
+                  </p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {upgradeNudge.savings > 0
+                      ? <>현재 {upgradeNudge.fromPlan} 플랜은 초과 요금이 많아, <span className="font-semibold" style={{ color: "hsl(var(--lms-primary))" }}>{upgradeNudge.toPlan}</span> 플랜으로 변경 시 월 <span className="font-bold" style={{ color: "hsl(var(--lms-primary))" }}>{formatPrice(upgradeNudge.savings)}원</span> 절감할 수 있습니다.</>
+                      : <>{upgradeNudge.fromPlan} 플랜의 초과 비용이 상위 플랜과의 차액에 근접합니다. <span className="font-semibold" style={{ color: "hsl(var(--lms-primary))" }}>{upgradeNudge.toPlan}</span> 플랜을 고려해 보세요.</>
+                    }
+                  </p>
                 </div>
               </div>
             )}
