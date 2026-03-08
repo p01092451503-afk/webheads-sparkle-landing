@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt
 } from "lucide-react";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
@@ -11,14 +11,16 @@ const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
+const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseManager"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "analytics", icon: BarChart3, label: "분석" },
   { key: "inquiries", icon: MessageSquare, label: "문의" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
+  { key: "expenses", icon: Receipt, label: "지출관리" },
   { key: "settings", icon: Settings, label: "설정" },
 ];
 
@@ -31,7 +33,7 @@ const TabLoader = () => (
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
@@ -353,6 +355,9 @@ export default function AdminDashboard() {
           )}
           {tab === "payments" && (
             <AdminPayments isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
+          )}
+          {tab === "expenses" && (
+            <ExpenseManager isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}

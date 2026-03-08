@@ -38,12 +38,15 @@ interface Client {
 }
 
 interface Props {
-  clients: { id: string; name: string }[];
+  clients?: { id: string; name: string }[];
+  isSuperAdmin?: boolean;
+  logActivity?: (action: string, targetType?: string, targetId?: string, details?: any) => Promise<void>;
 }
 
 const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 
-export default function ExpenseManager({ clients }: Props) {
+export default function ExpenseManager({ clients: externalClients, isSuperAdmin, logActivity }: Props) {
+  const [internalClients, setInternalClients] = useState<Client[]>([]);
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
   const [viewYear, setViewYear] = useState(now.getFullYear());
   const [viewMonth, setViewMonth] = useState(now.getMonth() + 1);
@@ -77,16 +80,20 @@ export default function ExpenseManager({ clients }: Props) {
 
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const [catRes, expRes] = await Promise.all([
+    const [catRes, expRes, clientRes] = await Promise.all([
       supabase.from("expense_categories" as any).select("*").order("sort_order"),
       supabase.from("expenses" as any).select("*").eq("year", viewYear).eq("month", viewMonth).order("created_at"),
+      !externalClients ? supabase.from("clients").select("id, name").order("name") : Promise.resolve({ data: null }),
     ]);
     if (catRes.data) setCategories(catRes.data as any);
     if (expRes.data) setExpenses(expRes.data as any);
+    if (clientRes.data) setInternalClients(clientRes.data as Client[]);
     setLoading(false);
-  }, [viewYear, viewMonth]);
+  }, [viewYear, viewMonth, externalClients]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
+
+  const clients = externalClients || internalClients;
 
   const filtered = useMemo(() => {
     if (catFilter === "all") return expenses;
