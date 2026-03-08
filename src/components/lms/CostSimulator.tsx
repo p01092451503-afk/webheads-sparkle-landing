@@ -435,17 +435,31 @@ export default function CostSimulator() {
                     <div className="flex items-end gap-2">
                       <span className="font-extrabold text-white text-2xl tabular-nums">{formatPrice(monthlyRevenue)}원</span>
                     </div>
-                    <div className="mt-2 pt-2 border-t border-white/15 flex items-center justify-between text-xs">
-                      <span className="text-white/60">순이익 (수익 − 플랫폼 비용)</span>
-                      <span className="font-bold text-white tabular-nums">{formatPrice(monthlyRevenue - bestPlan.totalMonthly)}원</span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs mt-1">
-                      <span className="text-white/60">ROI</span>
-                      <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
-                        {bestPlan.totalMonthly > 0 ? `${Math.round(((monthlyRevenue - bestPlan.totalMonthly) / bestPlan.totalMonthly) * 100)}%` : "∞"}
-                      </span>
-                    </div>
-                  </div>
+                    {(() => {
+                      const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
+                      return (
+                        <>
+                          <div className="mt-2 pt-2 border-t border-white/15 flex items-center justify-between text-xs">
+                            <span className="text-white/60">순이익 (수익 − 플랫폼 비용)</span>
+                            <span className="font-bold text-white tabular-nums">{formatPrice(monthlyRevenue - displayMonthly)}원</span>
+                          </div>
+                          <div className="flex items-center justify-between text-xs mt-1">
+                            <span className="text-white/60">ROI</span>
+                            <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
+                              {displayMonthly > 0 ? `${Math.round(((monthlyRevenue - displayMonthly) / displayMonthly) * 100)}%` : "∞"}
+                            </span>
+                          </div>
+                          {isAnnual && (
+                            <div className="flex items-center justify-between text-xs mt-1">
+                              <span className="text-white/60">연간 절감액</span>
+                              <span className="font-bold tabular-nums" style={{ color: "hsl(120, 60%, 75%)" }}>
+                                {formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT * 12))}원
+                              </span>
+                            </div>
+                          )}
+                        </>
+                      );
+                    })()}
 
                   {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer) && (
                     <div className="flex flex-wrap gap-2 mb-4">
