@@ -561,9 +561,10 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue;
                       const cellKey = `${c.id}-${typeValue}-amount`;
                       const isUnpaid = payment?.is_unpaid;
+                      const invoiceStatus = payment?.invoice_status || "none";
 
                       return (
-                        <td key={typeValue} className="px-1 py-1.5">
+                        <td key={typeValue} className="px-1 py-1">
                           <div className="relative">
                             {isEditingThis ? (
                               <input
@@ -576,28 +577,68 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                 onBlur={commitEdit}
                                 onKeyDown={handleKeyDown}
                                 placeholder="0"
-                                className="w-full h-8 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                                className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
                               />
                             ) : (
-                              <div className="flex items-center gap-0.5">
-                                <button
-                                  onClick={() => startEditing(c.id, "amount", typeValue)}
-                                  className={`flex-1 h-8 px-2 text-right text-[12px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
-                                >
-                                  {payment?.amount ? formatWon(payment.amount) : "-"}
-                                </button>
-                                {payment && payment.amount > 0 && (
+                              <div className="space-y-0.5">
+                                {/* Amount row */}
+                                <div className="flex items-center gap-0.5">
                                   <button
-                                    onClick={() => toggleUnpaid(c.id, typeValue)}
-                                    className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold transition-all ${
-                                      isUnpaid
-                                        ? "bg-red-100 text-red-600 hover:bg-red-200"
-                                        : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
-                                    }`}
-                                    title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                    onClick={() => startEditing(c.id, "amount", typeValue)}
+                                    className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
                                   >
-                                    {isUnpaid ? "!" : "✓"}
+                                    {payment?.amount ? formatWon(payment.amount) : "-"}
                                   </button>
+                                  {payment && payment.amount > 0 && (
+                                    <button
+                                      onClick={() => toggleUnpaid(c.id, typeValue)}
+                                      className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold transition-all ${
+                                        isUnpaid
+                                          ? "bg-red-100 text-red-600 hover:bg-red-200"
+                                          : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
+                                      }`}
+                                      title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                    >
+                                      {isUnpaid ? "!" : "✓"}
+                                    </button>
+                                  )}
+                                </div>
+                                {/* Invoice + memo row */}
+                                {payment && payment.amount > 0 && (
+                                  <div className="flex items-center gap-0.5 px-0.5">
+                                    <button
+                                      onClick={() => cycleInvoiceStatus(c.id, typeValue)}
+                                      className={`text-[9px] px-1.5 py-0.5 rounded font-medium transition-all hover:opacity-80 ${getInvoiceStatusColor(invoiceStatus)}`}
+                                      title="계산서 상태 변경"
+                                    >
+                                      {getInvoiceStatusLabel(invoiceStatus)}
+                                    </button>
+                                    <Popover>
+                                      <PopoverTrigger asChild>
+                                        <button
+                                          className={`p-0.5 rounded transition-colors ${payment.memo ? "text-[hsl(221,83%,53%)]" : "text-muted-foreground/30 hover:text-muted-foreground/60"}`}
+                                          title={payment.memo || "메모 추가"}
+                                        >
+                                          <MessageSquare className="w-3 h-3" />
+                                        </button>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-56 p-2" align="start">
+                                        <textarea
+                                          defaultValue={payment.memo || ""}
+                                          placeholder="메모 입력..."
+                                          rows={3}
+                                          className="w-full px-2 py-1.5 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] resize-none focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
+                                          onBlur={(e) => {
+                                            if (e.target.value !== (payment.memo || "")) {
+                                              saveMemo(c.id, typeValue, e.target.value);
+                                            }
+                                          }}
+                                        />
+                                      </PopoverContent>
+                                    </Popover>
+                                    <SavedCheck cellKey={`${c.id}-${typeValue}-invoice`} />
+                                    <SavedCheck cellKey={`${c.id}-${typeValue}-memo`} />
+                                  </div>
                                 )}
                               </div>
                             )}
