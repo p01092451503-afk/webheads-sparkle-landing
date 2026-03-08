@@ -178,6 +178,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       description: formDescription || null,
       memo: formMemo || null,
       invoice_issued: formInvoiceIssued,
+      vendor_name: formVendorName.trim() || null,
     };
 
     try {
