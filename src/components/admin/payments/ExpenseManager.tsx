@@ -469,6 +469,17 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               <Label className="text-[13px]">메모</Label>
               <Input value={formMemo} onChange={(e) => setFormMemo(e.target.value)} placeholder="메모 (선택)" className="h-9 text-[13px]" />
             </div>
+            <label className="flex items-center gap-2 cursor-pointer select-none pl-1">
+              <input
+                type="checkbox"
+                checked={formInvoiceIssued}
+                onChange={(e) => setFormInvoiceIssued(e.target.checked)}
+                className="w-4 h-4 rounded accent-[hsl(221,83%,53%)] cursor-pointer"
+              />
+              <span className="text-[13px] text-foreground" style={{ fontWeight: 500 }}>
+                세금계산서 발급
+              </span>
+            </label>
             <Button onClick={handleSubmit} className="w-full h-10 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
               {editExpense ? "수정" : "등록"}
             </Button>
