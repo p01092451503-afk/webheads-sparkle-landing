@@ -427,7 +427,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                     </Badge>
                   </td>
                   <td className="px-4 py-3">{exp.description || "-"}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{getVendorName(exp.vendor_id) || getClientName(exp.client_id) || "-"}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{exp.vendor_name || getVendorName(exp.vendor_id) || getClientName(exp.client_id) || "-"}</td>
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.supply_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
