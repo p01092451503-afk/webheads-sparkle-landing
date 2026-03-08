@@ -52,6 +52,10 @@ export default function CostSimulator() {
   const DEDICATED_SERVER_COST = 250000;
   const ANNUAL_DISCOUNT = 0.1;
 
+  const handleLearnersChange = (v: number) => {
+    setLearners(v);
+    if (v < 500) setNeedsDedicatedServer(false);
+  };
   const getSolutionType = (typeKey: string) => t(`costSim.solutionTypes.${typeKey}`);
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, storageInput, completionRate), [learners, storageInput, completionRate]);
