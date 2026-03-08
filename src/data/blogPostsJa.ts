@@ -981,4 +981,88 @@ export const blogPostsJa: BlogPost[] = [
     readTime: "14分",
     keywords: ["Kubernetesセキュリティ", "コンテナセキュリティ", "K8s", "Podネットワーク", "ランタイムセキュリティ", "イメージスキャニング", "LMSインフラ"],
   },
+  {
+    id: "lms-cicd-devops-pipeline",
+    category: "guide",
+    title: "LMS運用のためのCI/CD・DevOpsパイプライン設計：無停止デプロイからカナリアリリースまで",
+    summary: "教育プラットフォーム特有の「授業中デプロイ不可」制約を解決するCI/CDパイプラインアーキテクチャとBlue-Green、カナリアリリース戦略を実務観点で分析します。",
+    content: [
+      "LMSは一般的なWebサービスとは異なり「リアルタイム学習セッション」が存在します。学習者が60分の動画講義を受講中、またはオンライン試験を受験中にデプロイが発生すると、学習進捗データの損失や試験の中断など、致命的なユーザー体験の問題が発生します。Puppetの「2025 State of DevOps Report」によると、教育・EdTech分野のデプロイ頻度は週平均2.3回で、SaaS業界平均（週8.7回）と比べて著しく低い水準です。これはデプロイリスクへの懸念に起因しており、体系的なCI/CDパイプライン構築で解決できます。",
+      "CI（Continuous Integration）パイプライン設計\n\n① コードコミット → Lint・型チェック（ESLint、TypeScript tsc）→ ユニットテスト（Jest、Vitest）→ インテグレーションテスト → ビルドの順序で自動化します。LMS特化テストとしてxAPIイベント発行テスト、SCORMパッケージローディングテスト、DRMトークン発行テストをCIに必須組み込みます。\n\n② イメージビルド段階でTrivy/Snykセキュリティスキャンを統合し、Critical脆弱性を含むイメージは自動失敗（Fail-Fast）処理します。\n\n③ テストカバレッジ閾値（例：80%以上）をゲートに設定し、カバレッジ未達時はマージをブロックします。SonarQubeを活用したコード品質ゲートも併用します。",
+      "CD（Continuous Delivery/Deployment）戦略\n\n① Blue-Greenデプロイ：既存環境（Blue）と同一の新環境（Green）を構成した後、ロードバランサーを切り替えます。問題発生時は即座にBlueへロールバック可能です。LMSではDBスキーマ変更を含むデプロイ時に「下位互換（Backward Compatible）マイグレーション」を先行し、Blue/Green両方で動作するよう設計します。\n\n② カナリアリリース（Canary Release）：全トラフィックの5〜10%のみ新バージョンにルーティングし、エラー率、応答時間、学習イベント処理率をモニタリングします。異常未検知時は段階的にトラフィック比率を上げて100%に切り替えます。Argo Rollouts、Flaggerなどのツールで自動化します。\n\n③ デプロイウィンドウ管理：LMS特化戦略として「授業非活性時間帯（深夜02:00〜06:00）」または「週末早朝」にデプロイをスケジューリングします。リアルタイム試験進行状況をAPIで確認し、進行中の試験がない場合にのみデプロイを承認する自動化ゲートを実装します。",
+      "Feature Flag（機能フラグ）活用\n\nデプロイと機能リリースを分離してリスクを最小化します。LaunchDarkly、Unleash、自社実装Feature Flagサービスを通じて ① 新しいAI学習推薦アルゴリズムを特定テナントにのみ先行適用 ② A/Bテストで新UIの学習完了率への影響を測定 ③ 障害発生時にコードデプロイなしで機能を即時無効化（Kill Switch）する運用が可能です。Feature Flagのライフサイクルを管理し、不要になったフラグは定期的に整理（技術負債防止）します。",
+      "Infrastructure as Code（IaC）および環境一貫性\n\nTerraformまたはPulumiでAWSインフラ（EKSクラスター、RDS、ElastiCache、CloudFront、S3）をコードで管理します。開発（Dev）・ステージング（Staging）・本番（Prod）3環境を同一のIaCコードでプロビジョニングし、「ローカルでは動いたのに」問題を根本的に排除します。Helm ChartでK8sリソースをテンプレート化し、ArgoCDによるGitOpsパターンでGitリポジトリがインフラのSingle Source of Truthとなります。",
+      "WEBHEADSはGitHub Actions + ArgoCD + EKSベースの完全自動化CI/CDパイプラインを運用しています。カナリアリリースと自動ロールバックにより学習セッション中断のない無停止デプロイを保証し、平均デプロイ頻度週5回、平均復旧時間（MTTR）15分以内を達成しています。Feature Flagベースの段階的リリースで新機能導入リスクを最小化します。"
+    ],
+    date: "2025-12-20",
+    readTime: "14分",
+    keywords: ["CI/CD", "DevOps", "無停止デプロイ", "カナリアリリース", "Blue-Green", "LMSインフラ", "GitOps", "ArgoCD"],
+  },
+  {
+    id: "lms-websocket-realtime-learning",
+    category: "trend",
+    title: "WebSocket・SSEベースリアルタイム学習体験設計：ライブクイズ、協同学習、リアルタイム通知アーキテクチャ",
+    summary: "LMSでWebSocketとServer-Sent Events（SSE）を活用し、リアルタイムクイズ、協同学習、ライブ進捗追跡などインタラクティブ学習体験を実現する技術アーキテクチャを分析します。",
+    content: [
+      "従来のLMSはHTTPリクエスト-レスポンスモデルベースで設計されており、学習者の行動がサーバーに反映されるまで時間遅延（Latency）が発生します。しかし2025年以降の教育市場では「リアルタイムインタラクション」がコア競争力として浮上しました。McKinseyの「2025 Future of Learning Report」によると、リアルタイム相互作用要素を含むオンライン教育の学習完了率は従来比47%高く、学習満足度は62%向上します。これを技術的に実現する核心がWebSocketとSSE（Server-Sent Events）です。",
+      "WebSocket vs SSE vs Long Polling比較\n\n• WebSocket：双方向（Full-duplex）通信。クライアント↔サーバー間で持続的接続を維持し、双方がいつでもデータを送信できます。リアルタイムクイズ、チャット、協同ホワイトボードなど双方向インタラクションに最適です。プロトコルオーバーヘッドが低く（2バイトフレームヘッダー）、高頻度メッセージ交換に効率的です。\n\n• SSE（Server-Sent Events）：単方向（サーバー→クライアント）通信。HTTP/2上で動作し、自動再接続とイベントIDベースの再開を標準サポートします。学習進捗通知、お知らせプッシュ、ダッシュボードリアルタイム更新などサーバー→クライアント単方向データストリームに適しています。\n\n• Long Polling：レガシー互換用。WebSocket/SSEをサポートしない環境のフォールバック（Fallback）としてのみ使用します。",
+      "LMSリアルタイム機能別アーキテクチャ設計\n\n① ライブクイズ（Live Quiz）：講師がクイズを出題するとWebSocketを通じて全受講生に同時送信されます。受講生の回答もWebSocketでリアルタイム収集され、講師画面にリアルタイム正答率グラフが更新されます。Redis Pub/Subをバックエンドに活用し、マルチサーバー（Pod）環境でもメッセージ同期を保証します。\n\n② リアルタイム進捗追跡：学習者の動画視聴位置、ページスクロール、クイズ回答状況を1秒間隔でサーバーに送信します。WebSocketチャネルを通じて管理者ダッシュボードにリアルタイム学習状況が表示されます。大量イベント処理にはKafkaまたはAWS Kinesisをバッファとして活用し、DB負荷を分散します。\n\n③ 協同学習（Collaborative Learning）：同時文書編集（OT/CRDTアルゴリズム）、リアルタイムディスカッションチャット、共有ホワイトボードをWebSocketで実装します。Socket.IOのRoom機能を活用して学習グループ別独立チャネルを運営します。",
+      "スケーラビリティ設計：接続数管理と水平スケーリング\n\n単一サーバーのWebSocket同時接続限界は約50,000〜100,000です。LMSの同時接続学習者がこれを超過する場合 ① Sticky Session（IP Hashまたはcookieベース）でロードバランサーを構成しWebSocket接続を同一サーバーに維持 ② Redis Pub/SubまたはNATSをメッセージブローカーとして使用しマルチサーバー間イベント同期 ③ AWS ALBのWebSocketサポート活用（最大4,000秒Idle Timeout）④ 接続数10万以上の超大型サービスの場合、Socket.IO Adapter（Redis Streams）または専用WebSocketゲートウェイサーバーを分離運用します。",
+      "安定性および障害対応\n\n① Heartbeat/Ping-Pong：30秒間隔でPingフレームを送信しアイドル接続を検知し、応答のない接続をクリーンアップします。② 自動再接続：クライアント側でExponential Backoff（1秒→2秒→4秒→最大30秒）を適用し再接続殺到（Thundering Herd）を防止します。③ メッセージ保証：重要イベント（試験回答提出、修了処理）はWebSocket送信後HTTP APIで最終確認（Acknowledgment）する二重保証パターンを適用します。④ 接続状態モニタリング：Prometheus + GrafanaでアクティブWebSocket接続数、メッセージ処理遅延（Latency）、エラー率をリアルタイムモニタリングします。",
+      "WEBHEADS LMSはSocket.IO + Redis Pub/Subベースリアルタイム通信レイヤーを運用し、ライブクイズ、リアルタイム進捗追跡、学習督促通知をサポートします。同時接続10,000名以上の大規模教育でも安定したリアルタイム体験を保証し、自動再接続とメッセージ二重保証で学習データ損失を根本的に防止します。"
+    ],
+    date: "2025-12-15",
+    readTime: "13分",
+    keywords: ["WebSocket", "SSE", "リアルタイム学習", "ライブクイズ", "協同学習", "Socket.IO", "LMSアーキテクチャ", "リアルタイム通知"],
+  },
+  {
+    id: "lms-observability-monitoring-stack",
+    category: "tip",
+    title: "LMS障害を5分で検知するObservability戦略：ログ・メトリクス・トレース3大軸完全構築ガイド",
+    summary: "LMS運用で発生する動画再生エラー、API遅延、学習データ欠落などの障害を迅速に検知・診断・解決するためのObservability（可観測性）スタック構築戦略を案内します。",
+    content: [
+      "LMSで最も致命的な障害は「学習者が認識できないサイレント障害（Silent Failure）」です。動画は再生されるがxAPIイベントが欠落し学習進捗が記録されない場合、受講生は最後まで学習したのに修了処理されない状況が発生します。Gartnerの「2025 IT Infrastructure Report」によると、障害検知に平均68分かかる組織は5分以内に検知する組織と比較してビジネス損失が12倍高いことが判明しました。Observabilityは「システムを外部から観察して内部状態を推論する」能力で、ログ（Log）、メトリクス（Metric）、トレース（Trace）の3大軸で構成されます。",
+      "軸1：構造化ログ（Structured Logging）\n\n従来の非構造テキストログ（'Error: video playback failed'）からJSON構造化ログ（{\"level\":\"error\", \"service\":\"video-player\", \"user_id\":\"u-123\", \"course_id\":\"c-456\", \"error_code\":\"DRM_TOKEN_EXPIRED\"}）に移行します。LMSで必須ログフィールド：① request_id（リクエスト追跡）② user_id（学習者識別）③ course_id（コース識別）④ session_id（学習セッション）⑤ latency_ms（応答時間）。ログ収集はFluentdまたはFluent Bit → Elasticsearch/OpenSearch → Kibana（ELKスタック）で一元化し、ログ保管期間はホットストレージ30日、コールドストレージ1年を推奨します。",
+      "軸2：メトリクス（Metrics）およびアラート（Alerting）\n\nPrometheus + Grafanaの組み合わせが事実上の標準です。LMS主要メトリクス：① 動画再生成功率（Video Playback Success Rate、目標99.5%以上）② APIレスポンスタイムP95（目標500ms以下）③ xAPI/cmi5イベント処理遅延（目標3秒以下）④ 同時接続学習者数 ⑤ DRMトークン発行成功率 ⑥ 決済トランザクション成功率 ⑦ CDNキャッシュヒット率。REDメソッド（Rate-Errors-Duration）で全APIエンドポイントをモニタリングし、USEメソッド（Utilization-Saturation-Errors）でインフラリソース（CPU、メモリ、ディスク、ネットワーク）を監視します。\n\nアラート戦略：PagerDutyまたはOpsgenieと連携し、P1（サービス全面停止）→即時電話アラート、P2（主要機能障害）→Slack + SMS、P3（性能低下）→Slackチャネル通知で等級化します。「アラート疲労（Alert Fatigue）」防止のためアラート数を月50件以内に管理します。",
+      "軸3：分散トレーシング（Distributed Tracing）\n\nOpenTelemetryがCNCF標準の分散トレーシングフレームワークです。LMSでは1つの「クイズ回答提出」リクエストがClient → API Gateway → Auth Service → Quiz Service → DB → xAPI Event Queue → Notification Serviceを横断します。分散トレーシングはTrace IDを割り当てて全経路を可視化し、どのサービスで遅延が発生しているかを即座に特定します。\n\nJaegerまたはGrafana Tempoでトレースを保存・可視化します。サンプリング戦略：エラートレース100%、正常トレース10%、レイテンシ閾値超過トレース（例：2秒超）100%。Trace IDをリンクとしてログとトレースを相関分析します。",
+      "統合Observabilityダッシュボード構築\n\n3大軸を統合したGrafanaダッシュボードを構築します：① システムヘルス概要（稼働率、エラー率、P95レイテンシ）② リアルタイム学習活動（同時接続者数、アクティブセッション、動画再生数）③ ビジネスメトリクス（日次受講登録数、修了率、売上）④ インフラ（Pod別CPU/メモリ使用率、DB接続数、キャッシュヒット率）。異常メトリクスから関連ログ・トレースへのドリルダウンを可能にし、迅速な根本原因分析を実現します。",
+      "WEBHEADSはOpenTelemetry + Prometheus + Grafana + Elasticsearchオブザーバビリティスタックを運用し、平均検知時間（MTTD）3分以内、平均復旧時間（MTTR）15分以内を達成しています。24/7自動モニタリングとインテリジェントアラートを提供し、月次オブザーバビリティレポートでLMS運営者のシステム信頼性継続的改善を支援します。"
+    ],
+    date: "2025-12-10",
+    readTime: "15分",
+    keywords: ["Observability", "モニタリング", "ログ分析", "Prometheus", "Grafana", "分散トレーシング", "OpenTelemetry", "LMS障害対応"],
+  },
+  {
+    id: "lms-database-performance-optimization",
+    category: "guide",
+    title: "LMSデータベース性能最適化：パーティショニング・インデキシング・コネクションプーリング・リードレプリカ実践ガイド",
+    summary: "数十万学習者の進捗・成績・ログデータが蓄積されるLMSでデータベース性能を維持するためのパーティショニング、インデキシング、コネクションプーリング、リードレプリカ戦略を実践事例とともに分析します。",
+    content: [
+      "LMSは時間の経過とともにデータが指数関数的に増加するシステムです。学習者1名が1日平均100〜200件のxAPIイベントを生成し、10,000名規模のLMSでは月間約6,000万件のイベントが蓄積されます。3年運用時には学習ログテーブルだけで20億件を超え、その時点で適切なDB最適化なしでは管理者ダッシュボードのロードに30秒以上かかり、学習者進捗照会APIがタイムアウトする状況が発生します。Perconaの「2025 Database Performance Report」によると教育分野DBの67%が性能最適化不在により不要なインフラコストを2倍以上支出しています。",
+      "戦略1：テーブルパーティショニング（Table Partitioning）\n\n学習ログ、xAPIイベント、ページビューなど時系列データが大半のLMSでは「日付ベースRange Partitioning」が最も効果的です。PostgreSQLの宣言的パーティショニングを活用して月別パーティションを自動生成します。\n\nCREATE TABLE learning_events (id UUID, user_id UUID, event_type TEXT, created_at TIMESTAMPTZ) PARTITION BY RANGE (created_at);\nCREATE TABLE learning_events_2026_01 PARTITION OF learning_events FOR VALUES FROM ('2026-01-01') TO ('2026-02-01');\n\nパーティショニング効果：① クエリ時に不要なパーティションをスキップするPartition Pruningでクエリ速度10〜50倍向上 ② 古いパーティションをCold Storageに移動しストレージコスト削減 ③ VACUUM作業がパーティション単位で実行され全テーブルロック防止。pg_partman拡張を使用するとパーティション生成・削除を自動化できます。",
+      "戦略2：インデキシング最適化\n\nLMSで最も頻繁なクエリパターンと最適インデックス：\n• 学習者別進捗照会：CREATE INDEX idx_progress_user_course ON learning_progress(user_id, course_id) — 複合インデックスで単一クエリで特定学習者の特定コース進捗を照会\n• 期間別統計集計：パーティショニングされたテーブルにcreated_atインデックス自動適用 + BRIN（Block Range Index）活用で時系列範囲クエリ最適化\n• 全文検索：pg_trgm + GINインデックスでコース名・講師名類似検索サポート\n• インデックス管理：pg_stat_user_indexesで使用されていないインデックスを定期的に識別・削除し書き込み性能低下を防止。インデックス数はテーブルあたり10個以内を推奨します。",
+      "戦略3：コネクションプーリング（Connection Pooling）\n\nPostgreSQLはプロセスベースアーキテクチャで、コネクションあたり約10MBのメモリを消費します。同時接続学習者が急増するとDBコネクションが枯渇し「too many connections」エラーが発生します。\n\nPgBouncerをTransactionモードで運用し、実際のDBコネクション数を1/10に削減します。例：アプリケーションサーバー10台 × サーバーあたり50コネクション = 500コネクション要求 → PgBouncerが実際50個のDBコネクションでマルチプレキシング（Multiplexing）します。\n\n推奨設定値：pool_mode = transaction, default_pool_size = 50, max_client_conn = 1000, reserve_pool_size = 10。SupabaseのSupavisorまたはAWS RDS Proxyもマネージドコネクションプーリングの代替手段です。\n\n戦略4：リードレプリカ（Read Replica）活用\n\nLMSワークロードの90%以上はリード（SELECT）です。管理者ダッシュボード統計照会、学習者進捗確認、コース一覧照会がすべてリードです。AWS RDSリードレプリカを活用し ① ライト（INSERT/UPDATE/DELETE）→ Primary DB ② リード（SELECT）→ Read Replicaにトラフィックを分離します。\n\nアプリケーションレベルでリード/ライト分離を実装するか、ProxySQL/PgPool-IIで自動ルーティングします。注意事項：レプリケーション遅延（Replication Lag）により先ほど提出した試験回答が成績照会に即時反映されない可能性があるため、「Write後Read（Read-after-Write）」一貫性が必要な場合はPrimary DBから直接リードします。\n\n戦略5：クエリキャッシング\n\nRedisまたはElastiCacheで頻繁なリードクエリ結果をキャッシングします。コース一覧（TTL 5分）、人気コースランキング（TTL 1時間）、ユーザープロフィール（TTL 10分）などデータ更新周期に応じてTTLを差別適用します。Cache InvalidationはWrite-ThroughまたはCDC（Change Data Capture）パターンでデータ一貫性を保証します。",
+      "WEBHEADSはPostgreSQLパーティショニング（月別自動管理）+ PgBouncerコネクションプーリング + RDSリードレプリカ + Redisキャッシュレイヤーの4重最適化スタックを基本適用します。学習ログ20億件以上の大規模LMSでも管理者ダッシュボードロード2秒以内、API P95応答時間300ms以内を保証し、四半期ごとにDB性能チューニングレポートを提供します。"
+    ],
+    date: "2025-12-05",
+    readTime: "15分",
+    keywords: ["DB最適化", "パーティショニング", "インデキシング", "コネクションプーリング", "リードレプリカ", "PostgreSQL", "LMS性能", "Redisキャッシュ"],
+  },
+  {
+    id: "lms-graphql-api-design",
+    category: "tip",
+    title: "LMS API設計の進化：GraphQLで学習データクエリ効率を最大化する戦略",
+    summary: "REST APIのOver-fetching・Under-fetching問題を解決し、学習者ダッシュボード・管理者レポート・モバイルアプリに最適化されたGraphQL APIをLMSに導入する実践戦略を分析します。",
+    content: [
+      "LMSのフロントエンドはますます複雑化しています。学習者ダッシュボード1画面に「受講中のコース一覧 + 各コースの進捗率 + 最近の学習活動 + 推薦コース + 通知」を同時に表示する必要があり、これをREST APIで実装すると5〜7個のAPIを順次呼び出す必要があります。これはモバイル環境で体感ロード時間を2〜3秒以上に延ばします。GraphQLはクライアントが必要なデータだけを正確にリクエストでき、1回のネットワークリクエストで複雑な画面をレンダリングできます。",
+      "GraphQLがLMSに適している理由\n\n① Over-fetching解決：RESTで/api/courses/123を呼び出すとコースの全フィールド（説明、講師情報、カリキュラム、受講者数、作成日など）が返されます。モバイルアプリでコースタイトルとサムネイルだけが必要な場合でも不要なデータが転送されます。GraphQLではquery { course(id: 123) { title, thumbnailUrl } }で必要なフィールドだけをリクエストします。\n\n② Under-fetching解決：学習者ダッシュボードに必要なデータをRESTで取得するにはGET /courses → GET /progress → GET /recommendations → GET /notifications 4回の呼び出しが必要です。GraphQLでは1回のリクエストで全データを取得します。\n\n③ 強い型付けスキーマ（Strongly-Typed Schema）：GraphQL SDL（Schema Definition Language）でAPIスキーマを明示的に定義し、フロントエンド・バックエンド間のAPI契約（Contract）が明確です。TypeScriptコード生成（graphql-codegen）で型安全性を保証します。",
+      "LMS GraphQLスキーマ設計事例\n\ntype Course {\n  id: ID!\n  title: String!\n  description: String\n  instructor: Instructor!\n  modules: [Module!]!\n  progress(userId: ID!): Progress\n  enrollmentCount: Int!\n}\n\ntype Progress {\n  completionRate: Float!\n  lastAccessedAt: DateTime\n  currentModule: Module\n  quizScores: [QuizScore!]!\n}\n\ntype Query {\n  myCourses: [Course!]!\n  course(id: ID!): Course\n  learnerDashboard: DashboardData!\n  adminReport(dateRange: DateRangeInput!): AdminReport!\n}\n\ntype Mutation {\n  updateProgress(input: ProgressInput!): Progress!\n  submitQuizAnswer(input: QuizAnswerInput!): QuizResult!\n  enrollCourse(courseId: ID!): Enrollment!\n}\n\nこのようにNested Typeを活用するとコース→モジュール→進捗→クイズスコアまで1つのクエリで深く探索が可能です。",
+      "性能最適化：N+1問題解決とDataLoader\n\nGraphQLの最大の落とし穴はN+1クエリ問題です。myCoursesを照会する際に各コースのinstructorを個別クエリで取得すると、コース100件 × 講師クエリ100件 = 合計101個のSQLが実行されます。\n\nDataLoaderパターンで解決します：同一リクエスト内でinstructor(id: 1), instructor(id: 2), ..., instructor(id: 50)をバッチング（Batching）し、SELECT * FROM instructors WHERE id IN (1, 2, ..., 50) 1個のSQLに統合します。\n\nQuery Complexity制限：クライアントが過度に深いクエリ（depth 10以上）を送信するとサーバー過負荷が発生します。graphql-depth-limit、graphql-query-complexityミドルウェアでクエリ深度（最大7）と複雑度（最大1,000）を制限します。Persisted Queriesを活用すると許可されたクエリのみ実行しセキュリティを強化します。",
+      "RESTとGraphQLハイブリッド運用戦略\n\n全APIをGraphQLに移行する必要はありません。実用的アプローチ：① 学習者・管理者ダッシュボードなど複雑なデータ組み合わせが必要な画面 → GraphQL ② ファイルアップロード、Webhook受信、外部システム連携（PG決済、SMS送信）→ REST API ③ xAPI/cmi5イベント収集 → REST API（標準規格準拠）④ リアルタイムデータ（通知、チャット）→ GraphQL SubscriptionまたはWebSocket。\n\nAPI Gateway（Kong、AWS API Gateway）で/graphqlエンドポイントと/api/* RESTエンドポイントを統合管理し、認証・Rate Limiting・ロギングを一元化します。",
+      "WEBHEADSは学習者ダッシュボードと管理者レポートにGraphQL APIを適用し、モバイルアプリの初期ロード時間をREST比60%短縮しました。DataLoaderベースN+1防止、Query Complexity制限、Persisted Queriesを基本適用し、RESTとGraphQLハイブリッドAPIアーキテクチャで機能別最適な通信方式を提供します。"
+    ],
+    date: "2025-11-28",
+    readTime: "14分",
+    keywords: ["GraphQL", "API設計", "REST vs GraphQL", "DataLoader", "N+1問題", "LMS API", "クエリ最適化", "スキーマ設計"],
+  },
 ];
