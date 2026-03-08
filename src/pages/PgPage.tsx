@@ -105,7 +105,7 @@ export default function PgPage() {
                     ))}
                   </ul>
                   <div className="mt-auto pt-4 border-t border-border/60">
-                    <p className="text-xs text-muted-foreground"><span className="font-semibold text-foreground">Best for:</span> {provider.bestFor}</p>
+                    <p className="text-xs text-muted-foreground"><span className="font-semibold text-foreground">{t("pg.bestForLabel")}:</span> {provider.bestFor}</p>
                   </div>
                 </div>
               </div>

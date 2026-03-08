@@ -874,6 +874,7 @@
       }
     ],
     "partnersSection": { "sub": "연동 PG사", "title": "국내외 주요\nPG사 연동", "desc": "고객사의 비즈니스 모델에 맞는 최적의 PG사를 선택하여 연동합니다." },
+    "bestForLabel": "추천 대상",
     "pgPartners": [
       { "name": "토스페이먼츠", "category": "국내 PG", "desc": "신용카드·간편결제 통합" },
       { "name": "KG이니시스", "category": "국내 PG", "desc": "국내 1위 결제 인프라" },
