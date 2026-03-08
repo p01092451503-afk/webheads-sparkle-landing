@@ -58,6 +58,33 @@ serve(async (req) => {
 
     console.log(`New service request saved: ${request_type} / ${company} / ${name}`);
 
+    // Send Slack notification (fire-and-forget)
+    try {
+      const typeLabel = request_type === "sms_recharge" ? "SMS 충전 요청" : "원격 지원 요청";
+      await fetch(`${supabaseUrl}/functions/v1/send-slack-notification`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${supabaseServiceKey}`,
+        },
+        body: JSON.stringify({
+          type: "service_request",
+          title: `새로운 ${typeLabel}이 접수되었습니다`,
+          details: {
+            "유형": typeLabel,
+            "회사명": company,
+            "이름": name,
+            "연락처": phone,
+            ...(amount ? { "수량/금액": amount } : {}),
+            ...(reason ? { "사유": reason } : {}),
+            ...(preferred_datetime ? { "희망 일시": preferred_datetime } : {}),
+          },
+        }),
+      });
+    } catch (slackErr) {
+      console.error("Slack notification error (non-blocking):", slackErr);
+    }
+
     return new Response(
       JSON.stringify({ success: true }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
