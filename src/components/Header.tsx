@@ -141,8 +141,13 @@ export default function Header() {
                 style={{ color: "#6B7280" }}
               >{(() => {
                 const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-                const days = ["일", "월", "화", "수", "목", "금", "토"];
-                return <>{`${now.getMonth() + 1}/${now.getDate()}`}<span className="inline-block max-w-0 overflow-hidden opacity-0 group-hover/date:max-w-[2em] group-hover/date:opacity-100 transition-all duration-300 ease-out align-baseline" style={{ fontSize: "0.7em" }}>{days[now.getDay()]}</span></>;
+                const days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+                return (
+                  <span className="relative">
+                    <span className="transition-opacity duration-300 group-hover/date:opacity-0">{`${now.getMonth() + 1}/${now.getDate()}`}</span>
+                    <span className="absolute left-0 top-0 opacity-0 transition-opacity duration-300 group-hover/date:opacity-100 whitespace-nowrap">{days[now.getDay()]}</span>
+                  </span>
+                );
               })()}</span>
             </Link>
 
