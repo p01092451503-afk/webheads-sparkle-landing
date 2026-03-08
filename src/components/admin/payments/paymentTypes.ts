@@ -2,6 +2,7 @@ export const PAYMENT_TYPES = [
   { value: "hosting", label: "호스팅", color: "bg-blue-100 text-blue-700" },
   { value: "maintenance", label: "유지보수", color: "bg-purple-100 text-purple-700" },
   { value: "sms", label: "SMS충전", color: "bg-teal-100 text-teal-700" },
+  { value: "ssl", label: "SSL", color: "bg-cyan-100 text-cyan-700" },
   { value: "development", label: "개발", color: "bg-orange-100 text-orange-700" },
   { value: "content", label: "콘텐츠", color: "bg-pink-100 text-pink-700" },
   { value: "other", label: "기타", color: "bg-gray-100 text-gray-600" },
