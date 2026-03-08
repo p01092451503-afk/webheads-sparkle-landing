@@ -80,12 +80,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
       // For inline editing, find hosting payment for current month
       const thisMonth = payments.find(
-        (p) => p.client_id === c.id && p.year === currentYear && p.month === currentMonth && (p.payment_type === "hosting" || !p.payment_type)
+        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && (p.payment_type === "hosting" || !p.payment_type)
       );
 
       // Count of other payment types this month
       const otherThisMonth = payments.filter(
-        (p) => p.client_id === c.id && p.year === currentYear && p.month === currentMonth && p.payment_type && p.payment_type !== "hosting"
+        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && p.payment_type && p.payment_type !== "hosting"
       );
 
       const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
@@ -97,7 +97,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
       return { ...c, unpaidTotal, thisMonth, otherThisMonth, status };
     });
-  }, [clients, payments, currentYear, currentMonth]);
+  }, [clients, payments, viewYear, viewMonth]);
 
   const filtered = useMemo(() => {
     let list = clientData;
