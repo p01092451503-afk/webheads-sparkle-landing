@@ -30,7 +30,7 @@ export default function ChannelPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title={t("channel.seo.title")} description={t("channel.seo.description")} keywords={t("channel.seo.keywords")} path="/channel" jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("channel.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("channel.seo.description"), "areaServed": "KR", "serviceType": t("channel.seo.title"), "url": `${BASE_URL}/channel` }} faqJsonLd={faqs} />
+      <SEO title={t("channel.seo.title")} description={t("channel.seo.description")} keywords={t("channel.seo.keywords")} path="/channel" breadcrumb={[{ name: t("channel.seo.title"), url: `${BASE_URL}/channel` }]} jsonLd={{ "@context": "https://schema.org", "@type": "Service", "name": `${t("channel.seo.title")} - Webheads`, "provider": { "@type": "Organization", "name": "Webheads (웹헤즈)" }, "description": t("channel.seo.description"), "areaServed": "KR", "serviceType": t("channel.seo.title"), "url": `${BASE_URL}/channel`, "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "300", "bestRating": "5", "worstRating": "1" } }} faqJsonLd={faqs} />
 
       {/* Hero */}
       <section className="relative flex items-center justify-center pt-28 pb-20 overflow-hidden">

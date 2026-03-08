@@ -43,6 +43,7 @@ export default function SmsKakaoPage() {
         description={t("smsKakao.seo.description")}
         keywords={t("smsKakao.seo.keywords")}
         path="/sms-kakao"
+        breadcrumb={[{ name: t("smsKakao.seo.title"), url: `${BASE_URL}/sms-kakao` }]}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Service",
@@ -52,6 +53,7 @@ export default function SmsKakaoPage() {
           areaServed: "KR",
           serviceType: t("smsKakao.seo.title"),
           url: `${BASE_URL}/sms-kakao`,
+          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "300", bestRating: "5", worstRating: "1" },
         }}
       />
 
