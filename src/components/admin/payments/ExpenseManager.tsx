@@ -134,8 +134,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormCategoryId(categories[0]?.id || "");
     setFormClientId("none");
     setFormVendorId("none");
-    setFormSupplyAmount("");
-    setFormTaxAmount("");
+    setFormTotalAmount("");
     setFormDescription("");
     setFormMemo("");
     setFormInvoiceIssued(false);
