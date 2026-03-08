@@ -169,7 +169,9 @@ export type Database = {
       client_recurring_fees: {
         Row: {
           amount: number
+          billing_cycle: string
           client_id: string
+          contract_start_date: string | null
           created_at: string
           id: string
           is_active: boolean
@@ -178,7 +180,9 @@ export type Database = {
         }
         Insert: {
           amount?: number
+          billing_cycle?: string
           client_id: string
+          contract_start_date?: string | null
           created_at?: string
           id?: string
           is_active?: boolean
@@ -187,7 +191,9 @@ export type Database = {
         }
         Update: {
           amount?: number
+          billing_cycle?: string
           client_id?: string
+          contract_start_date?: string | null
           created_at?: string
           id?: string
           is_active?: boolean
