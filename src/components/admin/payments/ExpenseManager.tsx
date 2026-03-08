@@ -330,6 +330,39 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               </div>
             </PopoverContent>
           </Popover>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="outline" className="h-9 text-[13px]">
+                <Building2 className="w-3.5 h-3.5 mr-1" />협력사 관리
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[260px] p-3" align="end">
+              <div className="space-y-2">
+                <p className="text-[12px] font-semibold text-muted-foreground">협력사 목록</p>
+                {vendors.map((v) => (
+                  <div key={v.id} className="flex items-center justify-between gap-2">
+                    <span className="text-[12px] text-foreground">{v.name}</span>
+                    <button onClick={() => deleteVendor(v.id)} className="p-1 rounded hover:bg-red-50 text-muted-foreground hover:text-red-600">
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ))}
+                {vendors.length === 0 && <p className="text-[11px] text-muted-foreground">등록된 협력사가 없습니다</p>}
+                <div className="flex gap-1.5 pt-1">
+                  <Input
+                    value={newVendorName}
+                    onChange={(e) => setNewVendorName(e.target.value)}
+                    placeholder="새 협력사"
+                    className="h-7 text-[12px]"
+                    onKeyDown={(e) => e.key === "Enter" && addVendor()}
+                  />
+                  <Button size="sm" onClick={addVendor} className="h-7 px-2 text-[11px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+                    <Plus className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
           <Button size="sm" onClick={openAddModal} className="h-9 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
             <Plus className="w-3.5 h-3.5 mr-1" />지출 등록
           </Button>
