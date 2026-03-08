@@ -1903,6 +1903,70 @@ export const blogPostsKo: BlogPost[] = [
 
 export const blogPostsEn: BlogPost[] = [
   {
+    id: "interactive-video-h5p-higher-learning-effectiveness",
+    category: "trend",
+    title: "Why Interactive Video Content (H5P) Delivers Higher Learning Outcomes Than Traditional Lectures",
+    summary: "Educational psychology evidence showing H5P-based interactive video's overwhelming advantages over simple VOD lectures in completion rates, knowledge retention, and satisfaction — with WEBHEADS' practical implementation cases.",
+    content: [
+      "Traditional one-way VOD lectures can only maintain learner attention for an average of 6–8 minutes. Based on 2024–2025 averages, simple video lectures have an average completion rate of only 34%, while videos with H5P interactive elements achieve 67% — approximately double. This result is based on 'Active Learning' theory, where learner interaction with content maximizes hippocampus activation in the brain, improving long-term memory formation rates.",
+      "H5P (HTML5 Package) is an open-source interactive content framework that enables embedding quizzes, branching scenarios, drag-and-drop, hotspots, and timelines within videos. Integrated with LMS via xAPI/SCORM standards, it precisely tracks learner interaction data (click positions, accuracy rates, dwell time). WEBHEADS natively integrates H5P into LMS, providing one-stop content authoring and learning analytics without separate plugin installation.",
+      "Key learning effectiveness metrics for interactive video: First, knowledge retention — H5P-applied lectures show an average 42% higher knowledge retention rate after one week compared to one-way lectures (Ebbinghaus forgetting curve mitigation effect). Second, engagement — inserting quizzes at 5-minute intervals reduces video dropout rates by an average of 58%. Third, learning outcomes — practical training using interactive simulations improved workplace application rates by 31% (WEBHEADS client Company A, 2024 data).",
+      "Effective H5P content design principles: (1) Micro-interaction rule — place at least one interaction point every 3–5 minutes. (2) Feedback immediacy — auto-rewind to the relevant video segment on quiz incorrect answers. (3) Branching learning paths — automatic content branching into beginner/intermediate/advanced based on pre-assessment results. (4) Gamification elements — motivation through points, badges, and leaderboards for competition and achievement.",
+      "WEBHEADS provides consulting and production services for renewing existing VOD lecture assets into H5P interactive content. Instructional design experts and UX designers collaborate to design interaction scenarios optimized for learning objectives, and establish data-driven educational content strategies that quantitatively measure and improve content effectiveness through xAPI-based learning analytics dashboards."
+    ],
+    date: "2026-03-29",
+    readTime: "12 min",
+    keywords: ["H5P", "interactive video", "learning effectiveness", "xAPI", "SCORM", "active learning", "content production"],
+  },
+  {
+    id: "ai-pdf-to-video-lecture-automation-pipeline",
+    category: "guide",
+    title: "Building an AI Pipeline to Automatically Convert PDF Textbooks into Video Lectures",
+    summary: "From GPT-based script generation and TTS voice synthesis to automatic slide-to-video conversion — WEBHEADS reveals the architecture and implementation know-how for AI pipelines that automatically transform PDF materials into video lectures.",
+    content: [
+      "The biggest bottleneck in educational content production is time and cost. Based on 2024–2025 averages, producing a single 10-minute professionally filmed and edited video lecture requires an average of 40–60 hours of work and costs 1.5–3 million KRW. However, by converting already accumulated PDF textbooks, teaching materials, and manuals through an AI pipeline, production time can be reduced by over 90% and costs cut to 1/10th.",
+      "AI video conversion pipeline architecture — 4-stage process: (Stage 1) PDF parsing and structure analysis — OCR and layout analysis engines structurally extract text, images, tables, and charts from PDFs, automatically segmenting by chapter and section. (Stage 2) AI script generation — LLMs (GPT-4o, Gemini Pro, etc.) convert extracted content into lecture script format, naturally restructuring into spoken language while preserving specialized terminology, and auto-generating learning points, summaries, and quiz questions.",
+      "(Stage 3) TTS voice synthesis — Generated scripts are vocalized using multilingual TTS engines (Google Cloud TTS, Azure Neural Voice, CLOVA Voice, etc.). For Korean, custom lexicons are built to ensure accurate pronunciation of terms like 'LMS,' 'SCORM,' and 'xAPI.' Natural lecture feel is achieved through emotion, speed, and tone adjustments. (Stage 4) Video synthesis and editing — TTS audio is synchronized with slide images, and automatic subtitle generation, screen transitions, and key point highlights are applied to produce the final video.",
+      "Quality control points: The biggest risk of AI-generated content is factual errors (hallucination). WEBHEADS ensures quality and reliability through (1) automated fact-checking against original PDFs (RAG-based verification), (2) built-in SME (Subject Matter Expert) review workflows, and (3) 'AI Generated' metadata tagging on auto-generated content. Final videos are SCORM/xAPI packaged for automatic LMS registration with learning progress and quiz score integration.",
+      "WEBHEADS custom-builds this AI pipeline for client LMS environments and supports batch processing for bulk conversion of existing PDF textbook libraries. An extension module that automatically inserts H5P interactive elements into converted videos is also available, realizing content strategies that go beyond simple video conversion to maximize learning effectiveness."
+    ],
+    date: "2026-03-29",
+    readTime: "14 min",
+    keywords: ["AI content production", "PDF conversion", "TTS", "video automation", "LLM", "SCORM", "educational content"],
+  },
+  {
+    id: "lms-content-lifecycle-management-renewal-signals",
+    category: "tip",
+    title: "LMS Content Lifecycle Management — 5 Signals That Old Courses Need Renewal",
+    summary: "How to detect content aging signals through data and a renewal priority framework based on WEBHEADS' operational data from 300+ clients.",
+    content: [
+      "LMS content begins aging from the moment of production. Based on 2024–2025 averages, the average lifespan of video lectures registered on domestic LMS is approximately 2.3 years, and completion rates drop by an average of 27% after 18 months from registration. However, many companies fail to objectively determine content renewal timing and only respond belatedly after complaints accumulate. WEBHEADS has analyzed LMS operational data from over 300 clients to identify 5 key signals indicating renewal is needed.",
+      "Signal 1 — Completion Rate Plunge: When the completion rate for the same course drops more than 15% compared to the previous quarter, it signals declining content appeal. Particularly when dropout concentrates at specific chapters showing a 'Drop-off Cliff' pattern, immediate redesign of that section is needed. Signal 2 — Post-Course Assessment Score Stagnation: When average post-assessment scores decline or stagnate for 3 consecutive quarters, it's evidence that content doesn't reflect current work environments or latest technology trends.",
+      "Signal 3 — Search Keyword Mismatch: When the matching rate between keywords learners enter in LMS internal search and actual content metadata falls below 60%, it indicates content topics are diverging from learner needs. Signal 4 — Technology/Regulation Change Events: When external events occur such as relevant regulation amendments (data protection laws, occupational safety laws), technology stack changes (new tool adoption), or organizational restructuring, related content should be immediately classified as renewal candidates.",
+      "Signal 5 — NPS and Qualitative Feedback Deterioration: When post-course survey NPS falls below 30 or negative keywords ('outdated,' 'irrelevant,' 'doesn't match reality') appear in over 20% of responses, content credibility has fallen below the critical threshold. WEBHEADS automatically classifies and scores qualitative data through NLP-based feedback analysis tools.",
+      "WEBHEADS' content lifecycle management framework: (1) Automated monitoring dashboard — real-time tracking of the above 5 signals with automatic flagging of content needing renewal. (2) Priority matrix — renewal prioritization calculated by enrollment volume × aging score × business impact. (3) Renewal methodology — recommending the optimal approach among full recreation, partial update, or AI-based automatic refresh. The era of 'create and forget' content is over. Data-driven lifecycle management is the key to LMS educational effectiveness."
+    ],
+    date: "2026-03-29",
+    readTime: "11 min",
+    keywords: ["content management", "LMS renewal", "lifecycle", "completion rate", "NPS", "educational content", "data analytics"],
+  },
+  {
+    id: "subtitle-multilingual-content-automation-global-education",
+    category: "guide",
+    title: "Automating Subtitle & Multilingual Content Production — Preparing for Global Education Platform Expansion",
+    summary: "From AI subtitle generation and automatic translation to cultural localization — a detailed analysis of multilingual content production automation pipelines and WEBHEADS' implementation strategy for global education platform expansion.",
+    content: [
+      "The global e-learning market is growing to approximately $450 billion as of 2025, and demand for overseas expansion from domestic education companies is surging. However, the biggest barrier to global education platform entry is language. Based on 2024–2025 averages, producing multilingual subtitles for a single 10-minute video lecture (3 languages: English, Japanese, Chinese) through professional translators costs an average of 1.2 million KRW and takes 5 working days. Building an AI automation pipeline can reduce costs by 95% and processing time to just hours.",
+      "AI multilingual content pipeline architecture: (Stage 1) ASR (Automatic Speech Recognition) — ASR engines like Whisper, Google Speech-to-Text, and Azure Speech automatically extract Korean subtitles from original videos. Based on the latest Whisper Large-v3 model, Korean recognition accuracy is approximately 95.2%, improving to over 98% with custom vocabulary dictionaries. (Stage 2) Precise timestamp alignment — synchronizing extracted subtitle start/end times with audio waveforms at millisecond precision.",
+      "(Stage 3) AI Translation — Machine translation using GPT-4o, DeepL, and Google Translate API. Rather than simple literal translation, education domain-specific prompts maintain terminology consistency and automatically substitute examples and analogies appropriate for target cultures. Pre-built glossaries ensure translation consistency for core terms like 'LMS,' 'completion rate,' and 'learners.' (Stage 4) Cultural Localization — automatic conversion of date formats (YYYY.MM.DD vs MM/DD/YYYY), currency units, legal expressions, and educational system differences.",
+      "Quality assurance system: (1) Automatic BLEU/COMET quality score measurement triggers re-translation when translation quality falls below threshold (COMET 0.85+). (2) Native reviewer crowdsourcing platform integration for final human review. (3) A/B testing — randomly exposing learners to AI-translated vs. professionally-translated subtitles to comparatively verify completion rates and satisfaction. Based on WEBHEADS client data, AI-translated subtitle completion rates were at 97.3% of professional translation levels — virtually equivalent effectiveness.",
+      "WEBHEADS natively integrates the multilingual content automation pipeline into LMS, building a one-stop workflow where multilingual subtitle generation, translation, review, and deployment occur automatically upon content upload. Currently supporting 12 languages including English, Japanese, Chinese (Simplified/Traditional), Vietnamese, and Thai, output in WebVTT/SRT standard formats ensures compatibility with all major video players. Breaking language barriers to global education market entry with AI."
+    ],
+    date: "2026-03-29",
+    readTime: "13 min",
+    keywords: ["multilingual subtitles", "AI translation", "global education", "ASR", "localization", "Whisper", "content automation"],
+  },
+  {
     id: "drm-technology-anatomy-prevent-content-leakage",
     category: "guide",
     title: "Complete Anatomy of DRM Technology to Prevent Unauthorized Educational Content Leakage",
