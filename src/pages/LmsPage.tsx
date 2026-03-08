@@ -448,9 +448,6 @@ export default function LmsPage() {
       {/* ═══ 11. Competitor Comparison ═══ */}
       <CompetitorComparison />
 
-      {/* ═══ Cost Simulator ═══ */}
-      <CostSimulator />
-
       {/* ═══ 12. Plans — 요금제 ═══ */}
       <section id="plans" className="py-16 md:py-28" style={{ background: "linear-gradient(180deg, hsl(245, 30%, 96%) 0%, hsl(245, 20%, 93%) 100%)" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-6xl">
@@ -501,7 +498,10 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* ═══ Mid CTA #3 — 요금제 확인 후 최종 전환 ═══ */}
+      {/* ═══ Cost Simulator — 요금제 확인 후 수익 시뮬레이션 ═══ */}
+      <CostSimulator />
+
+      {/* ═══ Mid CTA #3 — 최종 전환 ═══ */}
       <ServiceMidCTA heading={t("lms.midCTA.heading")} description={t("lms.midCTA.description")} ctaText={t("lms.midCTA.ctaText")} />
 
       {/* ═══ Case Studies — 도입 사례 ═══ */}
