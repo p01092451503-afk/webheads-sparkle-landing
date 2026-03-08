@@ -509,8 +509,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       </div>
                     </td>
 
-                    <td className="px-4 py-3 text-muted-foreground">{c.notes || "-"}</td>
-                    <td className={`px-4 py-3 text-right font-medium ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
+                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.notes || "-"}</td>
+                    <td className={`px-3 py-3 text-right font-medium whitespace-nowrap ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
                       {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
                     </td>
 
