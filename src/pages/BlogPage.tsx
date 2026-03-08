@@ -150,7 +150,7 @@ export default function BlogPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => handleSearch(e.target.value)}
-              placeholder={lang === "en" ? "Search by keyword, title, or tag..." : "키워드, 제목, 태그로 검색..."}
+              placeholder={lang === "en" ? "Search by keyword, title, or tag..." : lang === "ja" ? "キーワード、タイトル、タグで検索..." : "키워드, 제목, 태그로 검색..."}
               className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-border bg-card text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 transition-shadow"
             />
             {searchQuery && (
