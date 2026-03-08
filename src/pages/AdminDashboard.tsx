@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt
 } from "lucide-react";
 
 const AdminInquiries = lazy(() => import("@/components/admin/AdminInquiries"));
@@ -11,8 +11,9 @@ const AdminSettings = lazy(() => import("@/components/admin/AdminSettings"));
 const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"));
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
+const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseManager"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
