@@ -143,7 +143,7 @@ export default function PgPage() {
               <div key={item.title} className="rounded-2xl p-7 bg-background border border-border hover:border-primary/30 hover:shadow-md transition-all duration-200 flex flex-col gap-3">
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-primary text-primary-foreground font-bold text-xs">{String(i + 1).padStart(2, "0")}</div>
                 <h3 className="font-bold text-foreground text-base tracking-tight">{item.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed" style={{ wordBreak: "keep-all" }}>{item.desc}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed w-full overflow-hidden" style={{ wordBreak: "break-word", overflowWrap: "anywhere" }}>{item.desc}</p>
               </div>
             ))}
           </div>
