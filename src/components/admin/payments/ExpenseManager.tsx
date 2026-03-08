@@ -26,6 +26,8 @@ interface Expense {
   year: number;
   month: number;
   amount: number;
+  supply_amount: number;
+  tax_amount: number;
   description: string | null;
   is_paid: boolean;
   paid_date: string | null;
@@ -63,9 +65,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
   const [formClientId, setFormClientId] = useState("none");
-  const [formAmount, setFormAmount] = useState("");
+  const [formSupplyAmount, setFormSupplyAmount] = useState("");
+  const [formTaxAmount, setFormTaxAmount] = useState("");
   const [formDescription, setFormDescription] = useState("");
   const [formMemo, setFormMemo] = useState("");
+
+  const formTotal = useMemo(() => {
+    const supply = parseInt(formSupplyAmount.replace(/[^0-9]/g, "")) || 0;
+    const tax = parseInt(formTaxAmount.replace(/[^0-9]/g, "")) || 0;
+    return supply + tax;
+  }, [formSupplyAmount, formTaxAmount]);
 
   const isCurrentMonth = viewYear === now.getFullYear() && viewMonth === (now.getMonth() + 1);
 
@@ -112,7 +121,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setEditExpense(null);
     setFormCategoryId(categories[0]?.id || "");
     setFormClientId("none");
-    setFormAmount("");
+    setFormSupplyAmount("");
+    setFormTaxAmount("");
     setFormDescription("");
     setFormMemo("");
     setModalOpen(true);
@@ -122,14 +132,17 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setEditExpense(exp);
     setFormCategoryId(exp.category_id || "");
     setFormClientId(exp.client_id || "none");
-    setFormAmount(exp.amount ? exp.amount.toLocaleString("ko-KR") : "");
+    setFormSupplyAmount(exp.supply_amount ? exp.supply_amount.toLocaleString("ko-KR") : "");
+    setFormTaxAmount(exp.tax_amount ? exp.tax_amount.toLocaleString("ko-KR") : "");
     setFormDescription(exp.description || "");
     setFormMemo(exp.memo || "");
     setModalOpen(true);
   };
 
   const handleSubmit = async () => {
-    const amount = parseInt(formAmount.replace(/[^0-9]/g, "")) || 0;
+    const supplyAmount = parseInt(formSupplyAmount.replace(/[^0-9]/g, "")) || 0;
+    const taxAmount = parseInt(formTaxAmount.replace(/[^0-9]/g, "")) || 0;
+    const amount = supplyAmount + taxAmount;
     if (!formCategoryId || amount <= 0) {
       toast.error("카테고리와 금액을 입력해주세요");
       return;
@@ -141,6 +154,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       year: viewYear,
       month: viewMonth,
       amount,
+      supply_amount: supplyAmount,
+      tax_amount: taxAmount,
       description: formDescription || null,
       memo: formMemo || null,
     };
@@ -315,7 +330,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">카테고리</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">내용</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">고객사</th>
-                <th className="text-right px-4 py-3 font-semibold text-muted-foreground">금액</th>
+                <th className="text-right px-4 py-3 font-semibold text-muted-foreground">공급가액</th>
+                <th className="text-right px-4 py-3 font-semibold text-muted-foreground">세액</th>
+                <th className="text-right px-4 py-3 font-semibold text-muted-foreground">합계</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">지출일</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">메모</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
@@ -332,7 +349,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   </td>
                   <td className="px-4 py-3">{exp.description || "-"}</td>
                   <td className="px-4 py-3 text-muted-foreground">{getClientName(exp.client_id) || "-"}</td>
-                  <td className="px-4 py-3 text-right font-medium">{formatWon(exp.amount)}</td>
+                  <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.supply_amount || 0)}</td>
+                  <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
+                  <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.paid_date?.replace(/-/g, ".") || "-"}</td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.memo || "-"}</td>
                   <td className="px-4 py-3 text-center">
@@ -356,7 +375,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">
+                <tr><td colSpan={10} className="px-4 py-12 text-center text-muted-foreground">
                   {loading ? "불러오는 중..." : "등록된 지출이 없습니다"}
                 </td></tr>
               )}
@@ -384,16 +403,32 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label className="text-[13px]">금액 *</Label>
+              <Label className="text-[13px]">공급가액 *</Label>
               <Input
-                value={formAmount}
+                value={formSupplyAmount}
                 onChange={(e) => {
                   const num = e.target.value.replace(/[^0-9]/g, "");
-                  setFormAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                  setFormSupplyAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
                 }}
                 placeholder="0"
                 className="h-9 text-[13px] text-right"
               />
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">세액</Label>
+              <Input
+                value={formTaxAmount}
+                onChange={(e) => {
+                  const num = e.target.value.replace(/[^0-9]/g, "");
+                  setFormTaxAmount(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                }}
+                placeholder="0"
+                className="h-9 text-[13px] text-right"
+              />
+            </div>
+            <div className="flex items-center justify-between px-1 py-2 rounded-lg bg-[hsl(220,14%,96%)]">
+              <span className="text-[13px] font-medium text-muted-foreground pl-2">합계</span>
+              <span className="text-[15px] font-bold pr-2">{formatWon(formTotal)}</span>
             </div>
             <div className="space-y-1.5">
               <Label className="text-[13px]">내용</Label>

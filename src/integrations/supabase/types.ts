@@ -342,6 +342,8 @@ export type Database = {
           memo: string | null
           month: number
           paid_date: string | null
+          supply_amount: number
+          tax_amount: number
           updated_at: string
           year: number
         }
@@ -356,6 +358,8 @@ export type Database = {
           memo?: string | null
           month: number
           paid_date?: string | null
+          supply_amount?: number
+          tax_amount?: number
           updated_at?: string
           year: number
         }
@@ -370,6 +374,8 @@ export type Database = {
           memo?: string | null
           month?: number
           paid_date?: string | null
+          supply_amount?: number
+          tax_amount?: number
           updated_at?: string
           year?: number
         }
