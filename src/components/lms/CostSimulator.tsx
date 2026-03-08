@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Calculator, Users, MonitorPlay, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp } from "lucide-react";
+import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
