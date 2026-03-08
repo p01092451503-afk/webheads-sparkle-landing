@@ -185,49 +185,52 @@ export default function CostSimulator() {
                 </div>
               </div>
 
-              {/* Video hours slider */}
+              {/* Storage GB slider */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-1.5">
-                    <MonitorPlay className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm font-semibold text-foreground">등록 영상</span>
+                    <HardDrive className="w-4 h-4 text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">동영상 용량</span>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger>
                           <Info className="w-3.5 h-3.5 text-muted-foreground" />
                         </TooltipTrigger>
-                        <TooltipContent><p className="text-xs">LMS에 등록된 전체 영상의 총 시간</p></TooltipContent>
+                        <TooltipContent><p className="text-xs max-w-[220px]">LMS에 업로드할 전체 동영상 파일의 총 용량 (GB). 일반화질(SD) 30분 강의 1개 ≈ 약 0.3GB</p></TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </div>
                   <div className="flex items-center gap-1">
                     <input
                       type="number"
-                      value={videoHours}
+                      value={storageInput}
                       onChange={(e) => {
                         const v = Math.min(500, Math.max(1, Number(e.target.value) || 1));
-                        setVideoHours(v);
+                        setStorageInput(v);
                       }}
                       className="w-16 text-right text-lg font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none"
                       style={{ color: "hsl(var(--lms-primary))" }}
                       min={1}
                       max={500}
                     />
-                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>시간</span>
+                    <span className="text-lg font-bold" style={{ color: "hsl(var(--lms-primary))" }}>GB</span>
                   </div>
                 </div>
                 <Slider
-                  value={[videoHours]}
-                  onValueChange={([v]) => setVideoHours(v)}
+                  value={[storageInput]}
+                  onValueChange={([v]) => setStorageInput(v)}
                   min={1}
                   max={500}
                   step={1}
                   className="w-full"
                 />
                 <div className="flex justify-between text-[10px] text-muted-foreground mt-1.5">
-                  <span>1시간</span>
-                  <span>500시간</span>
+                  <span>1GB</span>
+                  <span>500GB</span>
                 </div>
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  참고: 일반화질(SD) 30분 강의 약 {Math.round(storageInput / 0.3)}개 분량
+                </p>
               </div>
 
               {/* Completion rate slider */}
