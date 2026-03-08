@@ -50,6 +50,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
     { key: "analytics", label: "분석" },
     { key: "inquiries", label: "문의" },
     { key: "payments", label: "입금관리" },
+    { key: "expenses", label: "지출관리" },
     { key: "settings", label: "설정" },
   ];
 
