@@ -175,7 +175,10 @@
     "testimonials": [
       { "name": "T. Kim", "role": "IT Infrastructure Lead", "org": "A Cyber University", "rating": 5, "date": "2024.09", "period": "7th year", "content": "We sometimes get 3,000+ concurrent users at semester start, and there's never any lag or downtime. No more stressing about server scaling." },
       { "name": "S. Lee", "role": "Operations Manager", "org": "B Vocational Training", "rating": 4, "date": "2025.01", "period": "3rd year", "content": "Our old hosting went down 2-3 times a month. Since switching, it hasn't happened once. Support calls dropped dramatically." },
-      { "name": "J. Park", "role": "CEO", "org": "C EdTech", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "International learners say video loading is much faster now. Quick response via KakaoTalk when issues arise — very reliable." }
+      { "name": "J. Park", "role": "CEO", "org": "C EdTech", "rating": 3, "date": "2024.11", "period": "2nd year", "content": "International learners say video loading is much faster now. Quick response via KakaoTalk when issues arise — very reliable." },
+      { "name": "H. Jo", "role": "Systems Ops Team", "org": "AA Continuing Education", "rating": 5, "date": "2025.02", "period": "4th year", "content": "Migrated from AWS to IDC and cut costs by 40%. Performance actually improved, and the transition was zero-downtime." },
+      { "name": "H. Kim", "role": "Academic Affairs Lead", "org": "AB Graduate School", "rating": 4, "date": "2024.12", "period": "6th year", "content": "During graduation season, grade lookups spike, but CDN keeps things snappy. Student complaints dropped noticeably." },
+      { "name": "W. Jung", "role": "Dev Lead", "org": "AC Professional Training", "rating": 3, "date": "2025.01", "period": "2nd year", "content": "Backups run automatically, so there's no worry about data loss. Quarterly recovery tests give us extra confidence." }
     ]
   },
   "maintenance": {
