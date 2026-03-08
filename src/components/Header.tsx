@@ -21,7 +21,6 @@ const serviceBlobColors: Record<string, string> = {
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [showDate, setShowDate] = useState(false);
   const [supportOpen, setSupportOpen] = useState(false);
   const supportRef = useRef<HTMLDivElement>(null);
   const [bannerDismissed, setBannerDismissed] = useState(() => {
