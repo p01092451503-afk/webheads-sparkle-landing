@@ -1,9 +1,10 @@
 import { useState, useMemo, useRef, useCallback } from "react";
-import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Trash2 } from "lucide-react";
+import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import * as XLSX from "xlsx";
@@ -45,7 +46,11 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 
 type FilterType = "all" | "paid" | "unpaid" | "managed";
 type SortType = "unpaid" | "date" | "name";
-type EditingCell = { clientId: string; field: "amount" | "paid_date" } | null;
+// Editing cell now includes paymentType
+type EditingCell = { clientId: string; field: "amount" | "paid_date"; paymentType?: string } | null;
+
+// Default visible columns
+const DEFAULT_VISIBLE_TYPES = ["hosting", "maintenance", "sms", "ssl", "commission"];
 
 export default function ClientList({ clients, payments, onNavigate, onAddPayment, onEditClient, onAddClient, onRefresh, defaultFilter }: Props) {
   const [search, setSearch] = useState("");
@@ -54,7 +59,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   const [editing, setEditing] = useState<EditingCell>(null);
   const [editValue, setEditValue] = useState("");
   const [savedCells, setSavedCells] = useState<Set<string>>(new Set());
-  const [expandedClients, setExpandedClients] = useState<Set<string>>(new Set());
+  const [visibleTypes, setVisibleTypes] = useState<string[]>(DEFAULT_VISIBLE_TYPES);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
@@ -79,19 +84,17 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         .filter((p) => p.client_id === c.id && p.is_unpaid)
         .reduce((s, p) => s + (p.amount || 0), 0);
 
-      // All payments for this client in the viewed month
       const monthPayments = payments.filter(
         (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth
       );
 
-      // For inline editing, find hosting payment
-      const thisMonth = monthPayments.find(
-        (p) => p.payment_type === "hosting" || !p.payment_type
-      );
+      // Map by type
+      const byType: Record<string, Payment> = {};
+      monthPayments.forEach((p) => {
+        byType[p.payment_type || "hosting"] = p;
+      });
 
-      // Total for the month across all types
       const monthTotal = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
-
       const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
 
       let status: "paid" | "unpaid" | "managed";
@@ -99,7 +102,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       else if (unpaidTotal > 0 || monthPayments.some((p) => p.is_unpaid)) status = "unpaid";
       else status = "paid";
 
-      return { ...c, unpaidTotal, thisMonth, monthPayments, monthTotal, status };
+      return { ...c, unpaidTotal, monthPayments, byType, monthTotal, status };
     });
   }, [clients, payments, viewYear, viewMonth]);
 
@@ -113,11 +116,13 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     else if (filter === "managed") list = list.filter((c) => c.status === "managed");
 
     if (sort === "unpaid") list = [...list].sort((a, b) => b.unpaidTotal - a.unpaidTotal);
-    else if (sort === "date") list = [...list].sort((a, b) => {
-      const da = a.thisMonth?.paid_date || "";
-      const db = b.thisMonth?.paid_date || "";
-      return da.localeCompare(db);
-    });
+    else if (sort === "date") {
+      list = [...list].sort((a, b) => {
+        const da = a.byType["hosting"]?.paid_date || "";
+        const db = b.byType["hosting"]?.paid_date || "";
+        return da.localeCompare(db);
+      });
+    }
     else list = [...list].sort((a, b) => (a.client_no || 0) - (b.client_no || 0));
 
     return list;
@@ -134,11 +139,11 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }, 1500);
   }, []);
 
-  const saveCell = useCallback(async (clientId: string, field: "amount" | "paid_date", value: string) => {
+  const saveCell = useCallback(async (clientId: string, field: "amount" | "paid_date", value: string, paymentType: string = "hosting") => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
-    const existingPayment = client.thisMonth;
+    const existingPayment = client.byType[paymentType];
 
     try {
       if (field === "amount") {
@@ -153,16 +158,14 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
             month: viewMonth,
             amount: numAmount,
             is_unpaid: false,
-            payment_type: "hosting",
+            payment_type: paymentType,
           });
           if (error) throw error;
         }
       } else {
-        // paid_date: accept YYYY.MM.DD or YYYY-MM-DD or MM.DD or M/D
         let dateStr: string | null = null;
         if (value.trim()) {
           const cleaned = value.trim().replace(/\./g, "-").replace(/\//g, "-");
-          // If short format like 3-8 or 03-08
           if (/^\d{1,2}-\d{1,2}$/.test(cleaned)) {
             const [m, d] = cleaned.split("-");
             dateStr = `${viewYear}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
@@ -170,16 +173,14 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
             const parts = cleaned.split("-");
             dateStr = `${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
           } else {
-            toast.error("날짜 형식이 올바르지 않습니다 (예: 2026.03.08 또는 3.8)");
+            toast.error("날짜 형식이 올바르지 않습니다 (예: 3.8)");
             return;
           }
         }
 
         if (existingPayment) {
           const updates: any = { paid_date: dateStr };
-          if (dateStr && existingPayment.is_unpaid) {
-            updates.is_unpaid = false;
-          }
+          if (dateStr && existingPayment.is_unpaid) updates.is_unpaid = false;
           const { error } = await supabase.from("payments").update(updates).eq("id", existingPayment.id);
           if (error) throw error;
         } else if (dateStr) {
@@ -190,98 +191,54 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
             amount: 0,
             paid_date: dateStr,
             is_unpaid: false,
-            payment_type: "hosting",
+            payment_type: paymentType,
           });
           if (error) throw error;
         }
       }
 
-      showSaved(`${clientId}-${field}`);
+      showSaved(`${clientId}-${paymentType}-${field}`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "저장 중 오류가 발생했습니다");
     }
   }, [clientData, viewYear, viewMonth, onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date") => {
+  const startEditing = (clientId: string, field: "amount" | "paid_date", paymentType: string = "hosting") => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
+    const payment = client.byType[paymentType];
     if (field === "amount") {
-      setEditValue(client.thisMonth?.amount ? client.thisMonth.amount.toLocaleString("ko-KR") : "");
+      setEditValue(payment?.amount ? payment.amount.toLocaleString("ko-KR") : "");
     } else {
-      setEditValue(client.thisMonth?.paid_date?.replace(/-/g, ".") || "");
+      setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
     }
-    setEditing({ clientId, field });
+    setEditing({ clientId, field, paymentType });
     setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   const commitEdit = () => {
     if (!editing) return;
-    saveCell(editing.clientId, editing.field, editValue);
+    saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
     setEditing(null);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, clientId: string, field: "amount" | "paid_date") => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
       commitEdit();
     } else if (e.key === "Escape") {
       setEditing(null);
-    } else if (e.key === "Tab") {
-      e.preventDefault();
-      // Save current, move to next field in same row
-      saveCell(clientId, field, editValue);
-      if (field === "paid_date") {
-        startEditing(clientId, "amount");
-      } else {
-        // Move to next row's paid_date
-        const idx = filtered.findIndex((c) => c.id === clientId);
-        if (idx < filtered.length - 1) {
-          startEditing(filtered[idx + 1].id, "paid_date");
-        } else {
-          setEditing(null);
-        }
-      }
     }
   };
 
-  const toggleExpand = (clientId: string) => {
-    setExpandedClients((prev) => {
-      const next = new Set(prev);
-      if (next.has(clientId)) next.delete(clientId);
-      else next.add(clientId);
-      return next;
-    });
-  };
-
-  const addPaymentType = async (clientId: string, paymentType: string) => {
-    try {
-      const { error } = await supabase.from("payments").insert({
-        client_id: clientId,
-        year: viewYear,
-        month: viewMonth,
-        amount: 0,
-        is_unpaid: false,
-        payment_type: paymentType,
-      });
-      if (error) throw error;
-      toast.success(`${getPaymentTypeLabel(paymentType)} 항목이 추가되었습니다`);
-      onRefresh();
-    } catch (e: any) {
-      toast.error(e.message || "추가 중 오류가 발생했습니다");
-    }
-  };
-
-  const deletePaymentEntry = async (paymentId: string) => {
-    try {
-      const { error } = await supabase.from("payments").delete().eq("id", paymentId);
-      if (error) throw error;
-      toast.success("항목이 삭제되었습니다");
-      onRefresh();
-    } catch (e: any) {
-      toast.error(e.message || "삭제 중 오류가 발생했습니다");
-    }
+  const toggleType = (typeValue: string) => {
+    setVisibleTypes((prev) =>
+      prev.includes(typeValue)
+        ? prev.filter((t) => t !== typeValue)
+        : [...prev, typeValue]
+    );
   };
 
   const statusBadge = (status: string) => {
@@ -302,11 +259,9 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   };
 
   const handleExportExcel = useCallback(() => {
-    const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
     const cy = now.getFullYear();
     const cm = now.getMonth() + 1;
 
-    // Generate last 13 months columns
     const monthCols: { year: number; month: number; label: string }[] = [];
     for (let i = 12; i >= 0; i--) {
       let m = cm - i;
@@ -323,25 +278,21 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           .filter((p) => p.client_id === c.id && p.is_unpaid)
           .reduce((s, p) => s + (p.amount || 0), 0);
 
-        const thisMonthP = payments.find(
-          (p) => p.client_id === c.id && p.year === cy && p.month === cm && (p.payment_type === "hosting" || !p.payment_type)
-        );
-
-        // Collect other payment types for this month
-        const otherTypes = payments
-          .filter((p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type && p.payment_type !== "hosting")
-          .map((p) => `${getPaymentTypeLabel(p.payment_type)}:${p.amount?.toLocaleString()}`)
-          .join(", ");
-
         const row: Record<string, any> = {
           "No": c.client_no,
           "고객사명": c.name,
           "예상납부일": c.expected_payment_day || "",
-          "입금일": thisMonthP?.paid_date?.replace(/-/g, ".") || "",
           "비고": c.notes || "",
           "미납금": unpaidTotal,
-          "기타항목(이달)": otherTypes || "",
         };
+
+        // Add per-type columns for current month
+        PAYMENT_TYPES.forEach((t) => {
+          const p = payments.find(
+            (p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type === t.value
+          );
+          row[t.label] = p?.amount || 0;
+        });
 
         let total = 0;
         monthCols.forEach((mc) => {
@@ -357,10 +308,9 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       });
 
     const ws = XLSX.utils.json_to_sheet(rows);
-
-    // Set column widths
     ws["!cols"] = [
-      { wch: 5 }, { wch: 18 }, { wch: 10 }, { wch: 12 }, { wch: 15 }, { wch: 14 }, { wch: 20 },
+      { wch: 5 }, { wch: 18 }, { wch: 10 }, { wch: 15 }, { wch: 14 },
+      ...PAYMENT_TYPES.map(() => ({ wch: 12 })),
       ...monthCols.map(() => ({ wch: 12 })),
       { wch: 14 },
     ];
@@ -370,6 +320,9 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     XLSX.writeFile(wb, `입금현황_${cy}${String(cm).padStart(2, "0")}.xlsx`);
     toast.success("Excel 파일이 다운로드되었습니다");
   }, [clients, payments]);
+
+  // Available types not currently shown
+  const hiddenTypes = PAYMENT_TYPES.filter((t) => !visibleTypes.includes(t.value));
 
   return (
     <div className="space-y-4">
@@ -443,9 +396,11 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
               </button>
             )}
           </div>
-          {!isCurrentMonth && (
-            <span className="text-[11px] text-muted-foreground">과거 데이터 조회 중</span>
-          )}
+          <div className="flex items-center gap-2">
+            {!isCurrentMonth && (
+              <span className="text-[11px] text-muted-foreground">과거 데이터 조회 중</span>
+            )}
+          </div>
         </div>
 
         <div className="overflow-x-auto">
@@ -454,193 +409,168 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[50px]">No</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">고객사명</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[90px]">예상납부일</th>
-                <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[120px]">입금일 ✎</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[80px]">예상납부일</th>
+                <th className="text-left px-4 py-3 font-semibold text-muted-foreground w-[100px]">입금일 ✎</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">비고</th>
-                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[120px]">미납금</th>
-                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[130px]">{viewMonth}월 금액 ✎</th>
-                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
-                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[90px]">관리</th>
+                <th className="text-right px-4 py-3 font-semibold text-muted-foreground w-[100px]">미납금</th>
+
+                {/* Dynamic payment type columns */}
+                {visibleTypes.map((typeValue) => {
+                  const typeInfo = PAYMENT_TYPES.find((t) => t.value === typeValue);
+                  if (!typeInfo) return null;
+                  return (
+                    <th key={typeValue} className="text-right px-2 py-3 font-semibold w-[110px]">
+                      <div className="flex items-center justify-end gap-1">
+                        <span className={`text-[11px] px-1.5 py-0.5 rounded ${typeInfo.color}`}>
+                          {typeInfo.label}
+                        </span>
+                        <button
+                          onClick={() => toggleType(typeValue)}
+                          className="p-0.5 rounded hover:bg-[hsl(220,14%,90%)] text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+                          title="열 숨기기"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    </th>
+                  );
+                })}
+
+                {/* Add column button */}
+                {hiddenTypes.length > 0 && (
+                  <th className="px-2 py-3 w-[40px]">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <button className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors" title="입금 항목 추가">
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-2" align="end">
+                        <div className="space-y-1">
+                          <p className="text-[11px] font-semibold text-muted-foreground px-2 pb-1">항목 추가</p>
+                          {hiddenTypes.map((t) => (
+                            <button
+                              key={t.value}
+                              onClick={() => toggleType(t.value)}
+                              className={`w-full text-left px-3 py-1.5 rounded-md text-[12px] font-medium transition-all hover:opacity-80 ${t.color}`}
+                            >
+                              + {t.label}
+                            </button>
+                          ))}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </th>
+                )}
+
+                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[70px]">상태</th>
+                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[60px]">관리</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((c) => {
                 const isEditingDate = editing?.clientId === c.id && editing.field === "paid_date";
-                const isEditingAmount = editing?.clientId === c.id && editing.field === "amount";
-                const isExpanded = expandedClients.has(c.id);
-                const hasMultipleTypes = c.monthPayments.length > 1 || c.monthPayments.some((p: Payment) => p.payment_type !== "hosting");
-                // Types already used this month
-                const usedTypes = c.monthPayments.map((p: Payment) => p.payment_type || "hosting");
-                const availableTypes = PAYMENT_TYPES.filter((t) => !usedTypes.includes(t.value));
 
                 return (
-                  <>
-                    <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
-                      <td className="px-4 py-3 text-muted-foreground">{c.client_no}</td>
-                      <td className="px-4 py-3">
-                        <button
-                          onClick={() => onNavigate("detail", c.id)}
-                          className="font-medium text-[hsl(221,83%,53%)] hover:underline"
-                        >
-                          {c.name}
-                        </button>
-                      </td>
-                      <td className="px-4 py-3 text-muted-foreground">{c.expected_payment_day || "-"}</td>
+                  <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
+                    <td className="px-4 py-3 text-muted-foreground">{c.client_no}</td>
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => onNavigate("detail", c.id)}
+                        className="font-medium text-[hsl(221,83%,53%)] hover:underline"
+                      >
+                        {c.name}
+                      </button>
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">{c.expected_payment_day || "-"}</td>
 
-                      {/* Editable: 입금일 (hosting) */}
-                      <td className="px-2 py-1.5">
-                        <div className="relative">
-                          {isEditingDate ? (
-                            <input
-                              ref={inputRef}
-                              value={editValue}
-                              onChange={(e) => setEditValue(e.target.value)}
-                              onBlur={commitEdit}
-                              onKeyDown={(e) => handleKeyDown(e, c.id, "paid_date")}
-                              placeholder="3.8"
-                              className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
-                            />
-                          ) : (
-                            <button
-                              onClick={() => startEditing(c.id, "paid_date")}
-                              className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
-                            >
-                              {c.thisMonth?.paid_date ? c.thisMonth.paid_date.replace(/-/g, ".") : "-"}
-                            </button>
-                          )}
-                          <SavedCheck cellKey={`${c.id}-paid_date`} />
-                        </div>
-                      </td>
-
-                      <td className="px-4 py-3 text-muted-foreground">{c.notes || "-"}</td>
-                      <td className={`px-4 py-3 text-right font-medium ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
-                        {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
-                      </td>
-
-                      {/* Month total / hosting amount */}
-                      <td className="px-2 py-1.5">
-                        <div className="relative">
-                          {isEditingAmount ? (
-                            <input
-                              ref={inputRef}
-                              value={editValue}
-                              onChange={(e) => {
-                                const num = e.target.value.replace(/[^0-9]/g, "");
-                                setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
-                              }}
-                              onBlur={commitEdit}
-                              onKeyDown={(e) => handleKeyDown(e, c.id, "amount")}
-                              placeholder="0"
-                              className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
-                            />
-                          ) : (
-                            <button
-                              onClick={() => startEditing(c.id, "amount")}
-                              className="w-full h-8 px-2 text-right text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text"
-                            >
-                              {c.monthTotal > 0 ? formatWon(c.monthTotal) : "-"}
-                            </button>
-                          )}
-                          <SavedCheck cellKey={`${c.id}-amount`} />
-                        </div>
-                      </td>
-
-                      <td className="px-4 py-3 text-center">{statusBadge(c.status)}</td>
-                      <td className="px-4 py-3">
-                        <div className="flex items-center justify-center gap-1">
+                    {/* Editable: 입금일 (hosting) */}
+                    <td className="px-2 py-1.5">
+                      <div className="relative">
+                        {isEditingDate ? (
+                          <input
+                            ref={inputRef}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={commitEdit}
+                            onKeyDown={handleKeyDown}
+                            placeholder="3.8"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                          />
+                        ) : (
                           <button
-                            onClick={() => onEditClient(c)}
-                            className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors"
-                            title="수정"
+                            onClick={() => startEditing(c.id, "paid_date", "hosting")}
+                            className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
                           >
-                            <Edit2 className="w-3.5 h-3.5" />
+                            {c.byType["hosting"]?.paid_date ? c.byType["hosting"].paid_date.replace(/-/g, ".") : "-"}
                           </button>
-                          <button
-                            onClick={() => toggleExpand(c.id)}
-                            className={`p-1.5 rounded-lg transition-colors ${isExpanded ? "bg-[hsl(221,83%,53%,0.08)] text-[hsl(221,83%,53%)]" : "hover:bg-[hsl(220,14%,93%)] text-muted-foreground"}`}
-                            title="입금 항목 관리"
-                          >
-                            {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-
-                    {/* Expanded: payment type sub-rows */}
-                    {isExpanded && (
-                      <>
-                        {c.monthPayments.map((p: Payment) => (
-                          <tr key={p.id} className="bg-[hsl(220,14%,97.5%)] border-b border-[hsl(220,13%,95%)]">
-                            <td className="px-4 py-2" />
-                            <td className="px-4 py-2" colSpan={2}>
-                              <Badge className={`${getPaymentTypeColor(p.payment_type || "hosting")} hover:opacity-90 text-[10px]`}>
-                                {getPaymentTypeLabel(p.payment_type || "hosting")}
-                              </Badge>
-                            </td>
-                            <td className="px-4 py-2 text-[12px] text-muted-foreground">
-                              {p.paid_date ? p.paid_date.replace(/-/g, ".") : "-"}
-                            </td>
-                            <td className="px-4 py-2 text-[12px] text-muted-foreground">{p.memo || "-"}</td>
-                            <td className="px-4 py-2 text-right text-[12px]">
-                              {p.is_unpaid ? <span className="text-red-600 font-medium">{formatWon(p.amount || 0)}</span> : "-"}
-                            </td>
-                            <td className="px-4 py-2 text-right text-[12px] font-medium">
-                              {formatWon(p.amount || 0)}
-                            </td>
-                            <td className="px-4 py-2 text-center">
-                              {p.is_unpaid
-                                ? <Badge className="bg-red-100 text-red-700 hover:bg-red-100 text-[10px]">미납</Badge>
-                                : <Badge className="bg-emerald-100 text-emerald-700 hover:bg-emerald-100 text-[10px]">완료</Badge>
-                              }
-                            </td>
-                            <td className="px-4 py-2">
-                              <div className="flex items-center justify-center gap-1">
-                                <button
-                                  onClick={() => onAddPayment(c.id)}
-                                  className="p-1 rounded-lg hover:bg-[hsl(220,14%,90%)] text-muted-foreground transition-colors"
-                                  title="수정"
-                                >
-                                  <Edit2 className="w-3 h-3" />
-                                </button>
-                                <button
-                                  onClick={() => deletePaymentEntry(p.id)}
-                                  className="p-1 rounded-lg hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-colors"
-                                  title="삭제"
-                                >
-                                  <Trash2 className="w-3 h-3" />
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                        {/* Add new payment type row */}
-                        {availableTypes.length > 0 && (
-                          <tr className="bg-[hsl(220,14%,98%)] border-b border-[hsl(220,13%,93%)]">
-                            <td className="px-4 py-2" />
-                            <td className="px-4 py-2" colSpan={8}>
-                              <div className="flex items-center gap-1.5 flex-wrap">
-                                <span className="text-[11px] text-muted-foreground mr-1">항목 추가:</span>
-                                {availableTypes.map((t) => (
-                                  <button
-                                    key={t.value}
-                                    onClick={() => addPaymentType(c.id, t.value)}
-                                    className={`px-2.5 py-1 rounded-md text-[11px] font-medium border transition-all hover:opacity-80 ${t.color} border-transparent`}
-                                  >
-                                    + {t.label}
-                                  </button>
-                                ))}
-                              </div>
-                            </td>
-                          </tr>
                         )}
-                      </>
-                    )}
-                  </>
+                        <SavedCheck cellKey={`${c.id}-hosting-paid_date`} />
+                      </div>
+                    </td>
+
+                    <td className="px-4 py-3 text-muted-foreground">{c.notes || "-"}</td>
+                    <td className={`px-4 py-3 text-right font-medium ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
+                      {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
+                    </td>
+
+                    {/* Dynamic payment type amount cells */}
+                    {visibleTypes.map((typeValue) => {
+                      const payment = c.byType[typeValue];
+                      const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue;
+                      const cellKey = `${c.id}-${typeValue}-amount`;
+
+                      return (
+                        <td key={typeValue} className="px-1 py-1.5">
+                          <div className="relative">
+                            {isEditingThis ? (
+                              <input
+                                ref={inputRef}
+                                value={editValue}
+                                onChange={(e) => {
+                                  const num = e.target.value.replace(/[^0-9]/g, "");
+                                  setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                                }}
+                                onBlur={commitEdit}
+                                onKeyDown={handleKeyDown}
+                                placeholder="0"
+                                className="w-full h-8 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                              />
+                            ) : (
+                              <button
+                                onClick={() => startEditing(c.id, "amount", typeValue)}
+                                className="w-full h-8 px-2 text-right text-[12px] rounded-lg hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text"
+                              >
+                                {payment?.amount ? formatWon(payment.amount) : "-"}
+                              </button>
+                            )}
+                            <SavedCheck cellKey={cellKey} />
+                          </div>
+                        </td>
+                      );
+                    })}
+
+                    {/* + column spacer */}
+                    {hiddenTypes.length > 0 && <td className="px-2 py-3" />}
+
+                    <td className="px-4 py-3 text-center">{statusBadge(c.status)}</td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center justify-center">
+                        <button
+                          onClick={() => onEditClient(c)}
+                          className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors"
+                          title="수정"
+                        >
+                          <Edit2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
                 );
               })}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={9} className="px-4 py-12 text-center text-muted-foreground">
+                  <td colSpan={7 + visibleTypes.length + (hiddenTypes.length > 0 ? 1 : 0)} className="px-4 py-12 text-center text-muted-foreground">
                     검색 결과가 없습니다
                   </td>
                 </tr>
