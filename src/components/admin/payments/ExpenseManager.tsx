@@ -77,9 +77,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [showStats, setShowStats] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
-  const [noteContent, setNoteContent] = useState("");
+  const [noteRows, setNoteRows] = useState<{ date: string; description: string; amount: string; account: string }[]>([]);
   const [noteLoading, setNoteLoading] = useState(false);
   const [noteSaving, setNoteSaving] = useState(false);
+
+  const todayStr = `${String(now.getMonth() + 1).padStart(2, "0")}/${String(now.getDate()).padStart(2, "0")}`;
+
+  const createEmptyRow = () => ({ date: todayStr, description: "", amount: "", account: "" });
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
