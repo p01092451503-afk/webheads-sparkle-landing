@@ -551,9 +551,9 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-auto max-h-[calc(100vh-280px)]">
           <table className="min-w-[1560px] w-full text-[13px]">
-            <thead>
+            <thead className="sticky top-0 z-10">
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[45px] whitespace-nowrap">No</th>
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[140px] whitespace-nowrap">고객사명</th>
