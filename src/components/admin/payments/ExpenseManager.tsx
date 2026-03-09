@@ -178,7 +178,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   const saveNote = useCallback(async () => {
     setNoteSaving(true);
-    const content = JSON.stringify(noteRows.filter(r => r.date || r.description || r.amount || r.account));
+    const content = JSON.stringify(noteRows.filter(r => r.date || r.vendor || r.description || r.amount || r.account));
     try {
       const { data: existing } = await supabase
         .from("expense_notes" as any)
