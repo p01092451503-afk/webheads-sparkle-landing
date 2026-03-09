@@ -74,9 +74,11 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
   const clientData = useMemo(() => {
     return clients.map((c) => {
-      const unpaidTotal = payments
-        .filter((p) => p.client_id === c.id && p.is_unpaid)
-        .reduce((s, p) => s + (p.amount || 0), 0);
+      // 미납금: 해당 월의 모든 서비스 타입 미납 합계
+      const monthUnpaidPayments = payments.filter(
+        (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth && p.is_unpaid
+      );
+      const unpaidTotal = monthUnpaidPayments.reduce((s, p) => s + (p.amount || 0), 0);
 
       const monthPayments = payments.filter(
         (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth
