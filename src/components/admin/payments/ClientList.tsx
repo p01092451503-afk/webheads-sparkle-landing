@@ -308,9 +308,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     const payment = (client.byType[paymentType] || [])[paymentIndex];
     if (!payment) return;
 
-    const order = ["none", "pre", "post", "done"];
-    const currentIdx = order.indexOf(payment.invoice_status || "none");
-    const nextStatus = order[(currentIdx + 1) % order.length];
+    const nextStatus = (payment.invoice_status || "none") === "none" ? "done" : "none";
     const nowDate = nextStatus === "done" ? new Date().toISOString().split("T")[0] : payment.invoice_date;
 
     try {
