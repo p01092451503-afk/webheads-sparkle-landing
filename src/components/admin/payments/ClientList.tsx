@@ -704,14 +704,55 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                     />
                                   ) : (
                                     <div className="space-y-0.5">
-                                      {/* Amount row */}
-                                      <div className="flex items-center gap-0.5">
-                                        <button
-                                          onClick={() => startEditing(c.id, "amount", typeValue, idx)}
-                                          className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
-                                        >
-                                          {payment.amount ? formatWon(payment.amount) : "-"}
-                                        </button>
+                                      {/* Amount row with hover memo */}
+                                      <div className="flex items-center gap-0.5 group/amount relative">
+                                        <Popover>
+                                          <PopoverTrigger asChild>
+                                            <button
+                                              onClick={(e) => {
+                                                // Left click = edit amount, right context or this trigger for memo
+                                                e.preventDefault();
+                                                // Let Popover handle it
+                                              }}
+                                              className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
+                                            >
+                                              <span className="flex items-center justify-end gap-1">
+                                                {payment.amount ? formatWon(payment.amount) : "-"}
+                                                {payment.memo && (
+                                                  <span className="hidden group-hover/amount:inline-block text-[9px] text-muted-foreground max-w-[60px] truncate" title={payment.memo}>
+                                                    ({payment.memo})
+                                                  </span>
+                                                )}
+                                              </span>
+                                            </button>
+                                          </PopoverTrigger>
+                                          <PopoverContent className="w-64 p-3" align="start" side="top">
+                                            <div className="space-y-2">
+                                              <p className="text-[11px] font-semibold text-muted-foreground">항목 내용 (제목/설명)</p>
+                                              <input
+                                                defaultValue={payment.memo || ""}
+                                                placeholder="예: 3월 유지보수, 홈페이지 수정 등"
+                                                className="w-full h-8 px-2 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
+                                                onBlur={(e) => {
+                                                  if (e.target.value !== (payment.memo || "")) {
+                                                    saveMemo(c.id, typeValue, e.target.value, idx);
+                                                  }
+                                                }}
+                                                onKeyDown={(e) => {
+                                                  if (e.key === "Enter") {
+                                                    (e.target as HTMLInputElement).blur();
+                                                  }
+                                                }}
+                                              />
+                                              <button
+                                                onClick={() => startEditing(c.id, "amount", typeValue, idx)}
+                                                className="w-full h-7 text-[11px] text-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,53%,0.08)] rounded-lg transition-colors"
+                                              >
+                                                금액 수정
+                                              </button>
+                                            </div>
+                                          </PopoverContent>
+                                        </Popover>
                                         {payment.amount > 0 && (
                                           <button
                                             onClick={() => toggleUnpaid(c.id, typeValue, idx)}
