@@ -281,14 +281,31 @@ Deno.serve(async (req) => {
       } catch (err) {
         lastError = err;
         const errorMessage = err instanceof Error ? err.message : String(err);
-        // Retry only on channel resolution issue
-        if (!errorMessage.includes("channel_not_found")) throw err;
+
+        if (errorMessage.includes("not_in_channel") && /^C[A-Z0-9]+$/.test(channel)) {
+          try {
+            await joinSlackChannel(channel);
+            await sendSlackMessage(channel, blocks, fallbackText);
+            delivered = true;
+            break;
+          } catch (joinErr) {
+            lastError = joinErr;
+            const joinMessage = joinErr instanceof Error ? joinErr.message : String(joinErr);
+            if (!joinMessage.includes("not_in_channel") && !joinMessage.includes("missing_scope")) {
+              throw joinErr;
+            }
+            continue;
+          }
+        }
+
+        // Retry only on channel resolution or membership issues
+        if (!errorMessage.includes("channel_not_found") && !errorMessage.includes("not_in_channel")) throw err;
       }
     }
 
     if (!delivered) {
       throw new Error(
-        `Slack channel not found for "${channelName}". 관리자 설정에서 채널명을 정확히 입력하거나 채널 ID(C...)를 사용해 주세요. Last error: ${lastError instanceof Error ? lastError.message : String(lastError)}`,
+        `Slack channel delivery failed for "${channelName}". 채널명을 정확히 입력하거나 채널 ID(C...)를 사용하고, 필요 시 Slack에서 'Lovable App'을 해당 채널에 초대해 주세요. Last error: ${lastError instanceof Error ? lastError.message : String(lastError)}`,
       );
     }
 
