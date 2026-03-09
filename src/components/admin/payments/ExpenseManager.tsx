@@ -451,7 +451,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)] flex items-center justify-between">
               <div>
                 <h3 className="text-[14px] font-semibold">{viewYear}/{String(viewMonth).padStart(2, "0")} 지출 기록</h3>
-                <p className="text-[11px] text-muted-foreground mt-0.5">날짜 · 항목 · 금액 · 계좌/비고를 입력 후 완료를 눌러 저장하세요</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">날짜 · 지출처 · 지출항목 · 금액 · 계좌/비고를 입력 후 완료를 눌러 저장하세요</p>
               </div>
               <div className="flex gap-2">
                 <Button
