@@ -92,6 +92,9 @@ export default function ClientDetail({ client, payments, onBack, onAddPayment, o
           </div>
         </div>
         <div className="flex gap-2">
+          <Button size="sm" variant="outline" onClick={onDeleteClient} className="h-8 text-[12px] text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700">
+            <Trash2 className="w-3 h-3 mr-1" />삭제
+          </Button>
           <Button size="sm" variant="outline" onClick={onEditClient} className="h-8 text-[12px]">
             <Edit2 className="w-3 h-3 mr-1" />수정
           </Button>
