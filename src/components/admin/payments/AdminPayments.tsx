@@ -41,6 +41,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
   const [editClient, setEditClient] = useState<Client | null>(null);
   const [preselectedClientId, setPreselectedClientId] = useState<string | undefined>(undefined);
   const [deletePaymentId, setDeletePaymentId] = useState<string | null>(null);
+  const [deleteClientId, setDeleteClientId] = useState<string | null>(null);
   const [clientListFilter, setClientListFilter] = useState<"all" | "unpaid">("all");
 
   const fetchData = useCallback(async () => {
@@ -152,6 +153,27 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
       fetchData();
     } catch (e: any) {
       toast.error(e.message || "오류가 발생했습니다");
+    }
+  };
+
+  const handleDeleteClient = async () => {
+    if (!deleteClientId) return;
+    try {
+      // Delete related payments and recurring fees first
+      await supabase.from("payments").delete().eq("client_id", deleteClientId);
+      await supabase.from("client_recurring_fees").delete().eq("client_id", deleteClientId);
+      const { error } = await supabase.from("clients").delete().eq("id", deleteClientId);
+      if (error) throw error;
+      toast.success("고객사가 삭제되었습니다");
+      await logActivity("client_deleted", "client", deleteClientId);
+      setDeleteClientId(null);
+      if (selectedClientId === deleteClientId) {
+        setSubView("clients");
+        setSelectedClientId(null);
+      }
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "삭제 중 오류가 발생했습니다");
     }
   };
 
@@ -270,6 +292,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             onDeletePayment={(id) => setDeletePaymentId(id)}
             onEditClient={() => handleEditClient(selectedClient)}
             onToggleUnpaid={handleToggleUnpaid}
+            onDeleteClient={() => setDeleteClientId(selectedClient.id)}
           />
         )}
       </Suspense>
@@ -293,7 +316,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
         />
       </Suspense>
 
-      {/* Delete Confirmation */}
+      {/* Delete Payment Confirmation */}
       <AlertDialog open={!!deletePaymentId} onOpenChange={(v) => !v && setDeletePaymentId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -305,6 +328,25 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
           <AlertDialogFooter>
             <AlertDialogCancel className="text-[13px]">취소</AlertDialogCancel>
             <AlertDialogAction onClick={handleDeletePayment} className="bg-red-600 hover:bg-red-700 text-[13px]">
+              삭제
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Delete Client Confirmation */}
+      <AlertDialog open={!!deleteClientId} onOpenChange={(v) => !v && setDeleteClientId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-[16px]">고객사 삭제</AlertDialogTitle>
+            <AlertDialogDescription className="text-[13px]">
+              이 고객사를 삭제하시겠습니까?<br />
+              해당 고객사의 <strong>모든 입금 기록과 정기결제 설정</strong>도 함께 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="text-[13px]">취소</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteClient} className="bg-red-600 hover:bg-red-700 text-[13px]">
               삭제
             </AlertDialogAction>
           </AlertDialogFooter>
