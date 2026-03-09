@@ -77,13 +77,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [showStats, setShowStats] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
-  const [noteRows, setNoteRows] = useState<{ date: string; vendor: string; description: string; amount: string; bank: string; account: string }[]>([]);
+  const [noteRows, setNoteRows] = useState<{ date: string; vendor: string; description: string; amount: string; bank: string; account: string; memo: string }[]>([]);
   const [noteLoading, setNoteLoading] = useState(false);
   const [noteSaving, setNoteSaving] = useState(false);
 
   const todayStr = `${String(now.getMonth() + 1).padStart(2, "0")}/${String(now.getDate()).padStart(2, "0")}`;
 
-  const createEmptyRow = () => ({ date: todayStr, vendor: "", description: "", amount: "", bank: "", account: "" });
+  const createEmptyRow = () => ({ date: todayStr, vendor: "", description: "", amount: "", bank: "", account: "", memo: "" });
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
@@ -163,9 +163,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
           const rows = lines.map((line: string) => {
             const match = line.match(/^(\d{2}\/\d{2})\s*:\s*(.*)$/);
             if (match) {
-              return { date: match[1], description: match[2], amount: "", account: "" };
+              return { date: match[1], description: match[2], amount: "", vendor: "", bank: "", account: "", memo: "" };
             }
-            return { date: "", vendor: "", description: line.trim(), amount: "", bank: "", account: "" };
+            return { date: "", vendor: "", description: line.trim(), amount: "", bank: "", account: "", memo: "" };
           });
           setNoteRows(rows.length > 0 ? rows : [createEmptyRow()]);
         } else {
@@ -483,11 +483,12 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   <thead>
                     <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[70px]">날짜</th>
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">지출처</th>
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[120px]">지출항목</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[100px]">지출처</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[90px]">지출항목</th>
                       <th className="text-right px-3 py-2.5 font-semibold text-muted-foreground w-[120px]">금액</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[100px]">은행명</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">계좌번호</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[120px]">비고</th>
                       <th className="w-[60px]" />
                     </tr>
                   </thead>
@@ -554,6 +555,14 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             value={row.account || ""}
                             onChange={(e) => updateNoteRow(idx, "account", e.target.value)}
                             placeholder="계좌번호"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.memo || ""}
+                            onChange={(e) => updateNoteRow(idx, "memo", e.target.value)}
+                            placeholder="비고"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
                           />
                         </td>
