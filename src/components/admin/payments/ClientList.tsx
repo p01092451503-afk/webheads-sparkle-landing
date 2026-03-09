@@ -91,11 +91,9 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       });
 
       const monthTotal = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
-      const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
 
-      let status: "paid" | "unpaid" | "managed";
-      if (isManaged) status = "managed";
-      else if (unpaidTotal > 0 || monthPayments.some((p) => p.is_unpaid)) status = "unpaid";
+      let status: "paid" | "unpaid";
+      if (unpaidTotal > 0 || monthPayments.some((p) => p.is_unpaid) || monthPayments.length === 0) status = "unpaid";
       else status = "paid";
 
       return { ...c, unpaidTotal, monthPayments, byType, monthTotal, status };
