@@ -282,23 +282,7 @@ Deno.serve(async (req) => {
         lastError = err;
         const errorMessage = err instanceof Error ? err.message : String(err);
 
-        if (errorMessage.includes("not_in_channel") && /^C[A-Z0-9]+$/.test(channel)) {
-          try {
-            await joinSlackChannel(channel);
-            await sendSlackMessage(channel, blocks, fallbackText);
-            delivered = true;
-            break;
-          } catch (joinErr) {
-            lastError = joinErr;
-            const joinMessage = joinErr instanceof Error ? joinErr.message : String(joinErr);
-            if (!joinMessage.includes("not_in_channel") && !joinMessage.includes("missing_scope")) {
-              throw joinErr;
-            }
-            continue;
-          }
-        }
-
-        // Retry only on channel resolution or membership issues
+        // Skip join attempt (requires channels:join scope) — just try next candidate
         if (!errorMessage.includes("channel_not_found") && !errorMessage.includes("not_in_channel")) throw err;
       }
     }
