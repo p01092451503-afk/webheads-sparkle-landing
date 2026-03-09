@@ -662,7 +662,29 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                         <SavedCheck cellKey={`${c.id}-name`} />
                       </div>
                     </td>
-                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.expected_payment_day || "-"}</td>
+                    <td className="px-2 py-1.5 whitespace-nowrap">
+                      <div className="relative">
+                        {editing?.clientId === c.id && editing.field === "expected_payment_day" ? (
+                          <input
+                            ref={inputRef}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={commitEdit}
+                            onKeyDown={handleKeyDown}
+                            placeholder="예: 10일"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                          />
+                        ) : (
+                          <button
+                            onClick={() => startEditing(c.id, "expected_payment_day")}
+                            className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
+                          >
+                            {c.expected_payment_day || "-"}
+                          </button>
+                        )}
+                        <SavedCheck cellKey={`${c.id}-expected_payment_day`} />
+                      </div>
+                    </td>
 
                     {/* Editable: 입금일 (hosting) */}
                     <td className="px-2 py-1.5">
