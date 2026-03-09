@@ -145,10 +145,17 @@ function classifyVisitor(ua: string, ip: string | null): string {
 }
 
 // Post-geo classification: check if geo city is a known datacenter location
-function classifyWithGeo(visitorType: string, country: string | null, city: string | null): string {
+function classifyWithGeo(visitorType: string, country: string | null, city: string | null, pagePath?: string): string {
+  // Vulnerability scan path → always scraper regardless of other signals
+  if (pagePath && VULN_SCAN_PATHS.some(r => r.test(pagePath))) return "scraper_vuln_scan";
   if (visitorType !== "human") return visitorType;
   if (!country || !city) return visitorType;
-  // Only apply to US traffic (most major datacenter cities)
+  // Singapore datacenter traffic with zh-CN language accessing non-existent paths
+  if (/singapore/i.test(country) && city) {
+    const isSGDatacenter = /north\s*west/i.test(city);
+    if (isSGDatacenter) return "scraper_datacenter";
+  }
+  // Only apply datacenter city check to US traffic
   const isUS = /united\s*states|^us$/i.test(country);
   if (!isUS) return visitorType;
   const isDatacenterCity = datacenterCities.some(r => r.test(city));
