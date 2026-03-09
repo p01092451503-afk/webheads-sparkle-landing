@@ -972,6 +972,57 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Reset Password Dialog */}
+      <Dialog open={!!resetTarget} onOpenChange={(open) => { if (!open) setResetTarget(null); }}>
+        <DialogContent className="max-w-[400px] rounded-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-[16px] font-semibold flex items-center gap-2">
+              <KeyRound className="w-4 h-4 text-[hsl(199,89%,48%)]" /> 비밀번호 초기화
+            </DialogTitle>
+            <DialogDescription className="text-[13px]">
+              <span className="font-semibold text-foreground">{resetTarget?.email}</span> 계정의 비밀번호를 새로 설정합니다.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-3 py-2">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[12px] font-semibold text-foreground">새 비밀번호</label>
+              <input type="password" value={resetPassword} onChange={(e) => setResetPassword(e.target.value)}
+                placeholder="6자 이상 입력"
+                className="w-full px-3.5 py-2.5 rounded-xl text-[13px] border border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)] focus:border-[hsl(199,89%,48%)] focus:ring-2 focus:ring-[hsl(199,89%,48%,0.1)] outline-none transition-all"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[12px] font-semibold text-foreground">비밀번호 확인</label>
+              <input type="password" value={resetConfirm} onChange={(e) => setResetConfirm(e.target.value)}
+                placeholder="비밀번호 다시 입력"
+                className="w-full px-3.5 py-2.5 rounded-xl text-[13px] border border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)] focus:border-[hsl(199,89%,48%)] focus:ring-2 focus:ring-[hsl(199,89%,48%,0.1)] outline-none transition-all"
+              />
+            </div>
+            {resetError && (
+              <p className="text-[12px] text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] px-3 py-2 rounded-lg">{resetError}</p>
+            )}
+            {resetSuccess && (
+              <p className="text-[12px] text-[hsl(152,57%,42%)] bg-[hsl(152,57%,42%,0.06)] px-3 py-2 rounded-lg flex items-center gap-1.5">
+                <Check className="w-3 h-3" /> 비밀번호가 초기화되었습니다.
+              </p>
+            )}
+          </div>
+          <DialogFooter className="gap-2">
+            <button onClick={() => setResetTarget(null)}
+              className="px-4 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-colors"
+            >
+              취소
+            </button>
+            <button onClick={handleResetPassword} disabled={resetting || resetSuccess}
+              className="px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-colors disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {resetting && <Loader2 className="w-3 h-3 animate-spin" />}
+              {resetSuccess ? "완료" : "비밀번호 변경"}
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
