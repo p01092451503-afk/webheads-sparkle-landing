@@ -76,8 +76,10 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [catFilter, setCatFilter] = useState<string>("all");
   const [showStats, setShowStats] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
+  const [showPlanned, setShowPlanned] = useState(false);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
   const [noteRows, setNoteRows] = useState<{ date: string; vendor: string; description: string; amount: string; bank: string; account: string; memo: string }[]>([]);
+  const [plannedRows, setPlannedRows] = useState<{ vendor: string; description: string; amount: string; memo: string }[]>([]);
   const [noteLoading, setNoteLoading] = useState(false);
   const [noteSaving, setNoteSaving] = useState(false);
 
