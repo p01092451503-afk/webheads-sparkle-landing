@@ -330,6 +330,33 @@ export type Database = {
         }
         Relationships: []
       }
+      expense_notes: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          month: number
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          content?: string
+          created_at?: string
+          id?: string
+          month: number
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          month?: number
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
       expenses: {
         Row: {
           amount: number

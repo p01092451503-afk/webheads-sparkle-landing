@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2, BarChart3, List, Loader2 } from "lucide-react";
+import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2, BarChart3, List, Loader2, FileText, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -75,7 +75,11 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [newCatName, setNewCatName] = useState("");
   const [catFilter, setCatFilter] = useState<string>("all");
   const [showStats, setShowStats] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
+  const [noteContent, setNoteContent] = useState("");
+  const [noteLoading, setNoteLoading] = useState(false);
+  const [noteSaving, setNoteSaving] = useState(false);
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
@@ -127,6 +131,51 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       if (data) setAllExpenses(data as any);
     })();
   }, [showStats]);
+
+  // Fetch expense notes for current month
+  useEffect(() => {
+    if (!showNotes) return;
+    setNoteLoading(true);
+    (async () => {
+      const { data } = await supabase
+        .from("expense_notes" as any)
+        .select("*")
+        .eq("year", viewYear)
+        .eq("month", viewMonth)
+        .maybeSingle();
+      setNoteContent((data as any)?.content || "");
+      setNoteLoading(false);
+    })();
+  }, [showNotes, viewYear, viewMonth]);
+
+  const saveNote = useCallback(async () => {
+    setNoteSaving(true);
+    try {
+      const { data: existing } = await supabase
+        .from("expense_notes" as any)
+        .select("id")
+        .eq("year", viewYear)
+        .eq("month", viewMonth)
+        .maybeSingle();
+
+      if ((existing as any)?.id) {
+        const { error } = await supabase
+          .from("expense_notes" as any)
+          .update({ content: noteContent, updated_at: new Date().toISOString() } as any)
+          .eq("id", (existing as any).id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from("expense_notes" as any)
+          .insert({ year: viewYear, month: viewMonth, content: noteContent } as any);
+        if (error) throw error;
+      }
+      toast.success("지출 기록이 저장되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "저장 중 오류 발생");
+    }
+    setNoteSaving(false);
+  }, [noteContent, viewYear, viewMonth]);
 
   const clients = externalClients || internalClients;
 
@@ -294,15 +343,23 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       {/* View Toggle */}
       <div className="flex gap-1 bg-white rounded-xl p-1 border border-[hsl(220,13%,91%)] w-fit">
         <button
-          onClick={() => setShowStats(false)}
+          onClick={() => { setShowStats(false); setShowNotes(false); }}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
-            !showStats ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+            !showStats && !showNotes ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
           }`}
         >
           <List className="w-3.5 h-3.5" />내역
         </button>
         <button
-          onClick={() => setShowStats(true)}
+          onClick={() => { setShowNotes(true); setShowStats(false); }}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+            showNotes ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+          }`}
+        >
+          <FileText className="w-3.5 h-3.5" />기록
+        </button>
+        <button
+          onClick={() => { setShowStats(true); setShowNotes(false); }}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
             showStats ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
           }`}
@@ -315,6 +372,68 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
         <Suspense fallback={<div className="flex items-center justify-center py-20"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div>}>
           <ExpenseStatistics allExpenses={allExpenses} categories={categories} vendors={vendors} />
         </Suspense>
+      ) : showNotes ? (
+        /* Expense Notes (Free-text journal) */
+        <div className="space-y-4">
+          {/* Month Navigation */}
+          <div className="flex items-center gap-2">
+            <button onClick={() => goMonth(-1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-[14px] font-semibold min-w-[100px] text-center">{viewYear}년 {viewMonth}월</span>
+            <button onClick={() => goMonth(1)} className="p-1.5 rounded-lg hover:bg-[hsl(220,14%,93%)] text-muted-foreground transition-colors">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            {!isCurrentMonth && (
+              <button
+                onClick={() => { setViewYear(now.getFullYear()); setViewMonth(now.getMonth() + 1); }}
+                className="ml-2 px-2.5 py-1 rounded-lg text-[11px] font-medium text-[hsl(221,83%,53%)] bg-[hsl(221,83%,53%,0.08)] hover:bg-[hsl(221,83%,53%,0.14)] transition-colors"
+              >
+                이번 달
+              </button>
+            )}
+          </div>
+
+          <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+            <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)] flex items-center justify-between">
+              <div>
+                <h3 className="text-[14px] font-semibold">{viewYear}/{String(viewMonth).padStart(2, "0")} 지출 기록</h3>
+                <p className="text-[11px] text-muted-foreground mt-0.5">날짜 : 내용, 금액, 비고 형식으로 자유롭게 기록하세요</p>
+              </div>
+              <Button
+                size="sm"
+                onClick={saveNote}
+                disabled={noteSaving}
+                className="h-8 text-[12px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]"
+              >
+                {noteSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : <Save className="w-3.5 h-3.5 mr-1" />}
+                저장
+              </Button>
+            </div>
+            <div className="p-4">
+              {noteLoading ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+                </div>
+              ) : (
+                <textarea
+                  value={noteContent}
+                  onChange={(e) => setNoteContent(e.target.value)}
+                  placeholder={`${viewYear}/${String(viewMonth).padStart(2, "0")} ----------------------------------------\n02/27 : 사무실 임대료, 2,530,000원, 박옥심, 농협 100120-56-160249\n02/27 : 임직원(본부장 제외) 급여 입금(연말정산금 제외)\n02/26 : 바른경영연구소, 기업부설연구소 컨설팅 비용, 715,000원\n02/10 : 기장료, 이지비즈, 165,000원\n02/09 : SK렌트카, 545,881원\n02/05 : 메일호스팅, 37,400원, 삼정데이타서비스\n02/03 : 사무실 임대료, 2,530,000원\n...`}
+                  rows={25}
+                  className="w-full px-4 py-3 text-[13px] leading-7 font-mono rounded-xl border border-[hsl(220,13%,90%)] bg-[hsl(220,14%,98%)] resize-y focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors placeholder:text-muted-foreground/40"
+                  onKeyDown={(e) => {
+                    if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+                      e.preventDefault();
+                      saveNote();
+                    }
+                  }}
+                />
+              )}
+              <p className="text-[11px] text-muted-foreground mt-2">💡 Ctrl+S (⌘+S)로 빠르게 저장할 수 있습니다</p>
+            </div>
+          </div>
+        </div>
       ) : (
       <>
       {/* Header */}
