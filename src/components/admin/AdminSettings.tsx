@@ -610,59 +610,6 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
             )}
           </div>
 
-          {/* Activity Logs */}
-          <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] p-6">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-[hsl(152,57%,42%,0.08)]">
-                  <Clock className="w-[18px] h-[18px] text-[hsl(152,57%,42%)]" />
-                </div>
-                <div>
-                  <h3 className="text-[15px] font-semibold text-foreground">관리자 활동 로그</h3>
-                  <p className="text-[12px] text-muted-foreground">최근 50건의 관리자 활동 기록</p>
-                </div>
-              </div>
-              <button onClick={fetchActivityLogs} className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-colors">
-                <RefreshCw className="w-3 h-3" /> 새로고침
-              </button>
-            </div>
-
-            {logsLoading ? (
-              <div className="flex items-center justify-center py-10"><Loader2 className="w-5 h-5 animate-spin text-muted-foreground" /></div>
-            ) : activityLogs.length === 0 ? (
-              <p className="text-center text-[13px] text-muted-foreground/50 py-10">기록된 활동이 없습니다</p>
-            ) : (
-              <div className="max-h-[400px] overflow-y-auto">
-                {activityLogs.map((log, idx) => {
-                  const color = actionColors[log.action] || "hsl(220, 9%, 46%)";
-                  return (
-                    <div key={log.id}
-                      className="flex items-center gap-3 px-3 py-3 hover:bg-[hsl(220,14%,97%)] transition-colors"
-                      style={{ borderBottom: idx < activityLogs.length - 1 ? "1px solid hsl(220, 13%, 95%)" : "none" }}
-                    >
-                      <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                        style={{ background: `${color}12`, color }}
-                      >
-                        <Shield className="w-3 h-3" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[12px] font-medium text-foreground">
-                          {actionLabels[log.action] || log.action}
-                          {log.details?.status && <span className="text-muted-foreground font-normal"> → {log.details.status}</span>}
-                          {log.details?.email && <span className="text-muted-foreground font-normal"> ({log.details.email})</span>}
-                          {log.details?.count !== undefined && <span className="text-muted-foreground font-normal"> ({log.details.count}건)</span>}
-                        </p>
-                        {log.target_type && (
-                          <p className="text-[10px] text-muted-foreground/50 mt-0.5">{log.target_type}: {log.target_id?.slice(0, 8)}...</p>
-                        )}
-                      </div>
-                      <span className="text-[10px] text-muted-foreground/40 shrink-0">{formatTime(log.created_at)}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
         </>
       )}
 
