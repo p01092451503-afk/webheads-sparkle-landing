@@ -486,7 +486,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[150px]">지출처</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground">지출항목</th>
                       <th className="text-right px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">금액</th>
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[220px]">계좌/비고</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[100px]">은행명</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[160px]">계좌번호</th>
                       <th className="w-[40px]" />
                     </tr>
                   </thead>
