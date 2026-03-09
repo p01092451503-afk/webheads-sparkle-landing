@@ -783,14 +783,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                               className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-pointer ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
                                               title={payment.memo || "클릭하여 내용 추가/수정"}
                                             >
-                                              <span className="flex items-center justify-end gap-1">
-                                                {payment.amount ? formatWon(payment.amount) : "-"}
-                                                {payment.memo && (
-                                                  <span className="hidden group-hover/amount:inline-block text-[9px] text-muted-foreground max-w-[60px] truncate">
-                                                    ({payment.memo})
-                                                  </span>
-                                                )}
-                                              </span>
+                                              {payment.amount ? formatWon(payment.amount) : "-"}
                                             </button>
                                           </PopoverTrigger>
                                           <PopoverContent className="w-64 p-3" align="start" side="top">
