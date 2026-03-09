@@ -217,6 +217,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
     if (!contentEl) return;
 
     try {
+      // Temporarily apply print styles
       const originalFontSize = contentEl.style.fontSize;
       const originalWidth = contentEl.style.width;
       const originalMaxWidth = contentEl.style.maxWidth;
@@ -227,39 +228,107 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
       contentEl.style.maxWidth = "1200px";
       contentEl.style.padding = "48px";
 
-      const canvas = await html2canvas(contentEl, {
-        scale: 2, useCORS: true, logging: false, backgroundColor: "#ffffff", width: 1200,
-      });
+      const A4_WIDTH_MM = 210;
+      const A4_HEIGHT_MM = 297;
+      const MARGIN_MM = 15;
+      const CONTENT_WIDTH_MM = A4_WIDTH_MM - MARGIN_MM * 2;
+      const MAX_CONTENT_Y = A4_HEIGHT_MM - MARGIN_MM;
+      const SECTION_GAP_MM = 4;
+      const RENDER_WIDTH = 1200;
+      const SCALE = 2;
 
+      const sections = Array.from(
+        contentEl.querySelectorAll("[data-pdf-section]")
+      ) as HTMLElement[];
+
+      const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
+      let currentY = MARGIN_MM;
+
+      const addFooter = (doc: jsPDF) => {
+        doc.setDrawColor(200, 200, 200);
+        doc.line(MARGIN_MM, A4_HEIGHT_MM - 12, A4_WIDTH_MM - MARGIN_MM, A4_HEIGHT_MM - 12);
+        doc.setFontSize(8);
+        doc.setTextColor(150, 150, 150);
+        const footerText = `${companyInfo.name} | ${companyInfo.phone} | ${companyInfo.website}`;
+        doc.text(footerText, A4_WIDTH_MM / 2, A4_HEIGHT_MM - 8, { align: "center" });
+      };
+
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const canvas = await html2canvas(section, {
+          scale: SCALE,
+          useCORS: true,
+          logging: false,
+          backgroundColor: "#ffffff",
+          width: RENDER_WIDTH,
+        });
+
+        const widthPx = canvas.width / SCALE;
+        const heightPx = canvas.height / SCALE;
+        const scaleFactor = CONTENT_WIDTH_MM / widthPx;
+        const heightMM = heightPx * scaleFactor;
+
+        const remainingSpace = MAX_CONTENT_Y - currentY;
+
+        // If section doesn't fit, move to next page
+        if (heightMM > remainingSpace && currentY > MARGIN_MM) {
+          addFooter(pdf);
+          pdf.addPage();
+          currentY = MARGIN_MM;
+        }
+
+        const imgData = canvas.toDataURL("image/png");
+
+        // If section is taller than a full page, split it
+        if (heightMM > MAX_CONTENT_Y - MARGIN_MM) {
+          const fullPageMM = MAX_CONTENT_Y - currentY;
+          const totalImgHeight = canvas.height;
+          const pxPerMM = totalImgHeight / heightMM;
+          let srcY = 0;
+
+          while (srcY < totalImgHeight) {
+            const availMM = srcY === 0 ? fullPageMM : MAX_CONTENT_Y - MARGIN_MM;
+            const sliceH = Math.min(availMM * pxPerMM, totalImgHeight - srcY);
+            const sliceMM = sliceH / pxPerMM;
+
+            const sliceCanvas = document.createElement("canvas");
+            sliceCanvas.width = canvas.width;
+            sliceCanvas.height = sliceH;
+            const ctx = sliceCanvas.getContext("2d");
+            if (ctx) {
+              ctx.drawImage(canvas, 0, srcY, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+            }
+            const sliceImg = sliceCanvas.toDataURL("image/png");
+            pdf.addImage(sliceImg, "PNG", MARGIN_MM, currentY, CONTENT_WIDTH_MM, sliceMM);
+
+            srcY += sliceH;
+            if (srcY < totalImgHeight) {
+              addFooter(pdf);
+              pdf.addPage();
+              currentY = MARGIN_MM;
+            } else {
+              currentY += sliceMM + SECTION_GAP_MM;
+            }
+          }
+        } else {
+          pdf.addImage(imgData, "PNG", MARGIN_MM, currentY, CONTENT_WIDTH_MM, heightMM);
+          currentY += heightMM + SECTION_GAP_MM;
+        }
+      }
+
+      addFooter(pdf);
+
+      // Restore original styles
       contentEl.style.fontSize = originalFontSize;
       contentEl.style.width = originalWidth;
       contentEl.style.maxWidth = originalMaxWidth;
       contentEl.style.padding = originalPadding;
 
-      const pdf = new jsPDF({ orientation: "p", unit: "mm", format: "a4" });
-      const imgWidth = 190;
-      const pageHeight = 277;
-      const margin = 10;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const imgData = canvas.toDataURL("image/png");
-
-      let heightLeft = imgHeight;
-      let position = margin;
-      pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight + margin;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-
       pdf.save(`${inquiry.company}_제안서.pdf`);
     } catch (e) {
       console.error("PDF export error:", e);
     }
-  }, [proposal, inquiry.company]);
+  }, [proposal, inquiry.company, companyInfo]);
 
   const renderMarkdown = (content: string) => {
     return content.split("\n").map((line, i) => {
@@ -435,11 +504,13 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
 
       {expanded && !editing && (
         <div data-proposal-content className="bg-white rounded-xl border border-[hsl(220,13%,93%)] p-5 sm:p-6" style={{ fontSize: `${fontSize}px` }}>
-          <h2 className="text-[1.2em] font-bold text-foreground tracking-[-0.02em] mb-2">{proposal.title}</h2>
-          <p className="text-[0.85em] text-muted-foreground mb-6 leading-relaxed">{proposal.summary}</p>
+          <div data-pdf-section>
+            <h2 className="text-[1.2em] font-bold text-foreground tracking-[-0.02em] mb-2">{proposal.title}</h2>
+            <p className="text-[0.85em] text-muted-foreground mb-6 leading-relaxed">{proposal.summary}</p>
+          </div>
 
           {proposal.sections.map((section, idx) => (
-            <div key={idx} className="mb-6">
+            <div key={idx} data-pdf-section className="mb-6">
               <h3 className="text-[0.95em] font-bold text-foreground border-l-[3px] border-[hsl(152,57%,42%)] pl-3 mb-3">
                 {section.heading}
               </h3>
@@ -449,7 +520,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
             </div>
           ))}
 
-          <div className="mt-8 pt-4 border-t border-[hsl(220,13%,93%)] text-center">
+          <div data-pdf-section className="mt-8 pt-4 border-t border-[hsl(220,13%,93%)] text-center">
             <p className="text-[0.9em] text-foreground">
               {companyInfo.name} | {companyInfo.address} | {companyInfo.phone} | {companyInfo.website}
             </p>
