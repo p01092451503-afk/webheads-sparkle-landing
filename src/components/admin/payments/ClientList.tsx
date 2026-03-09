@@ -149,12 +149,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           const { error } = await supabase.from("payments").update({ amount: numAmount }).eq("id", existingPayment.id);
           if (error) throw error;
         } else {
-          const { error } = await supabase.from("payments").insert({
+      const { error } = await supabase.from("payments").insert({
             client_id: clientId,
             year: viewYear,
             month: viewMonth,
             amount: numAmount,
-            is_unpaid: false,
+            is_unpaid: true,
             payment_type: paymentType,
           });
           if (error) throw error;
