@@ -21,10 +21,10 @@ type UserRole = "super_admin" | "admin" | "user";
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "analytics", icon: BarChart3, label: "분석" },
   { key: "inquiries", icon: MessageSquare, label: "문의" },
+  { key: "settings", icon: Settings, label: "설정" },
+  { key: "404logs", icon: FileWarning, label: "404" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
-  { key: "404logs", icon: FileWarning, label: "404" },
-  { key: "settings", icon: Settings, label: "설정" },
 ];
 
 const TabLoader = () => (
@@ -318,7 +318,7 @@ export default function AdminDashboard() {
 
           {/* Tabs */}
           <div className="flex -mb-px overflow-x-auto scrollbar-hide">
-            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses" && t.key !== "404logs").map((t) => {
+            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
@@ -343,7 +343,7 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-6 shrink-0 border-l border-border/50 mx-1 self-stretch" />
-            {tabs.filter(t => t.key === "payments" || t.key === "expenses" || t.key === "404logs").map((t) => {
+            {tabs.filter(t => t.key === "payments" || t.key === "expenses").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
