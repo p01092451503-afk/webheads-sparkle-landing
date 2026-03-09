@@ -559,6 +559,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             }}
                             placeholder="0원"
                             className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors font-medium"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
                           />
                         </td>
                         <td className="px-2 py-1">
