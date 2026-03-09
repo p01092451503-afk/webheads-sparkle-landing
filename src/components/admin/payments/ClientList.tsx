@@ -550,7 +550,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[45px] whitespace-nowrap">No</th>
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[140px] whitespace-nowrap">고객사명</th>
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[75px] whitespace-nowrap">예상납부일</th>
-                <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[90px] whitespace-nowrap">입금일 ✎</th>
+                <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[90px] whitespace-nowrap">입금일</th>
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[60px] whitespace-nowrap">비고</th>
                 <th className="text-right px-3 py-3 font-semibold text-muted-foreground w-[100px] whitespace-nowrap">미납금</th>
 
