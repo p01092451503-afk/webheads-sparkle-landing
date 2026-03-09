@@ -53,6 +53,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [attachments, setAttachments] = useState<any[]>([]);
   const [uploadingFile, setUploadingFile] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const replacingAttachment = useRef<any>(null);
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
@@ -164,6 +165,37 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     await supabase.from("inquiry_attachments").delete().eq("id", att.id);
     logActivity("file_delete", "inquiry", selectedInquiry?.id, { file_name: att.file_name });
     setAttachments((prev) => prev.filter((a) => a.id !== att.id));
+  };
+
+  const replaceFile = (att: any) => {
+    replacingAttachment.current = att;
+    fileInputRef.current?.click();
+  };
+
+  const handleReplaceFile = async (oldAtt: any, newFile: globalThis.File) => {
+    if (!selectedInquiry) return;
+    setUploadingFile(true);
+    try {
+      // Delete old file from storage
+      await supabase.storage.from("inquiry-attachments").remove([oldAtt.file_path]);
+      // Upload new file
+      const ext = newFile.name.split(".").pop();
+      const filePath = `${selectedInquiry.id}/${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from("inquiry-attachments").upload(filePath, newFile);
+      if (uploadError) throw uploadError;
+      // Update DB record
+      await supabase.from("inquiry_attachments").update({
+        file_name: newFile.name,
+        file_path: filePath,
+        file_size: newFile.size,
+        content_type: newFile.type,
+      } as any).eq("id", oldAtt.id);
+      logActivity("file_replace", "inquiry", selectedInquiry.id, { old_name: oldAtt.file_name, new_name: newFile.name });
+      await fetchAttachments(selectedInquiry.id);
+    } catch (err: any) {
+      console.error("Replace error:", err);
+    }
+    setUploadingFile(false);
   };
 
   const getPublicUrl = (filePath: string) => {
@@ -429,7 +461,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                         <p className="text-[11px] font-semibold text-muted-foreground tracking-wide flex items-center gap-1.5">
                           <Mail className="w-3.5 h-3.5" /> 1차 이메일 회신
                         </p>
-                        {isSuperAdmin && selectedInquiry.email_reply_summary && !editingEmailReply && (
+                        {selectedInquiry.email_reply_summary && !editingEmailReply && (
                           <button
                             onClick={() => setEditingEmailReply(true)}
                             className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,48%,0.06)] transition-all"
@@ -438,49 +470,41 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                           </button>
                         )}
                       </div>
-                      {isSuperAdmin ? (
+                      {!selectedInquiry.email_reply_summary && !editingEmailReply ? (
+                        <button
+                          onClick={() => setEditingEmailReply(true)}
+                          className="w-full py-4 rounded-xl border-2 border-dashed border-[hsl(220,13%,91%)] text-[12px] text-muted-foreground/50 hover:border-[hsl(199,89%,48%,0.3)] hover:text-[hsl(199,89%,48%)] transition-all"
+                        >
+                          + 회신 내용 기록하기
+                        </button>
+                      ) : editingEmailReply ? (
                         <>
-                          {!selectedInquiry.email_reply_summary && !editingEmailReply ? (
-                            <button
-                              onClick={() => setEditingEmailReply(true)}
-                              className="w-full py-4 rounded-xl border-2 border-dashed border-[hsl(220,13%,91%)] text-[12px] text-muted-foreground/50 hover:border-[hsl(199,89%,48%,0.3)] hover:text-[hsl(199,89%,48%)] transition-all"
+                          <textarea
+                            value={emailReplyText}
+                            onChange={(e) => setEmailReplyText(e.target.value)}
+                            rows={4}
+                            placeholder="이메일 회신 주요 골자를 입력하세요..."
+                            className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(199,89%,48%,0.3)] focus:border-[hsl(199,89%,48%)] focus:ring-2 focus:ring-[hsl(199,89%,48%,0.08)] transition-all"
+                            autoFocus
+                          />
+                          <div className="flex gap-2 mt-2">
+                            <button onClick={saveEmailReply} disabled={savingEmailReply}
+                              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-all active:scale-[0.96] disabled:opacity-50"
                             >
-                              + 회신 내용 기록하기
+                              {savingEmailReply ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                              저장
                             </button>
-                          ) : editingEmailReply ? (
-                            <>
-                              <textarea
-                                value={emailReplyText}
-                                onChange={(e) => setEmailReplyText(e.target.value)}
-                                rows={4}
-                                placeholder="이메일 회신 주요 골자를 입력하세요..."
-                                className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(199,89%,48%,0.3)] focus:border-[hsl(199,89%,48%)] focus:ring-2 focus:ring-[hsl(199,89%,48%,0.08)] transition-all"
-                                autoFocus
-                              />
-                              <div className="flex gap-2 mt-2">
-                                <button onClick={saveEmailReply} disabled={savingEmailReply}
-                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-all active:scale-[0.96] disabled:opacity-50"
-                                >
-                                  {savingEmailReply ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
-                                  저장
-                                </button>
-                                <button
-                                  onClick={() => { setEditingEmailReply(false); setEmailReplyText(selectedInquiry.email_reply_summary || ""); }}
-                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all"
-                                >
-                                  취소
-                                </button>
-                              </div>
-                            </>
-                          ) : (
-                            <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(199,89%,48%,0.15)]">
-                              {selectedInquiry.email_reply_summary}
-                            </div>
-                          )}
+                            <button
+                              onClick={() => { setEditingEmailReply(false); setEmailReplyText(selectedInquiry.email_reply_summary || ""); }}
+                              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all"
+                            >
+                              취소
+                            </button>
+                          </div>
                         </>
                       ) : (
-                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(199,89%,48%,0.15)] min-h-[48px]">
-                          {selectedInquiry.email_reply_summary || <span className="text-muted-foreground/30">회신 내용 없음</span>}
+                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(199,89%,48%,0.15)]">
+                          {selectedInquiry.email_reply_summary}
                         </div>
                       )}
 
@@ -505,40 +529,49 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                                 <span className="text-[10px] text-muted-foreground/50 shrink-0">
                                   {att.file_size ? formatFileSize(att.file_size) : ""}
                                 </span>
-                                {isSuperAdmin && (
-                                  <button
-                                    onClick={() => deleteAttachment(att)}
-                                    className="opacity-0 group-hover:opacity-100 p-0.5 text-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,60%,0.08)] rounded transition-all"
-                                  >
-                                    <XCircle className="w-3.5 h-3.5" />
-                                  </button>
-                                )}
+                                <button
+                                  onClick={() => replaceFile(att)}
+                                  className="opacity-0 group-hover:opacity-100 p-0.5 text-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,48%,0.08)] rounded transition-all"
+                                  title="파일 교체"
+                                >
+                                  <RefreshCw className="w-3.5 h-3.5" />
+                                </button>
+                                <button
+                                  onClick={() => deleteAttachment(att)}
+                                  className="opacity-0 group-hover:opacity-100 p-0.5 text-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,60%,0.08)] rounded transition-all"
+                                  title="삭제"
+                                >
+                                  <XCircle className="w-3.5 h-3.5" />
+                                </button>
                               </div>
                             ))}
                           </div>
                         )}
-                        {isSuperAdmin && (
-                          <>
-                            <input
-                              ref={fileInputRef}
-                              type="file"
-                              className="hidden"
-                              onChange={(e) => {
-                                const file = e.target.files?.[0];
-                                if (file) uploadFile(file);
-                                e.target.value = "";
-                              }}
-                            />
-                            <button
-                              onClick={() => fileInputRef.current?.click()}
-                              disabled={uploadingFile}
-                              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] hover:text-[hsl(199,89%,48%)] transition-all disabled:opacity-50"
-                            >
-                              {uploadingFile ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
-                              {uploadingFile ? "업로드 중..." : "파일 첨부"}
-                            </button>
-                          </>
-                        )}
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              if (replacingAttachment.current) {
+                                handleReplaceFile(replacingAttachment.current, file);
+                                replacingAttachment.current = null;
+                              } else {
+                                uploadFile(file);
+                              }
+                            }
+                            e.target.value = "";
+                          }}
+                        />
+                        <button
+                          onClick={() => { replacingAttachment.current = null; fileInputRef.current?.click(); }}
+                          disabled={uploadingFile}
+                          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] hover:text-[hsl(199,89%,48%)] transition-all disabled:opacity-50"
+                        >
+                          {uploadingFile ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
+                          {uploadingFile ? "업로드 중..." : "파일 첨부"}
+                        </button>
                       </div>
                     </div>
 
