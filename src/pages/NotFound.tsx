@@ -38,16 +38,18 @@ const NotFound = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language?.startsWith("en") ? "en" : "ko";
 
-  // 레거시 경로 리다이렉트 체크
   const legacyPath = location.pathname.toLowerCase();
   const redirectTo = LEGACY_REDIRECTS[legacyPath];
+
+  useEffect(() => {
+    if (!redirectTo) {
+      console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    }
+  }, [location.pathname, redirectTo]);
+
   if (redirectTo) {
     return <Navigate to={redirectTo} replace />;
   }
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
 
   const content = lang === "en"
     ? {
