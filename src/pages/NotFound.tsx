@@ -55,6 +55,16 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/요금제": "/pricing",
 };
 
+// 취약점 스캔 봇이 접근하는 경로 패턴 (404 로깅만 하고 UI 표시하지 않음)
+const VULN_SCAN_PATTERNS = [
+  /^\/gnu\//i, /^\/bbs\//i, /^\/board\//i,
+  /^\/wp-admin/i, /^\/wp-content/i, /^\/wp-includes/i, /^\/wp-login/i,
+  /^\/xmlrpc\.php/i, /^\/administrator/i, /^\/phpmyadmin/i,
+  /^\/\.env/i, /^\/\.git/i, /^\/cgi-bin/i,
+  /^\/vendor\//i, /^\/config\.php/i, /^\/install\//i,
+  /^\/setup\//i, /^\/test\.php/i, /^\/shell/i,
+];
+
 const NotFound = () => {
   const location = useLocation();
   const { i18n } = useTranslation();
@@ -62,7 +72,7 @@ const NotFound = () => {
 
   const legacyPath = location.pathname.toLowerCase();
   const redirectTo = LEGACY_REDIRECTS[legacyPath];
-
+  const isVulnScan = VULN_SCAN_PATTERNS.some(p => p.test(location.pathname));
   const loggedRef = useRef(false);
 
   useEffect(() => {
@@ -84,6 +94,11 @@ const NotFound = () => {
 
   if (redirectTo) {
     return <Navigate to={redirectTo} replace />;
+  }
+
+  // 취약점 스캔 봇 경로는 빈 페이지 반환 (리소스 낭비 방지)
+  if (isVulnScan) {
+    return <div className="min-h-screen bg-background" />;
   }
 
   const content = lang === "en"

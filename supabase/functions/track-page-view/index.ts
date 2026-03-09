@@ -78,10 +78,14 @@ const datacenterRanges = [
   /^124\.24[2-3]\./, // Huawei Cloud
   /^150\.10[8-9]\./, /^150\.11[0-9]\./, // Tencent Cloud
   /^43\.1(3[2-9]|[4-5][0-9])\./, // Tencent Cloud (expanded)
+  /^43\.15[4-9]\./, /^43\.16[0-3]\./, // Tencent Cloud (Singapore/HK)
   /^124\.15[6-8]\./, // Tencent Cloud (HK)
   /^129\.226\./, /^43\.13[2-7]\./, // Tencent Cloud (HK additional)
   /^49\.23[2-5]\./, /^101\.3[2-9]\./, // Alibaba Cloud
   /^47\.(7[4-9]|[89][0-9]|1[0-1][0-9])\./, // Alibaba Cloud
+  /^111\.119\.25[0-5]\./, // Huawei Cloud (SG)
+  /^188\.239\.5[0-9]\./, // Datacenter proxy range
+  /^185\.140\.17[0-9]\./, // VPN/Datacenter (Virginia Beach area)
 ];
 
 // Known datacenter cities (Google, AWS, Microsoft, Huawei, Tencent, etc.)
@@ -93,6 +97,7 @@ const datacenterCities = [
   /allston/i, /somerville/i, /des\s*moines/i, /hilliard/i,
   /columbus.*ohio/i, /dublin.*ohio/i, /sterling/i, /manassas/i, /cheyenne/i,
   /phoenix.*arizona/i, /chandler/i, /mesa.*arizona/i,
+  /virginia\s*beach/i, // VPN/Datacenter hub
 ];
 
 // Detect fake/impossible UA combinations (spoofed bots)
@@ -102,8 +107,21 @@ function hasFakeUA(ua: string): boolean {
   if (/iPhone OS 16_0.*Version\/[3-9][0-9]\./i.test(ua)) return true;
   // Chrome 145+ on old iOS is suspicious
   if (/iPhone OS 1[0-5]_.*Chrome\/14[5-9]\./i.test(ua)) return true;
+  // iPhone OS 11_0 with Safari version 26+ (impossible)
+  if (/iPhone OS 11_0.*Version\/2[6-9]\./i.test(ua)) return true;
   return false;
 }
+
+// Known vulnerability scan paths — these are never valid routes
+const VULN_SCAN_PATHS = [
+  /^\/gnu\//i, /^\/bbs\//i, /^\/board\//i,
+  /^\/wp-admin/i, /^\/wp-content/i, /^\/wp-includes/i, /^\/wp-login/i,
+  /^\/xmlrpc\.php/i, /^\/administrator/i, /^\/phpmyadmin/i,
+  /^\/\.env/i, /^\/\.git/i, /^\/\.well-known\/security/i,
+  /^\/cgi-bin/i, /^\/shell/i, /^\/cmd/i, /^\/eval/i,
+  /^\/vendor\//i, /^\/config\.php/i, /^\/install\//i,
+  /^\/setup\//i, /^\/debug/i, /^\/test\.php/i,
+];
 
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
@@ -127,10 +145,17 @@ function classifyVisitor(ua: string, ip: string | null): string {
 }
 
 // Post-geo classification: check if geo city is a known datacenter location
-function classifyWithGeo(visitorType: string, country: string | null, city: string | null): string {
+function classifyWithGeo(visitorType: string, country: string | null, city: string | null, pagePath?: string): string {
+  // Vulnerability scan path → always scraper regardless of other signals
+  if (pagePath && VULN_SCAN_PATHS.some(r => r.test(pagePath))) return "scraper_vuln_scan";
   if (visitorType !== "human") return visitorType;
   if (!country || !city) return visitorType;
-  // Only apply to US traffic (most major datacenter cities)
+  // Singapore datacenter traffic with zh-CN language accessing non-existent paths
+  if (/singapore/i.test(country) && city) {
+    const isSGDatacenter = /north\s*west/i.test(city);
+    if (isSGDatacenter) return "scraper_datacenter";
+  }
+  // Only apply datacenter city check to US traffic
   const isUS = /united\s*states|^us$/i.test(country);
   if (!isUS) return visitorType;
   const isDatacenterCity = datacenterCities.some(r => r.test(city));
@@ -192,7 +217,7 @@ async function handleBotPixel(req: Request): Promise<Response> {
   }
 
   const { country, city } = await geoLookup(ip);
-  const finalType = classifyWithGeo(visitor_type, country, city);
+  const finalType = classifyWithGeo(visitor_type, country, city, pagePath);
   const referer = req.headers.get("referer") || null;
 
   const supabase = createClient(
@@ -247,7 +272,7 @@ async function handlePost(req: Request): Promise<Response> {
   }
 
   // Apply geo-based datacenter city detection
-  visitor_type = classifyWithGeo(visitor_type, country, city);
+  visitor_type = classifyWithGeo(visitor_type, country, city, body.page_path);
 
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
