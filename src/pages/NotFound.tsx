@@ -38,6 +38,18 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/%ec%9b%b9%ec%8a%a4%ec%bf%a8%20neo%20%ec%86%94%eb%a3%a8%ec%85%98": "/lms",
   "/%EC%9B%B9%EC%8A%A4%EC%BF%A8%20Neo%20%EC%86%94%EB%A3%A8%EC%85%98": "/lms",
   "/웹스쿨 neo 솔루션": "/lms",
+  "/app-dev": "/app",
+  "/company.php": "/overview",
+  "/htmlpage.php": "/",
+  "/%ed%9a%8c%ec%9b%90%ea%b0%80%ec%9e%85": "/",
+  "/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85": "/",
+  "/회원가입": "/",
+  "/%ed%9a%8c%ec%9b%90%ea%b0%80%ec%9e%85/%eb%a1%9c%ea%b7%b8%ec%9d%b8": "/",
+  "/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85/%EB%A1%9C%EA%B7%B8%EC%9D%B8": "/",
+  "/회원가입/로그인": "/",
+  "/%ed%9a%8c%ec%9b%90%ea%b0%80%ec%9e%85/%ec%95%84%ec%9d%b4%eb%94%94%20%ec%b0%be%ea%b8%b0": "/",
+  "/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85/%EC%95%84%EC%9D%B4%EB%94%94%20%EC%B0%BE%EA%B8%B0": "/",
+  "/회원가입/아이디 찾기": "/",
 };
 
 const NotFound = () => {
