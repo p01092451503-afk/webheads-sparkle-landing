@@ -35,6 +35,9 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/%EA%B5%AC%EC%B6%95%ED%98%95lms": "/lms",
   "/%ea%b5%ac%ec%b6%95%ed%98%95lms": "/lms",
   "/구축형lms": "/lms",
+  "/%ec%9b%b9%ec%8a%a4%ec%bf%a8%20neo%20%ec%86%94%eb%a3%a8%ec%85%98": "/lms",
+  "/%EC%9B%B9%EC%8A%A4%EC%BF%A8%20Neo%20%EC%86%94%EB%A3%A8%EC%85%98": "/lms",
+  "/웹스쿨 neo 솔루션": "/lms",
 };
 
 const NotFound = () => {
