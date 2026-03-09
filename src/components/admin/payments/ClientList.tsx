@@ -641,7 +641,15 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                       </div>
                     </td>
                     <td className={`px-3 py-3 text-right font-medium whitespace-nowrap ${c.unpaidTotal > 0 ? "text-red-600" : ""}`}>
-                      {c.unpaidTotal > 0 ? formatWon(c.unpaidTotal) : "-"}
+                      {c.unpaidTotal > 0 ? (
+                        <button
+                          onClick={() => onNavigate("detail", c.id)}
+                          className="hover:underline hover:opacity-80 transition-opacity cursor-pointer"
+                          title="클릭하여 미납 내역 상세보기"
+                        >
+                          {formatWon(c.unpaidTotal)}
+                        </button>
+                      ) : "-"}
                     </td>
 
                     {/* Dynamic payment type amount cells */}
