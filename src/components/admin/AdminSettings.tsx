@@ -266,7 +266,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
     setResetting(false);
   };
 
-
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setSuccess(false);
