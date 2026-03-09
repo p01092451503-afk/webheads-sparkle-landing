@@ -15,7 +15,7 @@ const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPaymen
 const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseManager"));
 const Admin404Logs = lazy(() => import("@/components/admin/Admin404Logs"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "404logs";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
