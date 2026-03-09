@@ -100,7 +100,83 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setEditingMeetingNote(false);
   };
 
-  const deleteInquiry = async () => {
+  // Email reply summary
+  const saveEmailReply = async () => {
+    if (!selectedInquiry) return;
+    setSavingEmailReply(true);
+    await supabase.from("contact_inquiries").update({ email_reply_summary: emailReplyText } as any).eq("id", selectedInquiry.id);
+    setInquiries((prev: any[]) => prev.map((i) => (i.id === selectedInquiry.id ? { ...i, email_reply_summary: emailReplyText } : i)));
+    setSelectedInquiry({ ...selectedInquiry, email_reply_summary: emailReplyText });
+    logActivity("email_reply_update", "inquiry", selectedInquiry.id);
+    setSavingEmailReply(false);
+    setEditingEmailReply(false);
+  };
+
+  // Fetch attachments for selected inquiry
+  const fetchAttachments = useCallback(async (inquiryId: string) => {
+    const { data } = await supabase
+      .from("inquiry_attachments")
+      .select("*")
+      .eq("inquiry_id", inquiryId)
+      .order("created_at", { ascending: false });
+    setAttachments(data || []);
+  }, []);
+
+  useEffect(() => {
+    if (selectedInquiry?.id) {
+      fetchAttachments(selectedInquiry.id);
+    } else {
+      setAttachments([]);
+    }
+  }, [selectedInquiry?.id, fetchAttachments]);
+
+  const uploadFile = async (file: globalThis.File) => {
+    if (!selectedInquiry) return;
+    setUploadingFile(true);
+    try {
+      const ext = file.name.split(".").pop();
+      const filePath = `${selectedInquiry.id}/${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage
+        .from("inquiry-attachments")
+        .upload(filePath, file);
+      if (uploadError) throw uploadError;
+
+      const { data: { user } } = await supabase.auth.getUser();
+      await supabase.from("inquiry_attachments").insert({
+        inquiry_id: selectedInquiry.id,
+        file_name: file.name,
+        file_path: filePath,
+        file_size: file.size,
+        content_type: file.type,
+        uploaded_by: user?.id || null,
+      } as any);
+
+      logActivity("file_upload", "inquiry", selectedInquiry.id, { file_name: file.name });
+      await fetchAttachments(selectedInquiry.id);
+    } catch (err: any) {
+      console.error("Upload error:", err);
+    }
+    setUploadingFile(false);
+  };
+
+  const deleteAttachment = async (att: any) => {
+    await supabase.storage.from("inquiry-attachments").remove([att.file_path]);
+    await supabase.from("inquiry_attachments").delete().eq("id", att.id);
+    logActivity("file_delete", "inquiry", selectedInquiry?.id, { file_name: att.file_name });
+    setAttachments((prev) => prev.filter((a) => a.id !== att.id));
+  };
+
+  const getPublicUrl = (filePath: string) => {
+    const { data } = supabase.storage.from("inquiry-attachments").getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes}B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
+  };
+
     if (!deleteTarget) return;
     setDeleting(true);
     setDeleteError("");
