@@ -72,7 +72,7 @@ const NotFound = () => {
 
   const legacyPath = location.pathname.toLowerCase();
   const redirectTo = LEGACY_REDIRECTS[legacyPath];
-
+  const isVulnScan = VULN_SCAN_PATTERNS.some(p => p.test(location.pathname));
   const loggedRef = useRef(false);
 
   useEffect(() => {
