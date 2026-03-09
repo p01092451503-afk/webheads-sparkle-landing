@@ -543,9 +543,17 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                         </td>
                         <td className="px-2 py-1">
                           <input
-                            value={row.account}
+                            value={row.bank || ""}
+                            onChange={(e) => updateNoteRow(idx, "bank", e.target.value)}
+                            placeholder="은행명"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.account || ""}
                             onChange={(e) => updateNoteRow(idx, "account", e.target.value)}
-                            placeholder="계좌번호 또는 비고"
+                            placeholder="계좌번호"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
                           />
                         </td>
