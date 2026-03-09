@@ -53,6 +53,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [attachments, setAttachments] = useState<any[]>([]);
   const [uploadingFile, setUploadingFile] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const replacingAttachment = useRef<any>(null);
 
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
