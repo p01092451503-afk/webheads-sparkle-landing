@@ -212,6 +212,21 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [onRefresh, showSaved]);
 
+  const saveClientName = useCallback(async (clientId: string, name: string) => {
+    if (!name.trim()) {
+      toast.error("고객사명을 입력해주세요");
+      return;
+    }
+    try {
+      const { error } = await supabase.from("clients").update({ name: name.trim() }).eq("id", clientId);
+      if (error) throw error;
+      showSaved(`${clientId}-name`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "고객사명 저장 중 오류가 발생했습니다");
+    }
+  }, [onRefresh, showSaved]);
+
   const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
