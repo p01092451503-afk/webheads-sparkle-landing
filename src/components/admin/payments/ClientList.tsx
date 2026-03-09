@@ -114,8 +114,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     if (sort === "unpaid") list = [...list].sort((a, b) => b.unpaidTotal - a.unpaidTotal);
     else if (sort === "date") {
       list = [...list].sort((a, b) => {
-        const da = a.byType["hosting"]?.paid_date || "";
-        const db = b.byType["hosting"]?.paid_date || "";
+        const da = a.byType["hosting"]?.[0]?.paid_date || "";
+        const db = b.byType["hosting"]?.[0]?.paid_date || "";
         return da.localeCompare(db);
       });
     }
