@@ -538,6 +538,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
+                                saveNote();
                                 addNoteRow(idx);
                                 setTimeout(() => {
                                   const inputs = document.querySelectorAll<HTMLInputElement>('[data-note-desc]');
