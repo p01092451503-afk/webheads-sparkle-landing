@@ -246,6 +246,12 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
         {subView === "calendar" && (
           <PaymentCalendar clients={clients} payments={payments} onNavigate={handleNavigate} />
         )}
+        {subView === "expected" && (
+          <PaymentExpected
+            year={new Date().getFullYear()}
+            month={new Date().getMonth() + 1}
+          />
+        )}
         {subView === "detail" && selectedClient && (
           <ClientDetail
             client={selectedClient}
