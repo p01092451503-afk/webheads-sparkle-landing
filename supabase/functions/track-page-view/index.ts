@@ -78,10 +78,14 @@ const datacenterRanges = [
   /^124\.24[2-3]\./, // Huawei Cloud
   /^150\.10[8-9]\./, /^150\.11[0-9]\./, // Tencent Cloud
   /^43\.1(3[2-9]|[4-5][0-9])\./, // Tencent Cloud (expanded)
+  /^43\.15[4-9]\./, /^43\.16[0-3]\./, // Tencent Cloud (Singapore/HK)
   /^124\.15[6-8]\./, // Tencent Cloud (HK)
   /^129\.226\./, /^43\.13[2-7]\./, // Tencent Cloud (HK additional)
   /^49\.23[2-5]\./, /^101\.3[2-9]\./, // Alibaba Cloud
   /^47\.(7[4-9]|[89][0-9]|1[0-1][0-9])\./, // Alibaba Cloud
+  /^111\.119\.25[0-5]\./, // Huawei Cloud (SG)
+  /^188\.239\.5[0-9]\./, // Datacenter proxy range
+  /^185\.140\.17[0-9]\./, // VPN/Datacenter (Virginia Beach area)
 ];
 
 // Known datacenter cities (Google, AWS, Microsoft, Huawei, Tencent, etc.)
@@ -93,6 +97,7 @@ const datacenterCities = [
   /allston/i, /somerville/i, /des\s*moines/i, /hilliard/i,
   /columbus.*ohio/i, /dublin.*ohio/i, /sterling/i, /manassas/i, /cheyenne/i,
   /phoenix.*arizona/i, /chandler/i, /mesa.*arizona/i,
+  /virginia\s*beach/i, // VPN/Datacenter hub
 ];
 
 // Detect fake/impossible UA combinations (spoofed bots)
