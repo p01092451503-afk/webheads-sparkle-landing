@@ -27,7 +27,7 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 type FilterType = "all" | "paid" | "unpaid" | "managed";
 type SortType = "unpaid" | "date" | "name";
 // Editing cell now includes paymentType and index for multi-payment support
-type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes"; paymentType?: string; paymentIndex?: number } | null;
+type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes" | "name"; paymentType?: string; paymentIndex?: number } | null;
 
 // Default visible columns
 const DEFAULT_VISIBLE_TYPES = ["hosting", "maintenance", "sms", "ssl", "commission"];
@@ -212,12 +212,29 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting", paymentIndex: number = 0) => {
+  const saveClientName = useCallback(async (clientId: string, name: string) => {
+    if (!name.trim()) {
+      toast.error("고객사명을 입력해주세요");
+      return;
+    }
+    try {
+      const { error } = await supabase.from("clients").update({ name: name.trim() }).eq("id", clientId);
+      if (error) throw error;
+      showSaved(`${clientId}-name`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "고객사명 저장 중 오류가 발생했습니다");
+    }
+  }, [onRefresh, showSaved]);
+
+  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes" | "name", paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
     if (field === "notes") {
       setEditValue(client.notes || "");
+    } else if (field === "name") {
+      setEditValue(client.name || "");
     } else {
       const payment = (client.byType[paymentType] || [])[paymentIndex];
       if (field === "amount") {
@@ -255,6 +272,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     if (!editing) return;
     if (editing.field === "notes") {
       saveClientNotes(editing.clientId, editValue);
+    } else if (editing.field === "name") {
+      saveClientName(editing.clientId, editValue);
     } else {
       saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting", editing.paymentIndex || 0);
     }
@@ -596,19 +615,41 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                 const isEditingDate = editing?.clientId === c.id && editing.field === "paid_date";
 
                 return (
-                  <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
+                  <tr key={c.id} className="group/row border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
                     <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
-                    <td className="px-3 py-3 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
-                        <button
-                          onClick={() => onNavigate("detail", c.id)}
-                          className="font-medium text-[hsl(221,83%,53%)] hover:underline"
-                        >
-                          {c.name}
-                        </button>
-                        {annualClients.has(c.id) && (
+                    <td className="px-2 py-1.5 whitespace-nowrap">
+                      <div className="relative flex items-center gap-1.5">
+                        {editing?.clientId === c.id && editing.field === "name" ? (
+                          <input
+                            ref={inputRef}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={commitEdit}
+                            onKeyDown={handleKeyDown}
+                            placeholder="고객사명"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20 font-medium"
+                          />
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => onNavigate("detail", c.id)}
+                              className="font-medium text-[hsl(221,83%,53%)] hover:underline"
+                            >
+                              {c.name}
+                            </button>
+                            <button
+                              onClick={() => startEditing(c.id, "name")}
+                              className="p-0.5 rounded hover:bg-[hsl(220,14%,93%)] text-muted-foreground/40 hover:text-muted-foreground transition-colors opacity-0 group-hover/row:opacity-100"
+                              title="고객사명 수정"
+                            >
+                              <Edit2 className="w-3 h-3" />
+                            </button>
+                          </>
+                        )}
+                        {annualClients.has(c.id) && !editing?.field && (
                           <span className="text-[9px] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 font-medium">연간</span>
                         )}
+                        <SavedCheck cellKey={`${c.id}-name`} />
                       </div>
                     </td>
                     <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.expected_payment_day || "-"}</td>
