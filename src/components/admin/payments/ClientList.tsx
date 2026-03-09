@@ -91,11 +91,9 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       });
 
       const monthTotal = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
-      const isManaged = c.expected_payment_day === "따로관리" || c.notes?.includes("따로 관리");
 
-      let status: "paid" | "unpaid" | "managed";
-      if (isManaged) status = "managed";
-      else if (unpaidTotal > 0 || monthPayments.some((p) => p.is_unpaid)) status = "unpaid";
+      let status: "paid" | "unpaid";
+      if (unpaidTotal > 0 || monthPayments.some((p) => p.is_unpaid) || monthPayments.length === 0) status = "unpaid";
       else status = "paid";
 
       return { ...c, unpaidTotal, monthPayments, byType, monthTotal, status };
@@ -109,7 +107,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
     if (filter === "paid") list = list.filter((c) => c.status === "paid");
     else if (filter === "unpaid") list = list.filter((c) => c.status === "unpaid");
-    else if (filter === "managed") list = list.filter((c) => c.status === "managed");
+    
 
     if (sort === "unpaid") list = [...list].sort((a, b) => b.unpaidTotal - a.unpaidTotal);
     else if (sort === "date") {
@@ -356,7 +354,6 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   };
 
   const toggleClientStatus = useCallback(async (clientId: string, currentStatus: string) => {
-    if (currentStatus === "managed") return;
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
@@ -380,12 +377,10 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   }, [clientData, onRefresh, showSaved]);
 
   const statusBadge = (status: string, clientId: string) => {
-    const isManaged = status === "managed";
     const base = "cursor-pointer transition-all hover:scale-105 text-[11px]";
     switch (status) {
       case "paid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-emerald-100 text-emerald-700 hover:bg-emerald-200 ${base}`}>납부완료</Badge>;
       case "unpaid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-red-100 text-red-700 hover:bg-red-200 ${base}`}>미납</Badge>;
-      case "managed": return <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100 text-[11px]">따로관리</Badge>;
     }
   };
 
@@ -486,7 +481,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
               <SelectItem value="all">전체</SelectItem>
               <SelectItem value="paid">납부완료</SelectItem>
               <SelectItem value="unpaid">미납</SelectItem>
-              <SelectItem value="managed">따로관리</SelectItem>
+              
             </SelectContent>
           </Select>
           <Select value={sort} onValueChange={(v) => setSort(v as SortType)}>
