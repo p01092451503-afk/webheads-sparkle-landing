@@ -132,6 +132,51 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     })();
   }, [showStats]);
 
+  // Fetch expense notes for current month
+  useEffect(() => {
+    if (!showNotes) return;
+    setNoteLoading(true);
+    (async () => {
+      const { data } = await supabase
+        .from("expense_notes" as any)
+        .select("*")
+        .eq("year", viewYear)
+        .eq("month", viewMonth)
+        .maybeSingle();
+      setNoteContent((data as any)?.content || "");
+      setNoteLoading(false);
+    })();
+  }, [showNotes, viewYear, viewMonth]);
+
+  const saveNote = useCallback(async () => {
+    setNoteSaving(true);
+    try {
+      const { data: existing } = await supabase
+        .from("expense_notes" as any)
+        .select("id")
+        .eq("year", viewYear)
+        .eq("month", viewMonth)
+        .maybeSingle();
+
+      if ((existing as any)?.id) {
+        const { error } = await supabase
+          .from("expense_notes" as any)
+          .update({ content: noteContent, updated_at: new Date().toISOString() } as any)
+          .eq("id", (existing as any).id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from("expense_notes" as any)
+          .insert({ year: viewYear, month: viewMonth, content: noteContent } as any);
+        if (error) throw error;
+      }
+      toast.success("지출 기록이 저장되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "저장 중 오류 발생");
+    }
+    setNoteSaving(false);
+  }, [noteContent, viewYear, viewMonth]);
+
   const clients = externalClients || internalClients;
 
   const filtered = useMemo(() => {
