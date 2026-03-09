@@ -37,9 +37,7 @@ export interface PaymentRecord {
 
 export const INVOICE_STATUSES = [
   { value: "none", label: "미발행", color: "bg-gray-100 text-gray-500" },
-  { value: "pre", label: "선발행", color: "bg-blue-100 text-blue-700" },
-  { value: "post", label: "후발행", color: "bg-amber-100 text-amber-700" },
-  { value: "done", label: "발행완료", color: "bg-emerald-100 text-emerald-700" },
+  { value: "done", label: "발행", color: "bg-emerald-100 text-emerald-700" },
 ] as const;
 
 export function getInvoiceStatusLabel(status: string): string {
