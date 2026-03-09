@@ -538,6 +538,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
+                                saveNote();
                                 addNoteRow(idx);
                                 setTimeout(() => {
                                   const inputs = document.querySelectorAll<HTMLInputElement>('[data-note-desc]');
@@ -558,6 +559,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             }}
                             placeholder="0원"
                             className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors font-medium"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
                           />
                         </td>
                         <td className="px-2 py-1">
@@ -566,6 +568,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             onChange={(e) => updateNoteRow(idx, "bank", e.target.value)}
                             placeholder="은행명"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
                           />
                         </td>
                         <td className="px-2 py-1">
@@ -574,6 +577,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             onChange={(e) => updateNoteRow(idx, "account", e.target.value)}
                             placeholder="계좌번호"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
                           />
                         </td>
                         <td className="px-2 py-1">
@@ -582,6 +586,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             onChange={(e) => updateNoteRow(idx, "memo", e.target.value)}
                             placeholder="비고"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
                           />
                         </td>
                         <td className="px-1 py-1">
@@ -626,7 +631,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             </div>
             <div className="px-5 py-3 border-t border-[hsl(220,13%,91%)] flex items-center justify-between">
               <p className="text-[11px] text-muted-foreground">
-                💡 지출항목 입력 후 Enter로 다음 행 추가 · Ctrl+S (⌘+S)로 빠르게 저장
+                💡 Enter로 자동 저장 (지출항목에서는 저장+다음 행 추가) · Ctrl+S (⌘+S)도 가능
               </p>
               <div className="flex items-center gap-4">
                 <span className="text-[12px] font-semibold text-foreground">
