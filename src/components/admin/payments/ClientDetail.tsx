@@ -22,7 +22,7 @@ interface Props {
 
 const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 
-export default function ClientDetail({ client, payments, onBack, onAddPayment, onEditPayment, onDeletePayment, onEditClient, onToggleUnpaid }: Props) {
+export default function ClientDetail({ client, payments, onBack, onAddPayment, onEditPayment, onDeletePayment, onEditClient, onToggleUnpaid, onDeleteClient }: Props) {
   const [typeFilter, setTypeFilter] = useState<string>("all");
 
   const clientPayments = useMemo(
