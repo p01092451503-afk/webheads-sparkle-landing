@@ -135,11 +135,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }, 1500);
   }, []);
 
-  const saveCell = useCallback(async (clientId: string, field: "amount" | "paid_date", value: string, paymentType: string = "hosting") => {
+  const saveCell = useCallback(async (clientId: string, field: "amount" | "paid_date", value: string, paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
-    const existingPayment = client.byType[paymentType];
+    const payments_arr = client.byType[paymentType] || [];
+    const existingPayment = payments_arr[paymentIndex];
 
     try {
       if (field === "amount") {
@@ -193,7 +194,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         }
       }
 
-      showSaved(`${clientId}-${paymentType}-${field}`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-${field}`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "저장 중 오류가 발생했습니다");
@@ -211,21 +212,21 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting") => {
+  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
     if (field === "notes") {
       setEditValue(client.notes || "");
     } else {
-      const payment = client.byType[paymentType];
+      const payment = (client.byType[paymentType] || [])[paymentIndex];
       if (field === "amount") {
         setEditValue(payment?.amount ? payment.amount.toLocaleString("ko-KR") : "");
       } else {
         setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
       }
     }
-    setEditing({ clientId, field, paymentType });
+    setEditing({ clientId, field, paymentType, paymentIndex });
   };
 
   useEffect(() => {
@@ -234,16 +235,16 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [editing]);
 
-  const toggleUnpaid = useCallback(async (clientId: string, paymentType: string) => {
+  const toggleUnpaid = useCallback(async (clientId: string, paymentType: string, paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
-    const payment = client.byType[paymentType];
+    const payment = (client.byType[paymentType] || [])[paymentIndex];
     if (!payment) return;
 
     try {
       const { error } = await supabase.from("payments").update({ is_unpaid: !payment.is_unpaid }).eq("id", payment.id);
       if (error) throw error;
-      showSaved(`${clientId}-${paymentType}-status`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-status`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "상태 변경 중 오류가 발생했습니다");
@@ -255,7 +256,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     if (editing.field === "notes") {
       saveClientNotes(editing.clientId, editValue);
     } else {
-      saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
+      saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting", editing.paymentIndex || 0);
     }
     setEditing(null);
   };
@@ -269,45 +270,63 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   };
 
-  const cycleInvoiceStatus = useCallback(async (clientId: string, paymentType: string) => {
+  const cycleInvoiceStatus = useCallback(async (clientId: string, paymentType: string, paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
-    const payment = client.byType[paymentType];
+    const payment = (client.byType[paymentType] || [])[paymentIndex];
     if (!payment) return;
 
     const order = ["none", "pre", "post", "done"];
     const currentIdx = order.indexOf(payment.invoice_status || "none");
     const nextStatus = order[(currentIdx + 1) % order.length];
-    const now = nextStatus === "done" ? new Date().toISOString().split("T")[0] : payment.invoice_date;
+    const nowDate = nextStatus === "done" ? new Date().toISOString().split("T")[0] : payment.invoice_date;
 
     try {
       const { error } = await supabase.from("payments").update({
         invoice_status: nextStatus,
-        invoice_date: nextStatus === "done" ? now : payment.invoice_date,
+        invoice_date: nextStatus === "done" ? nowDate : payment.invoice_date,
       }).eq("id", payment.id);
       if (error) throw error;
-      showSaved(`${clientId}-${paymentType}-invoice`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-invoice`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "계산서 상태 변경 중 오류가 발생했습니다");
     }
   }, [clientData, onRefresh, showSaved]);
 
-  const saveMemo = useCallback(async (clientId: string, paymentType: string, memo: string) => {
+  const saveMemo = useCallback(async (clientId: string, paymentType: string, memo: string, paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
-    const payment = client.byType[paymentType];
+    const payment = (client.byType[paymentType] || [])[paymentIndex];
     if (!payment) return;
 
     try {
       const { error } = await supabase.from("payments").update({ memo }).eq("id", payment.id);
       if (error) throw error;
-      showSaved(`${clientId}-${paymentType}-memo`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-memo`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "메모 저장 중 오류가 발생했습니다");
     }
   }, [clientData, onRefresh, showSaved]);
+
+  const addPaymentForType = useCallback(async (clientId: string, paymentType: string) => {
+    try {
+      const { error } = await supabase.from("payments").insert({
+        client_id: clientId,
+        year: viewYear,
+        month: viewMonth,
+        amount: 0,
+        is_unpaid: false,
+        payment_type: paymentType,
+      });
+      if (error) throw error;
+      toast.success("항목이 추가되었습니다");
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "항목 추가 중 오류가 발생했습니다");
+    }
+  }, [viewYear, viewMonth, onRefresh]);
 
   const toggleType = (typeValue: string) => {
     setVisibleTypes((prev) =>
