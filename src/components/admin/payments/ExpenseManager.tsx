@@ -73,6 +73,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [catModalOpen, setCatModalOpen] = useState(false);
   const [newCatName, setNewCatName] = useState("");
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [catFilter, setCatFilter] = useState<string>("all");
   const [showStats, setShowStats] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
