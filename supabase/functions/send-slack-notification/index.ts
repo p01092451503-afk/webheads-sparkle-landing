@@ -62,6 +62,26 @@ async function sendSlackMessage(channel: string, blocks: any[], text: string) {
   return data;
 }
 
+async function listConversationsPage(cursor?: string) {
+  const response = await fetch(`${GATEWAY_URL}/conversations.list`, {
+    method: "POST",
+    headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({
+      types: "public_channel,private_channel",
+      exclude_archived: true,
+      limit: 200,
+      cursor,
+    }),
+  });
+
+  const data = await response.json();
+  if (!response.ok || !data.ok) {
+    throw new Error(`Slack API error [${response.status}]: ${JSON.stringify(data)}`);
+  }
+
+  return data;
+}
+
 async function resolveChannelId(channelInput: string): Promise<string | null> {
   if (/^C[A-Z0-9]+$/.test(channelInput)) return channelInput;
 
@@ -69,21 +89,7 @@ async function resolveChannelId(channelInput: string): Promise<string | null> {
   let cursor: string | undefined;
 
   for (let i = 0; i < 10; i += 1) {
-    const response = await fetch(`${GATEWAY_URL}/conversations.list`, {
-      method: "POST",
-      headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify({
-        types: "public_channel,private_channel",
-        exclude_archived: true,
-        limit: 200,
-        cursor,
-      }),
-    });
-
-    const data = await response.json();
-    if (!response.ok || !data.ok) {
-      throw new Error(`Slack API error [${response.status}]: ${JSON.stringify(data)}`);
-    }
+    const data = await listConversationsPage(cursor);
 
     const match = (data.channels || []).find((ch: { id?: string; name?: string }) =>
       (ch.name || "").toLowerCase() === targetName
@@ -98,6 +104,27 @@ async function resolveChannelId(channelInput: string): Promise<string | null> {
 
   return null;
 }
+
+async function findFallbackWritableChannelId(): Promise<string | null> {
+  let cursor: string | undefined;
+
+  for (let i = 0; i < 10; i += 1) {
+    const data = await listConversationsPage(cursor);
+
+    const writable = (data.channels || []).find((ch: { id?: string; is_member?: boolean }) =>
+      !!ch.id && ch.is_member === true
+    );
+
+    if (writable?.id) return writable.id;
+
+    const nextCursor = data.response_metadata?.next_cursor;
+    if (!nextCursor) break;
+    cursor = nextCursor;
+  }
+
+  return null;
+}
+
 
 const DASHBOARD_URL = "https://webheads-service.lovable.app/admin";
 
