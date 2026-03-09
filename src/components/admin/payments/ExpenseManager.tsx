@@ -507,7 +507,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[70px]">은행명</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">계좌번호</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[120px]">비고</th>
-                      <th className="w-[60px]" />
+                      <th className="w-[90px]" />
                     </tr>
                   </thead>
                   <tbody>
