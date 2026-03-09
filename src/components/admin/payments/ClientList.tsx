@@ -82,10 +82,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth
       );
 
-      // Map by type
-      const byType: Record<string, Payment> = {};
+      // Map by type (multiple payments per type)
+      const byType: Record<string, Payment[]> = {};
       monthPayments.forEach((p) => {
-        byType[p.payment_type || "hosting"] = p;
+        const t = p.payment_type || "hosting";
+        if (!byType[t]) byType[t] = [];
+        byType[t].push(p);
       });
 
       const monthTotal = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
