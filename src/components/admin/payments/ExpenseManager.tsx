@@ -77,13 +77,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [showStats, setShowStats] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
-  const [noteRows, setNoteRows] = useState<{ date: string; vendor: string; description: string; amount: string; account: string }[]>([]);
+  const [noteRows, setNoteRows] = useState<{ date: string; vendor: string; description: string; amount: string; bank: string; account: string }[]>([]);
   const [noteLoading, setNoteLoading] = useState(false);
   const [noteSaving, setNoteSaving] = useState(false);
 
   const todayStr = `${String(now.getMonth() + 1).padStart(2, "0")}/${String(now.getDate()).padStart(2, "0")}`;
 
-  const createEmptyRow = () => ({ date: todayStr, vendor: "", description: "", amount: "", account: "" });
+  const createEmptyRow = () => ({ date: todayStr, vendor: "", description: "", amount: "", bank: "", account: "" });
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
@@ -165,7 +165,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             if (match) {
               return { date: match[1], description: match[2], amount: "", account: "" };
             }
-            return { date: "", vendor: "", description: line.trim(), amount: "", account: "" };
+            return { date: "", vendor: "", description: line.trim(), amount: "", bank: "", account: "" };
           });
           setNoteRows(rows.length > 0 ? rows : [createEmptyRow()]);
         } else {
@@ -178,7 +178,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   const saveNote = useCallback(async () => {
     setNoteSaving(true);
-    const content = JSON.stringify(noteRows.filter(r => r.date || r.vendor || r.description || r.amount || r.account));
+    const content = JSON.stringify(noteRows.filter(r => r.date || r.vendor || r.description || r.amount || r.bank || r.account));
     try {
       const { data: existing } = await supabase
         .from("expense_notes" as any)
@@ -451,7 +451,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)] flex items-center justify-between">
               <div>
                 <h3 className="text-[14px] font-semibold">{viewYear}/{String(viewMonth).padStart(2, "0")} 지출 기록</h3>
-                <p className="text-[11px] text-muted-foreground mt-0.5">날짜 · 지출처 · 지출항목 · 금액 · 계좌/비고를 입력 후 완료를 눌러 저장하세요</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">날짜 · 지출처 · 지출항목 · 금액 · 은행명 · 계좌번호를 입력 후 완료를 눌러 저장하세요</p>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -486,7 +486,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[150px]">지출처</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground">지출항목</th>
                       <th className="text-right px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">금액</th>
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[220px]">계좌/비고</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[100px]">은행명</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[160px]">계좌번호</th>
                       <th className="w-[40px]" />
                     </tr>
                   </thead>
@@ -542,9 +543,17 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                         </td>
                         <td className="px-2 py-1">
                           <input
-                            value={row.account}
+                            value={row.bank || ""}
+                            onChange={(e) => updateNoteRow(idx, "bank", e.target.value)}
+                            placeholder="은행명"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.account || ""}
                             onChange={(e) => updateNoteRow(idx, "account", e.target.value)}
-                            placeholder="계좌번호 또는 비고"
+                            placeholder="계좌번호"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
                           />
                         </td>
