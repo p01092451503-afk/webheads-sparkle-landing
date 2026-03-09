@@ -163,9 +163,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
           const rows = lines.map((line: string) => {
             const match = line.match(/^(\d{2}\/\d{2})\s*:\s*(.*)$/);
             if (match) {
-              return { date: match[1], description: match[2], amount: "", account: "" };
+              return { date: match[1], description: match[2], amount: "", vendor: "", bank: "", account: "", memo: "" };
             }
-            return { date: "", vendor: "", description: line.trim(), amount: "", bank: "", account: "" };
+            return { date: "", vendor: "", description: line.trim(), amount: "", bank: "", account: "", memo: "" };
           });
           setNoteRows(rows.length > 0 ? rows : [createEmptyRow()]);
         } else {
