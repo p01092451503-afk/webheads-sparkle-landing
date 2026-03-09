@@ -27,7 +27,7 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 type FilterType = "all" | "paid" | "unpaid" | "managed";
 type SortType = "unpaid" | "date" | "name";
 // Editing cell now includes paymentType and index for multi-payment support
-type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes"; paymentType?: string; paymentIndex?: number } | null;
+type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes" | "name"; paymentType?: string; paymentIndex?: number } | null;
 
 // Default visible columns
 const DEFAULT_VISIBLE_TYPES = ["hosting", "maintenance", "sms", "ssl", "commission"];
