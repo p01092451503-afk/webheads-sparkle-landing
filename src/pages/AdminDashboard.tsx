@@ -23,6 +23,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "inquiries", icon: MessageSquare, label: "문의" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
+  { key: "404logs", icon: FileWarning, label: "404" },
   { key: "settings", icon: Settings, label: "설정" },
 ];
 
