@@ -189,7 +189,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   const saveNote = useCallback(async () => {
     setNoteSaving(true);
-    const content = JSON.stringify(noteRows.filter(r => r.date || r.vendor || r.description || r.amount || r.bank || r.account));
+    const filteredRows = noteRows.filter(r => r.date || r.vendor || r.description || r.amount || r.bank || r.account);
+    const filteredPlanned = plannedRows.filter(r => r.vendor || r.description || r.amount || r.memo);
+    const content = JSON.stringify({ rows: filteredRows, planned: filteredPlanned });
     try {
       const { data: existing } = await supabase
         .from("expense_notes" as any)
@@ -210,12 +212,12 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
           .insert({ year: viewYear, month: viewMonth, content } as any);
         if (error) throw error;
       }
-      toast.success("지출 기록이 저장되었습니다");
+      toast.success("저장되었습니다");
     } catch (e: any) {
       toast.error(e.message || "저장 중 오류 발생");
     }
     setNoteSaving(false);
-  }, [noteRows, viewYear, viewMonth]);
+  }, [noteRows, plannedRows, viewYear, viewMonth]);
 
   const updateNoteRow = (index: number, field: string, value: string) => {
     setNoteRows(prev => prev.map((r, i) => i === index ? { ...r, [field]: value } : r));
@@ -239,6 +241,37 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   const moveNoteRow = (index: number, direction: "up" | "down") => {
     setNoteRows(prev => {
+      const target = direction === "up" ? index - 1 : index + 1;
+      if (target < 0 || target >= prev.length) return prev;
+      const copy = [...prev];
+      [copy[index], copy[target]] = [copy[target], copy[index]];
+      return copy;
+    });
+  };
+
+  // Planned expense row helpers
+  const updatePlannedRow = (index: number, field: string, value: string) => {
+    setPlannedRows(prev => prev.map((r, i) => i === index ? { ...r, [field]: value } : r));
+  };
+
+  const addPlannedRow = (atIndex?: number) => {
+    setPlannedRows(prev => {
+      const newRow = createEmptyPlannedRow();
+      if (atIndex !== undefined) {
+        const copy = [...prev];
+        copy.splice(atIndex, 0, newRow);
+        return copy;
+      }
+      return [newRow, ...prev];
+    });
+  };
+
+  const removePlannedRow = (index: number) => {
+    setPlannedRows(prev => prev.length <= 1 ? [createEmptyPlannedRow()] : prev.filter((_, i) => i !== index));
+  };
+
+  const movePlannedRow = (index: number, direction: "up" | "down") => {
+    setPlannedRows(prev => {
       const target = direction === "up" ? index - 1 : index + 1;
       if (target < 0 || target >= prev.length) return prev;
       const copy = [...prev];
