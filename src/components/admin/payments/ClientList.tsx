@@ -225,6 +225,17 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [onRefresh, showSaved]);
 
+  const saveExpectedPaymentDay = useCallback(async (clientId: string, value: string) => {
+    try {
+      const { error } = await supabase.from("clients").update({ expected_payment_day: value.trim() || null }).eq("id", clientId);
+      if (error) throw error;
+      showSaved(`${clientId}-expected_payment_day`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "예상납부일 저장 중 오류가 발생했습니다");
+    }
+  }, [onRefresh, showSaved]);
+
   const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes" | "name", paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
