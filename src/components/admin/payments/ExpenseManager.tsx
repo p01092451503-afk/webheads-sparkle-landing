@@ -700,6 +700,152 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             </div>
           </div>
         </div>
+      ) : showPlanned ? (
+        /* Planned Expenses */
+        <div className="space-y-4">
+          {/* Month Navigation */}
+          <div className="flex items-center gap-2">
+            <button onClick={() => goMonth(-1)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground transition-colors">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="text-[14px] font-semibold min-w-[100px] text-center">{viewYear}년 {viewMonth}월</span>
+            <button onClick={() => goMonth(1)} className="p-1.5 rounded-lg hover:bg-muted text-muted-foreground transition-colors">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+            {!isCurrentMonth && (
+              <button
+                onClick={() => { setViewYear(now.getFullYear()); setViewMonth(now.getMonth() + 1); }}
+                className="ml-2 px-2.5 py-1 rounded-lg text-[11px] font-medium text-primary bg-primary/10 hover:bg-primary/15 transition-colors"
+              >
+                이번 달
+              </button>
+            )}
+          </div>
+
+          <div className="bg-white rounded-2xl border border-[hsl(220,13%,91%)] overflow-hidden">
+            <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)] flex items-center justify-between">
+              <div>
+                <h3 className="text-[14px] font-semibold">{viewYear}/{String(viewMonth).padStart(2, "0")} 지출 예정</h3>
+                <p className="text-[11px] text-muted-foreground mt-0.5">예정된 지출 항목을 미리 기록하세요</p>
+              </div>
+              <div className="flex gap-2">
+                <Button size="sm" variant="outline" onClick={() => addPlannedRow()} className="h-8 text-[12px]">
+                  <Plus className="w-3.5 h-3.5 mr-1" />행 추가
+                </Button>
+                <Button size="sm" onClick={saveNote} disabled={noteSaving} className="h-8 text-[12px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+                  {noteSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : <Check className="w-3.5 h-3.5 mr-1" />}
+                  완료
+                </Button>
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              {noteLoading ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
+                </div>
+              ) : (
+                <table className="w-full text-[13px]">
+                  <thead>
+                    <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,96%)]">
+                      <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-muted-foreground uppercase tracking-wider" style={{ width: 180 }}>지출처</th>
+                      <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">지출항목</th>
+                      <th className="px-3 py-2.5 text-right text-[11px] font-semibold text-muted-foreground uppercase tracking-wider" style={{ width: 140 }}>금액 (부가세 포함)</th>
+                      <th className="px-3 py-2.5 text-left text-[11px] font-semibold text-muted-foreground uppercase tracking-wider" style={{ width: 180 }}>메모</th>
+                      <th className="px-3 py-2.5 text-center text-[11px] font-semibold text-muted-foreground" style={{ width: 90 }}></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {plannedRows.map((row, idx) => (
+                      <tr key={idx} className="border-b border-[hsl(220,13%,95%)] hover:bg-[hsl(220,14%,98%)] group transition-colors">
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.vendor}
+                            onChange={(e) => updatePlannedRow(idx, "vendor", e.target.value)}
+                            placeholder="지출처 입력"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.description}
+                            onChange={(e) => updatePlannedRow(idx, "description", e.target.value)}
+                            placeholder="지출항목 입력"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors"
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                saveNote();
+                                addPlannedRow(idx);
+                                setTimeout(() => {
+                                  const inputs = document.querySelectorAll<HTMLInputElement>('[data-planned-desc]');
+                                  inputs[idx]?.focus();
+                                }, 30);
+                              }
+                            }}
+                            data-planned-desc=""
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.amount}
+                            onChange={(e) => {
+                              const digits = e.target.value.replace(/[^0-9]/g, "");
+                              const formatted = digits ? Number(digits).toLocaleString("ko-KR") + "원" : "";
+                              updatePlannedRow(idx, "amount", formatted);
+                            }}
+                            placeholder="0원"
+                            className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors font-medium"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.memo || ""}
+                            onChange={(e) => updatePlannedRow(idx, "memo", e.target.value)}
+                            placeholder="메모"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
+                          />
+                        </td>
+                        <td className="px-1 py-1">
+                          <div className="flex items-center gap-0.5">
+                            <button onClick={() => movePlannedRow(idx, "up")} disabled={idx === 0} className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed" title="위로">
+                              <ArrowUp className="w-3 h-3" />
+                            </button>
+                            <button onClick={() => movePlannedRow(idx, "down")} disabled={idx === plannedRows.length - 1} className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed" title="아래로">
+                              <ArrowDown className="w-3 h-3" />
+                            </button>
+                            <button onClick={() => removePlannedRow(idx)} className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-all" title="행 삭제">
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+            <div className="px-5 py-3 border-t border-[hsl(220,13%,91%)] flex items-center justify-between">
+              <p className="text-[11px] text-muted-foreground">
+                💡 Enter로 자동 저장 · Ctrl+S (⌘+S)도 가능
+              </p>
+              <div className="flex items-center gap-4">
+                <span className="text-[12px] font-semibold text-foreground">
+                  예정 합계: {(() => {
+                    const total = plannedRows.reduce((sum, r) => {
+                      const digits = (r.amount || "").replace(/[^0-9]/g, "");
+                      return sum + (parseInt(digits) || 0);
+                    }, 0);
+                    return total > 0 ? total.toLocaleString("ko-KR") + "원" : "0원";
+                  })()}
+                </span>
+                <span className="text-[11px] text-muted-foreground">{plannedRows.filter(r => r.description).length}건</span>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
       <>
       {/* Header */}
