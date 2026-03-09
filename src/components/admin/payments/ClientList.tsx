@@ -634,7 +634,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                             {c.byType["hosting"]?.[0]?.paid_date ? c.byType["hosting"][0].paid_date.replace(/-/g, ".") : "-"}
                           </button>
                         )}
-                        <SavedCheck cellKey={`${c.id}-hosting-paid_date`} />
+                        <SavedCheck cellKey={`${c.id}-hosting-0-paid_date`} />
                       </div>
                     </td>
 
