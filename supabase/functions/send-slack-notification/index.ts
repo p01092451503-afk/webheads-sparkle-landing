@@ -257,9 +257,8 @@ Deno.serve(async (req) => {
 
     try {
       resolvedChannelId = await resolveChannelId(channelName);
-      if (!resolvedChannelId) {
-        fallbackWritableChannelId = await findFallbackWritableChannelId();
-      }
+      // Always find a fallback channel where bot is already a member
+      fallbackWritableChannelId = await findFallbackWritableChannelId();
     } catch (resolveError) {
       console.warn("Channel resolve failed, fallback to raw channel values:", resolveError);
     }
