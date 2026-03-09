@@ -587,6 +587,22 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                         <td className="px-1 py-1">
                           <div className="flex items-center gap-0.5">
                             <button
+                              onClick={() => moveNoteRow(idx, "up")}
+                              disabled={idx === 0}
+                              className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                              title="위로"
+                            >
+                              <ArrowUp className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={() => moveNoteRow(idx, "down")}
+                              disabled={idx === noteRows.length - 1}
+                              className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                              title="아래로"
+                            >
+                              <ArrowDown className="w-3 h-3" />
+                            </button>
+                            <button
                               onClick={() => saveNote()}
                               className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-green-50 text-muted-foreground hover:text-green-600 transition-all"
                               title="저장"
