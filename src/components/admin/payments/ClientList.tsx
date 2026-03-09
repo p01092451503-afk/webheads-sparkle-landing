@@ -107,7 +107,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
     if (filter === "paid") list = list.filter((c) => c.status === "paid");
     else if (filter === "unpaid") list = list.filter((c) => c.status === "unpaid");
-    else if (filter === "managed") list = list.filter((c) => c.status === "managed");
+    
 
     if (sort === "unpaid") list = [...list].sort((a, b) => b.unpaidTotal - a.unpaidTotal);
     else if (sort === "date") {
