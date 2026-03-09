@@ -27,7 +27,7 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 type FilterType = "all" | "paid" | "unpaid" | "managed";
 type SortType = "unpaid" | "date" | "name";
 // Editing cell now includes paymentType and index for multi-payment support
-type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes" | "name"; paymentType?: string; paymentIndex?: number } | null;
+type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes" | "name" | "expected_payment_day"; paymentType?: string; paymentIndex?: number } | null;
 
 // Default visible columns
 const DEFAULT_VISIBLE_TYPES = ["hosting", "maintenance", "sms", "ssl", "commission"];
@@ -225,7 +225,18 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes" | "name", paymentType: string = "hosting", paymentIndex: number = 0) => {
+  const saveExpectedPaymentDay = useCallback(async (clientId: string, value: string) => {
+    try {
+      const { error } = await supabase.from("clients").update({ expected_payment_day: value.trim() || null }).eq("id", clientId);
+      if (error) throw error;
+      showSaved(`${clientId}-expected_payment_day`);
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "예상납부일 저장 중 오류가 발생했습니다");
+    }
+  }, [onRefresh, showSaved]);
+
+  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes" | "name" | "expected_payment_day", paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
@@ -233,6 +244,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       setEditValue(client.notes || "");
     } else if (field === "name") {
       setEditValue(client.name || "");
+    } else if (field === "expected_payment_day") {
+      setEditValue(client.expected_payment_day || "");
     } else {
       const payment = (client.byType[paymentType] || [])[paymentIndex];
       if (field === "amount") {
@@ -272,6 +285,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       saveClientNotes(editing.clientId, editValue);
     } else if (editing.field === "name") {
       saveClientName(editing.clientId, editValue);
+    } else if (editing.field === "expected_payment_day") {
+      saveExpectedPaymentDay(editing.clientId, editValue);
     } else {
       saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting", editing.paymentIndex || 0);
     }
@@ -647,7 +662,29 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                         <SavedCheck cellKey={`${c.id}-name`} />
                       </div>
                     </td>
-                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.expected_payment_day || "-"}</td>
+                    <td className="px-2 py-1.5 whitespace-nowrap">
+                      <div className="relative">
+                        {editing?.clientId === c.id && editing.field === "expected_payment_day" ? (
+                          <input
+                            ref={inputRef}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={commitEdit}
+                            onKeyDown={handleKeyDown}
+                            placeholder="예: 10일"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                          />
+                        ) : (
+                          <button
+                            onClick={() => startEditing(c.id, "expected_payment_day")}
+                            className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
+                          >
+                            {c.expected_payment_day || "-"}
+                          </button>
+                        )}
+                        <SavedCheck cellKey={`${c.id}-expected_payment_day`} />
+                      </div>
+                    </td>
 
                     {/* Editable: 입금일 (hosting) */}
                     <td className="px-2 py-1.5">
