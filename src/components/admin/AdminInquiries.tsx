@@ -177,6 +177,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     return `${(bytes / (1024 * 1024)).toFixed(1)}MB`;
   };
 
+  const deleteInquiry = async () => {
     if (!deleteTarget) return;
     setDeleting(true);
     setDeleteError("");
