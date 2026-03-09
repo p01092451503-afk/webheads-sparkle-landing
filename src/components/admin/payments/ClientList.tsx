@@ -26,8 +26,8 @@ const formatWon = (n: number) => "₩" + n.toLocaleString("ko-KR");
 
 type FilterType = "all" | "paid" | "unpaid" | "managed";
 type SortType = "unpaid" | "date" | "name";
-// Editing cell now includes paymentType
-type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes"; paymentType?: string } | null;
+// Editing cell now includes paymentType and index for multi-payment support
+type EditingCell = { clientId: string; field: "amount" | "paid_date" | "notes"; paymentType?: string; paymentIndex?: number } | null;
 
 // Default visible columns
 const DEFAULT_VISIBLE_TYPES = ["hosting", "maintenance", "sms", "ssl", "commission"];
@@ -82,10 +82,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         (p) => p.client_id === c.id && p.year === viewYear && p.month === viewMonth
       );
 
-      // Map by type
-      const byType: Record<string, Payment> = {};
+      // Map by type (multiple payments per type)
+      const byType: Record<string, Payment[]> = {};
       monthPayments.forEach((p) => {
-        byType[p.payment_type || "hosting"] = p;
+        const t = p.payment_type || "hosting";
+        if (!byType[t]) byType[t] = [];
+        byType[t].push(p);
       });
 
       const monthTotal = monthPayments.reduce((s, p) => s + (p.amount || 0), 0);
@@ -112,8 +114,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     if (sort === "unpaid") list = [...list].sort((a, b) => b.unpaidTotal - a.unpaidTotal);
     else if (sort === "date") {
       list = [...list].sort((a, b) => {
-        const da = a.byType["hosting"]?.paid_date || "";
-        const db = b.byType["hosting"]?.paid_date || "";
+        const da = a.byType["hosting"]?.[0]?.paid_date || "";
+        const db = b.byType["hosting"]?.[0]?.paid_date || "";
         return da.localeCompare(db);
       });
     }
@@ -133,11 +135,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }, 1500);
   }, []);
 
-  const saveCell = useCallback(async (clientId: string, field: "amount" | "paid_date", value: string, paymentType: string = "hosting") => {
+  const saveCell = useCallback(async (clientId: string, field: "amount" | "paid_date", value: string, paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
-    const existingPayment = client.byType[paymentType];
+    const payments_arr = client.byType[paymentType] || [];
+    const existingPayment = payments_arr[paymentIndex];
 
     try {
       if (field === "amount") {
@@ -191,7 +194,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         }
       }
 
-      showSaved(`${clientId}-${paymentType}-${field}`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-${field}`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "저장 중 오류가 발생했습니다");
@@ -209,21 +212,21 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting") => {
+  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
     if (field === "notes") {
       setEditValue(client.notes || "");
     } else {
-      const payment = client.byType[paymentType];
+      const payment = (client.byType[paymentType] || [])[paymentIndex];
       if (field === "amount") {
         setEditValue(payment?.amount ? payment.amount.toLocaleString("ko-KR") : "");
       } else {
         setEditValue(payment?.paid_date?.replace(/-/g, ".") || "");
       }
     }
-    setEditing({ clientId, field, paymentType });
+    setEditing({ clientId, field, paymentType, paymentIndex });
   };
 
   useEffect(() => {
@@ -232,16 +235,16 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [editing]);
 
-  const toggleUnpaid = useCallback(async (clientId: string, paymentType: string) => {
+  const toggleUnpaid = useCallback(async (clientId: string, paymentType: string, paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
-    const payment = client.byType[paymentType];
+    const payment = (client.byType[paymentType] || [])[paymentIndex];
     if (!payment) return;
 
     try {
       const { error } = await supabase.from("payments").update({ is_unpaid: !payment.is_unpaid }).eq("id", payment.id);
       if (error) throw error;
-      showSaved(`${clientId}-${paymentType}-status`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-status`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "상태 변경 중 오류가 발생했습니다");
@@ -253,7 +256,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     if (editing.field === "notes") {
       saveClientNotes(editing.clientId, editValue);
     } else {
-      saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting");
+      saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting", editing.paymentIndex || 0);
     }
     setEditing(null);
   };
@@ -267,45 +270,63 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   };
 
-  const cycleInvoiceStatus = useCallback(async (clientId: string, paymentType: string) => {
+  const cycleInvoiceStatus = useCallback(async (clientId: string, paymentType: string, paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
-    const payment = client.byType[paymentType];
+    const payment = (client.byType[paymentType] || [])[paymentIndex];
     if (!payment) return;
 
     const order = ["none", "pre", "post", "done"];
     const currentIdx = order.indexOf(payment.invoice_status || "none");
     const nextStatus = order[(currentIdx + 1) % order.length];
-    const now = nextStatus === "done" ? new Date().toISOString().split("T")[0] : payment.invoice_date;
+    const nowDate = nextStatus === "done" ? new Date().toISOString().split("T")[0] : payment.invoice_date;
 
     try {
       const { error } = await supabase.from("payments").update({
         invoice_status: nextStatus,
-        invoice_date: nextStatus === "done" ? now : payment.invoice_date,
+        invoice_date: nextStatus === "done" ? nowDate : payment.invoice_date,
       }).eq("id", payment.id);
       if (error) throw error;
-      showSaved(`${clientId}-${paymentType}-invoice`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-invoice`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "계산서 상태 변경 중 오류가 발생했습니다");
     }
   }, [clientData, onRefresh, showSaved]);
 
-  const saveMemo = useCallback(async (clientId: string, paymentType: string, memo: string) => {
+  const saveMemo = useCallback(async (clientId: string, paymentType: string, memo: string, paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
-    const payment = client.byType[paymentType];
+    const payment = (client.byType[paymentType] || [])[paymentIndex];
     if (!payment) return;
 
     try {
       const { error } = await supabase.from("payments").update({ memo }).eq("id", payment.id);
       if (error) throw error;
-      showSaved(`${clientId}-${paymentType}-memo`);
+      showSaved(`${clientId}-${paymentType}-${paymentIndex}-memo`);
       onRefresh();
     } catch (e: any) {
       toast.error(e.message || "메모 저장 중 오류가 발생했습니다");
     }
   }, [clientData, onRefresh, showSaved]);
+
+  const addPaymentForType = useCallback(async (clientId: string, paymentType: string) => {
+    try {
+      const { error } = await supabase.from("payments").insert({
+        client_id: clientId,
+        year: viewYear,
+        month: viewMonth,
+        amount: 0,
+        is_unpaid: false,
+        payment_type: paymentType,
+      });
+      if (error) throw error;
+      toast.success("항목이 추가되었습니다");
+      onRefresh();
+    } catch (e: any) {
+      toast.error(e.message || "항목 추가 중 오류가 발생했습니다");
+    }
+  }, [viewYear, viewMonth, onRefresh]);
 
   const toggleType = (typeValue: string) => {
     setVisibleTypes((prev) =>
@@ -386,12 +407,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           "미납금": unpaidTotal,
         };
 
-        // Add per-type columns for current month
+        // Add per-type columns for current month (sum all payments of same type)
         PAYMENT_TYPES.forEach((t) => {
-          const p = payments.find(
-            (p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type === t.value
-          );
-          row[t.label] = p?.amount || 0;
+          const typeTotal = payments
+            .filter((p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type === t.value)
+            .reduce((s, p) => s + (p.amount || 0), 0);
+          row[t.label] = typeTotal;
         });
 
         let total = 0;
@@ -610,10 +631,10 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                             onClick={() => startEditing(c.id, "paid_date", "hosting")}
                             className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
                           >
-                            {c.byType["hosting"]?.paid_date ? c.byType["hosting"].paid_date.replace(/-/g, ".") : "-"}
+                            {c.byType["hosting"]?.[0]?.paid_date ? c.byType["hosting"][0].paid_date.replace(/-/g, ".") : "-"}
                           </button>
                         )}
-                        <SavedCheck cellKey={`${c.id}-hosting-paid_date`} />
+                        <SavedCheck cellKey={`${c.id}-hosting-0-paid_date`} />
                       </div>
                     </td>
 
@@ -654,93 +675,140 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
                     {/* Dynamic payment type amount cells */}
                     {visibleTypes.map((typeValue) => {
-                      const payment = c.byType[typeValue];
-                      const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue;
-                      const cellKey = `${c.id}-${typeValue}-amount`;
-                      const isUnpaid = payment?.is_unpaid;
-                      const invoiceStatus = payment?.invoice_status || "none";
+                      const paymentsArr = c.byType[typeValue] || [];
 
                       return (
                         <td key={typeValue} className="px-1 py-1">
-                          <div className="relative">
-                            {isEditingThis ? (
-                              <input
-                                ref={inputRef}
-                                value={editValue}
-                                onChange={(e) => {
-                                  const num = e.target.value.replace(/[^0-9]/g, "");
-                                  setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
-                                }}
-                                onBlur={commitEdit}
-                                onKeyDown={handleKeyDown}
-                                placeholder="0"
-                                className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
-                              />
-                            ) : (
-                              <div className="space-y-0.5">
-                                {/* Amount row */}
-                                <div className="flex items-center gap-0.5">
-                                  <button
-                                    onClick={() => startEditing(c.id, "amount", typeValue)}
-                                    className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
-                                  >
-                                    {payment?.amount ? formatWon(payment.amount) : "-"}
-                                  </button>
-                                  {payment && payment.amount > 0 && (
-                                    <button
-                                      onClick={() => toggleUnpaid(c.id, typeValue)}
-                                      className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold transition-all ${
-                                        isUnpaid
-                                          ? "bg-red-100 text-red-600 hover:bg-red-200"
-                                          : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
-                                      }`}
-                                      title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
-                                    >
-                                      {isUnpaid ? "!" : "✓"}
-                                    </button>
-                                  )}
-                                </div>
-                                {/* Invoice + memo row */}
-                                {payment && payment.amount > 0 && (
-                                  <div className="flex items-center justify-end gap-0.5 pr-5">
-                                    <button
-                                      onClick={() => cycleInvoiceStatus(c.id, typeValue)}
-                                      className={`text-[9px] px-1.5 py-0.5 rounded font-medium transition-all hover:opacity-80 ${getInvoiceStatusColor(invoiceStatus)}`}
-                                      title="계산서 상태 변경"
-                                    >
-                                      {getInvoiceStatusLabel(invoiceStatus)}
-                                    </button>
-                                    <Popover>
-                                      <PopoverTrigger asChild>
+                          <div className="space-y-0.5">
+                            {/* Render each payment of this type */}
+                            {paymentsArr.map((payment, idx) => {
+                              const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue && (editing.paymentIndex || 0) === idx;
+                              const cellKey = `${c.id}-${typeValue}-${idx}-amount`;
+                              const isUnpaid = payment.is_unpaid;
+                              const invoiceStatus = payment.invoice_status || "none";
+
+                              return (
+                                <div key={payment.id} className="relative">
+                                  {isEditingThis ? (
+                                    <input
+                                      ref={inputRef}
+                                      value={editValue}
+                                      onChange={(e) => {
+                                        const num = e.target.value.replace(/[^0-9]/g, "");
+                                        setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                                      }}
+                                      onBlur={commitEdit}
+                                      onKeyDown={handleKeyDown}
+                                      placeholder="0"
+                                      className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                                    />
+                                  ) : (
+                                    <div className="space-y-0.5">
+                                      {/* Amount row */}
+                                      <div className="flex items-center gap-0.5">
                                         <button
-                                          className={`p-0.5 rounded transition-colors ${payment.memo ? "text-[hsl(221,83%,53%)]" : "text-muted-foreground/30 hover:text-muted-foreground/60"}`}
-                                          title={payment.memo || "메모 추가"}
+                                          onClick={() => startEditing(c.id, "amount", typeValue, idx)}
+                                          className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
                                         >
-                                          <MessageSquare className="w-3 h-3" />
+                                          {payment.amount ? formatWon(payment.amount) : "-"}
                                         </button>
-                                      </PopoverTrigger>
-                                      <PopoverContent className="w-56 p-2" align="start">
-                                        <textarea
-                                          defaultValue={payment.memo || ""}
-                                          placeholder="메모 입력..."
-                                          rows={3}
-                                          className="w-full px-2 py-1.5 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] resize-none focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
-                                          onBlur={(e) => {
-                                            if (e.target.value !== (payment.memo || "")) {
-                                              saveMemo(c.id, typeValue, e.target.value);
-                                            }
-                                          }}
-                                        />
-                                      </PopoverContent>
-                                    </Popover>
-                                    <SavedCheck cellKey={`${c.id}-${typeValue}-invoice`} />
-                                    <SavedCheck cellKey={`${c.id}-${typeValue}-memo`} />
-                                  </div>
+                                        {payment.amount > 0 && (
+                                          <button
+                                            onClick={() => toggleUnpaid(c.id, typeValue, idx)}
+                                            className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold transition-all ${
+                                              isUnpaid
+                                                ? "bg-red-100 text-red-600 hover:bg-red-200"
+                                                : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
+                                            }`}
+                                            title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                          >
+                                            {isUnpaid ? "!" : "✓"}
+                                          </button>
+                                        )}
+                                      </div>
+                                      {/* Invoice + memo row */}
+                                      {payment.amount > 0 && (
+                                        <div className="flex items-center justify-end gap-0.5 pr-5">
+                                          <button
+                                            onClick={() => cycleInvoiceStatus(c.id, typeValue, idx)}
+                                            className={`text-[9px] px-1.5 py-0.5 rounded font-medium transition-all hover:opacity-80 ${getInvoiceStatusColor(invoiceStatus)}`}
+                                            title="계산서 상태 변경"
+                                          >
+                                            {getInvoiceStatusLabel(invoiceStatus)}
+                                          </button>
+                                          <Popover>
+                                            <PopoverTrigger asChild>
+                                              <button
+                                                className={`p-0.5 rounded transition-colors ${payment.memo ? "text-[hsl(221,83%,53%)]" : "text-muted-foreground/30 hover:text-muted-foreground/60"}`}
+                                                title={payment.memo || "메모 추가"}
+                                              >
+                                                <MessageSquare className="w-3 h-3" />
+                                              </button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-56 p-2" align="start">
+                                              <textarea
+                                                defaultValue={payment.memo || ""}
+                                                placeholder="메모 입력..."
+                                                rows={3}
+                                                className="w-full px-2 py-1.5 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] resize-none focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
+                                                onBlur={(e) => {
+                                                  if (e.target.value !== (payment.memo || "")) {
+                                                    saveMemo(c.id, typeValue, e.target.value, idx);
+                                                  }
+                                                }}
+                                              />
+                                            </PopoverContent>
+                                          </Popover>
+                                          <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-invoice`} />
+                                          <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-memo`} />
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                  <SavedCheck cellKey={cellKey} />
+                                  <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-status`} />
+                                </div>
+                              );
+                            })}
+
+                            {/* Empty state: show editable placeholder if no payments */}
+                            {paymentsArr.length === 0 && (
+                              <div className="relative">
+                                {editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue && (editing.paymentIndex || 0) === 0 ? (
+                                  <input
+                                    ref={inputRef}
+                                    value={editValue}
+                                    onChange={(e) => {
+                                      const num = e.target.value.replace(/[^0-9]/g, "");
+                                      setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                                    }}
+                                    onBlur={commitEdit}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder="0"
+                                    className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                                  />
+                                ) : (
+                                  <button
+                                    onClick={() => startEditing(c.id, "amount", typeValue, 0)}
+                                    className="flex-1 w-full h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text"
+                                  >
+                                    -
+                                  </button>
                                 )}
+                                <SavedCheck cellKey={`${c.id}-${typeValue}-0-amount`} />
                               </div>
                             )}
-                            <SavedCheck cellKey={cellKey} />
-                            <SavedCheck cellKey={`${c.id}-${typeValue}-status`} />
+
+                            {/* Add another payment button */}
+                            {paymentsArr.length > 0 && (
+                              <button
+                                onClick={() => addPaymentForType(c.id, typeValue)}
+                                className="w-full h-5 flex items-center justify-center text-[10px] text-muted-foreground/40 hover:text-muted-foreground/70 hover:bg-[hsl(220,14%,94%)] rounded transition-colors"
+                                title={`${getPaymentTypeLabel(typeValue)} 항목 추가`}
+                              >
+                                <Plus className="w-3 h-3" />
+                              </button>
+                            )}
                           </div>
                         </td>
                       );
