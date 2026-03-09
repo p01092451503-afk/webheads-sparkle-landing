@@ -83,7 +83,7 @@ export default function PaymentIssues() {
             <ChevronLeft className="w-4 h-4" />
           </Button>
           <h3 className="text-[14px] font-semibold text-foreground min-w-[120px] text-center">
-            {viewYear}년 {viewMonth}월 Issue
+            {viewYear}년 {viewMonth}월 정산이슈
           </h3>
           <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => goMonth(1)}>
             <ChevronRight className="w-4 h-4" />
