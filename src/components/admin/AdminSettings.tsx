@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save, Mail, ToggleLeft, ToggleRight, ChevronDown, ChevronUp, Menu } from "lucide-react";
+import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save, Mail, ToggleLeft, ToggleRight, ChevronDown, ChevronUp, Menu, KeyRound } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 interface AdminSettingsProps {
