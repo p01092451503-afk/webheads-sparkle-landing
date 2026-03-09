@@ -420,6 +420,125 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       )}
                     </div>
 
+                    {/* Email Reply Summary + Attachments */}
+                    <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
+                      <div className="flex items-center justify-between mb-2">
+                        <p className="text-[11px] font-semibold text-muted-foreground tracking-wide flex items-center gap-1.5">
+                          <Mail className="w-3.5 h-3.5" /> 1차 이메일 회신
+                        </p>
+                        {isSuperAdmin && selectedInquiry.email_reply_summary && !editingEmailReply && (
+                          <button
+                            onClick={() => setEditingEmailReply(true)}
+                            className="flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium text-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,48%,0.06)] transition-all"
+                          >
+                            <Edit3 className="w-3 h-3" /> 수정
+                          </button>
+                        )}
+                      </div>
+                      {isSuperAdmin ? (
+                        <>
+                          {!selectedInquiry.email_reply_summary && !editingEmailReply ? (
+                            <button
+                              onClick={() => setEditingEmailReply(true)}
+                              className="w-full py-4 rounded-xl border-2 border-dashed border-[hsl(220,13%,91%)] text-[12px] text-muted-foreground/50 hover:border-[hsl(199,89%,48%,0.3)] hover:text-[hsl(199,89%,48%)] transition-all"
+                            >
+                              + 회신 내용 기록하기
+                            </button>
+                          ) : editingEmailReply ? (
+                            <>
+                              <textarea
+                                value={emailReplyText}
+                                onChange={(e) => setEmailReplyText(e.target.value)}
+                                rows={4}
+                                placeholder="이메일 회신 주요 골자를 입력하세요..."
+                                className="w-full bg-white rounded-xl p-3.5 text-[13px] outline-none text-foreground placeholder:text-muted-foreground/30 resize-none border border-[hsl(199,89%,48%,0.3)] focus:border-[hsl(199,89%,48%)] focus:ring-2 focus:ring-[hsl(199,89%,48%,0.08)] transition-all"
+                                autoFocus
+                              />
+                              <div className="flex gap-2 mt-2">
+                                <button onClick={saveEmailReply} disabled={savingEmailReply}
+                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-all active:scale-[0.96] disabled:opacity-50"
+                                >
+                                  {savingEmailReply ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                                  저장
+                                </button>
+                                <button
+                                  onClick={() => { setEditingEmailReply(false); setEmailReplyText(selectedInquiry.email_reply_summary || ""); }}
+                                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] transition-all"
+                                >
+                                  취소
+                                </button>
+                              </div>
+                            </>
+                          ) : (
+                            <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(199,89%,48%,0.15)]">
+                              {selectedInquiry.email_reply_summary}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="bg-white rounded-xl p-4 text-[13px] leading-relaxed text-foreground whitespace-pre-wrap border border-[hsl(199,89%,48%,0.15)] min-h-[48px]">
+                          {selectedInquiry.email_reply_summary || <span className="text-muted-foreground/30">회신 내용 없음</span>}
+                        </div>
+                      )}
+
+                      {/* File Attachments */}
+                      <div className="mt-3">
+                        <p className="text-[11px] font-semibold text-muted-foreground tracking-wide flex items-center gap-1.5 mb-2">
+                          <Paperclip className="w-3.5 h-3.5" /> 첨부 파일
+                        </p>
+                        {attachments.length > 0 && (
+                          <div className="flex flex-col gap-1.5 mb-2">
+                            {attachments.map((att) => (
+                              <div key={att.id} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[hsl(220,14%,96%)] group">
+                                <FileIcon className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                                <a
+                                  href={getPublicUrl(att.file_path)}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex-1 text-[12px] font-medium text-foreground hover:text-[hsl(199,89%,48%)] transition-colors truncate"
+                                >
+                                  {att.file_name}
+                                </a>
+                                <span className="text-[10px] text-muted-foreground/50 shrink-0">
+                                  {att.file_size ? formatFileSize(att.file_size) : ""}
+                                </span>
+                                {isSuperAdmin && (
+                                  <button
+                                    onClick={() => deleteAttachment(att)}
+                                    className="opacity-0 group-hover:opacity-100 p-0.5 text-[hsl(0,84%,60%)] hover:bg-[hsl(0,84%,60%,0.08)] rounded transition-all"
+                                  >
+                                    <XCircle className="w-3.5 h-3.5" />
+                                  </button>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {isSuperAdmin && (
+                          <>
+                            <input
+                              ref={fileInputRef}
+                              type="file"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) uploadFile(file);
+                                e.target.value = "";
+                              }}
+                            />
+                            <button
+                              onClick={() => fileInputRef.current?.click()}
+                              disabled={uploadingFile}
+                              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-white border border-[hsl(220,13%,91%)] hover:bg-[hsl(220,14%,96%)] hover:text-[hsl(199,89%,48%)] transition-all disabled:opacity-50"
+                            >
+                              {uploadingFile ? <Loader2 className="w-3 h-3 animate-spin" /> : <Upload className="w-3 h-3" />}
+                              {uploadingFile ? "업로드 중..." : "파일 첨부"}
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
                     {/* Meeting Notes */}
                     <div className="mt-4 pt-4 border-t border-[hsl(220,13%,93%)]">
                       <div className="flex items-center justify-between mb-2">
