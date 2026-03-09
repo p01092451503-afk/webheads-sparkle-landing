@@ -158,7 +158,7 @@ export default function PaymentExpected({ year, month }: Props) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <h3 className="text-[14px] font-semibold text-foreground">
-            {year}년 {month}월 입금예정 / 독촉 관리
+            {year}년 {month}월 청구내역
           </h3>
           {totalAmount > 0 && (
             <span className="text-[12px] text-muted-foreground">
