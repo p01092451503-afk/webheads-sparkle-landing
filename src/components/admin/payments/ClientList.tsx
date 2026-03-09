@@ -354,7 +354,6 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   };
 
   const toggleClientStatus = useCallback(async (clientId: string, currentStatus: string) => {
-    if (currentStatus === "managed") return;
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
@@ -378,12 +377,10 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   }, [clientData, onRefresh, showSaved]);
 
   const statusBadge = (status: string, clientId: string) => {
-    const isManaged = status === "managed";
     const base = "cursor-pointer transition-all hover:scale-105 text-[11px]";
     switch (status) {
       case "paid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-emerald-100 text-emerald-700 hover:bg-emerald-200 ${base}`}>납부완료</Badge>;
       case "unpaid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-red-100 text-red-700 hover:bg-red-200 ${base}`}>미납</Badge>;
-      case "managed": return <Badge className="bg-gray-100 text-gray-600 hover:bg-gray-100 text-[11px]">따로관리</Badge>;
     }
   };
 
