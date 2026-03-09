@@ -11,12 +11,13 @@ const PaymentModal = lazy(() => import("./PaymentModal"));
 const ClientModal = lazy(() => import("./ClientModal"));
 const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
 const PaymentExpected = lazy(() => import("./PaymentExpected"));
+const PaymentIssues = lazy(() => import("./PaymentIssues"));
 const ExpenseManager = lazy(() => import("./ExpenseManager"));
 
 type Client = import("./paymentTypes").PaymentClient;
 type Payment = import("./paymentTypes").PaymentRecord;
 
-type SubView = "dashboard" | "clients" | "detail" | "calendar" | "expected" | "expenses";
+type SubView = "dashboard" | "clients" | "detail" | "calendar" | "expected" | "expenses" | "issues";
 
 const Loader = () => (
   <div className="flex items-center justify-center py-20">
@@ -187,6 +188,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
     { key: "clients" as SubView, label: "매출관리" },
     { key: "calendar" as SubView, label: "캘린더" },
     { key: "expected" as SubView, label: "청구내역" },
+    { key: "issues" as SubView, label: "이슈" },
   ];
 
   return (
@@ -248,6 +250,12 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
         )}
         {subView === "expected" && (
           <PaymentExpected
+            year={new Date().getFullYear()}
+            month={new Date().getMonth() + 1}
+          />
+        )}
+        {subView === "issues" && (
+          <PaymentIssues
             year={new Date().getFullYear()}
             month={new Date().getMonth() + 1}
           />
