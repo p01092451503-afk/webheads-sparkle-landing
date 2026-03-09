@@ -1,7 +1,8 @@
 import { useLocation, Link, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Home } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 // 기존 홈페이지(webheads.co.kr) 레거시 경로 → 새 경로 매핑
 const LEGACY_REDIRECTS: Record<string, string> = {
