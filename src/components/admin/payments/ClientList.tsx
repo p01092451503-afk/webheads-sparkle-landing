@@ -631,7 +631,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                             onClick={() => startEditing(c.id, "paid_date", "hosting")}
                             className="w-full h-8 px-2 text-left text-[13px] rounded-lg hover:bg-[hsl(220,14%,94%)] text-muted-foreground transition-colors cursor-text"
                           >
-                            {c.byType["hosting"]?.paid_date ? c.byType["hosting"].paid_date.replace(/-/g, ".") : "-"}
+                            {c.byType["hosting"]?.[0]?.paid_date ? c.byType["hosting"][0].paid_date.replace(/-/g, ".") : "-"}
                           </button>
                         )}
                         <SavedCheck cellKey={`${c.id}-hosting-paid_date`} />
