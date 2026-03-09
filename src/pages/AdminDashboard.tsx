@@ -340,7 +340,7 @@ export default function AdminDashboard() {
                 </button>
               );
             })}
-            <div className="flex-1" />
+            <div className="w-6 shrink-0 border-l border-border/50 mx-1 self-stretch" />
             {tabs.filter(t => t.key === "payments" || t.key === "expenses").map((t) => {
               const isActive = tab === t.key;
               return (
