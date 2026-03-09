@@ -254,6 +254,12 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             month={new Date().getMonth() + 1}
           />
         )}
+        {subView === "issues" && (
+          <PaymentIssues
+            year={new Date().getFullYear()}
+            month={new Date().getMonth() + 1}
+          />
+        )}
         {subView === "detail" && selectedClient && (
           <ClientDetail
             client={selectedClient}
