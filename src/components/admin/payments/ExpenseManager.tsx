@@ -147,13 +147,38 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
         .eq("year", viewYear)
         .eq("month", viewMonth)
         .maybeSingle();
-      setNoteContent((data as any)?.content || "");
+      const raw = (data as any)?.content || "";
+      // Parse: try JSON first, then legacy text
+      try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          setNoteRows(parsed.length > 0 ? parsed : [createEmptyRow()]);
+        } else {
+          setNoteRows([createEmptyRow()]);
+        }
+      } catch {
+        // Legacy text content → convert to rows
+        if (raw.trim()) {
+          const lines = raw.split("\n").filter((l: string) => l.trim() && !l.startsWith("---") && !/^\d{4}\/\d{2}\s/.test(l));
+          const rows = lines.map((line: string) => {
+            const match = line.match(/^(\d{2}\/\d{2})\s*:\s*(.*)$/);
+            if (match) {
+              return { date: match[1], description: match[2], amount: "", account: "" };
+            }
+            return { date: "", description: line.trim(), amount: "", account: "" };
+          });
+          setNoteRows(rows.length > 0 ? rows : [createEmptyRow()]);
+        } else {
+          setNoteRows([createEmptyRow()]);
+        }
+      }
       setNoteLoading(false);
     })();
   }, [showNotes, viewYear, viewMonth]);
 
   const saveNote = useCallback(async () => {
     setNoteSaving(true);
+    const content = JSON.stringify(noteRows.filter(r => r.date || r.description || r.amount || r.account));
     try {
       const { data: existing } = await supabase
         .from("expense_notes" as any)
@@ -165,13 +190,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       if ((existing as any)?.id) {
         const { error } = await supabase
           .from("expense_notes" as any)
-          .update({ content: noteContent, updated_at: new Date().toISOString() } as any)
+          .update({ content, updated_at: new Date().toISOString() } as any)
           .eq("id", (existing as any).id);
         if (error) throw error;
       } else {
         const { error } = await supabase
           .from("expense_notes" as any)
-          .insert({ year: viewYear, month: viewMonth, content: noteContent } as any);
+          .insert({ year: viewYear, month: viewMonth, content } as any);
         if (error) throw error;
       }
       toast.success("지출 기록이 저장되었습니다");
@@ -179,7 +204,19 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       toast.error(e.message || "저장 중 오류 발생");
     }
     setNoteSaving(false);
-  }, [noteContent, viewYear, viewMonth]);
+  }, [noteRows, viewYear, viewMonth]);
+
+  const updateNoteRow = (index: number, field: string, value: string) => {
+    setNoteRows(prev => prev.map((r, i) => i === index ? { ...r, [field]: value } : r));
+  };
+
+  const addNoteRow = () => {
+    setNoteRows(prev => [...prev, createEmptyRow()]);
+  };
+
+  const removeNoteRow = (index: number) => {
+    setNoteRows(prev => prev.length <= 1 ? [createEmptyRow()] : prev.filter((_, i) => i !== index));
+  };
 
   const clients = externalClients || internalClients;
 
