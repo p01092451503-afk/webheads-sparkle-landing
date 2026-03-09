@@ -167,12 +167,31 @@ Deno.serve(async (req) => {
       });
     }
 
-    const channel = formatChannel(channelName);
-
     const blocks = buildBlocks(notification);
     const fallbackText = `${notification.title}`;
 
-    await sendSlackMessage(channel, blocks, fallbackText);
+    const channelCandidates = buildChannelCandidates(channelName);
+    let delivered = false;
+    let lastError: unknown = null;
+
+    for (const channel of channelCandidates) {
+      try {
+        await sendSlackMessage(channel, blocks, fallbackText);
+        delivered = true;
+        break;
+      } catch (err) {
+        lastError = err;
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        // Retry only on channel resolution issue
+        if (!errorMessage.includes("channel_not_found")) throw err;
+      }
+    }
+
+    if (!delivered) {
+      throw new Error(
+        `Slack channel not found for "${channelName}". 관리자 설정에서 채널명을 정확히 입력하거나 채널 ID(C...)를 사용해 주세요. Last error: ${lastError instanceof Error ? lastError.message : String(lastError)}`,
+      );
+    }
 
     return new Response(JSON.stringify({ ok: true }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
