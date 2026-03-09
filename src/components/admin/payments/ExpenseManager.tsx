@@ -75,7 +75,11 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [newCatName, setNewCatName] = useState("");
   const [catFilter, setCatFilter] = useState<string>("all");
   const [showStats, setShowStats] = useState(false);
+  const [showNotes, setShowNotes] = useState(false);
   const [allExpenses, setAllExpenses] = useState<Expense[]>([]);
+  const [noteContent, setNoteContent] = useState("");
+  const [noteLoading, setNoteLoading] = useState(false);
+  const [noteSaving, setNoteSaving] = useState(false);
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
