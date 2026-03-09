@@ -95,26 +95,17 @@ export default function PaymentDashboard({ clients, payments, onNavigate }: Prop
     return data;
   }, [payments, currentYear, currentMonth]);
 
-  // Top clients by hosting fee (highest first)
+  // Top unpaid clients by unpaid amount (highest first)
   const top10Unpaid = useMemo(() => {
-    const hostingByClient = new Map<string, number>();
-    payments.forEach((p) => {
-      if (p.payment_type === "hosting" || !p.payment_type) {
-        const current = hostingByClient.get(p.client_id) || 0;
-        hostingByClient.set(p.client_id, Math.max(current, p.amount || 0));
-      }
-    });
-
-    return Array.from(hostingByClient.entries())
-      .map(([clientId, amount]) => ({
+    return Array.from(unpaidClients.entries())
+      .map(([clientId, unpaid]) => ({
         client: clients.find((c) => c.id === clientId),
-        amount,
-        unpaid: unpaidClients.get(clientId) || 0,
+        unpaid,
       }))
-      .filter((x) => x.client && x.amount > 0)
-      .sort((a, b) => b.amount - a.amount)
+      .filter((x) => x.client && x.unpaid > 0)
+      .sort((a, b) => b.unpaid - a.unpaid)
       .slice(0, 10);
-  }, [payments, clients, unpaidClients]);
+  }, [clients, unpaidClients]);
 
   const kpis = [
     { label: "총 미납금", value: formatWon(totalUnpaid), icon: AlertTriangle, color: "text-red-600", bg: "bg-red-50" },
