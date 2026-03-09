@@ -247,6 +247,7 @@ export type Database = {
           company: string
           created_at: string
           email: string | null
+          email_reply_summary: string | null
           id: string
           inquiry_type: string
           marketing_agreed: boolean
@@ -267,6 +268,7 @@ export type Database = {
           company: string
           created_at?: string
           email?: string | null
+          email_reply_summary?: string | null
           id?: string
           inquiry_type?: string
           marketing_agreed?: boolean
@@ -287,6 +289,7 @@ export type Database = {
           company?: string
           created_at?: string
           email?: string | null
+          email_reply_summary?: string | null
           id?: string
           inquiry_type?: string
           marketing_agreed?: boolean
@@ -493,6 +496,47 @@ export type Database = {
             foreignKeyName: "inquiry_analyses_inquiry_id_fkey"
             columns: ["inquiry_id"]
             isOneToOne: true
+            referencedRelation: "contact_inquiries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inquiry_attachments: {
+        Row: {
+          content_type: string | null
+          created_at: string
+          file_name: string
+          file_path: string
+          file_size: number | null
+          id: string
+          inquiry_id: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          content_type?: string | null
+          created_at?: string
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          id?: string
+          inquiry_id: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          content_type?: string | null
+          created_at?: string
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          inquiry_id?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inquiry_attachments_inquiry_id_fkey"
+            columns: ["inquiry_id"]
+            isOneToOne: false
             referencedRelation: "contact_inquiries"
             referencedColumns: ["id"]
           },
