@@ -481,7 +481,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
               <SelectItem value="all">전체</SelectItem>
               <SelectItem value="paid">납부완료</SelectItem>
               <SelectItem value="unpaid">미납</SelectItem>
-              <SelectItem value="managed">따로관리</SelectItem>
+              
             </SelectContent>
           </Select>
           <Select value={sort} onValueChange={(v) => setSort(v as SortType)}>
