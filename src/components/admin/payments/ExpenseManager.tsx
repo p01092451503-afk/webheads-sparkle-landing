@@ -465,7 +465,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={addNoteRow}
+                  onClick={() => addNoteRow()}
                   className="h-8 text-[12px]"
                 >
                   <Plus className="w-3.5 h-3.5 mr-1" />행 추가
