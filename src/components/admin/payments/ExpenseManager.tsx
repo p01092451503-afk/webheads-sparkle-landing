@@ -458,20 +458,28 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       {/* View Toggle */}
       <div className="flex gap-1 bg-white rounded-xl p-1 border border-[hsl(220,13%,91%)] w-fit">
         <button
-          onClick={() => { setShowStats(false); setShowNotes(false); }}
+          onClick={() => { setShowStats(false); setShowNotes(false); setShowPlanned(false); }}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
-            !showStats && !showNotes ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+            !showStats && !showNotes && !showPlanned ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
           }`}
         >
           <List className="w-3.5 h-3.5" />내역
         </button>
         <button
-          onClick={() => { setShowNotes(true); setShowStats(false); }}
+          onClick={() => { setShowNotes(true); setShowStats(false); setShowPlanned(false); }}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
             showNotes ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
           }`}
         >
           <FileText className="w-3.5 h-3.5" />기록
+        </button>
+        <button
+          onClick={() => { setShowPlanned(true); setShowNotes(false); setShowStats(false); }}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+            showPlanned ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
+          }`}
+        >
+          <CalendarClock className="w-3.5 h-3.5" />지출예정
         </button>
         <button
           onClick={() => { setShowStats(true); setShowNotes(false); }}
