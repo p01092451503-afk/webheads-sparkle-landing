@@ -110,12 +110,15 @@ async function findFallbackWritableChannelId(): Promise<string | null> {
 
   for (let i = 0; i < 10; i += 1) {
     const data = await listConversationsPage(cursor);
+    const channels = data.channels || [];
 
-    const writable = (data.channels || []).find((ch: { id?: string; is_member?: boolean }) =>
+    const memberChannel = channels.find((ch: { id?: string; is_member?: boolean }) =>
       !!ch.id && ch.is_member === true
     );
+    if (memberChannel?.id) return memberChannel.id;
 
-    if (writable?.id) return writable.id;
+    const anyChannel = channels.find((ch: { id?: string }) => !!ch.id);
+    if (anyChannel?.id) return anyChannel.id;
 
     const nextCursor = data.response_metadata?.next_cursor;
     if (!nextCursor) break;
