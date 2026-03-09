@@ -21,10 +21,10 @@ type UserRole = "super_admin" | "admin" | "user";
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "analytics", icon: BarChart3, label: "분석" },
   { key: "inquiries", icon: MessageSquare, label: "문의" },
+  { key: "settings", icon: Settings, label: "설정" },
+  { key: "404logs", icon: FileWarning, label: "404" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
-  { key: "404logs", icon: FileWarning, label: "404" },
-  { key: "settings", icon: Settings, label: "설정" },
 ];
 
 const TabLoader = () => (
