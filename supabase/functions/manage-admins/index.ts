@@ -172,6 +172,39 @@ serve(async (req) => {
         });
       }
 
+      case "reset_password": {
+        const { target_user_id, new_password } = params;
+        if (!target_user_id || !new_password) {
+          return new Response(JSON.stringify({ error: "사용자 ID와 새 비밀번호가 필요합니다." }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+
+        if (new_password.length < 6) {
+          return new Response(JSON.stringify({ error: "비밀번호는 6자 이상이어야 합니다." }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+
+        const { error: resetError } = await supabaseAdmin.auth.admin.updateUserById(
+          target_user_id,
+          { password: new_password }
+        );
+
+        if (resetError) {
+          return new Response(JSON.stringify({ error: resetError.message }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+
+        return new Response(JSON.stringify({ success: true }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
       default:
         return new Response(JSON.stringify({ error: "Unknown action" }), {
           status: 400,

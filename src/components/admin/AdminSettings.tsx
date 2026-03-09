@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save, Mail, ToggleLeft, ToggleRight, ChevronDown, ChevronUp, Menu } from "lucide-react";
+import { Lock, Loader2, Check, Shield, UserPlus, Users, Trash2, Crown, AlertTriangle, Clock, RefreshCw, Bell, Building2, Save, Mail, ToggleLeft, ToggleRight, ChevronDown, ChevronUp, Menu, KeyRound } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 interface AdminSettingsProps {
@@ -36,6 +36,12 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const [deleteTarget, setDeleteTarget] = useState<AdminUser | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState("");
+  const [resetTarget, setResetTarget] = useState<AdminUser | null>(null);
+  const [resetPassword, setResetPassword] = useState("");
+  const [resetConfirm, setResetConfirm] = useState("");
+  const [resetting, setResetting] = useState(false);
+  const [resetError, setResetError] = useState("");
+  const [resetSuccess, setResetSuccess] = useState(false);
 
   // Activity logs
   const [activityLogs, setActivityLogs] = useState<any[]>([]);
@@ -234,6 +240,30 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
       setDeleteError(e.message || "삭제 중 오류가 발생했습니다.");
     }
     setDeleting(false);
+  };
+
+  const handleResetPassword = async () => {
+    if (!resetTarget) return;
+    setResetError("");
+    setResetSuccess(false);
+    if (!resetPassword || resetPassword.length < 6) { setResetError("비밀번호는 6자 이상이어야 합니다."); return; }
+    if (resetPassword !== resetConfirm) { setResetError("비밀번호가 일치하지 않습니다."); return; }
+    setResetting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("manage-admins", {
+        body: { action: "reset_password", target_user_id: resetTarget.user_id, new_password: resetPassword },
+      });
+      if (error) throw error;
+      if (data.error) { setResetError(data.error); setResetting(false); return; }
+      await logActivity("reset_admin_password", "admin", resetTarget.user_id, { email: resetTarget.email });
+      setResetSuccess(true);
+      setResetPassword("");
+      setResetConfirm("");
+      setTimeout(() => { setResetTarget(null); setResetSuccess(false); }, 1500);
+    } catch (e: any) {
+      setResetError(e.message || "비밀번호 초기화에 실패했습니다.");
+    }
+    setResetting(false);
   };
 
   const handlePasswordChange = async (e: React.FormEvent) => {
@@ -557,6 +587,13 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
                           <Shield className="w-3 h-3" />
                         </button>
                       )}
+                      <button
+                        onClick={() => { setResetTarget(admin); setResetError(""); setResetPassword(""); setResetConfirm(""); setResetSuccess(false); }}
+                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-[hsl(199,89%,48%)] bg-[hsl(199,89%,48%,0.06)] hover:bg-[hsl(199,89%,48%,0.1)] transition-all"
+                        title="비밀번호 초기화"
+                      >
+                        <KeyRound className="w-3 h-3" />
+                      </button>
                       {admin.role !== "super_admin" && (
                         <button
                           onClick={() => { setDeleteTarget(admin); setDeleteError(""); }}
@@ -931,6 +968,57 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
             >
               {deleting && <Loader2 className="w-3 h-3 animate-spin" />}
               삭제
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reset Password Dialog */}
+      <Dialog open={!!resetTarget} onOpenChange={(open) => { if (!open) setResetTarget(null); }}>
+        <DialogContent className="max-w-[400px] rounded-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-[16px] font-semibold flex items-center gap-2">
+              <KeyRound className="w-4 h-4 text-[hsl(199,89%,48%)]" /> 비밀번호 초기화
+            </DialogTitle>
+            <DialogDescription className="text-[13px]">
+              <span className="font-semibold text-foreground">{resetTarget?.email}</span> 계정의 비밀번호를 새로 설정합니다.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-3 py-2">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[12px] font-semibold text-foreground">새 비밀번호</label>
+              <input type="password" value={resetPassword} onChange={(e) => setResetPassword(e.target.value)}
+                placeholder="6자 이상 입력"
+                className="w-full px-3.5 py-2.5 rounded-xl text-[13px] border border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)] focus:border-[hsl(199,89%,48%)] focus:ring-2 focus:ring-[hsl(199,89%,48%,0.1)] outline-none transition-all"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[12px] font-semibold text-foreground">비밀번호 확인</label>
+              <input type="password" value={resetConfirm} onChange={(e) => setResetConfirm(e.target.value)}
+                placeholder="비밀번호 다시 입력"
+                className="w-full px-3.5 py-2.5 rounded-xl text-[13px] border border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)] focus:border-[hsl(199,89%,48%)] focus:ring-2 focus:ring-[hsl(199,89%,48%,0.1)] outline-none transition-all"
+              />
+            </div>
+            {resetError && (
+              <p className="text-[12px] text-[hsl(0,84%,60%)] bg-[hsl(0,84%,60%,0.06)] px-3 py-2 rounded-lg">{resetError}</p>
+            )}
+            {resetSuccess && (
+              <p className="text-[12px] text-[hsl(152,57%,42%)] bg-[hsl(152,57%,42%,0.06)] px-3 py-2 rounded-lg flex items-center gap-1.5">
+                <Check className="w-3 h-3" /> 비밀번호가 초기화되었습니다.
+              </p>
+            )}
+          </div>
+          <DialogFooter className="gap-2">
+            <button onClick={() => setResetTarget(null)}
+              className="px-4 py-2 rounded-xl text-[12px] font-medium text-muted-foreground bg-[hsl(220,14%,96%)] hover:bg-[hsl(220,14%,93%)] transition-colors"
+            >
+              취소
+            </button>
+            <button onClick={handleResetPassword} disabled={resetting || resetSuccess}
+              className="px-4 py-2 rounded-xl text-[12px] font-semibold text-white bg-[hsl(199,89%,48%)] hover:bg-[hsl(199,89%,42%)] transition-colors disabled:opacity-50 flex items-center gap-1.5"
+            >
+              {resetting && <Loader2 className="w-3 h-3 animate-spin" />}
+              {resetSuccess ? "완료" : "비밀번호 변경"}
             </button>
           </DialogFooter>
         </DialogContent>
