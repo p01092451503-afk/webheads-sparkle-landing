@@ -285,6 +285,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
       saveClientNotes(editing.clientId, editValue);
     } else if (editing.field === "name") {
       saveClientName(editing.clientId, editValue);
+    } else if (editing.field === "expected_payment_day") {
+      saveExpectedPaymentDay(editing.clientId, editValue);
     } else {
       saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting", editing.paymentIndex || 0);
     }
