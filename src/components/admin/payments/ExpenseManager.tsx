@@ -86,6 +86,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const todayStr = `${String(now.getMonth() + 1).padStart(2, "0")}/${String(now.getDate()).padStart(2, "0")}`;
 
   const createEmptyRow = () => ({ date: todayStr, vendor: "", description: "", amount: "", bank: "", account: "", memo: "" });
+  const createEmptyPlannedRow = () => ({ vendor: "", description: "", amount: "", memo: "" });
 
   // Form state
   const [formCategoryId, setFormCategoryId] = useState("");
