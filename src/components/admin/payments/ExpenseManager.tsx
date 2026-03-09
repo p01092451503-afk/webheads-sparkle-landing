@@ -628,7 +628,18 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               <p className="text-[11px] text-muted-foreground">
                 💡 지출항목 입력 후 Enter로 다음 행 추가 · Ctrl+S (⌘+S)로 빠르게 저장
               </p>
-              <span className="text-[11px] text-muted-foreground">{noteRows.filter(r => r.description).length}건</span>
+              <div className="flex items-center gap-4">
+                <span className="text-[12px] font-semibold text-foreground">
+                  합계: {(() => {
+                    const total = noteRows.reduce((sum, r) => {
+                      const digits = (r.amount || "").replace(/[^0-9]/g, "");
+                      return sum + (parseInt(digits) || 0);
+                    }, 0);
+                    return total > 0 ? total.toLocaleString("ko-KR") + "원" : "0원";
+                  })()}
+                </span>
+                <span className="text-[11px] text-muted-foreground">{noteRows.filter(r => r.description).length}건</span>
+              </div>
             </div>
           </div>
         </div>
