@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2, BarChart3, List, Loader2, FileText } from "lucide-react";
+import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2, BarChart3, List, Loader2, FileText, ArrowUp, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -224,6 +224,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   const removeNoteRow = (index: number) => {
     setNoteRows(prev => prev.length <= 1 ? [createEmptyRow()] : prev.filter((_, i) => i !== index));
+  };
+
+  const moveNoteRow = (index: number, direction: "up" | "down") => {
+    setNoteRows(prev => {
+      const target = direction === "up" ? index - 1 : index + 1;
+      if (target < 0 || target >= prev.length) return prev;
+      const copy = [...prev];
+      [copy[index], copy[target]] = [copy[target], copy[index]];
+      return copy;
+    });
   };
   // Global Ctrl+S for notes
   useEffect(() => {
@@ -497,7 +507,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[70px]">은행명</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">계좌번호</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[120px]">비고</th>
-                      <th className="w-[60px]" />
+                      <th className="w-[90px]" />
                     </tr>
                   </thead>
                   <tbody>
@@ -576,6 +586,22 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                         </td>
                         <td className="px-1 py-1">
                           <div className="flex items-center gap-0.5">
+                            <button
+                              onClick={() => moveNoteRow(idx, "up")}
+                              disabled={idx === 0}
+                              className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                              title="위로"
+                            >
+                              <ArrowUp className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={() => moveNoteRow(idx, "down")}
+                              disabled={idx === noteRows.length - 1}
+                              className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-muted text-muted-foreground hover:text-foreground transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                              title="아래로"
+                            >
+                              <ArrowDown className="w-3 h-3" />
+                            </button>
                             <button
                               onClick={() => saveNote()}
                               className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-green-50 text-muted-foreground hover:text-green-600 transition-all"
