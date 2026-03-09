@@ -141,7 +141,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
 
   // Fetch expense notes for current month
   useEffect(() => {
-    if (!showNotes) return;
+    if (!showNotes && !showPlanned) return;
     setNoteLoading(true);
     (async () => {
       const { data } = await supabase
@@ -155,9 +155,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       try {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
+          // Legacy array format — only rows, no planned
           setNoteRows(parsed.length > 0 ? parsed : [createEmptyRow()]);
+          setPlannedRows([createEmptyPlannedRow()]);
+        } else if (parsed && typeof parsed === "object" && parsed.rows) {
+          // New format: { rows: [...], planned: [...] }
+          setNoteRows(parsed.rows?.length > 0 ? parsed.rows : [createEmptyRow()]);
+          setPlannedRows(parsed.planned?.length > 0 ? parsed.planned : [createEmptyPlannedRow()]);
         } else {
           setNoteRows([createEmptyRow()]);
+          setPlannedRows([createEmptyPlannedRow()]);
         }
       } catch {
         // Legacy text content → convert to rows
@@ -174,10 +181,11 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
         } else {
           setNoteRows([createEmptyRow()]);
         }
+        setPlannedRows([createEmptyPlannedRow()]);
       }
       setNoteLoading(false);
     })();
-  }, [showNotes, viewYear, viewMonth]);
+  }, [showNotes, showPlanned, viewYear, viewMonth]);
 
   const saveNote = useCallback(async () => {
     setNoteSaving(true);
