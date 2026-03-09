@@ -207,11 +207,22 @@ Deno.serve(async (req) => {
     const blocks = buildBlocks(notification);
     const fallbackText = `${notification.title}`;
 
-    const channelCandidates = buildChannelCandidates(channelName);
+    let resolvedChannelId: string | null = null;
+    try {
+      resolvedChannelId = await resolveChannelId(channelName);
+    } catch (resolveError) {
+      console.warn("Channel resolve failed, fallback to raw channel values:", resolveError);
+    }
+
+    const channelCandidates = [
+      ...(resolvedChannelId ? [resolvedChannelId] : []),
+      ...buildChannelCandidates(channelName),
+    ];
+
     let delivered = false;
     let lastError: unknown = null;
 
-    for (const channel of channelCandidates) {
+    for (const channel of [...new Set(channelCandidates)]) {
       try {
         await sendSlackMessage(channel, blocks, fallbackText);
         delivered = true;
