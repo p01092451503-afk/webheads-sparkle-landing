@@ -532,8 +532,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                           <input
                             value={row.amount}
                             onChange={(e) => {
-                              const raw = e.target.value.replace(/[^0-9,원₩\s]/g, "");
-                              updateNoteRow(idx, "amount", raw);
+                              const digits = e.target.value.replace(/[^0-9]/g, "");
+                              const formatted = digits ? Number(digits).toLocaleString("ko-KR") + "원" : "";
+                              updateNoteRow(idx, "amount", formatted);
                             }}
                             placeholder="0원"
                             className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors font-medium"
