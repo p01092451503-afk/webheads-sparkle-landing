@@ -73,6 +73,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [catModalOpen, setCatModalOpen] = useState(false);
   const [newCatName, setNewCatName] = useState("");
+  const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [catFilter, setCatFilter] = useState<string>("all");
   const [showStats, setShowStats] = useState(false);
   const [showNotes, setShowNotes] = useState(false);
@@ -401,11 +402,14 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   };
 
   const addCategory = async () => {
-    if (!newCatName.trim()) return;
+    const trimmedName = newCatName.trim();
+    if (!trimmedName || isAddingCategory) return;
+
+    setIsAddingCategory(true);
     try {
       const maxOrder = Math.max(0, ...categories.map((c) => c.sort_order));
       const { error } = await supabase.from("expense_categories" as any).insert({
-        name: newCatName.trim(),
+        name: trimmedName,
         sort_order: maxOrder + 1,
         color: "bg-gray-100 text-gray-600",
       } as any);
@@ -415,6 +419,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       toast.success("카테고리가 추가되었습니다");
     } catch (e: any) {
       toast.error(e.message || "추가 실패");
+    } finally {
+      setIsAddingCategory(false);
     }
   };
 
@@ -891,9 +897,19 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                     onChange={(e) => setNewCatName(e.target.value)}
                     placeholder="새 카테고리"
                     className="h-7 text-[12px]"
-                    onKeyDown={(e) => e.key === "Enter" && addCategory()}
+                    onKeyDown={(e) => {
+                      if (e.key !== "Enter") return;
+                      if ((e.nativeEvent as KeyboardEvent).isComposing) return;
+                      e.preventDefault();
+                      void addCategory();
+                    }}
                   />
-                  <Button size="sm" onClick={addCategory} className="h-7 px-2 text-[11px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+                  <Button
+                    size="sm"
+                    onClick={addCategory}
+                    disabled={isAddingCategory}
+                    className="h-7 px-2 text-[11px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]"
+                  >
                     <Plus className="w-3 h-3" />
                   </Button>
                 </div>
