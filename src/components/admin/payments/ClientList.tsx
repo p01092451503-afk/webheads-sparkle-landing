@@ -407,12 +407,12 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           "미납금": unpaidTotal,
         };
 
-        // Add per-type columns for current month
+        // Add per-type columns for current month (sum all payments of same type)
         PAYMENT_TYPES.forEach((t) => {
-          const p = payments.find(
-            (p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type === t.value
-          );
-          row[t.label] = p?.amount || 0;
+          const typeTotal = payments
+            .filter((p) => p.client_id === c.id && p.year === cy && p.month === cm && p.payment_type === t.value)
+            .reduce((s, p) => s + (p.amount || 0), 0);
+          row[t.label] = typeTotal;
         });
 
         let total = 0;
