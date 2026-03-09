@@ -215,7 +215,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       const newRow = createEmptyRow();
       if (atIndex !== undefined) {
         const copy = [...prev];
-        copy.splice(atIndex + 1, 0, newRow);
+        copy.splice(atIndex, 0, newRow);
         return copy;
       }
       return [newRow, ...prev];
