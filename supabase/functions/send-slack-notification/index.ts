@@ -30,22 +30,29 @@ function getHeaders() {
   };
 }
 
-// Format channel for chat.postMessage (accepts #name or channel ID)
-function formatChannel(channelName: string): string {
-  // Already a channel ID
-  if (channelName.startsWith("C") && /^C[A-Z0-9]+$/.test(channelName)) {
-    return channelName;
+// Build channel candidates for robust delivery (ID, raw name, #name)
+function buildChannelCandidates(channelInput: string): string[] {
+  const trimmed = (channelInput || "").trim();
+
+  // Channel ID (preferred)
+  if (/^C[A-Z0-9]+$/.test(trimmed)) {
+    return [trimmed];
   }
-  // Ensure # prefix for channel name lookup
-  const name = channelName.replace(/^#/, "");
-  return `#${name}`;
+
+  const base = trimmed.replace(/^#/, "");
+  const candidates = [trimmed, base, `#${base}`]
+    .map((c) => c.trim())
+    .filter(Boolean);
+
+  // Unique preserve order
+  return [...new Set(candidates)];
 }
 
-async function sendSlackMessage(channelId: string, blocks: any[], text: string) {
+async function sendSlackMessage(channel: string, blocks: any[], text: string) {
   const response = await fetch(`${GATEWAY_URL}/chat.postMessage`, {
     method: "POST",
-    headers: getHeaders(),
-    body: JSON.stringify({ channel: channelId, blocks, text, username: "WEBHEADS Bot", icon_emoji: ":globe_with_meridians:" }),
+    headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({ channel, blocks, text, username: "WEBHEADS Bot", icon_emoji: ":globe_with_meridians:" }),
   });
 
   const data = await response.json();
@@ -54,6 +61,88 @@ async function sendSlackMessage(channelId: string, blocks: any[], text: string) 
   }
   return data;
 }
+
+async function joinSlackChannel(channelId: string) {
+  const response = await fetch(`${GATEWAY_URL}/conversations.join`, {
+    method: "POST",
+    headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({ channel: channelId }),
+  });
+
+  const data = await response.json();
+  if (!response.ok || !data.ok) {
+    throw new Error(`Slack API error [${response.status}]: ${JSON.stringify(data)}`);
+  }
+
+  return data;
+}
+
+async function listConversationsPage(cursor?: string) {
+  const response = await fetch(`${GATEWAY_URL}/conversations.list`, {
+    method: "POST",
+    headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({
+      types: "public_channel,private_channel",
+      exclude_archived: true,
+      limit: 200,
+      cursor,
+    }),
+  });
+
+  const data = await response.json();
+  if (!response.ok || !data.ok) {
+    throw new Error(`Slack API error [${response.status}]: ${JSON.stringify(data)}`);
+  }
+
+  return data;
+}
+
+async function resolveChannelId(channelInput: string): Promise<string | null> {
+  if (/^C[A-Z0-9]+$/.test(channelInput)) return channelInput;
+
+  const targetName = channelInput.replace(/^#/, "").toLowerCase();
+  let cursor: string | undefined;
+
+  for (let i = 0; i < 10; i += 1) {
+    const data = await listConversationsPage(cursor);
+
+    const match = (data.channels || []).find((ch: { id?: string; name?: string }) =>
+      (ch.name || "").toLowerCase() === targetName
+    );
+
+    if (match?.id) return match.id;
+
+    const nextCursor = data.response_metadata?.next_cursor;
+    if (!nextCursor) break;
+    cursor = nextCursor;
+  }
+
+  return null;
+}
+
+async function findFallbackWritableChannelId(): Promise<string | null> {
+  let cursor: string | undefined;
+
+  for (let i = 0; i < 10; i += 1) {
+    const data = await listConversationsPage(cursor);
+    const channels = data.channels || [];
+
+    const memberChannel = channels.find((ch: { id?: string; is_member?: boolean }) =>
+      !!ch.id && ch.is_member === true
+    );
+    if (memberChannel?.id) return memberChannel.id;
+
+    const anyChannel = channels.find((ch: { id?: string }) => !!ch.id);
+    if (anyChannel?.id) return anyChannel.id;
+
+    const nextCursor = data.response_metadata?.next_cursor;
+    if (!nextCursor) break;
+    cursor = nextCursor;
+  }
+
+  return null;
+}
+
 
 const DASHBOARD_URL = "https://webheads-service.lovable.app/admin";
 
@@ -160,12 +249,65 @@ Deno.serve(async (req) => {
       });
     }
 
-    const channel = formatChannel(channelName);
-
     const blocks = buildBlocks(notification);
     const fallbackText = `${notification.title}`;
 
-    await sendSlackMessage(channel, blocks, fallbackText);
+    let resolvedChannelId: string | null = null;
+    let fallbackWritableChannelId: string | null = null;
+
+    try {
+      resolvedChannelId = await resolveChannelId(channelName);
+      if (!resolvedChannelId) {
+        fallbackWritableChannelId = await findFallbackWritableChannelId();
+      }
+    } catch (resolveError) {
+      console.warn("Channel resolve failed, fallback to raw channel values:", resolveError);
+    }
+
+    const channelCandidates = [
+      ...(resolvedChannelId ? [resolvedChannelId] : []),
+      ...buildChannelCandidates(channelName),
+      ...(fallbackWritableChannelId ? [fallbackWritableChannelId] : []),
+    ];
+
+    let delivered = false;
+    let lastError: unknown = null;
+
+    for (const channel of [...new Set(channelCandidates)]) {
+      try {
+        await sendSlackMessage(channel, blocks, fallbackText);
+        delivered = true;
+        break;
+      } catch (err) {
+        lastError = err;
+        const errorMessage = err instanceof Error ? err.message : String(err);
+
+        if (errorMessage.includes("not_in_channel") && /^C[A-Z0-9]+$/.test(channel)) {
+          try {
+            await joinSlackChannel(channel);
+            await sendSlackMessage(channel, blocks, fallbackText);
+            delivered = true;
+            break;
+          } catch (joinErr) {
+            lastError = joinErr;
+            const joinMessage = joinErr instanceof Error ? joinErr.message : String(joinErr);
+            if (!joinMessage.includes("not_in_channel") && !joinMessage.includes("missing_scope")) {
+              throw joinErr;
+            }
+            continue;
+          }
+        }
+
+        // Retry only on channel resolution or membership issues
+        if (!errorMessage.includes("channel_not_found") && !errorMessage.includes("not_in_channel")) throw err;
+      }
+    }
+
+    if (!delivered) {
+      throw new Error(
+        `Slack channel delivery failed for "${channelName}". 채널명을 정확히 입력하거나 채널 ID(C...)를 사용하고, 필요 시 Slack에서 'Lovable App'을 해당 채널에 초대해 주세요. Last error: ${lastError instanceof Error ? lastError.message : String(lastError)}`,
+      );
+    }
 
     return new Response(JSON.stringify({ ok: true }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
