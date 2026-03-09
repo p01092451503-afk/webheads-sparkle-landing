@@ -587,6 +587,13 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
                           <Shield className="w-3 h-3" />
                         </button>
                       )}
+                      <button
+                        onClick={() => { setResetTarget(admin); setResetError(""); setResetPassword(""); setResetConfirm(""); setResetSuccess(false); }}
+                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-[hsl(199,89%,48%)] bg-[hsl(199,89%,48%,0.06)] hover:bg-[hsl(199,89%,48%,0.1)] transition-all"
+                        title="비밀번호 초기화"
+                      >
+                        <KeyRound className="w-3 h-3" />
+                      </button>
                       {admin.role !== "super_admin" && (
                         <button
                           onClick={() => { setDeleteTarget(admin); setDeleteError(""); }}
