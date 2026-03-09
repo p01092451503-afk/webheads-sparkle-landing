@@ -482,12 +482,12 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 <table className="w-full text-[13px]">
                   <thead>
                     <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[90px]">날짜</th>
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[150px]">지출처</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[70px]">날짜</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[60px]">지출처</th>
                       <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground">지출항목</th>
-                      <th className="text-right px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">금액</th>
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[100px]">은행명</th>
-                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[160px]">계좌번호</th>
+                      <th className="text-right px-3 py-2.5 font-semibold text-muted-foreground w-[56px]">금액</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[40px]">은행명</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[64px]">계좌번호</th>
                       <th className="w-[60px]" />
                     </tr>
                   </thead>
