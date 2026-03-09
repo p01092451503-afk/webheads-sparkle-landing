@@ -55,9 +55,10 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const MENU_OPTIONS = [
     { key: "analytics", label: "분석" },
     { key: "inquiries", label: "문의" },
+    { key: "settings", label: "설정" },
+    { key: "404logs", label: "404" },
     { key: "payments", label: "입금관리" },
     { key: "expenses", label: "지출관리" },
-    { key: "settings", label: "설정" },
   ];
 
   // Notification settings
