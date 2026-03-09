@@ -13,6 +13,7 @@ const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
 const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseManager"));
+const Admin404Logs = lazy(() => import("@/components/admin/Admin404Logs"));
 
 type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses";
 type UserRole = "super_admin" | "admin" | "user";
