@@ -55,6 +55,16 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/요금제": "/pricing",
 };
 
+// 취약점 스캔 봇이 접근하는 경로 패턴 (404 로깅만 하고 UI 표시하지 않음)
+const VULN_SCAN_PATTERNS = [
+  /^\/gnu\//i, /^\/bbs\//i, /^\/board\//i,
+  /^\/wp-admin/i, /^\/wp-content/i, /^\/wp-includes/i, /^\/wp-login/i,
+  /^\/xmlrpc\.php/i, /^\/administrator/i, /^\/phpmyadmin/i,
+  /^\/\.env/i, /^\/\.git/i, /^\/cgi-bin/i,
+  /^\/vendor\//i, /^\/config\.php/i, /^\/install\//i,
+  /^\/setup\//i, /^\/test\.php/i, /^\/shell/i,
+];
+
 const NotFound = () => {
   const location = useLocation();
   const { i18n } = useTranslation();
