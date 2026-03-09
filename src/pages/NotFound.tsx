@@ -50,6 +50,9 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/%ed%9a%8c%ec%9b%90%ea%b0%80%ec%9e%85/%ec%95%84%ec%9d%b4%eb%94%94%20%ec%b0%be%ea%b8%b0": "/",
   "/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85/%EC%95%84%EC%9D%B4%EB%94%94%20%EC%B0%BE%EA%B8%B0": "/",
   "/회원가입/아이디 찾기": "/",
+  "/%ec%9a%94%ea%b8%88%ec%a0%9c": "/pricing",
+  "/%EC%9A%94%EA%B8%88%EC%A0%9C": "/pricing",
+  "/요금제": "/pricing",
 };
 
 const NotFound = () => {
