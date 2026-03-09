@@ -45,11 +45,24 @@ const NotFound = () => {
   const legacyPath = location.pathname.toLowerCase();
   const redirectTo = LEGACY_REDIRECTS[legacyPath];
 
+  const loggedRef = useRef(false);
+
   useEffect(() => {
-    if (!redirectTo) {
+    if (!redirectTo && !loggedRef.current) {
+      loggedRef.current = true;
       console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+
+      const sessionId = sessionStorage.getItem("_wh_session_id") || undefined;
+      supabase.from("not_found_logs").insert({
+        path: location.pathname + location.search,
+        referrer: document.referrer || null,
+        user_agent: navigator.userAgent || null,
+        session_id: sessionId ?? null,
+      }).then(({ error }) => {
+        if (error) console.error("Failed to log 404:", error.message);
+      });
     }
-  }, [location.pathname, redirectTo]);
+  }, [location.pathname, location.search, redirectTo]);
 
   if (redirectTo) {
     return <Navigate to={redirectTo} replace />;
