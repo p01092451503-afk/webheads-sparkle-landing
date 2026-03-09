@@ -235,8 +235,13 @@ Deno.serve(async (req) => {
     const fallbackText = `${notification.title}`;
 
     let resolvedChannelId: string | null = null;
+    let fallbackWritableChannelId: string | null = null;
+
     try {
       resolvedChannelId = await resolveChannelId(channelName);
+      if (!resolvedChannelId) {
+        fallbackWritableChannelId = await findFallbackWritableChannelId();
+      }
     } catch (resolveError) {
       console.warn("Channel resolve failed, fallback to raw channel values:", resolveError);
     }
@@ -244,6 +249,7 @@ Deno.serve(async (req) => {
     const channelCandidates = [
       ...(resolvedChannelId ? [resolvedChannelId] : []),
       ...buildChannelCandidates(channelName),
+      ...(fallbackWritableChannelId ? [fallbackWritableChannelId] : []),
     ];
 
     let delivered = false;
