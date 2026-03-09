@@ -11,6 +11,7 @@ const PaymentModal = lazy(() => import("./PaymentModal"));
 const ClientModal = lazy(() => import("./ClientModal"));
 const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
 const PaymentExpected = lazy(() => import("./PaymentExpected"));
+const PaymentIssues = lazy(() => import("./PaymentIssues"));
 const ExpenseManager = lazy(() => import("./ExpenseManager"));
 
 type Client = import("./paymentTypes").PaymentClient;
