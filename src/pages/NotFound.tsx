@@ -31,6 +31,8 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/sub/contact": "/#contact",
   "/sub/about.php": "/overview",
   "/sub/about": "/overview",
+  "/%EA%B5%AC%EC%B6%95%ED%98%95lms": "/lms",
+  "/구축형lms": "/lms",
 };
 
 const NotFound = () => {
