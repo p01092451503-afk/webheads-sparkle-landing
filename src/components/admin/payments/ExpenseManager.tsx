@@ -402,11 +402,14 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   };
 
   const addCategory = async () => {
-    if (!newCatName.trim()) return;
+    const trimmedName = newCatName.trim();
+    if (!trimmedName || isAddingCategory) return;
+
+    setIsAddingCategory(true);
     try {
       const maxOrder = Math.max(0, ...categories.map((c) => c.sort_order));
       const { error } = await supabase.from("expense_categories" as any).insert({
-        name: newCatName.trim(),
+        name: trimmedName,
         sort_order: maxOrder + 1,
         color: "bg-gray-100 text-gray-600",
       } as any);
@@ -416,6 +419,8 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       toast.success("카테고리가 추가되었습니다");
     } catch (e: any) {
       toast.error(e.message || "추가 실패");
+    } finally {
+      setIsAddingCategory(false);
     }
   };
 
