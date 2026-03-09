@@ -1,0 +1,1 @@
+UPDATE payments SET invoice_status = 'none' WHERE invoice_status = 'pre';
