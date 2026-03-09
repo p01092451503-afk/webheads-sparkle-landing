@@ -225,6 +225,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const removeNoteRow = (index: number) => {
     setNoteRows(prev => prev.length <= 1 ? [createEmptyRow()] : prev.filter((_, i) => i !== index));
   };
+
+  const moveNoteRow = (index: number, direction: "up" | "down") => {
+    setNoteRows(prev => {
+      const target = direction === "up" ? index - 1 : index + 1;
+      if (target < 0 || target >= prev.length) return prev;
+      const copy = [...prev];
+      [copy[index], copy[target]] = [copy[target], copy[index]];
+      return copy;
+    });
+  };
   // Global Ctrl+S for notes
   useEffect(() => {
     if (!showNotes) return;
