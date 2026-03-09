@@ -504,11 +504,13 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
 
       {expanded && !editing && (
         <div data-proposal-content className="bg-white rounded-xl border border-[hsl(220,13%,93%)] p-5 sm:p-6" style={{ fontSize: `${fontSize}px` }}>
-          <h2 className="text-[1.2em] font-bold text-foreground tracking-[-0.02em] mb-2">{proposal.title}</h2>
-          <p className="text-[0.85em] text-muted-foreground mb-6 leading-relaxed">{proposal.summary}</p>
+          <div data-pdf-section>
+            <h2 className="text-[1.2em] font-bold text-foreground tracking-[-0.02em] mb-2">{proposal.title}</h2>
+            <p className="text-[0.85em] text-muted-foreground mb-6 leading-relaxed">{proposal.summary}</p>
+          </div>
 
           {proposal.sections.map((section, idx) => (
-            <div key={idx} className="mb-6">
+            <div key={idx} data-pdf-section className="mb-6">
               <h3 className="text-[0.95em] font-bold text-foreground border-l-[3px] border-[hsl(152,57%,42%)] pl-3 mb-3">
                 {section.heading}
               </h3>
@@ -518,7 +520,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
             </div>
           ))}
 
-          <div className="mt-8 pt-4 border-t border-[hsl(220,13%,93%)] text-center">
+          <div data-pdf-section className="mt-8 pt-4 border-t border-[hsl(220,13%,93%)] text-center">
             <p className="text-[0.9em] text-foreground">
               {companyInfo.name} | {companyInfo.address} | {companyInfo.phone} | {companyInfo.website}
             </p>
