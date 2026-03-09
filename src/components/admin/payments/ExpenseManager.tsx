@@ -482,7 +482,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
           <CalendarClock className="w-3.5 h-3.5" />지출예정
         </button>
         <button
-          onClick={() => { setShowStats(true); setShowNotes(false); }}
+          onClick={() => { setShowStats(true); setShowNotes(false); setShowPlanned(false); }}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
             showStats ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
           }`}
