@@ -394,7 +394,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
   const statusBadge = (status: string, clientId: string) => {
     const base = "cursor-pointer transition-all hover:scale-105 text-[11px]";
     switch (status) {
-      case "paid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-emerald-100 text-emerald-700 hover:bg-emerald-200 ${base}`}>납부완료</Badge>;
+      case "paid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-emerald-100 text-emerald-700 hover:bg-emerald-200 ${base}`}>납부</Badge>;
       case "unpaid": return <Badge onClick={() => toggleClientStatus(clientId, status)} className={`bg-red-100 text-red-700 hover:bg-red-200 ${base}`}>미납</Badge>;
     }
   };
@@ -494,7 +494,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">전체</SelectItem>
-              <SelectItem value="paid">납부완료</SelectItem>
+              <SelectItem value="paid">납부</SelectItem>
               <SelectItem value="unpaid">미납</SelectItem>
               
             </SelectContent>
@@ -800,7 +800,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                                 ? "bg-red-100 text-red-600 hover:bg-red-200"
                                                 : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
                                             }`}
-                                            title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                            title={isUnpaid ? "미납 → 납부" : "납부 → 미납"}
                                           >
                                             {isUnpaid ? "!" : "✓"}
                                           </button>
