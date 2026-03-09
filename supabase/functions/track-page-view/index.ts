@@ -107,8 +107,21 @@ function hasFakeUA(ua: string): boolean {
   if (/iPhone OS 16_0.*Version\/[3-9][0-9]\./i.test(ua)) return true;
   // Chrome 145+ on old iOS is suspicious
   if (/iPhone OS 1[0-5]_.*Chrome\/14[5-9]\./i.test(ua)) return true;
+  // iPhone OS 11_0 with Safari version 26+ (impossible)
+  if (/iPhone OS 11_0.*Version\/2[6-9]\./i.test(ua)) return true;
   return false;
 }
+
+// Known vulnerability scan paths — these are never valid routes
+const VULN_SCAN_PATHS = [
+  /^\/gnu\//i, /^\/bbs\//i, /^\/board\//i,
+  /^\/wp-admin/i, /^\/wp-content/i, /^\/wp-includes/i, /^\/wp-login/i,
+  /^\/xmlrpc\.php/i, /^\/administrator/i, /^\/phpmyadmin/i,
+  /^\/\.env/i, /^\/\.git/i, /^\/\.well-known\/security/i,
+  /^\/cgi-bin/i, /^\/shell/i, /^\/cmd/i, /^\/eval/i,
+  /^\/vendor\//i, /^\/config\.php/i, /^\/install\//i,
+  /^\/setup\//i, /^\/debug/i, /^\/test\.php/i,
+];
 
 function classifyVisitor(ua: string, ip: string | null): string {
   const lowerUA = ua.toLowerCase();
