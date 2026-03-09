@@ -503,15 +503,22 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                         </td>
                         <td className="px-2 py-1">
                           <input
+                            value={row.vendor || ""}
+                            onChange={(e) => updateNoteRow(idx, "vendor", e.target.value)}
+                            placeholder="지출처"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors"
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
                             value={row.description}
                             onChange={(e) => updateNoteRow(idx, "description", e.target.value)}
-                            placeholder="지출 항목 입력"
+                            placeholder="지출항목 입력"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors"
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
                                 if (idx === noteRows.length - 1) addNoteRow();
-                                // Focus next row's description
                                 setTimeout(() => {
                                   const inputs = document.querySelectorAll<HTMLInputElement>('[data-note-desc]');
                                   inputs[idx + 1]?.focus();
