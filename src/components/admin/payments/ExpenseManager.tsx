@@ -211,7 +211,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   };
 
   const addNoteRow = () => {
-    setNoteRows(prev => [...prev, createEmptyRow()]);
+    setNoteRows(prev => [createEmptyRow(), ...prev]);
   };
 
   const removeNoteRow = (index: number) => {
