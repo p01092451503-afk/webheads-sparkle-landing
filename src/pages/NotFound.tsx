@@ -96,6 +96,11 @@ const NotFound = () => {
     return <Navigate to={redirectTo} replace />;
   }
 
+  // 취약점 스캔 봇 경로는 빈 페이지 반환 (리소스 낭비 방지)
+  if (isVulnScan) {
+    return <div className="min-h-screen bg-background" />;
+  }
+
   const content = lang === "en"
     ? {
         code: "404",
