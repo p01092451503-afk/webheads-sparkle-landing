@@ -272,6 +272,8 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     if (!editing) return;
     if (editing.field === "notes") {
       saveClientNotes(editing.clientId, editValue);
+    } else if (editing.field === "name") {
+      saveClientName(editing.clientId, editValue);
     } else {
       saveCell(editing.clientId, editing.field, editValue, editing.paymentType || "hosting", editing.paymentIndex || 0);
     }
