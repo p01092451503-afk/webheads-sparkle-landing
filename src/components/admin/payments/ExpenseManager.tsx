@@ -165,7 +165,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             if (match) {
               return { date: match[1], description: match[2], amount: "", account: "" };
             }
-            return { date: "", vendor: "", description: line.trim(), amount: "", account: "" };
+            return { date: "", vendor: "", description: line.trim(), amount: "", bank: "", account: "" };
           });
           setNoteRows(rows.length > 0 ? rows : [createEmptyRow()]);
         } else {
