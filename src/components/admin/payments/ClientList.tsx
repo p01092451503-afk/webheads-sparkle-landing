@@ -430,7 +430,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           "No": c.client_no,
           "고객사명": c.name,
           "예상납부일": c.expected_payment_day || "",
-          "비고": c.notes || "",
+          
           "미납금": unpaidTotal,
         };
 
