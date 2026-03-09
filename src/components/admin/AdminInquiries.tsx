@@ -198,6 +198,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setUploadingFile(false);
   };
 
+  const getPublicUrl = (filePath: string) => {
     const { data } = supabase.storage.from("inquiry-attachments").getPublicUrl(filePath);
     return data.publicUrl;
   };
