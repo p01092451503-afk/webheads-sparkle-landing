@@ -617,17 +617,39 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                 return (
                   <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
                     <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
-                    <td className="px-3 py-3 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5">
-                        <button
-                          onClick={() => onNavigate("detail", c.id)}
-                          className="font-medium text-[hsl(221,83%,53%)] hover:underline"
-                        >
-                          {c.name}
-                        </button>
-                        {annualClients.has(c.id) && (
+                    <td className="px-2 py-1.5 whitespace-nowrap">
+                      <div className="relative flex items-center gap-1.5">
+                        {editing?.clientId === c.id && editing.field === "name" ? (
+                          <input
+                            ref={inputRef}
+                            value={editValue}
+                            onChange={(e) => setEditValue(e.target.value)}
+                            onBlur={commitEdit}
+                            onKeyDown={handleKeyDown}
+                            placeholder="고객사명"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20 font-medium"
+                          />
+                        ) : (
+                          <>
+                            <button
+                              onClick={() => onNavigate("detail", c.id)}
+                              className="font-medium text-[hsl(221,83%,53%)] hover:underline"
+                            >
+                              {c.name}
+                            </button>
+                            <button
+                              onClick={() => startEditing(c.id, "name")}
+                              className="p-0.5 rounded hover:bg-[hsl(220,14%,93%)] text-muted-foreground/40 hover:text-muted-foreground transition-colors opacity-0 group-hover/row:opacity-100"
+                              title="고객사명 수정"
+                            >
+                              <Edit2 className="w-3 h-3" />
+                            </button>
+                          </>
+                        )}
+                        {annualClients.has(c.id) && !editing?.field && (
                           <span className="text-[9px] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 font-medium">연간</span>
                         )}
+                        <SavedCheck cellKey={`${c.id}-name`} />
                       </div>
                     </td>
                     <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.expected_payment_day || "-"}</td>
