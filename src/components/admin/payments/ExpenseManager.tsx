@@ -210,8 +210,16 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setNoteRows(prev => prev.map((r, i) => i === index ? { ...r, [field]: value } : r));
   };
 
-  const addNoteRow = () => {
-    setNoteRows(prev => [createEmptyRow(), ...prev]);
+  const addNoteRow = (atIndex?: number) => {
+    setNoteRows(prev => {
+      const newRow = createEmptyRow();
+      if (atIndex !== undefined) {
+        const copy = [...prev];
+        copy.splice(atIndex + 1, 0, newRow);
+        return copy;
+      }
+      return [newRow, ...prev];
+    });
   };
 
   const removeNoteRow = (index: number) => {
@@ -457,7 +465,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={addNoteRow}
+                  onClick={() => addNoteRow()}
                   className="h-8 text-[12px]"
                 >
                   <Plus className="w-3.5 h-3.5 mr-1" />행 추가
@@ -520,7 +528,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
                                 e.preventDefault();
-                                if (idx === noteRows.length - 1) addNoteRow();
+                                addNoteRow(idx);
                                 setTimeout(() => {
                                   const inputs = document.querySelectorAll<HTMLInputElement>('[data-note-desc]');
                                   inputs[idx + 1]?.focus();
