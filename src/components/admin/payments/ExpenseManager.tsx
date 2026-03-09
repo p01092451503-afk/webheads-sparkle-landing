@@ -281,7 +281,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   };
   // Global Ctrl+S for notes
   useEffect(() => {
-    if (!showNotes) return;
+    if (!showNotes && !showPlanned) return;
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "s") {
         e.preventDefault();
@@ -290,7 +290,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [showNotes, saveNote]);
+  }, [showNotes, showPlanned, saveNote]);
 
   const clients = externalClients || internalClients;
 
