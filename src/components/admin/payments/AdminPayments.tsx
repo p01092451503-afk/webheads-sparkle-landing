@@ -316,7 +316,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
         />
       </Suspense>
 
-      {/* Delete Confirmation */}
+      {/* Delete Payment Confirmation */}
       <AlertDialog open={!!deletePaymentId} onOpenChange={(v) => !v && setDeletePaymentId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -328,6 +328,25 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
           <AlertDialogFooter>
             <AlertDialogCancel className="text-[13px]">취소</AlertDialogCancel>
             <AlertDialogAction onClick={handleDeletePayment} className="bg-red-600 hover:bg-red-700 text-[13px]">
+              삭제
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Delete Client Confirmation */}
+      <AlertDialog open={!!deleteClientId} onOpenChange={(v) => !v && setDeleteClientId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-[16px]">고객사 삭제</AlertDialogTitle>
+            <AlertDialogDescription className="text-[13px]">
+              이 고객사를 삭제하시겠습니까?<br />
+              해당 고객사의 <strong>모든 입금 기록과 정기결제 설정</strong>도 함께 삭제됩니다. 이 작업은 되돌릴 수 없습니다.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="text-[13px]">취소</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteClient} className="bg-red-600 hover:bg-red-700 text-[13px]">
               삭제
             </AlertDialogAction>
           </AlertDialogFooter>
