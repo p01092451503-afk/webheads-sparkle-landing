@@ -227,12 +227,14 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [onRefresh, showSaved]);
 
-  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes", paymentType: string = "hosting", paymentIndex: number = 0) => {
+  const startEditing = (clientId: string, field: "amount" | "paid_date" | "notes" | "name", paymentType: string = "hosting", paymentIndex: number = 0) => {
     const client = clientData.find((c) => c.id === clientId);
     if (!client) return;
 
     if (field === "notes") {
       setEditValue(client.notes || "");
+    } else if (field === "name") {
+      setEditValue(client.name || "");
     } else {
       const payment = (client.byType[paymentType] || [])[paymentIndex];
       if (field === "amount") {
