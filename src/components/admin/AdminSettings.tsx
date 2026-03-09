@@ -242,7 +242,31 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
     setDeleting(false);
   };
 
-  const handlePasswordChange = async (e: React.FormEvent) => {
+  const handleResetPassword = async () => {
+    if (!resetTarget) return;
+    setResetError("");
+    setResetSuccess(false);
+    if (!resetPassword || resetPassword.length < 6) { setResetError("비밀번호는 6자 이상이어야 합니다."); return; }
+    if (resetPassword !== resetConfirm) { setResetError("비밀번호가 일치하지 않습니다."); return; }
+    setResetting(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("manage-admins", {
+        body: { action: "reset_password", target_user_id: resetTarget.user_id, new_password: resetPassword },
+      });
+      if (error) throw error;
+      if (data.error) { setResetError(data.error); setResetting(false); return; }
+      await logActivity("reset_admin_password", "admin", resetTarget.user_id, { email: resetTarget.email });
+      setResetSuccess(true);
+      setResetPassword("");
+      setResetConfirm("");
+      setTimeout(() => { setResetTarget(null); setResetSuccess(false); }, 1500);
+    } catch (e: any) {
+      setResetError(e.message || "비밀번호 초기화에 실패했습니다.");
+    }
+    setResetting(false);
+  };
+
+
     e.preventDefault();
     setError(null);
     setSuccess(false);
