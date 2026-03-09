@@ -217,6 +217,18 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const removeNoteRow = (index: number) => {
     setNoteRows(prev => prev.length <= 1 ? [createEmptyRow()] : prev.filter((_, i) => i !== index));
   };
+  // Global Ctrl+S for notes
+  useEffect(() => {
+    if (!showNotes) return;
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "s") {
+        e.preventDefault();
+        saveNote();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [showNotes, saveNote]);
 
   const clients = externalClients || internalClients;
 
