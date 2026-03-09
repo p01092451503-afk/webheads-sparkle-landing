@@ -32,6 +32,7 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/sub/about.php": "/overview",
   "/sub/about": "/overview",
   "/%EA%B5%AC%EC%B6%95%ED%98%95lms": "/lms",
+  "/%ea%b5%ac%ec%b6%95%ed%98%95lms": "/lms",
   "/구축형lms": "/lms",
 };
 
