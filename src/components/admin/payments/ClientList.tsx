@@ -777,29 +777,11 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                           >
                                             {getInvoiceStatusLabel(invoiceStatus)}
                                           </button>
-                                          <Popover>
-                                            <PopoverTrigger asChild>
-                                              <button
-                                                className={`p-0.5 rounded transition-colors ${payment.memo ? "text-[hsl(221,83%,53%)]" : "text-muted-foreground/30 hover:text-muted-foreground/60"}`}
-                                                title={payment.memo || "메모 추가"}
-                                              >
-                                                <MessageSquare className="w-3 h-3" />
-                                              </button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="w-56 p-2" align="start">
-                                              <textarea
-                                                defaultValue={payment.memo || ""}
-                                                placeholder="메모 입력..."
-                                                rows={3}
-                                                className="w-full px-2 py-1.5 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] resize-none focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
-                                                onBlur={(e) => {
-                                                  if (e.target.value !== (payment.memo || "")) {
-                                                    saveMemo(c.id, typeValue, e.target.value, idx);
-                                                  }
-                                                }}
-                                              />
-                                            </PopoverContent>
-                                          </Popover>
+                                          {payment.memo && (
+                                            <span className="text-[9px] text-muted-foreground truncate max-w-[50px]" title={payment.memo}>
+                                              {payment.memo}
+                                            </span>
+                                          )}
                                           <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-invoice`} />
                                           <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-memo`} />
                                         </div>
