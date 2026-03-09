@@ -292,6 +292,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             onDeletePayment={(id) => setDeletePaymentId(id)}
             onEditClient={() => handleEditClient(selectedClient)}
             onToggleUnpaid={handleToggleUnpaid}
+            onDeleteClient={() => setDeleteClientId(selectedClient.id)}
           />
         )}
       </Suspense>
