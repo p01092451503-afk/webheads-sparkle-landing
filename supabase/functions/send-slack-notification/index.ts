@@ -62,6 +62,43 @@ async function sendSlackMessage(channel: string, blocks: any[], text: string) {
   return data;
 }
 
+async function resolveChannelId(channelInput: string): Promise<string | null> {
+  if (/^C[A-Z0-9]+$/.test(channelInput)) return channelInput;
+
+  const targetName = channelInput.replace(/^#/, "").toLowerCase();
+  let cursor: string | undefined;
+
+  for (let i = 0; i < 10; i += 1) {
+    const response = await fetch(`${GATEWAY_URL}/conversations.list`, {
+      method: "POST",
+      headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({
+        types: "public_channel,private_channel",
+        exclude_archived: true,
+        limit: 200,
+        cursor,
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok || !data.ok) {
+      throw new Error(`Slack API error [${response.status}]: ${JSON.stringify(data)}`);
+    }
+
+    const match = (data.channels || []).find((ch: { id?: string; name?: string }) =>
+      (ch.name || "").toLowerCase() === targetName
+    );
+
+    if (match?.id) return match.id;
+
+    const nextCursor = data.response_metadata?.next_cursor;
+    if (!nextCursor) break;
+    cursor = nextCursor;
+  }
+
+  return null;
+}
+
 const DASHBOARD_URL = "https://webheads-service.lovable.app/admin";
 
 function buildBlocks(notification: SlackNotification) {
