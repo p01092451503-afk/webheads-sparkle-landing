@@ -1,9 +1,9 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
   MessageSquare, RefreshCw, Search, X, Phone, Mail,
   Building2, User, FileText, Calendar, ChevronRight, Download, Save, Loader2, Trash2, AlertTriangle,
-  ClipboardList, Edit3, Check
+  ClipboardList, Edit3, Check, Paperclip, Upload, File as FileIcon, XCircle
 } from "lucide-react";
 import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
