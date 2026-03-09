@@ -30,22 +30,29 @@ function getHeaders() {
   };
 }
 
-// Format channel for chat.postMessage (accepts #name or channel ID)
-function formatChannel(channelName: string): string {
-  // Already a channel ID
-  if (channelName.startsWith("C") && /^C[A-Z0-9]+$/.test(channelName)) {
-    return channelName;
+// Build channel candidates for robust delivery (ID, raw name, #name)
+function buildChannelCandidates(channelInput: string): string[] {
+  const trimmed = (channelInput || "").trim();
+
+  // Channel ID (preferred)
+  if (/^C[A-Z0-9]+$/.test(trimmed)) {
+    return [trimmed];
   }
-  // Ensure # prefix for channel name lookup
-  const name = channelName.replace(/^#/, "");
-  return `#${name}`;
+
+  const base = trimmed.replace(/^#/, "");
+  const candidates = [trimmed, base, `#${base}`]
+    .map((c) => c.trim())
+    .filter(Boolean);
+
+  // Unique preserve order
+  return [...new Set(candidates)];
 }
 
-async function sendSlackMessage(channelId: string, blocks: any[], text: string) {
+async function sendSlackMessage(channel: string, blocks: any[], text: string) {
   const response = await fetch(`${GATEWAY_URL}/chat.postMessage`, {
     method: "POST",
-    headers: getHeaders(),
-    body: JSON.stringify({ channel: channelId, blocks, text, username: "WEBHEADS Bot", icon_emoji: ":globe_with_meridians:" }),
+    headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({ channel, blocks, text, username: "WEBHEADS Bot", icon_emoji: ":globe_with_meridians:" }),
   });
 
   const data = await response.json();
