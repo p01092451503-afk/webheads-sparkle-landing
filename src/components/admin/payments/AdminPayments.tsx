@@ -156,6 +156,27 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
     }
   };
 
+  const handleDeleteClient = async () => {
+    if (!deleteClientId) return;
+    try {
+      // Delete related payments and recurring fees first
+      await supabase.from("payments").delete().eq("client_id", deleteClientId);
+      await supabase.from("client_recurring_fees").delete().eq("client_id", deleteClientId);
+      const { error } = await supabase.from("clients").delete().eq("id", deleteClientId);
+      if (error) throw error;
+      toast.success("고객사가 삭제되었습니다");
+      await logActivity("client_deleted", "client", deleteClientId);
+      setDeleteClientId(null);
+      if (selectedClientId === deleteClientId) {
+        setSubView("clients");
+        setSelectedClientId(null);
+      }
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "삭제 중 오류가 발생했습니다");
+    }
+  };
+
   const selectedClient = clients.find((c) => c.id === selectedClientId);
 
   // Notification: clients with expected_payment_day within ±2 days of today, no payment this month
