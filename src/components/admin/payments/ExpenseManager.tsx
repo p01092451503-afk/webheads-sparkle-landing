@@ -471,7 +471,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             showNotes ? "bg-[hsl(221,83%,53%)] text-white" : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
           }`}
         >
-          <FileText className="w-3.5 h-3.5" />기록
+          <FileText className="w-3.5 h-3.5" />출금기록
         </button>
         <button
           onClick={() => { setShowPlanned(true); setShowNotes(false); setShowStats(false); }}
