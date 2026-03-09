@@ -167,7 +167,37 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
     setAttachments((prev) => prev.filter((a) => a.id !== att.id));
   };
 
-  const getPublicUrl = (filePath: string) => {
+  const replaceFile = (att: any) => {
+    replacingAttachment.current = att;
+    fileInputRef.current?.click();
+  };
+
+  const handleReplaceFile = async (oldAtt: any, newFile: globalThis.File) => {
+    if (!selectedInquiry) return;
+    setUploadingFile(true);
+    try {
+      // Delete old file from storage
+      await supabase.storage.from("inquiry-attachments").remove([oldAtt.file_path]);
+      // Upload new file
+      const ext = newFile.name.split(".").pop();
+      const filePath = `${selectedInquiry.id}/${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from("inquiry-attachments").upload(filePath, newFile);
+      if (uploadError) throw uploadError;
+      // Update DB record
+      await supabase.from("inquiry_attachments").update({
+        file_name: newFile.name,
+        file_path: filePath,
+        file_size: newFile.size,
+        content_type: newFile.type,
+      } as any).eq("id", oldAtt.id);
+      logActivity("file_replace", "inquiry", selectedInquiry.id, { old_name: oldAtt.file_name, new_name: newFile.name });
+      await fetchAttachments(selectedInquiry.id);
+    } catch (err: any) {
+      console.error("Replace error:", err);
+    }
+    setUploadingFile(false);
+  };
+
     const { data } = supabase.storage.from("inquiry-attachments").getPublicUrl(filePath);
     return data.publicUrl;
   };
