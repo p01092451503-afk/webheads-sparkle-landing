@@ -44,6 +44,16 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
   const [deleting, setDeleting] = useState(false);
   const [proposalFrozen, setProposalFrozen] = useState(false);
 
+  // Email reply summary
+  const [emailReplyText, setEmailReplyText] = useState("");
+  const [savingEmailReply, setSavingEmailReply] = useState(false);
+  const [editingEmailReply, setEditingEmailReply] = useState(false);
+
+  // Attachments
+  const [attachments, setAttachments] = useState<any[]>([]);
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const filteredInquiries = useMemo(() => {
     return inquiries.filter((inq) => {
       if (statusFilter !== "all" && inq.status !== statusFilter) return false;
