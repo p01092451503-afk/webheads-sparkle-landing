@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
@@ -13,8 +13,9 @@ const AdminActivityLog = lazy(() => import("@/components/admin/AdminActivityLog"
 const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceRequests"));
 const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
 const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseManager"));
+const Admin404Logs = lazy(() => import("@/components/admin/Admin404Logs"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "404logs";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
@@ -22,6 +23,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "inquiries", icon: MessageSquare, label: "문의" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
+  { key: "404logs", icon: FileWarning, label: "404" },
   { key: "settings", icon: Settings, label: "설정" },
 ];
 
@@ -35,7 +37,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   useSessionTimeout();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "404logs"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
@@ -316,7 +318,7 @@ export default function AdminDashboard() {
 
           {/* Tabs */}
           <div className="flex -mb-px overflow-x-auto scrollbar-hide">
-            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses").map((t) => {
+            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses" && t.key !== "404logs").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
@@ -341,7 +343,7 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-6 shrink-0 border-l border-border/50 mx-1 self-stretch" />
-            {tabs.filter(t => t.key === "payments" || t.key === "expenses").map((t) => {
+            {tabs.filter(t => t.key === "payments" || t.key === "expenses" || t.key === "404logs").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
@@ -380,6 +382,9 @@ export default function AdminDashboard() {
           )}
           {tab === "expenses" && (
             <ExpenseManager isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
+          )}
+          {tab === "404logs" && (
+            <Admin404Logs isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
