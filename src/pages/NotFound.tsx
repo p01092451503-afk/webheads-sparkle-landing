@@ -1,7 +1,8 @@
 import { useLocation, Link, Navigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Home } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 // 기존 홈페이지(webheads.co.kr) 레거시 경로 → 새 경로 매핑
 const LEGACY_REDIRECTS: Record<string, string> = {
@@ -44,11 +45,24 @@ const NotFound = () => {
   const legacyPath = location.pathname.toLowerCase();
   const redirectTo = LEGACY_REDIRECTS[legacyPath];
 
+  const loggedRef = useRef(false);
+
   useEffect(() => {
-    if (!redirectTo) {
+    if (!redirectTo && !loggedRef.current) {
+      loggedRef.current = true;
       console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+
+      const sessionId = sessionStorage.getItem("_wh_session_id") || undefined;
+      supabase.from("not_found_logs").insert({
+        path: location.pathname + location.search,
+        referrer: document.referrer || null,
+        user_agent: navigator.userAgent || null,
+        session_id: sessionId ?? null,
+      }).then(({ error }) => {
+        if (error) console.error("Failed to log 404:", error.message);
+      });
     }
-  }, [location.pathname, redirectTo]);
+  }, [location.pathname, location.search, redirectTo]);
 
   if (redirectTo) {
     return <Navigate to={redirectTo} replace />;
