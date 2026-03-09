@@ -897,9 +897,19 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                     onChange={(e) => setNewCatName(e.target.value)}
                     placeholder="새 카테고리"
                     className="h-7 text-[12px]"
-                    onKeyDown={(e) => e.key === "Enter" && addCategory()}
+                    onKeyDown={(e) => {
+                      if (e.key !== "Enter") return;
+                      if ((e.nativeEvent as KeyboardEvent).isComposing) return;
+                      e.preventDefault();
+                      void addCategory();
+                    }}
                   />
-                  <Button size="sm" onClick={addCategory} className="h-7 px-2 text-[11px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
+                  <Button
+                    size="sm"
+                    onClick={addCategory}
+                    disabled={isAddingCategory}
+                    className="h-7 px-2 text-[11px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]"
+                  >
                     <Plus className="w-3 h-3" />
                   </Button>
                 </div>
