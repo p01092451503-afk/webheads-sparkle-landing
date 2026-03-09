@@ -439,39 +439,114 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)] flex items-center justify-between">
               <div>
                 <h3 className="text-[14px] font-semibold">{viewYear}/{String(viewMonth).padStart(2, "0")} 지출 기록</h3>
-                <p className="text-[11px] text-muted-foreground mt-0.5">날짜 : 내용, 금액, 비고 형식으로 자유롭게 기록하세요</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">날짜 · 항목 · 금액 · 계좌/비고를 입력 후 완료를 눌러 저장하세요</p>
               </div>
-              <Button
-                size="sm"
-                onClick={saveNote}
-                disabled={noteSaving}
-                className="h-8 text-[12px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]"
-              >
-                {noteSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : <Save className="w-3.5 h-3.5 mr-1" />}
-                저장
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={addNoteRow}
+                  className="h-8 text-[12px]"
+                >
+                  <Plus className="w-3.5 h-3.5 mr-1" />행 추가
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={saveNote}
+                  disabled={noteSaving}
+                  className="h-8 text-[12px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]"
+                >
+                  {noteSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : <Check className="w-3.5 h-3.5 mr-1" />}
+                  완료
+                </Button>
+              </div>
             </div>
-            <div className="p-4">
+            <div className="overflow-x-auto">
               {noteLoading ? (
                 <div className="flex items-center justify-center py-12">
                   <Loader2 className="w-5 h-5 animate-spin text-muted-foreground" />
                 </div>
               ) : (
-                <textarea
-                  value={noteContent}
-                  onChange={(e) => setNoteContent(e.target.value)}
-                  placeholder={`${viewYear}/${String(viewMonth).padStart(2, "0")} ----------------------------------------\n02/27 : 사무실 임대료, 2,530,000원, 박옥심, 농협 100120-56-160249\n02/27 : 임직원(본부장 제외) 급여 입금(연말정산금 제외)\n02/26 : 바른경영연구소, 기업부설연구소 컨설팅 비용, 715,000원\n02/10 : 기장료, 이지비즈, 165,000원\n02/09 : SK렌트카, 545,881원\n02/05 : 메일호스팅, 37,400원, 삼정데이타서비스\n02/03 : 사무실 임대료, 2,530,000원\n...`}
-                  rows={25}
-                  className="w-full px-4 py-3 text-[13px] leading-7 font-mono rounded-xl border border-[hsl(220,13%,90%)] bg-[hsl(220,14%,98%)] resize-y focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors placeholder:text-muted-foreground/40"
-                  onKeyDown={(e) => {
-                    if ((e.metaKey || e.ctrlKey) && e.key === "s") {
-                      e.preventDefault();
-                      saveNote();
-                    }
-                  }}
-                />
+                <table className="w-full text-[13px]">
+                  <thead>
+                    <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[90px]">날짜</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground">항목</th>
+                      <th className="text-right px-3 py-2.5 font-semibold text-muted-foreground w-[140px]">금액</th>
+                      <th className="text-left px-3 py-2.5 font-semibold text-muted-foreground w-[220px]">계좌/비고</th>
+                      <th className="w-[40px]" />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {noteRows.map((row, idx) => (
+                      <tr key={idx} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] group">
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.date}
+                            onChange={(e) => updateNoteRow(idx, "date", e.target.value)}
+                            placeholder="MM/DD"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-center"
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.description}
+                            onChange={(e) => updateNoteRow(idx, "description", e.target.value)}
+                            placeholder="지출 항목 입력"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors"
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                e.preventDefault();
+                                if (idx === noteRows.length - 1) addNoteRow();
+                                // Focus next row's description
+                                setTimeout(() => {
+                                  const inputs = document.querySelectorAll<HTMLInputElement>('[data-note-desc]');
+                                  inputs[idx + 1]?.focus();
+                                }, 30);
+                              }
+                            }}
+                            data-note-desc=""
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.amount}
+                            onChange={(e) => {
+                              const raw = e.target.value.replace(/[^0-9,원₩\s]/g, "");
+                              updateNoteRow(idx, "amount", raw);
+                            }}
+                            placeholder="0원"
+                            className="w-full h-8 px-2 text-[13px] text-right rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors font-medium"
+                          />
+                        </td>
+                        <td className="px-2 py-1">
+                          <input
+                            value={row.account}
+                            onChange={(e) => updateNoteRow(idx, "account", e.target.value)}
+                            placeholder="계좌번호 또는 비고"
+                            className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                          />
+                        </td>
+                        <td className="px-1 py-1">
+                          <button
+                            onClick={() => removeNoteRow(idx)}
+                            className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-all"
+                            title="행 삭제"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               )}
-              <p className="text-[11px] text-muted-foreground mt-2">💡 Ctrl+S (⌘+S)로 빠르게 저장할 수 있습니다</p>
+            </div>
+            <div className="px-5 py-3 border-t border-[hsl(220,13%,91%)] flex items-center justify-between">
+              <p className="text-[11px] text-muted-foreground">
+                💡 항목 입력 후 Enter로 다음 행 추가 · Ctrl+S (⌘+S)로 빠르게 저장
+              </p>
+              <span className="text-[11px] text-muted-foreground">{noteRows.filter(r => r.description).length}건</span>
             </div>
           </div>
         </div>
