@@ -113,6 +113,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
   const actionLabels: Record<string, string> = {
     login: "로그인", logout: "로그아웃", status_change: "상태 변경",
     note_update: "메모 수정", meeting_note_update: "미팅 내용 수정",
+    email_reply_update: "이메일 회신 수정", file_upload: "파일 첨부", file_delete: "파일 삭제",
     export_csv: "CSV 내보내기", delete: "삭제",
     update_service_request_status: "고객지원 상태 변경",
   };
