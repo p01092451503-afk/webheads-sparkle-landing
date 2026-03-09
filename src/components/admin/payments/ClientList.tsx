@@ -615,7 +615,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                 const isEditingDate = editing?.clientId === c.id && editing.field === "paid_date";
 
                 return (
-                  <tr key={c.id} className="border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
+                  <tr key={c.id} className="group/row border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
                     <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
                     <td className="px-2 py-1.5 whitespace-nowrap">
                       <div className="relative flex items-center gap-1.5">
