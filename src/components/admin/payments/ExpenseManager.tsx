@@ -558,13 +558,22 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                           />
                         </td>
                         <td className="px-1 py-1">
-                          <button
-                            onClick={() => removeNoteRow(idx)}
-                            className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-all"
-                            title="행 삭제"
-                          >
-                            <X className="w-3.5 h-3.5" />
-                          </button>
+                          <div className="flex items-center gap-0.5">
+                            <button
+                              onClick={() => saveNote()}
+                              className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-green-50 text-muted-foreground hover:text-green-600 transition-all"
+                              title="저장"
+                            >
+                              <Check className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => removeNoteRow(idx)}
+                              className="p-1 rounded-lg opacity-0 group-hover:opacity-100 hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-all"
+                              title="행 삭제"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
