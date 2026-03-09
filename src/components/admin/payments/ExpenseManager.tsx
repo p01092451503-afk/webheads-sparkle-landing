@@ -564,7 +564,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
             </div>
             <div className="px-5 py-3 border-t border-[hsl(220,13%,91%)] flex items-center justify-between">
               <p className="text-[11px] text-muted-foreground">
-                💡 항목 입력 후 Enter로 다음 행 추가 · Ctrl+S (⌘+S)로 빠르게 저장
+                💡 지출항목 입력 후 Enter로 다음 행 추가 · Ctrl+S (⌘+S)로 빠르게 저장
               </p>
               <span className="text-[11px] text-muted-foreground">{noteRows.filter(r => r.description).length}건</span>
             </div>
