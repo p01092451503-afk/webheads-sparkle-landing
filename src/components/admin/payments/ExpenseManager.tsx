@@ -568,6 +568,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                             onChange={(e) => updateNoteRow(idx, "bank", e.target.value)}
                             placeholder="은행명"
                             className="w-full h-8 px-2 text-[13px] rounded-lg border border-transparent hover:border-[hsl(220,13%,88%)] focus:border-[hsl(221,83%,53%)] bg-transparent focus:bg-white outline-none transition-colors text-muted-foreground"
+                            onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); saveNote(); } }}
                           />
                         </td>
                         <td className="px-2 py-1">
