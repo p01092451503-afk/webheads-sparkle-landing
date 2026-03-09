@@ -62,6 +62,21 @@ async function sendSlackMessage(channel: string, blocks: any[], text: string) {
   return data;
 }
 
+async function joinSlackChannel(channelId: string) {
+  const response = await fetch(`${GATEWAY_URL}/conversations.join`, {
+    method: "POST",
+    headers: { ...getHeaders(), "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({ channel: channelId }),
+  });
+
+  const data = await response.json();
+  if (!response.ok || !data.ok) {
+    throw new Error(`Slack API error [${response.status}]: ${JSON.stringify(data)}`);
+  }
+
+  return data;
+}
+
 async function listConversationsPage(cursor?: string) {
   const response = await fetch(`${GATEWAY_URL}/conversations.list`, {
     method: "POST",
