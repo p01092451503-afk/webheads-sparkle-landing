@@ -339,6 +339,9 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                       {inq.notes && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(37,90%,51%)] bg-[hsl(37,90%,51%,0.08)]">메모</span>
                       )}
+                      {inq.email_reply_summary && (
+                        <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(199,89%,48%)] bg-[hsl(199,89%,48%,0.08)]">회신완료</span>
+                      )}
                       {inq.meeting_notes && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded-md text-[hsl(262,60%,55%)] bg-[hsl(262,60%,55%,0.08)]">미팅완료</span>
                       )}
