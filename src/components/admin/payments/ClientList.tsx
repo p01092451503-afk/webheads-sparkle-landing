@@ -675,93 +675,140 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
                     {/* Dynamic payment type amount cells */}
                     {visibleTypes.map((typeValue) => {
-                      const payment = c.byType[typeValue];
-                      const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue;
-                      const cellKey = `${c.id}-${typeValue}-amount`;
-                      const isUnpaid = payment?.is_unpaid;
-                      const invoiceStatus = payment?.invoice_status || "none";
+                      const paymentsArr = c.byType[typeValue] || [];
 
                       return (
                         <td key={typeValue} className="px-1 py-1">
-                          <div className="relative">
-                            {isEditingThis ? (
-                              <input
-                                ref={inputRef}
-                                value={editValue}
-                                onChange={(e) => {
-                                  const num = e.target.value.replace(/[^0-9]/g, "");
-                                  setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
-                                }}
-                                onBlur={commitEdit}
-                                onKeyDown={handleKeyDown}
-                                placeholder="0"
-                                className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
-                              />
-                            ) : (
-                              <div className="space-y-0.5">
-                                {/* Amount row */}
-                                <div className="flex items-center gap-0.5">
-                                  <button
-                                    onClick={() => startEditing(c.id, "amount", typeValue)}
-                                    className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
-                                  >
-                                    {payment?.amount ? formatWon(payment.amount) : "-"}
-                                  </button>
-                                  {payment && payment.amount > 0 && (
-                                    <button
-                                      onClick={() => toggleUnpaid(c.id, typeValue)}
-                                      className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold transition-all ${
-                                        isUnpaid
-                                          ? "bg-red-100 text-red-600 hover:bg-red-200"
-                                          : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
-                                      }`}
-                                      title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
-                                    >
-                                      {isUnpaid ? "!" : "✓"}
-                                    </button>
-                                  )}
-                                </div>
-                                {/* Invoice + memo row */}
-                                {payment && payment.amount > 0 && (
-                                  <div className="flex items-center justify-end gap-0.5 pr-5">
-                                    <button
-                                      onClick={() => cycleInvoiceStatus(c.id, typeValue)}
-                                      className={`text-[9px] px-1.5 py-0.5 rounded font-medium transition-all hover:opacity-80 ${getInvoiceStatusColor(invoiceStatus)}`}
-                                      title="계산서 상태 변경"
-                                    >
-                                      {getInvoiceStatusLabel(invoiceStatus)}
-                                    </button>
-                                    <Popover>
-                                      <PopoverTrigger asChild>
+                          <div className="space-y-0.5">
+                            {/* Render each payment of this type */}
+                            {paymentsArr.map((payment, idx) => {
+                              const isEditingThis = editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue && (editing.paymentIndex || 0) === idx;
+                              const cellKey = `${c.id}-${typeValue}-${idx}-amount`;
+                              const isUnpaid = payment.is_unpaid;
+                              const invoiceStatus = payment.invoice_status || "none";
+
+                              return (
+                                <div key={payment.id} className="relative">
+                                  {isEditingThis ? (
+                                    <input
+                                      ref={inputRef}
+                                      value={editValue}
+                                      onChange={(e) => {
+                                        const num = e.target.value.replace(/[^0-9]/g, "");
+                                        setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                                      }}
+                                      onBlur={commitEdit}
+                                      onKeyDown={handleKeyDown}
+                                      placeholder="0"
+                                      className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                                    />
+                                  ) : (
+                                    <div className="space-y-0.5">
+                                      {/* Amount row */}
+                                      <div className="flex items-center gap-0.5">
                                         <button
-                                          className={`p-0.5 rounded transition-colors ${payment.memo ? "text-[hsl(221,83%,53%)]" : "text-muted-foreground/30 hover:text-muted-foreground/60"}`}
-                                          title={payment.memo || "메모 추가"}
+                                          onClick={() => startEditing(c.id, "amount", typeValue, idx)}
+                                          className={`flex-1 h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text ${isUnpaid ? "text-red-600 font-semibold" : ""}`}
                                         >
-                                          <MessageSquare className="w-3 h-3" />
+                                          {payment.amount ? formatWon(payment.amount) : "-"}
                                         </button>
-                                      </PopoverTrigger>
-                                      <PopoverContent className="w-56 p-2" align="start">
-                                        <textarea
-                                          defaultValue={payment.memo || ""}
-                                          placeholder="메모 입력..."
-                                          rows={3}
-                                          className="w-full px-2 py-1.5 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] resize-none focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
-                                          onBlur={(e) => {
-                                            if (e.target.value !== (payment.memo || "")) {
-                                              saveMemo(c.id, typeValue, e.target.value);
-                                            }
-                                          }}
-                                        />
-                                      </PopoverContent>
-                                    </Popover>
-                                    <SavedCheck cellKey={`${c.id}-${typeValue}-invoice`} />
-                                    <SavedCheck cellKey={`${c.id}-${typeValue}-memo`} />
-                                  </div>
+                                        {payment.amount > 0 && (
+                                          <button
+                                            onClick={() => toggleUnpaid(c.id, typeValue, idx)}
+                                            className={`shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-bold transition-all ${
+                                              isUnpaid
+                                                ? "bg-red-100 text-red-600 hover:bg-red-200"
+                                                : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
+                                            }`}
+                                            title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                          >
+                                            {isUnpaid ? "!" : "✓"}
+                                          </button>
+                                        )}
+                                      </div>
+                                      {/* Invoice + memo row */}
+                                      {payment.amount > 0 && (
+                                        <div className="flex items-center justify-end gap-0.5 pr-5">
+                                          <button
+                                            onClick={() => cycleInvoiceStatus(c.id, typeValue, idx)}
+                                            className={`text-[9px] px-1.5 py-0.5 rounded font-medium transition-all hover:opacity-80 ${getInvoiceStatusColor(invoiceStatus)}`}
+                                            title="계산서 상태 변경"
+                                          >
+                                            {getInvoiceStatusLabel(invoiceStatus)}
+                                          </button>
+                                          <Popover>
+                                            <PopoverTrigger asChild>
+                                              <button
+                                                className={`p-0.5 rounded transition-colors ${payment.memo ? "text-[hsl(221,83%,53%)]" : "text-muted-foreground/30 hover:text-muted-foreground/60"}`}
+                                                title={payment.memo || "메모 추가"}
+                                              >
+                                                <MessageSquare className="w-3 h-3" />
+                                              </button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-56 p-2" align="start">
+                                              <textarea
+                                                defaultValue={payment.memo || ""}
+                                                placeholder="메모 입력..."
+                                                rows={3}
+                                                className="w-full px-2 py-1.5 text-[12px] rounded-lg border border-[hsl(220,13%,90%)] resize-none focus:outline-none focus:border-[hsl(221,83%,53%)] transition-colors"
+                                                onBlur={(e) => {
+                                                  if (e.target.value !== (payment.memo || "")) {
+                                                    saveMemo(c.id, typeValue, e.target.value, idx);
+                                                  }
+                                                }}
+                                              />
+                                            </PopoverContent>
+                                          </Popover>
+                                          <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-invoice`} />
+                                          <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-memo`} />
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
+                                  <SavedCheck cellKey={cellKey} />
+                                  <SavedCheck cellKey={`${c.id}-${typeValue}-${idx}-status`} />
+                                </div>
+                              );
+                            })}
+
+                            {/* Empty state: show editable placeholder if no payments */}
+                            {paymentsArr.length === 0 && (
+                              <div className="relative">
+                                {editing?.clientId === c.id && editing.field === "amount" && editing.paymentType === typeValue && (editing.paymentIndex || 0) === 0 ? (
+                                  <input
+                                    ref={inputRef}
+                                    value={editValue}
+                                    onChange={(e) => {
+                                      const num = e.target.value.replace(/[^0-9]/g, "");
+                                      setEditValue(num ? parseInt(num).toLocaleString("ko-KR") : "");
+                                    }}
+                                    onBlur={commitEdit}
+                                    onKeyDown={handleKeyDown}
+                                    placeholder="0"
+                                    className="w-full h-7 px-2 text-[12px] text-right rounded-lg border border-[hsl(221,83%,53%)] bg-blue-50/50 outline-none focus:ring-2 focus:ring-[hsl(221,83%,53%)]/20"
+                                  />
+                                ) : (
+                                  <button
+                                    onClick={() => startEditing(c.id, "amount", typeValue, 0)}
+                                    className="flex-1 w-full h-7 px-1.5 text-right text-[12px] rounded hover:bg-[hsl(220,14%,94%)] transition-colors cursor-text"
+                                  >
+                                    -
+                                  </button>
                                 )}
+                                <SavedCheck cellKey={`${c.id}-${typeValue}-0-amount`} />
                               </div>
                             )}
-                            <SavedCheck cellKey={cellKey} />
-                            <SavedCheck cellKey={`${c.id}-${typeValue}-status`} />
+
+                            {/* Add another payment button */}
+                            {paymentsArr.length > 0 && (
+                              <button
+                                onClick={() => addPaymentForType(c.id, typeValue)}
+                                className="w-full h-5 flex items-center justify-center text-[10px] text-muted-foreground/40 hover:text-muted-foreground/70 hover:bg-[hsl(220,14%,94%)] rounded transition-colors"
+                                title={`${getPaymentTypeLabel(typeValue)} 항목 추가`}
+                              >
+                                <Plus className="w-3 h-3" />
+                              </button>
+                            )}
                           </div>
                         </td>
                       );
