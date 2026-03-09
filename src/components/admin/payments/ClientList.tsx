@@ -317,7 +317,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         year: viewYear,
         month: viewMonth,
         amount: 0,
-        is_unpaid: false,
+        is_unpaid: true,
         payment_type: paymentType,
       });
       if (error) throw error;
