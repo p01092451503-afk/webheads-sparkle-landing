@@ -41,6 +41,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
   const [editClient, setEditClient] = useState<Client | null>(null);
   const [preselectedClientId, setPreselectedClientId] = useState<string | undefined>(undefined);
   const [deletePaymentId, setDeletePaymentId] = useState<string | null>(null);
+  const [deleteClientId, setDeleteClientId] = useState<string | null>(null);
   const [clientListFilter, setClientListFilter] = useState<"all" | "unpaid">("all");
 
   const fetchData = useCallback(async () => {
