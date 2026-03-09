@@ -800,7 +800,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
                                                 ? "bg-red-100 text-red-600 hover:bg-red-200"
                                                 : "bg-emerald-100 text-emerald-600 hover:bg-emerald-200"
                                             }`}
-                                            title={isUnpaid ? "미납 → 납부완료" : "납부완료 → 미납"}
+                                            title={isUnpaid ? "미납 → 납부" : "납부 → 미납"}
                                           >
                                             {isUnpaid ? "!" : "✓"}
                                           </button>
