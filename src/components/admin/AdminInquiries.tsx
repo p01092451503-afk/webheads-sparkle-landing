@@ -316,6 +316,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                   else {
                     setSelectedInquiry(inq); setNoteText(inq.notes || "");
                     setMeetingNoteText(inq.meeting_notes || ""); setEditingMeetingNote(false); setProposalFrozen(false);
+                    setEmailReplyText(inq.email_reply_summary || ""); setEditingEmailReply(false);
                     setTimeout(() => { itemRefs.current[inq.id]?.scrollIntoView({ behavior: "smooth", block: "start" }); }, 50);
                   }
                 }}
