@@ -33,12 +33,14 @@ async function hmacSha256(key: string, message: string): Promise<string> {
   return btoa(String.fromCharCode(...new Uint8Array(signature)));
 }
 
-async function md5Hash(content: string): Promise<string> {
+async function b64Sha256(content: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(content);
-  const hashBuffer = await crypto.subtle.digest("MD5", data);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   return btoa(String.fromCharCode(...new Uint8Array(hashBuffer)));
 }
+
+const LH_API_VERSION = "2.0";
 
 async function getToken(linkId: string, secretKey: string, corpNum: string): Promise<string> {
   const scopes = ["member", "110"]; // 110 = 전자세금계산서
@@ -47,18 +49,14 @@ async function getToken(linkId: string, secretKey: string, corpNum: string): Pro
     scope: scopes,
   });
 
-  const contentMD5 = await md5Hash(requestBody);
+  const contentHash = await b64Sha256(requestBody);
   const date = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
   const uri = `/${SERVICE_ID}/Token`;
 
-  const stringToSign = [
-    "POST",
-    contentMD5,
-    date,
-    uri,
-  ].join("\n");
+  // Based on Python SDK: POST\n{b64_sha256}\n{date}\n{apiVersion}\n{uri}
+  const hmacTarget = `POST\n${contentHash}\n${date}\n${LH_API_VERSION}\n${uri}`;
 
-  const signature = await hmacSha256(secretKey, stringToSign);
+  const signature = await hmacSha256(secretKey, hmacTarget);
   const authorization = `LINKHUB ${linkId} ${signature}`;
 
   const response = await fetch(`${AUTH_URL}${uri}`, {
@@ -66,9 +64,8 @@ async function getToken(linkId: string, secretKey: string, corpNum: string): Pro
     headers: {
       Authorization: authorization,
       "Content-Type": "application/json",
-      "X-LH-Version": "2.0",
-      "X-LH-Date": date,
-      "X-LH-Forwarded": "*",
+      "x-lh-date": date,
+      "x-lh-version": LH_API_VERSION,
     },
     body: requestBody,
   });
@@ -208,7 +205,11 @@ serve(async (req) => {
           paymentId,
         } = params;
 
+        // 문서번호 자동 생성 (최대 24자리)
+        const mgtKey = `WH${new Date().toISOString().replace(/[-T:.Z]/g, "").slice(0, 14)}${crypto.randomUUID().slice(0, 6).toUpperCase()}`;
+
         const invoiceBody = {
+          invoicerMgtKey: mgtKey,
           writeDate: writeDate || new Date().toISOString().split("T")[0].replace(/-/g, ""),
           chargeDirection: invoiceType === 1 ? "정과금" : "역과금",
           issueType: "정발행",
