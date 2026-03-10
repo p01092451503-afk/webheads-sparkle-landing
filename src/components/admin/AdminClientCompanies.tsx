@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save, EyeOff, Eye } from "lucide-react";
+import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save, EyeOff, Eye, CheckSquare, Square } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 
 interface ClientCompany {
@@ -44,6 +45,8 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
   const [showModal, setShowModal] = useState(false);
   const [editCompany, setEditCompany] = useState<ClientCompany | null>(null);
   const [showInactive, setShowInactive] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkProcessing, setBulkProcessing] = useState(false);
 
   // Form state
   const [form, setForm] = useState({
@@ -96,6 +99,43 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
     toast.success(newStatus ? "유효 처리되었습니다" : "무효 처리되었습니다");
     fetchData();
   };
+
+  const toggleSelect = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filtered.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filtered.map(c => c.id)));
+    }
+  };
+
+  const bulkActivate = async () => {
+    if (selectedIds.size === 0) return;
+    setBulkProcessing(true);
+    try {
+      const ids = Array.from(selectedIds);
+      const { error } = await supabase.from("client_companies").update({ is_active: true }).in("id", ids);
+      if (error) throw error;
+      toast.success(`${ids.length}개 고객사가 유효 처리되었습니다`);
+      setSelectedIds(new Set());
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "처리 중 오류가 발생했습니다");
+    } finally {
+      setBulkProcessing(false);
+    }
+  };
+
+  // Clear selection when switching views
+  useEffect(() => { setSelectedIds(new Set()); }, [showInactive]);
 
   const openAdd = () => {
     setEditCompany(null);
@@ -234,6 +274,32 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
         />
       </div>
 
+      {/* Bulk action bar for inactive view */}
+      {showInactive && filtered.length > 0 && (
+        <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl border bg-muted/30 border-border/60">
+          <button
+            onClick={toggleSelectAll}
+            className="flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {selectedIds.size === filtered.length ? <CheckSquare className="w-4 h-4 text-primary" /> : <Square className="w-4 h-4" />}
+            전체선택
+          </button>
+          {selectedIds.size > 0 && (
+            <>
+              <span className="text-[12px] text-muted-foreground">{selectedIds.size}개 선택됨</span>
+              <button
+                onClick={bulkActivate}
+                disabled={bulkProcessing}
+                className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                {bulkProcessing ? "처리 중..." : "선택 유효 처리"}
+              </button>
+            </>
+          )}
+        </div>
+      )}
+
       {/* List */}
       <div className="space-y-2">
         {filtered.map((c) => {
@@ -247,6 +313,20 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
                 className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-muted/30 transition-colors"
                 onClick={() => setExpandedId(isOpen ? null : c.id)}
               >
+                {showInactive && (
+                  <Checkbox
+                    checked={selectedIds.has(c.id)}
+                    onCheckedChange={() => {
+                      setSelectedIds(prev => {
+                        const next = new Set(prev);
+                        if (next.has(c.id)) next.delete(c.id); else next.add(c.id);
+                        return next;
+                      });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="shrink-0"
+                  />
+                )}
                 <Building2 className={`w-4 h-4 shrink-0 ${c.is_active ? "text-muted-foreground" : "text-destructive/50"}`} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
