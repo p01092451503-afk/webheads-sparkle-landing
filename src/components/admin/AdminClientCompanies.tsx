@@ -137,9 +137,19 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
   // Clear selection when switching views
   useEffect(() => { setSelectedIds(new Set()); }, [showInactive]);
 
-  const openAdd = () => {
+  const openAdd = async () => {
     setEditCompany(null);
-    setForm({ business_number: "", company_name: "", ceo_name: "", num: "", business_type: "", business_item: "", zip_code: "", address1: "", address2: "" });
+    // 자동 고객번호 부여: 기존 최대 num + 1
+    let nextNum = "";
+    try {
+      const { data } = await supabase.from("client_companies").select("num").not("num", "is", null);
+      if (data) {
+        const nums = data.map(d => parseInt(d.num || "0", 10)).filter(n => !isNaN(n));
+        const maxNum = nums.length > 0 ? Math.max(...nums) : 0;
+        nextNum = String(maxNum + 1);
+      }
+    } catch {}
+    setForm({ business_number: "", company_name: "", ceo_name: "", num: nextNum, business_type: "", business_item: "", zip_code: "", address1: "", address2: "" });
     setFormContacts([{ name: "", position: "", department: "", phone: "", mobile: "", email: "" }]);
     setShowModal(true);
   };
