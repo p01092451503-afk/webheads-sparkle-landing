@@ -484,7 +484,13 @@ export default function TaxInvoiceManager() {
                 </tr>
               ) : (
                 filteredLogs.map((log) => (
-                  <tr key={log.id} className="border-b last:border-0 hover:bg-muted/30">
+                  <tr
+                    key={log.id}
+                    className={`border-b last:border-0 hover:bg-muted/30 ${log.status === "saved" ? "cursor-pointer" : ""}`}
+                    onClick={() => {
+                      if (log.status === "saved") handleOpenSavedLog(log);
+                    }}
+                  >
                     <td className="px-3 py-2 whitespace-nowrap">{log.issue_date || "-"}</td>
                     <td className="px-3 py-2 font-medium">
                       {log.buyer_corp_name || getClientName(log.client_id)}
