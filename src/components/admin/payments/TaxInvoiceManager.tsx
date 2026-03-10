@@ -234,9 +234,9 @@ export default function TaxInvoiceManager() {
         const price = parseInt(String(field === "unitPrice" ? value : updated[idx].unitPrice).replace(/,/g, "")) || 0;
         const supply = qty * price;
         const tax = Math.round(supply * 0.1);
-        updated[idx].supplyAmount = String(supply);
-        updated[idx].taxAmount = String(tax);
-        updated[idx].totalAmount = String(supply + tax);
+        updated[idx].supplyAmount = supply.toLocaleString("ko-KR");
+        updated[idx].taxAmount = tax.toLocaleString("ko-KR");
+        updated[idx].totalAmount = (supply + tax).toLocaleString("ko-KR");
       }
       return updated;
     });
