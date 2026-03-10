@@ -203,6 +203,7 @@ serve(async (req) => {
           memo,
           clientId,
           paymentId,
+          existingLogId,
         } = params;
 
         // 문서번호 자동 생성 (최대 24자리)
@@ -261,25 +262,35 @@ serve(async (req) => {
           invoiceBody
         );
 
-        // Save log to DB
-        await supabase.from("tax_invoice_logs").insert({
-          payment_id: paymentId || null,
-          client_id: clientId,
-          invoice_num: result.invoiceNum || null,
-          nts_confirm_num: result.ntsconfirmNum || null,
-          supplier_corp_num: supplierCorpNum || CORP_NUM,
-          buyer_corp_num: buyerCorpNum,
-          buyer_corp_name: buyerCorpName,
-          buyer_ceo_name: buyerCEOName,
-          buyer_email: buyerEmail,
-          supply_amount: supplyAmount,
-          tax_amount: taxAmount,
-          total_amount: totalAmount,
-          issue_date: writeDate || new Date().toISOString().split("T")[0],
-          status: "issued",
-          memo,
-          popbill_response: result,
-        });
+        // Save/update log in DB
+        if (existingLogId) {
+          await supabase.from("tax_invoice_logs").update({
+            invoice_num: result.invoiceNum || null,
+            nts_confirm_num: result.ntsconfirmNum || null,
+            supplier_corp_num: supplierCorpNum || CORP_NUM,
+            status: "issued",
+            popbill_response: result,
+          }).eq("id", existingLogId);
+        } else {
+          await supabase.from("tax_invoice_logs").insert({
+            payment_id: paymentId || null,
+            client_id: clientId,
+            invoice_num: result.invoiceNum || null,
+            nts_confirm_num: result.ntsconfirmNum || null,
+            supplier_corp_num: supplierCorpNum || CORP_NUM,
+            buyer_corp_num: buyerCorpNum,
+            buyer_corp_name: buyerCorpName,
+            buyer_ceo_name: buyerCEOName,
+            buyer_email: buyerEmail,
+            supply_amount: supplyAmount,
+            tax_amount: taxAmount,
+            total_amount: totalAmount,
+            issue_date: writeDate || new Date().toISOString().split("T")[0],
+            status: "issued",
+            memo,
+            popbill_response: result,
+          });
+        }
 
         return new Response(
           JSON.stringify({ success: true, data: result }),

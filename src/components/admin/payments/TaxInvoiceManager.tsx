@@ -90,6 +90,7 @@ export default function TaxInvoiceManager() {
   // Multi-step: 1=form, 2=preview/confirm, 3=final issue
   const [issueStep, setIssueStep] = useState<1 | 2 | 3>(1);
   const [saved, setSaved] = useState(false);
+  const [savedLogId, setSavedLogId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -261,8 +262,8 @@ export default function TaxInvoiceManager() {
 
   const filledLines = useMemo(() => lineItems.filter(l => l.itemName || l.unitPrice), [lineItems]);
 
-  // Step 1: Save (validate form)
-  const handleSave = () => {
+  // Step 1: Save to DB with status "saved"
+  const handleSave = async () => {
     if (!form.clientId || !form.buyerCorpNum) {
       toast.error("필수 항목을 입력해주세요 (고객사, 사업자번호)");
       return;
@@ -271,9 +272,29 @@ export default function TaxInvoiceManager() {
       toast.error("매출항목을 입력해주세요");
       return;
     }
-    setSaved(true);
-    toast.success("세금계산서 정보가 저장되었습니다. 내용을 확인해주세요.");
-    setIssueStep(2);
+    try {
+      const { data, error } = await supabase.from("tax_invoice_logs" as any).insert({
+        client_id: form.clientId,
+        buyer_corp_num: form.buyerCorpNum,
+        buyer_corp_name: form.buyerCorpName,
+        buyer_ceo_name: form.buyerCEOName,
+        buyer_email: form.buyerEmail,
+        supply_amount: lineTotals.supply,
+        tax_amount: lineTotals.tax,
+        total_amount: lineTotals.total,
+        issue_date: form.writeDate,
+        status: "saved",
+        memo: form.memo,
+      }).select("id").single();
+      if (error) throw error;
+      setSavedLogId((data as any).id);
+      setSaved(true);
+      toast.success("세금계산서 정보가 저장되었습니다. 내용을 확인해주세요.");
+      setIssueStep(2);
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "저장 중 오류가 발생했습니다");
+    }
   };
 
   // Step 3: Actually issue via Popbill API → NTS
@@ -287,6 +308,7 @@ export default function TaxInvoiceManager() {
       const res = await supabase.functions.invoke("popbill-tax-invoice", {
         body: {
           action: "issue",
+          existingLogId: savedLogId,
           clientId: form.clientId,
           buyerCorpNum: form.buyerCorpNum.replace(/-/g, ""),
           buyerCorpName: form.buyerCorpName,
@@ -315,6 +337,18 @@ export default function TaxInvoiceManager() {
       const result = res.data;
       if (!result.success) throw new Error(result.error);
 
+      // Update the saved record to "issued"
+      if (savedLogId) {
+        await supabase.from("tax_invoice_logs" as any)
+          .update({
+            status: "issued",
+            popbill_response: result.data,
+            invoice_num: result.data?.invoiceNum || null,
+            nts_confirm_num: result.data?.ntsconfirmNum || null,
+          })
+          .eq("id", savedLogId);
+      }
+
       toast.success("세금계산서가 발행되어 국세청(홈택스)에 전송되었습니다");
       resetAndClose();
       fetchData();
@@ -329,6 +363,7 @@ export default function TaxInvoiceManager() {
     setIssueOpen(false);
     setIssueStep(1);
     setSaved(false);
+    setSavedLogId(null);
     setForm({
       clientId: "",
       buyerCorpNum: "",
@@ -464,10 +499,12 @@ export default function TaxInvoiceManager() {
                         className={
                           log.status === "issued"
                             ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]"
+                            : log.status === "saved"
+                            ? "bg-blue-50 text-blue-700 border-blue-200 text-[11px]"
                             : "bg-amber-50 text-amber-700 border-amber-200 text-[11px]"
                         }
                       >
-                        {log.status === "issued" ? "발행완료" : log.status}
+                        {log.status === "issued" ? "발행완료" : log.status === "saved" ? "저장" : log.status}
                       </Badge>
                     </td>
                     <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
