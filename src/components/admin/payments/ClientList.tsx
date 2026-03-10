@@ -524,7 +524,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="name">고객사명 순</SelectItem>
+              <SelectItem value="name">순서대로</SelectItem>
               <SelectItem value="unpaid">미납금 순</SelectItem>
               <SelectItem value="date">납부일 순</SelectItem>
             </SelectContent>
