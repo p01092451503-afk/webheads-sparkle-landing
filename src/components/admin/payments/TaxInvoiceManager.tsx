@@ -735,7 +735,7 @@ export default function TaxInvoiceManager() {
 
             {/* Section: 담당자 */}
             {matchedContacts.length > 0 && (
-              <div className="border-l-[3px] border-destructive pl-3">
+              <div>
                 <label className="text-[13px] font-bold text-foreground mb-2 block">담당자</label>
                 <div className="border rounded-lg overflow-hidden bg-background">
                   <table className="w-full text-[12px]">
