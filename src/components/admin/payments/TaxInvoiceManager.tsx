@@ -696,7 +696,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 영수/청구 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <div className="flex items-center gap-6">
                 <label className="text-[13px] font-bold text-foreground">구분</label>
                 <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
