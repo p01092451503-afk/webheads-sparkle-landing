@@ -464,9 +464,9 @@ export default function TaxInvoiceManager() {
             </DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-4">
+          <div className="border rounded-xl p-4 space-y-4 bg-background">
             {/* Section: 고객명 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <label className="text-[13px] font-bold text-foreground">고객명</label>
               <div className="mt-1.5 flex items-center gap-2">
                 <Popover open={clientSearchOpen} onOpenChange={setClientSearchOpen}>
@@ -559,7 +559,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 작성일자 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <div className="flex items-center gap-4">
                 <label className="text-[13px] font-bold text-foreground">작성일자</label>
                 <Input
@@ -591,7 +591,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 매출항목 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-[13px] font-bold text-foreground">매출항목</label>
                 <Button size="sm" variant="outline" onClick={addLineItem} className="text-[11px] h-7 gap-1">
@@ -696,7 +696,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 영수/청구 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <div className="flex items-center gap-6">
                 <label className="text-[13px] font-bold text-foreground">구분</label>
                 <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
@@ -723,7 +723,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 비고 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <label className="text-[13px] font-bold text-foreground">비고</label>
               <Input
                 value={form.memo}
@@ -735,7 +735,7 @@ export default function TaxInvoiceManager() {
 
             {/* Section: 담당자 */}
             {matchedContacts.length > 0 && (
-              <div className="border-l-[3px] border-destructive pl-3">
+              <div>
                 <label className="text-[13px] font-bold text-foreground mb-2 block">담당자</label>
                 <div className="border rounded-lg overflow-hidden bg-background">
                   <table className="w-full text-[12px]">
