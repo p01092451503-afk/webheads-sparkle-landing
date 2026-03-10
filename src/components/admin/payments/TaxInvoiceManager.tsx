@@ -336,6 +336,18 @@ export default function TaxInvoiceManager() {
       const result = res.data;
       if (!result.success) throw new Error(result.error);
 
+      // Update the saved record to "issued"
+      if (savedLogId) {
+        await supabase.from("tax_invoice_logs" as any)
+          .update({
+            status: "issued",
+            popbill_response: result.data,
+            invoice_num: result.data?.invoiceNum || null,
+            nts_confirm_num: result.data?.ntsconfirmNum || null,
+          })
+          .eq("id", savedLogId);
+      }
+
       toast.success("세금계산서가 발행되어 국세청(홈택스)에 전송되었습니다");
       resetAndClose();
       fetchData();
