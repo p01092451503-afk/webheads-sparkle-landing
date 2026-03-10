@@ -255,7 +255,7 @@ export default function ChatbotPanel() {
         )}
         aria-label="AI 상담"
       >
-        <Bot className="w-7 h-7 md:w-6 md:h-6" />
+        <MessageCircle className="w-7 h-7 md:w-6 md:h-6" />
       </button>
 
       {/* Side panel overlay */}
