@@ -12,7 +12,7 @@ interface NewVisitorData {
   availableDates: string[];
   topLandingPages: [string, number][];
   topDevices: [string, number][];
-  topLocations: [string, number][];
+  topLocations: { loc: string; human: number; bot: number; total: number }[];
   topReferrers: [string, number][];
   topBrowsers: [string, number][];
 }
