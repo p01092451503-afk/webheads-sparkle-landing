@@ -597,7 +597,7 @@ export default function TaxInvoiceManager() {
                     </div>
                     <div className="grid grid-cols-[60px_1fr] gap-1">
                       <span className="text-muted-foreground">상호</span>
-                      <span className="font-medium">웹헤즈</span>
+                      <span className="font-medium">주식회사 웹헤즈</span>
                     </div>
                     <div className="grid grid-cols-[60px_1fr] gap-1">
                       <span className="text-muted-foreground">대표자</span>

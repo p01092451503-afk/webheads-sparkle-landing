@@ -220,7 +220,7 @@ serve(async (req) => {
           taxTotal: String(taxAmount),
           totalAmount: String(totalAmount),
           invoicerCorpNum: supplierCorpNum || CORP_NUM,
-          invoicerCorpName: supplierCorpName || "웹헤즈",
+          invoicerCorpName: supplierCorpName || "주식회사 웹헤즈",
           invoicerCEOName: supplierCEOName || "박진열",
           invoicerAddr: supplierAddr || "서울특별시 마포구 월드컵로 114, 3층",
           invoicerBizType: supplierBizType || "서비스",
