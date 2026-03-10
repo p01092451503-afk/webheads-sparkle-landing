@@ -375,16 +375,20 @@ export default function TaxInvoiceManager() {
           <div className="space-y-3">
             <div>
               <label className="text-[12px] font-medium text-muted-foreground">고객사 *</label>
-              <Select value={form.clientId} onValueChange={(v) => setForm((f) => ({ ...f, clientId: v }))}>
+              <Select value={form.clientId} onValueChange={handleClientSelect}>
                 <SelectTrigger className="h-9 text-[13px]">
                   <SelectValue placeholder="고객사 선택" />
                 </SelectTrigger>
                 <SelectContent>
-                  {clients.map((c) => (
-                    <SelectItem key={c.id} value={c.id} className="text-[13px]">
-                      {c.name}
-                    </SelectItem>
-                  ))}
+                  {clients.map((c) => {
+                    const matched = getCompanyForClient(c);
+                    return (
+                      <SelectItem key={c.id} value={c.id} className="text-[13px]">
+                        {matched ? matched.company_name : c.name}
+                        {matched && <span className="text-muted-foreground ml-1">({matched.business_number})</span>}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </div>
