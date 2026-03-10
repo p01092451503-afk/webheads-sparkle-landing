@@ -375,7 +375,7 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
-            {tabs.filter(t => t.key === "checklist" || t.key === "report").map((t) => {
+            {tabs.filter(t => t.key === "checklist" || t.key === "report" || t.key === "client_work").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
