@@ -53,6 +53,9 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/%ec%9a%94%ea%b8%88%ec%a0%9c": "/pricing",
   "/%EC%9A%94%EA%B8%88%EC%A0%9C": "/pricing",
   "/요금제": "/pricing",
+  "/%eb%a7%88%ec%9d%b4%ed%8e%98%ec%9d%b4%ec%a7%80/sms%ec%b6%a9%ec%a0%84": "/sms-kakao",
+  "/%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80/SMS%EC%B6%A9%EC%A0%84": "/sms-kakao",
+  "/마이페이지/sms충전": "/sms-kakao",
 };
 
 // 취약점 스캔 봇이 접근하는 경로 패턴 (404 로깅만 하고 UI 표시하지 않음)
