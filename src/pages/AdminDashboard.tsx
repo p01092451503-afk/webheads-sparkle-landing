@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
@@ -16,8 +16,9 @@ const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseMan
 const Admin404Logs = lazy(() => import("@/components/admin/Admin404Logs"));
 const AdminChatbotLogs = lazy(() => import("@/components/admin/AdminChatbotLogs"));
 const TaxInvoiceManager = lazy(() => import("@/components/admin/payments/TaxInvoiceManager"));
+const AdminClientCompanies = lazy(() => import("@/components/admin/AdminClientCompanies"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
@@ -26,6 +27,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "settings", icon: Settings, label: "설정" },
   { key: "404logs", icon: FileWarning, label: "404" },
   { key: "chatbot", icon: Bot, label: "챗봇" },
+  { key: "client_companies", icon: Building2, label: "고객사관리" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
   { key: "taxinvoice", icon: FileText, label: "세금계산서" },
@@ -41,7 +43,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   useSessionTimeout();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
@@ -322,7 +324,7 @@ export default function AdminDashboard() {
 
           {/* Tabs */}
           <div className="flex -mb-px overflow-x-auto scrollbar-hide">
-            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses" && t.key !== "taxinvoice").map((t) => {
+            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses" && t.key !== "taxinvoice" && t.key !== "client_companies").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
@@ -347,7 +349,7 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-6 shrink-0 border-l border-border/50 mx-1 self-stretch" />
-            {tabs.filter(t => t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice").map((t) => {
+            {tabs.filter(t => t.key === "client_companies" || t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
@@ -395,6 +397,9 @@ export default function AdminDashboard() {
           )}
           {tab === "chatbot" && (
             <AdminChatbotLogs isSuperAdmin={isSuperAdmin} />
+          )}
+          {tab === "client_companies" && (
+            <AdminClientCompanies isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
