@@ -150,7 +150,7 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
     return Object.entries(ipMap).map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: dedupeLocation(d.city || d.country || null), lastVisit: d.lastVisit })).sort((a, b) => b.count - a.count);
   }, [humanViews]);
 
-  const topLocations = useMemo(() => { const acc: Record<string, number> = {}; humanViews.forEach((v) => { const loc = dedupeLocation(v.city || v.country) || "알 수 없음"; acc[loc] = (acc[loc] || 0) + 1; }); return Object.entries(acc).sort(([, a], [, b]) => b - a) as [string, number][]; }, [humanViews]);
+  const topLocations = useMemo(() => { const acc: Record<string, { human: number; bot: number }> = {}; filteredViews.forEach((v) => { const loc = dedupeLocation(v.city || v.country) || "알 수 없음"; if (!acc[loc]) acc[loc] = { human: 0, bot: 0 }; const type = v.visitor_type || "human"; if (type === "human") acc[loc].human++; else acc[loc].bot++; }); return Object.entries(acc).map(([loc, d]) => ({ loc, human: d.human, bot: d.bot, total: d.human + d.bot })).sort((a, b) => b.total - a.total); }, [filteredViews]);
 
   // ─── Dwell / scroll ───
   const pageDwellTimes = useMemo(() => { const acc: Record<string, { total: number; count: number }> = {}; humanViews.forEach((v) => { if (v.duration_seconds && v.duration_seconds > 0) { if (!acc[v.page_path]) acc[v.page_path] = { total: 0, count: 0 }; acc[v.page_path].total += v.duration_seconds; acc[v.page_path].count++; } }); return Object.entries(acc).map(([path, d]) => ({ path, avg: Math.round(d.total / d.count), count: d.count })).sort((a, b) => b.avg - a.avg); }, [humanViews]);
