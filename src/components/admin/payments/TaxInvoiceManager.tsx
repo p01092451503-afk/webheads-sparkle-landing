@@ -90,6 +90,7 @@ export default function TaxInvoiceManager() {
   // Multi-step: 1=form, 2=preview/confirm, 3=final issue
   const [issueStep, setIssueStep] = useState<1 | 2 | 3>(1);
   const [saved, setSaved] = useState(false);
+  const [savedLogId, setSavedLogId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
