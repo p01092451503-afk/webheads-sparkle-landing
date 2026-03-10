@@ -253,6 +253,7 @@ export default function TaxInvoiceManager() {
         writeDate: new Date().toISOString().split("T")[0],
       });
       setMatchedContacts([]);
+      setSelectedContactIdx(0);
       fetchData();
     } catch (e: any) {
       toast.error(e.message || "발행 중 오류가 발생했습니다");
