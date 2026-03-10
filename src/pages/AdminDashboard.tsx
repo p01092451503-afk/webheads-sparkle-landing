@@ -33,6 +33,8 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "payments", icon: CreditCard, label: "매출관리" },
   { key: "expenses", icon: Receipt, label: "매입/지출관리" },
   { key: "taxinvoice", icon: FileText, label: "세금계산서" },
+  { key: "checklist", icon: ListChecks, label: "체크리스트" },
+  { key: "report", icon: FileBarChart, label: "월간리포트" },
 ];
 
 const TabLoader = () => (
