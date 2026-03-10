@@ -150,8 +150,8 @@ export default function TaxInvoiceManager() {
         .order("created_at", { ascending: false })
         .limit(200),
       supabase.from("clients").select("id, name, client_no").order("sort_order"),
-      supabase.from("client_companies").select("id, business_number, num, company_name, ceo_name, is_active"),
-      supabase.from("client_contacts").select("company_id, email"),
+      supabase.from("client_companies").select("id, business_number, num, company_name, ceo_name, business_type, business_item, address1, address2, is_active"),
+      supabase.from("client_contacts").select("company_id, name, position, phone, mobile, email"),
     ]);
     if (logsRes.data) setLogs(logsRes.data as any);
     if (clientsRes.data) setClients(clientsRes.data as any);
