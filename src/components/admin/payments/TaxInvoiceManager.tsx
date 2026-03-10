@@ -316,12 +316,6 @@ export default function TaxInvoiceManager() {
       setIssuing(false);
     }
   };
-    } catch (e: any) {
-      toast.error(e.message || "발행 중 오류가 발생했습니다");
-    } finally {
-      setIssuing(false);
-    }
-  };
 
   const getClientName = (clientId: string) =>
     clients.find((c) => c.id === clientId)?.name || "-";
