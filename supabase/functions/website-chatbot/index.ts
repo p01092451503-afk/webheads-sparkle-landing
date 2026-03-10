@@ -32,9 +32,16 @@ function getSystemPrompt(lang: string): string {
     en: "Respond in English.",
     ja: "日本語で回答。",
   };
+  const footerMap: Record<string, string> = {
+    ko: "\n\n더 궁금한 사항은 02-540-4337로 전화주세요.",
+    en: "\n\nFor further inquiries, please call 02-540-4337.",
+    ja: "\n\nご不明な点は02-540-4337までお電話ください。",
+  };
+  const footer = footerMap[lang] || footerMap.ko;
   return `웹헤즈 공식 상담 어시스턴트. ${langMap[lang] || langMap.ko}
 역할: 서비스안내, 요금계산, 상담유도. 금액은 콤마포맷(700,000원).
 금지: 이모지, 마크다운헤딩(###), 수평선(---), AI어투("물론이죠!"). 볼드/리스트/줄바꿈만 사용. 자연스러운 상담사 어투.
+필수: 모든 답변의 마지막 줄에 반드시 "${footer.trim()}" 문구를 추가하세요. 예외 없이 항상 포함합니다.
 ${COMPANY_CONTEXT}`;
 }
 
