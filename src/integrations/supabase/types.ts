@@ -121,6 +121,39 @@ export type Database = {
           },
         ]
       }
+      chatbot_conversations: {
+        Row: {
+          created_at: string | null
+          first_message: string | null
+          id: string
+          language: string | null
+          message_count: number | null
+          messages: Json
+          session_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          first_message?: string | null
+          id?: string
+          language?: string | null
+          message_count?: number | null
+          messages?: Json
+          session_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          first_message?: string | null
+          id?: string
+          language?: string | null
+          message_count?: number | null
+          messages?: Json
+          session_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       click_events: {
         Row: {
           browser: string | null
