@@ -79,14 +79,18 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
     fetchItems();
   };
 
+  const [isAdding, setIsAdding] = useState(false);
   const addTask = async () => {
-    if (!newTask.trim()) return;
+    if (!newTask.trim() || isAdding) return;
+    setIsAdding(true);
+    const taskName = newTask.trim();
+    setNewTask("");
     const maxOrder = items.reduce((max, i) => Math.max(max, i.sort_order), 0);
     await supabase.from("monthly_checklists").insert({
-      year, month, task_name: newTask.trim(), sort_order: maxOrder + 1,
+      year, month, task_name: taskName, sort_order: maxOrder + 1,
     });
-    setNewTask("");
-    fetchItems();
+    await fetchItems();
+    setIsAdding(false);
   };
 
   const deleteItem = async (id: string) => {
