@@ -382,6 +382,42 @@ export default function TaxInvoiceManager() {
     setMatchedContacts([]);
     setSelectedContactIdx(0);
   };
+  // Open a saved log for issuing
+  const handleOpenSavedLog = (log: TaxInvoiceLog) => {
+    setSavedLogId(log.id);
+    setSaved(true);
+    const client = clients.find(c => c.id === log.client_id);
+    const company = client ? getCompanyForClient(client) : null;
+    const address = company ? [company.address1, company.address2].filter(Boolean).join(" ") : "";
+    const contacts = company ? clientContacts.filter(ct => ct.company_id === company.id) : [];
+    setMatchedContacts(contacts);
+    setSelectedContactIdx(0);
+    setForm({
+      clientId: log.client_id,
+      buyerCorpNum: log.buyer_corp_num || "",
+      buyerCorpName: log.buyer_corp_name || "",
+      buyerCEOName: log.buyer_ceo_name || "",
+      buyerEmail: log.buyer_email || "",
+      buyerAddress: address,
+      buyerBusinessType: company?.business_type || "",
+      buyerBusinessItem: company?.business_item || "",
+      memo: log.memo || "",
+      writeDate: log.issue_date || new Date().toISOString().split("T")[0],
+      applyDateToAll: true,
+      invoiceType: "청구",
+    });
+    setLineItems([{
+      date: log.issue_date || new Date().toISOString().split("T")[0],
+      itemName: log.memo || "서비스 이용료",
+      quantity: 1,
+      unitPrice: log.supply_amount.toLocaleString("ko-KR"),
+      supplyAmount: log.supply_amount.toLocaleString("ko-KR"),
+      taxAmount: log.tax_amount.toLocaleString("ko-KR"),
+      totalAmount: log.total_amount.toLocaleString("ko-KR"),
+    }]);
+    setIssueStep(2);
+    setIssueOpen(true);
+  };
 
   const getClientName = (clientId: string) =>
     clients.find((c) => c.id === clientId)?.name || "-";
@@ -484,7 +520,13 @@ export default function TaxInvoiceManager() {
                 </tr>
               ) : (
                 filteredLogs.map((log) => (
-                  <tr key={log.id} className="border-b last:border-0 hover:bg-muted/30">
+                  <tr
+                    key={log.id}
+                    className={`border-b last:border-0 hover:bg-muted/30 ${log.status === "saved" ? "cursor-pointer" : ""}`}
+                    onClick={() => {
+                      if (log.status === "saved") handleOpenSavedLog(log);
+                    }}
+                  >
                     <td className="px-3 py-2 whitespace-nowrap">{log.issue_date || "-"}</td>
                     <td className="px-3 py-2 font-medium">
                       {log.buyer_corp_name || getClientName(log.client_id)}
