@@ -387,6 +387,9 @@ export default function AdminDashboard() {
           {tab === "expenses" && (
             <ExpenseManager isSuperAdmin={isSuperAdmin} logActivity={logActivity} />
           )}
+          {tab === "taxinvoice" && (
+            <TaxInvoiceManager />
+          )}
           {tab === "404logs" && (
             <Admin404Logs isSuperAdmin={isSuperAdmin} />
           )}
