@@ -115,11 +115,17 @@ export default function TaxInvoiceManager() {
     const client = clients.find(c => c.id === clientId);
     if (!client) {
       setForm(f => ({ ...f, clientId }));
+      setMatchedContacts([]);
       return;
     }
     const company = getCompanyForClient(client);
-    const contactEmail = company
-      ? clientContacts.find(ct => ct.company_id === company.id)?.email || ""
+    const companyContacts = company
+      ? clientContacts.filter(ct => ct.company_id === company.id)
+      : [];
+    setMatchedContacts(companyContacts);
+
+    const address = company
+      ? [company.address1, company.address2].filter(Boolean).join(" ")
       : "";
 
     setForm(f => ({
@@ -128,7 +134,10 @@ export default function TaxInvoiceManager() {
       buyerCorpNum: company?.business_number || f.buyerCorpNum,
       buyerCorpName: company?.company_name || client.name,
       buyerCEOName: company?.ceo_name || f.buyerCEOName,
-      buyerEmail: contactEmail || f.buyerEmail,
+      buyerEmail: companyContacts[0]?.email || f.buyerEmail,
+      buyerAddress: address || f.buyerAddress,
+      buyerBusinessType: company?.business_type || f.buyerBusinessType,
+      buyerBusinessItem: company?.business_item || f.buyerBusinessItem,
     }));
   };
 
