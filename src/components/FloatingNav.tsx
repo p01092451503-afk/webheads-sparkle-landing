@@ -1,19 +1,11 @@
-import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ChevronUp, ChevronDown, CreditCard, Send, BookOpen, FileText, Calculator } from "lucide-react";
+import { CreditCard, Send, BookOpen, FileText, Calculator } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 300);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const isLmsPage = location.pathname === "/lms" || location.pathname === "/";
   const isServiceRequest = location.pathname === "/service-request";
@@ -97,30 +89,6 @@ export default function FloatingNav() {
             </Link>
         ))}
       </div>
-
-      {/* Mobile scroll buttons — split apart for chatbot button in between */}
-      {visible && (
-        <>
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="fixed right-3 bottom-[132px] z-50 md:hidden w-8 h-8 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to top">
-            <ChevronUp className="w-4 h-4" />
-          </button>
-          <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} className="fixed right-3 bottom-4 z-50 md:hidden w-8 h-8 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to bottom">
-            <ChevronDown className="w-4 h-4" />
-          </button>
-        </>
-      )}
-
-      {/* Desktop scroll buttons — split apart for chatbot button in between */}
-      {visible && (
-        <>
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="fixed right-5 bottom-[132px] z-50 hidden md:flex w-10 h-10 rounded-full bg-foreground/80 text-background items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to top">
-            <ChevronUp className="w-5 h-5" />
-          </button>
-          <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} className="fixed right-5 bottom-6 z-50 hidden md:flex w-10 h-10 rounded-full bg-foreground/80 text-background items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to bottom">
-            <ChevronDown className="w-5 h-5" />
-          </button>
-        </>
-      )}
     </div>
   );
 }
