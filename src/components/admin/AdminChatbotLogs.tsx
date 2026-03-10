@@ -123,7 +123,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
         <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
           <p className="text-[11px] text-muted-foreground font-medium">전체 대화</p>
           <p className="text-2xl font-bold text-foreground mt-1">{conversations.length}</p>
