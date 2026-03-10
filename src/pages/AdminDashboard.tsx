@@ -36,7 +36,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "taxinvoice", icon: FileText, label: "세금계산서" },
   { key: "checklist", icon: ListChecks, label: "체크리스트" },
   { key: "report", icon: FileBarChart, label: "월간리포트" },
-  { key: "client_work", icon: FolderKanban, label: "고객사업무" },
+  { key: "client_work", icon: FolderKanban, label: "프로젝트관리" },
 ];
 
 const TabLoader = () => (
