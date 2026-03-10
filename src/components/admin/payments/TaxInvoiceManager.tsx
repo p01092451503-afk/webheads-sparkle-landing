@@ -591,7 +591,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 매출항목 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-[13px] font-bold text-foreground">매출항목</label>
                 <Button size="sm" variant="outline" onClick={addLineItem} className="text-[11px] h-7 gap-1">
