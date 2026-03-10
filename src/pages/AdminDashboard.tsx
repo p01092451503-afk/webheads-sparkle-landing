@@ -28,8 +28,8 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "404logs", icon: FileWarning, label: "404" },
   { key: "chatbot", icon: Bot, label: "챗봇" },
   { key: "client_companies", icon: Building2, label: "고객사관리" },
-  { key: "payments", icon: CreditCard, label: "입금관리" },
-  { key: "expenses", icon: Receipt, label: "지출관리" },
+  { key: "payments", icon: CreditCard, label: "매출관리" },
+  { key: "expenses", icon: Receipt, label: "매입지출관리" },
   { key: "taxinvoice", icon: FileText, label: "세금계산서" },
 ];
 
