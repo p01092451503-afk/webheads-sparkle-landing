@@ -723,7 +723,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 비고 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <label className="text-[13px] font-bold text-foreground">비고</label>
               <Input
                 value={form.memo}
