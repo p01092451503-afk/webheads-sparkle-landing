@@ -486,20 +486,6 @@ export default function TaxInvoiceManager() {
               </div>
             </div>
 
-            {/* Matched contacts info */}
-            {matchedContacts.length > 0 && (
-              <div className="rounded-lg border border-border/60 bg-muted/30 p-3 space-y-2">
-                <p className="text-[11px] font-semibold text-foreground">발행정보 / 연락처</p>
-                {matchedContacts.map((ct, i) => (
-                  <div key={i} className="flex flex-wrap gap-x-4 gap-y-0.5 text-[11px] text-muted-foreground">
-                    {ct.name && <span className="font-medium text-foreground">{ct.name}{ct.position && ` (${ct.position})`}</span>}
-                    {ct.phone && <span>☎ {ct.phone}</span>}
-                    {ct.mobile && <span>📱 {ct.mobile}</span>}
-                    {ct.email && <span>✉ {ct.email}</span>}
-                  </div>
-                ))}
-              </div>
-            )}
 
             <div className="grid grid-cols-2 gap-3">
               <div>
