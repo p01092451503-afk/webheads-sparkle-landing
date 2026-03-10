@@ -87,6 +87,9 @@ export default function TaxInvoiceManager() {
   const [issueOpen, setIssueOpen] = useState(false);
   const [clientSearchOpen, setClientSearchOpen] = useState(false);
   const [issuing, setIssuing] = useState(false);
+  // Multi-step: 1=form, 2=preview/confirm, 3=final issue
+  const [issueStep, setIssueStep] = useState<1 | 2 | 3>(1);
+  const [saved, setSaved] = useState(false);
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
