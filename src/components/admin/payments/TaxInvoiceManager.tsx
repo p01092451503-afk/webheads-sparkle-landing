@@ -262,8 +262,8 @@ export default function TaxInvoiceManager() {
 
   const filledLines = useMemo(() => lineItems.filter(l => l.itemName || l.unitPrice), [lineItems]);
 
-  // Step 1: Save (validate form)
-  const handleSave = () => {
+  // Step 1: Save to DB with status "saved"
+  const handleSave = async () => {
     if (!form.clientId || !form.buyerCorpNum) {
       toast.error("필수 항목을 입력해주세요 (고객사, 사업자번호)");
       return;
@@ -272,9 +272,29 @@ export default function TaxInvoiceManager() {
       toast.error("매출항목을 입력해주세요");
       return;
     }
-    setSaved(true);
-    toast.success("세금계산서 정보가 저장되었습니다. 내용을 확인해주세요.");
-    setIssueStep(2);
+    try {
+      const { data, error } = await supabase.from("tax_invoice_logs" as any).insert({
+        client_id: form.clientId,
+        buyer_corp_num: form.buyerCorpNum,
+        buyer_corp_name: form.buyerCorpName,
+        buyer_ceo_name: form.buyerCEOName,
+        buyer_email: form.buyerEmail,
+        supply_amount: lineTotals.supply,
+        tax_amount: lineTotals.tax,
+        total_amount: lineTotals.total,
+        issue_date: form.writeDate,
+        status: "saved",
+        memo: form.memo,
+      }).select("id").single();
+      if (error) throw error;
+      setSavedLogId((data as any).id);
+      setSaved(true);
+      toast.success("세금계산서 정보가 저장되었습니다. 내용을 확인해주세요.");
+      setIssueStep(2);
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "저장 중 오류가 발생했습니다");
+    }
   };
 
   // Step 3: Actually issue via Popbill API → NTS
