@@ -1140,6 +1140,17 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
               </datalist>
             </div>
             <div className="space-y-1.5">
+              <Label className="text-[13px]">결제 유형</Label>
+              <Select value={formPaymentMethod} onValueChange={setFormPaymentMethod}>
+                <SelectTrigger className="h-9 text-[13px]"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {PAYMENT_METHODS.map((m) => (
+                    <SelectItem key={m.value} value={m.value} className="text-[13px]">{m.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
               <Label className="text-[13px]">메모</Label>
               <Input value={formMemo} onChange={(e) => setFormMemo(e.target.value)} placeholder="메모 (선택)" className="h-9 text-[13px]" />
             </div>
