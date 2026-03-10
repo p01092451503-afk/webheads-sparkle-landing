@@ -559,7 +559,7 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Section: 작성일자 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <div className="flex items-center gap-4">
                 <label className="text-[13px] font-bold text-foreground">작성일자</label>
                 <Input
