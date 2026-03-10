@@ -31,7 +31,7 @@ async function streamChat({
   messages, lang, onDelta, onDone, onError,
 }: {
   messages: Msg[]; lang: string;
-  onDelta: (t: string) => void; onDone: () => void; onError: (e: string) => void;
+  onDelta: (t: string) => void; onDone: (usage?: { total_tokens: number; cost: number }) => void; onError: (e: string) => void;
 }) {
   let resp: Response;
   try {
@@ -59,6 +59,7 @@ async function streamChat({
   const reader = resp.body.getReader();
   const decoder = new TextDecoder();
   let buf = "";
+  let usage: { total_tokens: number; cost: number } | undefined;
 
   while (true) {
     const { done, value } = await reader.read();
@@ -72,15 +73,22 @@ async function streamChat({
       if (line.endsWith("\r")) line = line.slice(0, -1);
       if (!line.startsWith("data: ")) continue;
       const json = line.slice(6).trim();
-      if (json === "[DONE]") { onDone(); return; }
+      if (json === "[DONE]") { onDone(usage); return; }
       try {
         const p = JSON.parse(json);
         const c = p.choices?.[0]?.delta?.content;
         if (c) onDelta(c);
+        // Capture usage from final chunk
+        if (p.usage) {
+          usage = {
+            total_tokens: p.usage.total_tokens || 0,
+            cost: p.usage.cost_details?.upstream_inference_cost || p.usage.cost || 0,
+          };
+        }
       } catch { /* partial */ }
     }
   }
-  onDone();
+  onDone(usage);
 }
 
 function SimpleMarkdown({ text }: { text: string }) {
@@ -123,6 +131,8 @@ export default function ChatbotPanel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const conversationIdRef = useRef<string | null>(null);
+  const tokensAccRef = useRef<number>(0);
+  const costAccRef = useRef<number>(0);
 
   const scrollToBottom = useCallback(() => {
     setTimeout(() => scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" }), 50);
@@ -132,7 +142,7 @@ export default function ChatbotPanel() {
   useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
 
   // Save conversation to DB
-  const saveConversation = useCallback(async (msgs: Msg[]) => {
+  const saveConversation = useCallback(async (msgs: Msg[], usage?: { total_tokens: number; cost: number }) => {
     if (msgs.length === 0) return;
     const sessionId = getSessionId();
     const firstUserMsg = msgs.find(m => m.role === "user")?.content || "";
@@ -140,20 +150,35 @@ export default function ChatbotPanel() {
 
     try {
       if (conversationIdRef.current) {
-        await supabase.from("chatbot_conversations" as any).update({
+        const updateData: any = {
           messages: msgs as any,
           message_count: userMsgCount,
           updated_at: new Date().toISOString(),
-        } as any).eq("id", conversationIdRef.current);
+        };
+        if (usage) {
+          // Accumulate tokens/cost with existing values using raw SQL increment
+          updateData.total_tokens = (tokensAccRef.current || 0) + usage.total_tokens;
+          updateData.total_cost = (costAccRef.current || 0) + usage.cost;
+          tokensAccRef.current = updateData.total_tokens;
+          costAccRef.current = updateData.total_cost;
+        }
+        await supabase.from("chatbot_conversations" as any).update(updateData).eq("id", conversationIdRef.current);
       } else {
-        const { data } = await supabase.from("chatbot_conversations" as any).insert({
+        const insertData: any = {
           session_id: sessionId,
           language: lang,
           messages: msgs as any,
           message_count: userMsgCount,
           first_message: firstUserMsg.slice(0, 200),
-        } as any).select("id").single();
-        if (data) conversationIdRef.current = (data as any).id;
+          total_tokens: usage?.total_tokens || 0,
+          total_cost: usage?.cost || 0,
+        };
+        const { data } = await supabase.from("chatbot_conversations" as any).insert(insertData).select("id").single();
+        if (data) {
+          conversationIdRef.current = (data as any).id;
+          tokensAccRef.current = usage?.total_tokens || 0;
+          costAccRef.current = usage?.cost || 0;
+        }
       }
     } catch (e) {
       console.error("Failed to save conversation:", e);
@@ -189,10 +214,9 @@ export default function ChatbotPanel() {
       messages: newMessages,
       lang,
       onDelta: upsert,
-      onDone: () => {
+      onDone: (usage) => {
         setLoading(false);
-        // Save after response is complete
-        saveConversation(finalMessages);
+        saveConversation(finalMessages, usage);
       },
       onError: (e) => {
         const errorMessages: Msg[] = [...newMessages, { role: "assistant", content: `⚠️ ${e}` }];
@@ -212,6 +236,8 @@ export default function ChatbotPanel() {
   const handleClear = () => {
     setMessages([]);
     conversationIdRef.current = null;
+    tokensAccRef.current = 0;
+    costAccRef.current = 0;
   };
 
   const welcome = WELCOME[lang] || WELCOME.ko;

@@ -130,6 +130,8 @@ export type Database = {
           message_count: number | null
           messages: Json
           session_id: string | null
+          total_cost: number | null
+          total_tokens: number | null
           updated_at: string | null
         }
         Insert: {
@@ -140,6 +142,8 @@ export type Database = {
           message_count?: number | null
           messages?: Json
           session_id?: string | null
+          total_cost?: number | null
+          total_tokens?: number | null
           updated_at?: string | null
         }
         Update: {
@@ -150,6 +154,8 @@ export type Database = {
           message_count?: number | null
           messages?: Json
           session_id?: string | null
+          total_cost?: number | null
+          total_tokens?: number | null
           updated_at?: string | null
         }
         Relationships: []

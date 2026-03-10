@@ -15,6 +15,8 @@ interface Conversation {
   messages: { role: string; content: string }[];
   message_count: number;
   first_message: string | null;
+  total_tokens: number | null;
+  total_cost: number | null;
   created_at: string;
   updated_at: string;
 }
@@ -52,6 +54,8 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
   const today = new Date().toISOString().slice(0, 10);
   const todayCount = conversations.filter(c => c.created_at.slice(0, 10) === today).length;
   const totalMessages = conversations.reduce((acc, c) => acc + (c.message_count || 0), 0);
+  const totalTokens = conversations.reduce((acc, c) => acc + (c.total_tokens || 0), 0);
+  const totalCost = conversations.reduce((acc, c) => acc + (Number(c.total_cost) || 0), 0);
   const langStats = conversations.reduce((acc, c) => {
     acc[c.language] = (acc[c.language] || 0) + 1;
     return acc;
@@ -60,7 +64,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
           <p className="text-[11px] text-muted-foreground font-medium">전체 대화</p>
           <p className="text-2xl font-bold text-foreground mt-1">{conversations.length}</p>
@@ -74,14 +78,13 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
           <p className="text-2xl font-bold text-foreground mt-1">{totalMessages}</p>
         </div>
         <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
-          <p className="text-[11px] text-muted-foreground font-medium">언어 분포</p>
-          <div className="flex gap-2 mt-1">
-            {Object.entries(langStats).map(([l, c]) => (
-              <span key={l} className="text-xs font-semibold text-muted-foreground">
-                {l.toUpperCase()}: {c as number}
-              </span>
-            ))}
-          </div>
+          <p className="text-[11px] text-muted-foreground font-medium">총 토큰</p>
+          <p className="text-2xl font-bold text-foreground mt-1">{totalTokens.toLocaleString()}</p>
+        </div>
+        <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
+          <p className="text-[11px] text-muted-foreground font-medium">총 비용</p>
+          <p className="text-2xl font-bold text-foreground mt-1">${totalCost.toFixed(4)}</p>
+          <p className="text-[10px] text-muted-foreground">≈ {Math.round(totalCost * 1400).toLocaleString()}원</p>
         </div>
       </div>
 
@@ -127,7 +130,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
                     <p className="text-sm font-medium text-foreground truncate">
                       {conv.first_message || "(빈 대화)"}
                     </p>
-                    <div className="flex items-center gap-2 mt-0.5">
+                    <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                       <span className="text-[11px] text-muted-foreground">
                         {format(new Date(conv.created_at), "M/d HH:mm", { locale: ko })}
                       </span>
@@ -139,6 +142,18 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
                       <span className="text-[11px] font-medium px-1.5 py-0.5 rounded bg-[hsl(220,14%,96%)] text-muted-foreground">
                         {conv.language?.toUpperCase()}
                       </span>
+                      {(conv.total_tokens || 0) > 0 && (
+                        <>
+                          <span className="text-[11px] text-muted-foreground">·</span>
+                          <span className="text-[11px] text-muted-foreground">
+                            {(conv.total_tokens || 0).toLocaleString()} 토큰
+                          </span>
+                          <span className="text-[11px] text-muted-foreground">·</span>
+                          <span className="text-[11px] font-semibold text-primary">
+                            ${(Number(conv.total_cost) || 0).toFixed(4)}
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
                   {isExpanded ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
