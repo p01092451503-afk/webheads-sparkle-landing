@@ -85,6 +85,7 @@ export default function TaxInvoiceManager() {
   const [clientContacts, setClientContacts] = useState<ClientContact[]>([]);
   const [loading, setLoading] = useState(true);
   const [issueOpen, setIssueOpen] = useState(false);
+  const [clientSearchOpen, setClientSearchOpen] = useState(false);
   const [issuing, setIssuing] = useState(false);
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
