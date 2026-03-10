@@ -209,7 +209,7 @@ serve(async (req) => {
         const mgtKey = `WH${new Date().toISOString().replace(/[-T:.Z]/g, "").slice(0, 14)}${crypto.randomUUID().slice(0, 6).toUpperCase()}`;
 
         const invoiceBody = {
-          mgtKey,
+          invoicerMgtKey: mgtKey,
           writeDate: writeDate || new Date().toISOString().split("T")[0].replace(/-/g, ""),
           chargeDirection: invoiceType === 1 ? "정과금" : "역과금",
           issueType: "정발행",
