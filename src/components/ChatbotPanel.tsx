@@ -269,7 +269,7 @@ export default function ChatbotPanel() {
                 <Bot className="w-5 h-5 text-primary" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-sm text-foreground">WEBHEADS AI</h3>
+                <h3 className="font-semibold text-sm text-foreground">웹헤즈 AI</h3>
                 <p className="text-xs text-muted-foreground">
                   {lang === "en" ? "Online" : lang === "ja" ? "オンライン" : "온라인"}
                 </p>
