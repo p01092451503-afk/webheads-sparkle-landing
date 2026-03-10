@@ -15,6 +15,8 @@ interface Conversation {
   messages: { role: string; content: string }[];
   message_count: number;
   first_message: string | null;
+  total_tokens: number | null;
+  total_cost: number | null;
   created_at: string;
   updated_at: string;
 }
