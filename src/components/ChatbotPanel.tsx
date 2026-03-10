@@ -257,7 +257,7 @@ export default function ChatbotPanel() {
         aria-label="AI 상담"
       >
         <MessageCircle className="w-5 h-5" />
-        <span className="text-sm font-medium whitespace-nowrap">AI 상담</span>
+        <span className="text-sm font-medium whitespace-nowrap">AI 챗봇</span>
       </button>
 
       {/* Floating chat window */}
