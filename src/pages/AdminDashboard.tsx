@@ -24,6 +24,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "inquiries", icon: MessageSquare, label: "문의" },
   { key: "settings", icon: Settings, label: "설정" },
   { key: "404logs", icon: FileWarning, label: "404" },
+  { key: "chatbot", icon: Bot, label: "챗봇" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
 ];
