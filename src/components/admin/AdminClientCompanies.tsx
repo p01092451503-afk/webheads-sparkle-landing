@@ -313,6 +313,20 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
                 className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-muted/30 transition-colors"
                 onClick={() => setExpandedId(isOpen ? null : c.id)}
               >
+                {showInactive && (
+                  <Checkbox
+                    checked={selectedIds.has(c.id)}
+                    onCheckedChange={() => {
+                      setSelectedIds(prev => {
+                        const next = new Set(prev);
+                        if (next.has(c.id)) next.delete(c.id); else next.add(c.id);
+                        return next;
+                      });
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                    className="shrink-0"
+                  />
+                )}
                 <Building2 className={`w-4 h-4 shrink-0 ${c.is_active ? "text-muted-foreground" : "text-destructive/50"}`} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
