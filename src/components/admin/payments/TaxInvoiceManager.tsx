@@ -514,7 +514,7 @@ export default function TaxInvoiceManager() {
                     <p className="text-[11px] font-bold text-primary mb-1">공급자 (매출)</p>
                     <div className="grid grid-cols-[60px_1fr] gap-1">
                       <span className="text-muted-foreground">사업자번호</span>
-                      <span className="font-medium">{Deno?.env ? "" : "자동입력"}</span>
+                      <span className="font-medium">공급자 사업자번호</span>
                     </div>
                     <div className="grid grid-cols-[60px_1fr] gap-1">
                       <span className="text-muted-foreground">상호</span>
