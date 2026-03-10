@@ -203,6 +203,7 @@ serve(async (req) => {
           memo,
           clientId,
           paymentId,
+          existingLogId,
         } = params;
 
         // 문서번호 자동 생성 (최대 24자리)
