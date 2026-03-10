@@ -145,10 +145,10 @@ export default function AdminAnalytics({ pageViews, inquiries, clickEvents, onRe
   const maskIp = (ip: string) => { if (ip === "알 수 없음") return ip; const parts = ip.split("."); if (parts.length === 4) return `${parts[0]}.${parts[1]}.${parts[2]}.***`; return ip.replace(/:[\da-f]{1,4}$/i, ":***"); };
 
   const ipWithLocation = useMemo(() => {
-    const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null }> = {};
-    humanViews.forEach((v) => { const ip = v.ip_address || "알 수 없음"; if (!ipMap[ip]) ipMap[ip] = { count: 0, city: null, country: null, lastVisit: null }; ipMap[ip].count++; if (v.city) ipMap[ip].city = v.city; if (v.country) ipMap[ip].country = v.country; if (!ipMap[ip].lastVisit || v.created_at > ipMap[ip].lastVisit!) ipMap[ip].lastVisit = v.created_at; });
-    return Object.entries(ipMap).map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: dedupeLocation(d.city || d.country || null), lastVisit: d.lastVisit })).sort((a, b) => b.count - a.count);
-  }, [humanViews]);
+    const ipMap: Record<string, { count: number; city: string | null; country: string | null; lastVisit: string | null; human: number; bot: number }> = {};
+    filteredViews.forEach((v) => { const ip = v.ip_address || "알 수 없음"; if (!ipMap[ip]) ipMap[ip] = { count: 0, city: null, country: null, lastVisit: null, human: 0, bot: 0 }; ipMap[ip].count++; const type = v.visitor_type || "human"; if (type === "human") ipMap[ip].human++; else ipMap[ip].bot++; if (v.city) ipMap[ip].city = v.city; if (v.country) ipMap[ip].country = v.country; if (!ipMap[ip].lastVisit || v.created_at > ipMap[ip].lastVisit!) ipMap[ip].lastVisit = v.created_at; });
+    return Object.entries(ipMap).map(([ip, d]) => ({ ip: maskIp(ip), count: d.count, location: dedupeLocation(d.city || d.country || null), lastVisit: d.lastVisit, human: d.human, bot: d.bot })).sort((a, b) => b.count - a.count);
+  }, [filteredViews]);
 
   const topLocations = useMemo(() => { const acc: Record<string, { human: number; bot: number }> = {}; filteredViews.forEach((v) => { const loc = dedupeLocation(v.city || v.country) || "알 수 없음"; if (!acc[loc]) acc[loc] = { human: 0, bot: 0 }; const type = v.visitor_type || "human"; if (type === "human") acc[loc].human++; else acc[loc].bot++; }); return Object.entries(acc).map(([loc, d]) => ({ loc, human: d.human, bot: d.bot, total: d.human + d.bot })).sort((a, b) => b.total - a.total); }, [filteredViews]);
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { dedupeLocation } from "@/lib/utils";
-import { Eye, Globe, Wifi, MapPin, ArrowUpRight, Smartphone, User, Users } from "lucide-react";
+import { Eye, Globe, Wifi, MapPin, ArrowUpRight, Smartphone, User, Users, Bot } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 import { SectionGroup, MetricCard, ChartCard, BarRow, Empty } from "./AnalyticsShared";
 
@@ -12,7 +12,7 @@ interface NewVisitorData {
   availableDates: string[];
   topLandingPages: [string, number][];
   topDevices: [string, number][];
-  topLocations: [string, number][];
+  topLocations: { loc: string; human: number; bot: number; total: number }[];
   topReferrers: [string, number][];
   topBrowsers: [string, number][];
 }
@@ -78,12 +78,14 @@ export default function AnalyticsNewVisitors({ pageViews, toLocalDateKey }: Prop
     filteredNewVisitors.forEach((v: any) => { devices[v.device_type || "unknown"] = (devices[v.device_type || "unknown"] || 0) + 1; });
     const topDevices = Object.entries(devices).sort(([, a], [, b]) => b - a) as [string, number][];
 
-    const locations: Record<string, number> = {};
+    const locations: Record<string, { human: number; bot: number }> = {};
     filteredNewVisitors.forEach((v: any) => {
       const loc = dedupeLocation(v.city || v.country) || "알 수 없음";
-      locations[loc] = (locations[loc] || 0) + 1;
+      if (!locations[loc]) locations[loc] = { human: 0, bot: 0 };
+      const type = v.visitor_type || "human";
+      if (type === "human") locations[loc].human++; else locations[loc].bot++;
     });
-    const topLocations = Object.entries(locations).sort(([, a], [, b]) => b - a) as [string, number][];
+    const topLocations = Object.entries(locations).map(([loc, d]) => ({ loc, human: d.human, bot: d.bot, total: d.human + d.bot })).sort((a, b) => b.total - a.total);
 
     const referrers: Record<string, number> = {};
     filteredNewVisitors.forEach((v: any) => {
@@ -168,7 +170,33 @@ export default function AnalyticsNewVisitors({ pageViews, toLocalDateKey }: Prop
           {newVisitorData.topReferrers.length === 0 ? <Empty /> : newVisitorData.topReferrers.map(([r, c], i) => <BarRow key={r} rank={i+1} label={r} value={c} max={newVisitorData.topReferrers[0][1]} color="hsl(152, 57%, 42%)" />)}
         </ChartCard>
         <ChartCard title="신규 방문자 지역" icon={<MapPin className="w-4 h-4" />} className="bg-[hsl(340,25%,90%)]">
-          {newVisitorData.topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : newVisitorData.topLocations.map(([l, c], i) => <BarRow key={l} rank={i+1} label={l} value={c} max={newVisitorData.topLocations[0][1]} color="hsl(340, 65%, 55%)" />)}
+          {newVisitorData.topLocations.length === 0 ? <Empty msg="위치 데이터 수집 중..." /> : newVisitorData.topLocations.map((d, i) => {
+            const pct = newVisitorData.topLocations[0].total > 0 ? (d.total / newVisitorData.topLocations[0].total) * 100 : 0;
+            return (
+              <div key={d.loc} className="flex items-center gap-2 text-[12px] group">
+                <span className="w-5 text-right text-muted-foreground/50 font-mono text-[11px] shrink-0">{i+1}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="truncate font-medium">{d.loc}</span>
+                    {d.human > 0 && (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-50 text-emerald-600 shrink-0">
+                        <User className="w-2.5 h-2.5" />{d.human}
+                      </span>
+                    )}
+                    {d.bot > 0 && (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-amber-50 text-amber-600 shrink-0">
+                        <Bot className="w-2.5 h-2.5" />{d.bot}
+                      </span>
+                    )}
+                  </div>
+                  <div className="h-1.5 rounded-full bg-muted/40 overflow-hidden">
+                    <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, background: "hsl(340, 65%, 55%)" }} />
+                  </div>
+                </div>
+                <span className="text-muted-foreground font-mono text-[11px] shrink-0 w-8 text-right">{d.total}</span>
+              </div>
+            );
+          })}
         </ChartCard>
         <ChartCard title="신규 방문자 디바이스 · 브라우저" icon={<Smartphone className="w-4 h-4" />} className="bg-[hsl(260,25%,90%)]">
           {newVisitorData.topDevices.length === 0 ? <Empty /> : (
