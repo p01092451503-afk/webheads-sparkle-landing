@@ -78,9 +78,9 @@ export default function Admin404Logs({ isSuperAdmin }: Props) {
 
   const getDeviceFromUA = (ua: string | null) => {
     if (!ua) return "–";
-    if (/mobile/i.test(ua)) return "📱";
-    if (/bot|crawl|spider|slurp/i.test(ua)) return "🤖";
-    return "💻";
+    if (/mobile/i.test(ua)) return "모바일";
+    if (/bot|crawl|spider|slurp/i.test(ua)) return "봇";
+    return "PC";
   };
 
   return (
