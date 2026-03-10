@@ -97,11 +97,23 @@ export default function TaxInvoiceManager() {
     buyerAddress: "",
     buyerBusinessType: "",
     buyerBusinessItem: "",
-    supplyAmount: "",
-    taxAmount: "",
     memo: "",
     writeDate: new Date().toISOString().split("T")[0],
+    applyDateToAll: true,
+    invoiceType: "청구" as "영수" | "청구",
   });
+
+  const emptyLine = (): SalesLineItem => ({
+    date: form.writeDate,
+    itemName: "",
+    quantity: 1,
+    unitPrice: "",
+    supplyAmount: "",
+    taxAmount: "",
+    totalAmount: "",
+  });
+
+  const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
 
   const [matchedContacts, setMatchedContacts] = useState<ClientContact[]>([]);
   const [selectedContactIdx, setSelectedContactIdx] = useState<number>(0);
