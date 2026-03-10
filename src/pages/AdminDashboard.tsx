@@ -328,7 +328,7 @@ export default function AdminDashboard() {
 
           {/* Tabs */}
           <div className="flex -mb-px overflow-x-auto scrollbar-hide">
-            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses" && t.key !== "taxinvoice" && t.key !== "client_companies").map((t) => {
+            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses" && t.key !== "taxinvoice" && t.key !== "client_companies" && t.key !== "checklist" && t.key !== "report").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
