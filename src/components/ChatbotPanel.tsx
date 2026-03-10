@@ -236,6 +236,8 @@ export default function ChatbotPanel() {
   const handleClear = () => {
     setMessages([]);
     conversationIdRef.current = null;
+    tokensAccRef.current = 0;
+    costAccRef.current = 0;
   };
 
   const welcome = WELCOME[lang] || WELCOME.ko;
