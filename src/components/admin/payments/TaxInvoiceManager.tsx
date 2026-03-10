@@ -362,6 +362,7 @@ export default function TaxInvoiceManager() {
     setIssueOpen(false);
     setIssueStep(1);
     setSaved(false);
+    setSavedLogId(null);
     setForm({
       clientId: "",
       buyerCorpNum: "",
