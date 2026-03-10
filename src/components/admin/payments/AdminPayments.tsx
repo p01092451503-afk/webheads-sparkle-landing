@@ -18,7 +18,7 @@ const ExpenseManager = lazy(() => import("./ExpenseManager"));
 type Client = import("./paymentTypes").PaymentClient;
 type Payment = import("./paymentTypes").PaymentRecord;
 
-type SubView = "dashboard" | "clients" | "detail" | "calendar" | "expected" | "expenses" | "issues" | "taxinvoice";
+type SubView = "dashboard" | "clients" | "detail" | "calendar" | "expected" | "expenses" | "issues";
 
 const Loader = () => (
   <div className="flex items-center justify-center py-20">
