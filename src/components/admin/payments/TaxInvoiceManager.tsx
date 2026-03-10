@@ -498,10 +498,12 @@ export default function TaxInvoiceManager() {
                         className={
                           log.status === "issued"
                             ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]"
+                            : log.status === "saved"
+                            ? "bg-blue-50 text-blue-700 border-blue-200 text-[11px]"
                             : "bg-amber-50 text-amber-700 border-amber-200 text-[11px]"
                         }
                       >
-                        {log.status === "issued" ? "발행완료" : log.status}
+                        {log.status === "issued" ? "발행완료" : log.status === "saved" ? "저장" : log.status}
                       </Badge>
                     </td>
                     <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
