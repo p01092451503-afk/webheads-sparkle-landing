@@ -119,7 +119,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         return da.localeCompare(db);
       });
     }
-    else list = [...list].sort((a, b) => (a.client_no || 0) - (b.client_no || 0));
+    else list = [...list].sort((a, b) => ((a as any).sort_order || 0) - ((b as any).sort_order || 0));
 
     return list;
   }, [clientData, search, filter, sort]);
