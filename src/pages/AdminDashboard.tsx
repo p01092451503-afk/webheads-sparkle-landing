@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
