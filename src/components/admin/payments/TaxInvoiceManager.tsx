@@ -522,6 +522,7 @@ export default function TaxInvoiceManager() {
                 <th className="text-right px-3 py-2 font-medium">합계</th>
                 <th className="text-center px-3 py-2 font-medium">상태</th>
                 <th className="text-left px-3 py-2 font-medium">메모</th>
+                <th className="px-3 py-2 w-[60px]"></th>
               </tr>
             </thead>
             <tbody>
