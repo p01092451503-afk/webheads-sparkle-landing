@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import {
   Loader2, Plus, Search, FileText, CheckCircle2, AlertTriangle,
-  ChevronLeft, ChevronRight, ChevronDown, ArrowLeft, Trash2
+  ChevronLeft, ChevronRight, ChevronDown, ArrowLeft, Trash2, Save, Eye, Send
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -87,6 +87,9 @@ export default function TaxInvoiceManager() {
   const [issueOpen, setIssueOpen] = useState(false);
   const [clientSearchOpen, setClientSearchOpen] = useState(false);
   const [issuing, setIssuing] = useState(false);
+  // Multi-step: 1=form, 2=preview/confirm, 3=final issue
+  const [issueStep, setIssueStep] = useState<1 | 2 | 3>(1);
+  const [saved, setSaved] = useState(false);
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
@@ -258,16 +261,23 @@ export default function TaxInvoiceManager() {
 
   const filledLines = useMemo(() => lineItems.filter(l => l.itemName || l.unitPrice), [lineItems]);
 
-  const handleIssue = async () => {
+  // Step 1: Save (validate form)
+  const handleSave = () => {
     if (!form.clientId || !form.buyerCorpNum) {
-      toast.error("필수 항목을 입력해주세요");
+      toast.error("필수 항목을 입력해주세요 (고객사, 사업자번호)");
       return;
     }
     if (lineTotals.supply === 0) {
       toast.error("매출항목을 입력해주세요");
       return;
     }
+    setSaved(true);
+    toast.success("세금계산서 정보가 저장되었습니다. 내용을 확인해주세요.");
+    setIssueStep(2);
+  };
 
+  // Step 3: Actually issue via Popbill API → NTS
+  const handleIssue = async () => {
     setIssuing(true);
     try {
       const supplyAmount = lineTotals.supply;
@@ -282,11 +292,22 @@ export default function TaxInvoiceManager() {
           buyerCorpName: form.buyerCorpName,
           buyerCEOName: form.buyerCEOName,
           buyerEmail: form.buyerEmail,
+          buyerAddr: form.buyerAddress,
+          buyerBizType: form.buyerBusinessType,
+          buyerBizClass: form.buyerBusinessItem,
           supplyAmount,
           taxAmount,
           totalAmount: supplyAmount + taxAmount,
           writeDate: form.writeDate.replace(/-/g, ""),
+          purposeType: form.invoiceType === "영수" ? 1 : 2,
           memo: form.memo,
+          items: filledLines.map(l => ({
+            name: l.itemName,
+            date: l.date.replace(/-/g, ""),
+            supplyAmount: parseInt(l.supplyAmount.replace(/,/g, "")) || 0,
+            taxAmount: parseInt(l.taxAmount.replace(/,/g, "")) || 0,
+            remark: "",
+          })),
         },
       });
 
@@ -294,31 +315,37 @@ export default function TaxInvoiceManager() {
       const result = res.data;
       if (!result.success) throw new Error(result.error);
 
-      toast.success("세금계산서가 발행되었습니다");
-      setIssueOpen(false);
-      setForm({
-        clientId: "",
-        buyerCorpNum: "",
-        buyerCorpName: "",
-        buyerCEOName: "",
-        buyerEmail: "",
-        buyerAddress: "",
-        buyerBusinessType: "",
-        buyerBusinessItem: "",
-        memo: "",
-        writeDate: new Date().toISOString().split("T")[0],
-        applyDateToAll: true,
-        invoiceType: "청구",
-      });
-      setLineItems([emptyLine()]);
-      setMatchedContacts([]);
-      setSelectedContactIdx(0);
+      toast.success("세금계산서가 발행되어 국세청(홈택스)에 전송되었습니다");
+      resetAndClose();
       fetchData();
     } catch (e: any) {
       toast.error(e.message || "발행 중 오류가 발생했습니다");
     } finally {
       setIssuing(false);
     }
+  };
+
+  const resetAndClose = () => {
+    setIssueOpen(false);
+    setIssueStep(1);
+    setSaved(false);
+    setForm({
+      clientId: "",
+      buyerCorpNum: "",
+      buyerCorpName: "",
+      buyerCEOName: "",
+      buyerEmail: "",
+      buyerAddress: "",
+      buyerBusinessType: "",
+      buyerBusinessItem: "",
+      memo: "",
+      writeDate: new Date().toISOString().split("T")[0],
+      applyDateToAll: true,
+      invoiceType: "청구",
+    });
+    setLineItems([emptyLine()]);
+    setMatchedContacts([]);
+    setSelectedContactIdx(0);
   };
 
   const getClientName = (clientId: string) =>
@@ -454,16 +481,145 @@ export default function TaxInvoiceManager() {
         </div>
       </div>
 
-      {/* Issue Dialog - HomeTax Style */}
-      <Dialog open={issueOpen} onOpenChange={setIssueOpen}>
+      {/* Issue Dialog - Multi-step */}
+      <Dialog open={issueOpen} onOpenChange={(open) => { if (!open) resetAndClose(); else setIssueOpen(true); }}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-[16px] flex items-center gap-2">
               <FileText className="w-4 h-4" />
-              세금계산서 발행
+              세금계산서 {issueStep === 1 ? "작성" : issueStep === 2 ? "미리보기" : "발행 확인"}
+              {issueStep > 1 && (
+                <Button variant="ghost" size="sm" className="ml-2 text-[11px] h-6 gap-1" onClick={() => setIssueStep(issueStep === 3 ? 2 : 1)}>
+                  <ArrowLeft className="w-3 h-3" /> 이전
+                </Button>
+              )}
             </DialogTitle>
           </DialogHeader>
 
+          {/* Step 2: Preview */}
+          {issueStep >= 2 && (
+            <div className="border rounded-xl p-5 bg-background space-y-4">
+              {/* Tax Invoice Thumbnail */}
+              <div className="border-2 border-primary/20 rounded-lg p-4 bg-muted/10">
+                <div className="text-center mb-3">
+                  <h3 className="text-[15px] font-bold tracking-wide">전 자 세 금 계 산 서</h3>
+                  <p className="text-[11px] text-muted-foreground mt-0.5">
+                    ({form.invoiceType === "영수" ? "영수" : "청구"})
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 text-[12px] mb-3">
+                  {/* 공급자 */}
+                  <div className="border rounded-lg p-3 space-y-1.5">
+                    <p className="text-[11px] font-bold text-primary mb-1">공급자 (매출)</p>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">사업자번호</span>
+                      <span className="font-medium">공급자 사업자번호</span>
+                    </div>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">상호</span>
+                      <span className="font-medium">웹헤즈</span>
+                    </div>
+                  </div>
+                  {/* 공급받는자 */}
+                  <div className="border rounded-lg p-3 space-y-1.5">
+                    <p className="text-[11px] font-bold text-destructive mb-1">공급받는자 (매입)</p>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">사업자번호</span>
+                      <span className="font-medium">{form.buyerCorpNum}</span>
+                    </div>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">상호</span>
+                      <span className="font-medium">{form.buyerCorpName}</span>
+                    </div>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">대표자</span>
+                      <span>{form.buyerCEOName}</span>
+                    </div>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">이메일</span>
+                      <span>{form.buyerEmail}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-[11px] text-muted-foreground mb-2">작성일자: {form.writeDate}</div>
+
+                {/* 매출항목 요약 */}
+                <div className="border rounded-lg overflow-hidden">
+                  <table className="w-full text-[11px]">
+                    <thead>
+                      <tr className="bg-muted/60 border-b">
+                        <th className="px-2 py-1.5 text-left font-medium">항목명</th>
+                        <th className="px-2 py-1.5 text-center font-medium">수량</th>
+                        <th className="px-2 py-1.5 text-right font-medium">공급가액</th>
+                        <th className="px-2 py-1.5 text-right font-medium">세액</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filledLines.map((l, i) => (
+                        <tr key={i} className="border-b last:border-0">
+                          <td className="px-2 py-1.5">{l.itemName}</td>
+                          <td className="px-2 py-1.5 text-center">{l.quantity}</td>
+                          <td className="px-2 py-1.5 text-right">{fmt(parseInt(l.supplyAmount.replace(/,/g, "")) || 0)}</td>
+                          <td className="px-2 py-1.5 text-right">{fmt(parseInt(l.taxAmount.replace(/,/g, "")) || 0)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="mt-3 flex justify-end gap-6 text-[13px]">
+                  <span>공급가액: <strong>{fmt(lineTotals.supply)}원</strong></span>
+                  <span>세액: <strong>{fmt(lineTotals.tax)}원</strong></span>
+                  <span className="text-primary">합계: <strong>{fmt(lineTotals.total)}원</strong></span>
+                </div>
+                {form.memo && (
+                  <p className="text-[11px] text-muted-foreground mt-2">비고: {form.memo}</p>
+                )}
+              </div>
+
+              {issueStep === 2 && (
+                <div className="flex justify-center gap-3 pt-2">
+                  <Button variant="outline" onClick={() => setIssueStep(1)} className="text-[13px] gap-1.5">
+                    <ArrowLeft className="w-3.5 h-3.5" /> 수정하기
+                  </Button>
+                  <Button onClick={() => setIssueStep(3)} className="text-[13px] gap-1.5">
+                    <Send className="w-3.5 h-3.5" /> 발행하기
+                  </Button>
+                </div>
+              )}
+
+              {issueStep === 3 && (
+                <div className="border border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-800 rounded-lg p-4 space-y-3">
+                  <div className="flex items-start gap-2">
+                    <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-[13px] font-bold text-amber-800 dark:text-amber-200">
+                        세금계산서를 발행하시겠습니까?
+                      </p>
+                      <p className="text-[12px] text-amber-700 dark:text-amber-300 mt-1">
+                        발행 후 팝빌을 통해 국세청(홈택스)에 자동 전송됩니다.
+                        발행 후에는 취소가 어려울 수 있으므로 내용을 다시 한번 확인해주세요.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex justify-end gap-2 pt-1">
+                    <Button variant="outline" size="sm" onClick={() => setIssueStep(2)} className="text-[12px]">
+                      취소
+                    </Button>
+                    <Button size="sm" onClick={handleIssue} disabled={issuing} className="text-[12px] gap-1.5 bg-primary">
+                      {issuing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                      발행 및 홈택스 전송
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Step 1: Form */}
+          {issueStep === 1 && (
           <div className="border rounded-xl p-4 space-y-4 bg-background">
             {/* Section: 고객명 */}
             <div>
@@ -786,16 +942,19 @@ export default function TaxInvoiceManager() {
               </div>
             )}
           </div>
+          )}
 
-          <DialogFooter className="mt-4">
-            <Button variant="outline" onClick={() => setIssueOpen(false)} className="text-[13px]">
-              취소
-            </Button>
-            <Button onClick={handleIssue} disabled={issuing} className="text-[13px] gap-1.5">
-              {issuing && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-              발행하기
-            </Button>
-          </DialogFooter>
+          {/* Step 1 Footer */}
+          {issueStep === 1 && (
+            <DialogFooter className="mt-4">
+              <Button variant="outline" onClick={resetAndClose} className="text-[13px]">
+                취소
+              </Button>
+              <Button onClick={handleSave} className="text-[13px] gap-1.5">
+                <Save className="w-3.5 h-3.5" /> 저장 및 확인
+              </Button>
+            </DialogFooter>
+          )}
         </DialogContent>
       </Dialog>
     </div>
