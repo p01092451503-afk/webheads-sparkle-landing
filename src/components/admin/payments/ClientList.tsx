@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef, useCallback, useEffect } from "react";
-import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, X, FileText } from "lucide-react";
+import { Search, Plus, Edit2, CreditCard, Check, Download, ChevronLeft, ChevronRight, X, FileText, ArrowUp, ArrowDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -119,7 +119,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
         return da.localeCompare(db);
       });
     }
-    else list = [...list].sort((a, b) => (a.client_no || 0) - (b.client_no || 0));
+    else list = [...list].sort((a, b) => ((a as any).sort_order || 0) - ((b as any).sort_order || 0));
 
     return list;
   }, [clientData, search, filter, sort]);
@@ -391,6 +391,26 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [clientData, onRefresh, showSaved]);
 
+  const reorderClient = useCallback(async (clientId: string, direction: "up" | "down") => {
+    const sorted = [...clients].sort((a, b) => ((a as any).sort_order || 0) - ((b as any).sort_order || 0));
+    const idx = sorted.findIndex((c) => c.id === clientId);
+    if (idx < 0) return;
+    const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= sorted.length) return;
+
+    const a = sorted[idx];
+    const b = sorted[swapIdx];
+    try {
+      await Promise.all([
+        supabase.from("clients").update({ sort_order: (b as any).sort_order || 0 }).eq("id", a.id),
+        supabase.from("clients").update({ sort_order: (a as any).sort_order || 0 }).eq("id", b.id),
+      ]);
+      onRefresh();
+    } catch (e: any) {
+      toast.error("순서 변경 중 오류가 발생했습니다");
+    }
+  }, [clients, onRefresh]);
+
   const statusBadge = (status: string, clientId: string) => {
     const base = "cursor-pointer transition-all hover:scale-105 text-[11px]";
     switch (status) {
@@ -422,7 +442,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
     const rows = clients
       .filter((c) => c.is_active)
-      .sort((a, b) => (a.client_no || 0) - (b.client_no || 0))
+      .sort((a, b) => ((a as any).sort_order || 0) - ((b as any).sort_order || 0))
       .map((c) => {
         const unpaidTotal = payments
           .filter((p) => p.client_id === c.id && p.is_unpaid)
@@ -504,7 +524,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="name">고객사명 순</SelectItem>
+              <SelectItem value="name">순서대로</SelectItem>
               <SelectItem value="unpaid">미납금 순</SelectItem>
               <SelectItem value="date">납부일 순</SelectItem>
             </SelectContent>
@@ -557,7 +577,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
           <table className="min-w-[1560px] w-full text-[13px]">
             <thead className="sticky top-0 z-10">
               <tr className="border-b border-[hsl(220,13%,91%)] bg-[hsl(220,14%,97%)]">
-                <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[45px] whitespace-nowrap">No</th>
+                <th className="text-left px-1 py-3 font-semibold text-muted-foreground w-[60px] whitespace-nowrap">No</th>
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[140px] whitespace-nowrap">고객사명</th>
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[75px] whitespace-nowrap">예상납부일</th>
                 <th className="text-left px-3 py-3 font-semibold text-muted-foreground w-[90px] whitespace-nowrap">입금일</th>
@@ -626,7 +646,17 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
                 return (
                   <tr key={c.id} className="group/row border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
-                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
+                    <td className="px-1 py-3 whitespace-nowrap">
+                      <div className="flex items-center gap-0.5">
+                        {sort === "name" && (
+                          <div className="flex flex-col opacity-0 group-hover/row:opacity-100 transition-opacity">
+                            <button onClick={() => reorderClient(c.id, "up")} className="p-0.5 rounded hover:bg-[hsl(220,14%,90%)] text-muted-foreground/50 hover:text-muted-foreground"><ArrowUp className="w-3 h-3" /></button>
+                            <button onClick={() => reorderClient(c.id, "down")} className="p-0.5 rounded hover:bg-[hsl(220,14%,90%)] text-muted-foreground/50 hover:text-muted-foreground"><ArrowDown className="w-3 h-3" /></button>
+                          </div>
+                        )}
+                        <span className="text-muted-foreground text-[12px] min-w-[28px] text-center">{c.client_no}</span>
+                      </div>
+                    </td>
                     <td className="px-2 py-1.5 whitespace-nowrap">
                       <div className="relative flex items-center gap-1.5">
                         {editing?.clientId === c.id && editing.field === "name" ? (
