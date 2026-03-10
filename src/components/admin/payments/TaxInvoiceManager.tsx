@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import {
   Loader2, Plus, Search, FileText, CheckCircle2, AlertTriangle,
-  ChevronLeft, ChevronRight, ArrowLeft, Trash2
+  ChevronLeft, ChevronRight, ChevronDown, ArrowLeft, Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,8 +12,11 @@ import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
 } from "@/components/ui/dialog";
 import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
+  Popover, PopoverContent, PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Command, CommandInput, CommandList, CommandEmpty, CommandItem,
+} from "@/components/ui/command";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface SalesLineItem {
@@ -82,6 +85,7 @@ export default function TaxInvoiceManager() {
   const [clientContacts, setClientContacts] = useState<ClientContact[]>([]);
   const [loading, setLoading] = useState(true);
   const [issueOpen, setIssueOpen] = useState(false);
+  const [clientSearchOpen, setClientSearchOpen] = useState(false);
   const [issuing, setIssuing] = useState(false);
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
@@ -464,23 +468,55 @@ export default function TaxInvoiceManager() {
             {/* Section: 고객명 */}
             <div className="border-l-[3px] border-destructive pl-3">
               <label className="text-[13px] font-bold text-foreground">고객명</label>
-              <div className="mt-1.5">
-                <Select value={form.clientId} onValueChange={handleClientSelect}>
-                  <SelectTrigger className="h-9 text-[13px] max-w-md">
-                    <SelectValue placeholder="세금계산서를 발급하실 고객을 선택해주세요." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {clients.map((c) => {
-                      const matched = getCompanyForClient(c);
-                      return (
-                        <SelectItem key={c.id} value={c.id} className="text-[13px]">
-                          {matched ? matched.company_name : c.name}
-                          {matched && <span className="text-muted-foreground ml-1">({matched.business_number})</span>}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
+              <div className="mt-1.5 flex items-center gap-2">
+                <Popover open={clientSearchOpen} onOpenChange={setClientSearchOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className="h-9 text-[13px] max-w-md w-full justify-between font-normal"
+                    >
+                      {form.clientId
+                        ? (() => {
+                            const c = clients.find(cl => cl.id === form.clientId);
+                            if (!c) return "고객사 선택";
+                            const matched = getCompanyForClient(c);
+                            const name = matched ? matched.company_name : c.name;
+                            const biz = matched ? ` (${matched.business_number})` : "";
+                            return `${name}${biz}`;
+                          })()
+                        : "세금계산서를 발급하실 고객을 선택해주세요."}
+                      <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[460px] p-0" align="start">
+                    <Command>
+                      <CommandInput placeholder="고객명 또는 사업자번호 검색..." className="text-[13px]" />
+                      <CommandList className="max-h-[260px]">
+                        <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
+                        {clients.map((c) => {
+                          const matched = getCompanyForClient(c);
+                          const displayName = matched ? matched.company_name : c.name;
+                          const bizNum = matched?.business_number || "";
+                          return (
+                            <CommandItem
+                              key={c.id}
+                              value={`${displayName} ${bizNum} ${c.name}`}
+                              onSelect={() => {
+                                handleClientSelect(c.id);
+                                setClientSearchOpen(false);
+                              }}
+                              className="text-[13px] cursor-pointer"
+                            >
+                              <span className="font-medium">{displayName}</span>
+                              {bizNum && <span className="text-muted-foreground ml-2">({bizNum})</span>}
+                            </CommandItem>
+                          );
+                        })}
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </div>
 
               {/* 거래처 정보 (고객사 선택시 표시) */}
