@@ -852,6 +852,87 @@ export type Database = {
         }
         Relationships: []
       }
+      tax_invoice_logs: {
+        Row: {
+          buyer_ceo_name: string | null
+          buyer_corp_name: string | null
+          buyer_corp_num: string | null
+          buyer_email: string | null
+          client_id: string
+          created_at: string
+          id: string
+          invoice_num: string | null
+          issue_date: string | null
+          memo: string | null
+          nts_confirm_num: string | null
+          payment_id: string | null
+          popbill_response: Json | null
+          status: string
+          supplier_corp_num: string | null
+          supply_amount: number
+          tax_amount: number
+          total_amount: number
+          updated_at: string
+        }
+        Insert: {
+          buyer_ceo_name?: string | null
+          buyer_corp_name?: string | null
+          buyer_corp_num?: string | null
+          buyer_email?: string | null
+          client_id: string
+          created_at?: string
+          id?: string
+          invoice_num?: string | null
+          issue_date?: string | null
+          memo?: string | null
+          nts_confirm_num?: string | null
+          payment_id?: string | null
+          popbill_response?: Json | null
+          status?: string
+          supplier_corp_num?: string | null
+          supply_amount?: number
+          tax_amount?: number
+          total_amount?: number
+          updated_at?: string
+        }
+        Update: {
+          buyer_ceo_name?: string | null
+          buyer_corp_name?: string | null
+          buyer_corp_num?: string | null
+          buyer_email?: string | null
+          client_id?: string
+          created_at?: string
+          id?: string
+          invoice_num?: string | null
+          issue_date?: string | null
+          memo?: string | null
+          nts_confirm_num?: string | null
+          payment_id?: string | null
+          popbill_response?: Json | null
+          status?: string
+          supplier_corp_num?: string | null
+          supply_amount?: number
+          tax_amount?: number
+          total_amount?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tax_invoice_logs_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tax_invoice_logs_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
