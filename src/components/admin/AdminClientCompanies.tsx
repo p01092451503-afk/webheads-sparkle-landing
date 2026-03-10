@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react
 import { supabase } from "@/integrations/supabase/client";
 import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save, EyeOff, Eye, CheckSquare, Square } from "lucide-react";
 const ClientProjectManager = lazy(() => import("./ClientProjectManager"));
-const ClientCommLog = lazy(() => import("./ClientCommLog"));
+// ClientCommLog removed - now in separate ClientWorkManager tab
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
