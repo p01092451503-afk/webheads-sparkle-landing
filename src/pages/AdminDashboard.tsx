@@ -405,6 +405,12 @@ export default function AdminDashboard() {
           {tab === "client_companies" && (
             <AdminClientCompanies isSuperAdmin={isSuperAdmin} />
           )}
+          {tab === "checklist" && (
+            <MonthlyChecklist isSuperAdmin={isSuperAdmin} />
+          )}
+          {tab === "report" && (
+            <MonthlyReport isSuperAdmin={isSuperAdmin} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
