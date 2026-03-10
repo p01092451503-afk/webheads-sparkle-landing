@@ -94,6 +94,7 @@ export default function TaxInvoiceManager() {
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [detailLog, setDetailLog] = useState<TaxInvoiceLog | null>(null);
 
   // Issue form state
   const [form, setForm] = useState({
@@ -536,9 +537,10 @@ export default function TaxInvoiceManager() {
                 filteredLogs.map((log) => (
                   <tr
                     key={log.id}
-                    className={`border-b last:border-0 hover:bg-muted/30 ${log.status === "saved" ? "cursor-pointer" : ""}`}
+                    className="border-b last:border-0 hover:bg-muted/30 cursor-pointer"
                     onClick={() => {
                       if (log.status === "saved") handleOpenSavedLog(log);
+                      else setDetailLog(log);
                     }}
                   >
                     <td className="px-3 py-2 whitespace-nowrap">{log.issue_date || "-"}</td>
@@ -1098,6 +1100,117 @@ export default function TaxInvoiceManager() {
               </Button>
             </DialogFooter>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Detail Dialog for issued invoices */}
+      <Dialog open={!!detailLog} onOpenChange={(open) => { if (!open) setDetailLog(null); }}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-[15px] flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              세금계산서 상세
+            </DialogTitle>
+          </DialogHeader>
+          {detailLog && (() => {
+            const clientName = detailLog.buyer_corp_name || getClientName(detailLog.client_id);
+            return (
+              <div className="space-y-4">
+                {/* Status badge */}
+                <div className="flex items-center gap-2">
+                  <Badge
+                    variant="outline"
+                    className={
+                      detailLog.status === "issued"
+                        ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]"
+                        : "bg-amber-50 text-amber-700 border-amber-200 text-[11px]"
+                    }
+                  >
+                    {detailLog.status === "issued" ? "발행완료" : detailLog.status}
+                  </Badge>
+                  {detailLog.nts_confirm_num && (
+                    <span className="text-[11px] text-muted-foreground">
+                      국세청 확인번호: {detailLog.nts_confirm_num}
+                    </span>
+                  )}
+                </div>
+
+                {/* Info grid */}
+                <div className="rounded-xl border border-border/60 overflow-hidden text-[13px]">
+                  <div className="grid grid-cols-2 divide-x divide-border/40">
+                    {/* 공급자 */}
+                    <div className="px-4 py-3 space-y-2">
+                      <p className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
+                        공급자
+                      </p>
+                      <div className="space-y-1">
+                        <p className="font-medium">주식회사 웹헤즈</p>
+                        <p className="text-muted-foreground">{detailLog.supplier_corp_num || "-"}</p>
+                      </div>
+                    </div>
+                    {/* 공급받는자 */}
+                    <div className="px-4 py-3 space-y-2">
+                      <p className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-destructive inline-block" />
+                        공급받는자
+                      </p>
+                      <div className="space-y-1">
+                        <p className="font-medium">{clientName}</p>
+                        <p className="text-muted-foreground">{detailLog.buyer_corp_num || "-"}</p>
+                        {detailLog.buyer_ceo_name && (
+                          <p className="text-muted-foreground">대표: {detailLog.buyer_ceo_name}</p>
+                        )}
+                        {detailLog.buyer_email && (
+                          <p className="text-muted-foreground">{detailLog.buyer_email}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Amounts */}
+                <div className="rounded-xl border border-border/60 overflow-hidden">
+                  <table className="w-full text-[13px]">
+                    <tbody>
+                      <tr className="border-b border-border/40">
+                        <td className="px-4 py-2.5 text-muted-foreground">발행일</td>
+                        <td className="px-4 py-2.5 text-right font-medium">{detailLog.issue_date || "-"}</td>
+                      </tr>
+                      <tr className="border-b border-border/40">
+                        <td className="px-4 py-2.5 text-muted-foreground">공급가액</td>
+                        <td className="px-4 py-2.5 text-right tabular-nums">{fmt(detailLog.supply_amount)}원</td>
+                      </tr>
+                      <tr className="border-b border-border/40">
+                        <td className="px-4 py-2.5 text-muted-foreground">세액</td>
+                        <td className="px-4 py-2.5 text-right tabular-nums">{fmt(detailLog.tax_amount)}원</td>
+                      </tr>
+                      <tr className="bg-muted/20">
+                        <td className="px-4 py-3 font-semibold text-primary">합계</td>
+                        <td className="px-4 py-3 text-right font-extrabold text-primary text-[15px] tabular-nums">
+                          {fmt(detailLog.total_amount)}원
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Memo & meta */}
+                {detailLog.memo && (
+                  <div className="rounded-xl border border-border/60 px-4 py-3">
+                    <p className="text-[11px] text-muted-foreground mb-1">메모</p>
+                    <p className="text-[13px]">{detailLog.memo}</p>
+                  </div>
+                )}
+
+                {detailLog.invoice_num && (
+                  <p className="text-[11px] text-muted-foreground">
+                    팝빌 문서번호: {detailLog.invoice_num}
+                  </p>
+                )}
+              </div>
+            );
+          })()}
         </DialogContent>
       </Dialog>
     </div>
