@@ -353,7 +353,7 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
-            {tabs.filter(t => t.key === "client_companies" || t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice").map((t) => {
+            {tabs.filter(t => t.key === "client_companies" || t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice" || t.key === "checklist" || t.key === "report").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
