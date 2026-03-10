@@ -243,11 +243,15 @@ export default function TaxInvoiceManager() {
         buyerCorpName: "",
         buyerCEOName: "",
         buyerEmail: "",
+        buyerAddress: "",
+        buyerBusinessType: "",
+        buyerBusinessItem: "",
         supplyAmount: "",
         taxAmount: "",
         memo: "",
         writeDate: new Date().toISOString().split("T")[0],
       });
+      setMatchedContacts([]);
       fetchData();
     } catch (e: any) {
       toast.error(e.message || "발행 중 오류가 발생했습니다");
