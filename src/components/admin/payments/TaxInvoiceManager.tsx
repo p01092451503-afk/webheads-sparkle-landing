@@ -566,6 +566,18 @@ export default function TaxInvoiceManager() {
                     <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
                       {log.memo || "-"}
                     </td>
+                    <td className="px-3 py-2 text-center">
+                      {log.status === "saved" && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-7 px-2 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-1"
+                          onClick={(e) => handleDeleteSavedLog(log.id, e)}
+                        >
+                          <X className="w-3 h-3" /> 취소
+                        </Button>
+                      )}
+                    </td>
                   </tr>
                 ))
               )}
