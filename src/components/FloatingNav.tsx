@@ -19,19 +19,21 @@ export default function FloatingNav() {
     }
   };
 
+  const glassBase = "backdrop-blur-md bg-background/70 border border-border/50 text-foreground shadow-lg";
+
   const mobileButtons = [
     ...(!isServiceRequest && location.pathname !== "/pricing"
-      ? [{ to: "/pricing", icon: CreditCard, label: t("floatingNav.pricing"), className: "bg-[hsl(10,80%,55%)] text-background" }]
+      ? [{ to: "/pricing", icon: CreditCard, label: t("floatingNav.pricing"), className: glassBase }]
       : []),
     ...(!isServiceRequest && location.pathname !== "/sms-kakao"
-      ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
+      ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: glassBase }]
       : []),
     
     ...(location.pathname !== "/overview"
-      ? [{ to: "/overview", icon: FileText, label: t("floatingNav.overview"), className: "bg-primary text-primary-foreground" }]
+      ? [{ to: "/overview", icon: FileText, label: t("floatingNav.overview"), className: glassBase }]
       : []),
     ...(location.pathname !== "/blog"
-      ? [{ to: "/blog", icon: BookOpen, label: t("floatingNav.insights"), className: "bg-foreground text-background" }]
+      ? [{ to: "/blog", icon: BookOpen, label: t("floatingNav.insights"), className: glassBase }]
       : []),
   ];
 
