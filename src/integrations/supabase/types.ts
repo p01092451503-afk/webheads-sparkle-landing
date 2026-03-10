@@ -205,6 +205,98 @@ export type Database = {
         }
         Relationships: []
       }
+      client_companies: {
+        Row: {
+          address1: string | null
+          address2: string | null
+          business_item: string | null
+          business_number: string
+          business_type: string | null
+          ceo_name: string | null
+          company_name: string
+          created_at: string
+          id: string
+          is_active: boolean
+          num: string | null
+          updated_at: string
+          zip_code: string | null
+        }
+        Insert: {
+          address1?: string | null
+          address2?: string | null
+          business_item?: string | null
+          business_number: string
+          business_type?: string | null
+          ceo_name?: string | null
+          company_name: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          num?: string | null
+          updated_at?: string
+          zip_code?: string | null
+        }
+        Update: {
+          address1?: string | null
+          address2?: string | null
+          business_item?: string | null
+          business_number?: string
+          business_type?: string | null
+          ceo_name?: string | null
+          company_name?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          num?: string | null
+          updated_at?: string
+          zip_code?: string | null
+        }
+        Relationships: []
+      }
+      client_contacts: {
+        Row: {
+          company_id: string
+          created_at: string
+          department: string | null
+          email: string | null
+          id: string
+          mobile: string | null
+          name: string | null
+          phone: string | null
+          position: string | null
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          id?: string
+          mobile?: string | null
+          name?: string | null
+          phone?: string | null
+          position?: string | null
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          department?: string | null
+          email?: string | null
+          id?: string
+          mobile?: string | null
+          name?: string | null
+          phone?: string | null
+          position?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_contacts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "client_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       client_recurring_fees: {
         Row: {
           amount: number
