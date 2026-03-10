@@ -117,7 +117,7 @@ export default function TaxInvoiceManager() {
     totalAmount: "",
   });
 
-  const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
+  const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine()]);
 
   const [matchedContacts, setMatchedContacts] = useState<ClientContact[]>([]);
   const [selectedContactIdx, setSelectedContactIdx] = useState<number>(0);
