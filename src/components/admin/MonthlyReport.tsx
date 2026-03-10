@@ -272,5 +272,3 @@ export default function MonthlyReport({ isSuperAdmin }: Props) {
     </div>
   );
 }
-
-function toast_success(msg: string) {}
