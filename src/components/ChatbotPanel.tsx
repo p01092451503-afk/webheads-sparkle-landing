@@ -131,6 +131,8 @@ export default function ChatbotPanel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const conversationIdRef = useRef<string | null>(null);
+  const tokensAccRef = useRef<number>(0);
+  const costAccRef = useRef<number>(0);
 
   const scrollToBottom = useCallback(() => {
     setTimeout(() => scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" }), 50);
