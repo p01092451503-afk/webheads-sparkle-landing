@@ -220,6 +220,9 @@ export default function ClientProjectManager({ companyId, companyName, isSuperAd
                       </span>
                     )}
                   </div>
+                  {p.description && (
+                    <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{p.description}</p>
+                  )}
                 </div>
                 {isSuperAdmin && (
                   <div className="flex items-center gap-0.5 shrink-0" onClick={e => e.stopPropagation()}>
