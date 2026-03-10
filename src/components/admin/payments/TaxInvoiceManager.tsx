@@ -69,7 +69,7 @@ export default function TaxInvoiceManager() {
     setLoading(true);
     const [logsRes, clientsRes] = await Promise.all([
       supabase
-        .from("tax_invoice_logs")
+        .from("tax_invoice_logs" as any)
         .select("*")
         .order("created_at", { ascending: false })
         .limit(200),
