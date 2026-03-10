@@ -78,12 +78,14 @@ export default function AnalyticsNewVisitors({ pageViews, toLocalDateKey }: Prop
     filteredNewVisitors.forEach((v: any) => { devices[v.device_type || "unknown"] = (devices[v.device_type || "unknown"] || 0) + 1; });
     const topDevices = Object.entries(devices).sort(([, a], [, b]) => b - a) as [string, number][];
 
-    const locations: Record<string, number> = {};
+    const locations: Record<string, { human: number; bot: number }> = {};
     filteredNewVisitors.forEach((v: any) => {
       const loc = dedupeLocation(v.city || v.country) || "알 수 없음";
-      locations[loc] = (locations[loc] || 0) + 1;
+      if (!locations[loc]) locations[loc] = { human: 0, bot: 0 };
+      const type = v.visitor_type || "human";
+      if (type === "human") locations[loc].human++; else locations[loc].bot++;
     });
-    const topLocations = Object.entries(locations).sort(([, a], [, b]) => b - a) as [string, number][];
+    const topLocations = Object.entries(locations).map(([loc, d]) => ({ loc, human: d.human, bot: d.bot, total: d.human + d.bot })).sort((a, b) => b.total - a.total);
 
     const referrers: Record<string, number> = {};
     filteredNewVisitors.forEach((v: any) => {

@@ -59,7 +59,32 @@ export default function AnalyticsDetail({ topPages, topLocations, ipWithLocation
           {ipWithLocation.length === 0 ? <Empty /> : ipWithLocation.map((d, i) => {
             const timeStr = d.lastVisit ? (() => { const dt = new Date(d.lastVisit); return `${String(dt.getMonth()+1).padStart(2,"0")}/${String(dt.getDate()).padStart(2,"0")} ${String(dt.getHours()).padStart(2,"0")}:${String(dt.getMinutes()).padStart(2,"0")}`; })() : "";
             const suffix = [d.location, timeStr].filter(Boolean).join("  ·  ");
-            return <BarRow key={d.ip} rank={i+1} label={suffix ? `${d.ip}  ·  ${suffix}` : d.ip} value={d.count} max={ipWithLocation[0].count} color="hsl(199, 89%, 48%)" />;
+            const label = suffix ? `${d.ip}  ·  ${suffix}` : d.ip;
+            const pct = ipWithLocation[0].count > 0 ? (d.count / ipWithLocation[0].count) * 100 : 0;
+            return (
+              <div key={d.ip + i} className="flex items-center gap-2 text-[12px] group">
+                <span className="w-5 text-right text-muted-foreground/50 font-mono text-[11px] shrink-0">{i+1}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="truncate font-medium">{label}</span>
+                    {d.human > 0 && (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-emerald-50 text-emerald-600 shrink-0">
+                        <User className="w-2.5 h-2.5" />{d.human}
+                      </span>
+                    )}
+                    {d.bot > 0 && (
+                      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-semibold bg-amber-50 text-amber-600 shrink-0">
+                        <Bot className="w-2.5 h-2.5" />{d.bot}
+                      </span>
+                    )}
+                  </div>
+                  <div className="h-1.5 rounded-full bg-muted/40 overflow-hidden">
+                    <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, background: "hsl(199, 89%, 48%)" }} />
+                  </div>
+                </div>
+                <span className="text-muted-foreground font-mono text-[11px] shrink-0 w-8 text-right">{d.count}</span>
+              </div>
+            );
           })}
         </ChartCard>
         <ChartCard title="유입 경로" icon={<ArrowUpRight className="w-4 h-4" />}>
