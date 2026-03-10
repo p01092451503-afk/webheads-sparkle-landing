@@ -53,11 +53,15 @@ async function getToken(linkId: string, secretKey: string, corpNum: string): Pro
   const date = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
   const uri = `/${SERVICE_ID}/Token`;
 
+  // CanonicalizedLINKHUBHeaders: x-lh- headers sorted, values only joined by \n
+  // x-lh-date comes before x-lh-forwarded (alphabetical)
+  const canonicalizedHeaders = `${date}\n${"2.0"}\n*\n`;
+
   const stringToSign = [
     "POST",
     contentMD5,
-    date,
-    uri,
+    "",  // Date field is empty when using x-lh-date header
+    canonicalizedHeaders + uri,
   ].join("\n");
 
   const signature = await hmacSha256(secretKey, stringToSign);
