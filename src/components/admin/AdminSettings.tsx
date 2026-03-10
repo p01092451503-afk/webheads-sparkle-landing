@@ -60,7 +60,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
     { key: "chatbot", label: "챗봇" },
     { key: "client_companies", label: "고객사관리" },
     { key: "payments", label: "매출관리" },
-    { key: "expenses", label: "매입지출관리" },
+    { key: "expenses", label: "매입_지출관리" },
     { key: "taxinvoice", label: "세금계산서" },
   ];
 
