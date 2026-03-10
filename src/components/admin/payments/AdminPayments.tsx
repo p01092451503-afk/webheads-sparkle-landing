@@ -13,6 +13,7 @@ const PaymentCalendar = lazy(() => import("./PaymentCalendar"));
 const PaymentExpected = lazy(() => import("./PaymentExpected"));
 const PaymentIssues = lazy(() => import("./PaymentIssues"));
 const ExpenseManager = lazy(() => import("./ExpenseManager"));
+const TaxInvoiceManager = lazy(() => import("./TaxInvoiceManager"));
 
 type Client = import("./paymentTypes").PaymentClient;
 type Payment = import("./paymentTypes").PaymentRecord;
