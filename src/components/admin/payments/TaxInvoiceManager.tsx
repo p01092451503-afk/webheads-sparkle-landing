@@ -117,7 +117,7 @@ export default function TaxInvoiceManager() {
     totalAmount: "",
   });
 
-  const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
+  const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine()]);
 
   const [matchedContacts, setMatchedContacts] = useState<ClientContact[]>([]);
   const [selectedContactIdx, setSelectedContactIdx] = useState<number>(0);
@@ -310,7 +310,7 @@ export default function TaxInvoiceManager() {
         applyDateToAll: true,
         invoiceType: "청구",
       });
-      setLineItems([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
+      setLineItems([emptyLine()]);
       setMatchedContacts([]);
       setSelectedContactIdx(0);
       fetchData();
