@@ -130,7 +130,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
                     <p className="text-sm font-medium text-foreground truncate">
                       {conv.first_message || "(빈 대화)"}
                     </p>
-                    <div className="flex items-center gap-2 mt-0.5">
+                    <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                       <span className="text-[11px] text-muted-foreground">
                         {format(new Date(conv.created_at), "M/d HH:mm", { locale: ko })}
                       </span>
@@ -142,6 +142,18 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
                       <span className="text-[11px] font-medium px-1.5 py-0.5 rounded bg-[hsl(220,14%,96%)] text-muted-foreground">
                         {conv.language?.toUpperCase()}
                       </span>
+                      {(conv.total_tokens || 0) > 0 && (
+                        <>
+                          <span className="text-[11px] text-muted-foreground">·</span>
+                          <span className="text-[11px] text-muted-foreground">
+                            {(conv.total_tokens || 0).toLocaleString()} 토큰
+                          </span>
+                          <span className="text-[11px] text-muted-foreground">·</span>
+                          <span className="text-[11px] font-semibold text-primary">
+                            ${(Number(conv.total_cost) || 0).toFixed(4)}
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
                   {isExpanded ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
