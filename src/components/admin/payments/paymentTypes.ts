@@ -18,6 +18,7 @@ export interface PaymentClient {
   expected_payment_day: string | null;
   notes: string | null;
   is_active: boolean;
+  sort_order?: number;
 }
 
 export interface PaymentRecord {

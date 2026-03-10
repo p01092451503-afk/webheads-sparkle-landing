@@ -144,7 +144,9 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
         toast.success("고객사 정보가 수정되었습니다");
         await logActivity("client_updated", "client", editClient.id);
       } else {
-        const { error } = await supabase.from("clients").insert(data);
+        // Auto-assign sort_order as max + 1
+        const maxSort = Math.max(0, ...clients.map((c) => (c as any).sort_order || 0));
+        const { error } = await supabase.from("clients").insert({ ...data, sort_order: maxSort + 1 });
         if (error) throw error;
         toast.success("고객사가 추가되었습니다");
         await logActivity("client_created", "client");
