@@ -348,7 +348,7 @@ export default function AdminDashboard() {
                 </button>
               );
             })}
-            <div className="w-6 shrink-0 border-l border-border/50 mx-1 self-stretch" />
+            <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
             {tabs.filter(t => t.key === "client_companies" || t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice").map((t) => {
               const isActive = tab === t.key;
               return (
