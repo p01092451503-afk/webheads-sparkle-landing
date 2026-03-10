@@ -94,6 +94,7 @@ export default function TaxInvoiceManager() {
   const [search, setSearch] = useState("");
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [detailLog, setDetailLog] = useState<TaxInvoiceLog | null>(null);
 
   // Issue form state
   const [form, setForm] = useState({
