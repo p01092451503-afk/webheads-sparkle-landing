@@ -151,6 +151,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
             {totalTokens > 0 ? `$${(totalCost / totalTokens * 1000).toFixed(4)}` : "-"}
           </p>
           <p className="text-[10px] text-muted-foreground">per 1K tokens</p>
+        </div>
         <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
           <p className="text-[11px] text-muted-foreground font-medium">대화당 평균</p>
           <p className="text-2xl font-bold text-foreground mt-1">
