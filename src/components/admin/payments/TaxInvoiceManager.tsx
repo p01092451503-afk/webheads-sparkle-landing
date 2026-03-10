@@ -42,6 +42,20 @@ interface Client {
   client_no: number | null;
 }
 
+interface ClientCompany {
+  id: string;
+  business_number: string;
+  num: string | null;
+  company_name: string;
+  ceo_name: string | null;
+  is_active: boolean;
+}
+
+interface ClientContact {
+  company_id: string;
+  email: string | null;
+}
+
 export default function TaxInvoiceManager() {
   const [logs, setLogs] = useState<TaxInvoiceLog[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
