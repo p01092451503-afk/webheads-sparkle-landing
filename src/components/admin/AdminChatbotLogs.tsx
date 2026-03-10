@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { MessageCircle, Loader2, Eye, Trash2, RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
-import { format } from "date-fns";
+import { format, subDays, eachDayOfInterval } from "date-fns";
 import { ko } from "date-fns/locale";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 interface AdminChatbotLogsProps {
   isSuperAdmin: boolean;
