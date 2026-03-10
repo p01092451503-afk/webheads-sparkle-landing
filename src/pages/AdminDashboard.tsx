@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   useSessionTimeout();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies", "checklist", "report"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
