@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, FileDown, ChevronLeft, ChevronRight, BarChart3, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { toast } from "sonner";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
