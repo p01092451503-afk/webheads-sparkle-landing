@@ -388,6 +388,9 @@ export default function AdminDashboard() {
           {tab === "404logs" && (
             <Admin404Logs isSuperAdmin={isSuperAdmin} />
           )}
+          {tab === "chatbot" && (
+            <AdminChatbotLogs isSuperAdmin={isSuperAdmin} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
