@@ -4,15 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export default function FloatingNav() {
   const { t } = useTranslation();
-  const [visible, setVisible] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 300);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const isLmsPage = location.pathname === "/lms" || location.pathname === "/";
   const isServiceRequest = location.pathname === "/service-request";
