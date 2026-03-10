@@ -1032,6 +1032,11 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.paid_date?.replace(/-/g, ".") || "-"}</td>
                   <td className="px-4 py-3 text-center">
+                    <Badge className={`${(PAYMENT_METHODS.find(m => m.value === exp.payment_method) || PAYMENT_METHODS[0]).color} text-[10px]`}>
+                      {(PAYMENT_METHODS.find(m => m.value === exp.payment_method) || PAYMENT_METHODS[0]).label}
+                    </Badge>
+                  </td>
+                  <td className="px-4 py-3 text-center">
                     <button onClick={async () => {
                       try {
                         await supabase.from("expenses" as any).update({ invoice_issued: !exp.invoice_issued } as any).eq("id", exp.id);
