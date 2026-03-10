@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
@@ -14,8 +14,9 @@ const AdminServiceRequests = lazy(() => import("@/components/admin/AdminServiceR
 const AdminPayments = lazy(() => import("@/components/admin/payments/AdminPayments"));
 const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseManager"));
 const Admin404Logs = lazy(() => import("@/components/admin/Admin404Logs"));
+const AdminChatbotLogs = lazy(() => import("@/components/admin/AdminChatbotLogs"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "404logs";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "404logs" | "chatbot";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
@@ -23,6 +24,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "inquiries", icon: MessageSquare, label: "문의" },
   { key: "settings", icon: Settings, label: "설정" },
   { key: "404logs", icon: FileWarning, label: "404" },
+  { key: "chatbot", icon: Bot, label: "챗봇" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
 ];
@@ -37,7 +39,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   useSessionTimeout();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "404logs"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "404logs", "chatbot"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
@@ -385,6 +387,9 @@ export default function AdminDashboard() {
           )}
           {tab === "404logs" && (
             <Admin404Logs isSuperAdmin={isSuperAdmin} />
+          )}
+          {tab === "chatbot" && (
+            <AdminChatbotLogs isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}

@@ -3,6 +3,7 @@ import { MessageCircle, X, Send, Bot, User, Loader2, Trash2 } from "lucide-react
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -88,11 +89,8 @@ function SimpleMarkdown({ text }: { text: string }) {
     <div className="space-y-1 text-sm leading-relaxed">
       {lines.map((line, i) => {
         if (!line.trim()) return <br key={i} />;
-        // Bold
         let html = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-        // Links
         html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" class="text-primary underline">$1</a>');
-        // Lists
         if (/^[-•]\s/.test(line)) {
           html = `<span class="ml-2">• ${html.replace(/^[-•]\s/, "")}</span>`;
         }
@@ -105,6 +103,15 @@ function SimpleMarkdown({ text }: { text: string }) {
   );
 }
 
+function getSessionId(): string {
+  let sid = sessionStorage.getItem("chatbot_session_id");
+  if (!sid) {
+    sid = crypto.randomUUID();
+    sessionStorage.setItem("chatbot_session_id", sid);
+  }
+  return sid;
+}
+
 export default function ChatbotPanel() {
   const { i18n } = useTranslation();
   const lang = (i18n.language || "ko").slice(0, 2);
@@ -115,6 +122,7 @@ export default function ChatbotPanel() {
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const conversationIdRef = useRef<string | null>(null);
 
   const scrollToBottom = useCallback(() => {
     setTimeout(() => scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" }), 50);
@@ -123,34 +131,72 @@ export default function ChatbotPanel() {
   useEffect(() => { scrollToBottom(); }, [messages, scrollToBottom]);
   useEffect(() => { if (open) inputRef.current?.focus(); }, [open]);
 
+  // Save conversation to DB
+  const saveConversation = useCallback(async (msgs: Msg[]) => {
+    if (msgs.length === 0) return;
+    const sessionId = getSessionId();
+    const firstUserMsg = msgs.find(m => m.role === "user")?.content || "";
+    const userMsgCount = msgs.filter(m => m.role === "user").length;
+
+    try {
+      if (conversationIdRef.current) {
+        await supabase.from("chatbot_conversations" as any).update({
+          messages: msgs as any,
+          message_count: userMsgCount,
+          updated_at: new Date().toISOString(),
+        } as any).eq("id", conversationIdRef.current);
+      } else {
+        const { data } = await supabase.from("chatbot_conversations" as any).insert({
+          session_id: sessionId,
+          language: lang,
+          messages: msgs as any,
+          message_count: userMsgCount,
+          first_message: firstUserMsg.slice(0, 200),
+        } as any).select("id").single();
+        if (data) conversationIdRef.current = (data as any).id;
+      }
+    } catch (e) {
+      console.error("Failed to save conversation:", e);
+    }
+  }, [lang]);
+
   const send = async (text?: string) => {
     const msg = (text || input).trim();
     if (!msg || loading) return;
     setInput("");
 
     const userMsg: Msg = { role: "user", content: msg };
-    setMessages(prev => [...prev, userMsg]);
+    const newMessages = [...messages, userMsg];
+    setMessages(newMessages);
     setLoading(true);
 
     let assistantSoFar = "";
+    let finalMessages = newMessages;
     const upsert = (chunk: string) => {
       assistantSoFar += chunk;
       setMessages(prev => {
         const last = prev[prev.length - 1];
         if (last?.role === "assistant") {
-          return prev.map((m, i) => i === prev.length - 1 ? { ...m, content: assistantSoFar } : m);
+          finalMessages = prev.map((m, i) => i === prev.length - 1 ? { ...m, content: assistantSoFar } : m);
+        } else {
+          finalMessages = [...prev, { role: "assistant", content: assistantSoFar }];
         }
-        return [...prev, { role: "assistant", content: assistantSoFar }];
+        return finalMessages;
       });
     };
 
     await streamChat({
-      messages: [...messages, userMsg],
+      messages: newMessages,
       lang,
       onDelta: upsert,
-      onDone: () => setLoading(false),
+      onDone: () => {
+        setLoading(false);
+        // Save after response is complete
+        saveConversation(finalMessages);
+      },
       onError: (e) => {
-        setMessages(prev => [...prev, { role: "assistant", content: `⚠️ ${e}` }]);
+        const errorMessages: Msg[] = [...newMessages, { role: "assistant", content: `⚠️ ${e}` }];
+        setMessages(errorMessages);
         setLoading(false);
       },
     });
@@ -161,6 +207,11 @@ export default function ChatbotPanel() {
       e.preventDefault();
       send();
     }
+  };
+
+  const handleClear = () => {
+    setMessages([]);
+    conversationIdRef.current = null;
   };
 
   const welcome = WELCOME[lang] || WELCOME.ko;
@@ -198,7 +249,7 @@ export default function ChatbotPanel() {
                 </p>
               </div>
               <button
-                onClick={() => { setMessages([]); }}
+                onClick={handleClear}
                 className="p-1.5 rounded-md hover:bg-muted text-muted-foreground"
                 title="대화 초기화"
               >
