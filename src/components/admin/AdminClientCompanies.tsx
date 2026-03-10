@@ -45,6 +45,8 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
   const [showModal, setShowModal] = useState(false);
   const [editCompany, setEditCompany] = useState<ClientCompany | null>(null);
   const [showInactive, setShowInactive] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [bulkProcessing, setBulkProcessing] = useState(false);
 
   // Form state
   const [form, setForm] = useState({
