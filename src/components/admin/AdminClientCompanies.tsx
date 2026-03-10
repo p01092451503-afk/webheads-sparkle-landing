@@ -95,6 +95,9 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
   const toggleActive = async (e: React.MouseEvent, company: ClientCompany) => {
     e.stopPropagation();
     const newStatus = !company.is_active;
+    if (!newStatus) {
+      if (!confirm(`"${company.company_name}"을(를) 무효 고객사로 변경하시겠습니까?`)) return;
+    }
     await supabase.from("client_companies").update({ is_active: newStatus }).eq("id", company.id);
     toast.success(newStatus ? "유효 처리되었습니다" : "무효 처리되었습니다");
     fetchData();
