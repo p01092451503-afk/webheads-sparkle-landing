@@ -1071,7 +1071,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={11} className="px-4 py-12 text-center text-muted-foreground">
+                <tr><td colSpan={12} className="px-4 py-12 text-center text-muted-foreground">
                   {loading ? "불러오는 중..." : "등록된 지출이 없습니다"}
                 </td></tr>
               )}
