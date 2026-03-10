@@ -229,6 +229,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
                           <span className="text-[11px] text-muted-foreground">·</span>
                           <span className="text-[11px] font-semibold text-primary">
                             ${(Number(conv.total_cost) || 0).toFixed(4)}
+                            <span className="font-normal text-muted-foreground ml-0.5">(≈{Math.round((Number(conv.total_cost) || 0) * 1400)}원)</span>
                           </span>
                         </>
                       )}
