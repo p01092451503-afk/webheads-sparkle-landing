@@ -214,10 +214,9 @@ export default function ChatbotPanel() {
       messages: newMessages,
       lang,
       onDelta: upsert,
-      onDone: () => {
+      onDone: (usage) => {
         setLoading(false);
-        // Save after response is complete
-        saveConversation(finalMessages);
+        saveConversation(finalMessages, usage);
       },
       onError: (e) => {
         const errorMessages: Msg[] = [...newMessages, { role: "assistant", content: `⚠️ ${e}` }];
