@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, LayoutDashboard, Users, Receipt, AlertCircle } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 const PaymentDashboard = lazy(() => import("./PaymentDashboard"));
@@ -183,11 +183,11 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
 
   // Sub-navigation tabs
   const subTabs = [
-    { key: "dashboard" as SubView, label: "대시보드" },
-    { key: "clients" as SubView, label: "매출관리" },
+    { key: "dashboard" as SubView, label: "대시보드", icon: LayoutDashboard },
+    { key: "clients" as SubView, label: "매출관리", icon: Users },
     // { key: "calendar" as SubView, label: "캘린더" },
-    { key: "expected" as SubView, label: "기타매출관리" },
-    { key: "issues" as SubView, label: "정산이슈" },
+    { key: "expected" as SubView, label: "기타매출관리", icon: Receipt },
+    { key: "issues" as SubView, label: "정산이슈", icon: AlertCircle },
   ];
 
   return (
@@ -199,12 +199,13 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             <button
               key={t.key}
               onClick={() => setSubView(t.key)}
-              className={`px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
                 subView === t.key
                   ? "bg-[hsl(221,83%,53%)] text-white"
                   : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
               }`}
             >
+              <t.icon className="w-3.5 h-3.5" />
               {t.label}
             </button>
           ))}
