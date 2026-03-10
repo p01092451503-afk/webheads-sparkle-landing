@@ -89,6 +89,9 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
         </div>
       </div>
 
+      {/* Daily Cost Chart */}
+      {conversations.length > 0 && <DailyCostChart conversations={conversations} />}
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
