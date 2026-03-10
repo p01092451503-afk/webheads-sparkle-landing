@@ -31,7 +31,7 @@ async function streamChat({
   messages, lang, onDelta, onDone, onError,
 }: {
   messages: Msg[]; lang: string;
-  onDelta: (t: string) => void; onDone: () => void; onError: (e: string) => void;
+  onDelta: (t: string) => void; onDone: (usage?: { total_tokens: number; cost: number }) => void; onError: (e: string) => void;
 }) {
   let resp: Response;
   try {
@@ -59,6 +59,7 @@ async function streamChat({
   const reader = resp.body.getReader();
   const decoder = new TextDecoder();
   let buf = "";
+  let usage: { total_tokens: number; cost: number } | undefined;
 
   while (true) {
     const { done, value } = await reader.read();
@@ -72,15 +73,22 @@ async function streamChat({
       if (line.endsWith("\r")) line = line.slice(0, -1);
       if (!line.startsWith("data: ")) continue;
       const json = line.slice(6).trim();
-      if (json === "[DONE]") { onDone(); return; }
+      if (json === "[DONE]") { onDone(usage); return; }
       try {
         const p = JSON.parse(json);
         const c = p.choices?.[0]?.delta?.content;
         if (c) onDelta(c);
+        // Capture usage from final chunk
+        if (p.usage) {
+          usage = {
+            total_tokens: p.usage.total_tokens || 0,
+            cost: p.usage.cost_details?.upstream_inference_cost || p.usage.cost || 0,
+          };
+        }
       } catch { /* partial */ }
     }
   }
-  onDone();
+  onDone(usage);
 }
 
 function SimpleMarkdown({ text }: { text: string }) {
