@@ -391,6 +391,26 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
     }
   }, [clientData, onRefresh, showSaved]);
 
+  const reorderClient = useCallback(async (clientId: string, direction: "up" | "down") => {
+    const sorted = [...clients].sort((a, b) => ((a as any).sort_order || 0) - ((b as any).sort_order || 0));
+    const idx = sorted.findIndex((c) => c.id === clientId);
+    if (idx < 0) return;
+    const swapIdx = direction === "up" ? idx - 1 : idx + 1;
+    if (swapIdx < 0 || swapIdx >= sorted.length) return;
+
+    const a = sorted[idx];
+    const b = sorted[swapIdx];
+    try {
+      await Promise.all([
+        supabase.from("clients").update({ sort_order: (b as any).sort_order || 0 }).eq("id", a.id),
+        supabase.from("clients").update({ sort_order: (a as any).sort_order || 0 }).eq("id", b.id),
+      ]);
+      onRefresh();
+    } catch (e: any) {
+      toast.error("순서 변경 중 오류가 발생했습니다");
+    }
+  }, [clients, onRefresh]);
+
   const statusBadge = (status: string, clientId: string) => {
     const base = "cursor-pointer transition-all hover:scale-105 text-[11px]";
     switch (status) {
