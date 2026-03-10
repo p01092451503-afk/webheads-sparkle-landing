@@ -242,6 +242,9 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
         {subView === "issues" && (
           <PaymentIssues />
         )}
+        {subView === "taxinvoice" && (
+          <TaxInvoiceManager />
+        )}
         {subView === "detail" && selectedClient && (
           <ClientDetail
             client={selectedClient}
