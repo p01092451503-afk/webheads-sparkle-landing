@@ -22,6 +22,63 @@ interface Conversation {
   updated_at: string;
 }
 
+function DailyCostChart({ conversations }: { conversations: Conversation[] }) {
+  const chartData = useMemo(() => {
+    const days = eachDayOfInterval({ start: subDays(new Date(), 29), end: new Date() });
+    const map = new Map<string, { cost: number; tokens: number; count: number }>();
+    days.forEach(d => map.set(format(d, "yyyy-MM-dd"), { cost: 0, tokens: 0, count: 0 }));
+
+    conversations.forEach(c => {
+      const key = c.created_at.slice(0, 10);
+      const entry = map.get(key);
+      if (entry) {
+        entry.cost += Number(c.total_cost) || 0;
+        entry.tokens += c.total_tokens || 0;
+        entry.count += 1;
+      }
+    });
+
+    return days.map(d => {
+      const key = format(d, "yyyy-MM-dd");
+      const e = map.get(key)!;
+      return { date: format(d, "M/d"), cost: Number(e.cost.toFixed(4)), tokens: e.tokens, count: e.count };
+    });
+  }, [conversations]);
+
+  return (
+    <div className="bg-white rounded-2xl p-5 border border-[hsl(220,13%,91%)]">
+      <h3 className="text-sm font-bold text-foreground mb-4">일별 비용 추이 (최근 30일)</h3>
+      <ResponsiveContainer width="100%" height={200}>
+        <BarChart data={chartData}>
+          <CartesianGrid strokeDasharray="3 3" stroke="hsl(220,13%,91%)" />
+          <XAxis dataKey="date" tick={{ fontSize: 11 }} interval="preserveStartEnd" />
+          <YAxis tick={{ fontSize: 11 }} tickFormatter={(v) => `$${v}`} width={50} />
+          <Tooltip
+            contentStyle={{ fontSize: 12, borderRadius: 12, border: "1px solid hsl(220,13%,91%)" }}
+            formatter={(value: number, name: string) => {
+              if (name === "cost") return [`$${value.toFixed(4)} (≈${Math.round(value * 1400)}원)`, "비용"];
+              return [value, name];
+            }}
+            labelFormatter={(label) => `${label}`}
+          />
+          <Bar dataKey="cost" fill="hsl(221,83%,53%)" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ResponsiveContainer>
+      <div className="flex justify-center gap-6 mt-2">
+        <span className="text-[11px] text-muted-foreground">
+          30일 합계: <strong className="text-foreground">${chartData.reduce((s, d) => s + d.cost, 0).toFixed(4)}</strong>
+        </span>
+        <span className="text-[11px] text-muted-foreground">
+          30일 토큰: <strong className="text-foreground">{chartData.reduce((s, d) => s + d.tokens, 0).toLocaleString()}</strong>
+        </span>
+        <span className="text-[11px] text-muted-foreground">
+          30일 대화: <strong className="text-foreground">{chartData.reduce((s, d) => s + d.count, 0)}</strong>
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps) {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
