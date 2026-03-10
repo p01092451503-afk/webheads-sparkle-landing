@@ -16,8 +16,9 @@ const ExpenseManager = lazy(() => import("@/components/admin/payments/ExpenseMan
 const Admin404Logs = lazy(() => import("@/components/admin/Admin404Logs"));
 const AdminChatbotLogs = lazy(() => import("@/components/admin/AdminChatbotLogs"));
 const TaxInvoiceManager = lazy(() => import("@/components/admin/payments/TaxInvoiceManager"));
+const AdminClientCompanies = lazy(() => import("@/components/admin/AdminClientCompanies"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
