@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { MessageCircle, Loader2, Eye, Trash2, RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
+import { MessageCircle, Loader2, Eye, EyeOff, Trash2, RefreshCw, ChevronDown, ChevronUp } from "lucide-react";
 import { format, subDays, eachDayOfInterval } from "date-fns";
 import { ko } from "date-fns/locale";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
@@ -83,6 +83,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [showAiIds, setShowAiIds] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchConversations = useCallback(async () => {
@@ -223,7 +224,33 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
                 {/* Expanded messages */}
                 {isExpanded && (
                   <div className="border-t border-[hsl(220,13%,91%)] px-4 py-3 space-y-3 bg-[hsl(220,14%,98%)]">
-                    {(conv.messages || []).map((m, i) => (
+                    <div className="flex justify-between items-center mb-2">
+                      <button
+                        onClick={() => setShowAiIds(prev => {
+                          const next = new Set(prev);
+                          if (next.has(conv.id)) next.delete(conv.id);
+                          else next.add(conv.id);
+                          return next;
+                        })}
+                        className="flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded-lg hover:bg-[hsl(220,14%,93%)]"
+                      >
+                        {showAiIds.has(conv.id) ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                        {showAiIds.has(conv.id) ? "AI 답변 숨기기" : "AI 답변 보기"}
+                      </button>
+                      {isSuperAdmin && (
+                        <button
+                          onClick={() => handleDelete(conv.id)}
+                          disabled={deleting === conv.id}
+                          className="flex items-center gap-1 text-[12px] text-red-500 hover:text-red-700 transition-colors"
+                        >
+                          {deleting === conv.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Trash2 className="w-3 h-3" />}
+                          삭제
+                        </button>
+                      )}
+                    </div>
+                    {(conv.messages || [])
+                      .filter(m => m.role === "user" || showAiIds.has(conv.id))
+                      .map((m, i) => (
                       <div key={i} className={`flex gap-2 ${m.role === "user" ? "justify-end" : ""}`}>
                         <div
                           className={`rounded-xl px-3 py-2 max-w-[85%] text-sm ${
@@ -239,18 +266,6 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
                         </div>
                       </div>
                     ))}
-                    {isSuperAdmin && (
-                      <div className="flex justify-end pt-2">
-                        <button
-                          onClick={() => handleDelete(conv.id)}
-                          disabled={deleting === conv.id}
-                          className="flex items-center gap-1 text-[12px] text-red-500 hover:text-red-700 transition-colors"
-                        >
-                          {deleting === conv.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Trash2 className="w-3 h-3" />}
-                          삭제
-                        </button>
-                      </div>
-                    )}
                   </div>
                 )}
               </div>
