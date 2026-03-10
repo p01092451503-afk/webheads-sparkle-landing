@@ -328,6 +328,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormDescription("");
     setFormMemo("");
     setFormInvoiceIssued(false);
+    setFormPaymentMethod("bank_transfer");
     setModalOpen(true);
   };
 
