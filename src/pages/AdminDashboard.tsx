@@ -433,6 +433,9 @@ export default function AdminDashboard() {
           {tab === "report" && (
             <MonthlyReport isSuperAdmin={isSuperAdmin} />
           )}
+          {tab === "client_work" && (
+            <ClientWorkManager isSuperAdmin={isSuperAdmin} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
