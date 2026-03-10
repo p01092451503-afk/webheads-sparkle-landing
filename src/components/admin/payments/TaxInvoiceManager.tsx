@@ -217,26 +217,57 @@ export default function TaxInvoiceManager() {
     );
   }, [filteredLogs]);
 
-  const handleSupplyChange = (val: string) => {
-    const num = parseInt(val.replace(/,/g, "")) || 0;
-    const tax = Math.round(num * 0.1);
-    setForm((f) => ({
-      ...f,
-      supplyAmount: val,
-      taxAmount: String(tax),
-    }));
+  const updateLineItem = (idx: number, field: keyof SalesLineItem, value: string | number) => {
+    setLineItems(prev => {
+      const updated = [...prev];
+      updated[idx] = { ...updated[idx], [field]: value };
+      // Auto-calculate when unitPrice or quantity changes
+      if (field === "unitPrice" || field === "quantity") {
+        const qty = field === "quantity" ? Number(value) : updated[idx].quantity;
+        const price = parseInt(String(field === "unitPrice" ? value : updated[idx].unitPrice).replace(/,/g, "")) || 0;
+        const supply = qty * price;
+        const tax = Math.round(supply * 0.1);
+        updated[idx].supplyAmount = String(supply);
+        updated[idx].taxAmount = String(tax);
+        updated[idx].totalAmount = String(supply + tax);
+      }
+      return updated;
+    });
   };
 
+  const addLineItem = () => setLineItems(prev => [...prev, emptyLine()]);
+  const removeLineItem = (idx: number) => {
+    if (lineItems.length <= 1) return;
+    setLineItems(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  const lineTotals = useMemo(() => {
+    return lineItems.reduce(
+      (acc, l) => ({
+        supply: acc.supply + (parseInt(l.supplyAmount.replace(/,/g, "")) || 0),
+        tax: acc.tax + (parseInt(l.taxAmount.replace(/,/g, "")) || 0),
+        total: acc.total + (parseInt(l.totalAmount.replace(/,/g, "")) || 0),
+      }),
+      { supply: 0, tax: 0, total: 0 }
+    );
+  }, [lineItems]);
+
+  const filledLines = useMemo(() => lineItems.filter(l => l.itemName || l.unitPrice), [lineItems]);
+
   const handleIssue = async () => {
-    if (!form.clientId || !form.buyerCorpNum || !form.supplyAmount) {
+    if (!form.clientId || !form.buyerCorpNum) {
       toast.error("필수 항목을 입력해주세요");
+      return;
+    }
+    if (lineTotals.supply === 0) {
+      toast.error("매출항목을 입력해주세요");
       return;
     }
 
     setIssuing(true);
     try {
-      const supplyAmount = parseInt(form.supplyAmount.replace(/,/g, "")) || 0;
-      const taxAmount = parseInt(form.taxAmount.replace(/,/g, "")) || 0;
+      const supplyAmount = lineTotals.supply;
+      const taxAmount = lineTotals.tax;
 
       const { data: { session } } = await supabase.auth.getSession();
       const res = await supabase.functions.invoke("popbill-tax-invoice", {
@@ -270,14 +301,21 @@ export default function TaxInvoiceManager() {
         buyerAddress: "",
         buyerBusinessType: "",
         buyerBusinessItem: "",
-        supplyAmount: "",
-        taxAmount: "",
         memo: "",
         writeDate: new Date().toISOString().split("T")[0],
+        applyDateToAll: true,
+        invoiceType: "청구",
       });
+      setLineItems([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
       setMatchedContacts([]);
       setSelectedContactIdx(0);
       fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "발행 중 오류가 발생했습니다");
+    } finally {
+      setIssuing(false);
+    }
+  };
     } catch (e: any) {
       toast.error(e.message || "발행 중 오류가 발생했습니다");
     } finally {
