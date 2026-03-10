@@ -442,7 +442,7 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
     const rows = clients
       .filter((c) => c.is_active)
-      .sort((a, b) => (a.client_no || 0) - (b.client_no || 0))
+      .sort((a, b) => ((a as any).sort_order || 0) - ((b as any).sort_order || 0))
       .map((c) => {
         const unpaidTotal = payments
           .filter((p) => p.client_id === c.id && p.is_unpaid)
