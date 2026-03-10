@@ -274,6 +274,32 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
         />
       </div>
 
+      {/* Bulk action bar for inactive view */}
+      {showInactive && filtered.length > 0 && (
+        <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl border bg-muted/30 border-border/60">
+          <button
+            onClick={toggleSelectAll}
+            className="flex items-center gap-1.5 text-[12px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {selectedIds.size === filtered.length ? <CheckSquare className="w-4 h-4 text-primary" /> : <Square className="w-4 h-4" />}
+            전체선택
+          </button>
+          {selectedIds.size > 0 && (
+            <>
+              <span className="text-[12px] text-muted-foreground">{selectedIds.size}개 선택됨</span>
+              <button
+                onClick={bulkActivate}
+                disabled={bulkProcessing}
+                className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium bg-emerald-600 text-white hover:bg-emerald-700 disabled:opacity-50 transition-colors"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                {bulkProcessing ? "처리 중..." : "선택 유효 처리"}
+              </button>
+            </>
+          )}
+        </div>
+      )}
+
       {/* List */}
       <div className="space-y-2">
         {filtered.map((c) => {
