@@ -54,6 +54,8 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
   const today = new Date().toISOString().slice(0, 10);
   const todayCount = conversations.filter(c => c.created_at.slice(0, 10) === today).length;
   const totalMessages = conversations.reduce((acc, c) => acc + (c.message_count || 0), 0);
+  const totalTokens = conversations.reduce((acc, c) => acc + (c.total_tokens || 0), 0);
+  const totalCost = conversations.reduce((acc, c) => acc + (Number(c.total_cost) || 0), 0);
   const langStats = conversations.reduce((acc, c) => {
     acc[c.language] = (acc[c.language] || 0) + 1;
     return acc;
