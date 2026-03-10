@@ -92,8 +92,8 @@ export default function TaxInvoiceManager() {
     writeDate: new Date().toISOString().split("T")[0],
   });
 
-  // Matched contacts for selected client (shown as read-only info)
   const [matchedContacts, setMatchedContacts] = useState<ClientContact[]>([]);
+  const [selectedContactIdx, setSelectedContactIdx] = useState<number>(0);
 
   // Build a map: client_no -> client_companies info (matched by num)
   const clientCompanyMap = useMemo(() => {
