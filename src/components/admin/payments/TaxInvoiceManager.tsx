@@ -789,7 +789,7 @@ export default function TaxInvoiceManager() {
                   <PopoverContent className="w-[460px] p-0" align="start">
                     <Command>
                       <CommandInput placeholder="고객명 또는 사업자번호 검색..." className="text-[13px]" />
-                      <CommandList className="max-h-[260px]">
+                      <CommandList className="max-h-[300px] overflow-y-auto">
                         <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
                         {clients.map((c) => {
                           const matched = getCompanyForClient(c);
