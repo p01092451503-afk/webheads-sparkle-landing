@@ -46,7 +46,7 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
 
   const fetchData = useCallback(async () => {
     const [cRes, pRes] = await Promise.all([
-      supabase.from("clients").select("*").order("client_no"),
+      supabase.from("clients").select("*").order("sort_order"),
       supabase.from("payments").select("*").order("year", { ascending: false }),
     ]);
     if (cRes.data) setClients(cRes.data as any);
