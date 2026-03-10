@@ -38,7 +38,7 @@ async function hmacSha256(key: string, message: string): Promise<string> {
 async function md5Hash(content: string): Promise<string> {
   const encoder = new TextEncoder();
   const data = encoder.encode(content);
-  const hashBuffer = await crypto.subtle.digest("MD5", data);
+  const hashBuffer = await stdCrypto.subtle.digest("MD5", data);
   return btoa(String.fromCharCode(...new Uint8Array(hashBuffer)));
 }
 
