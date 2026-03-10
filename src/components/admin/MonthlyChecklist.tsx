@@ -202,7 +202,7 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
               <Input
                 value={newTask}
                 onChange={e => setNewTask(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && addTask()}
+                onKeyDown={e => { if (e.key === "Enter" && !e.nativeEvent.isComposing) addTask(); }}
                 placeholder="새 항목 추가..."
                 className="h-8 text-[13px] flex-1"
               />
