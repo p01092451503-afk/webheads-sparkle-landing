@@ -786,31 +786,33 @@ export default function TaxInvoiceManager() {
                       <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[460px] p-0" align="start">
-                    <Command>
+                  <PopoverContent className="w-[460px] p-0" align="start" onWheel={(e) => e.stopPropagation()}>
+                    <Command shouldFilter={true}>
                       <CommandInput placeholder="고객명 또는 사업자번호 검색..." className="text-[13px]" />
-                      <CommandList className="max-h-[300px] overflow-y-auto">
-                        <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
-                        {clients.map((c) => {
-                          const matched = getCompanyForClient(c);
-                          const displayName = matched ? matched.company_name : c.name;
-                          const bizNum = matched?.business_number || "";
-                          return (
-                            <CommandItem
-                              key={c.id}
-                              value={`${displayName} ${bizNum} ${c.name}`}
-                              onSelect={() => {
-                                handleClientSelect(c.id);
-                                setClientSearchOpen(false);
-                              }}
-                              className="text-[13px] cursor-pointer"
-                            >
-                              <span className="font-medium">{displayName}</span>
-                              {bizNum && <span className="text-muted-foreground ml-2">({bizNum})</span>}
-                            </CommandItem>
-                          );
-                        })}
-                      </CommandList>
+                      <div className="max-h-[300px] overflow-y-auto overscroll-contain" onWheel={(e) => e.stopPropagation()}>
+                        <CommandList className="max-h-none">
+                          <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
+                          {clients.map((c) => {
+                            const matched = getCompanyForClient(c);
+                            const displayName = matched ? matched.company_name : c.name;
+                            const bizNum = matched?.business_number || "";
+                            return (
+                              <CommandItem
+                                key={c.id}
+                                value={`${displayName} ${bizNum} ${c.name}`}
+                                onSelect={() => {
+                                  handleClientSelect(c.id);
+                                  setClientSearchOpen(false);
+                                }}
+                                className="text-[13px] cursor-pointer"
+                              >
+                                <span className="font-medium">{displayName}</span>
+                                {bizNum && <span className="text-muted-foreground ml-2">({bizNum})</span>}
+                              </CommandItem>
+                            );
+                          })}
+                        </CommandList>
+                      </div>
                     </Command>
                   </PopoverContent>
                 </Popover>
