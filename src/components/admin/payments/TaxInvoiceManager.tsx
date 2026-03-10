@@ -308,6 +308,7 @@ export default function TaxInvoiceManager() {
       const res = await supabase.functions.invoke("popbill-tax-invoice", {
         body: {
           action: "issue",
+          existingLogId: savedLogId,
           clientId: form.clientId,
           buyerCorpNum: form.buyerCorpNum.replace(/-/g, ""),
           buyerCorpName: form.buyerCorpName,
