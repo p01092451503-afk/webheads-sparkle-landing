@@ -78,7 +78,7 @@ export default function FloatingNav() {
       </div>
 
       {/* Mobile — action buttons, bottom right above scroll buttons */}
-      <div className="fixed right-3 bottom-44 z-50 md:hidden flex flex-col items-center gap-2">
+      <div className="fixed right-3 bottom-[230px] z-50 md:hidden flex flex-col items-center gap-2">
         <button
           onClick={handleCostSimulator}
           className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg bg-background text-foreground border border-border"
@@ -98,28 +98,28 @@ export default function FloatingNav() {
         ))}
       </div>
 
-      {/* Mobile scroll buttons — fixed at very bottom */}
+      {/* Mobile scroll buttons — split apart for chatbot button in between */}
       {visible && (
-        <div className="fixed right-3 bottom-4 z-50 md:hidden flex flex-col items-center gap-1.5">
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="w-8 h-8 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to top">
+        <>
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="fixed right-3 bottom-[132px] z-50 md:hidden w-8 h-8 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to top">
             <ChevronUp className="w-4 h-4" />
           </button>
-          <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} className="w-8 h-8 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to bottom">
+          <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} className="fixed right-3 bottom-4 z-50 md:hidden w-8 h-8 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to bottom">
             <ChevronDown className="w-4 h-4" />
           </button>
-        </div>
+        </>
       )}
 
-      {/* Desktop scroll buttons */}
+      {/* Desktop scroll buttons — split apart for chatbot button in between */}
       {visible && (
-        <div className="fixed right-5 bottom-6 z-50 hidden md:flex flex-col gap-2">
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="w-10 h-10 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to top">
+        <>
+          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="fixed right-5 bottom-[132px] z-50 hidden md:flex w-10 h-10 rounded-full bg-foreground/80 text-background items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to top">
             <ChevronUp className="w-5 h-5" />
           </button>
-          <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} className="w-10 h-10 rounded-full bg-foreground/80 text-background flex items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to bottom">
+          <button onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })} className="fixed right-5 bottom-6 z-50 hidden md:flex w-10 h-10 rounded-full bg-foreground/80 text-background items-center justify-center shadow-lg hover:bg-foreground transition-colors" aria-label="Scroll to bottom">
             <ChevronDown className="w-5 h-5" />
           </button>
-        </div>
+        </>
       )}
     </div>
   );
