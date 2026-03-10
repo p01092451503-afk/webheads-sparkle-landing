@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import FloatingNav from "./components/FloatingNav";
+import ChatbotPanel from "./components/ChatbotPanel";
 
 import PageTracker from "./components/PageTracker";
 import LmsPage from "./pages/LmsPage";
@@ -43,6 +44,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <main>{children}</main>
       {!isAdmin && <Footer />}
       {!isAdmin && <FloatingNav />}
+      {!isAdmin && <ChatbotPanel />}
     </>
   );
 };
