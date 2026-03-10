@@ -83,6 +83,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [showAiIds, setShowAiIds] = useState<Set<string>>(new Set());
   const [deleting, setDeleting] = useState<string | null>(null);
 
   const fetchConversations = useCallback(async () => {
