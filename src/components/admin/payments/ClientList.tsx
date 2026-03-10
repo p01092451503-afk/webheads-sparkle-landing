@@ -646,7 +646,17 @@ export default function ClientList({ clients, payments, onNavigate, onAddPayment
 
                 return (
                   <tr key={c.id} className="group/row border-b border-[hsl(220,13%,93%)] hover:bg-[hsl(220,14%,97.5%)] transition-colors">
-                    <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">{c.client_no}</td>
+                    <td className="px-1 py-3 whitespace-nowrap">
+                      <div className="flex items-center gap-0.5">
+                        {sort === "name" && (
+                          <div className="flex flex-col opacity-0 group-hover/row:opacity-100 transition-opacity">
+                            <button onClick={() => reorderClient(c.id, "up")} className="p-0.5 rounded hover:bg-[hsl(220,14%,90%)] text-muted-foreground/50 hover:text-muted-foreground"><ArrowUp className="w-3 h-3" /></button>
+                            <button onClick={() => reorderClient(c.id, "down")} className="p-0.5 rounded hover:bg-[hsl(220,14%,90%)] text-muted-foreground/50 hover:text-muted-foreground"><ArrowDown className="w-3 h-3" /></button>
+                          </div>
+                        )}
+                        <span className="text-muted-foreground text-[12px] min-w-[28px] text-center">{c.client_no}</span>
+                      </div>
+                    </td>
                     <td className="px-2 py-1.5 whitespace-nowrap">
                       <div className="relative flex items-center gap-1.5">
                         {editing?.clientId === c.id && editing.field === "name" ? (
