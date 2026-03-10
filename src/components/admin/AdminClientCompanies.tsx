@@ -100,6 +100,43 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
     fetchData();
   };
 
+  const toggleSelect = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.size === filtered.length) {
+      setSelectedIds(new Set());
+    } else {
+      setSelectedIds(new Set(filtered.map(c => c.id)));
+    }
+  };
+
+  const bulkActivate = async () => {
+    if (selectedIds.size === 0) return;
+    setBulkProcessing(true);
+    try {
+      const ids = Array.from(selectedIds);
+      const { error } = await supabase.from("client_companies").update({ is_active: true }).in("id", ids);
+      if (error) throw error;
+      toast.success(`${ids.length}개 고객사가 유효 처리되었습니다`);
+      setSelectedIds(new Set());
+      fetchData();
+    } catch (e: any) {
+      toast.error(e.message || "처리 중 오류가 발생했습니다");
+    } finally {
+      setBulkProcessing(false);
+    }
+  };
+
+  // Clear selection when switching views
+  useEffect(() => { setSelectedIds(new Set()); }, [showInactive]);
+
   const openAdd = () => {
     setEditCompany(null);
     setForm({ business_number: "", company_name: "", ceo_name: "", num: "", business_type: "", business_item: "", zip_code: "", address1: "", address2: "" });
