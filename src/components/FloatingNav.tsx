@@ -41,30 +41,30 @@ export default function FloatingNav() {
     <div data-floating-nav>
       {/* Desktop — vertically centered */}
       <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-2">
-        <button onClick={handleCostSimulator} className="group relative w-10 h-10 rounded-full bg-background text-foreground flex items-center justify-center shadow-lg border border-border hover:opacity-90 transition-opacity" aria-label={t("floatingNav.costSimulator")}>
+        <button onClick={handleCostSimulator} className={`group relative w-10 h-10 rounded-full ${glassBase} flex items-center justify-center hover:bg-background/90 transition-all`} aria-label={t("floatingNav.costSimulator")}>
           <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.costSimulator")}</span>
           <Calculator className="w-5 h-5" />
         </button>
         {!isServiceRequest && location.pathname !== "/pricing" && (
-          <Link to="/pricing" className="group relative w-10 h-10 rounded-full bg-[hsl(10,80%,55%)] text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.pricing")}>
+          <Link to="/pricing" className={`group relative w-10 h-10 rounded-full ${glassBase} flex items-center justify-center hover:bg-background/90 transition-all`} aria-label={t("floatingNav.pricing")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.pricing")}</span>
             <CreditCard className="w-5 h-5" />
           </Link>
         )}
         {!isServiceRequest && location.pathname !== "/sms-kakao" && (
-          <Link to="/sms-kakao" className="group relative w-10 h-10 rounded-full bg-[hsl(45,93%,55%)] text-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.smsKakao")}>
+          <Link to="/sms-kakao" className={`group relative w-10 h-10 rounded-full ${glassBase} flex items-center justify-center hover:bg-background/90 transition-all`} aria-label={t("floatingNav.smsKakao")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.smsKakao")}</span>
             <Send className="w-5 h-5" />
           </Link>
         )}
         {location.pathname !== "/overview" && (
-          <Link to="/overview" className="group relative w-10 h-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity" aria-label={t("floatingNav.overview")}>
+          <Link to="/overview" className={`group relative w-10 h-10 rounded-full ${glassBase} flex items-center justify-center hover:bg-background/90 transition-all`} aria-label={t("floatingNav.overview")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.overview")}</span>
             <FileText className="w-5 h-5" />
           </Link>
         )}
         {location.pathname !== "/blog" && (
-          <Link to="/blog" className="group relative w-10 h-10 rounded-lg bg-foreground text-background flex items-center justify-center shadow-lg hover:opacity-90 transition-opacity border-2 border-primary/40" aria-label={t("floatingNav.insights")}>
+          <Link to="/blog" className={`group relative w-10 h-10 rounded-full ${glassBase} flex items-center justify-center hover:bg-background/90 transition-all`} aria-label={t("floatingNav.insights")}>
             <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.insights")}</span>
             <BookOpen className="w-5 h-5" />
           </Link>
