@@ -9,9 +9,9 @@ type Msg = { role: "user" | "assistant"; content: string };
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/website-chatbot`;
 
 const WELCOME: Record<string, string> = {
-  ko: "안녕하세요! 👋 WEBHEADS(웹헤즈) AI 상담 어시스턴트입니다.\n\nLMS 요금제, 서비스 기능, 맞춤 비용 계산 등 무엇이든 질문해주세요!",
-  en: "Hello! 👋 I'm the WEBHEADS AI assistant.\n\nAsk me anything about our LMS plans, services, or get a custom cost estimate!",
-  ja: "こんにちは！👋 WEBHEADS AIアシスタントです。\n\nLMSプラン、サービス機能、カスタム費用計算など、何でもご質問ください！",
+  ko: "안녕하세요, WEBHEADS(웹헤즈) 상담 어시스턴트입니다.\n\nLMS 요금제, 서비스 기능, 맞춤 비용 계산 등 무엇이든 질문해주세요.",
+  en: "Hello, I'm the WEBHEADS consulting assistant.\n\nAsk me anything about our LMS plans, services, or get a custom cost estimate.",
+  ja: "こんにちは、WEBHEADSの相談アシスタントです。\n\nLMSプラン、サービス機能、カスタム費用計算など、何でもご質問ください。",
 };
 
 const PLACEHOLDER: Record<string, string> = {
