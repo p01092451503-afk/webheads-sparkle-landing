@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { dedupeLocation } from "@/lib/utils";
-import { Eye, Globe, Wifi, MapPin, ArrowUpRight, Smartphone, User, Users } from "lucide-react";
+import { Eye, Globe, Wifi, MapPin, ArrowUpRight, Smartphone, User, Users, Bot } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer } from "recharts";
 import { SectionGroup, MetricCard, ChartCard, BarRow, Empty } from "./AnalyticsShared";
 
