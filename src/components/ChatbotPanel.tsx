@@ -250,7 +250,7 @@ export default function ChatbotPanel() {
       <button
         onClick={() => setOpen(true)}
         className={cn(
-          "fixed bottom-[160px] md:bottom-[140px] right-3 md:right-5 z-50 w-[52px] h-[52px] rounded-full backdrop-blur-xl bg-background/40 border border-white/20 text-foreground shadow-[0_4px_16px_rgba(0,0,0,0.12)] ring-1 ring-black/5 flex items-center justify-center hover:scale-110 hover:bg-background/60 transition-all duration-200",
+          "fixed bottom-[160px] md:bottom-[140px] right-3 md:right-5 z-50 w-[52px] h-[52px] rounded-full bg-foreground text-background shadow-[0_4px_16px_rgba(0,0,0,0.2)] flex items-center justify-center hover:scale-110 transition-all duration-200",
           open && "hidden"
         )}
         aria-label="AI 상담"
