@@ -37,7 +37,15 @@ interface Expense {
   memo: string | null;
   invoice_issued: boolean;
   vendor_name: string | null;
+  payment_method: string;
 }
+
+const PAYMENT_METHODS = [
+  { value: "bank_transfer", label: "계좌이체", color: "bg-blue-100 text-blue-700" },
+  { value: "card", label: "카드결제", color: "bg-violet-100 text-violet-700" },
+  { value: "cash", label: "현금", color: "bg-emerald-100 text-emerald-700" },
+  { value: "other", label: "기타", color: "bg-gray-100 text-gray-600" },
+] as const;
 
 interface Vendor {
   id: string;
