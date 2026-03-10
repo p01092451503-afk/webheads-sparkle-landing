@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save, EyeOff, Eye } from "lucide-react";
+import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save, EyeOff, Eye, CheckSquare, Square } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 
 interface ClientCompany {
