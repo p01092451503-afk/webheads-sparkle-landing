@@ -183,11 +183,11 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
 
   // Sub-navigation tabs
   const subTabs = [
-    { key: "dashboard" as SubView, label: "대시보드" },
-    { key: "clients" as SubView, label: "매출관리" },
+    { key: "dashboard" as SubView, label: "대시보드", icon: LayoutDashboard },
+    { key: "clients" as SubView, label: "매출관리", icon: Users },
     // { key: "calendar" as SubView, label: "캘린더" },
-    { key: "expected" as SubView, label: "기타매출관리" },
-    { key: "issues" as SubView, label: "정산이슈" },
+    { key: "expected" as SubView, label: "기타매출관리", icon: Receipt },
+    { key: "issues" as SubView, label: "정산이슈", icon: AlertCircle },
   ];
 
   return (
