@@ -37,7 +37,15 @@ interface Expense {
   memo: string | null;
   invoice_issued: boolean;
   vendor_name: string | null;
+  payment_method: string;
 }
+
+const PAYMENT_METHODS = [
+  { value: "bank_transfer", label: "계좌이체", color: "bg-blue-100 text-blue-700" },
+  { value: "card", label: "카드결제", color: "bg-violet-100 text-violet-700" },
+  { value: "cash", label: "현금", color: "bg-emerald-100 text-emerald-700" },
+  { value: "other", label: "기타", color: "bg-gray-100 text-gray-600" },
+] as const;
 
 interface Vendor {
   id: string;
@@ -98,6 +106,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [formDescription, setFormDescription] = useState("");
   const [formMemo, setFormMemo] = useState("");
   const [formInvoiceIssued, setFormInvoiceIssued] = useState(false);
+  const [formPaymentMethod, setFormPaymentMethod] = useState("bank_transfer");
 
   const formTotal = useMemo(() => parseInt(formTotalAmount.replace(/[^0-9]/g, "")) || 0, [formTotalAmount]);
   const formSupplyCalc = useMemo(() => Math.round(formTotal / 1.1), [formTotal]);
@@ -319,6 +328,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormDescription("");
     setFormMemo("");
     setFormInvoiceIssued(false);
+    setFormPaymentMethod("bank_transfer");
     setModalOpen(true);
   };
 
@@ -332,6 +342,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormDescription(exp.description || "");
     setFormMemo(exp.memo || "");
     setFormInvoiceIssued(exp.invoice_issued || false);
+    setFormPaymentMethod(exp.payment_method || "bank_transfer");
     setModalOpen(true);
   };
 
@@ -357,6 +368,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
       memo: formMemo || null,
       invoice_issued: formInvoiceIssued,
       vendor_name: formVendorName.trim() || null,
+      payment_method: formPaymentMethod,
     };
 
     try {
@@ -998,6 +1010,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">세액</th>
                 <th className="text-right px-4 py-3 font-semibold text-muted-foreground">합계</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">지출일</th>
+                <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">결제유형</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">계산서</th>
                 <th className="text-left px-4 py-3 font-semibold text-muted-foreground">메모</th>
                 <th className="text-center px-4 py-3 font-semibold text-muted-foreground w-[80px]">상태</th>
@@ -1018,6 +1031,11 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   <td className="px-4 py-3 text-right font-medium text-muted-foreground">{formatWon(exp.tax_amount || 0)}</td>
                   <td className="px-4 py-3 text-right font-bold">{formatWon(exp.amount)}</td>
                   <td className="px-4 py-3 text-muted-foreground">{exp.paid_date?.replace(/-/g, ".") || "-"}</td>
+                  <td className="px-4 py-3 text-center">
+                    <Badge className={`${(PAYMENT_METHODS.find(m => m.value === exp.payment_method) || PAYMENT_METHODS[0]).color} text-[10px]`}>
+                      {(PAYMENT_METHODS.find(m => m.value === exp.payment_method) || PAYMENT_METHODS[0]).label}
+                    </Badge>
+                  </td>
                   <td className="px-4 py-3 text-center">
                     <button onClick={async () => {
                       try {
@@ -1053,7 +1071,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 </tr>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={11} className="px-4 py-12 text-center text-muted-foreground">
+                <tr><td colSpan={12} className="px-4 py-12 text-center text-muted-foreground">
                   {loading ? "불러오는 중..." : "등록된 지출이 없습니다"}
                 </td></tr>
               )}
@@ -1126,6 +1144,17 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                   <option key={v.id} value={v.name} />
                 ))}
               </datalist>
+            </div>
+            <div className="space-y-1.5">
+              <Label className="text-[13px]">결제 유형</Label>
+              <Select value={formPaymentMethod} onValueChange={setFormPaymentMethod}>
+                <SelectTrigger className="h-9 text-[13px]"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {PAYMENT_METHODS.map((m) => (
+                    <SelectItem key={m.value} value={m.value} className="text-[13px]">{m.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="space-y-1.5">
               <Label className="text-[13px]">메모</Label>
