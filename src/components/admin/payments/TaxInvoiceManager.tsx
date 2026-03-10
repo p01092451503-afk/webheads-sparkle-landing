@@ -42,9 +42,25 @@ interface Client {
   client_no: number | null;
 }
 
+interface ClientCompany {
+  id: string;
+  business_number: string;
+  num: string | null;
+  company_name: string;
+  ceo_name: string | null;
+  is_active: boolean;
+}
+
+interface ClientContact {
+  company_id: string;
+  email: string | null;
+}
+
 export default function TaxInvoiceManager() {
   const [logs, setLogs] = useState<TaxInvoiceLog[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
+  const [clientCompanies, setClientCompanies] = useState<ClientCompany[]>([]);
+  const [clientContacts, setClientContacts] = useState<ClientContact[]>([]);
   const [loading, setLoading] = useState(true);
   const [issueOpen, setIssueOpen] = useState(false);
   const [issuing, setIssuing] = useState(false);
@@ -65,18 +81,59 @@ export default function TaxInvoiceManager() {
     writeDate: new Date().toISOString().split("T")[0],
   });
 
+  // Build a map: client_no -> client_companies info (matched by num)
+  const clientCompanyMap = useMemo(() => {
+    const map = new Map<string, ClientCompany>();
+    for (const cc of clientCompanies) {
+      if (cc.num && cc.is_active) {
+        map.set(cc.num, cc);
+      }
+    }
+    return map;
+  }, [clientCompanies]);
+
+  const getCompanyForClient = useCallback((client: Client) => {
+    if (client.client_no == null) return null;
+    return clientCompanyMap.get(String(client.client_no)) || null;
+  }, [clientCompanyMap]);
+
+  const handleClientSelect = (clientId: string) => {
+    const client = clients.find(c => c.id === clientId);
+    if (!client) {
+      setForm(f => ({ ...f, clientId }));
+      return;
+    }
+    const company = getCompanyForClient(client);
+    const contactEmail = company
+      ? clientContacts.find(ct => ct.company_id === company.id)?.email || ""
+      : "";
+
+    setForm(f => ({
+      ...f,
+      clientId,
+      buyerCorpNum: company?.business_number || f.buyerCorpNum,
+      buyerCorpName: company?.company_name || client.name,
+      buyerCEOName: company?.ceo_name || f.buyerCEOName,
+      buyerEmail: contactEmail || f.buyerEmail,
+    }));
+  };
+
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const [logsRes, clientsRes] = await Promise.all([
+    const [logsRes, clientsRes, companiesRes, contactsRes] = await Promise.all([
       supabase
         .from("tax_invoice_logs" as any)
         .select("*")
         .order("created_at", { ascending: false })
         .limit(200),
       supabase.from("clients").select("id, name, client_no").order("sort_order"),
+      supabase.from("client_companies").select("id, business_number, num, company_name, ceo_name, is_active"),
+      supabase.from("client_contacts").select("company_id, email"),
     ]);
     if (logsRes.data) setLogs(logsRes.data as any);
     if (clientsRes.data) setClients(clientsRes.data as any);
+    if (companiesRes.data) setClientCompanies(companiesRes.data as any);
+    if (contactsRes.data) setClientContacts(contactsRes.data as any);
     setLoading(false);
   }, []);
 
@@ -318,16 +375,20 @@ export default function TaxInvoiceManager() {
           <div className="space-y-3">
             <div>
               <label className="text-[12px] font-medium text-muted-foreground">고객사 *</label>
-              <Select value={form.clientId} onValueChange={(v) => setForm((f) => ({ ...f, clientId: v }))}>
+              <Select value={form.clientId} onValueChange={handleClientSelect}>
                 <SelectTrigger className="h-9 text-[13px]">
                   <SelectValue placeholder="고객사 선택" />
                 </SelectTrigger>
                 <SelectContent>
-                  {clients.map((c) => (
-                    <SelectItem key={c.id} value={c.id} className="text-[13px]">
-                      {c.name}
-                    </SelectItem>
-                  ))}
+                  {clients.map((c) => {
+                    const matched = getCompanyForClient(c);
+                    return (
+                      <SelectItem key={c.id} value={c.id} className="text-[13px]">
+                        {matched ? matched.company_name : c.name}
+                        {matched && <span className="text-muted-foreground ml-1">({matched.business_number})</span>}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </div>
