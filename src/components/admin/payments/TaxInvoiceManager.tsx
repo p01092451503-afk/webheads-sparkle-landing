@@ -59,6 +59,8 @@ interface ClientContact {
 export default function TaxInvoiceManager() {
   const [logs, setLogs] = useState<TaxInvoiceLog[]>([]);
   const [clients, setClients] = useState<Client[]>([]);
+  const [clientCompanies, setClientCompanies] = useState<ClientCompany[]>([]);
+  const [clientContacts, setClientContacts] = useState<ClientContact[]>([]);
   const [loading, setLoading] = useState(true);
   const [issueOpen, setIssueOpen] = useState(false);
   const [issuing, setIssuing] = useState(false);
