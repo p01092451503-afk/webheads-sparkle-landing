@@ -466,7 +466,7 @@ export default function TaxInvoiceManager() {
 
           <div className="border rounded-xl p-4 space-y-4 bg-background">
             {/* Section: 고객명 */}
-            <div className="border-l-[3px] border-destructive pl-3">
+            <div>
               <label className="text-[13px] font-bold text-foreground">고객명</label>
               <div className="mt-1.5 flex items-center gap-2">
                 <Popover open={clientSearchOpen} onOpenChange={setClientSearchOpen}>
