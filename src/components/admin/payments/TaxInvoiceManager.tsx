@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import {
   Loader2, Plus, Search, FileText, CheckCircle2, AlertTriangle,
-  ChevronLeft, ChevronRight, ArrowLeft
+  ChevronLeft, ChevronRight, ArrowLeft, Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,17 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+
+interface SalesLineItem {
+  date: string;
+  itemName: string;
+  quantity: number;
+  unitPrice: string;
+  supplyAmount: string;
+  taxAmount: string;
+  totalAmount: string;
+}
 
 interface TaxInvoiceLog {
   id: string;
@@ -86,11 +97,23 @@ export default function TaxInvoiceManager() {
     buyerAddress: "",
     buyerBusinessType: "",
     buyerBusinessItem: "",
-    supplyAmount: "",
-    taxAmount: "",
     memo: "",
     writeDate: new Date().toISOString().split("T")[0],
+    applyDateToAll: true,
+    invoiceType: "청구" as "영수" | "청구",
   });
+
+  const emptyLine = (): SalesLineItem => ({
+    date: form.writeDate,
+    itemName: "",
+    quantity: 1,
+    unitPrice: "",
+    supplyAmount: "",
+    taxAmount: "",
+    totalAmount: "",
+  });
+
+  const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
 
   const [matchedContacts, setMatchedContacts] = useState<ClientContact[]>([]);
   const [selectedContactIdx, setSelectedContactIdx] = useState<number>(0);
@@ -194,26 +217,57 @@ export default function TaxInvoiceManager() {
     );
   }, [filteredLogs]);
 
-  const handleSupplyChange = (val: string) => {
-    const num = parseInt(val.replace(/,/g, "")) || 0;
-    const tax = Math.round(num * 0.1);
-    setForm((f) => ({
-      ...f,
-      supplyAmount: val,
-      taxAmount: String(tax),
-    }));
+  const updateLineItem = (idx: number, field: keyof SalesLineItem, value: string | number) => {
+    setLineItems(prev => {
+      const updated = [...prev];
+      updated[idx] = { ...updated[idx], [field]: value };
+      // Auto-calculate when unitPrice or quantity changes
+      if (field === "unitPrice" || field === "quantity") {
+        const qty = field === "quantity" ? Number(value) : updated[idx].quantity;
+        const price = parseInt(String(field === "unitPrice" ? value : updated[idx].unitPrice).replace(/,/g, "")) || 0;
+        const supply = qty * price;
+        const tax = Math.round(supply * 0.1);
+        updated[idx].supplyAmount = String(supply);
+        updated[idx].taxAmount = String(tax);
+        updated[idx].totalAmount = String(supply + tax);
+      }
+      return updated;
+    });
   };
 
+  const addLineItem = () => setLineItems(prev => [...prev, emptyLine()]);
+  const removeLineItem = (idx: number) => {
+    if (lineItems.length <= 1) return;
+    setLineItems(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  const lineTotals = useMemo(() => {
+    return lineItems.reduce(
+      (acc, l) => ({
+        supply: acc.supply + (parseInt(l.supplyAmount.replace(/,/g, "")) || 0),
+        tax: acc.tax + (parseInt(l.taxAmount.replace(/,/g, "")) || 0),
+        total: acc.total + (parseInt(l.totalAmount.replace(/,/g, "")) || 0),
+      }),
+      { supply: 0, tax: 0, total: 0 }
+    );
+  }, [lineItems]);
+
+  const filledLines = useMemo(() => lineItems.filter(l => l.itemName || l.unitPrice), [lineItems]);
+
   const handleIssue = async () => {
-    if (!form.clientId || !form.buyerCorpNum || !form.supplyAmount) {
+    if (!form.clientId || !form.buyerCorpNum) {
       toast.error("필수 항목을 입력해주세요");
+      return;
+    }
+    if (lineTotals.supply === 0) {
+      toast.error("매출항목을 입력해주세요");
       return;
     }
 
     setIssuing(true);
     try {
-      const supplyAmount = parseInt(form.supplyAmount.replace(/,/g, "")) || 0;
-      const taxAmount = parseInt(form.taxAmount.replace(/,/g, "")) || 0;
+      const supplyAmount = lineTotals.supply;
+      const taxAmount = lineTotals.tax;
 
       const { data: { session } } = await supabase.auth.getSession();
       const res = await supabase.functions.invoke("popbill-tax-invoice", {
@@ -247,11 +301,12 @@ export default function TaxInvoiceManager() {
         buyerAddress: "",
         buyerBusinessType: "",
         buyerBusinessItem: "",
-        supplyAmount: "",
-        taxAmount: "",
         memo: "",
         writeDate: new Date().toISOString().split("T")[0],
+        applyDateToAll: true,
+        invoiceType: "청구",
       });
+      setLineItems([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
       setMatchedContacts([]);
       setSelectedContactIdx(0);
       fetchData();
@@ -395,174 +450,308 @@ export default function TaxInvoiceManager() {
         </div>
       </div>
 
-      {/* Issue Dialog */}
+      {/* Issue Dialog - HomeTax Style */}
       <Dialog open={issueOpen} onOpenChange={setIssueOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-[16px]">세금계산서 발행</DialogTitle>
+            <DialogTitle className="text-[16px] flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              세금계산서 발행
+            </DialogTitle>
           </DialogHeader>
-          <div className="space-y-3">
-            <div>
-              <label className="text-[12px] font-medium text-muted-foreground">고객사 *</label>
-              <Select value={form.clientId} onValueChange={handleClientSelect}>
-                <SelectTrigger className="h-9 text-[13px]">
-                  <SelectValue placeholder="고객사 선택" />
-                </SelectTrigger>
-                <SelectContent>
-                  {clients.map((c) => {
-                    const matched = getCompanyForClient(c);
-                    return (
-                      <SelectItem key={c.id} value={c.id} className="text-[13px]">
-                        {matched ? matched.company_name : c.name}
-                        {matched && <span className="text-muted-foreground ml-1">({matched.business_number})</span>}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
+
+          <div className="space-y-4">
+            {/* Section: 고객명 */}
+            <div className="border-l-[3px] border-destructive pl-3">
+              <label className="text-[13px] font-bold text-foreground">고객명</label>
+              <div className="mt-1.5">
+                <Select value={form.clientId} onValueChange={handleClientSelect}>
+                  <SelectTrigger className="h-9 text-[13px] max-w-md">
+                    <SelectValue placeholder="세금계산서를 발급하실 고객을 선택해주세요." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {clients.map((c) => {
+                      const matched = getCompanyForClient(c);
+                      return (
+                        <SelectItem key={c.id} value={c.id} className="text-[13px]">
+                          {matched ? matched.company_name : c.name}
+                          {matched && <span className="text-muted-foreground ml-1">({matched.business_number})</span>}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* 거래처 정보 (고객사 선택시 표시) */}
+              {form.clientId && (
+                <div className="mt-3 rounded-lg border bg-muted/20 p-3 space-y-2.5">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-[70px_1fr] items-center gap-2">
+                      <span className="text-[11px] text-muted-foreground font-medium">사업자번호</span>
+                      <Input value={form.buyerCorpNum} onChange={(e) => setForm(f => ({ ...f, buyerCorpNum: e.target.value }))} className="h-8 text-[12px]" />
+                    </div>
+                    <div className="grid grid-cols-[50px_1fr] items-center gap-2">
+                      <span className="text-[11px] text-muted-foreground font-medium">대표자</span>
+                      <Input value={form.buyerCEOName} onChange={(e) => setForm(f => ({ ...f, buyerCEOName: e.target.value }))} className="h-8 text-[12px]" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-[70px_1fr] items-center gap-2">
+                    <span className="text-[11px] text-muted-foreground font-medium">상호</span>
+                    <Input value={form.buyerCorpName} onChange={(e) => setForm(f => ({ ...f, buyerCorpName: e.target.value }))} className="h-8 text-[12px]" />
+                  </div>
+                  <div className="grid grid-cols-[70px_1fr] items-center gap-2">
+                    <span className="text-[11px] text-muted-foreground font-medium">사업장주소</span>
+                    <Input value={form.buyerAddress} onChange={(e) => setForm(f => ({ ...f, buyerAddress: e.target.value }))} className="h-8 text-[12px]" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-[70px_1fr] items-center gap-2">
+                      <span className="text-[11px] text-muted-foreground font-medium">업태</span>
+                      <Input value={form.buyerBusinessType} onChange={(e) => setForm(f => ({ ...f, buyerBusinessType: e.target.value }))} className="h-8 text-[12px]" />
+                    </div>
+                    <div className="grid grid-cols-[50px_1fr] items-center gap-2">
+                      <span className="text-[11px] text-muted-foreground font-medium">종목</span>
+                      <Input value={form.buyerBusinessItem} onChange={(e) => setForm(f => ({ ...f, buyerBusinessItem: e.target.value }))} className="h-8 text-[12px]" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-[70px_1fr] items-center gap-2">
+                    <span className="text-[11px] text-muted-foreground font-medium">이메일</span>
+                    <Input value={form.buyerEmail} onChange={(e) => setForm(f => ({ ...f, buyerEmail: e.target.value }))} type="email" className="h-8 text-[12px]" />
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">사업자번호 *</label>
+
+            {/* Section: 작성일자 */}
+            <div className="border-l-[3px] border-destructive pl-3">
+              <div className="flex items-center gap-4">
+                <label className="text-[13px] font-bold text-foreground">작성일자</label>
                 <Input
-                  value={form.buyerCorpNum}
-                  onChange={(e) => setForm((f) => ({ ...f, buyerCorpNum: e.target.value }))}
-                  placeholder="000-00-00000"
-                  className="h-9 text-[13px]"
+                  type="date"
+                  value={form.writeDate}
+                  onChange={(e) => {
+                    const newDate = e.target.value;
+                    setForm(f => ({ ...f, writeDate: newDate }));
+                    if (form.applyDateToAll) {
+                      setLineItems(prev => prev.map(l => ({ ...l, date: newDate })));
+                    }
+                  }}
+                  className="h-8 text-[12px] w-[160px]"
                 />
-              </div>
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">상호</label>
-                <Input
-                  value={form.buyerCorpName}
-                  onChange={(e) => setForm((f) => ({ ...f, buyerCorpName: e.target.value }))}
-                  className="h-9 text-[13px]"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">대표자명</label>
-                <Input
-                  value={form.buyerCEOName}
-                  onChange={(e) => setForm((f) => ({ ...f, buyerCEOName: e.target.value }))}
-                  className="h-9 text-[13px]"
-                />
-              </div>
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">이메일</label>
-                <Input
-                  value={form.buyerEmail}
-                  onChange={(e) => setForm((f) => ({ ...f, buyerEmail: e.target.value }))}
-                  type="email"
-                  className="h-9 text-[13px]"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="text-[12px] font-medium text-muted-foreground">주소</label>
-              <Input
-                value={form.buyerAddress}
-                onChange={(e) => setForm((f) => ({ ...f, buyerAddress: e.target.value }))}
-                placeholder="주소"
-                className="h-9 text-[13px]"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">업태</label>
-                <Input
-                  value={form.buyerBusinessType}
-                  onChange={(e) => setForm((f) => ({ ...f, buyerBusinessType: e.target.value }))}
-                  className="h-9 text-[13px]"
-                />
-              </div>
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">종목</label>
-                <Input
-                  value={form.buyerBusinessItem}
-                  onChange={(e) => setForm((f) => ({ ...f, buyerBusinessItem: e.target.value }))}
-                  className="h-9 text-[13px]"
-                />
+                <label className="flex items-center gap-1.5 text-[11px] text-muted-foreground cursor-pointer">
+                  <Checkbox
+                    checked={form.applyDateToAll}
+                    onCheckedChange={(checked) => {
+                      setForm(f => ({ ...f, applyDateToAll: !!checked }));
+                      if (checked) {
+                        setLineItems(prev => prev.map(l => ({ ...l, date: form.writeDate })));
+                      }
+                    }}
+                    className="w-3.5 h-3.5"
+                  />
+                  모든 매출항목에 같은 일자 적용
+                </label>
               </div>
             </div>
 
+            {/* Section: 매출항목 */}
+            <div className="border-l-[3px] border-destructive pl-3">
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-[13px] font-bold text-foreground">매출항목</label>
+                <Button size="sm" variant="outline" onClick={addLineItem} className="text-[11px] h-7 gap-1">
+                  <Plus className="w-3 h-3" /> 행 추가
+                </Button>
+              </div>
+              <div className="border rounded-lg overflow-hidden bg-background">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-[12px]">
+                    <thead>
+                      <tr className="bg-muted/60 border-b">
+                        <th className="px-2 py-1.5 text-center font-medium w-[90px]">일자</th>
+                        <th className="px-2 py-1.5 text-left font-medium min-w-[120px]">항목명</th>
+                        <th className="px-2 py-1.5 text-center font-medium w-[50px]">수량</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[110px]">단가(세액별도)</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">공급가액</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[90px]">부가세</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">합계</th>
+                        <th className="px-2 py-1.5 w-[30px]"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {lineItems.map((line, idx) => (
+                        <tr key={idx} className="border-b last:border-0">
+                          <td className="px-1 py-1">
+                            <Input
+                              type="date"
+                              value={line.date}
+                              onChange={(e) => updateLineItem(idx, "date", e.target.value)}
+                              disabled={form.applyDateToAll}
+                              className="h-7 text-[11px] px-1 text-center"
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
+                              value={line.itemName}
+                              onChange={(e) => updateLineItem(idx, "itemName", e.target.value)}
+                              className="h-7 text-[11px] px-1.5"
+                              placeholder=""
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
+                              type="number"
+                              value={line.quantity}
+                              onChange={(e) => updateLineItem(idx, "quantity", parseInt(e.target.value) || 1)}
+                              className="h-7 text-[11px] text-center px-1"
+                              min={1}
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
+                              value={line.unitPrice}
+                              onChange={(e) => updateLineItem(idx, "unitPrice", e.target.value)}
+                              className="h-7 text-[11px] text-right px-1.5"
+                              placeholder=""
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
+                              value={line.supplyAmount}
+                              readOnly
+                              className="h-7 text-[11px] text-right px-1.5 bg-muted/30"
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
+                              value={line.taxAmount}
+                              readOnly
+                              className="h-7 text-[11px] text-right px-1.5 bg-muted/30"
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
+                              value={line.totalAmount}
+                              readOnly
+                              className="h-7 text-[11px] text-right px-1.5 bg-muted/30 font-medium"
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            {lineItems.length > 1 && (
+                              <button onClick={() => removeLineItem(idx)} className="p-0.5 text-muted-foreground hover:text-destructive">
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                    <tfoot>
+                      <tr className="bg-muted/40 border-t font-medium">
+                        <td colSpan={4} className="px-2 py-2 text-[12px]">총 {filledLines.length}개 항목</td>
+                        <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.supply)}</td>
+                        <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.tax)}</td>
+                        <td className="px-2 py-2 text-right text-[12px] text-primary font-bold">{fmt(lineTotals.total)}</td>
+                        <td></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">공급가액 *</label>
-                <Input
-                  value={form.supplyAmount}
-                  onChange={(e) => handleSupplyChange(e.target.value)}
-                  placeholder="0"
-                  className="h-9 text-[13px]"
-                />
-              </div>
-              <div>
-                <label className="text-[12px] font-medium text-muted-foreground">세액 (자동계산)</label>
-                <Input
-                  value={form.taxAmount}
-                  onChange={(e) => setForm((f) => ({ ...f, taxAmount: e.target.value }))}
-                  className="h-9 text-[13px]"
-                />
+            {/* Section: 영수/청구 */}
+            <div className="border-l-[3px] border-destructive pl-3">
+              <div className="flex items-center gap-6">
+                <label className="text-[13px] font-bold text-foreground">구분</label>
+                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
+                  <input
+                    type="radio"
+                    name="invoice-type"
+                    checked={form.invoiceType === "영수"}
+                    onChange={() => setForm(f => ({ ...f, invoiceType: "영수" }))}
+                    className="accent-primary w-3.5 h-3.5"
+                  />
+                  영수
+                </label>
+                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
+                  <input
+                    type="radio"
+                    name="invoice-type"
+                    checked={form.invoiceType === "청구"}
+                    onChange={() => setForm(f => ({ ...f, invoiceType: "청구" }))}
+                    className="accent-primary w-3.5 h-3.5"
+                  />
+                  청구
+                </label>
               </div>
             </div>
-            <div>
-              <label className="text-[12px] font-medium text-muted-foreground">작성일자</label>
-              <Input
-                type="date"
-                value={form.writeDate}
-                onChange={(e) => setForm((f) => ({ ...f, writeDate: e.target.value }))}
-                className="h-9 text-[13px]"
-              />
-            </div>
-            <div>
-              <label className="text-[12px] font-medium text-muted-foreground">메모</label>
+
+            {/* Section: 비고 */}
+            <div className="border-l-[3px] border-destructive pl-3">
+              <label className="text-[13px] font-bold text-foreground">비고</label>
               <Input
                 value={form.memo}
-                onChange={(e) => setForm((f) => ({ ...f, memo: e.target.value }))}
+                onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))}
                 placeholder="품목명/비고"
-                className="h-9 text-[13px]"
+                className="h-8 text-[12px] mt-1.5"
               />
             </div>
 
-            {/* Contacts - selectable */}
+            {/* Section: 담당자 */}
             {matchedContacts.length > 0 && (
-              <div className="rounded-lg border border-border/60 bg-muted/30 p-3 space-y-2">
-                <p className="text-[11px] font-semibold text-foreground">발행정보 / 연락처</p>
-                {matchedContacts.map((ct, i) => (
-                  <label
-                    key={i}
-                    className={`flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors ${
-                      selectedContactIdx === i ? "bg-primary/10 border border-primary/30" : "hover:bg-muted/50"
-                    }`}
-                    onClick={() => {
-                      setSelectedContactIdx(i);
-                      setForm(f => ({ ...f, buyerEmail: ct.email || f.buyerEmail }));
-                    }}
-                  >
-                    <input
-                      type="radio"
-                      name="contact-select"
-                      checked={selectedContactIdx === i}
-                      onChange={() => {
-                        setSelectedContactIdx(i);
-                        setForm(f => ({ ...f, buyerEmail: ct.email || f.buyerEmail }));
-                      }}
-                      className="accent-primary w-3.5 h-3.5"
-                    />
-                    <div className="flex flex-wrap gap-x-4 gap-y-0.5 text-[11px] text-muted-foreground">
-                      {ct.name && <span className="font-medium text-foreground">{ct.name}{ct.position && ` (${ct.position})`}</span>}
-                      {ct.mobile && <span>📱 {ct.mobile}</span>}
-                      {ct.phone && <span>☎ {ct.phone}</span>}
-                      {ct.email && <span>✉ {ct.email}</span>}
-                    </div>
-                  </label>
-                ))}
+              <div className="border-l-[3px] border-destructive pl-3">
+                <label className="text-[13px] font-bold text-foreground mb-2 block">담당자</label>
+                <div className="border rounded-lg overflow-hidden bg-background">
+                  <table className="w-full text-[12px]">
+                    <thead>
+                      <tr className="bg-muted/60 border-b">
+                        <th className="px-2 py-1.5 w-[30px]"></th>
+                        <th className="px-2 py-1.5 text-left font-medium">성명</th>
+                        <th className="px-2 py-1.5 text-left font-medium">직급</th>
+                        <th className="px-2 py-1.5 text-left font-medium">전화</th>
+                        <th className="px-2 py-1.5 text-left font-medium">휴대폰</th>
+                        <th className="px-2 py-1.5 text-left font-medium">이메일</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {matchedContacts.map((ct, i) => (
+                        <tr
+                          key={i}
+                          className={`border-b last:border-0 cursor-pointer transition-colors ${
+                            selectedContactIdx === i ? "bg-primary/5" : "hover:bg-muted/30"
+                          }`}
+                          onClick={() => {
+                            setSelectedContactIdx(i);
+                            setForm(f => ({ ...f, buyerEmail: ct.email || f.buyerEmail }));
+                          }}
+                        >
+                          <td className="px-2 py-1.5 text-center">
+                            <input
+                              type="radio"
+                              name="contact-select"
+                              checked={selectedContactIdx === i}
+                              onChange={() => {
+                                setSelectedContactIdx(i);
+                                setForm(f => ({ ...f, buyerEmail: ct.email || f.buyerEmail }));
+                              }}
+                              className="accent-primary w-3.5 h-3.5"
+                            />
+                          </td>
+                          <td className="px-2 py-1.5 font-medium">{ct.name || "-"}</td>
+                          <td className="px-2 py-1.5 text-muted-foreground">{ct.position || "-"}</td>
+                          <td className="px-2 py-1.5 text-muted-foreground">{ct.phone || "-"}</td>
+                          <td className="px-2 py-1.5 text-muted-foreground">{ct.mobile || "-"}</td>
+                          <td className="px-2 py-1.5 text-muted-foreground">{ct.email || "-"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </div>
-          <DialogFooter>
+
+          <DialogFooter className="mt-4">
             <Button variant="outline" onClick={() => setIssueOpen(false)} className="text-[13px]">
               취소
             </Button>
