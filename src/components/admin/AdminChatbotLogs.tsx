@@ -64,7 +64,7 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
           <p className="text-[11px] text-muted-foreground font-medium">전체 대화</p>
           <p className="text-2xl font-bold text-foreground mt-1">{conversations.length}</p>
@@ -78,14 +78,13 @@ export default function AdminChatbotLogs({ isSuperAdmin }: AdminChatbotLogsProps
           <p className="text-2xl font-bold text-foreground mt-1">{totalMessages}</p>
         </div>
         <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
-          <p className="text-[11px] text-muted-foreground font-medium">언어 분포</p>
-          <div className="flex gap-2 mt-1">
-            {Object.entries(langStats).map(([l, c]) => (
-              <span key={l} className="text-xs font-semibold text-muted-foreground">
-                {l.toUpperCase()}: {c as number}
-              </span>
-            ))}
-          </div>
+          <p className="text-[11px] text-muted-foreground font-medium">총 토큰</p>
+          <p className="text-2xl font-bold text-foreground mt-1">{totalTokens.toLocaleString()}</p>
+        </div>
+        <div className="bg-white rounded-2xl p-4 border border-[hsl(220,13%,91%)]">
+          <p className="text-[11px] text-muted-foreground font-medium">총 비용</p>
+          <p className="text-2xl font-bold text-foreground mt-1">${totalCost.toFixed(4)}</p>
+          <p className="text-[10px] text-muted-foreground">≈ {Math.round(totalCost * 1400).toLocaleString()}원</p>
         </div>
       </div>
 
