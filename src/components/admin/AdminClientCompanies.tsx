@@ -423,7 +423,6 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
 
                   <Suspense fallback={<div className="py-2"><Loader2 className="w-4 h-4 animate-spin text-muted-foreground" /></div>}>
                     <ClientProjectManager companyId={c.id} companyName={c.company_name} isSuperAdmin={isSuperAdmin} />
-                    <ClientCommLog companyId={c.id} isSuperAdmin={isSuperAdmin} />
                   </Suspense>
                 </div>
               )}
