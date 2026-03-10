@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save, EyeOff, Eye, CheckSquare, Square } from "lucide-react";
+const ClientProjectManager = lazy(() => import("./ClientProjectManager"));
+const ClientCommLog = lazy(() => import("./ClientCommLog"));
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -418,6 +420,11 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
                   ) : (
                     <p className="text-[11px] text-muted-foreground">등록된 연락처가 없습니다</p>
                   )}
+
+                  <Suspense fallback={<div className="py-2"><Loader2 className="w-4 h-4 animate-spin text-muted-foreground" /></div>}>
+                    <ClientProjectManager companyId={c.id} companyName={c.company_name} isSuperAdmin={isSuperAdmin} />
+                    <ClientCommLog companyId={c.id} isSuperAdmin={isSuperAdmin} />
+                  </Suspense>
                 </div>
               )}
             </div>

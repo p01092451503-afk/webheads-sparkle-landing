@@ -160,6 +160,30 @@ export type Database = {
         }
         Relationships: []
       }
+      checklist_templates: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean
+          sort_order: number
+          task_name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          sort_order?: number
+          task_name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          sort_order?: number
+          task_name?: string
+        }
+        Relationships: []
+      }
       click_events: {
         Row: {
           browser: string | null
@@ -204,6 +228,47 @@ export type Database = {
           visitor_type?: string | null
         }
         Relationships: []
+      }
+      client_comm_logs: {
+        Row: {
+          company_id: string
+          content: string | null
+          created_at: string
+          id: string
+          log_date: string
+          log_type: string
+          logged_by: string | null
+          title: string | null
+        }
+        Insert: {
+          company_id: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          log_date?: string
+          log_type?: string
+          logged_by?: string | null
+          title?: string | null
+        }
+        Update: {
+          company_id?: string
+          content?: string | null
+          created_at?: string
+          id?: string
+          log_date?: string
+          log_type?: string
+          logged_by?: string | null
+          title?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_comm_logs_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "client_companies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       client_companies: {
         Row: {
@@ -290,6 +355,53 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "client_contacts_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "client_companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      client_projects: {
+        Row: {
+          company_id: string
+          contract_amount: number | null
+          contract_end_date: string | null
+          contract_start_date: string | null
+          created_at: string
+          description: string | null
+          id: string
+          project_name: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          contract_amount?: number | null
+          contract_end_date?: string | null
+          contract_start_date?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_name: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          contract_amount?: number | null
+          contract_end_date?: string | null
+          contract_start_date?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          project_name?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_projects_company_id_fkey"
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "client_companies"
@@ -678,6 +790,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      monthly_checklists: {
+        Row: {
+          completed_at: string | null
+          completed_by: string | null
+          created_at: string
+          id: string
+          is_completed: boolean
+          month: number
+          sort_order: number
+          task_name: string
+          year: number
+        }
+        Insert: {
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          id?: string
+          is_completed?: boolean
+          month: number
+          sort_order?: number
+          task_name: string
+          year: number
+        }
+        Update: {
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          id?: string
+          is_completed?: boolean
+          month?: number
+          sort_order?: number
+          task_name?: string
+          year?: number
+        }
+        Relationships: []
       }
       not_found_logs: {
         Row: {
