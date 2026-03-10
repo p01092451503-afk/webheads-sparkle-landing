@@ -942,16 +942,19 @@ export default function TaxInvoiceManager() {
               </div>
             )}
           </div>
+          )}
 
-          <DialogFooter className="mt-4">
-            <Button variant="outline" onClick={() => setIssueOpen(false)} className="text-[13px]">
-              취소
-            </Button>
-            <Button onClick={handleIssue} disabled={issuing} className="text-[13px] gap-1.5">
-              {issuing && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-              발행하기
-            </Button>
-          </DialogFooter>
+          {/* Step 1 Footer */}
+          {issueStep === 1 && (
+            <DialogFooter className="mt-4">
+              <Button variant="outline" onClick={resetAndClose} className="text-[13px]">
+                취소
+              </Button>
+              <Button onClick={handleSave} className="text-[13px] gap-1.5">
+                <Save className="w-3.5 h-3.5" /> 저장 및 확인
+              </Button>
+            </DialogFooter>
+          )}
         </DialogContent>
       </Dialog>
     </div>
