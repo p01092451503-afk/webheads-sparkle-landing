@@ -261,16 +261,23 @@ export default function TaxInvoiceManager() {
 
   const filledLines = useMemo(() => lineItems.filter(l => l.itemName || l.unitPrice), [lineItems]);
 
-  const handleIssue = async () => {
+  // Step 1: Save (validate form)
+  const handleSave = () => {
     if (!form.clientId || !form.buyerCorpNum) {
-      toast.error("필수 항목을 입력해주세요");
+      toast.error("필수 항목을 입력해주세요 (고객사, 사업자번호)");
       return;
     }
     if (lineTotals.supply === 0) {
       toast.error("매출항목을 입력해주세요");
       return;
     }
+    setSaved(true);
+    toast.success("세금계산서 정보가 저장되었습니다. 내용을 확인해주세요.");
+    setIssueStep(2);
+  };
 
+  // Step 3: Actually issue via Popbill API → NTS
+  const handleIssue = async () => {
     setIssuing(true);
     try {
       const supplyAmount = lineTotals.supply;
@@ -285,11 +292,22 @@ export default function TaxInvoiceManager() {
           buyerCorpName: form.buyerCorpName,
           buyerCEOName: form.buyerCEOName,
           buyerEmail: form.buyerEmail,
+          buyerAddr: form.buyerAddress,
+          buyerBizType: form.buyerBusinessType,
+          buyerBizClass: form.buyerBusinessItem,
           supplyAmount,
           taxAmount,
           totalAmount: supplyAmount + taxAmount,
           writeDate: form.writeDate.replace(/-/g, ""),
+          purposeType: form.invoiceType === "영수" ? 1 : 2,
           memo: form.memo,
+          items: filledLines.map(l => ({
+            name: l.itemName,
+            date: l.date.replace(/-/g, ""),
+            supplyAmount: parseInt(l.supplyAmount.replace(/,/g, "")) || 0,
+            taxAmount: parseInt(l.taxAmount.replace(/,/g, "")) || 0,
+            remark: "",
+          })),
         },
       });
 
@@ -297,31 +315,37 @@ export default function TaxInvoiceManager() {
       const result = res.data;
       if (!result.success) throw new Error(result.error);
 
-      toast.success("세금계산서가 발행되었습니다");
-      setIssueOpen(false);
-      setForm({
-        clientId: "",
-        buyerCorpNum: "",
-        buyerCorpName: "",
-        buyerCEOName: "",
-        buyerEmail: "",
-        buyerAddress: "",
-        buyerBusinessType: "",
-        buyerBusinessItem: "",
-        memo: "",
-        writeDate: new Date().toISOString().split("T")[0],
-        applyDateToAll: true,
-        invoiceType: "청구",
-      });
-      setLineItems([emptyLine()]);
-      setMatchedContacts([]);
-      setSelectedContactIdx(0);
+      toast.success("세금계산서가 발행되어 국세청(홈택스)에 전송되었습니다");
+      resetAndClose();
       fetchData();
     } catch (e: any) {
       toast.error(e.message || "발행 중 오류가 발생했습니다");
     } finally {
       setIssuing(false);
     }
+  };
+
+  const resetAndClose = () => {
+    setIssueOpen(false);
+    setIssueStep(1);
+    setSaved(false);
+    setForm({
+      clientId: "",
+      buyerCorpNum: "",
+      buyerCorpName: "",
+      buyerCEOName: "",
+      buyerEmail: "",
+      buyerAddress: "",
+      buyerBusinessType: "",
+      buyerBusinessItem: "",
+      memo: "",
+      writeDate: new Date().toISOString().split("T")[0],
+      applyDateToAll: true,
+      invoiceType: "청구",
+    });
+    setLineItems([emptyLine()]);
+    setMatchedContacts([]);
+    setSelectedContactIdx(0);
   };
 
   const getClientName = (clientId: string) =>
