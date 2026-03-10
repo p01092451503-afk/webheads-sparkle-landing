@@ -419,6 +419,19 @@ export default function TaxInvoiceManager() {
     setIssueOpen(true);
   };
 
+  const handleDeleteSavedLog = async (logId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm("저장된 세금계산서를 삭제하시겠습니까?")) return;
+    try {
+      const { error } = await supabase.from("tax_invoice_logs").delete().eq("id", logId).eq("status", "saved");
+      if (error) throw error;
+      toast.success("삭제되었습니다");
+      fetchData();
+    } catch (err: any) {
+      toast.error(err.message || "삭제 중 오류가 발생했습니다");
+    }
+  };
+
   const getClientName = (clientId: string) =>
     clients.find((c) => c.id === clientId)?.name || "-";
 
