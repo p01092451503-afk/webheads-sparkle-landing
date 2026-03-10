@@ -353,7 +353,27 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
-            {tabs.filter(t => t.key === "client_companies" || t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice" || t.key === "checklist" || t.key === "report").map((t) => {
+            {tabs.filter(t => t.key === "client_companies" || t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice").map((t) => {
+              const isActive = tab === t.key;
+              return (
+                <button
+                  key={t.key}
+                  onClick={() => setTab(t.key)}
+                  className="relative flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-medium transition-all shrink-0"
+                  style={{
+                    color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)",
+                  }}
+                >
+                  <t.icon className="w-4 h-4" />
+                  <span>{t.label}</span>
+                  {isActive && (
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
+                  )}
+                </button>
+              );
+            })}
+            <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
+            {tabs.filter(t => t.key === "checklist" || t.key === "report").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
