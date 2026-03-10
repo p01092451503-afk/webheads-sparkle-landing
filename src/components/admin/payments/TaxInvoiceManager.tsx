@@ -83,11 +83,17 @@ export default function TaxInvoiceManager() {
     buyerCorpName: "",
     buyerCEOName: "",
     buyerEmail: "",
+    buyerAddress: "",
+    buyerBusinessType: "",
+    buyerBusinessItem: "",
     supplyAmount: "",
     taxAmount: "",
     memo: "",
     writeDate: new Date().toISOString().split("T")[0],
   });
+
+  // Matched contacts for selected client (shown as read-only info)
+  const [matchedContacts, setMatchedContacts] = useState<ClientContact[]>([]);
 
   // Build a map: client_no -> client_companies info (matched by num)
   const clientCompanyMap = useMemo(() => {
