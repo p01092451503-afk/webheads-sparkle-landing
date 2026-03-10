@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import {
   Loader2, Plus, Search, FileText, CheckCircle2, AlertTriangle,
-  ChevronLeft, ChevronRight, ChevronDown, ArrowLeft, Trash2, Save, Eye, Send
+  ChevronLeft, ChevronRight, ChevronDown, ArrowLeft, Trash2, Save, Eye, Send, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -419,6 +419,19 @@ export default function TaxInvoiceManager() {
     setIssueOpen(true);
   };
 
+  const handleDeleteSavedLog = async (logId: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!confirm("저장된 세금계산서를 삭제하시겠습니까?")) return;
+    try {
+      const { error } = await supabase.from("tax_invoice_logs").delete().eq("id", logId).eq("status", "saved");
+      if (error) throw error;
+      toast.success("삭제되었습니다");
+      fetchData();
+    } catch (err: any) {
+      toast.error(err.message || "삭제 중 오류가 발생했습니다");
+    }
+  };
+
   const getClientName = (clientId: string) =>
     clients.find((c) => c.id === clientId)?.name || "-";
 
@@ -509,12 +522,13 @@ export default function TaxInvoiceManager() {
                 <th className="text-right px-3 py-2 font-medium">합계</th>
                 <th className="text-center px-3 py-2 font-medium">상태</th>
                 <th className="text-left px-3 py-2 font-medium">메모</th>
+                <th className="px-3 py-2 w-[60px]"></th>
               </tr>
             </thead>
             <tbody>
               {filteredLogs.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-muted-foreground text-[13px]">
+                  <td colSpan={9} className="text-center py-12 text-muted-foreground text-[13px]">
                     발행된 세금계산서가 없습니다
                   </td>
                 </tr>
@@ -551,6 +565,18 @@ export default function TaxInvoiceManager() {
                     </td>
                     <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
                       {log.memo || "-"}
+                    </td>
+                    <td className="px-3 py-2 text-center">
+                      {log.status === "saved" && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-7 px-2 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-1"
+                          onClick={(e) => handleDeleteSavedLog(log.id, e)}
+                        >
+                          <X className="w-3 h-3" /> 취소
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 ))
