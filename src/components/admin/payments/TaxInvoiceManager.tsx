@@ -464,7 +464,7 @@ export default function TaxInvoiceManager() {
             </DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-4">
+          <div className="border rounded-xl p-4 space-y-4 bg-background">
             {/* Section: 고객명 */}
             <div className="border-l-[3px] border-destructive pl-3">
               <label className="text-[13px] font-bold text-foreground">고객명</label>
