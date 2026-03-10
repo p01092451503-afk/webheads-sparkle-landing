@@ -123,6 +123,7 @@ export default function TaxInvoiceManager() {
       ? clientContacts.filter(ct => ct.company_id === company.id)
       : [];
     setMatchedContacts(companyContacts);
+    setSelectedContactIdx(0);
 
     const address = company
       ? [company.address1, company.address2].filter(Boolean).join(" ")
