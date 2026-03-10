@@ -11,7 +11,7 @@ interface LocationData {
 interface Props {
   topPages: [string, number][];
   topLocations: LocationData[];
-  ipWithLocation: { ip: string; count: number; location: string | null; lastVisit: string | null }[];
+  ipWithLocation: { ip: string; count: number; location: string | null; lastVisit: string | null; human: number; bot: number }[];
   topReferrers: [string, number][];
   topBrowsers: [string, number][];
   topOS: [string, number][];
