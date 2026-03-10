@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart, FolderKanban
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
@@ -19,8 +19,9 @@ const TaxInvoiceManager = lazy(() => import("@/components/admin/payments/TaxInvo
 const AdminClientCompanies = lazy(() => import("@/components/admin/AdminClientCompanies"));
 const MonthlyChecklist = lazy(() => import("@/components/admin/MonthlyChecklist"));
 const MonthlyReport = lazy(() => import("@/components/admin/MonthlyReport"));
+const ClientWorkManager = lazy(() => import("@/components/admin/ClientWorkManager"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
@@ -35,6 +36,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "taxinvoice", icon: FileText, label: "세금계산서" },
   { key: "checklist", icon: ListChecks, label: "체크리스트" },
   { key: "report", icon: FileBarChart, label: "월간리포트" },
+  { key: "client_work", icon: FolderKanban, label: "고객사업무" },
 ];
 
 const TabLoader = () => (
@@ -47,7 +49,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   useSessionTimeout();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies", "checklist", "report"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies", "checklist", "report", "client_work"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
@@ -373,7 +375,7 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
-            {tabs.filter(t => t.key === "checklist" || t.key === "report").map((t) => {
+            {tabs.filter(t => t.key === "checklist" || t.key === "report" || t.key === "client_work").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
@@ -430,6 +432,9 @@ export default function AdminDashboard() {
           )}
           {tab === "report" && (
             <MonthlyReport isSuperAdmin={isSuperAdmin} />
+          )}
+          {tab === "client_work" && (
+            <ClientWorkManager isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
