@@ -262,14 +262,16 @@ export default function ChatbotPanel() {
       {open && (
         <>
           {/* Mobile overlay backdrop */}
-          <div className="fixed inset-0 z-50 bg-black/20 md:bg-transparent md:pointer-events-none" onClick={() => setOpen(false)} />
+          <div className="fixed inset-0 z-50 bg-black/20 md:bg-transparent md:pointer-events-none animate-fade-in" onClick={() => setOpen(false)} />
 
           <div className={cn(
             "fixed z-50 flex flex-col bg-background shadow-2xl border border-border overflow-hidden",
             // Mobile: full screen
             "inset-0 rounded-none",
-            // Desktop: floating popup
-            "md:inset-auto md:bottom-[200px] md:right-5 md:w-[400px] md:h-[560px] md:rounded-2xl"
+            // Desktop: floating popup with origin bottom-right
+            "md:inset-auto md:bottom-[200px] md:right-5 md:w-[400px] md:h-[560px] md:rounded-2xl",
+            // Animation
+            "animate-[scale-in_0.25s_ease-out] md:origin-bottom-right"
           )}>
             {/* Header */}
             <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-primary/5 shrink-0">
