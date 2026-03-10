@@ -18,7 +18,7 @@ const TaxInvoiceManager = lazy(() => import("./TaxInvoiceManager"));
 type Client = import("./paymentTypes").PaymentClient;
 type Payment = import("./paymentTypes").PaymentRecord;
 
-type SubView = "dashboard" | "clients" | "detail" | "calendar" | "expected" | "expenses" | "issues";
+type SubView = "dashboard" | "clients" | "detail" | "calendar" | "expected" | "expenses" | "issues" | "taxinvoice";
 
 const Loader = () => (
   <div className="flex items-center justify-center py-20">
