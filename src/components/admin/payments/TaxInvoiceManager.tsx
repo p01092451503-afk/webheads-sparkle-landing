@@ -14,6 +14,17 @@ import {
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+
+interface SalesLineItem {
+  date: string;
+  itemName: string;
+  quantity: number;
+  unitPrice: string;
+  supplyAmount: string;
+  taxAmount: string;
+  totalAmount: string;
+}
 
 interface TaxInvoiceLog {
   id: string;
