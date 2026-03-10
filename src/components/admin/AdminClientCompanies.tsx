@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save } from "lucide-react";
+import { Search, Plus, ChevronDown, ChevronUp, Trash2, Edit, Loader2, Building2, User, Phone, Mail, X, Save, EyeOff, Eye } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
@@ -43,6 +43,7 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [editCompany, setEditCompany] = useState<ClientCompany | null>(null);
+  const [showInactive, setShowInactive] = useState(false);
 
   // Form state
   const [form, setForm] = useState({
@@ -67,9 +68,10 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
   useEffect(() => { fetchData(); }, [fetchData]);
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return companies;
+    let list = companies.filter(c => showInactive ? !c.is_active : c.is_active);
+    if (!search.trim()) return list;
     const q = search.toLowerCase();
-    return companies.filter(c =>
+    return list.filter(c =>
       c.company_name.toLowerCase().includes(q) ||
       c.business_number.includes(q) ||
       (c.ceo_name || "").toLowerCase().includes(q) ||
@@ -80,9 +82,20 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
         (ct.mobile || "").includes(q)
       ))
     );
-  }, [companies, contacts, search]);
+  }, [companies, contacts, search, showInactive]);
+
+  const activeCount = useMemo(() => companies.filter(c => c.is_active).length, [companies]);
+  const inactiveCount = useMemo(() => companies.filter(c => !c.is_active).length, [companies]);
 
   const getContacts = (companyId: string) => contacts.filter(c => c.company_id === companyId);
+
+  const toggleActive = async (e: React.MouseEvent, company: ClientCompany) => {
+    e.stopPropagation();
+    const newStatus = !company.is_active;
+    await supabase.from("client_companies").update({ is_active: newStatus }).eq("id", company.id);
+    toast.success(newStatus ? "유효 처리되었습니다" : "무효 처리되었습니다");
+    fetchData();
+  };
 
   const openAdd = () => {
     setEditCompany(null);
@@ -120,7 +133,6 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
           business_type: form.business_type || null, business_item: form.business_item || null,
           zip_code: form.zip_code || null, address1: form.address1 || null, address2: form.address2 || null,
         }).eq("id", editCompany.id);
-        // Replace contacts
         await supabase.from("client_contacts").delete().eq("company_id", editCompany.id);
         const validContacts = formContacts.filter(c => c.name || c.email || c.phone || c.mobile);
         if (validContacts.length > 0) {
@@ -182,13 +194,33 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-bold text-foreground">고객사 관리</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">총 {companies.length}개 고객사</p>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            유효 {activeCount}개 · 무효 {inactiveCount}개
+          </p>
         </div>
-        {isSuperAdmin && (
-          <button onClick={openAdd} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-            <Plus className="w-3.5 h-3.5" /> 고객사 추가
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowInactive(!showInactive)}
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors border ${
+              showInactive
+                ? "bg-destructive/10 text-destructive border-destructive/30"
+                : "bg-muted/50 text-muted-foreground border-border hover:bg-muted"
+            }`}
+          >
+            {showInactive ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+            {showInactive ? "무효 고객사" : "무효 보기"}
+            {inactiveCount > 0 && (
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-destructive/10 text-destructive font-medium">
+                {inactiveCount}
+              </span>
+            )}
           </button>
-        )}
+          {isSuperAdmin && (
+            <button onClick={openAdd} className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[13px] font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+              <Plus className="w-3.5 h-3.5" /> 고객사 추가
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Search */}
@@ -208,16 +240,23 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
           const cts = getContacts(c.id);
           const isOpen = expandedId === c.id;
           return (
-            <div key={c.id} className="bg-white rounded-xl border border-border/60 overflow-hidden">
+            <div key={c.id} className={`rounded-xl border overflow-hidden ${
+              c.is_active ? "bg-white border-border/60" : "bg-muted/30 border-destructive/20"
+            }`}>
               <div
                 className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-muted/30 transition-colors"
                 onClick={() => setExpandedId(isOpen ? null : c.id)}
               >
-                <Building2 className="w-4 h-4 text-muted-foreground shrink-0" />
+                <Building2 className={`w-4 h-4 shrink-0 ${c.is_active ? "text-muted-foreground" : "text-destructive/50"}`} />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-[13px] font-semibold text-foreground truncate">{c.company_name}</span>
+                    <span className={`text-[13px] font-semibold truncate ${c.is_active ? "text-foreground" : "text-muted-foreground line-through"}`}>
+                      {c.company_name}
+                    </span>
                     <span className="text-[11px] text-muted-foreground">{c.business_number}</span>
+                    {!c.is_active && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-destructive/10 text-destructive font-medium">무효</span>
+                    )}
                     {cts.length > 0 && (
                       <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
                         연락처 {cts.length}
@@ -232,6 +271,17 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
                 <div className="flex items-center gap-1 shrink-0">
                   {isSuperAdmin && (
                     <>
+                      <button
+                        onClick={(e) => toggleActive(e, c)}
+                        title={c.is_active ? "무효 처리" : "유효 처리"}
+                        className={`p-1.5 rounded-md transition-colors ${
+                          c.is_active
+                            ? "hover:bg-destructive/10 text-muted-foreground hover:text-destructive"
+                            : "hover:bg-green-100 text-muted-foreground hover:text-green-600"
+                        }`}
+                      >
+                        {c.is_active ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                      </button>
                       <button onClick={(e) => { e.stopPropagation(); openEdit(c); }} className="p-1.5 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground">
                         <Edit className="w-3.5 h-3.5" />
                       </button>
@@ -246,7 +296,6 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
 
               {isOpen && (
                 <div className="border-t border-border/40 px-4 py-3 bg-muted/20">
-                  {/* Company details */}
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-[11px] mb-3">
                     {c.business_type && <div><span className="text-muted-foreground">업태:</span> {c.business_type}</div>}
                     {c.business_item && <div><span className="text-muted-foreground">종목:</span> {c.business_item}</div>}
@@ -255,7 +304,6 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
                     {c.num && <div><span className="text-muted-foreground">NUM:</span> {c.num}</div>}
                   </div>
 
-                  {/* Contacts */}
                   {cts.length > 0 ? (
                     <div className="space-y-2">
                       <p className="text-[11px] font-semibold text-foreground">발행정보 / 연락처</p>
@@ -282,7 +330,9 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
           );
         })}
         {filtered.length === 0 && (
-          <div className="text-center py-10 text-[13px] text-muted-foreground">검색 결과가 없습니다</div>
+          <div className="text-center py-10 text-[13px] text-muted-foreground">
+            {showInactive ? "무효 처리된 고객사가 없습니다" : "검색 결과가 없습니다"}
+          </div>
         )}
       </div>
 
