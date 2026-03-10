@@ -266,6 +266,7 @@ export default function AdminClientCompanies({ isSuperAdmin }: Props) {
                   <p className="text-[11px] text-muted-foreground truncate mt-0.5">
                     {c.ceo_name && `대표: ${c.ceo_name}`}
                     {c.address1 && ` · ${c.address1}`}
+                    {c.address2 && ` ${c.address2}`}
                   </p>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
