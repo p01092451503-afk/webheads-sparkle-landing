@@ -199,12 +199,13 @@ export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
             <button
               key={t.key}
               onClick={() => setSubView(t.key)}
-              className={`px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-medium transition-all ${
                 subView === t.key
                   ? "bg-[hsl(221,83%,53%)] text-white"
                   : "text-muted-foreground hover:bg-[hsl(220,14%,96%)]"
               }`}
             >
+              <t.icon className="w-3.5 h-3.5" />
               {t.label}
             </button>
           ))}
