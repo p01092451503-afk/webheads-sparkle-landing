@@ -48,11 +48,19 @@ interface ClientCompany {
   num: string | null;
   company_name: string;
   ceo_name: string | null;
+  business_type: string | null;
+  business_item: string | null;
+  address1: string | null;
+  address2: string | null;
   is_active: boolean;
 }
 
 interface ClientContact {
   company_id: string;
+  name: string | null;
+  position: string | null;
+  phone: string | null;
+  mobile: string | null;
   email: string | null;
 }
 
