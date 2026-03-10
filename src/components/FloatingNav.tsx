@@ -19,7 +19,7 @@ export default function FloatingNav() {
     }
   };
 
-  const glassBase = "backdrop-blur-md bg-background/70 border border-border/50 text-foreground shadow-lg";
+  const glassBase = "backdrop-blur-xl bg-background/40 border border-white/20 text-foreground shadow-[0_4px_16px_rgba(0,0,0,0.12)] ring-1 ring-black/5";
 
   const mobileButtons = [
     ...(!isServiceRequest && location.pathname !== "/pricing"
