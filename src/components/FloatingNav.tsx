@@ -21,7 +21,7 @@ export default function FloatingNav() {
 
   const mobileButtons = [
     ...(!isServiceRequest && location.pathname !== "/pricing"
-      ? [{ to: "/pricing", icon: CreditCard, label: t("floatingNav.pricing"), className: "bg-accent text-accent-foreground" }]
+      ? [{ to: "/pricing", icon: CreditCard, label: t("floatingNav.pricing"), className: "bg-[hsl(10,80%,55%)] text-background" }]
       : []),
     ...(!isServiceRequest && location.pathname !== "/sms-kakao"
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: "bg-[hsl(45,93%,55%)] text-foreground" }]
