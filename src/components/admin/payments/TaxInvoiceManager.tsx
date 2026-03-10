@@ -528,7 +528,7 @@ export default function TaxInvoiceManager() {
             <tbody>
               {filteredLogs.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="text-center py-12 text-muted-foreground text-[13px]">
+                  <td colSpan={9} className="text-center py-12 text-muted-foreground text-[13px]">
                     발행된 세금계산서가 없습니다
                   </td>
                 </tr>
