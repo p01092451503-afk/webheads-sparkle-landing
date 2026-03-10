@@ -577,126 +577,152 @@ export default function TaxInvoiceManager() {
 
           {/* Step 2: Preview */}
           {issueStep >= 2 && (
-            <div className="border rounded-xl p-5 bg-background space-y-4">
-              {/* Tax Invoice Thumbnail */}
-              <div className="border-2 border-primary/20 rounded-lg p-4 bg-muted/10">
-                <div className="text-center mb-3">
-                  <h3 className="text-[15px] font-bold tracking-wide">전 자 세 금 계 산 서</h3>
-                  <p className="text-[11px] text-muted-foreground mt-0.5">
-                    ({form.invoiceType === "영수" ? "영수" : "청구"})
-                  </p>
+            <div className="space-y-5">
+              {/* Card-style invoice preview */}
+              <div className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
+                {/* Header */}
+                <div className="px-6 py-5 text-center border-b border-border/40 bg-muted/20">
+                  <h3 className="text-[17px] font-extrabold tracking-[0.35em] text-foreground">전자세금계산서</h3>
+                  <span className="inline-block mt-1.5 text-[12px] text-muted-foreground bg-muted/60 px-3 py-0.5 rounded-full">
+                    {form.invoiceType === "영수" ? "영수" : "청구"}
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 text-[12px] mb-3">
+                {/* Parties */}
+                <div className="grid grid-cols-2 divide-x divide-border/40">
                   {/* 공급자 */}
-                  <div className="border rounded-lg p-3 space-y-1.5">
-                    <p className="text-[11px] font-bold text-primary mb-1">공급자 (매출)</p>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">사업자번호</span>
-                      <span className="font-medium">204-86-20072</span>
+                  <div className="px-5 py-4 space-y-3">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <span className="text-[12px] font-bold text-primary">공급자</span>
                     </div>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">상호</span>
-                      <span className="font-medium">주식회사 웹헤즈</span>
-                    </div>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">대표자</span>
-                      <span>박진열</span>
-                    </div>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">이메일</span>
-                      <span>34bus@webheads.co.kr</span>
+                    <div className="space-y-2">
+                      {[
+                        { label: "사업자번호", value: "204-86-20072", bold: true },
+                        { label: "상호", value: "주식회사 웹헤즈", bold: true },
+                        { label: "대표자", value: "박진열" },
+                        { label: "이메일", value: "34bus@webheads.co.kr" },
+                      ].map((row) => (
+                        <div key={row.label} className="flex items-baseline gap-3">
+                          <span className="text-[11px] text-muted-foreground w-[52px] shrink-0">{row.label}</span>
+                          <span className={`text-[13px] ${row.bold ? "font-semibold text-foreground" : "text-foreground/80"}`}>{row.value}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   {/* 공급받는자 */}
-                  <div className="border rounded-lg p-3 space-y-1.5">
-                    <p className="text-[11px] font-bold text-destructive mb-1">공급받는자 (매입)</p>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">사업자번호</span>
-                      <span className="font-medium">{form.buyerCorpNum}</span>
+                  <div className="px-5 py-4 space-y-3">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-destructive" />
+                      <span className="text-[12px] font-bold text-destructive">공급받는자</span>
                     </div>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">상호</span>
-                      <span className="font-medium">{form.buyerCorpName}</span>
-                    </div>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">대표자</span>
-                      <span>{form.buyerCEOName}</span>
-                    </div>
-                    <div className="grid grid-cols-[60px_1fr] gap-1">
-                      <span className="text-muted-foreground">이메일</span>
-                      <span>{form.buyerEmail}</span>
+                    <div className="space-y-2">
+                      {[
+                        { label: "사업자번호", value: form.buyerCorpNum, bold: true },
+                        { label: "상호", value: form.buyerCorpName, bold: true },
+                        { label: "대표자", value: form.buyerCEOName },
+                        { label: "이메일", value: form.buyerEmail },
+                      ].map((row) => (
+                        <div key={row.label} className="flex items-baseline gap-3">
+                          <span className="text-[11px] text-muted-foreground w-[52px] shrink-0">{row.label}</span>
+                          <span className={`text-[13px] ${row.bold ? "font-semibold text-foreground" : "text-foreground/80"}`}>{row.value || "-"}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
 
-                <div className="text-[11px] text-muted-foreground mb-2">작성일자: {form.writeDate}</div>
+                {/* Date */}
+                <div className="px-5 py-2.5 border-t border-border/30 bg-muted/10">
+                  <span className="text-[11px] text-muted-foreground">작성일자</span>
+                  <span className="text-[13px] font-medium text-foreground ml-3">{form.writeDate}</span>
+                </div>
 
-                {/* 매출항목 요약 */}
-                <div className="border rounded-lg overflow-hidden">
-                  <table className="w-full text-[11px]">
+                {/* Items table */}
+                <div className="border-t border-border/40">
+                  <table className="w-full text-[12px]">
                     <thead>
-                      <tr className="bg-muted/60 border-b">
-                        <th className="px-2 py-1.5 text-left font-medium">항목명</th>
-                        <th className="px-2 py-1.5 text-center font-medium">수량</th>
-                        <th className="px-2 py-1.5 text-right font-medium">공급가액</th>
-                        <th className="px-2 py-1.5 text-right font-medium">세액</th>
+                      <tr className="bg-muted/30">
+                        <th className="px-5 py-2.5 text-left font-semibold text-muted-foreground text-[11px]">항목명</th>
+                        <th className="px-3 py-2.5 text-center font-semibold text-muted-foreground text-[11px] w-[60px]">수량</th>
+                        <th className="px-3 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[110px]">공급가액</th>
+                        <th className="px-5 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[100px]">세액</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filledLines.map((l, i) => (
-                        <tr key={i} className="border-b last:border-0">
-                          <td className="px-2 py-1.5">{l.itemName}</td>
-                          <td className="px-2 py-1.5 text-center">{l.quantity}</td>
-                          <td className="px-2 py-1.5 text-right">{fmt(parseInt(l.supplyAmount.replace(/,/g, "")) || 0)}</td>
-                          <td className="px-2 py-1.5 text-right">{fmt(parseInt(l.taxAmount.replace(/,/g, "")) || 0)}</td>
+                        <tr key={i} className="border-t border-border/20">
+                          <td className="px-5 py-2.5 text-foreground font-medium">{l.itemName}</td>
+                          <td className="px-3 py-2.5 text-center text-muted-foreground">{l.quantity}</td>
+                          <td className="px-3 py-2.5 text-right font-medium tabular-nums">{fmt(parseInt(l.supplyAmount.replace(/,/g, "")) || 0)}원</td>
+                          <td className="px-5 py-2.5 text-right text-muted-foreground tabular-nums">{fmt(parseInt(l.taxAmount.replace(/,/g, "")) || 0)}원</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
 
-                <div className="mt-3 flex justify-end gap-6 text-[13px]">
-                  <span>공급가액: <strong>{fmt(lineTotals.supply)}원</strong></span>
-                  <span>세액: <strong>{fmt(lineTotals.tax)}원</strong></span>
-                  <span className="text-primary">합계: <strong>{fmt(lineTotals.total)}원</strong></span>
+                {/* Totals */}
+                <div className="border-t border-border/40 px-5 py-4 bg-muted/10">
+                  <div className="flex items-center justify-end gap-6 text-[13px]">
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">공급가액</span>
+                      <span className="font-semibold tabular-nums">{fmt(lineTotals.supply)}원</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-muted-foreground">세액</span>
+                      <span className="font-semibold tabular-nums">{fmt(lineTotals.tax)}원</span>
+                    </div>
+                    <div className="flex items-center gap-2 pl-3 border-l border-border/40">
+                      <span className="text-primary font-bold">합계</span>
+                      <span className="text-[16px] font-extrabold text-primary tabular-nums">{fmt(lineTotals.total)}원</span>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Memo */}
                 {form.memo && (
-                  <p className="text-[11px] text-muted-foreground mt-2">비고: {form.memo}</p>
+                  <div className="border-t border-border/30 px-5 py-3">
+                    <span className="text-[11px] text-muted-foreground">비고</span>
+                    <span className="text-[12px] text-foreground/80 ml-3">{form.memo}</span>
+                  </div>
                 )}
               </div>
 
+              {/* Actions */}
               {issueStep === 2 && (
-                <div className="flex justify-center gap-3 pt-2">
-                  <Button variant="outline" onClick={() => setIssueStep(1)} className="text-[13px] gap-1.5">
+                <div className="flex justify-center gap-3">
+                  <Button variant="outline" onClick={() => setIssueStep(1)} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold gap-1.5 h-auto">
                     <ArrowLeft className="w-3.5 h-3.5" /> 수정하기
                   </Button>
-                  <Button onClick={() => setIssueStep(3)} className="text-[13px] gap-1.5">
+                  <Button onClick={() => setIssueStep(3)} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold gap-1.5 h-auto">
                     <Send className="w-3.5 h-3.5" /> 발행하기
                   </Button>
                 </div>
               )}
 
               {issueStep === 3 && (
-                <div className="border border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-800 rounded-lg p-4 space-y-3">
-                  <div className="flex items-start gap-2">
-                    <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5 shrink-0" />
-                    <div>
-                      <p className="text-[13px] font-bold text-amber-800 dark:text-amber-200">
+                <div className="rounded-2xl border border-destructive/20 bg-destructive/5 p-5 space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 rounded-full bg-destructive/10 flex items-center justify-center shrink-0 mt-0.5">
+                      <AlertTriangle className="w-4.5 h-4.5 text-destructive" />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[14px] font-bold text-foreground">
                         세금계산서를 발행하시겠습니까?
                       </p>
-                      <p className="text-[12px] text-amber-700 dark:text-amber-300 mt-1">
-                        발행 후 팝빌을 통해 국세청(홈택스)에 자동 전송됩니다.
-                        발행 후에는 취소가 어려울 수 있으므로 내용을 다시 한번 확인해주세요.
+                      <p className="text-[12px] text-muted-foreground leading-relaxed">
+                        발행 후 팝빌을 통해 국세청(홈택스)에 자동 전송됩니다.<br />
+                        발행 후에는 취소가 어려우므로 내용을 다시 한번 확인해주세요.
                       </p>
                     </div>
                   </div>
-                  <div className="flex justify-end gap-2 pt-1">
-                    <Button variant="outline" size="sm" onClick={() => setIssueStep(2)} className="text-[12px]">
+                  <div className="flex justify-end gap-2.5 pt-1">
+                    <Button variant="outline" onClick={() => setIssueStep(2)} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold h-auto">
                       취소
                     </Button>
-                    <Button size="sm" onClick={handleIssue} disabled={issuing} className="text-[12px] gap-1.5 bg-primary">
-                      {issuing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                    <Button onClick={handleIssue} disabled={issuing} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold gap-1.5 h-auto bg-primary hover:bg-primary/90">
+                      {issuing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                       발행 및 홈택스 전송
                     </Button>
                   </div>
