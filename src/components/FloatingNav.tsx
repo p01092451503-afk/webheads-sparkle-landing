@@ -78,7 +78,7 @@ export default function FloatingNav() {
       </div>
 
       {/* Mobile — action buttons, bottom right above scroll buttons */}
-      <div className="fixed right-3 bottom-44 z-50 md:hidden flex flex-col items-center gap-2">
+      <div className="fixed right-3 bottom-[230px] z-50 md:hidden flex flex-col items-center gap-2">
         <button
           onClick={handleCostSimulator}
           className="w-9 h-9 rounded-full flex items-center justify-center shadow-lg bg-background text-foreground border border-border"
