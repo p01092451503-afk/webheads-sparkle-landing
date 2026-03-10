@@ -801,7 +801,11 @@ export default function TaxInvoiceManager() {
                           <td className="px-1 py-1">
                             <Input
                               value={line.unitPrice}
-                              onChange={(e) => updateLineItem(idx, "unitPrice", e.target.value)}
+                              onChange={(e) => {
+                                const raw = e.target.value.replace(/,/g, "").replace(/[^0-9]/g, "");
+                                const formatted = raw ? parseInt(raw).toLocaleString("ko-KR") : "";
+                                updateLineItem(idx, "unitPrice", formatted);
+                              }}
                               className="h-7 text-[11px] text-right px-1.5"
                               placeholder=""
                             />
