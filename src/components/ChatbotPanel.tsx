@@ -262,9 +262,9 @@ export default function ChatbotPanel() {
       {open && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <div className="relative w-full max-w-md h-full bg-background border-l border-border shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
+          <div className="relative w-full max-w-md h-full md:h-full bg-background border-l border-border shadow-2xl flex flex-col animate-in slide-in-from-right duration-300 max-md:max-w-none max-md:border-l-0">
             {/* Header */}
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-primary/5">
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-border bg-primary/5 shrink-0">
               <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
                 <Bot className="w-5 h-5 text-primary" />
               </div>
@@ -276,39 +276,39 @@ export default function ChatbotPanel() {
               </div>
               <button
                 onClick={handleClear}
-                className="p-1.5 rounded-md hover:bg-muted text-muted-foreground"
+                className="p-2 rounded-md hover:bg-muted text-muted-foreground active:bg-muted/80"
                 title="대화 초기화"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setOpen(false)}
-                className="p-1.5 rounded-md hover:bg-muted text-muted-foreground"
+                className="p-2 rounded-md hover:bg-muted text-muted-foreground active:bg-muted/80"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+            <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 md:px-4 py-4 space-y-3 md:space-y-4 overscroll-contain">
               {/* Welcome */}
               <div className="flex gap-2">
                 <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                   <Bot className="w-4 h-4 text-primary" />
                 </div>
-                <div className="bg-muted rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[85%]">
+                <div className="bg-muted rounded-2xl rounded-tl-sm px-3 py-2.5 max-w-[85%]">
                   <SimpleMarkdown text={welcome} />
                 </div>
               </div>
 
               {/* Quick questions */}
               {messages.length === 0 && (
-                <div className="flex flex-wrap gap-2 pl-9">
+                <div className="flex flex-wrap gap-1.5 md:gap-2 pl-9">
                   {quickQs.map((q) => (
                     <button
                       key={q}
                       onClick={() => send(q)}
-                      className="text-xs px-3 py-1.5 rounded-full border border-primary/30 text-primary hover:bg-primary/5 transition-colors"
+                      className="text-xs px-2.5 md:px-3 py-1.5 rounded-full border border-primary/30 text-primary hover:bg-primary/5 active:bg-primary/10 transition-colors"
                     >
                       {q}
                     </button>
@@ -326,7 +326,7 @@ export default function ChatbotPanel() {
                   )}
                   <div
                     className={cn(
-                      "rounded-2xl px-3.5 py-2.5 max-w-[85%]",
+                      "rounded-2xl px-3 md:px-3.5 py-2.5 max-w-[85%]",
                       m.role === "user"
                         ? "bg-primary text-primary-foreground rounded-tr-sm"
                         : "bg-muted rounded-tl-sm"
@@ -355,8 +355,8 @@ export default function ChatbotPanel() {
               )}
             </div>
 
-            {/* Input */}
-            <div className="border-t border-border px-4 py-3">
+            {/* Input - safe area padding for mobile */}
+            <div className="border-t border-border px-3 md:px-4 py-2.5 md:py-3 pb-[calc(0.625rem+env(safe-area-inset-bottom))] md:pb-3 shrink-0">
               <div className="flex gap-2 items-end">
                 <textarea
                   ref={inputRef}
@@ -365,7 +365,7 @@ export default function ChatbotPanel() {
                   onKeyDown={handleKeyDown}
                   placeholder={placeholder}
                   rows={1}
-                  className="flex-1 resize-none bg-muted rounded-xl px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 max-h-24 overflow-y-auto"
+                  className="flex-1 resize-none bg-muted rounded-xl px-3.5 py-2.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 max-h-24 overflow-y-auto"
                   disabled={loading}
                 />
                 <Button
@@ -377,7 +377,7 @@ export default function ChatbotPanel() {
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
-              <p className="text-[10px] text-muted-foreground mt-1.5 text-center">
+              <p className="text-[10px] text-muted-foreground mt-1 md:mt-1.5 text-center">
                 {lang === "en" ? "AI responses may not be 100% accurate." : lang === "ja" ? "AI回答は100%正確ではない場合があります。" : "AI 응답은 100% 정확하지 않을 수 있습니다."}
               </p>
             </div>
