@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 export default function FloatingNav() {
   const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isLmsPage = location.pathname === "/lms" || location.pathname === "/";
   const isServiceRequest = location.pathname === "/service-request";
