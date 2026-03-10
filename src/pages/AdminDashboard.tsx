@@ -28,6 +28,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "chatbot", icon: Bot, label: "챗봇" },
   { key: "payments", icon: CreditCard, label: "입금관리" },
   { key: "expenses", icon: Receipt, label: "지출관리" },
+  { key: "taxinvoice", icon: FileText, label: "세금계산서" },
 ];
 
 const TabLoader = () => (
