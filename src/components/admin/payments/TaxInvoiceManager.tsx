@@ -520,6 +520,14 @@ export default function TaxInvoiceManager() {
                       <span className="text-muted-foreground">상호</span>
                       <span className="font-medium">웹헤즈</span>
                     </div>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">대표자</span>
+                      <span>박진열</span>
+                    </div>
+                    <div className="grid grid-cols-[60px_1fr] gap-1">
+                      <span className="text-muted-foreground">이메일</span>
+                      <span>34bus@webheads.co.kr</span>
+                    </div>
                   </div>
                   {/* 공급받는자 */}
                   <div className="border rounded-lg p-3 space-y-1.5">
