@@ -1,1 +1,4 @@
 project_id = "xtelykzybyvctijhhzwn"
+
+[functions.popbill-tax-invoice]
+verify_jwt = false
