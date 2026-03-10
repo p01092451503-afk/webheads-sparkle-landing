@@ -310,7 +310,7 @@ export default function TaxInvoiceManager() {
         applyDateToAll: true,
         invoiceType: "청구",
       });
-      setLineItems([emptyLine(), emptyLine(), emptyLine(), emptyLine()]);
+      setLineItems([emptyLine()]);
       setMatchedContacts([]);
       setSelectedContactIdx(0);
       fetchData();
