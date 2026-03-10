@@ -106,6 +106,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [formDescription, setFormDescription] = useState("");
   const [formMemo, setFormMemo] = useState("");
   const [formInvoiceIssued, setFormInvoiceIssued] = useState(false);
+  const [formPaymentMethod, setFormPaymentMethod] = useState("bank_transfer");
 
   const formTotal = useMemo(() => parseInt(formTotalAmount.replace(/[^0-9]/g, "")) || 0, [formTotalAmount]);
   const formSupplyCalc = useMemo(() => Math.round(formTotal / 1.1), [formTotal]);
