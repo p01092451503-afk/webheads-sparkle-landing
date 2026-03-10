@@ -205,7 +205,11 @@ serve(async (req) => {
           paymentId,
         } = params;
 
+        // 문서번호 자동 생성 (최대 24자리)
+        const mgtKey = `WH${new Date().toISOString().replace(/[-T:.Z]/g, "").slice(0, 14)}${crypto.randomUUID().slice(0, 6).toUpperCase()}`;
+
         const invoiceBody = {
+          mgtKey,
           writeDate: writeDate || new Date().toISOString().split("T")[0].replace(/-/g, ""),
           chargeDirection: invoiceType === 1 ? "정과금" : "역과금",
           issueType: "정발행",
