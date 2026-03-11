@@ -39,6 +39,7 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/%EC%9B%B9%EC%8A%A4%EC%BF%A8%20Neo%20%EC%86%94%EB%A3%A8%EC%85%98": "/lms",
   "/웹스쿨 neo 솔루션": "/lms",
   "/download/intro_250527.pdf": "/lms",
+  "/apple-app-site-association": "/",
   "/app-dev": "/app",
   "/company.php": "/overview",
   "/htmlpage.php": "/",
@@ -57,10 +58,13 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/%eb%a7%88%ec%9d%b4%ed%8e%98%ec%9d%b4%ec%a7%80/sms%ec%b6%a9%ec%a0%84": "/sms-kakao",
   "/%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80/SMS%EC%B6%A9%EC%A0%84": "/sms-kakao",
   "/마이페이지/sms충전": "/sms-kakao",
+  "/마이페이지/SMS충전": "/sms-kakao",
   "/%ec%9c%a0%ec%a7%80%eb%b3%b4%ec%88%98/%eb%a9%94%ec%9d%b8%ed%8e%98%ec%9d%b4%ec%a7%80%20%ea%b0%9c%ed%8e%b8%ec%9c%a0%ec%a7%80%eb%b3%b4%ec%88%98%20-%20%ec%a2%85%eb%a1%9c%ea%b5%ad%ea%b0%80%ec%a0%95%eb%b3%b4%ed%95%99%ec%9b%90": "/maintenance",
   "/%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80%20%EA%B0%9C%ED%8E%B8%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%20-%20%EC%A2%85%EB%A1%9C%EA%B5%AD%EA%B0%80%EC%A0%95%EB%B3%B4%ED%95%99%EC%9B%90": "/maintenance",
   "/%ec%9c%a0%ec%a7%80%eb%b3%b4%ec%88%98/%eb%a9%94%ec%9d%b8%ed%8e%98%ec%9d%b4%ec%a7%80%20%ea%b0%9c%ed%8e%b8%ec%9c%a0%ec%a7%80%eb%b3%b4%ec%88%98%20-%20%ec%a2%85%eb%a1%9c%ea%b5%ad%ea%b0%80%ec%a0%95%eb%b3%b4%ed%95%99%ec%9b%90.": "/maintenance",
   "/%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80%20%EA%B0%9C%ED%8E%B8%EC%9C%A0%EC%A7%80%EB%B3%B4%EC%88%98%20-%20%EC%A2%85%EB%A1%9C%EA%B5%AD%EA%B0%80%EC%A0%95%EB%B3%B4%ED%95%99%EC%9B%90.": "/maintenance",
+  "/유지보수/메인페이지 개편유지보수 - 종로국가정보학원": "/maintenance",
+  "/유지보수/메인페이지 개편유지보수 - 종로국가정보학원.": "/maintenance",
 };
 
 // 취약점 스캔 봇이 접근하는 경로 패턴 (404 로깅만 하고 UI 표시하지 않음)
@@ -79,7 +83,8 @@ const NotFound = () => {
   const lang = i18n.language?.startsWith("en") ? "en" : "ko";
 
   const legacyPath = location.pathname.toLowerCase();
-  const redirectTo = LEGACY_REDIRECTS[legacyPath];
+  const decodedPath = (() => { try { return decodeURIComponent(location.pathname); } catch { return location.pathname; } })();
+  const redirectTo = LEGACY_REDIRECTS[legacyPath] || LEGACY_REDIRECTS[location.pathname] || LEGACY_REDIRECTS[decodedPath] || LEGACY_REDIRECTS[decodedPath.toLowerCase()];
   const isVulnScan = VULN_SCAN_PATTERNS.some(p => p.test(location.pathname));
   const loggedRef = useRef(false);
 
