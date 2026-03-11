@@ -236,10 +236,21 @@ export default function TaxInvoiceManager() {
           supabase.functions.invoke("popbill-tax-invoice", { body: { action: "checkBalance" } }),
           supabase.functions.invoke("popbill-tax-invoice", { body: { action: "getEnvironment" } }),
         ]);
+        console.log("[TaxInvoice] balRes:", JSON.stringify(balRes.data));
         if (balRes.data?.success) {
           const bd = balRes.data.data;
-          const val = typeof bd === "number" ? bd : (bd?.remainPoint ?? bd?.Balance ?? (typeof bd === "string" ? parseFloat(bd) : null));
-          setBalance(typeof val === "number" ? val : null);
+          console.log("[TaxInvoice] bd:", JSON.stringify(bd), "type:", typeof bd);
+          let val: number | null = null;
+          if (typeof bd === "number") {
+            val = bd;
+          } else if (typeof bd === "object" && bd !== null) {
+            // Try all known field names
+            val = bd.remainPoint ?? bd.Balance ?? bd.balance ?? bd.Point ?? bd.point ?? null;
+            if (typeof val === "string") val = parseFloat(val);
+          } else if (typeof bd === "string") {
+            val = parseFloat(bd);
+          }
+          setBalance(typeof val === "number" && !isNaN(val) ? val : null);
         }
         if (envRes.data?.success) setIsProduction(envRes.data.data?.isProduction ?? false);
       } catch { /* ignore */ }
