@@ -364,13 +364,20 @@ serve(async (req) => {
       }
 
       case "checkBalance": {
-        const result = await callPopbillAPI(
-          popbillToken,
-          "GET",
-          `/Taxinvoice/${CORP_NUM}/Balance`
-        );
+        // 잔여포인트는 auth.linkhub.co.kr 에서 조회
+        const balanceRes = await fetch(`${AUTH_URL}/${SERVICE_ID}/Point`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${popbillToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const balanceText = await balanceRes.text();
+        let balanceData;
+        try { balanceData = JSON.parse(balanceText); } catch { balanceData = { Balance: parseFloat(balanceText) || 0 }; }
+        if (!balanceRes.ok) throw new Error(`Balance error: ${balanceText}`);
         return new Response(
-          JSON.stringify({ success: true, data: result }),
+          JSON.stringify({ success: true, data: balanceData }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
