@@ -252,11 +252,6 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
                   <td className="px-4 py-3 text-muted-foreground truncate max-w-[12rem]">{file.memo || "-"}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-center gap-1">
-                      {isPreviewable(file.content_type) && (
-                        <Button variant="ghost" size="icon" onClick={() => handlePreview(file)} title="미리보기">
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                      )}
                       <Button variant="ghost" size="icon" onClick={() => handleDownload(file)} title="다운로드">
                         <Download className="w-4 h-4" />
                       </Button>
