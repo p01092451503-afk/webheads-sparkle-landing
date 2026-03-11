@@ -856,7 +856,7 @@ export default function TaxInvoiceManager() {
                       </tr>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
                         <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>주소</td>
-                        <td colSpan={3} className="px-3 py-[7px]" style={{ color: "#333" }}>서울특별시 마포구 월드컵북로 114 (성산동) 3층</td>
+                        <td colSpan={3} className="px-3 py-[7px]" style={{ color: "#333" }}>서울특별시 마포구 월드컵로114, 3층(성산동, 효남빌딩)</td>
                       </tr>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
                         <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>업태</td>
