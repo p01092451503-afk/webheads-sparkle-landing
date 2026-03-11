@@ -360,8 +360,13 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
             {previewFile?.content_type?.startsWith("image/") ? (
               <img src={previewUrl} alt={previewFile.file_name} className="max-w-full max-h-[60vh] object-contain rounded" />
             ) : previewFile?.content_type === "application/pdf" ? (
-              <iframe src={previewUrl} className="w-full h-[60vh] rounded border" />
-            ) : null}
+              <object data={previewUrl} type="application/pdf" className="w-full h-[60vh] rounded border">
+                <div className="flex flex-col items-center justify-center h-[60vh] gap-3 text-muted-foreground">
+                  <FileText className="w-10 h-10" />
+                  <p className="text-sm">PDF 미리보기를 지원하지 않는 브라우저입니다.</p>
+                  <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">새 탭에서 열기</a>
+                </div>
+              </object>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => previewFile && handleDownload(previewFile)} className="gap-2">
