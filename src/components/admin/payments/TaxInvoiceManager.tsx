@@ -22,11 +22,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 interface SalesLineItem {
   date: string;
   itemName: string;
+  spec: string;
   quantity: number;
   unitPrice: string;
   supplyAmount: string;
   taxAmount: string;
   totalAmount: string;
+}
+
+interface AddContact {
+  name: string;
+  email: string;
 }
 
 interface TaxInvoiceLog {
@@ -110,17 +116,32 @@ export default function TaxInvoiceManager() {
     writeDate: new Date().toISOString().split("T")[0],
     applyDateToAll: true,
     invoiceType: "청구" as "영수" | "청구",
+    // 공급자 담당자
+    supplierContactName: "",
+    supplierDeptName: "",
+    supplierTEL: "",
+    supplierHP: "",
+    // 수정세금계산서
+    isModify: false,
+    modifyCode: "" as string,
+    orgNTSConfirmNum: "",
+    // 첨부
+    businessLicenseYN: false,
+    bankBookYN: false,
   });
 
   const emptyLine = (): SalesLineItem => ({
     date: form.writeDate,
     itemName: "",
+    spec: "",
     quantity: 1,
     unitPrice: "",
     supplyAmount: "",
     taxAmount: "",
     totalAmount: "",
   });
+
+  const [addContacts, setAddContacts] = useState<AddContact[]>([]);
 
   const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine()]);
 
@@ -324,8 +345,24 @@ export default function TaxInvoiceManager() {
           writeDate: form.writeDate.replace(/-/g, ""),
           purposeType: form.invoiceType === "영수" ? 1 : 2,
           memo: form.memo,
+          // 공급자 담당자
+          supplierContactName: form.supplierContactName || undefined,
+          supplierDeptName: form.supplierDeptName || undefined,
+          supplierTEL: form.supplierTEL || undefined,
+          supplierHP: form.supplierHP || undefined,
+          // 수정세금계산서
+          modifyCode: form.isModify && form.modifyCode ? parseInt(form.modifyCode) : undefined,
+          orgNTSConfirmNum: form.isModify && form.orgNTSConfirmNum ? form.orgNTSConfirmNum : undefined,
+          // 첨부
+          businessLicenseYN: form.businessLicenseYN || undefined,
+          bankBookYN: form.bankBookYN || undefined,
+          // 추가 담당자
+          addContactList: addContacts.length > 0 ? addContacts : undefined,
           items: filledLines.map(l => ({
             name: l.itemName,
+            spec: l.spec || undefined,
+            quantity: l.quantity,
+            unitCost: parseInt(l.unitPrice.replace(/,/g, "")) || 0,
             date: l.date.replace(/-/g, ""),
             supplyAmount: parseInt(l.supplyAmount.replace(/,/g, "")) || 0,
             taxAmount: parseInt(l.taxAmount.replace(/,/g, "")) || 0,
@@ -378,10 +415,20 @@ export default function TaxInvoiceManager() {
       writeDate: new Date().toISOString().split("T")[0],
       applyDateToAll: true,
       invoiceType: "청구",
+      supplierContactName: "",
+      supplierDeptName: "",
+      supplierTEL: "",
+      supplierHP: "",
+      isModify: false,
+      modifyCode: "",
+      orgNTSConfirmNum: "",
+      businessLicenseYN: false,
+      bankBookYN: false,
     });
     setLineItems([emptyLine()]);
     setMatchedContacts([]);
     setSelectedContactIdx(0);
+    setAddContacts([]);
   };
   // Open a saved log for issuing
   const handleOpenSavedLog = (log: TaxInvoiceLog) => {
@@ -406,16 +453,27 @@ export default function TaxInvoiceManager() {
       writeDate: log.issue_date || new Date().toISOString().split("T")[0],
       applyDateToAll: true,
       invoiceType: "청구",
+      supplierContactName: "",
+      supplierDeptName: "",
+      supplierTEL: "",
+      supplierHP: "",
+      isModify: false,
+      modifyCode: "",
+      orgNTSConfirmNum: "",
+      businessLicenseYN: false,
+      bankBookYN: false,
     });
     setLineItems([{
       date: log.issue_date || new Date().toISOString().split("T")[0],
       itemName: log.memo || "서비스 이용료",
+      spec: "",
       quantity: 1,
       unitPrice: log.supply_amount.toLocaleString("ko-KR"),
       supplyAmount: log.supply_amount.toLocaleString("ko-KR"),
       taxAmount: log.tax_amount.toLocaleString("ko-KR"),
       totalAmount: log.total_amount.toLocaleString("ko-KR"),
     }]);
+    setAddContacts([]);
     setIssueStep(2);
     setIssueOpen(true);
   };
@@ -672,16 +730,20 @@ export default function TaxInvoiceManager() {
                     <thead>
                       <tr className="bg-muted/30">
                         <th className="px-5 py-2.5 text-left font-semibold text-muted-foreground text-[11px]">항목명</th>
-                        <th className="px-3 py-2.5 text-center font-semibold text-muted-foreground text-[11px] w-[60px]">수량</th>
-                        <th className="px-3 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[110px]">공급가액</th>
-                        <th className="px-5 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[100px]">세액</th>
+                        <th className="px-3 py-2.5 text-left font-semibold text-muted-foreground text-[11px] w-[70px]">규격</th>
+                        <th className="px-3 py-2.5 text-center font-semibold text-muted-foreground text-[11px] w-[50px]">수량</th>
+                        <th className="px-3 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[90px]">단가</th>
+                        <th className="px-3 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[100px]">공급가액</th>
+                        <th className="px-5 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[90px]">세액</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filledLines.map((l, i) => (
                         <tr key={i} className="border-t border-border/20">
                           <td className="px-5 py-2.5 text-foreground font-medium">{l.itemName}</td>
+                          <td className="px-3 py-2.5 text-muted-foreground">{l.spec || "-"}</td>
                           <td className="px-3 py-2.5 text-center text-muted-foreground">{l.quantity}</td>
+                          <td className="px-3 py-2.5 text-right text-muted-foreground tabular-nums">{l.unitPrice ? `${l.unitPrice}원` : "-"}</td>
                           <td className="px-3 py-2.5 text-right font-medium tabular-nums">{fmt(parseInt(l.supplyAmount.replace(/,/g, "")) || 0)}원</td>
                           <td className="px-5 py-2.5 text-right text-muted-foreground tabular-nums">{fmt(parseInt(l.taxAmount.replace(/,/g, "")) || 0)}원</td>
                         </tr>
@@ -903,12 +965,13 @@ export default function TaxInvoiceManager() {
                     <thead>
                       <tr className="bg-muted/60 border-b">
                         <th className="px-2 py-1.5 text-center font-medium w-[90px]">일자</th>
-                        <th className="px-2 py-1.5 text-left font-medium min-w-[120px]">항목명</th>
+                        <th className="px-2 py-1.5 text-left font-medium min-w-[100px]">항목명</th>
+                        <th className="px-2 py-1.5 text-left font-medium w-[80px]">규격</th>
                         <th className="px-2 py-1.5 text-center font-medium w-[50px]">수량</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[110px]">단가(세액별도)</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">공급가액</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[90px]">부가세</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">합계</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">단가</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[95px]">공급가액</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[85px]">부가세</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[95px]">합계</th>
                         <th className="px-2 py-1.5 w-[30px]"></th>
                       </tr>
                     </thead>
@@ -928,6 +991,14 @@ export default function TaxInvoiceManager() {
                             <Input
                               value={line.itemName}
                               onChange={(e) => updateLineItem(idx, "itemName", e.target.value)}
+                              className="h-7 text-[11px] px-1.5"
+                              placeholder=""
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
+                              value={line.spec}
+                              onChange={(e) => updateLineItem(idx, "spec", e.target.value)}
                               className="h-7 text-[11px] px-1.5"
                               placeholder=""
                             />
@@ -986,7 +1057,7 @@ export default function TaxInvoiceManager() {
                     </tbody>
                     <tfoot>
                       <tr className="bg-muted/40 border-t font-medium">
-                        <td colSpan={4} className="px-2 py-2 text-[12px]">총 {filledLines.length}개 항목</td>
+                        <td colSpan={5} className="px-2 py-2 text-[12px]">총 {filledLines.length}개 항목</td>
                         <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.supply)}</td>
                         <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.tax)}</td>
                         <td className="px-2 py-2 text-right text-[12px] text-primary font-bold">{fmt(lineTotals.total)}</td>
@@ -1034,6 +1105,99 @@ export default function TaxInvoiceManager() {
                 placeholder="품목명/비고"
                 className="h-8 text-[12px] mt-1.5"
               />
+            </div>
+
+            {/* Section: 공급자 담당자 */}
+            <div>
+              <label className="text-[13px] font-bold text-foreground">공급자 담당자</label>
+              <div className="mt-1.5 grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-[60px_1fr] items-center gap-2">
+                  <span className="text-[11px] text-muted-foreground font-medium">담당자명</span>
+                  <Input value={form.supplierContactName} onChange={(e) => setForm(f => ({ ...f, supplierContactName: e.target.value }))} className="h-8 text-[12px]" placeholder="담당자 성명" />
+                </div>
+                <div className="grid grid-cols-[50px_1fr] items-center gap-2">
+                  <span className="text-[11px] text-muted-foreground font-medium">부서명</span>
+                  <Input value={form.supplierDeptName} onChange={(e) => setForm(f => ({ ...f, supplierDeptName: e.target.value }))} className="h-8 text-[12px]" placeholder="부서명" />
+                </div>
+                <div className="grid grid-cols-[60px_1fr] items-center gap-2">
+                  <span className="text-[11px] text-muted-foreground font-medium">연락처</span>
+                  <Input value={form.supplierTEL} onChange={(e) => setForm(f => ({ ...f, supplierTEL: e.target.value }))} className="h-8 text-[12px]" placeholder="070-0000-0000" />
+                </div>
+                <div className="grid grid-cols-[50px_1fr] items-center gap-2">
+                  <span className="text-[11px] text-muted-foreground font-medium">휴대폰</span>
+                  <Input value={form.supplierHP} onChange={(e) => setForm(f => ({ ...f, supplierHP: e.target.value }))} className="h-8 text-[12px]" placeholder="010-0000-0000" />
+                </div>
+              </div>
+            </div>
+
+            {/* Section: 추가 담당자 */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-[13px] font-bold text-foreground">추가 수신 담당자</label>
+                <Button size="sm" variant="outline" onClick={() => setAddContacts(prev => [...prev, { name: "", email: "" }])} className="text-[11px] h-7 gap-1">
+                  <Plus className="w-3 h-3" /> 추가
+                </Button>
+              </div>
+              {addContacts.length === 0 ? (
+                <p className="text-[11px] text-muted-foreground">발행 안내메일을 추가 수신할 담당자가 있으면 추가하세요. (최대 5명)</p>
+              ) : (
+                <div className="space-y-2">
+                  {addContacts.map((ac, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <Input value={ac.name} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, name: e.target.value } : p))} className="h-7 text-[11px] w-32" placeholder="성명" />
+                      <Input value={ac.email} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, email: e.target.value } : p))} className="h-7 text-[11px] flex-1" placeholder="이메일" type="email" />
+                      <button onClick={() => setAddContacts(prev => prev.filter((_, j) => j !== i))} className="text-muted-foreground hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Section: 수정세금계산서 */}
+            <div>
+              <label className="flex items-center gap-2 text-[13px] font-bold text-foreground cursor-pointer">
+                <Checkbox checked={form.isModify} onCheckedChange={(v) => setForm(f => ({ ...f, isModify: !!v }))} className="w-3.5 h-3.5" />
+                수정세금계산서
+              </label>
+              {form.isModify && (
+                <div className="mt-2 grid grid-cols-2 gap-3 rounded-lg border bg-muted/20 p-3">
+                  <div>
+                    <span className="text-[11px] text-muted-foreground font-medium">수정 사유코드</span>
+                    <select
+                      value={form.modifyCode}
+                      onChange={(e) => setForm(f => ({ ...f, modifyCode: e.target.value }))}
+                      className="mt-1 w-full h-8 text-[12px] rounded-md border border-input bg-background px-2"
+                    >
+                      <option value="">선택</option>
+                      <option value="1">1 - 기재사항 착오정정</option>
+                      <option value="2">2 - 공급가액 변동</option>
+                      <option value="3">3 - 환입</option>
+                      <option value="4">4 - 계약의 해제</option>
+                      <option value="5">5 - 내국신용장 사후개설</option>
+                      <option value="6">6 - 착오에 의한 이중발급</option>
+                    </select>
+                  </div>
+                  <div>
+                    <span className="text-[11px] text-muted-foreground font-medium">당초 국세청승인번호</span>
+                    <Input value={form.orgNTSConfirmNum} onChange={(e) => setForm(f => ({ ...f, orgNTSConfirmNum: e.target.value }))} className="mt-1 h-8 text-[12px]" placeholder="24자리 승인번호" />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Section: 첨부서류 */}
+            <div>
+              <label className="text-[13px] font-bold text-foreground mb-1.5 block">첨부서류 (팝빌 등록분)</label>
+              <div className="flex items-center gap-6">
+                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
+                  <Checkbox checked={form.businessLicenseYN} onCheckedChange={(v) => setForm(f => ({ ...f, businessLicenseYN: !!v }))} className="w-3.5 h-3.5" />
+                  사업자등록증 첨부
+                </label>
+                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
+                  <Checkbox checked={form.bankBookYN} onCheckedChange={(v) => setForm(f => ({ ...f, bankBookYN: !!v }))} className="w-3.5 h-3.5" />
+                  통장사본 첨부
+                </label>
+              </div>
             </div>
 
             {/* Section: 담당자 */}

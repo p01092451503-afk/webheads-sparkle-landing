@@ -204,12 +204,25 @@ serve(async (req) => {
           clientId,
           paymentId,
           existingLogId,
+          // 공급자 담당자
+          supplierContactName,
+          supplierDeptName,
+          supplierTEL,
+          supplierHP,
+          // 수정세금계산서
+          modifyCode,
+          orgNTSConfirmNum,
+          // 첨부
+          businessLicenseYN,
+          bankBookYN,
+          // 추가 담당자
+          addContactList,
         } = params;
 
         // 문서번호 자동 생성 (최대 24자리)
         const mgtKey = `WH${new Date().toISOString().replace(/[-T:.Z]/g, "").slice(0, 14)}${crypto.randomUUID().slice(0, 6).toUpperCase()}`;
 
-        const invoiceBody = {
+        const invoiceBody: Record<string, any> = {
           invoicerMgtKey: mgtKey,
           writeDate: writeDate || new Date().toISOString().split("T")[0].replace(/-/g, ""),
           chargeDirection: invoiceType === 1 ? "정과금" : "역과금",
@@ -226,6 +239,11 @@ serve(async (req) => {
           invoicerBizType: supplierBizType || "서비스",
           invoicerBizClass: supplierBizClass || "소프트웨어개발및공급",
           invoicerEmail: supplierEmail || "34bus@webheads.co.kr",
+          invoicerContactName: supplierContactName || "",
+          invoicerDeptName: supplierDeptName || "",
+          invoicerTEL: supplierTEL || "",
+          invoicerHP: supplierHP || "",
+          invoicerSMSSendYN: false,
           invoiceeType: "사업자",
           invoiceeCorpNum: buyerCorpNum,
           invoiceeCorpName: buyerCorpName || "",
@@ -234,11 +252,17 @@ serve(async (req) => {
           invoiceeBizType: buyerBizType || "",
           invoiceeBizClass: buyerBizClass || "",
           invoiceeEmail1: buyerEmail || "",
+          invoiceeSMSSendYN: false,
           remark1: memo || "",
+          businessLicenseYN: businessLicenseYN || false,
+          bankBookYN: bankBookYN || false,
           detailList: items.length > 0
             ? items.map((item: any, idx: number) => ({
                 serialNum: idx + 1,
                 itemName: item.name || "",
+                spec: item.spec || "",
+                qty: item.quantity ? String(item.quantity) : "1",
+                unitCost: item.unitCost ? String(item.unitCost) : "",
                 purchaseDT: item.date || writeDate || "",
                 supplyCost: String(item.supplyAmount || ""),
                 tax: String(item.taxAmount || ""),
@@ -253,6 +277,21 @@ serve(async (req) => {
                 },
               ],
         };
+
+        // 수정세금계산서
+        if (modifyCode) {
+          invoiceBody.modifyCode = modifyCode;
+          invoiceBody.orgNTSConfirmNum = orgNTSConfirmNum || "";
+        }
+
+        // 추가 담당자
+        if (addContactList && addContactList.length > 0) {
+          invoiceBody.addContactList = addContactList.slice(0, 5).map((c: any, i: number) => ({
+            serialNum: i + 1,
+            contactName: c.name || "",
+            email: c.email || "",
+          }));
+        }
 
         // Register + Issue in one call
         const result = await callPopbillAPI(
