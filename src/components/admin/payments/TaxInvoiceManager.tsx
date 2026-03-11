@@ -1300,14 +1300,18 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Action buttons - matching Popbill style */}
-            <div className="flex items-center justify-end gap-2 pt-2 border-t">
-              <Button variant="outline" onClick={resetAndClose} className="text-[13px] h-9">
-                취소
-              </Button>
-              <Button variant="outline" onClick={handleSave} className="text-[13px] h-9 gap-1.5">
-                <Save className="w-3.5 h-3.5" /> 임시저장
-              </Button>
-              <Button onClick={handleSave} className="text-[13px] h-9 gap-1.5 bg-primary hover:bg-primary/90">
+            <div className="flex items-center justify-center gap-3 pt-3">
+              <button onClick={handleSave} className="text-[13px] h-9 px-5 rounded" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>
+                임시저장
+              </button>
+              <button className="text-[13px] h-9 px-5 rounded" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>
+                발행예정
+              </button>
+              <label className="flex items-center gap-1.5 text-[13px] cursor-pointer" style={{ color: "#333" }}>
+                <Checkbox className="w-3.5 h-3.5" />
+                거래명세서 동시작성
+              </label>
+              <Button onClick={handleSave} className="text-[13px] h-9 px-6 gap-1.5 rounded" style={{ backgroundColor: "#4a90d9", color: "#fff" }}>
                 <Send className="w-3.5 h-3.5" /> 발행
               </Button>
             </div>
