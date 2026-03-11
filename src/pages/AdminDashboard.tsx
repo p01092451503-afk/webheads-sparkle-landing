@@ -20,6 +20,7 @@ const AdminClientCompanies = lazy(() => import("@/components/admin/AdminClientCo
 const MonthlyChecklist = lazy(() => import("@/components/admin/MonthlyChecklist"));
 const MonthlyReport = lazy(() => import("@/components/admin/MonthlyReport"));
 const ClientWorkManager = lazy(() => import("@/components/admin/ClientWorkManager"));
+const WorkFileManager = lazy(() => import("@/components/admin/WorkFileManager"));
 
 
 type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work";
