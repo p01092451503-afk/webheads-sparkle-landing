@@ -399,10 +399,20 @@ export default function TaxInvoiceManager() {
       writeDate: new Date().toISOString().split("T")[0],
       applyDateToAll: true,
       invoiceType: "청구",
+      supplierContactName: "",
+      supplierDeptName: "",
+      supplierTEL: "",
+      supplierHP: "",
+      isModify: false,
+      modifyCode: "",
+      orgNTSConfirmNum: "",
+      businessLicenseYN: false,
+      bankBookYN: false,
     });
     setLineItems([emptyLine()]);
     setMatchedContacts([]);
     setSelectedContactIdx(0);
+    setAddContacts([]);
   };
   // Open a saved log for issuing
   const handleOpenSavedLog = (log: TaxInvoiceLog) => {
