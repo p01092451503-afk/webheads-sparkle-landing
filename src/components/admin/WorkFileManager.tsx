@@ -345,7 +345,7 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
       </Dialog>
 
       {/* Preview Dialog */}
-      <Dialog open={previewOpen} onOpenChange={setPreviewOpen}>
+      <Dialog open={previewOpen} onOpenChange={(open) => { if (!open && previewUrl) URL.revokeObjectURL(previewUrl); setPreviewOpen(open); }}>
         <DialogContent className="max-w-4xl max-h-[85vh]">
           <DialogHeader>
             <DialogTitle>{previewFile?.file_name}</DialogTitle>
