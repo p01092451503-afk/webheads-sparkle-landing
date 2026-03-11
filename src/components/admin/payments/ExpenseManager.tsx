@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react";
+import { useState, useEffect, useCallback, useMemo, lazy, Suspense, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2, BarChart3, List, Loader2, FileText, ArrowUp, ArrowDown, CalendarClock } from "lucide-react";
+import { Plus, Edit2, Trash2, ChevronLeft, ChevronRight, Settings2, Check, X, Building2, BarChart3, List, Loader2, FileText, ArrowUp, ArrowDown, CalendarClock, Paperclip, Image, File, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -107,6 +107,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [formMemo, setFormMemo] = useState("");
   const [formInvoiceIssued, setFormInvoiceIssued] = useState(false);
   const [formPaymentMethod, setFormPaymentMethod] = useState("bank_transfer");
+  const [attachments, setAttachments] = useState<{ id: string; file_name: string; file_path: string; file_size: number | null; content_type: string | null }[]>([]);
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const formTotal = useMemo(() => parseInt(formTotalAmount.replace(/[^0-9]/g, "")) || 0, [formTotalAmount]);
   const formSupplyCalc = useMemo(() => Math.round(formTotal / 1.1), [formTotal]);
@@ -318,6 +321,60 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const getClientName = (id: string | null) => clients.find((c) => c.id === id)?.name || null;
   const getVendorName = (id: string | null) => vendors.find((v) => v.id === id)?.name || null;
 
+  const fetchAttachments = async (expenseId: string) => {
+    const { data } = await supabase.from("expense_attachments" as any).select("*").eq("expense_id", expenseId).order("created_at");
+    setAttachments((data as any) || []);
+  };
+
+  const uploadAttachment = async (file: globalThis.File, expenseId: string) => {
+    setUploadingFile(true);
+    try {
+      const ext = file.name.split(".").pop();
+      const filePath = `${expenseId}/${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from("expense-attachments").upload(filePath, file);
+      if (uploadError) throw uploadError;
+      const { error: dbError } = await supabase.from("expense_attachments" as any).insert({
+        expense_id: expenseId,
+        file_name: file.name,
+        file_path: filePath,
+        file_size: file.size,
+        content_type: file.type,
+      } as any);
+      if (dbError) throw dbError;
+      await fetchAttachments(expenseId);
+      toast.success("파일이 첨부되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "파일 업로드 실패");
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  const deleteAttachment = async (att: { id: string; file_path: string }, expenseId: string) => {
+    try {
+      await supabase.storage.from("expense-attachments").remove([att.file_path]);
+      await supabase.from("expense_attachments" as any).delete().eq("id", att.id);
+      await fetchAttachments(expenseId);
+      toast.success("첨부파일이 삭제되었습니다");
+    } catch (e: any) {
+      toast.error("삭제 실패");
+    }
+  };
+
+  const getAttachmentUrl = (filePath: string) => {
+    const { data } = supabase.storage.from("expense-attachments").getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
+  const isImageType = (contentType: string | null) => contentType?.startsWith("image/");
+
+  const formatFileSize = (size: number | null) => {
+    if (!size) return "";
+    if (size < 1024) return `${size}B`;
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(0)}KB`;
+    return `${(size / (1024 * 1024)).toFixed(1)}MB`;
+  };
+
   const openAddModal = () => {
     setEditExpense(null);
     setFormCategoryId(categories[0]?.id || "");
@@ -329,6 +386,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormMemo("");
     setFormInvoiceIssued(false);
     setFormPaymentMethod("bank_transfer");
+    setAttachments([]);
     setModalOpen(true);
   };
 
@@ -343,6 +401,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormMemo(exp.memo || "");
     setFormInvoiceIssued(exp.invoice_issued || false);
     setFormPaymentMethod(exp.payment_method || "bank_transfer");
+    fetchAttachments(exp.id);
     setModalOpen(true);
   };
 
@@ -1171,6 +1230,90 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 세금계산서 발급
               </span>
             </label>
+
+            {/* Attachments - only in edit mode (expense must exist first) */}
+            {editExpense && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[13px]">첨부파일</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-7 text-[11px] gap-1"
+                    disabled={uploadingFile}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    {uploadingFile ? <Loader2 className="w-3 h-3 animate-spin" /> : <Paperclip className="w-3 h-3" />}
+                    파일 추가
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    className="hidden"
+                    accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file && editExpense) {
+                        uploadAttachment(file, editExpense.id);
+                      }
+                      e.target.value = "";
+                    }}
+                  />
+                </div>
+                {attachments.length > 0 ? (
+                  <div className="space-y-1.5 max-h-[160px] overflow-y-auto">
+                    {attachments.map((att) => (
+                      <div key={att.id} className="flex items-center gap-2 rounded-lg border px-2.5 py-1.5 bg-muted/50">
+                        {isImageType(att.content_type) ? (
+                          <Image className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                        ) : (
+                          <File className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                        )}
+                        <span className="text-[11px] truncate flex-1">{att.file_name}</span>
+                        {att.file_size && (
+                          <span className="text-[10px] text-muted-foreground shrink-0">{formatFileSize(att.file_size)}</span>
+                        )}
+                        <a
+                          href={getAttachmentUrl(att.file_path)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1 rounded hover:bg-accent shrink-0"
+                        >
+                          <Download className="w-3 h-3 text-muted-foreground" />
+                        </a>
+                        <button
+                          onClick={() => deleteAttachment(att, editExpense!.id)}
+                          className="p-1 rounded hover:bg-red-50 shrink-0"
+                        >
+                          <X className="w-3 h-3 text-muted-foreground hover:text-red-600" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-muted-foreground">첨부된 파일이 없습니다</p>
+                )}
+                {/* Image preview */}
+                {attachments.filter(a => isImageType(a.content_type)).length > 0 && (
+                  <div className="flex gap-2 flex-wrap">
+                    {attachments.filter(a => isImageType(a.content_type)).map(att => (
+                      <a key={att.id} href={getAttachmentUrl(att.file_path)} target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={getAttachmentUrl(att.file_path)}
+                          alt={att.file_name}
+                          className="w-16 h-16 object-cover rounded border cursor-pointer hover:opacity-80"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            {!editExpense && (
+              <p className="text-[11px] text-muted-foreground">💡 파일 첨부는 등록 후 수정 화면에서 가능합니다</p>
+            )}
+
             <Button onClick={handleSubmit} className="w-full h-10 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
               {editExpense ? "수정" : "등록"}
             </Button>
