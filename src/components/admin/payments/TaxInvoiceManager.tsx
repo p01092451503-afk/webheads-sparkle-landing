@@ -691,7 +691,7 @@ export default function TaxInvoiceManager() {
                 <th className="text-right px-3 py-2 font-medium">합계</th>
                 <th className="text-center px-3 py-2 font-medium">상태</th>
                 <th className="text-left px-3 py-2 font-medium">메모</th>
-                <th className="px-3 py-2 w-[60px]"></th>
+                <th className="px-3 py-2 w-[160px] text-center font-medium">작업</th>
               </tr>
             </thead>
             <tbody>
@@ -702,54 +702,78 @@ export default function TaxInvoiceManager() {
                   </td>
                 </tr>
               ) : (
-                filteredLogs.map((log) => (
-                  <tr
-                    key={log.id}
-                    className="border-b last:border-0 hover:bg-muted/30 cursor-pointer"
-                    onClick={() => {
-                      if (log.status === "saved") handleOpenSavedLog(log);
-                      else setDetailLog(log);
-                    }}
-                  >
-                    <td className="px-3 py-2 whitespace-nowrap">{log.issue_date || "-"}</td>
-                    <td className="px-3 py-2 font-medium">
-                      {log.buyer_corp_name || getClientName(log.client_id)}
-                    </td>
-                    <td className="px-3 py-2 text-muted-foreground">{log.buyer_corp_num || "-"}</td>
-                    <td className="px-3 py-2 text-right">{fmt(log.supply_amount)}</td>
-                    <td className="px-3 py-2 text-right">{fmt(log.tax_amount)}</td>
-                    <td className="px-3 py-2 text-right font-medium">{fmt(log.total_amount)}</td>
-                    <td className="px-3 py-2 text-center">
-                      <Badge
-                        variant="outline"
-                        className={
-                          log.status === "issued"
-                            ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]"
-                            : log.status === "saved"
-                            ? "bg-blue-50 text-blue-700 border-blue-200 text-[11px]"
-                            : "bg-amber-50 text-amber-700 border-amber-200 text-[11px]"
-                        }
-                      >
-                        {log.status === "issued" ? "발행완료" : log.status === "saved" ? "저장" : log.status}
-                      </Badge>
-                    </td>
-                    <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
-                      {log.memo || "-"}
-                    </td>
-                    <td className="px-3 py-2 text-center">
-                      {log.status === "saved" && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 px-2 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-1"
-                          onClick={(e) => handleDeleteSavedLog(log.id, e)}
-                        >
-                          <X className="w-3 h-3" /> 취소
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                ))
+                filteredLogs.map((log) => {
+                  const statusConfig: Record<string, { label: string; className: string }> = {
+                    issued: { label: "발행완료", className: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+                    saved: { label: "저장", className: "bg-blue-50 text-blue-700 border-blue-200" },
+                    nts_success: { label: "국세청승인", className: "bg-green-50 text-green-800 border-green-300" },
+                    nts_failed: { label: "전송실패", className: "bg-red-50 text-red-700 border-red-200" },
+                    cancelled: { label: "취소", className: "bg-gray-50 text-gray-500 border-gray-200" },
+                  };
+                  const st = statusConfig[log.status] || { label: log.status, className: "bg-amber-50 text-amber-700 border-amber-200" };
+
+                  return (
+                    <tr
+                      key={log.id}
+                      className="border-b last:border-0 hover:bg-muted/30 cursor-pointer"
+                      onClick={() => {
+                        if (log.status === "saved") handleOpenSavedLog(log);
+                        else setDetailLog(log);
+                      }}
+                    >
+                      <td className="px-3 py-2 whitespace-nowrap">{log.issue_date || "-"}</td>
+                      <td className="px-3 py-2 font-medium">
+                        {log.buyer_corp_name || getClientName(log.client_id)}
+                      </td>
+                      <td className="px-3 py-2 text-muted-foreground">{log.buyer_corp_num || "-"}</td>
+                      <td className="px-3 py-2 text-right">{fmt(log.supply_amount)}</td>
+                      <td className="px-3 py-2 text-right">{fmt(log.tax_amount)}</td>
+                      <td className="px-3 py-2 text-right font-medium">{fmt(log.total_amount)}</td>
+                      <td className="px-3 py-2 text-center">
+                        <Badge variant="outline" className={`${st.className} text-[11px]`}>
+                          {st.label}
+                        </Badge>
+                      </td>
+                      <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
+                        {log.memo || "-"}
+                      </td>
+                      <td className="px-3 py-2">
+                        <div className="flex items-center gap-1 justify-center" onClick={e => e.stopPropagation()}>
+                          {log.status === "saved" && (
+                            <Button variant="ghost" size="sm" className="h-7 px-2 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-1"
+                              onClick={(e) => handleDeleteSavedLog(log.id, e)}>
+                              <X className="w-3 h-3" /> 삭제
+                            </Button>
+                          )}
+                          {(log.status === "issued" || log.status === "nts_success" || log.status === "nts_failed") && (
+                            <>
+                              <Button variant="ghost" size="sm" className="h-7 px-1.5 text-[11px] gap-0.5"
+                                disabled={syncingId === log.id}
+                                onClick={(e) => handleSyncStatus(log, e)}
+                                title="상태 동기화">
+                                <RefreshCw className={`w-3 h-3 ${syncingId === log.id ? "animate-spin" : ""}`} />
+                              </Button>
+                              <Button variant="ghost" size="sm" className="h-7 px-1.5 text-[11px] gap-0.5"
+                                disabled={resendingId === log.id}
+                                onClick={(e) => handleResendEmail(log, e)}
+                                title="이메일 재전송">
+                                <Mail className={`w-3 h-3 ${resendingId === log.id ? "animate-pulse" : ""}`} />
+                              </Button>
+                              {log.status === "issued" && (
+                                <Button variant="ghost" size="sm" className="h-7 px-1.5 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-0.5"
+                                  disabled={cancellingId === log.id}
+                                  onClick={(e) => handleCancel(log, e)}
+                                  title="발행 취소">
+                                  <Ban className={`w-3 h-3 ${cancellingId === log.id ? "animate-pulse" : ""}`} />
+                                </Button>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
