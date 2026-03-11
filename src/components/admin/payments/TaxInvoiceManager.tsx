@@ -103,6 +103,12 @@ export default function TaxInvoiceManager() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [detailLog, setDetailLog] = useState<TaxInvoiceLog | null>(null);
+  const [balance, setBalance] = useState<number | null>(null);
+  const [balanceLoading, setBalanceLoading] = useState(false);
+  const [isProduction, setIsProduction] = useState<boolean | null>(null);
+  const [syncingId, setSyncingId] = useState<string | null>(null);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [resendingId, setResendingId] = useState<string | null>(null);
 
   // Issue form state
   const [form, setForm] = useState({
