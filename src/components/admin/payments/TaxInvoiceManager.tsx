@@ -884,8 +884,8 @@ export default function TaxInvoiceManager() {
 
                 {/* 공급받는자 (Buyer) */}
                 <div className="flex">
-                  <div className="flex items-center justify-center shrink-0" style={{ width: "26px", backgroundColor: "#f0f4ff", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
-                    <span className="text-[12px] font-bold" style={{ color: "#3366cc", letterSpacing: "0.1em" }}>공급받는자</span>
+                  <div className="flex items-center justify-center shrink-0" style={{ width: "36px", backgroundColor: "#f0f4ff", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
+                    <span className="text-[16px] font-bold" style={{ color: "#3366cc", letterSpacing: "0.15em" }}>공급받는자</span>
                   </div>
                   <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse", tableLayout: "fixed" }}>
                     <colgroup>
