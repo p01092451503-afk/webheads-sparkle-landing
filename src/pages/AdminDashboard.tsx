@@ -23,7 +23,7 @@ const ClientWorkManager = lazy(() => import("@/components/admin/ClientWorkManage
 const WorkFileManager = lazy(() => import("@/components/admin/WorkFileManager"));
 
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work" | "work_files";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
