@@ -1679,6 +1679,7 @@ export default function TaxInvoiceManager() {
               );
             })()}
           </div>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
     </div>
