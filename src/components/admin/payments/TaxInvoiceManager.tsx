@@ -18,6 +18,7 @@ import {
   Command, CommandInput, CommandList, CommandEmpty, CommandItem,
 } from "@/components/ui/command";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface SalesLineItem {
   date: string;
