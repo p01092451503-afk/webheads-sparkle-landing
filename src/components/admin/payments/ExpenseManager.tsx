@@ -107,6 +107,9 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const [formMemo, setFormMemo] = useState("");
   const [formInvoiceIssued, setFormInvoiceIssued] = useState(false);
   const [formPaymentMethod, setFormPaymentMethod] = useState("bank_transfer");
+  const [attachments, setAttachments] = useState<{ id: string; file_name: string; file_path: string; file_size: number | null; content_type: string | null }[]>([]);
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const formTotal = useMemo(() => parseInt(formTotalAmount.replace(/[^0-9]/g, "")) || 0, [formTotalAmount]);
   const formSupplyCalc = useMemo(() => Math.round(formTotal / 1.1), [formTotal]);
