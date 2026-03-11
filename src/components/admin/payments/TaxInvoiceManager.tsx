@@ -834,43 +834,49 @@ export default function TaxInvoiceManager() {
                   <div className="flex items-center justify-center shrink-0" style={{ width: "26px", backgroundColor: "#fff2f2", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
                     <span className="text-[12px] font-bold" style={{ color: "#cc3333", letterSpacing: "0.15em" }}>공급자</span>
                   </div>
-                  <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse" }}>
+                  <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse", tableLayout: "fixed" }}>
+                    <colgroup>
+                      <col style={{ width: "75px" }} />
+                      <col />
+                      <col style={{ width: "70px" }} />
+                      <col style={{ width: "150px" }} />
+                    </colgroup>
                     <tbody>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
-                        <td className="px-2 py-[6px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", width: "65px" }}>등록번호</td>
-                        <td className="px-2 py-[6px] font-medium" style={{ color: "#333" }}>204-86-20072</td>
-                        <td className="px-2 py-[6px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd", width: "55px" }}>종사업장</td>
-                        <td className="px-2 py-[6px]" style={{ width: "100px" }}></td>
+                        <td className="px-3 py-[7px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>등록번호</td>
+                        <td className="px-3 py-[7px] font-medium" style={{ color: "#333" }}>204-86-20072</td>
+                        <td className="px-3 py-[7px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종사업장</td>
+                        <td className="px-3 py-[7px]"></td>
                       </tr>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>상호</td>
-                        <td className="px-2 py-[6px]" style={{ color: "#333" }}>주식회사 웹헤즈</td>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>성명</td>
-                        <td className="px-2 py-[6px]" style={{ color: "#333" }}>박진열</td>
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>상호</td>
+                        <td className="px-3 py-[7px]" style={{ color: "#333" }}>주식회사 웹헤즈</td>
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>성명</td>
+                        <td className="px-3 py-[7px]" style={{ color: "#333" }}>박진열</td>
                       </tr>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>주소</td>
-                        <td colSpan={3} className="px-2 py-[6px] text-[12px]" style={{ color: "#333" }}>서울특별시 마포구 월드컵북로 114 (성산동) 3층</td>
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>주소</td>
+                        <td colSpan={3} className="px-3 py-[7px]" style={{ color: "#333" }}>서울특별시 마포구 월드컵북로 114 (성산동) 3층</td>
                       </tr>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>업태</td>
-                        <td className="px-2 py-[6px]" style={{ color: "#333" }}>정보통신업</td>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종목</td>
-                        <td className="px-2 py-[6px] text-[12px]" style={{ color: "#333" }}>응용소프트웨어 개발 및 공급</td>
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>업태</td>
+                        <td className="px-3 py-[7px]" style={{ color: "#333" }}>정보통신업</td>
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종목</td>
+                        <td className="px-3 py-[7px]" style={{ color: "#333" }}>응용소프트웨어 개발 및 공급</td>
                       </tr>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>담당자명</td>
-                        <td className="px-2 py-[6px]">
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>담당자명</td>
+                        <td className="px-3 py-[7px]">
                           <Input value={form.supplierContactName} onChange={(e) => setForm(f => ({ ...f, supplierContactName: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="박진열" />
                         </td>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>연락처</td>
-                        <td className="px-2 py-[6px]">
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>연락처</td>
+                        <td className="px-3 py-[7px]">
                           <Input value={form.supplierTEL} onChange={(e) => setForm(f => ({ ...f, supplierTEL: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="010-9245-1503" />
                         </td>
                       </tr>
                       <tr>
-                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>이메일</td>
-                        <td colSpan={3} className="px-2 py-[6px]" style={{ color: "#333" }}>34bus@webheads.co.kr</td>
+                        <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>이메일</td>
+                        <td colSpan={3} className="px-3 py-[7px]" style={{ color: "#333" }}>34bus@webheads.co.kr</td>
                       </tr>
                     </tbody>
                   </table>
