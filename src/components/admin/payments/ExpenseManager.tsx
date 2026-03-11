@@ -1230,6 +1230,90 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 세금계산서 발급
               </span>
             </label>
+
+            {/* Attachments - only in edit mode (expense must exist first) */}
+            {editExpense && (
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[13px]">첨부파일</Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-7 text-[11px] gap-1"
+                    disabled={uploadingFile}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    {uploadingFile ? <Loader2 className="w-3 h-3 animate-spin" /> : <Paperclip className="w-3 h-3" />}
+                    파일 추가
+                  </Button>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    className="hidden"
+                    accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file && editExpense) {
+                        uploadAttachment(file, editExpense.id);
+                      }
+                      e.target.value = "";
+                    }}
+                  />
+                </div>
+                {attachments.length > 0 ? (
+                  <div className="space-y-1.5 max-h-[160px] overflow-y-auto">
+                    {attachments.map((att) => (
+                      <div key={att.id} className="flex items-center gap-2 rounded-lg border px-2.5 py-1.5 bg-muted/50">
+                        {isImageType(att.content_type) ? (
+                          <Image className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                        ) : (
+                          <File className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+                        )}
+                        <span className="text-[11px] truncate flex-1">{att.file_name}</span>
+                        {att.file_size && (
+                          <span className="text-[10px] text-muted-foreground shrink-0">{formatFileSize(att.file_size)}</span>
+                        )}
+                        <a
+                          href={getAttachmentUrl(att.file_path)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1 rounded hover:bg-accent shrink-0"
+                        >
+                          <Download className="w-3 h-3 text-muted-foreground" />
+                        </a>
+                        <button
+                          onClick={() => deleteAttachment(att, editExpense!.id)}
+                          className="p-1 rounded hover:bg-red-50 shrink-0"
+                        >
+                          <X className="w-3 h-3 text-muted-foreground hover:text-red-600" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-[11px] text-muted-foreground">첨부된 파일이 없습니다</p>
+                )}
+                {/* Image preview */}
+                {attachments.filter(a => isImageType(a.content_type)).length > 0 && (
+                  <div className="flex gap-2 flex-wrap">
+                    {attachments.filter(a => isImageType(a.content_type)).map(att => (
+                      <a key={att.id} href={getAttachmentUrl(att.file_path)} target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={getAttachmentUrl(att.file_path)}
+                          alt={att.file_name}
+                          className="w-16 h-16 object-cover rounded border cursor-pointer hover:opacity-80"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+            {!editExpense && (
+              <p className="text-[11px] text-muted-foreground">💡 파일 첨부는 등록 후 수정 화면에서 가능합니다</p>
+            )}
+
             <Button onClick={handleSubmit} className="w-full h-10 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]">
               {editExpense ? "수정" : "등록"}
             </Button>
