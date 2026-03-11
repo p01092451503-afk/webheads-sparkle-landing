@@ -646,37 +646,28 @@ export default function TaxInvoiceManager() {
         </div>
       </div>
 
-      {/* Issue Dialog - Multi-step */}
+      {/* Issue Dialog - Popbill Style */}
       <Dialog open={issueOpen} onOpenChange={(open) => { if (!open) resetAndClose(); else setIssueOpen(true); }}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-[16px] flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              세금계산서 {issueStep === 1 ? "작성" : issueStep === 2 ? "미리보기" : "발행 확인"}
-              {issueStep > 1 && (
+        <DialogContent className="max-w-[1100px] max-h-[92vh] overflow-y-auto p-0">
+          {/* Step 2/3: Preview & Issue */}
+          {issueStep >= 2 && (
+            <div className="p-6 space-y-5">
+              <div className="flex items-center gap-2">
+                <FileText className="w-4 h-4" />
+                <span className="text-[16px] font-bold">세금계산서 {issueStep === 2 ? "미리보기" : "발행 확인"}</span>
                 <Button variant="ghost" size="sm" className="ml-2 text-[11px] h-6 gap-1" onClick={() => setIssueStep(issueStep === 3 ? 2 : 1)}>
                   <ArrowLeft className="w-3 h-3" /> 이전
                 </Button>
-              )}
-            </DialogTitle>
-          </DialogHeader>
-
-          {/* Step 2: Preview */}
-          {issueStep >= 2 && (
-            <div className="space-y-5">
+              </div>
               {/* Card-style invoice preview */}
               <div className="rounded-2xl border border-border/60 bg-card shadow-sm overflow-hidden">
-                {/* Header */}
                 <div className="px-6 py-5 text-center border-b border-border/40 bg-muted/20">
                   <h3 className="text-[17px] font-extrabold tracking-[0.35em] text-foreground">전자세금계산서</h3>
                   <span className="inline-block mt-1.5 text-[12px] text-muted-foreground bg-muted/60 px-3 py-0.5 rounded-full">
-                    {form.invoiceType === "영수" ? "영수" : "청구"}
+                    {form.invoiceType === "영수" ? "영수" : form.invoiceType === "없음" ? "없음" : "청구"}
                   </span>
                 </div>
-
-                {/* Parties */}
                 <div className="grid grid-cols-2 divide-x divide-border/40">
-                  {/* 공급자 */}
                   <div className="px-5 py-4 space-y-3">
                     <div className="flex items-center gap-1.5">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -696,7 +687,6 @@ export default function TaxInvoiceManager() {
                       ))}
                     </div>
                   </div>
-                  {/* 공급받는자 */}
                   <div className="px-5 py-4 space-y-3">
                     <div className="flex items-center gap-1.5">
                       <div className="w-1.5 h-1.5 rounded-full bg-destructive" />
@@ -717,14 +707,10 @@ export default function TaxInvoiceManager() {
                     </div>
                   </div>
                 </div>
-
-                {/* Date */}
                 <div className="px-5 py-2.5 border-t border-border/30 bg-muted/10">
                   <span className="text-[11px] text-muted-foreground">작성일자</span>
                   <span className="text-[13px] font-medium text-foreground ml-3">{form.writeDate}</span>
                 </div>
-
-                {/* Items table */}
                 <div className="border-t border-border/40">
                   <table className="w-full text-[12px]">
                     <thead>
@@ -751,8 +737,6 @@ export default function TaxInvoiceManager() {
                     </tbody>
                   </table>
                 </div>
-
-                {/* Totals */}
                 <div className="border-t border-border/40 px-5 py-4 bg-muted/10">
                   <div className="flex items-center justify-end gap-6 text-[13px]">
                     <div className="flex items-center gap-2">
@@ -769,8 +753,6 @@ export default function TaxInvoiceManager() {
                     </div>
                   </div>
                 </div>
-
-                {/* Memo */}
                 {form.memo && (
                   <div className="border-t border-border/30 px-5 py-3">
                     <span className="text-[11px] text-muted-foreground">비고</span>
@@ -778,8 +760,6 @@ export default function TaxInvoiceManager() {
                   </div>
                 )}
               </div>
-
-              {/* Actions */}
               {issueStep === 2 && (
                 <div className="flex justify-center gap-3">
                   <Button variant="outline" onClick={() => setIssueStep(1)} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold gap-1.5 h-auto">
@@ -790,7 +770,6 @@ export default function TaxInvoiceManager() {
                   </Button>
                 </div>
               )}
-
               {issueStep === 3 && (
                 <div className="rounded-2xl border border-destructive/20 bg-destructive/5 p-5 space-y-4">
                   <div className="flex items-start gap-3">
@@ -798,9 +777,7 @@ export default function TaxInvoiceManager() {
                       <AlertTriangle className="w-4.5 h-4.5 text-destructive" />
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[14px] font-bold text-foreground">
-                        세금계산서를 발행하시겠습니까?
-                      </p>
+                      <p className="text-[14px] font-bold text-foreground">세금계산서를 발행하시겠습니까?</p>
                       <p className="text-[12px] text-muted-foreground leading-relaxed">
                         발행 후 팝빌을 통해 국세청(홈택스)에 자동 전송됩니다.<br />
                         발행 후에는 취소가 어려우므로 내용을 다시 한번 확인해주세요.
@@ -808,9 +785,7 @@ export default function TaxInvoiceManager() {
                     </div>
                   </div>
                   <div className="flex justify-end gap-2.5 pt-1">
-                    <Button variant="outline" onClick={() => setIssueStep(2)} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold h-auto">
-                      취소
-                    </Button>
+                    <Button variant="outline" onClick={() => setIssueStep(2)} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold h-auto">취소</Button>
                     <Button onClick={handleIssue} disabled={issuing} className="px-5 py-2.5 rounded-xl text-[13px] font-semibold gap-1.5 h-auto bg-primary hover:bg-primary/90">
                       {issuing ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                       발행 및 홈택스 전송
@@ -821,198 +796,326 @@ export default function TaxInvoiceManager() {
             </div>
           )}
 
-          {/* Step 1: Form */}
+          {/* Step 1: Popbill-style Form */}
           {issueStep === 1 && (
-          <div className="border rounded-xl p-4 space-y-4 bg-background">
-            {/* Section: 고객명 */}
-            <div>
-              <label className="text-[13px] font-bold text-foreground">고객명</label>
-              <div className="mt-1.5 flex items-center gap-2">
-                <Popover open={clientSearchOpen} onOpenChange={setClientSearchOpen}>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className="h-9 text-[13px] max-w-md w-full justify-between font-normal"
-                    >
-                      {form.clientId
-                        ? (() => {
-                            const c = clients.find(cl => cl.id === form.clientId);
-                            if (!c) return "고객사 선택";
-                            const matched = getCompanyForClient(c);
-                            const name = matched ? matched.company_name : c.name;
-                            const biz = matched ? ` (${matched.business_number})` : "";
-                            return `${name}${biz}`;
-                          })()
-                        : "세금계산서를 발급하실 고객을 선택해주세요."}
-                      <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[460px] p-0" align="start" onWheel={(e) => e.stopPropagation()}>
-                    <Command shouldFilter={true}>
-                      <CommandInput placeholder="고객명 또는 사업자번호 검색..." className="text-[13px]" />
-                      <div className="max-h-[300px] overflow-y-auto overscroll-contain" onWheel={(e) => e.stopPropagation()}>
-                        <CommandList className="max-h-none">
-                          <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
-                          {clients.map((c) => {
-                            const matched = getCompanyForClient(c);
-                            const displayName = matched ? matched.company_name : c.name;
-                            const bizNum = matched?.business_number || "";
-                            return (
-                              <CommandItem
-                                key={c.id}
-                                value={`${displayName} ${bizNum} ${c.name}`}
-                                onSelect={() => {
-                                  handleClientSelect(c.id);
-                                  setClientSearchOpen(false);
-                                }}
-                                className="text-[13px] cursor-pointer"
-                              >
-                                <span className="font-medium">{displayName}</span>
-                                {bizNum && <span className="text-muted-foreground ml-2">({bizNum})</span>}
-                              </CommandItem>
-                            );
-                          })}
-                        </CommandList>
-                      </div>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
+          <div className="p-5 space-y-4">
+            {/* Top options row */}
+            <div className="flex items-center gap-6 flex-wrap text-[13px]">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-foreground">과세형태</span>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "과세"} onChange={() => setForm(f => ({ ...f, taxType: "과세" }))} className="accent-primary w-3.5 h-3.5" /> 과세(10%)</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "영세"} onChange={() => setForm(f => ({ ...f, taxType: "영세" }))} className="accent-primary w-3.5 h-3.5" /> 영세(0%)</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "면세"} onChange={() => setForm(f => ({ ...f, taxType: "면세" }))} className="accent-primary w-3.5 h-3.5" /> 면세(세액없음)</label>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-foreground">거래처유형</span>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="buyer-type" checked disabled className="accent-primary w-3.5 h-3.5" /> 사업자(사업자번호)</label>
+              </div>
+            </div>
+
+            {/* Main Invoice Table */}
+            <div className="border-2 border-foreground/80">
+              {/* Title */}
+              <div className="text-center py-2 border-b border-foreground/80 bg-background">
+                <h3 className="text-[18px] font-extrabold tracking-[0.4em] text-foreground">전자세금계산서</h3>
               </div>
 
-              {/* 거래처 정보 (고객사 선택시 표시) */}
-              {form.clientId && (
-                <div className="mt-3 rounded-lg border bg-muted/20 p-3 space-y-2.5">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="grid grid-cols-[70px_1fr] items-center gap-2">
-                      <span className="text-[11px] text-muted-foreground font-medium">사업자번호</span>
-                      <Input value={form.buyerCorpNum} onChange={(e) => setForm(f => ({ ...f, buyerCorpNum: e.target.value }))} className="h-8 text-[12px]" />
-                    </div>
-                    <div className="grid grid-cols-[50px_1fr] items-center gap-2">
-                      <span className="text-[11px] text-muted-foreground font-medium">대표자</span>
-                      <Input value={form.buyerCEOName} onChange={(e) => setForm(f => ({ ...f, buyerCEOName: e.target.value }))} className="h-8 text-[12px]" />
-                    </div>
+              {/* Supplier & Buyer side by side */}
+              <div className="grid grid-cols-2 divide-x divide-foreground/80">
+                {/* 공급자 (Supplier) */}
+                <div className="flex">
+                  <div className="w-[28px] bg-amber-50 dark:bg-amber-950/30 border-r border-foreground/80 flex items-center justify-center shrink-0">
+                    <span className="text-[12px] font-bold text-amber-800 dark:text-amber-200 writing-vertical" style={{ writingMode: "vertical-rl" }}>공 급 자</span>
                   </div>
-                  <div className="grid grid-cols-[70px_1fr] items-center gap-2">
-                    <span className="text-[11px] text-muted-foreground font-medium">상호</span>
-                    <Input value={form.buyerCorpName} onChange={(e) => setForm(f => ({ ...f, buyerCorpName: e.target.value }))} className="h-8 text-[12px]" />
-                  </div>
-                  <div className="grid grid-cols-[70px_1fr] items-center gap-2">
-                    <span className="text-[11px] text-muted-foreground font-medium">사업장주소</span>
-                    <Input value={form.buyerAddress} onChange={(e) => setForm(f => ({ ...f, buyerAddress: e.target.value }))} className="h-8 text-[12px]" />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="grid grid-cols-[70px_1fr] items-center gap-2">
-                      <span className="text-[11px] text-muted-foreground font-medium">업태</span>
-                      <Input value={form.buyerBusinessType} onChange={(e) => setForm(f => ({ ...f, buyerBusinessType: e.target.value }))} className="h-8 text-[12px]" />
-                    </div>
-                    <div className="grid grid-cols-[50px_1fr] items-center gap-2">
-                      <span className="text-[11px] text-muted-foreground font-medium">종목</span>
-                      <Input value={form.buyerBusinessItem} onChange={(e) => setForm(f => ({ ...f, buyerBusinessItem: e.target.value }))} className="h-8 text-[12px]" />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-[70px_1fr] items-center gap-2">
-                    <span className="text-[11px] text-muted-foreground font-medium">이메일</span>
-                    <Input value={form.buyerEmail} onChange={(e) => setForm(f => ({ ...f, buyerEmail: e.target.value }))} type="email" className="h-8 text-[12px]" />
+                  <div className="flex-1">
+                    <table className="w-full text-[12px] border-collapse">
+                      <tbody>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 w-[60px] bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">등록번호</td>
+                          <td className="px-2 py-1.5 font-semibold">204-86-20072</td>
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 w-[50px] bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">종사업장</td>
+                          <td className="px-2 py-1.5 w-[80px]"></td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">상호</td>
+                          <td className="px-2 py-1.5">주식회사 웹헤즈</td>
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">성명</td>
+                          <td className="px-2 py-1.5">박진열</td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">주소</td>
+                          <td colSpan={3} className="px-2 py-1.5 text-[11px]">서울특별시 마포구 월드컵북로 114 (성산동) 3층</td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">업태</td>
+                          <td className="px-2 py-1.5">정보통신업</td>
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">종목</td>
+                          <td className="px-2 py-1.5 text-[11px]">응용소프트웨어 개발 및 공급</td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">담당자명</td>
+                          <td className="px-2 py-1.5">
+                            <Input value={form.supplierContactName} onChange={(e) => setForm(f => ({ ...f, supplierContactName: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="박진열" />
+                          </td>
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">연락처</td>
+                          <td className="px-2 py-1.5">
+                            <Input value={form.supplierTEL} onChange={(e) => setForm(f => ({ ...f, supplierTEL: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="010-9245-1503" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">이메일</td>
+                          <td colSpan={3} className="px-2 py-1.5">34bus@webheads.co.kr</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              )}
-            </div>
 
-            {/* Section: 작성일자 */}
-            <div>
-              <div className="flex items-center gap-4">
-                <label className="text-[13px] font-bold text-foreground">작성일자</label>
-                <Input
-                  type="date"
-                  value={form.writeDate}
-                  onChange={(e) => {
-                    const newDate = e.target.value;
-                    setForm(f => ({ ...f, writeDate: newDate }));
-                    if (form.applyDateToAll) {
-                      setLineItems(prev => prev.map(l => ({ ...l, date: newDate })));
-                    }
-                  }}
-                  className="h-8 text-[12px] w-[160px]"
-                />
-                <label className="flex items-center gap-1.5 text-[11px] text-muted-foreground cursor-pointer">
-                  <Checkbox
-                    checked={form.applyDateToAll}
-                    onCheckedChange={(checked) => {
-                      setForm(f => ({ ...f, applyDateToAll: !!checked }));
-                      if (checked) {
-                        setLineItems(prev => prev.map(l => ({ ...l, date: form.writeDate })));
-                      }
-                    }}
-                    className="w-3.5 h-3.5"
-                  />
-                  모든 매출항목에 같은 일자 적용
-                </label>
+                {/* 공급받는자 (Buyer) */}
+                <div className="flex">
+                  <div className="w-[28px] bg-sky-50 dark:bg-sky-950/30 border-r border-foreground/80 flex items-center justify-center shrink-0">
+                    <span className="text-[12px] font-bold text-sky-800 dark:text-sky-200 writing-vertical" style={{ writingMode: "vertical-rl" }}>공급받는자</span>
+                  </div>
+                  <div className="flex-1">
+                    <table className="w-full text-[12px] border-collapse">
+                      <tbody>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-foreground w-[60px] bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">등록번호</td>
+                          <td className="px-2 py-1.5" colSpan={2}>
+                            <div className="flex items-center gap-1">
+                              <Popover open={clientSearchOpen} onOpenChange={setClientSearchOpen}>
+                                <PopoverTrigger asChild>
+                                  <button className="flex-1 text-left text-[12px] h-6 px-1 rounded border border-input bg-background hover:bg-muted/50 truncate">
+                                    {form.buyerCorpNum || "등록번호 / 상호 / 성명"}
+                                  </button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-[460px] p-0" align="start" onWheel={(e) => e.stopPropagation()}>
+                                  <Command shouldFilter={true}>
+                                    <CommandInput placeholder="고객명 또는 사업자번호 검색..." className="text-[13px]" />
+                                    <div className="max-h-[300px] overflow-y-auto overscroll-contain" onWheel={(e) => e.stopPropagation()}>
+                                      <CommandList className="max-h-none">
+                                        <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
+                                        {clients.map((c) => {
+                                          const matched = getCompanyForClient(c);
+                                          const displayName = matched ? matched.company_name : c.name;
+                                          const bizNum = matched?.business_number || "";
+                                          return (
+                                            <CommandItem
+                                              key={c.id}
+                                              value={`${displayName} ${bizNum} ${c.name}`}
+                                              onSelect={() => {
+                                                handleClientSelect(c.id);
+                                                setClientSearchOpen(false);
+                                              }}
+                                              className="text-[13px] cursor-pointer"
+                                            >
+                                              <span className="font-medium">{displayName}</span>
+                                              {bizNum && <span className="text-muted-foreground ml-2">({bizNum})</span>}
+                                            </CommandItem>
+                                          );
+                                        })}
+                                      </CommandList>
+                                    </div>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <Button variant="outline" size="sm" className="h-6 text-[10px] px-2 shrink-0" onClick={() => setClientSearchOpen(true)}>조회</Button>
+                            </div>
+                          </td>
+                          <td className="px-2 py-1.5 font-bold text-foreground w-[50px] bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">종사업장</td>
+                          <td className="px-2 py-1.5 w-[60px]"></td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">상호</td>
+                          <td className="px-2 py-1.5" colSpan={2}>
+                            <Input value={form.buyerCorpName} onChange={(e) => setForm(f => ({ ...f, buyerCorpName: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                          </td>
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">성명</td>
+                          <td className="px-2 py-1.5">
+                            <Input value={form.buyerCEOName} onChange={(e) => setForm(f => ({ ...f, buyerCEOName: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                          </td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">주소</td>
+                          <td colSpan={4} className="px-2 py-1.5">
+                            <Input value={form.buyerAddress} onChange={(e) => setForm(f => ({ ...f, buyerAddress: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                          </td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">업태</td>
+                          <td className="px-2 py-1.5" colSpan={2}>
+                            <Input value={form.buyerBusinessType} onChange={(e) => setForm(f => ({ ...f, buyerBusinessType: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                          </td>
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">종목</td>
+                          <td className="px-2 py-1.5">
+                            <Input value={form.buyerBusinessItem} onChange={(e) => setForm(f => ({ ...f, buyerBusinessItem: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                          </td>
+                        </tr>
+                        <tr className="border-b border-foreground/30">
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">담당자명</td>
+                          <td className="px-2 py-1.5" colSpan={2}>
+                            {matchedContacts.length > 0 ? (
+                              <select
+                                value={selectedContactIdx}
+                                onChange={(e) => {
+                                  const idx = parseInt(e.target.value);
+                                  setSelectedContactIdx(idx);
+                                  setForm(f => ({ ...f, buyerEmail: matchedContacts[idx]?.email || f.buyerEmail }));
+                                }}
+                                className="h-6 text-[11px] bg-transparent border-0 p-0 w-full focus:outline-none"
+                              >
+                                {matchedContacts.map((ct, i) => (
+                                  <option key={i} value={i}>{ct.name || "-"} {ct.position ? `(${ct.position})` : ""}</option>
+                                ))}
+                              </select>
+                            ) : (
+                              <Input className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="" />
+                            )}
+                          </td>
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">연락처</td>
+                          <td className="px-2 py-1.5 text-[11px] text-muted-foreground">
+                            {matchedContacts[selectedContactIdx]?.phone || matchedContacts[selectedContactIdx]?.mobile || ""}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">이메일</td>
+                          <td colSpan={4} className="px-2 py-1.5">
+                            <Input value={form.buyerEmail} onChange={(e) => setForm(f => ({ ...f, buyerEmail: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" type="email" />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            {/* Section: 매출항목 */}
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-[13px] font-bold text-foreground">매출항목</label>
-                <Button size="sm" variant="outline" onClick={addLineItem} className="text-[11px] h-7 gap-1">
-                  <Plus className="w-3 h-3" /> 행 추가
-                </Button>
+              {/* 작성일자 / 공급가액 / 세액 row */}
+              <div className="border-t border-foreground/80">
+                <table className="w-full text-[12px] border-collapse">
+                  <thead>
+                    <tr className="bg-muted/30">
+                      <th className="px-3 py-1.5 font-bold text-center border-r border-foreground/30 w-[200px]">작성일자</th>
+                      <th className="px-3 py-1.5 font-bold text-center border-r border-foreground/30">공급가액</th>
+                      <th className="px-3 py-1.5 font-bold text-center">세액</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-t border-foreground/30">
+                      <td className="px-3 py-1.5 border-r border-foreground/30">
+                        <Input
+                          type="date"
+                          value={form.writeDate}
+                          onChange={(e) => {
+                            const newDate = e.target.value;
+                            setForm(f => ({ ...f, writeDate: newDate }));
+                            if (form.applyDateToAll) {
+                              setLineItems(prev => prev.map(l => ({ ...l, date: newDate })));
+                            }
+                          }}
+                          className="h-7 text-[12px] w-[150px]"
+                        />
+                      </td>
+                      <td className="px-3 py-1.5 text-right font-semibold tabular-nums border-r border-foreground/30 text-[14px]">
+                        {fmt(lineTotals.supply)}
+                      </td>
+                      <td className="px-3 py-1.5 text-right font-semibold tabular-nums text-[14px]">
+                        {fmt(lineTotals.tax)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div className="border rounded-lg overflow-hidden bg-background">
-                <div className="overflow-x-auto">
-                  <table className="w-full text-[12px]">
-                    <thead>
-                      <tr className="bg-muted/60 border-b">
-                        <th className="px-2 py-1.5 text-center font-medium w-[90px]">일자</th>
-                        <th className="px-2 py-1.5 text-left font-medium min-w-[100px]">항목명</th>
-                        <th className="px-2 py-1.5 text-left font-medium w-[80px]">규격</th>
-                        <th className="px-2 py-1.5 text-center font-medium w-[50px]">수량</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">단가</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[95px]">공급가액</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[85px]">부가세</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[95px]">합계</th>
-                        <th className="px-2 py-1.5 w-[30px]"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {lineItems.map((line, idx) => (
-                        <tr key={idx} className="border-b last:border-0">
-                          <td className="px-1 py-1">
+
+              {/* 비고1 row */}
+              <div className="border-t border-foreground/30">
+                <table className="w-full text-[12px] border-collapse">
+                  <tbody>
+                    <tr>
+                      <td className="px-3 py-1 font-bold text-center w-[80px] bg-muted/30 border-r border-foreground/30">비고1</td>
+                      <td className="px-2 py-1">
+                        <Input value={form.memo} onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Line Items Table */}
+              <div className="border-t border-foreground/80">
+                <table className="w-full text-[12px] border-collapse">
+                  <thead>
+                    <tr className="bg-muted/40">
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[40px]">월</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[40px]">일</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 min-w-[140px]">품목</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[70px]">규격</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[60px]">수량</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[90px]">단가</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[45px]">자동</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[100px]">공급가액</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[90px]">세액</th>
+                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 min-w-[60px]">비고</th>
+                      <th className="px-1.5 py-1.5 w-[30px]"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {lineItems.map((line, idx) => {
+                      const dateObj = new Date(line.date);
+                      const mm = String(dateObj.getMonth() + 1);
+                      const dd = String(dateObj.getDate());
+                      return (
+                        <tr key={idx} className="border-t border-foreground/20">
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
                             <Input
-                              type="date"
-                              value={line.date}
-                              onChange={(e) => updateLineItem(idx, "date", e.target.value)}
+                              value={mm}
+                              onChange={(e) => {
+                                const m = parseInt(e.target.value) || 1;
+                                const d = new Date(line.date);
+                                d.setMonth(m - 1);
+                                updateLineItem(idx, "date", d.toISOString().split("T")[0]);
+                              }}
                               disabled={form.applyDateToAll}
-                              className="h-7 text-[11px] px-1 text-center"
+                              className="h-6 text-[11px] text-center px-0.5 border-0 shadow-none focus-visible:ring-0"
                             />
                           </td>
-                          <td className="px-1 py-1">
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
+                            <Input
+                              value={dd}
+                              onChange={(e) => {
+                                const dayVal = parseInt(e.target.value) || 1;
+                                const d = new Date(line.date);
+                                d.setDate(dayVal);
+                                updateLineItem(idx, "date", d.toISOString().split("T")[0]);
+                              }}
+                              disabled={form.applyDateToAll}
+                              className="h-6 text-[11px] text-center px-0.5 border-0 shadow-none focus-visible:ring-0"
+                            />
+                          </td>
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
                             <Input
                               value={line.itemName}
                               onChange={(e) => updateLineItem(idx, "itemName", e.target.value)}
-                              className="h-7 text-[11px] px-1.5"
-                              placeholder=""
+                              className="h-6 text-[11px] px-1 border-0 shadow-none focus-visible:ring-0"
+                              placeholder="품목명 / 품목코드"
                             />
                           </td>
-                          <td className="px-1 py-1">
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
                             <Input
                               value={line.spec}
                               onChange={(e) => updateLineItem(idx, "spec", e.target.value)}
-                              className="h-7 text-[11px] px-1.5"
-                              placeholder=""
+                              className="h-6 text-[11px] px-1 border-0 shadow-none focus-visible:ring-0"
                             />
                           </td>
-                          <td className="px-1 py-1">
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
                             <Input
                               type="number"
                               value={line.quantity}
                               onChange={(e) => updateLineItem(idx, "quantity", parseInt(e.target.value) || 1)}
-                              className="h-7 text-[11px] text-center px-1"
+                              className="h-6 text-[11px] text-center px-0.5 border-0 shadow-none focus-visible:ring-0"
                               min={1}
                             />
                           </td>
-                          <td className="px-1 py-1">
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
                             <Input
                               value={line.unitPrice}
                               onChange={(e) => {
@@ -1020,251 +1123,190 @@ export default function TaxInvoiceManager() {
                                 const formatted = raw ? parseInt(raw).toLocaleString("ko-KR") : "";
                                 updateLineItem(idx, "unitPrice", formatted);
                               }}
-                              className="h-7 text-[11px] text-right px-1.5"
-                              placeholder=""
+                              className="h-6 text-[11px] text-right px-1 border-0 shadow-none focus-visible:ring-0"
                             />
                           </td>
-                          <td className="px-1 py-1">
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20 text-center">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="h-5 text-[10px] px-1.5"
+                              onClick={() => {
+                                const price = parseInt(String(line.unitPrice).replace(/,/g, "")) || 0;
+                                const supply = line.quantity * price;
+                                const taxRate = form.taxType === "과세" ? 0.1 : 0;
+                                const tax = Math.round(supply * taxRate);
+                                updateLineItem(idx, "supplyAmount", supply.toLocaleString("ko-KR"));
+                                setLineItems(prev => {
+                                  const u = [...prev];
+                                  u[idx] = { ...u[idx], supplyAmount: supply.toLocaleString("ko-KR"), taxAmount: tax.toLocaleString("ko-KR"), totalAmount: (supply + tax).toLocaleString("ko-KR") };
+                                  return u;
+                                });
+                              }}
+                            >
+                              계산
+                            </Button>
+                          </td>
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
                             <Input
                               value={line.supplyAmount}
                               readOnly
-                              className="h-7 text-[11px] text-right px-1.5 bg-muted/30"
+                              className="h-6 text-[11px] text-right px-1 bg-muted/20 border-0 shadow-none focus-visible:ring-0"
                             />
                           </td>
-                          <td className="px-1 py-1">
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
                             <Input
                               value={line.taxAmount}
                               readOnly
-                              className="h-7 text-[11px] text-right px-1.5 bg-muted/30"
+                              className="h-6 text-[11px] text-right px-1 bg-muted/20 border-0 shadow-none focus-visible:ring-0"
                             />
                           </td>
-                          <td className="px-1 py-1">
-                            <Input
-                              value={line.totalAmount}
-                              readOnly
-                              className="h-7 text-[11px] text-right px-1.5 bg-muted/30 font-medium"
-                            />
+                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
+                            <Input className="h-6 text-[11px] px-1 border-0 shadow-none focus-visible:ring-0" />
                           </td>
-                          <td className="px-1 py-1">
-                            {lineItems.length > 1 && (
-                              <button onClick={() => removeLineItem(idx)} className="p-0.5 text-muted-foreground hover:text-destructive">
-                                <Trash2 className="w-3 h-3" />
+                          <td className="px-0.5 py-0.5 text-center">
+                            {lineItems.length > 1 ? (
+                              <button onClick={() => removeLineItem(idx)} className="text-muted-foreground hover:text-destructive">
+                                <CircleMinus className="w-4 h-4" />
+                              </button>
+                            ) : (
+                              <button onClick={addLineItem} className="text-muted-foreground hover:text-primary">
+                                <CirclePlus className="w-4 h-4" />
                               </button>
                             )}
                           </td>
                         </tr>
-                      ))}
-                    </tbody>
-                    <tfoot>
-                      <tr className="bg-muted/40 border-t font-medium">
-                        <td colSpan={5} className="px-2 py-2 text-[12px]">총 {filledLines.length}개 항목</td>
-                        <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.supply)}</td>
-                        <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.tax)}</td>
-                        <td className="px-2 py-2 text-right text-[12px] text-primary font-bold">{fmt(lineTotals.total)}</td>
-                        <td></td>
-                      </tr>
-                    </tfoot>
-                  </table>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                {/* Add row button */}
+                <div className="flex justify-end px-2 py-1 border-t border-foreground/20">
+                  <button onClick={addLineItem} className="text-muted-foreground hover:text-primary">
+                    <CirclePlus className="w-4 h-4" />
+                  </button>
                 </div>
+              </div>
+
+              {/* Bottom totals row */}
+              <div className="border-t border-foreground/80">
+                <table className="w-full text-[12px] border-collapse">
+                  <tbody>
+                    <tr>
+                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[100px]">합계금액</td>
+                      <td className="px-3 py-1.5 text-right font-bold tabular-nums border-r border-foreground/30 w-[120px]">{fmt(lineTotals.total)}</td>
+                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[50px]">현금</td>
+                      <td className="px-3 py-1.5 border-r border-foreground/30 w-[100px]"></td>
+                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[50px]">수표</td>
+                      <td className="px-3 py-1.5 border-r border-foreground/30 w-[100px]"></td>
+                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[50px]">어음</td>
+                      <td className="px-3 py-1.5 border-r border-foreground/30 w-[100px]"></td>
+                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[70px]">외상미수금</td>
+                      <td className="px-3 py-1.5 w-[100px]"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 영수/청구 row */}
+              <div className="border-t border-foreground/80 flex items-center justify-end px-4 py-2 gap-2 text-[12px]">
+                <span className="text-foreground">이 금액을</span>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "영수"} onChange={() => setForm(f => ({ ...f, invoiceType: "영수" }))} className="accent-primary w-3.5 h-3.5" /> 영수</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "청구"} onChange={() => setForm(f => ({ ...f, invoiceType: "청구" }))} className="accent-primary w-3.5 h-3.5" /> 청구</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "없음"} onChange={() => setForm(f => ({ ...f, invoiceType: "없음" as any }))} className="accent-primary w-3.5 h-3.5" /> 없음</label>
+                <span className="text-foreground">함</span>
               </div>
             </div>
 
-            {/* Section: 영수/청구 */}
-            <div>
-              <div className="flex items-center gap-6">
-                <label className="text-[13px] font-bold text-foreground">구분</label>
-                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
-                  <input
-                    type="radio"
-                    name="invoice-type"
-                    checked={form.invoiceType === "영수"}
-                    onChange={() => setForm(f => ({ ...f, invoiceType: "영수" }))}
-                    className="accent-primary w-3.5 h-3.5"
-                  />
-                  영수
+            {/* Below the invoice table */}
+            <div className="space-y-3 text-[12px]">
+              {/* 관리메모 */}
+              <div className="flex items-start gap-3">
+                <span className="font-bold text-foreground w-[70px] shrink-0 pt-1">관리메모</span>
+                <div className="flex-1">
+                  <Input value={form.memo} onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))} className="h-8 text-[12px]" placeholder="공급자의 관리 목적으로 사용하며 공급받는자에게는 표시되지 않습니다." />
+                </div>
+              </div>
+
+              {/* 첨부문서 */}
+              <div className="flex items-center gap-3">
+                <span className="font-bold text-foreground w-[70px] shrink-0">첨부문서</span>
+                <label className="flex items-center gap-1.5 cursor-pointer">
+                  <Checkbox checked={form.businessLicenseYN} onCheckedChange={(v) => setForm(f => ({ ...f, businessLicenseYN: !!v }))} className="w-3.5 h-3.5" />
+                  사업자등록증
                 </label>
-                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
-                  <input
-                    type="radio"
-                    name="invoice-type"
-                    checked={form.invoiceType === "청구"}
-                    onChange={() => setForm(f => ({ ...f, invoiceType: "청구" }))}
-                    className="accent-primary w-3.5 h-3.5"
-                  />
-                  청구
+                <label className="flex items-center gap-1.5 cursor-pointer">
+                  <Checkbox checked={form.bankBookYN} onCheckedChange={(v) => setForm(f => ({ ...f, bankBookYN: !!v }))} className="w-3.5 h-3.5" />
+                  통장사본
                 </label>
               </div>
-            </div>
 
-            {/* Section: 비고 */}
-            <div>
-              <label className="text-[13px] font-bold text-foreground">비고</label>
-              <Input
-                value={form.memo}
-                onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))}
-                placeholder="품목명/비고"
-                className="h-8 text-[12px] mt-1.5"
-              />
-            </div>
-
-            {/* Section: 공급자 담당자 */}
-            <div>
-              <label className="text-[13px] font-bold text-foreground">공급자 담당자</label>
-              <div className="mt-1.5 grid grid-cols-2 gap-3">
-                <div className="grid grid-cols-[60px_1fr] items-center gap-2">
-                  <span className="text-[11px] text-muted-foreground font-medium">담당자명</span>
-                  <Input value={form.supplierContactName} onChange={(e) => setForm(f => ({ ...f, supplierContactName: e.target.value }))} className="h-8 text-[12px]" placeholder="담당자 성명" />
-                </div>
-                <div className="grid grid-cols-[50px_1fr] items-center gap-2">
-                  <span className="text-[11px] text-muted-foreground font-medium">부서명</span>
-                  <Input value={form.supplierDeptName} onChange={(e) => setForm(f => ({ ...f, supplierDeptName: e.target.value }))} className="h-8 text-[12px]" placeholder="부서명" />
-                </div>
-                <div className="grid grid-cols-[60px_1fr] items-center gap-2">
-                  <span className="text-[11px] text-muted-foreground font-medium">연락처</span>
-                  <Input value={form.supplierTEL} onChange={(e) => setForm(f => ({ ...f, supplierTEL: e.target.value }))} className="h-8 text-[12px]" placeholder="070-0000-0000" />
-                </div>
-                <div className="grid grid-cols-[50px_1fr] items-center gap-2">
-                  <span className="text-[11px] text-muted-foreground font-medium">휴대폰</span>
-                  <Input value={form.supplierHP} onChange={(e) => setForm(f => ({ ...f, supplierHP: e.target.value }))} className="h-8 text-[12px]" placeholder="010-0000-0000" />
-                </div>
-              </div>
-            </div>
-
-            {/* Section: 추가 담당자 */}
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-[13px] font-bold text-foreground">추가 수신 담당자</label>
-                <Button size="sm" variant="outline" onClick={() => setAddContacts(prev => [...prev, { name: "", email: "" }])} className="text-[11px] h-7 gap-1">
-                  <Plus className="w-3 h-3" /> 추가
-                </Button>
-              </div>
-              {addContacts.length === 0 ? (
-                <p className="text-[11px] text-muted-foreground">발행 안내메일을 추가 수신할 담당자가 있으면 추가하세요. (최대 5명)</p>
-              ) : (
-                <div className="space-y-2">
+              {/* 추가담당자 */}
+              <div className="flex items-start gap-3">
+                <span className="font-bold text-foreground w-[70px] shrink-0 pt-1">추가담당자</span>
+                <div className="flex-1 space-y-1.5">
+                  <p className="text-[11px] text-muted-foreground">이메일 주소를 5개까지 추가할 수 있습니다. 예시) popbill@popbill.com</p>
                   {addContacts.map((ac, i) => (
                     <div key={i} className="flex items-center gap-2">
-                      <Input value={ac.name} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, name: e.target.value } : p))} className="h-7 text-[11px] w-32" placeholder="성명" />
+                      <Input value={ac.name} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, name: e.target.value } : p))} className="h-7 text-[11px] w-28" placeholder="성명" />
                       <Input value={ac.email} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, email: e.target.value } : p))} className="h-7 text-[11px] flex-1" placeholder="이메일" type="email" />
                       <button onClick={() => setAddContacts(prev => prev.filter((_, j) => j !== i))} className="text-muted-foreground hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
                     </div>
                   ))}
+                  {addContacts.length < 5 && (
+                    <Button size="sm" variant="outline" onClick={() => setAddContacts(prev => [...prev, { name: "", email: "" }])} className="text-[11px] h-6 gap-1">
+                      <Plus className="w-3 h-3" /> 추가
+                    </Button>
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
 
-            {/* Section: 수정세금계산서 */}
-            <div>
-              <label className="flex items-center gap-2 text-[13px] font-bold text-foreground cursor-pointer">
-                <Checkbox checked={form.isModify} onCheckedChange={(v) => setForm(f => ({ ...f, isModify: !!v }))} className="w-3.5 h-3.5" />
-                수정세금계산서
-              </label>
-              {form.isModify && (
-                <div className="mt-2 grid grid-cols-2 gap-3 rounded-lg border bg-muted/20 p-3">
-                  <div>
-                    <span className="text-[11px] text-muted-foreground font-medium">수정 사유코드</span>
-                    <select
-                      value={form.modifyCode}
-                      onChange={(e) => setForm(f => ({ ...f, modifyCode: e.target.value }))}
-                      className="mt-1 w-full h-8 text-[12px] rounded-md border border-input bg-background px-2"
-                    >
-                      <option value="">선택</option>
-                      <option value="1">1 - 기재사항 착오정정</option>
-                      <option value="2">2 - 공급가액 변동</option>
-                      <option value="3">3 - 환입</option>
-                      <option value="4">4 - 계약의 해제</option>
-                      <option value="5">5 - 내국신용장 사후개설</option>
-                      <option value="6">6 - 착오에 의한 이중발급</option>
-                    </select>
-                  </div>
-                  <div>
-                    <span className="text-[11px] text-muted-foreground font-medium">당초 국세청승인번호</span>
-                    <Input value={form.orgNTSConfirmNum} onChange={(e) => setForm(f => ({ ...f, orgNTSConfirmNum: e.target.value }))} className="mt-1 h-8 text-[12px]" placeholder="24자리 승인번호" />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Section: 첨부서류 */}
-            <div>
-              <label className="text-[13px] font-bold text-foreground mb-1.5 block">첨부서류 (팝빌 등록분)</label>
-              <div className="flex items-center gap-6">
-                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
-                  <Checkbox checked={form.businessLicenseYN} onCheckedChange={(v) => setForm(f => ({ ...f, businessLicenseYN: !!v }))} className="w-3.5 h-3.5" />
-                  사업자등록증 첨부
+              {/* 수정세금계산서 */}
+              <div className="flex items-start gap-3">
+                <label className="flex items-center gap-1.5 font-bold text-foreground w-[70px] shrink-0 cursor-pointer pt-1">
+                  <Checkbox checked={form.isModify} onCheckedChange={(v) => setForm(f => ({ ...f, isModify: !!v }))} className="w-3.5 h-3.5" />
+                  수정발행
                 </label>
-                <label className="flex items-center gap-1.5 text-[12px] cursor-pointer">
-                  <Checkbox checked={form.bankBookYN} onCheckedChange={(v) => setForm(f => ({ ...f, bankBookYN: !!v }))} className="w-3.5 h-3.5" />
-                  통장사본 첨부
-                </label>
+                {form.isModify && (
+                  <div className="flex-1 grid grid-cols-2 gap-3 rounded-lg border bg-muted/20 p-3">
+                    <div>
+                      <span className="text-[11px] text-muted-foreground font-medium">수정 사유코드</span>
+                      <select
+                        value={form.modifyCode}
+                        onChange={(e) => setForm(f => ({ ...f, modifyCode: e.target.value }))}
+                        className="mt-1 w-full h-8 text-[12px] rounded-md border border-input bg-background px-2"
+                      >
+                        <option value="">선택</option>
+                        <option value="1">1 - 기재사항 착오정정</option>
+                        <option value="2">2 - 공급가액 변동</option>
+                        <option value="3">3 - 환입</option>
+                        <option value="4">4 - 계약의 해제</option>
+                        <option value="5">5 - 내국신용장 사후개설</option>
+                        <option value="6">6 - 착오에 의한 이중발급</option>
+                      </select>
+                    </div>
+                    <div>
+                      <span className="text-[11px] text-muted-foreground font-medium">당초 국세청승인번호</span>
+                      <Input value={form.orgNTSConfirmNum} onChange={(e) => setForm(f => ({ ...f, orgNTSConfirmNum: e.target.value }))} className="mt-1 h-8 text-[12px]" placeholder="24자리 승인번호" />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Section: 담당자 */}
-            {matchedContacts.length > 0 && (
-              <div>
-                <label className="text-[13px] font-bold text-foreground mb-2 block">담당자</label>
-                <div className="border rounded-lg overflow-hidden bg-background">
-                  <table className="w-full text-[12px]">
-                    <thead>
-                      <tr className="bg-muted/60 border-b">
-                        <th className="px-2 py-1.5 w-[30px]"></th>
-                        <th className="px-2 py-1.5 text-left font-medium">성명</th>
-                        <th className="px-2 py-1.5 text-left font-medium">직급</th>
-                        <th className="px-2 py-1.5 text-left font-medium">전화</th>
-                        <th className="px-2 py-1.5 text-left font-medium">휴대폰</th>
-                        <th className="px-2 py-1.5 text-left font-medium">이메일</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {matchedContacts.map((ct, i) => (
-                        <tr
-                          key={i}
-                          className={`border-b last:border-0 cursor-pointer transition-colors ${
-                            selectedContactIdx === i ? "bg-primary/5" : "hover:bg-muted/30"
-                          }`}
-                          onClick={() => {
-                            setSelectedContactIdx(i);
-                            setForm(f => ({ ...f, buyerEmail: ct.email || f.buyerEmail }));
-                          }}
-                        >
-                          <td className="px-2 py-1.5 text-center">
-                            <input
-                              type="radio"
-                              name="contact-select"
-                              checked={selectedContactIdx === i}
-                              onChange={() => {
-                                setSelectedContactIdx(i);
-                                setForm(f => ({ ...f, buyerEmail: ct.email || f.buyerEmail }));
-                              }}
-                              className="accent-primary w-3.5 h-3.5"
-                            />
-                          </td>
-                          <td className="px-2 py-1.5 font-medium">{ct.name || "-"}</td>
-                          <td className="px-2 py-1.5 text-muted-foreground">{ct.position || "-"}</td>
-                          <td className="px-2 py-1.5 text-muted-foreground">{ct.phone || "-"}</td>
-                          <td className="px-2 py-1.5 text-muted-foreground">{ct.mobile || "-"}</td>
-                          <td className="px-2 py-1.5 text-muted-foreground">{ct.email || "-"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-          </div>
-          )}
-
-          {/* Step 1 Footer */}
-          {issueStep === 1 && (
-            <DialogFooter className="mt-4">
-              <Button variant="outline" onClick={resetAndClose} className="text-[13px]">
+            {/* Action buttons - matching Popbill style */}
+            <div className="flex items-center justify-end gap-2 pt-2 border-t">
+              <Button variant="outline" onClick={resetAndClose} className="text-[13px] h-9">
                 취소
               </Button>
-              <Button onClick={handleSave} className="text-[13px] gap-1.5">
-                <Save className="w-3.5 h-3.5" /> 저장 및 확인
+              <Button variant="outline" onClick={handleSave} className="text-[13px] h-9 gap-1.5">
+                <Save className="w-3.5 h-3.5" /> 임시저장
               </Button>
-            </DialogFooter>
+              <Button onClick={handleSave} className="text-[13px] h-9 gap-1.5 bg-primary hover:bg-primary/90">
+                <Send className="w-3.5 h-3.5" /> 발행
+              </Button>
+            </div>
+          </div>
           )}
         </DialogContent>
       </Dialog>
