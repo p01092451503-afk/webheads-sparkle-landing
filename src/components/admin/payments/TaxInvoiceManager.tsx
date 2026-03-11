@@ -133,12 +133,15 @@ export default function TaxInvoiceManager() {
   const emptyLine = (): SalesLineItem => ({
     date: form.writeDate,
     itemName: "",
+    spec: "",
     quantity: 1,
     unitPrice: "",
     supplyAmount: "",
     taxAmount: "",
     totalAmount: "",
   });
+
+  const [addContacts, setAddContacts] = useState<AddContact[]>([]);
 
   const [lineItems, setLineItems] = useState<SalesLineItem[]>([emptyLine()]);
 
