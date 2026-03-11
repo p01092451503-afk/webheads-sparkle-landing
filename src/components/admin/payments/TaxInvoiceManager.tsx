@@ -116,6 +116,18 @@ export default function TaxInvoiceManager() {
     writeDate: new Date().toISOString().split("T")[0],
     applyDateToAll: true,
     invoiceType: "청구" as "영수" | "청구",
+    // 공급자 담당자
+    supplierContactName: "",
+    supplierDeptName: "",
+    supplierTEL: "",
+    supplierHP: "",
+    // 수정세금계산서
+    isModify: false,
+    modifyCode: "" as string,
+    orgNTSConfirmNum: "",
+    // 첨부
+    businessLicenseYN: false,
+    bankBookYN: false,
   });
 
   const emptyLine = (): SalesLineItem => ({
