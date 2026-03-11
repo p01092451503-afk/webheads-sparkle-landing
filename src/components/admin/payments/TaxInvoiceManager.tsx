@@ -831,8 +831,8 @@ export default function TaxInvoiceManager() {
               <div className="grid grid-cols-2" style={{ borderBottom: "1px solid #999" }}>
                 {/* 공급자 (Supplier) */}
                 <div className="flex" style={{ borderRight: "2px solid #999" }}>
-                  <div className="flex items-center justify-center shrink-0" style={{ width: "26px", backgroundColor: "#fff2f2", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
-                    <span className="text-[12px] font-bold" style={{ color: "#cc3333", letterSpacing: "0.15em" }}>공급자</span>
+                  <div className="flex items-center justify-center shrink-0" style={{ width: "36px", backgroundColor: "#fff2f2", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
+                    <span className="text-[16px] font-bold" style={{ color: "#cc3333", letterSpacing: "0.2em" }}>공급자</span>
                   </div>
                   <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse", tableLayout: "fixed" }}>
                     <colgroup>
