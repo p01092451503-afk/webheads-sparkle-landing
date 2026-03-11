@@ -439,6 +439,9 @@ export default function AdminDashboard() {
           {tab === "client_work" && (
             <ClientWorkManager isSuperAdmin={isSuperAdmin} />
           )}
+          {tab === "work_files" && (
+            <WorkFileManager isSuperAdmin={isSuperAdmin} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
