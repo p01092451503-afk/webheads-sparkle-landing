@@ -437,16 +437,27 @@ export default function TaxInvoiceManager() {
       writeDate: log.issue_date || new Date().toISOString().split("T")[0],
       applyDateToAll: true,
       invoiceType: "청구",
+      supplierContactName: "",
+      supplierDeptName: "",
+      supplierTEL: "",
+      supplierHP: "",
+      isModify: false,
+      modifyCode: "",
+      orgNTSConfirmNum: "",
+      businessLicenseYN: false,
+      bankBookYN: false,
     });
     setLineItems([{
       date: log.issue_date || new Date().toISOString().split("T")[0],
       itemName: log.memo || "서비스 이용료",
+      spec: "",
       quantity: 1,
       unitPrice: log.supply_amount.toLocaleString("ko-KR"),
       supplyAmount: log.supply_amount.toLocaleString("ko-KR"),
       taxAmount: log.tax_amount.toLocaleString("ko-KR"),
       totalAmount: log.total_amount.toLocaleString("ko-KR"),
     }]);
+    setAddContacts([]);
     setIssueStep(2);
     setIssueOpen(true);
   };
