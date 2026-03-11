@@ -90,13 +90,22 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
 
   useEffect(() => { fetchFiles(); }, [fetchFiles]);
 
+  const folderToPathKey: Record<string, string> = {
+    "일반": "general",
+    "계약서": "contracts",
+    "세금계산서": "invoices",
+    "견적서": "quotes",
+    "기타": "etc",
+  };
+
   const handleUpload = async () => {
     if (selectedFiles.length === 0) return;
     setUploading(true);
     try {
       for (const file of selectedFiles) {
         const ext = file.name.split(".").pop();
-        const filePath = `${uploadFolder}/${Date.now()}_${crypto.randomUUID().slice(0, 6)}.${ext}`;
+        const safeFolder = folderToPathKey[uploadFolder] || "general";
+        const filePath = `${safeFolder}/${Date.now()}_${crypto.randomUUID().slice(0, 6)}.${ext}`;
 
         const { error: storageError } = await supabase.storage
           .from("work-files")
