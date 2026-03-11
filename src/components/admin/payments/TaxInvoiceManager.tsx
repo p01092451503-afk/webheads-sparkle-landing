@@ -651,7 +651,7 @@ export default function TaxInvoiceManager() {
 
       {/* Issue Dialog - Popbill Style */}
       <Dialog open={issueOpen} onOpenChange={(open) => { if (!open) resetAndClose(); else setIssueOpen(true); }}>
-        <DialogContent className="max-w-[95vw] w-[1500px] max-h-[92vh] overflow-y-auto p-0">
+        <DialogContent className="max-w-[98vw] w-[1700px] max-h-[92vh] overflow-y-auto p-0">
           {/* Step 2/3: Preview & Issue */}
           {issueStep >= 2 && (
             <div className="p-6 space-y-5">
