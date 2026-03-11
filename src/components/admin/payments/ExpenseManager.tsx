@@ -321,6 +321,60 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
   const getClientName = (id: string | null) => clients.find((c) => c.id === id)?.name || null;
   const getVendorName = (id: string | null) => vendors.find((v) => v.id === id)?.name || null;
 
+  const fetchAttachments = async (expenseId: string) => {
+    const { data } = await supabase.from("expense_attachments" as any).select("*").eq("expense_id", expenseId).order("created_at");
+    setAttachments((data as any) || []);
+  };
+
+  const uploadAttachment = async (file: globalThis.File, expenseId: string) => {
+    setUploadingFile(true);
+    try {
+      const ext = file.name.split(".").pop();
+      const filePath = `${expenseId}/${Date.now()}.${ext}`;
+      const { error: uploadError } = await supabase.storage.from("expense-attachments").upload(filePath, file);
+      if (uploadError) throw uploadError;
+      const { error: dbError } = await supabase.from("expense_attachments" as any).insert({
+        expense_id: expenseId,
+        file_name: file.name,
+        file_path: filePath,
+        file_size: file.size,
+        content_type: file.type,
+      } as any);
+      if (dbError) throw dbError;
+      await fetchAttachments(expenseId);
+      toast.success("파일이 첨부되었습니다");
+    } catch (e: any) {
+      toast.error(e.message || "파일 업로드 실패");
+    } finally {
+      setUploadingFile(false);
+    }
+  };
+
+  const deleteAttachment = async (att: { id: string; file_path: string }, expenseId: string) => {
+    try {
+      await supabase.storage.from("expense-attachments").remove([att.file_path]);
+      await supabase.from("expense_attachments" as any).delete().eq("id", att.id);
+      await fetchAttachments(expenseId);
+      toast.success("첨부파일이 삭제되었습니다");
+    } catch (e: any) {
+      toast.error("삭제 실패");
+    }
+  };
+
+  const getAttachmentUrl = (filePath: string) => {
+    const { data } = supabase.storage.from("expense-attachments").getPublicUrl(filePath);
+    return data.publicUrl;
+  };
+
+  const isImageType = (contentType: string | null) => contentType?.startsWith("image/");
+
+  const formatFileSize = (size: number | null) => {
+    if (!size) return "";
+    if (size < 1024) return `${size}B`;
+    if (size < 1024 * 1024) return `${(size / 1024).toFixed(0)}KB`;
+    return `${(size / (1024 * 1024)).toFixed(1)}MB`;
+  };
+
   const openAddModal = () => {
     setEditExpense(null);
     setFormCategoryId(categories[0]?.id || "");
@@ -332,6 +386,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormMemo("");
     setFormInvoiceIssued(false);
     setFormPaymentMethod("bank_transfer");
+    setAttachments([]);
     setModalOpen(true);
   };
 
@@ -346,6 +401,7 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
     setFormMemo(exp.memo || "");
     setFormInvoiceIssued(exp.invoice_issued || false);
     setFormPaymentMethod(exp.payment_method || "bank_transfer");
+    fetchAttachments(exp.id);
     setModalOpen(true);
   };
 
