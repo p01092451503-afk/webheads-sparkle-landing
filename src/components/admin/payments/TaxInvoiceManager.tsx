@@ -1435,12 +1435,14 @@ export default function TaxInvoiceManager() {
             </div>
           </div>
           )}
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
       {/* Detail Dialog for issued invoices */}
       <Dialog open={!!detailLog} onOpenChange={(open) => { if (!open) setDetailLog(null); }}>
-        <DialogContent className="max-w-[90vw] w-[1445px] max-h-[92vh] overflow-y-auto p-0">
+        <DialogContent className="max-w-[90vw] w-[1445px] max-h-[92vh] p-0 overflow-hidden">
+          <ScrollArea className="max-h-[calc(92vh-2rem)] w-full">
           <div className="p-6 space-y-5">
             <div className="flex items-center gap-2">
               <FileText className="w-5 h-5" />
