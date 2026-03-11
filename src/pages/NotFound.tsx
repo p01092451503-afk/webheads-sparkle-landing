@@ -38,6 +38,7 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/%ec%9b%b9%ec%8a%a4%ec%bf%a8%20neo%20%ec%86%94%eb%a3%a8%ec%85%98": "/lms",
   "/%EC%9B%B9%EC%8A%A4%EC%BF%A8%20Neo%20%EC%86%94%EB%A3%A8%EC%85%98": "/lms",
   "/웹스쿨 neo 솔루션": "/lms",
+  "/download/intro_250527.pdf": "/lms",
   "/app-dev": "/app",
   "/company.php": "/overview",
   "/htmlpage.php": "/",
