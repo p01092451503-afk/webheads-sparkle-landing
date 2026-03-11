@@ -993,6 +993,14 @@ export default function TaxInvoiceManager() {
                           </td>
                           <td className="px-1 py-1">
                             <Input
+                              value={line.spec}
+                              onChange={(e) => updateLineItem(idx, "spec", e.target.value)}
+                              className="h-7 text-[11px] px-1.5"
+                              placeholder=""
+                            />
+                          </td>
+                          <td className="px-1 py-1">
+                            <Input
                               type="number"
                               value={line.quantity}
                               onChange={(e) => updateLineItem(idx, "quantity", parseInt(e.target.value) || 1)}
