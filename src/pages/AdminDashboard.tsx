@@ -38,7 +38,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "checklist", icon: ListChecks, label: "체크리스트" },
   { key: "report", icon: FileBarChart, label: "월간리포트" },
   { key: "client_work", icon: FolderKanban, label: "프로젝트관리" },
-  { key: "work_files", icon: FolderOpen, label: "업무자료" },
+  
 ];
 
 const TabLoader = () => (
