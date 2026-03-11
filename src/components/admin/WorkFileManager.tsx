@@ -367,6 +367,7 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
                   <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">새 탭에서 열기</a>
                 </div>
               </object>
+            ) : null}
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => previewFile && handleDownload(previewFile)} className="gap-2">
