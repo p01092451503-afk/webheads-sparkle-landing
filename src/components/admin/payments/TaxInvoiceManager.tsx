@@ -837,9 +837,9 @@ export default function TaxInvoiceManager() {
                   <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse", tableLayout: "fixed" }}>
                     <colgroup>
                       <col style={{ width: "75px" }} />
-                      <col />
+                      <col style={{ width: "40%" }} />
                       <col style={{ width: "70px" }} />
-                      <col style={{ width: "150px" }} />
+                      <col />
                     </colgroup>
                     <tbody>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
@@ -890,9 +890,9 @@ export default function TaxInvoiceManager() {
                   <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse", tableLayout: "fixed" }}>
                     <colgroup>
                       <col style={{ width: "75px" }} />
-                      <col />
+                      <col style={{ width: "40%" }} />
                       <col style={{ width: "70px" }} />
-                      <col style={{ width: "150px" }} />
+                      <col />
                     </colgroup>
                     <tbody>
                       <tr style={{ borderBottom: "1px solid #ddd" }}>
