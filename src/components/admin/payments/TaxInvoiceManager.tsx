@@ -115,7 +115,8 @@ export default function TaxInvoiceManager() {
     memo: "",
     writeDate: new Date().toISOString().split("T")[0],
     applyDateToAll: true,
-    invoiceType: "청구" as "영수" | "청구",
+    invoiceType: "청구" as "영수" | "청구" | "없음",
+    taxType: "과세" as "과세" | "영세" | "면세",
     // 공급자 담당자
     supplierContactName: "",
     supplierDeptName: "",
