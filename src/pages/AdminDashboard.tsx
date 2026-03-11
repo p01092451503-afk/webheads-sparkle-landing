@@ -332,71 +332,77 @@ export default function AdminDashboard() {
           </div>
 
           {/* Tabs */}
-          <div className="flex -mb-px overflow-x-auto scrollbar-hide">
-            {tabs.filter(t => t.key !== "payments" && t.key !== "expenses" && t.key !== "taxinvoice" && t.key !== "client_companies" && t.key !== "checklist" && t.key !== "report" && t.key !== "client_work").map((t) => {
-              const isActive = tab === t.key;
-              return (
-                <button
-                  key={t.key}
-                  onClick={() => setTab(t.key)}
-                  className="relative flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-medium transition-all shrink-0"
-                  style={{
-                    color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)",
-                  }}
-                >
-                  <t.icon className="w-4 h-4" />
-                  <span>{t.label}</span>
-                  {t.key === "inquiries" && newCount > 0 && (
-                    <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px] font-bold bg-[hsl(0,84%,60%)] text-white px-1">
-                      {newCount}
-                    </span>
-                  )}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
-                  )}
-                </button>
-              );
-            })}
-            <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
-            {tabs.filter(t => t.key === "client_companies" || t.key === "payments" || t.key === "expenses" || t.key === "taxinvoice" || t.key === "report").map((t) => {
-              const isActive = tab === t.key;
-              return (
-                <button
-                  key={t.key}
-                  onClick={() => setTab(t.key)}
-                  className="relative flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-medium transition-all shrink-0"
-                  style={{
-                    color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)",
-                  }}
-                >
-                  <t.icon className="w-4 h-4" />
-                  <span>{t.label}</span>
-                  {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
-                  )}
-                </button>
-              );
-            })}
-            <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
-            {tabs.filter(t => t.key === "checklist" || t.key === "client_work" || t.key === "work_files").map((t) => {
-              const isActive = tab === t.key;
-              return (
-                <button
-                  key={t.key}
-                  onClick={() => setTab(t.key)}
-                  className="relative flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-medium transition-all shrink-0"
-                  style={{
-                    color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)",
-                  }}
-                >
-                  <t.icon className="w-4 h-4" />
-                  <span>{t.label}</span>
-                  {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
-                  )}
-                </button>
-              );
-            })}
+          <div className="flex -mb-px overflow-x-auto scrollbar-hide items-end gap-1">
+            {/* 운영 그룹 */}
+            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(220,14%,97%)] px-1 pt-1">
+              <span className="text-[10px] font-semibold text-muted-foreground/60 px-2 pb-1 tracking-wide">운영</span>
+              {tabs.filter(t => !["payments","expenses","taxinvoice","client_companies","checklist","report","client_work","work_files"].includes(t.key)).map((t) => {
+                const isActive = tab === t.key;
+                return (
+                  <button
+                    key={t.key}
+                    onClick={() => setTab(t.key)}
+                    className="relative flex items-center gap-1.5 px-3.5 py-2.5 text-[13px] font-medium transition-all shrink-0"
+                    style={{ color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)" }}
+                  >
+                    <t.icon className="w-4 h-4" />
+                    <span>{t.label}</span>
+                    {t.key === "inquiries" && newCount > 0 && (
+                      <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[10px] font-bold bg-[hsl(0,84%,60%)] text-white px-1">
+                        {newCount}
+                      </span>
+                    )}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* 금융/리포트 그룹 */}
+            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(150,20%,96%)] px-1 pt-1">
+              <span className="text-[10px] font-semibold text-muted-foreground/60 px-2 pb-1 tracking-wide">금융</span>
+              {tabs.filter(t => ["client_companies","payments","expenses","taxinvoice","report"].includes(t.key)).map((t) => {
+                const isActive = tab === t.key;
+                return (
+                  <button
+                    key={t.key}
+                    onClick={() => setTab(t.key)}
+                    className="relative flex items-center gap-1.5 px-3.5 py-2.5 text-[13px] font-medium transition-all shrink-0"
+                    style={{ color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)" }}
+                  >
+                    <t.icon className="w-4 h-4" />
+                    <span>{t.label}</span>
+                    {isActive && (
+                      <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* 업무 그룹 */}
+            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(35,30%,96%)] px-1 pt-1">
+              <span className="text-[10px] font-semibold text-muted-foreground/60 px-2 pb-1 tracking-wide">업무</span>
+              {tabs.filter(t => ["checklist","client_work","work_files"].includes(t.key)).map((t) => {
+                const isActive = tab === t.key;
+                return (
+                  <button
+                    key={t.key}
+                    onClick={() => setTab(t.key)}
+                    className="relative flex items-center gap-1.5 px-3.5 py-2.5 text-[13px] font-medium transition-all shrink-0"
+                    style={{ color: isActive ? "hsl(221, 83%, 53%)" : "hsl(220, 9%, 46%)" }}
+                  >
+                    <t.icon className="w-4 h-4" />
+                    <span>{t.label}</span>
+                    {isActive && (
+                      <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-full bg-[hsl(221,83%,53%)]" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </header>
