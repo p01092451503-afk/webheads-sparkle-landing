@@ -345,8 +345,24 @@ export default function TaxInvoiceManager() {
           writeDate: form.writeDate.replace(/-/g, ""),
           purposeType: form.invoiceType === "영수" ? 1 : 2,
           memo: form.memo,
+          // 공급자 담당자
+          supplierContactName: form.supplierContactName || undefined,
+          supplierDeptName: form.supplierDeptName || undefined,
+          supplierTEL: form.supplierTEL || undefined,
+          supplierHP: form.supplierHP || undefined,
+          // 수정세금계산서
+          modifyCode: form.isModify && form.modifyCode ? parseInt(form.modifyCode) : undefined,
+          orgNTSConfirmNum: form.isModify && form.orgNTSConfirmNum ? form.orgNTSConfirmNum : undefined,
+          // 첨부
+          businessLicenseYN: form.businessLicenseYN || undefined,
+          bankBookYN: form.bankBookYN || undefined,
+          // 추가 담당자
+          addContactList: addContacts.length > 0 ? addContacts : undefined,
           items: filledLines.map(l => ({
             name: l.itemName,
+            spec: l.spec || undefined,
+            quantity: l.quantity,
+            unitCost: parseInt(l.unitPrice.replace(/,/g, "")) || 0,
             date: l.date.replace(/-/g, ""),
             supplyAmount: parseInt(l.supplyAmount.replace(/,/g, "")) || 0,
             taxAmount: parseInt(l.taxAmount.replace(/,/g, "")) || 0,
