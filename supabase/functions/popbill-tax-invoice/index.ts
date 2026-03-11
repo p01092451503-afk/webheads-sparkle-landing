@@ -364,15 +364,101 @@ serve(async (req) => {
       }
 
       case "checkBalance": {
-        // Check remaining Popbill points
         const result = await callPopbillAPI(
           popbillToken,
           "GET",
           `/Taxinvoice/${CORP_NUM}/Balance`
         );
+        return new Response(
+          JSON.stringify({ success: true, data: result }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "checkStatus": {
+        // 국세청 전송 상태 조회
+        const { mgtKey, invoiceLogId } = params;
+        if (!mgtKey) throw new Error("mgtKey is required");
+
+        const result = await callPopbillAPI(
+          popbillToken,
+          "GET",
+          `/Taxinvoice/${CORP_NUM}/01/${mgtKey}?TG=BRIEF`
+        );
+
+        // Update local DB with latest status info
+        if (invoiceLogId && result) {
+          const statusMap: Record<string, string> = {
+            "1": "임시저장", "2": "발행대기", "3": "발행완료",
+            "4": "전송대기", "5": "전송중", "6": "전송완료",
+            "7": "전송실패", "8": "취소", "9": "폐기",
+          };
+          const ntsResult = result.ntsresult || "";
+          const stateCode = result.stateCode || "";
+          let dbStatus = "issued";
+          if (stateCode >= 6 && ntsResult === "1") dbStatus = "nts_success";
+          else if (stateCode >= 6 && ntsResult && ntsResult !== "1") dbStatus = "nts_failed";
+          else if (stateCode == 8 || stateCode == 9) dbStatus = "cancelled";
+
+          await supabase.from("tax_invoice_logs").update({
+            nts_confirm_num: result.ntsconfirmNum || null,
+            status: dbStatus,
+            popbill_response: result,
+          }).eq("id", invoiceLogId);
+        }
 
         return new Response(
           JSON.stringify({ success: true, data: result }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "cancel": {
+        // 발행 취소 (국세청 전송 전에만 가능)
+        const { mgtKey: cancelMgtKey, memo: cancelMemo, invoiceLogId: cancelLogId } = params;
+        if (!cancelMgtKey) throw new Error("mgtKey is required");
+
+        const result = await callPopbillAPI(
+          popbillToken,
+          "PATCH",
+          `/Taxinvoice/${CORP_NUM}/01/${cancelMgtKey}?method=CANCEL`,
+          { memo: cancelMemo || "발행취소" }
+        );
+
+        if (cancelLogId) {
+          await supabase.from("tax_invoice_logs").update({
+            status: "cancelled",
+            popbill_response: result,
+          }).eq("id", cancelLogId);
+        }
+
+        return new Response(
+          JSON.stringify({ success: true, data: result }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "resendEmail": {
+        // 이메일 재전송
+        const { mgtKey: resendMgtKey, receiverEmail } = params;
+        if (!resendMgtKey) throw new Error("mgtKey is required");
+
+        const result = await callPopbillAPI(
+          popbillToken,
+          "POST",
+          `/Taxinvoice/${CORP_NUM}/01/${resendMgtKey}?method=EMAIL`,
+          { receiver: receiverEmail || "" }
+        );
+
+        return new Response(
+          JSON.stringify({ success: true, data: result }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "getEnvironment": {
+        return new Response(
+          JSON.stringify({ success: true, data: { isProduction: IS_PRODUCTION } }),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
