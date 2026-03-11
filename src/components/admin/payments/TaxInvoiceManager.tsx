@@ -1105,9 +1105,7 @@ export default function TaxInvoiceManager() {
                         <td colSpan={2} className="px-3 py-[7px]">
                           <Input value={form.buyerEmail} onChange={(e) => setForm(f => ({ ...f, buyerEmail: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" type="email" />
                         </td>
-                        <td className="px-3 py-[7px] text-right">
-                          <button className="text-[12px] px-2 py-1 rounded whitespace-nowrap" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>+ 거래처 등록</button>
-                        </td>
+                        <td className="px-3 py-[7px]"></td>
                       </tr>
                     </tbody>
                   </table>
