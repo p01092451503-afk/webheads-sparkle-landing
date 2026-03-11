@@ -238,10 +238,10 @@ export default function LmsPage() {
               {t("lms.hero.cta2")}
             </a>
             <a href="#cost-simulator" className="group relative px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
-              {/* Decorative sparkles */}
-              <span className="absolute -top-3 -left-2 text-yellow-400 animate-pulse text-lg">✦</span>
-              <span className="absolute -top-4 left-1/2 -translate-x-1/2 text-yellow-300 animate-pulse text-sm" style={{ animationDelay: "0.3s" }}>★</span>
-              <span className="absolute -top-2.5 -right-2 text-yellow-400 animate-pulse text-base" style={{ animationDelay: "0.6s" }}>✦</span>
+              {/* Toss-style emphasis badge */}
+              <span className="absolute -top-2.5 -right-3 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide" style={{ background: "linear-gradient(135deg, hsl(245,70%,50%), hsl(270,80%,60%))", color: "white", boxShadow: "0 2px 8px rgba(99,71,217,0.4)" }}>
+                HOT
+              </span>
               <Calculator className="w-4 h-4" />
               {t("floatingNav.costSimulator")}
             </a>
