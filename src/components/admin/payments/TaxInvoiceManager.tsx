@@ -961,12 +961,13 @@ export default function TaxInvoiceManager() {
                     <thead>
                       <tr className="bg-muted/60 border-b">
                         <th className="px-2 py-1.5 text-center font-medium w-[90px]">일자</th>
-                        <th className="px-2 py-1.5 text-left font-medium min-w-[120px]">항목명</th>
+                        <th className="px-2 py-1.5 text-left font-medium min-w-[100px]">항목명</th>
+                        <th className="px-2 py-1.5 text-left font-medium w-[80px]">규격</th>
                         <th className="px-2 py-1.5 text-center font-medium w-[50px]">수량</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[110px]">단가(세액별도)</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">공급가액</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[90px]">부가세</th>
-                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">합계</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[100px]">단가</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[95px]">공급가액</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[85px]">부가세</th>
+                        <th className="px-2 py-1.5 text-right font-medium w-[95px]">합계</th>
                         <th className="px-2 py-1.5 w-[30px]"></th>
                       </tr>
                     </thead>
