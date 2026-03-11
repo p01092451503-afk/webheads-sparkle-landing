@@ -73,13 +73,20 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
+      const errorMsg = this.state.error?.message || "알 수 없는 오류";
+      const errorStack = this.state.error?.stack || "";
       return (
         <div className="min-h-screen flex items-center justify-center bg-background p-6">
-          <div className="text-center max-w-md">
+          <div className="text-center max-w-lg">
             <h1 className="text-2xl font-bold text-foreground mb-4">오류가 발생했습니다</h1>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-muted-foreground mb-4">
               일시적인 오류가 발생했습니다. 페이지를 새로고침해 주세요.
             </p>
+            <details className="text-left mb-4 p-3 rounded-lg bg-muted text-[12px] text-muted-foreground">
+              <summary className="cursor-pointer font-medium">오류 상세</summary>
+              <p className="mt-2 font-mono break-all">{errorMsg}</p>
+              <pre className="mt-1 text-[10px] overflow-auto max-h-40 whitespace-pre-wrap">{errorStack}</pre>
+            </details>
             <button
               onClick={() => window.location.reload()}
               className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition"
