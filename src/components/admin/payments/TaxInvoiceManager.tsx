@@ -22,11 +22,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 interface SalesLineItem {
   date: string;
   itemName: string;
+  spec: string;
   quantity: number;
   unitPrice: string;
   supplyAmount: string;
   taxAmount: string;
   totalAmount: string;
+}
+
+interface AddContact {
+  name: string;
+  email: string;
 }
 
 interface TaxInvoiceLog {
