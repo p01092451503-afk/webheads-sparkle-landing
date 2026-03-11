@@ -1578,17 +1578,72 @@ export default function TaxInvoiceManager() {
                       </tbody>
                     </table>
 
-                    {/* 비고 */}
-                    {detailLog.memo && (
-                      <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderBottom: "1px solid #ddd" }}>
-                        <tbody>
-                          <tr>
-                            <td className="px-3 py-[5px] font-bold text-center" style={{ width: "80px", backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc" }}>비고</td>
-                            <td className="px-3 py-[5px]" style={{ color: "#333" }}>{detailLog.memo}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    )}
+                    {/* 비고1 */}
+                    <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderBottom: "1px solid #ddd" }}>
+                      <tbody>
+                        <tr>
+                          <td className="px-3 py-[5px] font-bold text-center" style={{ width: "80px", backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc" }}>비고1</td>
+                          <td className="px-3 py-[5px]" style={{ color: "#333" }}>{detailLog.memo || ""}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    {/* Line Items Table */}
+                    <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderTop: "2px solid #999" }}>
+                      <thead>
+                        <tr style={{ backgroundColor: "#f0f0f0" }}>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "50px" }}>월</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "50px" }}>일</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", minWidth: "200px" }}>품목</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "100px" }}>규격</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "90px" }}>수량</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "120px" }}>단가</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "130px" }}>공급가액</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "120px" }}>세액</th>
+                          <th className="px-2 py-[6px] font-bold text-center" style={{ minWidth: "80px" }}>비고</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(() => {
+                          // Try to extract line items from popbill_response
+                          const resp = detailLog.popbill_response as any;
+                          const items = resp?.detailList || resp?.items || [];
+                          if (items.length > 0) {
+                            return items.map((item: any, i: number) => {
+                              const d = item.purchaseDT ? new Date(item.purchaseDT.replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3")) : (detailLog.issue_date ? new Date(detailLog.issue_date) : new Date());
+                              return (
+                                <tr key={i} style={{ borderTop: "1px solid #ddd" }}>
+                                  <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd" }}>{d.getMonth() + 1}</td>
+                                  <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd" }}>{d.getDate()}</td>
+                                  <td className="px-2 py-[6px] font-medium" style={{ borderRight: "1px solid #ddd", color: "#333" }}>{item.itemName || item.serialNum || "-"}</td>
+                                  <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd", color: "#666" }}>{item.spec || "-"}</td>
+                                  <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd" }}>{item.qty || item.quantity || 1}</td>
+                                  <td className="px-2 py-[6px] text-right tabular-nums" style={{ borderRight: "1px solid #ddd" }}>{item.unitCost ? fmt(Number(item.unitCost)) : "-"}</td>
+                                  <td className="px-2 py-[6px] text-right font-medium tabular-nums" style={{ borderRight: "1px solid #ddd" }}>{fmt(Number(item.supplyCost || item.supplyAmount || 0))}</td>
+                                  <td className="px-2 py-[6px] text-right tabular-nums" style={{ borderRight: "1px solid #ddd" }}>{fmt(Number(item.tax || item.taxAmount || 0))}</td>
+                                  <td className="px-2 py-[6px]">{item.remark || ""}</td>
+                                </tr>
+                              );
+                            });
+                          }
+                          // Fallback: show as single row
+                          const issueDate = detailLog.issue_date ? new Date(detailLog.issue_date) : new Date();
+                          return (
+                            <tr style={{ borderTop: "1px solid #ddd" }}>
+                              <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd" }}>{issueDate.getMonth() + 1}</td>
+                              <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd" }}>{issueDate.getDate()}</td>
+                              <td className="px-2 py-[6px] font-medium" style={{ borderRight: "1px solid #ddd", color: "#333" }}>-</td>
+                              <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd", color: "#666" }}>-</td>
+                              <td className="px-2 py-[6px] text-center" style={{ borderRight: "1px solid #ddd" }}>1</td>
+                              <td className="px-2 py-[6px] text-right tabular-nums" style={{ borderRight: "1px solid #ddd" }}>{fmt(detailLog.supply_amount)}</td>
+                              <td className="px-2 py-[6px] text-right font-medium tabular-nums" style={{ borderRight: "1px solid #ddd" }}>{fmt(detailLog.supply_amount)}</td>
+                              <td className="px-2 py-[6px] text-right tabular-nums" style={{ borderRight: "1px solid #ddd" }}>{fmt(detailLog.tax_amount)}</td>
+                              <td className="px-2 py-[6px]"></td>
+                            </tr>
+                          );
+                        })()}
+                      </tbody>
+                    </table>
 
                     {/* Bottom totals */}
                     <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderTop: "2px solid #999" }}>
@@ -1607,6 +1662,11 @@ export default function TaxInvoiceManager() {
                         </tr>
                       </tbody>
                     </table>
+
+                    {/* 영수/청구 */}
+                    <div className="flex items-center justify-end px-4 py-2 text-[13px]" style={{ borderTop: "2px solid #999", color: "#333" }}>
+                      <span>이 금액을 [ <strong>청구</strong> ] 함</span>
+                    </div>
                   </div>
 
                   <p className="text-[11px]" style={{ color: "#999" }}>
