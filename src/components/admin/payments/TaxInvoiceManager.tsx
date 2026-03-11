@@ -416,6 +416,7 @@ export default function TaxInvoiceManager() {
       writeDate: new Date().toISOString().split("T")[0],
       applyDateToAll: true,
       invoiceType: "청구",
+      taxType: "과세",
       supplierContactName: "",
       supplierDeptName: "",
       supplierTEL: "",
