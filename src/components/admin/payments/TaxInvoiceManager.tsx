@@ -1053,7 +1053,7 @@ export default function TaxInvoiceManager() {
                     </tbody>
                     <tfoot>
                       <tr className="bg-muted/40 border-t font-medium">
-                        <td colSpan={4} className="px-2 py-2 text-[12px]">총 {filledLines.length}개 항목</td>
+                        <td colSpan={5} className="px-2 py-2 text-[12px]">총 {filledLines.length}개 항목</td>
                         <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.supply)}</td>
                         <td className="px-2 py-2 text-right text-[12px]">{fmt(lineTotals.tax)}</td>
                         <td className="px-2 py-2 text-right text-[12px] text-primary font-bold">{fmt(lineTotals.total)}</td>
