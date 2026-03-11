@@ -227,6 +227,84 @@ export default function TaxInvoiceManager() {
     fetchData();
   }, [fetchData]);
 
+  // Fetch balance and environment on mount
+  useEffect(() => {
+    const fetchMeta = async () => {
+      setBalanceLoading(true);
+      try {
+        const [balRes, envRes] = await Promise.all([
+          supabase.functions.invoke("popbill-tax-invoice", { body: { action: "checkBalance" } }),
+          supabase.functions.invoke("popbill-tax-invoice", { body: { action: "getEnvironment" } }),
+        ]);
+        if (balRes.data?.success) setBalance(balRes.data.data?.Balance ?? balRes.data.data);
+        if (envRes.data?.success) setIsProduction(envRes.data.data?.isProduction ?? false);
+      } catch { /* ignore */ }
+      setBalanceLoading(false);
+    };
+    fetchMeta();
+  }, []);
+
+  // 상태 동기화
+  const handleSyncStatus = async (log: TaxInvoiceLog, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    const mgtKey = (log.popbill_response as any)?.invoicerMgtKey || (log.popbill_response as any)?.mgtKey;
+    if (!mgtKey) { toast.error("문서번호를 찾을 수 없습니다"); return; }
+    setSyncingId(log.id);
+    try {
+      const res = await supabase.functions.invoke("popbill-tax-invoice", {
+        body: { action: "checkStatus", mgtKey, invoiceLogId: log.id },
+      });
+      if (res.data?.success) {
+        toast.success("상태가 동기화되었습니다");
+        fetchData();
+      } else {
+        throw new Error(res.data?.error || "동기화 실패");
+      }
+    } catch (err: any) { toast.error(err.message); }
+    setSyncingId(null);
+  };
+
+  // 발행 취소
+  const handleCancel = async (log: TaxInvoiceLog, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!confirm("세금계산서 발행을 취소하시겠습니까?\n국세청 전송 전에만 가능합니다.")) return;
+    const mgtKey = (log.popbill_response as any)?.invoicerMgtKey || (log.popbill_response as any)?.mgtKey;
+    if (!mgtKey) { toast.error("문서번호를 찾을 수 없습니다"); return; }
+    setCancellingId(log.id);
+    try {
+      const res = await supabase.functions.invoke("popbill-tax-invoice", {
+        body: { action: "cancel", mgtKey, invoiceLogId: log.id },
+      });
+      if (res.data?.success) {
+        toast.success("발행이 취소되었습니다");
+        fetchData();
+        if (detailLog?.id === log.id) setDetailLog(null);
+      } else {
+        throw new Error(res.data?.error || "취소 실패");
+      }
+    } catch (err: any) { toast.error(err.message); }
+    setCancellingId(null);
+  };
+
+  // 이메일 재전송
+  const handleResendEmail = async (log: TaxInvoiceLog, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    const mgtKey = (log.popbill_response as any)?.invoicerMgtKey || (log.popbill_response as any)?.mgtKey;
+    if (!mgtKey) { toast.error("문서번호를 찾을 수 없습니다"); return; }
+    setResendingId(log.id);
+    try {
+      const res = await supabase.functions.invoke("popbill-tax-invoice", {
+        body: { action: "resendEmail", mgtKey, receiverEmail: log.buyer_email || "" },
+      });
+      if (res.data?.success) {
+        toast.success(`${log.buyer_email || "거래처"}로 이메일이 재전송되었습니다`);
+      } else {
+        throw new Error(res.data?.error || "재전송 실패");
+      }
+    } catch (err: any) { toast.error(err.message); }
+    setResendingId(null);
+  };
+
   const filteredLogs = useMemo(() => {
     let result = logs.filter((l) => {
       if (!l.issue_date) return false;
