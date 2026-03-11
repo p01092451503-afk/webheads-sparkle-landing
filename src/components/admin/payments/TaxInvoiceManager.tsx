@@ -651,7 +651,7 @@ export default function TaxInvoiceManager() {
 
       {/* Issue Dialog - Popbill Style */}
       <Dialog open={issueOpen} onOpenChange={(open) => { if (!open) resetAndClose(); else setIssueOpen(true); }}>
-        <DialogContent className="max-w-[1100px] max-h-[92vh] overflow-y-auto p-0">
+        <DialogContent className="max-w-[95vw] w-[1500px] max-h-[92vh] overflow-y-auto p-0">
           {/* Step 2/3: Preview & Issue */}
           {issueStep >= 2 && (
             <div className="p-6 space-y-5">
@@ -801,439 +801,441 @@ export default function TaxInvoiceManager() {
 
           {/* Step 1: Popbill-style Form */}
           {issueStep === 1 && (
-          <div className="p-5 space-y-4">
+          <div className="p-6 space-y-4" style={{ backgroundColor: "#f5f5f5" }}>
             {/* Top options row */}
             <div className="flex items-center gap-6 flex-wrap text-[13px]">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-foreground">과세형태</span>
-                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "과세"} onChange={() => setForm(f => ({ ...f, taxType: "과세" }))} className="accent-primary w-3.5 h-3.5" /> 과세(10%)</label>
-                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "영세"} onChange={() => setForm(f => ({ ...f, taxType: "영세" }))} className="accent-primary w-3.5 h-3.5" /> 영세(0%)</label>
-                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "면세"} onChange={() => setForm(f => ({ ...f, taxType: "면세" }))} className="accent-primary w-3.5 h-3.5" /> 면세(세액없음)</label>
+                <span className="font-bold" style={{ color: "#333" }}>과세형태</span>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "과세"} onChange={() => setForm(f => ({ ...f, taxType: "과세" }))} className="w-3.5 h-3.5" /> 과세(10%)</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "영세"} onChange={() => setForm(f => ({ ...f, taxType: "영세" }))} className="w-3.5 h-3.5" /> 영세(0%)</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="tax-type" checked={form.taxType === "면세"} onChange={() => setForm(f => ({ ...f, taxType: "면세" }))} className="w-3.5 h-3.5" /> 면세(세액없음)</label>
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-foreground">거래처유형</span>
-                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="buyer-type" checked disabled className="accent-primary w-3.5 h-3.5" /> 사업자(사업자번호)</label>
+                <span className="font-bold" style={{ color: "#333" }}>거래처유형</span>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="buyer-type" checked disabled className="w-3.5 h-3.5" /> 사업자(사업자번호)</label>
               </div>
             </div>
 
             {/* Main Invoice Table */}
-            <div className="border-2 border-foreground/80">
-              {/* Title */}
-              <div className="text-center py-2 border-b border-foreground/80 bg-background">
-                <h3 className="text-[18px] font-extrabold tracking-[0.4em] text-foreground">전자세금계산서</h3>
+            <div style={{ border: "1px solid #999", backgroundColor: "#fff" }}>
+              {/* Title row with 책번호/일련번호 */}
+              <div className="flex items-center justify-between px-4 py-2" style={{ borderBottom: "1px solid #999" }}>
+                <h3 className="text-[16px] font-extrabold tracking-[0.3em]" style={{ color: "#333" }}>전자세금계산서</h3>
+                <div className="flex items-center gap-4 text-[12px]" style={{ color: "#666" }}>
+                  <span>책 번호 : <input className="w-8 text-center border-b" style={{ borderColor: "#ccc" }} /> 권 <input className="w-8 text-center border-b" style={{ borderColor: "#ccc" }} /> 호</span>
+                  <span>일련번호 : <input className="w-20 text-center border-b" style={{ borderColor: "#ccc" }} /></span>
+                </div>
               </div>
 
               {/* Supplier & Buyer side by side */}
-              <div className="grid grid-cols-2 divide-x divide-foreground/80">
+              <div className="grid grid-cols-2" style={{ borderBottom: "1px solid #999" }}>
                 {/* 공급자 (Supplier) */}
-                <div className="flex">
-                  <div className="w-[28px] bg-amber-50 dark:bg-amber-950/30 border-r border-foreground/80 flex items-center justify-center shrink-0">
-                    <span className="text-[12px] font-bold text-amber-800 dark:text-amber-200 writing-vertical" style={{ writingMode: "vertical-rl" }}>공 급 자</span>
+                <div className="flex" style={{ borderRight: "2px solid #999" }}>
+                  <div className="flex items-center justify-center shrink-0" style={{ width: "26px", backgroundColor: "#fff2f2", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
+                    <span className="text-[12px] font-bold" style={{ color: "#cc3333", letterSpacing: "0.15em" }}>공급자</span>
                   </div>
-                  <div className="flex-1">
-                    <table className="w-full text-[12px] border-collapse">
-                      <tbody>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 w-[60px] bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">등록번호</td>
-                          <td className="px-2 py-1.5 font-semibold">204-86-20072</td>
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 w-[50px] bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">종사업장</td>
-                          <td className="px-2 py-1.5 w-[80px]"></td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">상호</td>
-                          <td className="px-2 py-1.5">주식회사 웹헤즈</td>
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">성명</td>
-                          <td className="px-2 py-1.5">박진열</td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">주소</td>
-                          <td colSpan={3} className="px-2 py-1.5 text-[11px]">서울특별시 마포구 월드컵북로 114 (성산동) 3층</td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">업태</td>
-                          <td className="px-2 py-1.5">정보통신업</td>
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">종목</td>
-                          <td className="px-2 py-1.5 text-[11px]">응용소프트웨어 개발 및 공급</td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">담당자명</td>
-                          <td className="px-2 py-1.5">
-                            <Input value={form.supplierContactName} onChange={(e) => setForm(f => ({ ...f, supplierContactName: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="박진열" />
-                          </td>
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30 border-l border-foreground/30">연락처</td>
-                          <td className="px-2 py-1.5">
-                            <Input value={form.supplierTEL} onChange={(e) => setForm(f => ({ ...f, supplierTEL: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="010-9245-1503" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-2 py-1.5 font-bold text-red-600 dark:text-red-400 bg-amber-50/50 dark:bg-amber-950/20 border-r border-foreground/30">이메일</td>
-                          <td colSpan={3} className="px-2 py-1.5">34bus@webheads.co.kr</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse" }}>
+                    <tbody>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", width: "65px" }}>등록번호</td>
+                        <td className="px-2 py-[6px] font-medium" style={{ color: "#333" }}>204-86-20072</td>
+                        <td className="px-2 py-[6px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd", width: "55px" }}>종사업장</td>
+                        <td className="px-2 py-[6px]" style={{ width: "100px" }}></td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>상호</td>
+                        <td className="px-2 py-[6px]" style={{ color: "#333" }}>주식회사 웹헤즈</td>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>성명</td>
+                        <td className="px-2 py-[6px]" style={{ color: "#333" }}>박진열</td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>주소</td>
+                        <td colSpan={3} className="px-2 py-[6px] text-[12px]" style={{ color: "#333" }}>서울특별시 마포구 월드컵북로 114 (성산동) 3층</td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>업태</td>
+                        <td className="px-2 py-[6px]" style={{ color: "#333" }}>정보통신업</td>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종목</td>
+                        <td className="px-2 py-[6px] text-[12px]" style={{ color: "#333" }}>응용소프트웨어 개발 및 공급</td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>담당자명</td>
+                        <td className="px-2 py-[6px]">
+                          <Input value={form.supplierContactName} onChange={(e) => setForm(f => ({ ...f, supplierContactName: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="박진열" />
+                        </td>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>연락처</td>
+                        <td className="px-2 py-[6px]">
+                          <Input value={form.supplierTEL} onChange={(e) => setForm(f => ({ ...f, supplierTEL: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="010-9245-1503" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>이메일</td>
+                        <td colSpan={3} className="px-2 py-[6px]" style={{ color: "#333" }}>34bus@webheads.co.kr</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
                 {/* 공급받는자 (Buyer) */}
                 <div className="flex">
-                  <div className="w-[28px] bg-sky-50 dark:bg-sky-950/30 border-r border-foreground/80 flex items-center justify-center shrink-0">
-                    <span className="text-[12px] font-bold text-sky-800 dark:text-sky-200 writing-vertical" style={{ writingMode: "vertical-rl" }}>공급받는자</span>
+                  <div className="flex items-center justify-center shrink-0" style={{ width: "26px", backgroundColor: "#f0f4ff", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
+                    <span className="text-[12px] font-bold" style={{ color: "#3366cc", letterSpacing: "0.1em" }}>공급받는자</span>
                   </div>
-                  <div className="flex-1">
-                    <table className="w-full text-[12px] border-collapse">
-                      <tbody>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-foreground w-[60px] bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">등록번호</td>
-                          <td className="px-2 py-1.5" colSpan={2}>
-                            <div className="flex items-center gap-1">
-                              <Popover open={clientSearchOpen} onOpenChange={setClientSearchOpen}>
-                                <PopoverTrigger asChild>
-                                  <button className="flex-1 text-left text-[12px] h-6 px-1 rounded border border-input bg-background hover:bg-muted/50 truncate">
-                                    {form.buyerCorpNum || "등록번호 / 상호 / 성명"}
-                                  </button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-[460px] p-0" align="start" onWheel={(e) => e.stopPropagation()}>
-                                  <Command shouldFilter={true}>
-                                    <CommandInput placeholder="고객명 또는 사업자번호 검색..." className="text-[13px]" />
-                                    <div className="max-h-[300px] overflow-y-auto overscroll-contain" onWheel={(e) => e.stopPropagation()}>
-                                      <CommandList className="max-h-none">
-                                        <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
-                                        {clients.map((c) => {
-                                          const matched = getCompanyForClient(c);
-                                          const displayName = matched ? matched.company_name : c.name;
-                                          const bizNum = matched?.business_number || "";
-                                          return (
-                                            <CommandItem
-                                              key={c.id}
-                                              value={`${displayName} ${bizNum} ${c.name}`}
-                                              onSelect={() => {
-                                                handleClientSelect(c.id);
-                                                setClientSearchOpen(false);
-                                              }}
-                                              className="text-[13px] cursor-pointer"
-                                            >
-                                              <span className="font-medium">{displayName}</span>
-                                              {bizNum && <span className="text-muted-foreground ml-2">({bizNum})</span>}
-                                            </CommandItem>
-                                          );
-                                        })}
-                                      </CommandList>
-                                    </div>
-                                  </Command>
-                                </PopoverContent>
-                              </Popover>
-                              <Button variant="outline" size="sm" className="h-6 text-[10px] px-2 shrink-0" onClick={() => setClientSearchOpen(true)}>조회</Button>
-                            </div>
-                          </td>
-                          <td className="px-2 py-1.5 font-bold text-foreground w-[50px] bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">종사업장</td>
-                          <td className="px-2 py-1.5 w-[60px]"></td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">상호</td>
-                          <td className="px-2 py-1.5" colSpan={2}>
-                            <Input value={form.buyerCorpName} onChange={(e) => setForm(f => ({ ...f, buyerCorpName: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
-                          </td>
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">성명</td>
-                          <td className="px-2 py-1.5">
-                            <Input value={form.buyerCEOName} onChange={(e) => setForm(f => ({ ...f, buyerCEOName: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
-                          </td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">주소</td>
-                          <td colSpan={4} className="px-2 py-1.5">
-                            <Input value={form.buyerAddress} onChange={(e) => setForm(f => ({ ...f, buyerAddress: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
-                          </td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">업태</td>
-                          <td className="px-2 py-1.5" colSpan={2}>
-                            <Input value={form.buyerBusinessType} onChange={(e) => setForm(f => ({ ...f, buyerBusinessType: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
-                          </td>
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">종목</td>
-                          <td className="px-2 py-1.5">
-                            <Input value={form.buyerBusinessItem} onChange={(e) => setForm(f => ({ ...f, buyerBusinessItem: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" />
-                          </td>
-                        </tr>
-                        <tr className="border-b border-foreground/30">
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">담당자명</td>
-                          <td className="px-2 py-1.5" colSpan={2}>
-                            {matchedContacts.length > 0 ? (
-                              <select
-                                value={selectedContactIdx}
-                                onChange={(e) => {
-                                  const idx = parseInt(e.target.value);
-                                  setSelectedContactIdx(idx);
-                                  setForm(f => ({ ...f, buyerEmail: matchedContacts[idx]?.email || f.buyerEmail }));
-                                }}
-                                className="h-6 text-[11px] bg-transparent border-0 p-0 w-full focus:outline-none"
-                              >
-                                {matchedContacts.map((ct, i) => (
-                                  <option key={i} value={i}>{ct.name || "-"} {ct.position ? `(${ct.position})` : ""}</option>
-                                ))}
-                              </select>
-                            ) : (
-                              <Input className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="" />
-                            )}
-                          </td>
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30 border-l border-foreground/30">연락처</td>
-                          <td className="px-2 py-1.5 text-[11px] text-muted-foreground">
-                            {matchedContacts[selectedContactIdx]?.phone || matchedContacts[selectedContactIdx]?.mobile || ""}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-2 py-1.5 font-bold text-foreground bg-sky-50/50 dark:bg-sky-950/20 border-r border-foreground/30">이메일</td>
-                          <td colSpan={4} className="px-2 py-1.5">
-                            <Input value={form.buyerEmail} onChange={(e) => setForm(f => ({ ...f, buyerEmail: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" type="email" />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                  <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse" }}>
+                    <tbody>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold whitespace-nowrap" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd", width: "65px" }}>등록번호</td>
+                        <td className="px-2 py-[6px]" colSpan={2}>
+                          <div className="flex items-center gap-1">
+                            <Popover open={clientSearchOpen} onOpenChange={setClientSearchOpen}>
+                              <PopoverTrigger asChild>
+                                <button className="flex-1 text-left text-[13px] h-6 px-1.5 rounded truncate" style={{ border: "1px solid #ccc", backgroundColor: "#fff" }}>
+                                  {form.buyerCorpNum || "등록번호 / 상호 / 성명"}
+                                </button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-[460px] p-0" align="start" onWheel={(e) => e.stopPropagation()}>
+                                <Command shouldFilter={true}>
+                                  <CommandInput placeholder="고객명 또는 사업자번호 검색..." className="text-[13px]" />
+                                  <div className="max-h-[300px] overflow-y-auto overscroll-contain" onWheel={(e) => e.stopPropagation()}>
+                                    <CommandList className="max-h-none">
+                                      <CommandEmpty className="text-[13px] py-4 text-center">검색 결과가 없습니다</CommandEmpty>
+                                      {clients.map((c) => {
+                                        const matched = getCompanyForClient(c);
+                                        const displayName = matched ? matched.company_name : c.name;
+                                        const bizNum = matched?.business_number || "";
+                                        return (
+                                          <CommandItem
+                                            key={c.id}
+                                            value={`${displayName} ${bizNum} ${c.name}`}
+                                            onSelect={() => {
+                                              handleClientSelect(c.id);
+                                              setClientSearchOpen(false);
+                                            }}
+                                            className="text-[13px] cursor-pointer"
+                                          >
+                                            <span className="font-medium">{displayName}</span>
+                                            {bizNum && <span className="text-muted-foreground ml-2">({bizNum})</span>}
+                                          </CommandItem>
+                                        );
+                                      })}
+                                    </CommandList>
+                                  </div>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <button onClick={() => setClientSearchOpen(true)} className="h-6 px-2 text-[12px] rounded shrink-0" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>조회</button>
+                          </div>
+                        </td>
+                        <td className="px-2 py-[6px] font-bold whitespace-nowrap" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd", width: "55px" }}>종사업장</td>
+                        <td className="px-2 py-[6px]" style={{ width: "100px" }}></td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>상호</td>
+                        <td className="px-2 py-[6px]" colSpan={2}>
+                          <Input value={form.buyerCorpName} onChange={(e) => setForm(f => ({ ...f, buyerCorpName: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                        </td>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>성명</td>
+                        <td className="px-2 py-[6px]">
+                          <Input value={form.buyerCEOName} onChange={(e) => setForm(f => ({ ...f, buyerCEOName: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                        </td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>주소</td>
+                        <td colSpan={4} className="px-2 py-[6px]">
+                          <Input value={form.buyerAddress} onChange={(e) => setForm(f => ({ ...f, buyerAddress: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                        </td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>업태</td>
+                        <td className="px-2 py-[6px]" colSpan={2}>
+                          <Input value={form.buyerBusinessType} onChange={(e) => setForm(f => ({ ...f, buyerBusinessType: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                        </td>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종목</td>
+                        <td className="px-2 py-[6px]">
+                          <Input value={form.buyerBusinessItem} onChange={(e) => setForm(f => ({ ...f, buyerBusinessItem: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" />
+                        </td>
+                      </tr>
+                      <tr style={{ borderBottom: "1px solid #ddd" }}>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>담당자명</td>
+                        <td className="px-2 py-[6px]" colSpan={2}>
+                          {matchedContacts.length > 0 ? (
+                            <select
+                              value={selectedContactIdx}
+                              onChange={(e) => {
+                                const idx = parseInt(e.target.value);
+                                setSelectedContactIdx(idx);
+                                setForm(f => ({ ...f, buyerEmail: matchedContacts[idx]?.email || f.buyerEmail }));
+                              }}
+                              className="h-6 text-[13px] bg-transparent border-0 p-0 w-full focus:outline-none"
+                            >
+                              {matchedContacts.map((ct, i) => (
+                                <option key={i} value={i}>{ct.name || "-"} {ct.position ? `(${ct.position})` : ""}</option>
+                              ))}
+                            </select>
+                          ) : (
+                            <Input className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="" />
+                          )}
+                        </td>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>연락처</td>
+                        <td className="px-2 py-[6px] text-[13px]" style={{ color: "#666" }}>
+                          {matchedContacts[selectedContactIdx]?.phone || matchedContacts[selectedContactIdx]?.mobile || ""}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-2 py-[6px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>이메일</td>
+                        <td colSpan={3} className="px-2 py-[6px]">
+                          <Input value={form.buyerEmail} onChange={(e) => setForm(f => ({ ...f, buyerEmail: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" type="email" />
+                        </td>
+                        <td className="px-2 py-[6px] text-right">
+                          <button className="text-[12px] px-2 py-0.5 rounded" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>+ 거래처 등록</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
               {/* 작성일자 / 공급가액 / 세액 row */}
-              <div className="border-t border-foreground/80">
-                <table className="w-full text-[12px] border-collapse">
-                  <thead>
-                    <tr className="bg-muted/30">
-                      <th className="px-3 py-1.5 font-bold text-center border-r border-foreground/30 w-[200px]">작성일자</th>
-                      <th className="px-3 py-1.5 font-bold text-center border-r border-foreground/30">공급가액</th>
-                      <th className="px-3 py-1.5 font-bold text-center">세액</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-t border-foreground/30">
-                      <td className="px-3 py-1.5 border-r border-foreground/30">
-                        <Input
-                          type="date"
-                          value={form.writeDate}
-                          onChange={(e) => {
-                            const newDate = e.target.value;
-                            setForm(f => ({ ...f, writeDate: newDate }));
-                            if (form.applyDateToAll) {
-                              setLineItems(prev => prev.map(l => ({ ...l, date: newDate })));
-                            }
-                          }}
-                          className="h-7 text-[12px] w-[150px]"
-                        />
-                      </td>
-                      <td className="px-3 py-1.5 text-right font-semibold tabular-nums border-r border-foreground/30 text-[14px]">
-                        {fmt(lineTotals.supply)}
-                      </td>
-                      <td className="px-3 py-1.5 text-right font-semibold tabular-nums text-[14px]">
-                        {fmt(lineTotals.tax)}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderTop: "1px solid #999" }}>
+                <thead>
+                  <tr style={{ backgroundColor: "#f0f0f0" }}>
+                    <th className="px-3 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "200px" }}>작성일자</th>
+                    <th className="px-3 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc" }}>공급가액</th>
+                    <th className="px-3 py-[6px] font-bold text-center">세액</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style={{ borderTop: "1px solid #ddd" }}>
+                    <td className="px-3 py-[6px]" style={{ borderRight: "1px solid #ccc" }}>
+                      <Input
+                        type="date"
+                        value={form.writeDate}
+                        onChange={(e) => {
+                          const newDate = e.target.value;
+                          setForm(f => ({ ...f, writeDate: newDate }));
+                          if (form.applyDateToAll) {
+                            setLineItems(prev => prev.map(l => ({ ...l, date: newDate })));
+                          }
+                        }}
+                        className="h-7 text-[13px] w-[150px]"
+                      />
+                    </td>
+                    <td className="px-3 py-[6px] text-right font-semibold tabular-nums text-[14px]" style={{ borderRight: "1px solid #ccc" }}>
+                      {fmt(lineTotals.supply)}
+                    </td>
+                    <td className="px-3 py-[6px] text-right font-semibold tabular-nums text-[14px]">
+                      {fmt(lineTotals.tax)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
               {/* 비고1 row */}
-              <div className="border-t border-foreground/30">
-                <table className="w-full text-[12px] border-collapse">
-                  <tbody>
-                    <tr>
-                      <td className="px-3 py-1 font-bold text-center w-[80px] bg-muted/30 border-r border-foreground/30">비고1</td>
-                      <td className="px-2 py-1">
-                        <Input value={form.memo} onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))} className="h-6 text-[11px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="" />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderTop: "1px solid #ddd" }}>
+                <tbody>
+                  <tr>
+                    <td className="px-3 py-[5px] font-bold text-center" style={{ width: "80px", backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc" }}>비고1</td>
+                    <td className="px-2 py-[5px]">
+                      <Input value={form.memo} onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0" placeholder="" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
               {/* Line Items Table */}
-              <div className="border-t border-foreground/80">
-                <table className="w-full text-[12px] border-collapse">
-                  <thead>
-                    <tr className="bg-muted/40">
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[40px]">월</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[40px]">일</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 min-w-[140px]">품목</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[70px]">규격</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[60px]">수량</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[90px]">단가</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[45px]">자동</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[100px]">공급가액</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 w-[90px]">세액</th>
-                      <th className="px-1.5 py-1.5 font-bold text-center border-r border-foreground/30 min-w-[60px]">비고</th>
-                      <th className="px-1.5 py-1.5 w-[30px]"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {lineItems.map((line, idx) => {
-                      const dateObj = new Date(line.date);
-                      const mm = String(dateObj.getMonth() + 1);
-                      const dd = String(dateObj.getDate());
-                      return (
-                        <tr key={idx} className="border-t border-foreground/20">
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input
-                              value={mm}
-                              onChange={(e) => {
-                                const m = parseInt(e.target.value) || 1;
-                                const d = new Date(line.date);
-                                d.setMonth(m - 1);
-                                updateLineItem(idx, "date", d.toISOString().split("T")[0]);
-                              }}
-                              disabled={form.applyDateToAll}
-                              className="h-6 text-[11px] text-center px-0.5 border-0 shadow-none focus-visible:ring-0"
-                            />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input
-                              value={dd}
-                              onChange={(e) => {
-                                const dayVal = parseInt(e.target.value) || 1;
-                                const d = new Date(line.date);
-                                d.setDate(dayVal);
-                                updateLineItem(idx, "date", d.toISOString().split("T")[0]);
-                              }}
-                              disabled={form.applyDateToAll}
-                              className="h-6 text-[11px] text-center px-0.5 border-0 shadow-none focus-visible:ring-0"
-                            />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
+              <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderTop: "2px solid #999" }}>
+                <thead>
+                  <tr style={{ backgroundColor: "#f0f0f0" }}>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "50px" }}>월</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "50px" }}>일</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", minWidth: "200px" }}>품목</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "100px" }}>규격</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "90px" }}>수량</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "110px" }}>단가</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "55px" }}>자동</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "130px" }}>공급가액</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "120px" }}>세액</th>
+                    <th className="px-2 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", minWidth: "80px" }}>비고</th>
+                    <th className="px-1 py-[6px]" style={{ width: "30px" }}></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lineItems.map((line, idx) => {
+                    const dateObj = new Date(line.date);
+                    const mm = String(dateObj.getMonth() + 1);
+                    const dd = String(dateObj.getDate());
+                    return (
+                      <tr key={idx} style={{ borderTop: "1px solid #ddd" }}>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input
+                            value={mm}
+                            onChange={(e) => {
+                              const m = parseInt(e.target.value) || 1;
+                              const d = new Date(line.date);
+                              d.setMonth(m - 1);
+                              updateLineItem(idx, "date", d.toISOString().split("T")[0]);
+                            }}
+                            disabled={form.applyDateToAll}
+                            className="h-7 text-[13px] text-center px-1 border-0 shadow-none focus-visible:ring-0"
+                          />
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input
+                            value={dd}
+                            onChange={(e) => {
+                              const dayVal = parseInt(e.target.value) || 1;
+                              const d = new Date(line.date);
+                              d.setDate(dayVal);
+                              updateLineItem(idx, "date", d.toISOString().split("T")[0]);
+                            }}
+                            disabled={form.applyDateToAll}
+                            className="h-7 text-[13px] text-center px-1 border-0 shadow-none focus-visible:ring-0"
+                          />
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <div className="flex items-center gap-1">
                             <Input
                               value={line.itemName}
                               onChange={(e) => updateLineItem(idx, "itemName", e.target.value)}
-                              className="h-6 text-[11px] px-1 border-0 shadow-none focus-visible:ring-0"
+                              className="h-7 text-[13px] px-1.5 border-0 shadow-none focus-visible:ring-0 flex-1"
                               placeholder="품목명 / 품목코드"
                             />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input
-                              value={line.spec}
-                              onChange={(e) => updateLineItem(idx, "spec", e.target.value)}
-                              className="h-6 text-[11px] px-1 border-0 shadow-none focus-visible:ring-0"
-                            />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input
-                              type="number"
-                              value={line.quantity}
-                              onChange={(e) => updateLineItem(idx, "quantity", parseInt(e.target.value) || 1)}
-                              className="h-6 text-[11px] text-center px-0.5 border-0 shadow-none focus-visible:ring-0"
-                              min={1}
-                            />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input
-                              value={line.unitPrice}
-                              onChange={(e) => {
-                                const raw = e.target.value.replace(/,/g, "").replace(/[^0-9]/g, "");
-                                const formatted = raw ? parseInt(raw).toLocaleString("ko-KR") : "";
-                                updateLineItem(idx, "unitPrice", formatted);
-                              }}
-                              className="h-6 text-[11px] text-right px-1 border-0 shadow-none focus-visible:ring-0"
-                            />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20 text-center">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              className="h-5 text-[10px] px-1.5"
-                              onClick={() => {
-                                const price = parseInt(String(line.unitPrice).replace(/,/g, "")) || 0;
-                                const supply = line.quantity * price;
-                                const taxRate = form.taxType === "과세" ? 0.1 : 0;
-                                const tax = Math.round(supply * taxRate);
-                                updateLineItem(idx, "supplyAmount", supply.toLocaleString("ko-KR"));
-                                setLineItems(prev => {
-                                  const u = [...prev];
-                                  u[idx] = { ...u[idx], supplyAmount: supply.toLocaleString("ko-KR"), taxAmount: tax.toLocaleString("ko-KR"), totalAmount: (supply + tax).toLocaleString("ko-KR") };
-                                  return u;
-                                });
-                              }}
-                            >
-                              계산
-                            </Button>
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input
-                              value={line.supplyAmount}
-                              readOnly
-                              className="h-6 text-[11px] text-right px-1 bg-muted/20 border-0 shadow-none focus-visible:ring-0"
-                            />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input
-                              value={line.taxAmount}
-                              readOnly
-                              className="h-6 text-[11px] text-right px-1 bg-muted/20 border-0 shadow-none focus-visible:ring-0"
-                            />
-                          </td>
-                          <td className="px-0.5 py-0.5 border-r border-foreground/20">
-                            <Input className="h-6 text-[11px] px-1 border-0 shadow-none focus-visible:ring-0" />
-                          </td>
-                          <td className="px-0.5 py-0.5 text-center">
-                            {lineItems.length > 1 ? (
-                              <button onClick={() => removeLineItem(idx)} className="text-muted-foreground hover:text-destructive">
-                                <CircleMinus className="w-4 h-4" />
-                              </button>
-                            ) : (
-                              <button onClick={addLineItem} className="text-muted-foreground hover:text-primary">
-                                <CirclePlus className="w-4 h-4" />
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-                {/* Add row button */}
-                <div className="flex justify-end px-2 py-1 border-t border-foreground/20">
-                  <button onClick={addLineItem} className="text-muted-foreground hover:text-primary">
-                    <CirclePlus className="w-4 h-4" />
-                  </button>
-                </div>
+                            <button className="text-[11px] px-1.5 py-0.5 rounded shrink-0" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>조회</button>
+                          </div>
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input
+                            value={line.spec}
+                            onChange={(e) => updateLineItem(idx, "spec", e.target.value)}
+                            className="h-7 text-[13px] px-1.5 border-0 shadow-none focus-visible:ring-0"
+                          />
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input
+                            type="number"
+                            value={line.quantity}
+                            onChange={(e) => updateLineItem(idx, "quantity", parseInt(e.target.value) || 1)}
+                            className="h-7 text-[13px] text-center px-1 border-0 shadow-none focus-visible:ring-0"
+                            min={1}
+                          />
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input
+                            value={line.unitPrice}
+                            onChange={(e) => {
+                              const raw = e.target.value.replace(/,/g, "").replace(/[^0-9]/g, "");
+                              const formatted = raw ? parseInt(raw).toLocaleString("ko-KR") : "";
+                              updateLineItem(idx, "unitPrice", formatted);
+                            }}
+                            className="h-7 text-[13px] text-right px-1.5 border-0 shadow-none focus-visible:ring-0"
+                          />
+                        </td>
+                        <td className="px-1 py-1 text-center" style={{ borderRight: "1px solid #ddd" }}>
+                          <button
+                            className="text-[12px] px-2 py-0.5 rounded"
+                            style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}
+                            onClick={() => {
+                              const price = parseInt(String(line.unitPrice).replace(/,/g, "")) || 0;
+                              const supply = line.quantity * price;
+                              const taxRate = form.taxType === "과세" ? 0.1 : 0;
+                              const tax = Math.round(supply * taxRate);
+                              setLineItems(prev => {
+                                const u = [...prev];
+                                u[idx] = { ...u[idx], supplyAmount: supply.toLocaleString("ko-KR"), taxAmount: tax.toLocaleString("ko-KR"), totalAmount: (supply + tax).toLocaleString("ko-KR") };
+                                return u;
+                              });
+                            }}
+                          >
+                            계산
+                          </button>
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input
+                            value={line.supplyAmount}
+                            readOnly
+                            className="h-7 text-[13px] text-right px-1.5 border-0 shadow-none focus-visible:ring-0" style={{ backgroundColor: "#fafafa" }}
+                          />
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input
+                            value={line.taxAmount}
+                            readOnly
+                            className="h-7 text-[13px] text-right px-1.5 border-0 shadow-none focus-visible:ring-0" style={{ backgroundColor: "#fafafa" }}
+                          />
+                        </td>
+                        <td className="px-1 py-1" style={{ borderRight: "1px solid #ddd" }}>
+                          <Input className="h-7 text-[13px] px-1.5 border-0 shadow-none focus-visible:ring-0" />
+                        </td>
+                        <td className="px-1 py-1 text-center">
+                          {lineItems.length > 1 ? (
+                            <button onClick={() => removeLineItem(idx)} className="hover:text-destructive" style={{ color: "#999" }}>
+                              <CircleMinus className="w-4 h-4" />
+                            </button>
+                          ) : (
+                            <button onClick={addLineItem} className="hover:text-primary" style={{ color: "#999" }}>
+                              <CirclePlus className="w-4 h-4" />
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              {/* Add row button */}
+              <div className="flex justify-end px-2 py-1" style={{ borderTop: "1px solid #ddd" }}>
+                <button onClick={addLineItem} className="hover:text-primary" style={{ color: "#999" }}>
+                  <CirclePlus className="w-4 h-4" />
+                </button>
               </div>
 
               {/* Bottom totals row */}
-              <div className="border-t border-foreground/80">
-                <table className="w-full text-[12px] border-collapse">
-                  <tbody>
-                    <tr>
-                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[100px]">합계금액</td>
-                      <td className="px-3 py-1.5 text-right font-bold tabular-nums border-r border-foreground/30 w-[120px]">{fmt(lineTotals.total)}</td>
-                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[50px]">현금</td>
-                      <td className="px-3 py-1.5 border-r border-foreground/30 w-[100px]"></td>
-                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[50px]">수표</td>
-                      <td className="px-3 py-1.5 border-r border-foreground/30 w-[100px]"></td>
-                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[50px]">어음</td>
-                      <td className="px-3 py-1.5 border-r border-foreground/30 w-[100px]"></td>
-                      <td className="px-3 py-1.5 font-bold text-center bg-muted/30 border-r border-foreground/30 w-[70px]">외상미수금</td>
-                      <td className="px-3 py-1.5 w-[100px]"></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderTop: "2px solid #999" }}>
+                <tbody>
+                  <tr>
+                    <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "120px" }}>합계금액</td>
+                    <td className="px-3 py-[6px] text-right font-bold tabular-nums" style={{ borderRight: "1px solid #ccc", width: "140px" }}>{fmt(lineTotals.total)}</td>
+                    <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "60px" }}>현금</td>
+                    <td className="px-3 py-[6px]" style={{ borderRight: "1px solid #ccc", width: "120px" }}></td>
+                    <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "60px" }}>수표</td>
+                    <td className="px-3 py-[6px]" style={{ borderRight: "1px solid #ccc", width: "120px" }}></td>
+                    <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "60px" }}>어음</td>
+                    <td className="px-3 py-[6px]" style={{ borderRight: "1px solid #ccc", width: "120px" }}></td>
+                    <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "80px" }}>외상미수금</td>
+                    <td className="px-3 py-[6px]" style={{ width: "120px" }}></td>
+                  </tr>
+                </tbody>
+              </table>
 
               {/* 영수/청구 row */}
-              <div className="border-t border-foreground/80 flex items-center justify-end px-4 py-2 gap-2 text-[12px]">
-                <span className="text-foreground">이 금액을</span>
-                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "영수"} onChange={() => setForm(f => ({ ...f, invoiceType: "영수" }))} className="accent-primary w-3.5 h-3.5" /> 영수</label>
-                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "청구"} onChange={() => setForm(f => ({ ...f, invoiceType: "청구" }))} className="accent-primary w-3.5 h-3.5" /> 청구</label>
-                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "없음"} onChange={() => setForm(f => ({ ...f, invoiceType: "없음" as any }))} className="accent-primary w-3.5 h-3.5" /> 없음</label>
-                <span className="text-foreground">함</span>
+              <div className="flex items-center justify-end px-4 py-2 gap-3 text-[13px]" style={{ borderTop: "2px solid #999", color: "#333" }}>
+                <span>이 금액을</span>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "영수"} onChange={() => setForm(f => ({ ...f, invoiceType: "영수" }))} className="w-3.5 h-3.5" /> 영수</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "청구"} onChange={() => setForm(f => ({ ...f, invoiceType: "청구" }))} className="w-3.5 h-3.5" /> 청구</label>
+                <label className="flex items-center gap-1 cursor-pointer"><input type="radio" name="invoice-type" checked={form.invoiceType === "없음"} onChange={() => setForm(f => ({ ...f, invoiceType: "없음" as any }))} className="w-3.5 h-3.5" /> 없음</label>
+                <span>함</span>
               </div>
             </div>
 
             {/* Below the invoice table */}
-            <div className="space-y-3 text-[12px]">
+            <div className="space-y-4 text-[13px]" style={{ backgroundColor: "#fff", border: "1px solid #ddd", borderRadius: "4px", padding: "16px" }}>
+              {/* 파일첨부 / 문자알림 tabs */}
+              <div className="flex items-center gap-2 pb-2" style={{ borderBottom: "1px solid #eee" }}>
+                <button className="text-[13px] px-3 py-1 rounded" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>+ 파일첨부</button>
+                <button className="text-[13px] px-3 py-1 rounded" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>+ 문자알림</button>
+              </div>
+
               {/* 관리메모 */}
               <div className="flex items-start gap-3">
-                <span className="font-bold text-foreground w-[70px] shrink-0 pt-1">관리메모</span>
+                <span className="font-bold w-[80px] shrink-0 pt-1" style={{ color: "#333" }}>관리메모</span>
                 <div className="flex-1">
-                  <Input value={form.memo} onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))} className="h-8 text-[12px]" placeholder="공급자의 관리 목적으로 사용하며 공급받는자에게는 표시되지 않습니다." />
+                  <Input value={form.memo} onChange={(e) => setForm(f => ({ ...f, memo: e.target.value }))} className="h-8 text-[13px]" placeholder="공급자의 관리 목적으로 사용하며 공급받는자에게는 표시되지 않습니다." />
                 </div>
               </div>
 
               {/* 첨부문서 */}
               <div className="flex items-center gap-3">
-                <span className="font-bold text-foreground w-[70px] shrink-0">첨부문서</span>
+                <span className="font-bold w-[80px] shrink-0" style={{ color: "#333" }}>첨부문서 ⓘ</span>
                 <label className="flex items-center gap-1.5 cursor-pointer">
                   <Checkbox checked={form.businessLicenseYN} onCheckedChange={(v) => setForm(f => ({ ...f, businessLicenseYN: !!v }))} className="w-3.5 h-3.5" />
                   사업자등록증
@@ -1246,18 +1248,18 @@ export default function TaxInvoiceManager() {
 
               {/* 추가담당자 */}
               <div className="flex items-start gap-3">
-                <span className="font-bold text-foreground w-[70px] shrink-0 pt-1">추가담당자</span>
+                <span className="font-bold w-[80px] shrink-0 pt-1" style={{ color: "#333" }}>추가담당자 ⓘ</span>
                 <div className="flex-1 space-y-1.5">
-                  <p className="text-[11px] text-muted-foreground">이메일 주소를 5개까지 추가할 수 있습니다. 예시) popbill@popbill.com</p>
+                  <p className="text-[12px]" style={{ color: "#999" }}>이메일 주소를 5개까지 추가할 수 있습니다. 예시) popbill@popbill.com</p>
                   {addContacts.map((ac, i) => (
                     <div key={i} className="flex items-center gap-2">
-                      <Input value={ac.name} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, name: e.target.value } : p))} className="h-7 text-[11px] w-28" placeholder="성명" />
-                      <Input value={ac.email} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, email: e.target.value } : p))} className="h-7 text-[11px] flex-1" placeholder="이메일" type="email" />
-                      <button onClick={() => setAddContacts(prev => prev.filter((_, j) => j !== i))} className="text-muted-foreground hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
+                      <Input value={ac.name} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, name: e.target.value } : p))} className="h-7 text-[13px] w-28" placeholder="성명" />
+                      <Input value={ac.email} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, email: e.target.value } : p))} className="h-7 text-[13px] flex-1" placeholder="이메일" type="email" />
+                      <button onClick={() => setAddContacts(prev => prev.filter((_, j) => j !== i))} style={{ color: "#999" }} className="hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
                     </div>
                   ))}
                   {addContacts.length < 5 && (
-                    <Button size="sm" variant="outline" onClick={() => setAddContacts(prev => [...prev, { name: "", email: "" }])} className="text-[11px] h-6 gap-1">
+                    <Button size="sm" variant="outline" onClick={() => setAddContacts(prev => [...prev, { name: "", email: "" }])} className="text-[12px] h-6 gap-1">
                       <Plus className="w-3 h-3" /> 추가
                     </Button>
                   )}
@@ -1298,14 +1300,18 @@ export default function TaxInvoiceManager() {
             </div>
 
             {/* Action buttons - matching Popbill style */}
-            <div className="flex items-center justify-end gap-2 pt-2 border-t">
-              <Button variant="outline" onClick={resetAndClose} className="text-[13px] h-9">
-                취소
-              </Button>
-              <Button variant="outline" onClick={handleSave} className="text-[13px] h-9 gap-1.5">
-                <Save className="w-3.5 h-3.5" /> 임시저장
-              </Button>
-              <Button onClick={handleSave} className="text-[13px] h-9 gap-1.5 bg-primary hover:bg-primary/90">
+            <div className="flex items-center justify-center gap-3 pt-3">
+              <button onClick={handleSave} className="text-[13px] h-9 px-5 rounded" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>
+                임시저장
+              </button>
+              <button className="text-[13px] h-9 px-5 rounded" style={{ border: "1px solid #ccc", backgroundColor: "#f0f0f0", color: "#333" }}>
+                발행예정
+              </button>
+              <label className="flex items-center gap-1.5 text-[13px] cursor-pointer" style={{ color: "#333" }}>
+                <Checkbox className="w-3.5 h-3.5" />
+                거래명세서 동시작성
+              </label>
+              <Button onClick={handleSave} className="text-[13px] h-9 px-6 gap-1.5 rounded" style={{ backgroundColor: "#4a90d9", color: "#fff" }}>
                 <Send className="w-3.5 h-3.5" /> 발행
               </Button>
             </div>
