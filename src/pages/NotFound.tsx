@@ -83,7 +83,8 @@ const NotFound = () => {
   const lang = i18n.language?.startsWith("en") ? "en" : "ko";
 
   const legacyPath = location.pathname.toLowerCase();
-  const redirectTo = LEGACY_REDIRECTS[legacyPath];
+  const decodedPath = (() => { try { return decodeURIComponent(location.pathname); } catch { return location.pathname; } })();
+  const redirectTo = LEGACY_REDIRECTS[legacyPath] || LEGACY_REDIRECTS[location.pathname] || LEGACY_REDIRECTS[decodedPath] || LEGACY_REDIRECTS[decodedPath.toLowerCase()];
   const isVulnScan = VULN_SCAN_PATTERNS.some(p => p.test(location.pathname));
   const loggedRef = useRef(false);
 
