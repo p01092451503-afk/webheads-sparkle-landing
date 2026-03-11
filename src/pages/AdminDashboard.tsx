@@ -334,8 +334,7 @@ export default function AdminDashboard() {
           {/* Tabs */}
           <div className="flex -mb-px overflow-x-auto scrollbar-hide items-end gap-1">
             {/* 운영 그룹 */}
-            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(220,14%,97%)] px-1 pt-1">
-              <span className="text-[10px] font-semibold text-muted-foreground/60 px-2 pb-1 tracking-wide">운영</span>
+            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(220,20%,92%)] px-1 pt-1">
               {tabs.filter(t => !["payments","expenses","taxinvoice","client_companies","checklist","report","client_work","work_files"].includes(t.key)).map((t) => {
                 const isActive = tab === t.key;
                 return (
@@ -361,8 +360,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* 금융/리포트 그룹 */}
-            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(150,20%,96%)] px-1 pt-1">
-              <span className="text-[10px] font-semibold text-muted-foreground/60 px-2 pb-1 tracking-wide">금융</span>
+            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(150,25%,90%)] px-1 pt-1">
               {tabs.filter(t => ["client_companies","payments","expenses","taxinvoice","report"].includes(t.key)).map((t) => {
                 const isActive = tab === t.key;
                 return (
@@ -383,8 +381,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* 업무 그룹 */}
-            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(35,30%,96%)] px-1 pt-1">
-              <span className="text-[10px] font-semibold text-muted-foreground/60 px-2 pb-1 tracking-wide">업무</span>
+            <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(35,35%,89%)] px-1 pt-1">
               {tabs.filter(t => ["checklist","client_work","work_files"].includes(t.key)).map((t) => {
                 const isActive = tab === t.key;
                 return (
