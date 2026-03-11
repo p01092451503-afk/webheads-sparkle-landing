@@ -41,9 +41,9 @@ export default function FloatingNav() {
     <div data-floating-nav>
       {/* Desktop — vertically centered */}
       <div className="fixed right-5 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-2">
-        <button onClick={handleCostSimulator} className={`group relative w-10 h-10 rounded-full ${glassBase} flex items-center justify-center hover:bg-background/90 transition-all`} aria-label={t("floatingNav.costSimulator")}>
-          <span className="absolute right-full mr-2 px-2.5 py-1 rounded-md bg-foreground text-background text-xs font-semibold whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity">{t("floatingNav.costSimulator")}</span>
-          <Calculator className="w-5 h-5" />
+        <button onClick={handleCostSimulator} className={`flex items-center gap-2 px-4 py-2.5 rounded-full bg-background text-primary font-semibold text-sm shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all`} aria-label={t("floatingNav.costSimulator")}>
+          <Calculator className="w-4 h-4" />
+          <span>{t("floatingNav.costSimulator")}</span>
         </button>
         {!isServiceRequest && location.pathname !== "/pricing" && (
           <Link to="/pricing" className={`group relative w-10 h-10 rounded-full ${glassBase} flex items-center justify-center hover:bg-background/90 transition-all`} aria-label={t("floatingNav.pricing")}>
