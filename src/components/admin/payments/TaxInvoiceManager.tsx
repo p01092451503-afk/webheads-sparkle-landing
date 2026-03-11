@@ -730,16 +730,20 @@ export default function TaxInvoiceManager() {
                     <thead>
                       <tr className="bg-muted/30">
                         <th className="px-5 py-2.5 text-left font-semibold text-muted-foreground text-[11px]">항목명</th>
-                        <th className="px-3 py-2.5 text-center font-semibold text-muted-foreground text-[11px] w-[60px]">수량</th>
-                        <th className="px-3 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[110px]">공급가액</th>
-                        <th className="px-5 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[100px]">세액</th>
+                        <th className="px-3 py-2.5 text-left font-semibold text-muted-foreground text-[11px] w-[70px]">규격</th>
+                        <th className="px-3 py-2.5 text-center font-semibold text-muted-foreground text-[11px] w-[50px]">수량</th>
+                        <th className="px-3 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[90px]">단가</th>
+                        <th className="px-3 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[100px]">공급가액</th>
+                        <th className="px-5 py-2.5 text-right font-semibold text-muted-foreground text-[11px] w-[90px]">세액</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filledLines.map((l, i) => (
                         <tr key={i} className="border-t border-border/20">
                           <td className="px-5 py-2.5 text-foreground font-medium">{l.itemName}</td>
+                          <td className="px-3 py-2.5 text-muted-foreground">{l.spec || "-"}</td>
                           <td className="px-3 py-2.5 text-center text-muted-foreground">{l.quantity}</td>
+                          <td className="px-3 py-2.5 text-right text-muted-foreground tabular-nums">{l.unitPrice ? `${l.unitPrice}원` : "-"}</td>
                           <td className="px-3 py-2.5 text-right font-medium tabular-nums">{fmt(parseInt(l.supplyAmount.replace(/,/g, "")) || 0)}원</td>
                           <td className="px-5 py-2.5 text-right text-muted-foreground tabular-nums">{fmt(parseInt(l.taxAmount.replace(/,/g, "")) || 0)}원</td>
                         </tr>
