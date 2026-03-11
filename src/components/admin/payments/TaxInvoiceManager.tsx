@@ -606,14 +606,35 @@ export default function TaxInvoiceManager() {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h2 className="text-[16px] font-bold flex items-center gap-2">
-          <FileText className="w-4 h-4" />
-          세금계산서 관리
-        </h2>
-        <Button size="sm" className="text-[13px] gap-1.5" onClick={() => setIssueOpen(true)}>
-          <Plus className="w-3.5 h-3.5" />
-          세금계산서 발행
-        </Button>
+        <div className="flex items-center gap-3">
+          <h2 className="text-[16px] font-bold flex items-center gap-2">
+            <FileText className="w-4 h-4" />
+            세금계산서 관리
+          </h2>
+          {isProduction !== null && (
+            <Badge variant="outline" className={`text-[10px] ${isProduction ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-amber-50 text-amber-700 border-amber-200"}`}>
+              <Globe className="w-3 h-3 mr-1" />
+              {isProduction ? "운영" : "테스트"}
+            </Badge>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {/* 포인트 잔액 */}
+          <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-lg border">
+            <Wallet className="w-3.5 h-3.5" />
+            {balanceLoading ? (
+              <Loader2 className="w-3 h-3 animate-spin" />
+            ) : balance !== null ? (
+              <span className="font-semibold text-foreground">{typeof balance === "number" ? fmt(balance) : balance} P</span>
+            ) : (
+              <span>-</span>
+            )}
+          </div>
+          <Button size="sm" className="text-[13px] gap-1.5" onClick={() => setIssueOpen(true)}>
+            <Plus className="w-3.5 h-3.5" />
+            세금계산서 발행
+          </Button>
+        </div>
       </div>
 
       {/* Month nav + search */}
