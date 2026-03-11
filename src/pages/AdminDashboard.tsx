@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } fro
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart, FolderKanban
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart, FolderKanban, FolderOpen
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
@@ -20,8 +20,9 @@ const AdminClientCompanies = lazy(() => import("@/components/admin/AdminClientCo
 const MonthlyChecklist = lazy(() => import("@/components/admin/MonthlyChecklist"));
 const MonthlyReport = lazy(() => import("@/components/admin/MonthlyReport"));
 const ClientWorkManager = lazy(() => import("@/components/admin/ClientWorkManager"));
+const WorkFileManager = lazy(() => import("@/components/admin/WorkFileManager"));
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work" | "work_files";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
@@ -37,6 +38,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "checklist", icon: ListChecks, label: "체크리스트" },
   { key: "report", icon: FileBarChart, label: "월간리포트" },
   { key: "client_work", icon: FolderKanban, label: "프로젝트관리" },
+  { key: "work_files", icon: FolderOpen, label: "업무자료" },
 ];
 
 const TabLoader = () => (
@@ -375,7 +377,7 @@ export default function AdminDashboard() {
               );
             })}
             <div className="w-px shrink-0 bg-border mx-2 self-stretch" />
-            {tabs.filter(t => t.key === "checklist" || t.key === "client_work").map((t) => {
+            {tabs.filter(t => t.key === "checklist" || t.key === "client_work" || t.key === "work_files").map((t) => {
               const isActive = tab === t.key;
               return (
                 <button
@@ -435,6 +437,9 @@ export default function AdminDashboard() {
           )}
           {tab === "client_work" && (
             <ClientWorkManager isSuperAdmin={isSuperAdmin} />
+          )}
+          {tab === "work_files" && (
+            <WorkFileManager isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
