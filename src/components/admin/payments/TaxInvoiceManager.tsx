@@ -1439,112 +1439,183 @@ export default function TaxInvoiceManager() {
 
       {/* Detail Dialog for issued invoices */}
       <Dialog open={!!detailLog} onOpenChange={(open) => { if (!open) setDetailLog(null); }}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="text-[15px] flex items-center gap-2">
-              <FileText className="w-4 h-4" />
-              세금계산서 상세
-            </DialogTitle>
-          </DialogHeader>
-          {detailLog && (() => {
-            const clientName = detailLog.buyer_corp_name || getClientName(detailLog.client_id);
-            return (
-              <div className="space-y-4">
-                {/* Status badge */}
-                <div className="flex items-center gap-2">
-                  <Badge
-                    variant="outline"
-                    className={
-                      detailLog.status === "issued"
-                        ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]"
-                        : "bg-amber-50 text-amber-700 border-amber-200 text-[11px]"
-                    }
-                  >
-                    {detailLog.status === "issued" ? "발행완료" : detailLog.status}
-                  </Badge>
-                  {detailLog.nts_confirm_num && (
-                    <span className="text-[11px] text-muted-foreground">
-                      국세청 확인번호: {detailLog.nts_confirm_num}
-                    </span>
-                  )}
-                </div>
+        <DialogContent className="max-w-[90vw] w-[1445px] max-h-[92vh] overflow-y-auto p-0">
+          <div className="p-6 space-y-5">
+            <div className="flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              <span className="text-[20px] font-bold">세금계산서 상세</span>
+            </div>
 
-                {/* Info grid */}
-                <div className="rounded-xl border border-border/60 overflow-hidden text-[13px]">
-                  <div className="grid grid-cols-2 divide-x divide-border/40">
-                    {/* 공급자 */}
-                    <div className="px-4 py-3 space-y-2">
-                      <p className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block" />
-                        공급자
-                      </p>
-                      <div className="space-y-1">
-                        <p className="font-medium">주식회사 웹헤즈</p>
-                        <p className="text-muted-foreground">{detailLog.supplier_corp_num || "-"}</p>
+            {detailLog && (() => {
+              const clientName = detailLog.buyer_corp_name || getClientName(detailLog.client_id);
+              return (
+                <div className="space-y-4">
+                  {/* Status & meta */}
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <Badge
+                      variant="outline"
+                      className={
+                        detailLog.status === "issued"
+                          ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-[12px] px-3 py-1"
+                          : "bg-amber-50 text-amber-700 border-amber-200 text-[12px] px-3 py-1"
+                      }
+                    >
+                      {detailLog.status === "issued" ? "발행완료" : detailLog.status}
+                    </Badge>
+                    {detailLog.nts_confirm_num && (
+                      <span className="text-[12px] text-muted-foreground">
+                        국세청 확인번호: {detailLog.nts_confirm_num}
+                      </span>
+                    )}
+                    {detailLog.invoice_num && (
+                      <span className="text-[12px] text-muted-foreground">
+                        문서번호: {detailLog.invoice_num}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Popbill-style invoice table */}
+                  <div style={{ border: "1px solid #999", backgroundColor: "#fff" }}>
+                    {/* Title */}
+                    <div className="flex items-center justify-between px-4 py-2" style={{ borderBottom: "1px solid #999" }}>
+                      <h3 className="text-[16px] font-extrabold tracking-[0.3em]" style={{ color: "#333" }}>전자세금계산서</h3>
+                    </div>
+
+                    {/* Supplier & Buyer */}
+                    <div className="grid grid-cols-2" style={{ borderBottom: "1px solid #999" }}>
+                      {/* 공급자 */}
+                      <div className="flex" style={{ borderRight: "2px solid #999" }}>
+                        <div className="flex items-center justify-center shrink-0" style={{ width: "36px", backgroundColor: "#fff2f2", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
+                          <span className="text-[16px] font-bold" style={{ color: "#cc3333", letterSpacing: "0.2em" }}>공급자</span>
+                        </div>
+                        <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse", tableLayout: "fixed" }}>
+                          <colgroup>
+                            <col style={{ width: "75px" }} />
+                            <col style={{ width: "40%" }} />
+                            <col style={{ width: "70px" }} />
+                            <col />
+                          </colgroup>
+                          <tbody>
+                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                              <td className="px-3 py-[7px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>등록번호</td>
+                              <td className="px-3 py-[7px] font-medium" style={{ color: "#333" }}>{detailLog.supplier_corp_num || "204-86-20072"}</td>
+                              <td className="px-3 py-[7px] font-bold whitespace-nowrap" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종사업장</td>
+                              <td className="px-3 py-[7px]"></td>
+                            </tr>
+                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>상호</td>
+                              <td className="px-3 py-[7px]" style={{ color: "#333" }}>주식회사 웹헤즈</td>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>성명</td>
+                              <td className="px-3 py-[7px]" style={{ color: "#333" }}>박진열</td>
+                            </tr>
+                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>주소</td>
+                              <td colSpan={3} className="px-3 py-[7px]" style={{ color: "#333" }}>서울특별시 마포구 월드컵로114, 3층(성산동, 효남빌딩)</td>
+                            </tr>
+                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>업태</td>
+                              <td className="px-3 py-[7px]" style={{ color: "#333" }}>정보통신업</td>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종목</td>
+                              <td className="px-3 py-[7px]" style={{ color: "#333" }}>응용소프트웨어 개발 및 공급</td>
+                            </tr>
+                            <tr>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#cc3333", backgroundColor: "#fff8f8", borderRight: "1px solid #ddd" }}>이메일</td>
+                              <td colSpan={3} className="px-3 py-[7px]" style={{ color: "#333" }}>34bus@webheads.co.kr</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* 공급받는자 */}
+                      <div className="flex">
+                        <div className="flex items-center justify-center shrink-0" style={{ width: "36px", backgroundColor: "#f0f4ff", borderRight: "1px solid #ccc", writingMode: "vertical-rl" as any }}>
+                          <span className="text-[16px] font-bold" style={{ color: "#3366cc", letterSpacing: "0.15em" }}>공급받는자</span>
+                        </div>
+                        <table className="flex-1 text-[13px]" style={{ borderCollapse: "collapse", tableLayout: "fixed" }}>
+                          <colgroup>
+                            <col style={{ width: "75px" }} />
+                            <col style={{ width: "40%" }} />
+                            <col style={{ width: "70px" }} />
+                            <col />
+                          </colgroup>
+                          <tbody>
+                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                              <td className="px-3 py-[7px] font-bold whitespace-nowrap" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>등록번호</td>
+                              <td className="px-3 py-[7px] font-medium" style={{ color: "#333" }}>{detailLog.buyer_corp_num || "-"}</td>
+                              <td className="px-3 py-[7px] font-bold whitespace-nowrap" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>종사업장</td>
+                              <td className="px-3 py-[7px]"></td>
+                            </tr>
+                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>상호</td>
+                              <td className="px-3 py-[7px]" style={{ color: "#333" }}>{clientName}</td>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd", borderLeft: "1px solid #ddd" }}>성명</td>
+                              <td className="px-3 py-[7px]" style={{ color: "#333" }}>{detailLog.buyer_ceo_name || "-"}</td>
+                            </tr>
+                            <tr style={{ borderBottom: "1px solid #ddd" }}>
+                              <td className="px-3 py-[7px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>이메일</td>
+                              <td colSpan={3} className="px-3 py-[7px]" style={{ color: "#333" }}>{detailLog.buyer_email || "-"}</td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
-                    {/* 공급받는자 */}
-                    <div className="px-4 py-3 space-y-2">
-                      <p className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-destructive inline-block" />
-                        공급받는자
-                      </p>
-                      <div className="space-y-1">
-                        <p className="font-medium">{clientName}</p>
-                        <p className="text-muted-foreground">{detailLog.buyer_corp_num || "-"}</p>
-                        {detailLog.buyer_ceo_name && (
-                          <p className="text-muted-foreground">대표: {detailLog.buyer_ceo_name}</p>
-                        )}
-                        {detailLog.buyer_email && (
-                          <p className="text-muted-foreground">{detailLog.buyer_email}</p>
-                        )}
-                      </div>
-                    </div>
+
+                    {/* 작성일자 / 공급가액 / 세액 */}
+                    <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderBottom: "1px solid #999" }}>
+                      <thead>
+                        <tr style={{ backgroundColor: "#f0f0f0" }}>
+                          <th className="px-3 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc", width: "200px" }}>작성일자</th>
+                          <th className="px-3 py-[6px] font-bold text-center" style={{ borderRight: "1px solid #ccc" }}>공급가액</th>
+                          <th className="px-3 py-[6px] font-bold text-center">세액</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style={{ borderTop: "1px solid #ddd" }}>
+                          <td className="px-3 py-[6px] text-center" style={{ borderRight: "1px solid #ccc" }}>{detailLog.issue_date || "-"}</td>
+                          <td className="px-3 py-[6px] text-right font-semibold tabular-nums text-[14px]" style={{ borderRight: "1px solid #ccc" }}>{fmt(detailLog.supply_amount)}</td>
+                          <td className="px-3 py-[6px] text-right font-semibold tabular-nums text-[14px]">{fmt(detailLog.tax_amount)}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    {/* 비고 */}
+                    {detailLog.memo && (
+                      <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderBottom: "1px solid #ddd" }}>
+                        <tbody>
+                          <tr>
+                            <td className="px-3 py-[5px] font-bold text-center" style={{ width: "80px", backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc" }}>비고</td>
+                            <td className="px-3 py-[5px]" style={{ color: "#333" }}>{detailLog.memo}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    )}
+
+                    {/* Bottom totals */}
+                    <table className="w-full text-[13px]" style={{ borderCollapse: "collapse", borderTop: "2px solid #999" }}>
+                      <tbody>
+                        <tr>
+                          <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "120px" }}>합계금액</td>
+                          <td className="px-3 py-[6px] text-right font-bold tabular-nums" style={{ borderRight: "1px solid #ccc", width: "140px" }}>{fmt(detailLog.total_amount)}</td>
+                          <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "60px" }}>현금</td>
+                          <td className="px-3 py-[6px]" style={{ borderRight: "1px solid #ccc", width: "120px" }}></td>
+                          <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "60px" }}>수표</td>
+                          <td className="px-3 py-[6px]" style={{ borderRight: "1px solid #ccc", width: "120px" }}></td>
+                          <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "60px" }}>어음</td>
+                          <td className="px-3 py-[6px]" style={{ borderRight: "1px solid #ccc", width: "120px" }}></td>
+                          <td className="px-3 py-[6px] font-bold text-center" style={{ backgroundColor: "#f0f0f0", borderRight: "1px solid #ccc", width: "80px" }}>외상미수금</td>
+                          <td className="px-3 py-[6px]" style={{ width: "120px" }}></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-                </div>
 
-                {/* Amounts */}
-                <div className="rounded-xl border border-border/60 overflow-hidden">
-                  <table className="w-full text-[13px]">
-                    <tbody>
-                      <tr className="border-b border-border/40">
-                        <td className="px-4 py-2.5 text-muted-foreground">발행일</td>
-                        <td className="px-4 py-2.5 text-right font-medium">{detailLog.issue_date || "-"}</td>
-                      </tr>
-                      <tr className="border-b border-border/40">
-                        <td className="px-4 py-2.5 text-muted-foreground">공급가액</td>
-                        <td className="px-4 py-2.5 text-right tabular-nums">{fmt(detailLog.supply_amount)}원</td>
-                      </tr>
-                      <tr className="border-b border-border/40">
-                        <td className="px-4 py-2.5 text-muted-foreground">세액</td>
-                        <td className="px-4 py-2.5 text-right tabular-nums">{fmt(detailLog.tax_amount)}원</td>
-                      </tr>
-                      <tr className="bg-muted/20">
-                        <td className="px-4 py-3 font-semibold text-primary">합계</td>
-                        <td className="px-4 py-3 text-right font-extrabold text-primary text-[15px] tabular-nums">
-                          {fmt(detailLog.total_amount)}원
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                {/* Memo & meta */}
-                {detailLog.memo && (
-                  <div className="rounded-xl border border-border/60 px-4 py-3">
-                    <p className="text-[11px] text-muted-foreground mb-1">메모</p>
-                    <p className="text-[13px]">{detailLog.memo}</p>
-                  </div>
-                )}
-
-                {detailLog.invoice_num && (
-                  <p className="text-[11px] text-muted-foreground">
-                    팝빌 문서번호: {detailLog.invoice_num}
+                  <p className="text-[11px]" style={{ color: "#999" }}>
+                    ※ 본 전자세금계산서는 국세청 미전송 건으로, 국세청 전송이 완료된 이후에 법적 효력을 갖습니다. (국세청고시 제2023-17호, 2023.9.1)
                   </p>
-                )}
-              </div>
-            );
-          })()}
+                </div>
+              );
+            })()}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
