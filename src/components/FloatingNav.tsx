@@ -75,10 +75,11 @@ export default function FloatingNav() {
       <div className="fixed right-3 bottom-[230px] z-50 md:hidden flex flex-col items-center gap-2">
         <button
           onClick={handleCostSimulator}
-          className={`w-9 h-9 rounded-full flex items-center justify-center ${glassBase}`}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-background text-primary font-semibold text-xs shadow-[0_4px_20px_rgba(0,0,0,0.12)] border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all"
           aria-label={t("floatingNav.costSimulator")}
         >
-          <Calculator className="w-4 h-4" />
+          <Calculator className="w-3.5 h-3.5" />
+          <span>{t("floatingNav.costSimulator")}</span>
         </button>
         {mobileButtons.map((btn) => (
             <Link
