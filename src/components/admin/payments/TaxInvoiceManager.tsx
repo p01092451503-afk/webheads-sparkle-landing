@@ -3,7 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import {
   Loader2, Plus, Search, FileText, CheckCircle2, AlertTriangle,
-  ChevronLeft, ChevronRight, ChevronDown, ArrowLeft, Trash2, Save, Eye, Send, X, CirclePlus, CircleMinus
+  ChevronLeft, ChevronRight, ChevronDown, ArrowLeft, Trash2, Save, Eye, Send, X, CirclePlus, CircleMinus,
+  RefreshCw, Ban, Mail, Wallet, Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -102,6 +103,12 @@ export default function TaxInvoiceManager() {
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [detailLog, setDetailLog] = useState<TaxInvoiceLog | null>(null);
+  const [balance, setBalance] = useState<number | null>(null);
+  const [balanceLoading, setBalanceLoading] = useState(false);
+  const [isProduction, setIsProduction] = useState<boolean | null>(null);
+  const [syncingId, setSyncingId] = useState<string | null>(null);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [resendingId, setResendingId] = useState<string | null>(null);
 
   // Issue form state
   const [form, setForm] = useState({
@@ -219,6 +226,84 @@ export default function TaxInvoiceManager() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  // Fetch balance and environment on mount
+  useEffect(() => {
+    const fetchMeta = async () => {
+      setBalanceLoading(true);
+      try {
+        const [balRes, envRes] = await Promise.all([
+          supabase.functions.invoke("popbill-tax-invoice", { body: { action: "checkBalance" } }),
+          supabase.functions.invoke("popbill-tax-invoice", { body: { action: "getEnvironment" } }),
+        ]);
+        if (balRes.data?.success) setBalance(balRes.data.data?.Balance ?? balRes.data.data);
+        if (envRes.data?.success) setIsProduction(envRes.data.data?.isProduction ?? false);
+      } catch { /* ignore */ }
+      setBalanceLoading(false);
+    };
+    fetchMeta();
+  }, []);
+
+  // 상태 동기화
+  const handleSyncStatus = async (log: TaxInvoiceLog, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    const mgtKey = (log.popbill_response as any)?.invoicerMgtKey || (log.popbill_response as any)?.mgtKey;
+    if (!mgtKey) { toast.error("문서번호를 찾을 수 없습니다"); return; }
+    setSyncingId(log.id);
+    try {
+      const res = await supabase.functions.invoke("popbill-tax-invoice", {
+        body: { action: "checkStatus", mgtKey, invoiceLogId: log.id },
+      });
+      if (res.data?.success) {
+        toast.success("상태가 동기화되었습니다");
+        fetchData();
+      } else {
+        throw new Error(res.data?.error || "동기화 실패");
+      }
+    } catch (err: any) { toast.error(err.message); }
+    setSyncingId(null);
+  };
+
+  // 발행 취소
+  const handleCancel = async (log: TaxInvoiceLog, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!confirm("세금계산서 발행을 취소하시겠습니까?\n국세청 전송 전에만 가능합니다.")) return;
+    const mgtKey = (log.popbill_response as any)?.invoicerMgtKey || (log.popbill_response as any)?.mgtKey;
+    if (!mgtKey) { toast.error("문서번호를 찾을 수 없습니다"); return; }
+    setCancellingId(log.id);
+    try {
+      const res = await supabase.functions.invoke("popbill-tax-invoice", {
+        body: { action: "cancel", mgtKey, invoiceLogId: log.id },
+      });
+      if (res.data?.success) {
+        toast.success("발행이 취소되었습니다");
+        fetchData();
+        if (detailLog?.id === log.id) setDetailLog(null);
+      } else {
+        throw new Error(res.data?.error || "취소 실패");
+      }
+    } catch (err: any) { toast.error(err.message); }
+    setCancellingId(null);
+  };
+
+  // 이메일 재전송
+  const handleResendEmail = async (log: TaxInvoiceLog, e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    const mgtKey = (log.popbill_response as any)?.invoicerMgtKey || (log.popbill_response as any)?.mgtKey;
+    if (!mgtKey) { toast.error("문서번호를 찾을 수 없습니다"); return; }
+    setResendingId(log.id);
+    try {
+      const res = await supabase.functions.invoke("popbill-tax-invoice", {
+        body: { action: "resendEmail", mgtKey, receiverEmail: log.buyer_email || "" },
+      });
+      if (res.data?.success) {
+        toast.success(`${log.buyer_email || "거래처"}로 이메일이 재전송되었습니다`);
+      } else {
+        throw new Error(res.data?.error || "재전송 실패");
+      }
+    } catch (err: any) { toast.error(err.message); }
+    setResendingId(null);
+  };
 
   const filteredLogs = useMemo(() => {
     let result = logs.filter((l) => {
@@ -521,14 +606,35 @@ export default function TaxInvoiceManager() {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-2">
-        <h2 className="text-[16px] font-bold flex items-center gap-2">
-          <FileText className="w-4 h-4" />
-          세금계산서 관리
-        </h2>
-        <Button size="sm" className="text-[13px] gap-1.5" onClick={() => setIssueOpen(true)}>
-          <Plus className="w-3.5 h-3.5" />
-          세금계산서 발행
-        </Button>
+        <div className="flex items-center gap-3">
+          <h2 className="text-[16px] font-bold flex items-center gap-2">
+            <FileText className="w-4 h-4" />
+            세금계산서 관리
+          </h2>
+          {isProduction !== null && (
+            <Badge variant="outline" className={`text-[10px] ${isProduction ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-amber-50 text-amber-700 border-amber-200"}`}>
+              <Globe className="w-3 h-3 mr-1" />
+              {isProduction ? "운영" : "테스트"}
+            </Badge>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          {/* 포인트 잔액 */}
+          <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground bg-muted/50 px-3 py-1.5 rounded-lg border">
+            <Wallet className="w-3.5 h-3.5" />
+            {balanceLoading ? (
+              <Loader2 className="w-3 h-3 animate-spin" />
+            ) : balance !== null ? (
+              <span className="font-semibold text-foreground">{typeof balance === "number" ? fmt(balance) : balance} P</span>
+            ) : (
+              <span>-</span>
+            )}
+          </div>
+          <Button size="sm" className="text-[13px] gap-1.5" onClick={() => setIssueOpen(true)}>
+            <Plus className="w-3.5 h-3.5" />
+            세금계산서 발행
+          </Button>
+        </div>
       </div>
 
       {/* Month nav + search */}
@@ -585,7 +691,7 @@ export default function TaxInvoiceManager() {
                 <th className="text-right px-3 py-2 font-medium">합계</th>
                 <th className="text-center px-3 py-2 font-medium">상태</th>
                 <th className="text-left px-3 py-2 font-medium">메모</th>
-                <th className="px-3 py-2 w-[60px]"></th>
+                <th className="px-3 py-2 w-[160px] text-center font-medium">작업</th>
               </tr>
             </thead>
             <tbody>
@@ -596,54 +702,78 @@ export default function TaxInvoiceManager() {
                   </td>
                 </tr>
               ) : (
-                filteredLogs.map((log) => (
-                  <tr
-                    key={log.id}
-                    className="border-b last:border-0 hover:bg-muted/30 cursor-pointer"
-                    onClick={() => {
-                      if (log.status === "saved") handleOpenSavedLog(log);
-                      else setDetailLog(log);
-                    }}
-                  >
-                    <td className="px-3 py-2 whitespace-nowrap">{log.issue_date || "-"}</td>
-                    <td className="px-3 py-2 font-medium">
-                      {log.buyer_corp_name || getClientName(log.client_id)}
-                    </td>
-                    <td className="px-3 py-2 text-muted-foreground">{log.buyer_corp_num || "-"}</td>
-                    <td className="px-3 py-2 text-right">{fmt(log.supply_amount)}</td>
-                    <td className="px-3 py-2 text-right">{fmt(log.tax_amount)}</td>
-                    <td className="px-3 py-2 text-right font-medium">{fmt(log.total_amount)}</td>
-                    <td className="px-3 py-2 text-center">
-                      <Badge
-                        variant="outline"
-                        className={
-                          log.status === "issued"
-                            ? "bg-emerald-50 text-emerald-700 border-emerald-200 text-[11px]"
-                            : log.status === "saved"
-                            ? "bg-blue-50 text-blue-700 border-blue-200 text-[11px]"
-                            : "bg-amber-50 text-amber-700 border-amber-200 text-[11px]"
-                        }
-                      >
-                        {log.status === "issued" ? "발행완료" : log.status === "saved" ? "저장" : log.status}
-                      </Badge>
-                    </td>
-                    <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
-                      {log.memo || "-"}
-                    </td>
-                    <td className="px-3 py-2 text-center">
-                      {log.status === "saved" && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-7 px-2 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-1"
-                          onClick={(e) => handleDeleteSavedLog(log.id, e)}
-                        >
-                          <X className="w-3 h-3" /> 취소
-                        </Button>
-                      )}
-                    </td>
-                  </tr>
-                ))
+                filteredLogs.map((log) => {
+                  const statusConfig: Record<string, { label: string; className: string }> = {
+                    issued: { label: "발행완료", className: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+                    saved: { label: "저장", className: "bg-blue-50 text-blue-700 border-blue-200" },
+                    nts_success: { label: "국세청승인", className: "bg-green-50 text-green-800 border-green-300" },
+                    nts_failed: { label: "전송실패", className: "bg-red-50 text-red-700 border-red-200" },
+                    cancelled: { label: "취소", className: "bg-gray-50 text-gray-500 border-gray-200" },
+                  };
+                  const st = statusConfig[log.status] || { label: log.status, className: "bg-amber-50 text-amber-700 border-amber-200" };
+
+                  return (
+                    <tr
+                      key={log.id}
+                      className="border-b last:border-0 hover:bg-muted/30 cursor-pointer"
+                      onClick={() => {
+                        if (log.status === "saved") handleOpenSavedLog(log);
+                        else setDetailLog(log);
+                      }}
+                    >
+                      <td className="px-3 py-2 whitespace-nowrap">{log.issue_date || "-"}</td>
+                      <td className="px-3 py-2 font-medium">
+                        {log.buyer_corp_name || getClientName(log.client_id)}
+                      </td>
+                      <td className="px-3 py-2 text-muted-foreground">{log.buyer_corp_num || "-"}</td>
+                      <td className="px-3 py-2 text-right">{fmt(log.supply_amount)}</td>
+                      <td className="px-3 py-2 text-right">{fmt(log.tax_amount)}</td>
+                      <td className="px-3 py-2 text-right font-medium">{fmt(log.total_amount)}</td>
+                      <td className="px-3 py-2 text-center">
+                        <Badge variant="outline" className={`${st.className} text-[11px]`}>
+                          {st.label}
+                        </Badge>
+                      </td>
+                      <td className="px-3 py-2 text-muted-foreground max-w-[120px] truncate">
+                        {log.memo || "-"}
+                      </td>
+                      <td className="px-3 py-2">
+                        <div className="flex items-center gap-1 justify-center" onClick={e => e.stopPropagation()}>
+                          {log.status === "saved" && (
+                            <Button variant="ghost" size="sm" className="h-7 px-2 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-1"
+                              onClick={(e) => handleDeleteSavedLog(log.id, e)}>
+                              <X className="w-3 h-3" /> 삭제
+                            </Button>
+                          )}
+                          {(log.status === "issued" || log.status === "nts_success" || log.status === "nts_failed") && (
+                            <>
+                              <Button variant="ghost" size="sm" className="h-7 px-1.5 text-[11px] gap-0.5"
+                                disabled={syncingId === log.id}
+                                onClick={(e) => handleSyncStatus(log, e)}
+                                title="상태 동기화">
+                                <RefreshCw className={`w-3 h-3 ${syncingId === log.id ? "animate-spin" : ""}`} />
+                              </Button>
+                              <Button variant="ghost" size="sm" className="h-7 px-1.5 text-[11px] gap-0.5"
+                                disabled={resendingId === log.id}
+                                onClick={(e) => handleResendEmail(log, e)}
+                                title="이메일 재전송">
+                                <Mail className={`w-3 h-3 ${resendingId === log.id ? "animate-pulse" : ""}`} />
+                              </Button>
+                              {log.status === "issued" && (
+                                <Button variant="ghost" size="sm" className="h-7 px-1.5 text-[11px] text-destructive hover:text-destructive hover:bg-destructive/10 gap-0.5"
+                                  disabled={cancellingId === log.id}
+                                  onClick={(e) => handleCancel(log, e)}
+                                  title="발행 취소">
+                                  <Ban className={`w-3 h-3 ${cancellingId === log.id ? "animate-pulse" : ""}`} />
+                                </Button>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
