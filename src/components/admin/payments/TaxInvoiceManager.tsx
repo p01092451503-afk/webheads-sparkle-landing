@@ -236,7 +236,11 @@ export default function TaxInvoiceManager() {
           supabase.functions.invoke("popbill-tax-invoice", { body: { action: "checkBalance" } }),
           supabase.functions.invoke("popbill-tax-invoice", { body: { action: "getEnvironment" } }),
         ]);
-        if (balRes.data?.success) setBalance(balRes.data.data?.Balance ?? balRes.data.data);
+        if (balRes.data?.success) {
+          const bd = balRes.data.data;
+          const val = typeof bd === "number" ? bd : (bd?.remainPoint ?? bd?.Balance ?? (typeof bd === "string" ? parseFloat(bd) : null));
+          setBalance(typeof val === "number" ? val : null);
+        }
         if (envRes.data?.success) setIsProduction(envRes.data.data?.isProduction ?? false);
       } catch { /* ignore */ }
       setBalanceLoading(false);
