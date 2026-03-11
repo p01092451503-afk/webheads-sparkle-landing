@@ -146,27 +146,31 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
     }
   };
 
-  const getPublicUrl = (filePath: string) => {
-    const { data } = supabase.storage.from("work-files").getPublicUrl(filePath);
-    return data.publicUrl;
+  const getSignedUrl = async (filePath: string) => {
+    const { data, error } = await supabase.storage.from("work-files").createSignedUrl(filePath, 3600);
+    if (error || !data?.signedUrl) return null;
+    return data.signedUrl;
   };
 
-  const handlePreview = (file: WorkFile) => {
-    const url = getPublicUrl(file.file_path);
+  const handlePreview = async (file: WorkFile) => {
+    const url = await getSignedUrl(file.file_path);
+    if (!url) { toast.error("미리보기 URL 생성 실패"); return; }
     setPreviewUrl(url);
     setPreviewFile(file);
     setPreviewOpen(true);
   };
 
-  const handleDownload = (file: WorkFile) => {
-    const url = getPublicUrl(file.file_path);
+  const handleDownload = async (file: WorkFile) => {
+    const { data, error } = await supabase.storage.from("work-files").download(file.file_path);
+    if (error || !data) { toast.error("다운로드 실패"); return; }
+    const url = URL.createObjectURL(data);
     const a = document.createElement("a");
     a.href = url;
     a.download = file.file_name;
-    a.target = "_blank";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const filtered = files.filter((f) => {
