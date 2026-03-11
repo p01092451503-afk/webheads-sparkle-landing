@@ -146,27 +146,31 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
     }
   };
 
-  const getPublicUrl = (filePath: string) => {
-    const { data } = supabase.storage.from("work-files").getPublicUrl(filePath);
-    return data.publicUrl;
+  const getSignedUrl = async (filePath: string) => {
+    const { data, error } = await supabase.storage.from("work-files").createSignedUrl(filePath, 3600);
+    if (error || !data?.signedUrl) return null;
+    return data.signedUrl;
   };
 
-  const handlePreview = (file: WorkFile) => {
-    const url = getPublicUrl(file.file_path);
+  const handlePreview = async (file: WorkFile) => {
+    const url = await getSignedUrl(file.file_path);
+    if (!url) { toast.error("미리보기 URL 생성 실패"); return; }
     setPreviewUrl(url);
     setPreviewFile(file);
     setPreviewOpen(true);
   };
 
-  const handleDownload = (file: WorkFile) => {
-    const url = getPublicUrl(file.file_path);
+  const handleDownload = async (file: WorkFile) => {
+    const { data, error } = await supabase.storage.from("work-files").download(file.file_path);
+    if (error || !data) { toast.error("다운로드 실패"); return; }
+    const url = URL.createObjectURL(data);
     const a = document.createElement("a");
     a.href = url;
     a.download = file.file_name;
-    a.target = "_blank";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    URL.revokeObjectURL(url);
   };
 
   const filtered = files.filter((f) => {
@@ -356,7 +360,13 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
             {previewFile?.content_type?.startsWith("image/") ? (
               <img src={previewUrl} alt={previewFile.file_name} className="max-w-full max-h-[60vh] object-contain rounded" />
             ) : previewFile?.content_type === "application/pdf" ? (
-              <iframe src={previewUrl} className="w-full h-[60vh] rounded border" />
+              <object data={previewUrl} type="application/pdf" className="w-full h-[60vh] rounded border">
+                <div className="flex flex-col items-center justify-center h-[60vh] gap-3 text-muted-foreground">
+                  <FileText className="w-10 h-10" />
+                  <p className="text-sm">PDF 미리보기를 지원하지 않는 브라우저입니다.</p>
+                  <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="text-primary underline text-sm">새 탭에서 열기</a>
+                </div>
+              </object>
             ) : null}
           </div>
           <DialogFooter>
