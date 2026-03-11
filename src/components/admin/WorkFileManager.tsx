@@ -146,15 +146,10 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
     }
   };
 
-  const getSignedUrl = async (filePath: string) => {
-    const { data, error } = await supabase.storage.from("work-files").createSignedUrl(filePath, 3600);
-    if (error || !data?.signedUrl) return null;
-    return data.signedUrl;
-  };
-
   const handlePreview = async (file: WorkFile) => {
-    const url = await getSignedUrl(file.file_path);
-    if (!url) { toast.error("미리보기 URL 생성 실패"); return; }
+    const { data, error } = await supabase.storage.from("work-files").download(file.file_path);
+    if (error || !data) { toast.error("미리보기 실패"); return; }
+    const url = URL.createObjectURL(data);
     setPreviewUrl(url);
     setPreviewFile(file);
     setPreviewOpen(true);
