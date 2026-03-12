@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
-import { Check, Gift, Shield, Settings, Clock, ArrowRight, CalendarDays, MessageSquare, FileCheck, Sparkles } from "lucide-react";
+import { Check, Gift, Shield, Settings, Clock, ArrowRight, CalendarDays, MessageSquare, FileCheck, Sparkles, RefreshCw } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 
-const benefitIcons = [Gift, Shield, Settings];
+const benefitIcons = [Gift, Shield, Settings, RefreshCw];
 const benefitAccents = [
   { accent: "hsl(340, 55%, 50%)", accentBg: "hsl(340, 60%, 94%)" },
   { accent: "hsl(280, 45%, 50%)", accentBg: "hsl(280, 50%, 94%)" },
   { accent: "hsl(320, 50%, 48%)", accentBg: "hsl(320, 55%, 94%)" },
+  { accent: "hsl(260, 55%, 50%)", accentBg: "hsl(260, 55%, 94%)" },
 ];
 
 export default function EventPage() {
@@ -56,7 +57,7 @@ export default function EventPage() {
 
       {/* Benefits */}
       <section className="py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-6 max-w-5xl">
+        <div className="container mx-auto px-6 max-w-6xl">
           <p className="text-sm font-bold tracking-widest uppercase text-center mb-3" style={{ color: "hsl(340, 50%, 55%)" }}>
             {t("event.benefits.label")}
           </p>
@@ -66,7 +67,7 @@ export default function EventPage() {
           <p className="text-muted-foreground text-center mb-12 text-lg">
             {t("event.benefits.desc")}
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {benefits.map((b: any, i: number) => {
               const Icon = benefitIcons[i] || Gift;
               const colors = benefitAccents[i] || benefitAccents[0];
