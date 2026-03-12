@@ -8,6 +8,7 @@ interface SEOProps {
   path?: string;
   jsonLd?: object;
   faqJsonLd?: { q: string; a: string }[];
+  howToJsonLd?: { name: string; description?: string; steps: { name: string; text: string }[] };
   breadcrumb?: { name: string; url: string }[];
   ogImage?: string;
 }
@@ -21,7 +22,7 @@ const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string;
   ja: { og: "ja_JP", siteName: "WEBHEADS", suffix: "WEBHEADS", imageAlt: "代表イメージ" },
 };
 
-export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb, ogImage }: SEOProps) {
+export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, howToJsonLd, breadcrumb, ogImage }: SEOProps) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "ko";
   const locale = LOCALE_MAP[lang] || LOCALE_MAP.ko;
@@ -44,6 +45,19 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
         })),
       }
     : null;
+
+  const howToSchema = howToJsonLd ? {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": howToJsonLd.name,
+    "description": howToJsonLd.description || howToJsonLd.name,
+    "step": howToJsonLd.steps.map((step, i) => ({
+      "@type": "HowToStep",
+      "position": i + 1,
+      "name": step.name,
+      "text": step.text,
+    })),
+  } : null;
 
   const breadcrumbSchema = breadcrumb && breadcrumb.length > 0 ? {
     "@context": "https://schema.org",
@@ -106,6 +120,11 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       {breadcrumbSchema && (
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
+        </script>
+      )}
+      {howToSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(howToSchema)}
         </script>
       )}
     </Helmet>

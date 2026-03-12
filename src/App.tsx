@@ -28,6 +28,9 @@ import SmsKakaoPage from "./pages/SmsKakaoPage";
 import BlogPage from "./pages/BlogPage";
 import EventPage from "./pages/EventPage";
 import OverviewPage from "./pages/OverviewPage";
+const LmsDevelopmentPage = lazy(() => import("./pages/seo/LmsDevelopmentPage"));
+const CorporateLmsPage = lazy(() => import("./pages/seo/CorporateLmsPage"));
+const ElearningPlatformPage = lazy(() => import("./pages/seo/ElearningPlatformPage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -78,6 +81,9 @@ const App = () => (
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/event" element={<EventPage />} />
                 <Route path="/overview" element={<OverviewPage />} />
+                <Route path="/lms-development" element={<LmsDevelopmentPage />} />
+                <Route path="/corporate-lms" element={<CorporateLmsPage />} />
+                <Route path="/elearning-platform-development" element={<ElearningPlatformPage />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 {/* <Route path="/about" element={<AboutPage />} /> */}
