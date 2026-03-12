@@ -121,6 +121,42 @@ export type Database = {
           },
         ]
       }
+      backup_files: {
+        Row: {
+          content_type: string | null
+          created_at: string
+          file_name: string
+          file_path: string
+          file_size: number | null
+          folder: string
+          id: string
+          memo: string | null
+          uploaded_by: string | null
+        }
+        Insert: {
+          content_type?: string | null
+          created_at?: string
+          file_name: string
+          file_path: string
+          file_size?: number | null
+          folder?: string
+          id?: string
+          memo?: string | null
+          uploaded_by?: string | null
+        }
+        Update: {
+          content_type?: string | null
+          created_at?: string
+          file_name?: string
+          file_path?: string
+          file_size?: number | null
+          folder?: string
+          id?: string
+          memo?: string | null
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       chatbot_conversations: {
         Row: {
           created_at: string | null

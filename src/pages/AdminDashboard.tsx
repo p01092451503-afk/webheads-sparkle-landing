@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart, FolderKanban, FolderOpen
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart, FolderKanban, FolderOpen, HardDrive
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
@@ -22,9 +22,10 @@ const MonthlyChecklist = lazy(() => import("@/components/admin/MonthlyChecklist"
 const MonthlyReport = lazy(() => import("@/components/admin/MonthlyReport"));
 const ClientWorkManager = lazy(() => import("@/components/admin/ClientWorkManager"));
 const WorkFileManager = lazy(() => import("@/components/admin/WorkFileManager"));
+const BackupFileManager = lazy(() => import("@/components/admin/BackupFileManager"));
 
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work" | "work_files";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work" | "work_files" | "backup_files";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
@@ -41,6 +42,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "report", icon: FileBarChart, label: "월간리포트" },
   { key: "client_work", icon: FolderKanban, label: "프로젝트관리" },
   { key: "work_files", icon: FolderOpen, label: "업무자료" },
+  { key: "backup_files", icon: HardDrive, label: "자료백업" },
 ];
 
 const TabLoader = () => (
@@ -53,7 +55,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   useSessionTimeout();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies", "checklist", "report", "client_work", "work_files"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies", "checklist", "report", "client_work", "work_files", "backup_files"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
@@ -340,7 +342,7 @@ export default function AdminDashboard() {
           <div className="flex -mb-px overflow-x-auto scrollbar-hide items-end gap-1">
             {/* 운영 그룹 */}
             <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(220,20%,92%)] px-1 pt-1">
-              {tabs.filter(t => !["payments","expenses","taxinvoice","client_companies","checklist","report","client_work","work_files"].includes(t.key)).map((t) => {
+              {tabs.filter(t => !["payments","expenses","taxinvoice","client_companies","checklist","report","client_work","work_files","backup_files"].includes(t.key)).map((t) => {
                 const isActive = tab === t.key;
                 return (
                   <button
@@ -387,7 +389,7 @@ export default function AdminDashboard() {
 
             {/* 업무 그룹 */}
             <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(35,35%,89%)] px-1 pt-1">
-              {tabs.filter(t => ["checklist","client_work","work_files"].includes(t.key)).map((t) => {
+              {tabs.filter(t => ["checklist","client_work","work_files","backup_files"].includes(t.key)).map((t) => {
                 const isActive = tab === t.key;
                 return (
                   <button
@@ -449,6 +451,9 @@ export default function AdminDashboard() {
           )}
           {tab === "work_files" && (
             <WorkFileManager isSuperAdmin={isSuperAdmin} />
+          )}
+          {tab === "backup_files" && (
+            <BackupFileManager isSuperAdmin={isSuperAdmin} />
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
