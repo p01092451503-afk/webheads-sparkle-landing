@@ -254,7 +254,7 @@ export default function LmsPage() {
               </span>
               <Calculator className="w-4 h-4" />
               {t("floatingNav.costSimulator")}
-            </a>
+            </Link>
           </div>
           <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
           <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
