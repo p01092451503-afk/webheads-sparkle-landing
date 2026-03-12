@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";

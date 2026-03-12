@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import TestimonialSection from "@/components/TestimonialSection";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
