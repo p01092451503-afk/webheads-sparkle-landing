@@ -110,7 +110,7 @@ export default function Header() {
               setBannerDismissed(true);
               try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
             }}
-            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-white transition-colors p-1 rounded-md hover:bg-white/10"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 text-foreground/40 hover:text-foreground transition-colors p-1 rounded-md hover:bg-foreground/5"
             aria-label={t("banner.dismiss")}
           >
             <X className="w-4 h-4" aria-hidden="true" />
