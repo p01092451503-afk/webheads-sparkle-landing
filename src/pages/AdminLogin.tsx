@@ -133,6 +133,10 @@ export default function AdminLogin() {
   const isLocked = lockoutRemaining > 0;
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
     <div className="min-h-screen flex items-center justify-center px-4"
       style={{ background: "hsl(var(--background))" }}
     >

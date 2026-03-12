@@ -132,6 +132,10 @@ const NotFound = () => {
       };
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, follow" />
+    </Helmet>
     <div className="flex min-h-screen items-center justify-center bg-background px-6">
       <div className="text-center max-w-md">
         <span

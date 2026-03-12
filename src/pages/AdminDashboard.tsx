@@ -286,6 +286,10 @@ export default function AdminDashboard() {
   if (!userId) return null;
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
     <div className="min-h-screen bg-[hsl(220,14%,96%)]">
       {/* Realtime Alert */}
       {newInquiryAlert && (
