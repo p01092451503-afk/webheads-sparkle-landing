@@ -452,6 +452,9 @@ export default function AdminDashboard() {
           {tab === "work_files" && (
             <WorkFileManager isSuperAdmin={isSuperAdmin} />
           )}
+          {tab === "backup_files" && (
+            <BackupFileManager isSuperAdmin={isSuperAdmin} />
+          )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
