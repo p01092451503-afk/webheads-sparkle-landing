@@ -538,37 +538,6 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
-      {/* ═══ TRANSPARENCY ═══ */}
-      <section className="py-16 md:py-20" style={{ background: "#F8F9FD" }}>
-        <div className="container mx-auto px-5 md:px-6 max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6" style={{ background: "rgba(0,200,150,0.1)" }}>
-            <Shield className="w-4 h-4" style={{ color: "#00C896" }} />
-            <span className="text-sm font-bold" style={{ color: "#00C896" }}>숨은 비용 제로 선언</span>
-          </div>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4" style={{ wordBreak: "keep-all" }}>
-            다른 곳에서 유료인 것, 웹헤즈는 다릅니다
-          </h2>
-          <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-10">
-            LMS 도입 후 예상치 못한 추가 과금으로 고민하지 않도록, 모든 비용을 사전에 투명하게 안내합니다.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { icon: ShieldCheck, title: "보안 플레이어(DRM)", desc: "타사는 필수 유료, 웹헤즈는 선택적 추가 — 불필요한 비용 없음" },
-              { icon: Zap, title: "초기 세팅비 0원", desc: "이벤트 기간 중 초기 세팅비 완전 무료로 부담 없이 시작" },
-              { icon: Headphones, title: "24시간 모니터링", desc: "별도 비용 없이 서버 상태를 24/7 모니터링하여 안정 운영" },
-            ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="rounded-2xl p-6 bg-white border border-border shadow-sm text-left">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(0,200,150,0.1)" }}>
-                  <Icon className="w-5 h-5" style={{ color: "#00C896" }} />
-                </div>
-                <h3 className="font-bold text-foreground text-sm mb-2">{title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══ COMPETITOR COMPARISON ═══ */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
