@@ -297,32 +297,38 @@ export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: bool
                   if (e.target.files) setSelectedFiles(prev => [...prev, ...Array.from(e.target.files!)]);
                 }}
               />
-              <div
-                className={`mt-1 border-2 border-dashed rounded-xl p-6 text-center transition-colors cursor-pointer ${
-                  selectedFiles.length > 0 ? "border-primary/40 bg-primary/5" : "border-muted-foreground/25 hover:border-primary/40 hover:bg-muted/30"
-                }`}
-                onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.currentTarget.classList.add("border-primary", "bg-primary/10"); }}
-                onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); e.currentTarget.classList.remove("border-primary", "bg-primary/10"); }}
-                onDrop={(e) => {
-                  e.preventDefault(); e.stopPropagation();
-                  e.currentTarget.classList.remove("border-primary", "bg-primary/10");
-                  if (e.dataTransfer.files?.length) setSelectedFiles(prev => [...prev, ...Array.from(e.dataTransfer.files)]);
-                }}
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <Upload className="w-6 h-6 mx-auto mb-2 text-muted-foreground" />
-                <p className="text-sm text-muted-foreground">파일을 여기에 끌어다 놓거나 클릭하여 선택</p>
-              </div>
-              {selectedFiles.length > 0 && (
-                <div className="mt-2 space-y-1">
+              {selectedFiles.length === 0 ? (
+                <div
+                  className="mt-1 border-2 border-dashed rounded-xl p-6 text-center transition-colors cursor-pointer border-muted-foreground/25 hover:border-primary/40 hover:bg-muted/30"
+                  onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); e.currentTarget.classList.add("border-primary", "bg-primary/10"); }}
+                  onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); e.currentTarget.classList.remove("border-primary", "bg-primary/10"); }}
+                  onDrop={(e) => {
+                    e.preventDefault(); e.stopPropagation();
+                    e.currentTarget.classList.remove("border-primary", "bg-primary/10");
+                    if (e.dataTransfer.files?.length) setSelectedFiles(prev => [...prev, ...Array.from(e.dataTransfer.files)]);
+                  }}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <Upload className="w-6 h-6 mx-auto mb-2 text-muted-foreground" />
+                  <p className="text-sm text-muted-foreground">파일을 여기에 끌어다 놓거나 클릭하여 선택</p>
+                </div>
+              ) : (
+                <div className="mt-1 space-y-1">
                   {selectedFiles.map((f, i) => (
-                    <div key={i} className="text-xs flex items-center justify-between bg-muted/50 rounded px-2 py-1">
-                      <span className="truncate">{f.name}</span>
+                    <div key={i} className="text-xs flex items-center justify-between bg-muted/50 rounded px-2 py-1.5">
+                      <span className="truncate" title={f.name}>{f.name}</span>
                       <button onClick={() => setSelectedFiles((prev) => prev.filter((_, j) => j !== i))}>
-                        <X className="w-3 h-3" />
+                        <X className="w-3 h-3 text-muted-foreground hover:text-destructive" />
                       </button>
                     </div>
                   ))}
+                  <button
+                    type="button"
+                    className="text-xs text-primary hover:underline mt-1"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    + 파일 추가
+                  </button>
                 </div>
               )}
             </div>
