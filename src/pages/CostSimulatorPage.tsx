@@ -182,49 +182,56 @@ export default function CostSimulatorPage() {
       />
 
       {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #1a0e3e 0%, #2d1b69 40%, #5D45FF 100%)" }}>
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 rounded-full opacity-20" style={{ background: "radial-gradient(circle, #5D45FF, transparent)" }} />
-          <div className="absolute bottom-10 right-20 w-96 h-96 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #FF6B00, transparent)" }} />
-        </div>
-        <div className="container mx-auto px-5 md:px-6 max-w-4xl relative z-10 pt-28 pb-20 text-center">
+      <section className="relative flex items-center justify-center pt-28 pb-28 md:pt-44 md:pb-44 overflow-hidden">
+        <HeroPatternBg theme="blue-purple" />
+        <LmsHeroOverlay />
+        <div className="container mx-auto px-5 md:px-6 max-w-4xl relative z-10 text-center flex flex-col items-center">
           {/* Floating badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-bounce" style={{ background: "rgba(255,107,0,0.15)", border: "1px solid rgba(255,107,0,0.3)" }}>
-            <Zap className="w-3.5 h-3.5" style={{ color: "#FF6B00" }} />
-            <span className="text-xs font-bold" style={{ color: "#FF6B00" }}>3월 한정: 연간 계약 시 2개월 무료 + 초기 세팅비 0원</span>
+          <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8 animate-bounce" style={{ background: "rgba(255,107,0,0.15)", backdropFilter: "blur(12px)", color: "#FF6B00", border: "1px solid rgba(255,107,0,0.3)" }}>
+            <Zap className="w-4 h-4" />
+            3월 한정: 연간 계약 시 2개월 무료 + 초기 세팅비 0원
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-[3.2rem] font-bold text-white leading-tight tracking-tight mb-5" style={{ wordBreak: "keep-all" }}>
-            추측하지 마세요.<br />
-            <span style={{ color: "#c4b5fd" }}>데이터로 설계하는</span> 가장 효율적인 LMS 예산.
+          <h1 className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white" style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}>
+            추측하지 마세요.
+            <br />
+            <span className="bg-clip-text" style={{ opacity: 0.95 }}>
+              데이터로 설계하는 가장 효율적인 LMS 예산.
+            </span>
           </h1>
-          <p className="text-base text-white/60 max-w-xl mx-auto mb-4 leading-relaxed">
+          <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
             국내 최저 수준의 CDN 단가와 16년 운영 노하우를 결합했습니다.<br className="hidden sm:block" />
             숨은 비용 없는 정직한 견적을 10초 만에 확인하세요.
           </p>
-          <p className="text-sm text-white/40 mb-8">이미 <span className="text-white/70 font-bold">300+</span> 기업이 이 시뮬레이터로 최적의 플랜을 찾았습니다.</p>
-          <a href="#simulator" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-sm transition-all hover:scale-[1.03]" style={{ background: "#FF6B00", color: "white" }}>
-            지금 견적 확인하기 <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-
-        {/* Trust bar */}
-        <div className="border-t border-white/10 py-4">
-          <div className="container mx-auto px-5 flex flex-wrap justify-center gap-8 md:gap-14">
-            {[
-              { icon: Clock, label: "16년 LMS 전문" },
-              { icon: Building2, label: "300+ 고객사" },
-              { icon: Award, label: "92.6% 유지율" },
-              { icon: Shield, label: "숨은 비용 0원" },
-            ].map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2 text-white/50 text-xs font-medium">
-                <Icon className="w-3.5 h-3.5" />
-                <span>{label}</span>
-              </div>
-            ))}
+          <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>이미 <span style={{ color: "rgba(255,255,255,0.8)", fontWeight: 700 }}>300+</span> 기업이 이 시뮬레이터로 최적의 플랜을 찾았습니다.</p>
+          <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
+            <a href="#simulator" className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "#FF6B00", color: "white", boxShadow: "0 8px 30px rgba(255,107,0,0.3)" }}>
+              지금 견적 확인하기
+              <ArrowRight className="w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <a href="#lead-capture" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
+              무료 제안서 받기
+            </a>
           </div>
         </div>
       </section>
+
+      {/* Trust bar */}
+      <div className="border-t border-border py-4" style={{ background: "hsl(245, 70%, 52%)" }}>
+        <div className="container mx-auto px-5 flex flex-wrap justify-center gap-8 md:gap-14">
+          {[
+            { icon: Clock, label: "16년 LMS 전문" },
+            { icon: Building2, label: "300+ 고객사" },
+            { icon: Award, label: "92.6% 유지율" },
+            { icon: Shield, label: "숨은 비용 0원" },
+          ].map(({ icon: Icon, label }) => (
+            <div key={label} className="flex items-center gap-2 text-white/60 text-xs font-medium">
+              <Icon className="w-3.5 h-3.5" />
+              <span>{label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* ═══ SIMULATOR ═══ */}
       <section id="simulator" className="py-16 md:py-24" style={{ background: "#F8F9FD" }}>
