@@ -4,11 +4,12 @@ import { useTranslation } from "react-i18next";
 import SEO from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 
-const benefitIcons = [Gift, Shield, Settings];
+const benefitIcons = [Gift, Shield, Settings, RefreshCw];
 const benefitAccents = [
   { accent: "hsl(340, 55%, 50%)", accentBg: "hsl(340, 60%, 94%)" },
   { accent: "hsl(280, 45%, 50%)", accentBg: "hsl(280, 50%, 94%)" },
   { accent: "hsl(320, 50%, 48%)", accentBg: "hsl(320, 55%, 94%)" },
+  { accent: "hsl(260, 55%, 50%)", accentBg: "hsl(260, 55%, 94%)" },
 ];
 
 export default function EventPage() {
