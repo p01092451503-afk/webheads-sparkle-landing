@@ -82,13 +82,14 @@ export default function Header() {
       {/* Top promo banner */}
       {(isKorean && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
         <div
-          className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
-          style={{ background: "linear-gradient(135deg, hsl(243, 80%, 62%) 0%, hsl(250, 85%, 55%) 100%)" }}
+          className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border/30 transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
+          style={{ background: "hsl(230, 15%, 93%)" }}
           role="banner"
           aria-label={t("banner.text")}
         >
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2.5 relative z-10">
-            <p className="text-sm sm:text-base font-semibold tracking-tight leading-snug text-center text-white">
+            <Zap className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" style={{ color: "hsl(245, 70%, 50%)" }} />
+            <p className="text-sm sm:text-base font-semibold tracking-tight leading-snug text-center text-foreground">
               <span className="sm:hidden">{t("banner.textShort")}</span>
               <span className="hidden sm:inline">{t("banner.text")}</span>
             </p>
