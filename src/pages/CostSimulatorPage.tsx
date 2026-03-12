@@ -616,7 +616,7 @@ export default function CostSimulatorPage() {
         <div className="container mx-auto px-5 md:px-6 max-w-2xl">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-3" style={{ wordBreak: "keep-all" }}>
-              확인하신 견적서 PDF와<br />'성공 로드맵'을 보내드립니다
+              계산된 요금제의 상세 견적서와<br />'성공 로드맵'을 보내드립니다
             </h2>
             <p className="text-sm text-muted-foreground">
               {bestPlan && <>현재 시뮬레이션 결과: <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name} 플랜 · 월 {formatPrice(displayMonthly)}원</span></>}
