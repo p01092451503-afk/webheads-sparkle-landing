@@ -26,6 +26,7 @@ import PricingPage from "./pages/PricingPage";
 import SmsKakaoPage from "./pages/SmsKakaoPage";
 
 import BlogPage from "./pages/BlogPage";
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 import EventPage from "./pages/EventPage";
 import OverviewPage from "./pages/OverviewPage";
 const LmsDevelopmentPage = lazy(() => import("./pages/seo/LmsDevelopmentPage"));
