@@ -1629,7 +1629,7 @@
   "event": {
     "seo": {
       "title": "March Promo | 2 Months Free LMS Access - WEBHEADS",
-      "description": "Webheads Light LMS 2 months free, SSL 2 years free, free initial setup! March-only promotion. Up to ₩1.1M in benefits with a 1-year contract."
+      "description": "Webheads Light LMS 2 months free, SSL 2 years free, free initial setup! March-only promotion. Up to ₩2.1M in benefits with a 1-year contract."
     },
     "hero": {
       "deadline": "Ends Mar 31, 2026",
@@ -1638,7 +1638,7 @@
       "title2": "Access Included!",
       "desc": "Launch your e-learning platform with Webheads.",
       "descPrefix": "Get up to ",
-      "descValue": "₩1.1M in benefits",
+      "descValue": "₩2.1M in benefits",
       "descSuffix": " with a 1-year contract.",
       "cta": "Get Started Now"
     },
@@ -1649,7 +1649,8 @@
       "items": [
         { "title": "2 Months Free Webheads Light LMS", "desc": "Try Webheads Light for 2 months free. Includes all core LMS features to start running your courses right away.", "value": "Worth ~₩600K" },
         { "title": "2 Years Free SSL Certificate", "desc": "Free SSL certificate for 2 years to protect your learners' data with secure communications.", "value": "Worth ~₩200K" },
-        { "title": "Free LMS Initial Setup", "desc": "Our engineers handle the initial setup at no cost — domain connection, default design, category configuration, and more.", "value": "Worth ₩300K" }
+        { "title": "Free LMS Initial Setup", "desc": "Our engineers handle the initial setup at no cost — domain connection, default design, category configuration, and more.", "value": "Worth ₩300K" },
+        { "title": "Full Migration Support", "desc": "Switching from another LMS? We cover the full cost of migrating your learners, courses, and content. Zero-downtime migration guaranteed.", "value": "Up to ₩1M" }
       ]
     },
     "conditions": {
@@ -1677,7 +1678,7 @@
       ]
     },
     "cta": {
-      "title": "Apply now and get up to ₩1.1M in benefits",
+      "title": "Apply now and get up to ₩2.1M in benefits",
       "desc": "This promotion ends on March 31, 2026. Don't miss out!",
       "button": "Free Consultation"
     }
