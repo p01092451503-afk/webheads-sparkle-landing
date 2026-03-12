@@ -64,7 +64,7 @@ serve(async (req) => {
 
     // Send Slack notification (fire-and-forget)
     try {
-      const typeLabel = inquiryType === "demo" ? "데모 요청" : "상담 문의";
+      const typeLabel = inquiryType === "demo" ? "데모 요청" : inquiryType === "proposal_request" ? "제안서 요청" : "상담 문의";
       await fetch(`${supabaseUrl}/functions/v1/send-slack-notification`, {
         method: "POST",
         headers: {
