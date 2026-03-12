@@ -460,7 +460,7 @@ export default function CostSimulatorPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: "#1e1b4b" }}>
-                    <th className="text-left px-5 py-4 font-semibold text-white/60 text-sm w-[30%]">기능 / 항목</th>
+                    <th className="text-left px-5 py-4 font-bold text-white text-sm w-[30%]">기능 / 항목</th>
                     {(["Basic", "Plus", "Premium"] as const).map(p => {
                       const isRecommended = bestPlan?.name === p;
                       return (
