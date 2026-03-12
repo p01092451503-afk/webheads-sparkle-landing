@@ -333,7 +333,7 @@ export default function CostSimulatorPage() {
             {/* ── Right: Results ── */}
             <div className="lg:col-span-3 flex flex-col gap-4">
               {bestPlan && (
-                <div className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "linear-gradient(135deg, hsl(255, 75%, 58%) 0%, hsl(220, 90%, 56%) 50%, hsl(192, 80%, 50%) 100%)" }}>
+                <div className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "hsl(255, 75%, 58%)" }}>
                   {/* Glassmorphism overlay */}
                   <div className="absolute inset-0 rounded-2xl" style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)" }} />
                   <div className="relative z-10">
