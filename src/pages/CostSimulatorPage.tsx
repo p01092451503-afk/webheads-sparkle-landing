@@ -184,7 +184,7 @@ export default function CostSimulatorPage() {
       />
 
       {/* ═══ HERO ═══ */}
-      <section className="relative flex items-center justify-center pt-28 pb-28 md:pt-44 md:pb-44 overflow-hidden">
+      <section className="relative flex items-center justify-center pt-28 pb-16 md:pt-44 md:pb-28 overflow-hidden">
         <HeroPatternBg theme="blue-purple" />
         <LmsHeroOverlay />
         <div className="container mx-auto px-5 md:px-6 max-w-4xl relative z-10 text-center flex flex-col items-center">
