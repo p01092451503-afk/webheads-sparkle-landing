@@ -222,12 +222,10 @@ export default function ClientProjectManager({ companyId, companyName, isSuperAd
                     <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{p.description}</p>
                   )}
                 </div>
-                {isSuperAdmin && (
-                  <div className="flex items-center gap-0.5 shrink-0" onClick={e => e.stopPropagation()}>
-                    <button onClick={() => openEdit(p)} className="p-1 rounded hover:bg-muted/50 text-muted-foreground hover:text-foreground"><Edit className="w-3 h-3" /></button>
-                    <button onClick={() => handleDelete(p.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
-                  </div>
-                )}
+                <div className="flex items-center gap-0.5 shrink-0" onClick={e => e.stopPropagation()}>
+                  <button onClick={() => openEdit(p)} className="p-1 rounded hover:bg-muted/50 text-muted-foreground hover:text-foreground"><Edit className="w-3 h-3" /></button>
+                  <button onClick={() => handleDelete(p.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive"><Trash2 className="w-3 h-3" /></button>
+                </div>
               </div>
 
               {/* Expanded notes section */}
