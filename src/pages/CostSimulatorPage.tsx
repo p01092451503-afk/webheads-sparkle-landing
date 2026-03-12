@@ -621,7 +621,7 @@ export default function CostSimulatorPage() {
           <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); window.location.href = "/lms#contact"; }}>
             <div>
               <label className="block text-sm font-semibold text-foreground mb-1.5">회사명</label>
-              <input type="text" value={formData.company} onChange={(e) => setFormData(p => ({ ...p, company: e.target.value }))} placeholder="(주)웹헤즈" className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 transition-all" style={{ focusRingColor: "#5D45FF" }} required />
+              <input type="text" value={formData.company} onChange={(e) => setFormData(p => ({ ...p, company: e.target.value }))} placeholder="(주)웹헤즈" className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" required />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
