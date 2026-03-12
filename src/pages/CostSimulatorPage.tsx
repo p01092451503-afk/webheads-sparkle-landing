@@ -457,43 +457,80 @@ export default function CostSimulatorPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center" style={{ wordBreak: "keep-all" }}>플랜별 핵심 기능 비교</h2>
           <p className="text-sm text-muted-foreground text-center mb-10">가격 차이가 왜 발생하는지, 기능적으로 확인해보세요.</p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-            {[
-              { plan: "Basic", target: "개인 강사 · 소규모 학원", desc: "합리적인 비용으로 시작하는 온라인 교육", color: "#5D45FF" },
-              { plan: "Plus", target: "본격 사업 확장", desc: "안정적 트래픽과 단독 서버로 성장 가속", color: "#FF6B00", highlight: true },
-              { plan: "Premium", target: "대규모 기업 교육", desc: "완전 커스터마이징과 전담 매니저 지원", color: "#1a0e3e" },
-            ].map(({ plan, target, desc, color, highlight }) => (
-              <div key={plan} className="rounded-2xl p-6 border-2 transition-all hover:-translate-y-1" style={{ borderColor: highlight ? "#FF6B00" : "hsl(var(--border))", background: highlight ? "rgba(255,107,0,0.03)" : "white" }}>
-                <span className="text-xs font-bold tracking-wider uppercase" style={{ color }}>{plan}</span>
-                <h3 className="font-bold text-foreground text-lg mt-2 mb-1">{target}</h3>
-                <p className="text-sm text-muted-foreground">{desc}</p>
-                {highlight && <span className="inline-block mt-3 text-[10px] font-bold px-2.5 py-1 rounded-full text-white" style={{ background: "#FF6B00" }}>가장 인기</span>}
-              </div>
-            ))}
-          </div>
-
-          {/* Feature table */}
-          <div className="rounded-2xl border border-border overflow-hidden">
+          <div className="rounded-2xl border border-border overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-border" style={{ background: "#F8F9FD" }}>
-                    <th className="text-left px-4 py-3 font-semibold text-muted-foreground text-xs">기능</th>
-                    {["Starter", "Basic", "Plus", "Premium"].map(p => (
-                      <th key={p} className="text-center px-4 py-3 font-bold text-xs" style={p === "Plus" ? { color: "#FF6B00" } : {}}>{p}</th>
-                    ))}
+                  <tr style={{ background: "#1e1b4b" }}>
+                    <th className="text-left px-5 py-4 font-semibold text-white/60 text-xs w-[30%]">기능 / 항목</th>
+                    {(["Basic", "Plus", "Premium"] as const).map(p => {
+                      const isRecommended = bestPlan?.name === p;
+                      return (
+                        <th key={p} className="text-center px-5 py-4 text-sm font-bold" style={isRecommended ? { background: "#5D45FF", color: "white" } : { color: "white" }}>
+                          {p}
+                          {isRecommended && <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ background: "#FEE500", color: "#1e1b4b" }}>추천</span>}
+                        </th>
+                      );
+                    })}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {PLAN_FEATURES.map(({ feature, starter, basic, plus, premium }) => (
-                    <tr key={feature} className="hover:bg-muted/30 transition-colors">
-                      <td className="px-4 py-3 font-medium text-foreground text-[13px]">{feature}</td>
-                      <td className="px-4 py-3 text-center text-muted-foreground text-[13px]">{starter}</td>
-                      <td className="px-4 py-3 text-center text-[13px]">{basic}</td>
-                      <td className="px-4 py-3 text-center text-[13px] font-medium" style={{ color: "#5D45FF" }}>{plus}</td>
-                      <td className="px-4 py-3 text-center text-[13px]">{premium}</td>
-                    </tr>
-                  ))}
+                  {PLAN_FEATURES.map(({ feature, basic, plus, premium, type }) => {
+                    const values = { Basic: basic, Plus: plus, Premium: premium };
+                    return (
+                      <tr key={feature} className="hover:bg-muted/30 transition-colors">
+                        <td className="px-5 py-4 font-medium text-foreground text-[13px]">{feature}</td>
+                        {(["Basic", "Plus", "Premium"] as const).map(p => {
+                          const val = values[p];
+                          const isRec = bestPlan?.name === p;
+                          const isCheck = val === "✓" || val.startsWith("✓");
+                          const isHighlight = type === "highlight" && val === "기본 포함";
+                          return (
+                            <td key={p} className="px-5 py-4 text-center text-[13px]" style={isRec ? { background: "rgba(93,69,255,0.03)" } : undefined}>
+                              {isCheck ? (
+                                <span className="inline-flex items-center justify-center gap-1 font-semibold" style={{ color: "#00C896" }}>
+                                  <CheckCircle className="w-4 h-4" />
+                                  {val !== "✓" && <span>{val.replace("✓ ", "")}</span>}
+                                </span>
+                              ) : val === "—" ? (
+                                <span className="text-muted-foreground">—</span>
+                              ) : isHighlight ? (
+                                <span className="font-bold" style={{ color: "#00C896" }}>{val}</span>
+                              ) : (
+                                <span className={isRec ? "font-semibold" : "text-muted-foreground"}>{val}</span>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                  {/* Price row */}
+                  <tr style={{ background: "#F8F9FD" }}>
+                    <td className="px-5 py-6 font-semibold text-muted-foreground text-[13px]">월 기본 요금 (VAT 별도)</td>
+                    {([
+                      { name: "Basic", price: 500000, sub: "+ 초과 사용량" },
+                      { name: "Plus", price: 700000, sub: "+ 초과 사용량" },
+                      { name: "Premium", price: 1000000, sub: "맞춤 견적" },
+                    ] as const).map(({ name, price, sub }) => {
+                      const isRec = bestPlan?.name === name;
+                      return (
+                        <td key={name} className="px-5 py-6 text-center" style={isRec ? { background: "rgba(93,69,255,0.06)" } : undefined}>
+                          <p className="font-extrabold text-xl tabular-nums tracking-tight text-foreground">{formatPrice(price)}<span className="text-sm font-bold">원</span></p>
+                          <p className="text-[11px] text-muted-foreground mt-1">{sub}</p>
+                          {isRec ? (
+                            <a href="#lead-capture" className="inline-flex items-center gap-1.5 mt-3 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all hover:scale-[1.02]" style={{ background: "#5D45FF" }}>
+                              이 플랜 신청 <ArrowRight className="w-3.5 h-3.5" />
+                            </a>
+                          ) : (
+                            <a href="#lead-capture" className="inline-flex items-center gap-1.5 mt-3 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-foreground border border-border transition-all hover:bg-muted/50">
+                              {name === "Premium" ? "견적 요청" : "문의하기"}
+                            </a>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
                 </tbody>
               </table>
             </div>
