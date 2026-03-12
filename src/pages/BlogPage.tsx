@@ -116,7 +116,7 @@ export default function BlogPage() {
       <SEO
         title={lang === "en" ? "LMS Insights | E-Learning Trends & Guides — WEBHEADS" : lang === "ja" ? "LMSインサイト | eラーニングトレンド・導入ガイド — WEBHEADS" : "LMS 인사이트 | 이러닝 트렌드 · 도입 가이드 — 웹헤즈"}
         description={lang === "en" ? "LMS adoption checklists, AI-based learning trends, e-learning platform cost guides and more professional insights for corporate training managers." : lang === "ja" ? "LMS導入チェックリスト、AI基盤学習管理トレンド、eラーニングプラットフォーム費用ガイドなど企業教育担当者向けの専門インサイトを提供します。" : "LMS 도입 체크리스트, AI 기반 학습관리 트렌드, 이러닝 플랫폼 비용 가이드 등 기업교육 담당자를 위한 전문 인사이트를 제공합니다."}
-        keywords="LMS, e-learning, AI LMS, learning management system, education platform"
+        keywords="LMS 블로그, 이러닝 트렌드, LMS 도입 가이드, 학습관리시스템 인사이트, 기업교육 트렌드, AI LMS, 이러닝 플랫폼, 온라인 교육, 웹헤즈 블로그, LMS 활용법"
         path="/blog"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
