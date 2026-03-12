@@ -83,23 +83,26 @@ export default function Header() {
       {(isKorean && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
         <div
           className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
-          style={{ backgroundColor: "hsl(250, 60%, 95%)" }}
+          style={{ background: "linear-gradient(135deg, hsl(243, 80%, 62%) 0%, hsl(250, 85%, 55%) 100%)" }}
           role="banner"
           aria-label={t("banner.text")}
         >
-          <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2 relative z-10">
-            <p className="text-sm sm:text-base font-medium tracking-tight text-foreground leading-snug text-center">
+          <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2.5 relative z-10">
+            <p className="text-sm sm:text-base font-semibold tracking-tight leading-snug text-center text-white">
               <span className="sm:hidden">{t("banner.textShort")}</span>
               <span className="hidden sm:inline">{t("banner.text")}</span>
             </p>
-            <Link
-              to="/event"
-              className="shrink-0 rounded-full px-2.5 sm:px-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-bold transition-opacity hover:opacity-80 text-foreground min-h-[28px] sm:min-h-[32px] flex items-center"
-              style={{ backgroundColor: "hsl(50, 100%, 50%)" }}
-              aria-label={t("banner.cta")}
-            >
-              {t("banner.cta")}
-            </Link>
+            {(() => {
+              const deadline = new Date("2026-03-31T23:59:59+09:00");
+              const now = new Date();
+              const diffMs = deadline.getTime() - now.getTime();
+              const dDay = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
+              return (
+                <span className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold border border-white/30 text-white min-h-[28px] sm:min-h-[32px] flex items-center" style={{ background: "hsla(0,0%,100%,0.15)", backdropFilter: "blur(4px)" }}>
+                  D-{dDay} · 잔여 슬롯 13개
+                </span>
+              );
+            })()}
           </div>
           <button
             onClick={() => {
