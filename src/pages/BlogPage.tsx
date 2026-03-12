@@ -21,7 +21,7 @@ const categoryColors: Record<Category, string> = {
   tip: "hsl(40,80%,50%)",
 };
 
-function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpanded: boolean; onToggle: () => void; lang: string }) {
+function BlogCard({ post, lang }: { post: BlogPost; lang: string }) {
   const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
   const label = catConfig[post.category].label;
   const Icon = categoryIcons[post.category];
@@ -44,13 +44,6 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
         </div>
         <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight" itemProp="headline" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{post.title}</h2>
         <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed mb-4" itemProp="description" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{post.summary}</p>
-        {isExpanded && (
-          <div className="space-y-4 mb-5 pt-4 border-t border-border">
-            {post.content.map((paragraph, i) => (
-              <p key={i} className="text-sm md:text-[15px] text-foreground/80 leading-[1.8]" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }} itemProp="articleBody">{paragraph}</p>
-            ))}
-          </div>
-        )}
         <div className="flex flex-wrap gap-1.5 mb-5">
           {post.keywords.map((kw) => (
             <span key={kw} className="px-2.5 py-0.5 rounded-md text-[11px] font-medium bg-muted text-muted-foreground" itemProp="keywords">#{kw}</span>
