@@ -1820,9 +1820,7 @@
       "basic": "Rental · CDN Included",
       "plus": "Rental · SaaS | Dedicated",
       "premium": "Rental · SaaS | Dedicated"
-    }
-  },
-  "costSim": {
+    },
     "seo": { "title": "LMS Cost Calculator — Get a Quote in 10 Seconds", "description": "Enter your monthly learner count and video storage to instantly find the best LMS plan and estimated cost.", "keywords": "LMS pricing, LMS cost, LMS price comparison, e-learning platform pricing", "breadcrumb": "LMS Cost Calculator", "appName": "WEBHEADS LMS Cost Calculator", "appDesc": "Simulate LMS costs in real time and find the optimal plan." },
     "hero": { "title1": "Stop Guessing!", "title2": "Design Your LMS Budget with Data", "desc1": "Korea's lowest CDN rates combined with 16 years of expertise.", "desc2": "Get an honest quote with zero hidden costs in just 10 seconds.", "trustNote": "Already <b>300+</b> companies found their optimal plan with this simulator.", "cta1": "Get Quote Now", "cta2": "Free Proposal", "stats": ["16 Years of LMS", "300+ Clients", "92.6% Retention", "Zero Hidden Costs"] },
     "sim": {
