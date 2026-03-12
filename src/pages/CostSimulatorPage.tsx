@@ -1,5 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
 import {
@@ -101,6 +103,9 @@ export default function CostSimulatorPage() {
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   const [showAnnualBonus, setShowAnnualBonus] = useState(false);
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
+  const [formLoading, setFormLoading] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const { toast } = useToast();
 
   const handleLearnersChange = (v: number) => { setLearners(v); if (v < 500) setNeedsDedicatedServer(false); };
 
@@ -623,7 +628,44 @@ export default function CostSimulatorPage() {
             </p>
           </div>
 
-          <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); window.location.href = "/lms#contact"; }}>
+          {formSubmitted ? (
+            <div className="text-center py-10">
+              <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#00C896" }} />
+              <h3 className="text-xl font-bold text-foreground mb-2">제안서 요청이 접수되었습니다!</h3>
+              <p className="text-sm text-muted-foreground">입력하신 이메일로 상세 견적서와 성공 로드맵을 보내드리겠습니다.</p>
+            </div>
+          ) : (
+          <form className="space-y-4" onSubmit={async (e) => {
+            e.preventDefault();
+            if (formLoading) return;
+            setFormLoading(true);
+            try {
+              const simulationSummary = bestPlan
+                ? `[요금 계산기 제안서 요청] 추천 플랜: ${bestPlan.name} / 월 ${formatPrice(displayMonthly)}원 / 수강생: ${learners}명 / 저장공간: ${storageInput}GB / 완료율: ${completionRate}% / 보안플레이어: ${needsSecurePlayer ? "예" : "아니오"} / 전용서버: ${needsDedicatedServer ? "예" : "아니오"} / 연간계약: ${isAnnual ? "예" : "아니오"}`
+                : "[요금 계산기 제안서 요청]";
+              
+              const { error: fnError } = await supabase.functions.invoke("send-contact-email", {
+                body: {
+                  company: formData.company,
+                  name: formData.company,
+                  phone: formData.contact,
+                  email: formData.email,
+                  service: "LMS 요금제",
+                  message: simulationSummary,
+                  inquiryType: "proposal_request",
+                  marketingAgreed: false,
+                  session_id: sessionStorage.getItem("_sid") || undefined,
+                },
+              });
+              if (fnError) throw new Error(fnError.message);
+              setFormSubmitted(true);
+              toast({ title: "제안서 요청 완료", description: "곧 연락드리겠습니다." });
+            } catch (err: any) {
+              toast({ title: "오류 발생", description: err.message || "잠시 후 다시 시도해주세요.", variant: "destructive" });
+            } finally {
+              setFormLoading(false);
+            }
+          }}>
             <div>
               <label className="block text-sm font-semibold text-foreground mb-1.5">회사명</label>
               <input type="text" value={formData.company} onChange={(e) => setFormData(p => ({ ...p, company: e.target.value }))} placeholder="(주)웹헤즈" className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" required />
@@ -638,11 +680,12 @@ export default function CostSimulatorPage() {
                 <input type="email" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} placeholder="info@company.co.kr" className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 transition-all" required />
               </div>
             </div>
-            <button type="submit" className="w-full py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:scale-[1.01] shadow-lg" style={{ background: "#FF6B00" }}>
-              무료 제안서 받기
+            <button type="submit" disabled={formLoading} className="w-full py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:scale-[1.01] shadow-lg disabled:opacity-60" style={{ background: "#FF6B00" }}>
+              {formLoading ? "요청 중..." : "무료 제안서 받기"}
             </button>
             <p className="text-[11px] text-muted-foreground text-center">제출 시 개인정보 처리방침에 동의한 것으로 간주됩니다.</p>
           </form>
+          )}
         </div>
       </section>
 
