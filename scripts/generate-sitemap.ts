@@ -92,3 +92,13 @@ export function sitemapPlugin() {
     },
   };
 }
+
+// Standalone execution: update public/sitemap.xml directly
+if (process.argv[1]?.endsWith('generate-sitemap.ts')) {
+  const root = process.cwd();
+  const blogIds = extractBlogIds(root);
+  const xml = generateSitemapXml(blogIds);
+  const publicPath = path.join(root, "public/sitemap.xml");
+  fs.writeFileSync(publicPath, xml, "utf-8");
+  console.log(`✅ public/sitemap.xml 업데이트: ${STATIC_PAGES.length} pages + ${blogIds.length} blog posts`);
+}
