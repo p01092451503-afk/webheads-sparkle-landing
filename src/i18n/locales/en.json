@@ -1912,5 +1912,9 @@
       "toastSuccess": "Proposal Requested", "toastSuccessDesc": "We'll be in touch soon.",
       "toastError": "Error", "toastErrorDesc": "Please try again later."
     }
+  },
+  "promoBanner": {
+    "title": "March Limited Event",
+    "desc": "Sign up now for 2 months free + full migration support"
   }
 }

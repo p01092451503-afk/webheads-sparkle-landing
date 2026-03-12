@@ -1923,5 +1923,9 @@
       "toastSuccess": "제안서 요청 완료", "toastSuccessDesc": "곧 연락드리겠습니다.",
       "toastError": "오류 발생", "toastErrorDesc": "잠시 후 다시 시도해주세요."
     }
+  },
+  "promoBanner": {
+    "title": "3월 한정 이벤트",
+    "desc": "지금 신청 시 2개월 무료 + 마이그레이션 비용 전액 지원"
   }
 }

@@ -1750,5 +1750,9 @@
       "toastSuccess": "提案書リクエスト完了", "toastSuccessDesc": "まもなくご連絡いたします。",
       "toastError": "エラー発生", "toastErrorDesc": "しばらくしてから再度お試しください。"
     }
+  },
+  "promoBanner": {
+    "title": "3月限定イベント",
+    "desc": "今すぐ申し込みで2ヶ月無料 + マイグレーション費用全額サポート"
   }
 }
