@@ -31,6 +31,10 @@ import OverviewPage from "./pages/OverviewPage";
 const LmsDevelopmentPage = lazy(() => import("./pages/seo/LmsDevelopmentPage"));
 const CorporateLmsPage = lazy(() => import("./pages/seo/CorporateLmsPage"));
 const ElearningPlatformPage = lazy(() => import("./pages/seo/ElearningPlatformPage"));
+const EmployeeTrainingPage = lazy(() => import("./pages/seo/EmployeeTrainingPage"));
+const OnlineEducationSitePage = lazy(() => import("./pages/seo/OnlineEducationSitePage"));
+const LiveClassSolutionPage = lazy(() => import("./pages/seo/LiveClassSolutionPage"));
+const GuidesPage = lazy(() => import("./pages/GuidesPage"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -84,6 +88,10 @@ const App = () => (
                 <Route path="/lms-development" element={<LmsDevelopmentPage />} />
                 <Route path="/corporate-lms" element={<CorporateLmsPage />} />
                 <Route path="/elearning-platform-development" element={<ElearningPlatformPage />} />
+                <Route path="/employee-training-system" element={<EmployeeTrainingPage />} />
+                <Route path="/online-education-site" element={<OnlineEducationSitePage />} />
+                <Route path="/live-class-solution" element={<LiveClassSolutionPage />} />
+                <Route path="/guides" element={<GuidesPage />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 {/* <Route path="/about" element={<AboutPage />} /> */}
