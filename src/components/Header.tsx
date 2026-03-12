@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, ScreenShare } from "lucide-react";
+import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, ScreenShare, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -82,13 +82,14 @@ export default function Header() {
       {/* Top promo banner */}
       {(isKorean && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
         <div
-          className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
-          style={{ background: "linear-gradient(135deg, hsl(243, 80%, 62%) 0%, hsl(250, 85%, 55%) 100%)" }}
+          className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border/30 transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
+          style={{ background: "hsl(230, 15%, 93%)" }}
           role="banner"
           aria-label={t("banner.text")}
         >
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2.5 relative z-10">
-            <p className="text-sm sm:text-base font-semibold tracking-tight leading-snug text-center text-white">
+            <Zap className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" style={{ color: "hsl(245, 70%, 50%)" }} />
+            <p className="text-sm sm:text-base font-semibold tracking-tight leading-snug text-center text-foreground">
               <span className="sm:hidden">{t("banner.textShort")}</span>
               <span className="hidden sm:inline">{t("banner.text")}</span>
             </p>
@@ -98,7 +99,7 @@ export default function Header() {
               const diffMs = deadline.getTime() - now.getTime();
               const dDay = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
               return (
-                <span className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold border border-white/30 text-white min-h-[28px] sm:min-h-[32px] flex items-center" style={{ background: "hsla(0,0%,100%,0.15)", backdropFilter: "blur(4px)" }}>
+                <span className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold border border-foreground/15 text-foreground min-h-[28px] sm:min-h-[32px] flex items-center" style={{ background: "hsl(245, 70%, 50%)", color: "white" }}>
                   D-{dDay} · 잔여 슬롯 13개
                 </span>
               );
@@ -109,7 +110,7 @@ export default function Header() {
               setBannerDismissed(true);
               try { localStorage.setItem("promo_banner_dismissed", new Date().toISOString()); } catch {}
             }}
-            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 text-white/50 hover:text-white transition-colors p-1 rounded-md hover:bg-white/10"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 z-20 text-foreground/40 hover:text-foreground transition-colors p-1 rounded-md hover:bg-foreground/5"
             aria-label={t("banner.dismiss")}
           >
             <X className="w-4 h-4" aria-hidden="true" />
