@@ -4,8 +4,12 @@ import App from "./App.tsx";
 import "./index.css";
 import "./i18n";
 
-createRoot(document.getElementById("root")!).render(
+const root = createRoot(document.getElementById("root")!);
+root.render(
   <HelmetProvider>
     <App />
   </HelmetProvider>
 );
+
+// vite-plugin-prerender: 렌더링 완료 이벤트 발행
+document.dispatchEvent(new Event('render-event'));
