@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Plus, Trash2, Loader2, CheckCircle2, Circle, ChevronLeft, ChevronRight, ListChecks, Settings2, Save, X } from "lucide-react";
+import { Plus, Trash2, Loader2, CheckCircle2, Circle, ChevronLeft, ChevronRight, ListChecks, Settings2, Pencil } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
@@ -80,6 +80,9 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
   };
 
   const [isAdding, setIsAdding] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingText, setEditingText] = useState("");
+
   const addTask = async () => {
     if (!newTask.trim() || isAdding) return;
     setIsAdding(true);
@@ -91,6 +94,20 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
     });
     await fetchItems();
     setIsAdding(false);
+  };
+
+  const startEdit = (item: ChecklistItem) => {
+    setEditingId(item.id);
+    setEditingText(item.task_name);
+  };
+
+  const saveEdit = async () => {
+    if (!editingId || !editingText.trim()) { setEditingId(null); return; }
+    await supabase.from("monthly_checklists").update({ task_name: editingText.trim() }).eq("id", editingId);
+    setEditingId(null);
+    setEditingText("");
+    fetchItems();
+    toast.success("항목이 수정되었습니다");
   };
 
   const deleteItem = async (id: string) => {
@@ -180,18 +197,40 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
                   : <Circle className="w-5 h-5 text-muted-foreground/40 hover:text-primary/60 transition-colors" />
                 }
               </button>
-              <span className={`flex-1 text-[13px] ${item.is_completed ? "line-through text-muted-foreground" : "text-foreground font-medium"}`}>
-                {item.task_name}
-              </span>
+              {editingId === item.id ? (
+                <Input
+                  value={editingText}
+                  onChange={e => setEditingText(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === "Enter" && !e.nativeEvent.isComposing) saveEdit();
+                    if (e.key === "Escape") setEditingId(null);
+                  }}
+                  onBlur={saveEdit}
+                  autoFocus
+                  className="h-7 text-[13px] flex-1"
+                />
+              ) : (
+                <span
+                  className={`flex-1 text-[13px] cursor-pointer ${item.is_completed ? "line-through text-muted-foreground" : "text-foreground font-medium"}`}
+                  onDoubleClick={() => startEdit(item)}
+                >
+                  {item.task_name}
+                </span>
+              )}
               {item.completed_at && (
                 <span className="text-[10px] text-muted-foreground">
                   {new Date(item.completed_at).toLocaleDateString("ko-KR")}
                 </span>
               )}
-              {isSuperAdmin && (
-                <button onClick={() => deleteItem(item.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive">
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
+              {isSuperAdmin && editingId !== item.id && (
+                <>
+                  <button onClick={() => startEdit(item)} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground" title="수정">
+                    <Pencil className="w-3.5 h-3.5" />
+                  </button>
+                  <button onClick={() => deleteItem(item.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive" title="삭제">
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </>
               )}
             </div>
           ))}
