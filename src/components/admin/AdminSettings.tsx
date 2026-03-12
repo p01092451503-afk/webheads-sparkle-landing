@@ -66,6 +66,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
     { key: "report", label: "월간리포트" },
     { key: "client_work", label: "프로젝트관리" },
     { key: "work_files", label: "업무자료" },
+    { key: "backup_files", label: "자료백업" },
   ];
 
   // Notification settings
