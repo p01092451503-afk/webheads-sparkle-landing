@@ -333,7 +333,7 @@ export default function CostSimulatorPage() {
             {/* ── Right: Results ── */}
             <div className="lg:col-span-3 flex flex-col gap-4">
               {bestPlan && (
-                <div className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "linear-gradient(135deg, #5D45FF 0%, #7c68ff 50%, #9d8cff 100%)", backdropFilter: "blur(20px)" }}>
+                <div className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "linear-gradient(135deg, hsl(255, 75%, 58%) 0%, hsl(220, 90%, 56%) 50%, hsl(192, 80%, 50%) 100%)" }}>
                   {/* Glassmorphism overlay */}
                   <div className="absolute inset-0 rounded-2xl" style={{ background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)" }} />
                   <div className="relative z-10">
@@ -363,9 +363,9 @@ export default function CostSimulatorPage() {
 
                     {/* Savings label */}
                     {savingsAmount > 0 && (
-                      <div className="flex items-center gap-2 mt-2 mb-4 px-3 py-2 rounded-lg" style={{ background: "rgba(0,200,150,0.15)" }}>
-                        <TrendingUp className="w-4 h-4" style={{ color: "#00C896" }} />
-                        <span className="text-sm font-bold" style={{ color: "#00C896" }}>타사 대비 월 약 {formatPrice(savingsAmount)}원 절감 효과</span>
+                      <div className="flex items-center gap-2 mt-3 mb-4 px-4 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                        <TrendingUp className="w-5 h-5 shrink-0" style={{ color: "#4ade80" }} />
+                        <span className="text-base font-extrabold" style={{ color: "#4ade80" }}>타사 대비 월 약 {formatPrice(savingsAmount)}원 절감 효과</span>
                       </div>
                     )}
 
