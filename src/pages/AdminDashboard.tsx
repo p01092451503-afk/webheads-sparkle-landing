@@ -342,7 +342,7 @@ export default function AdminDashboard() {
           <div className="flex -mb-px overflow-x-auto scrollbar-hide items-end gap-1">
             {/* 운영 그룹 */}
             <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(220,20%,92%)] px-1 pt-1">
-              {tabs.filter(t => !["payments","expenses","taxinvoice","client_companies","checklist","report","client_work","work_files"].includes(t.key)).map((t) => {
+              {tabs.filter(t => !["payments","expenses","taxinvoice","client_companies","checklist","report","client_work","work_files","backup_files"].includes(t.key)).map((t) => {
                 const isActive = tab === t.key;
                 return (
                   <button
