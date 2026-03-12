@@ -60,7 +60,6 @@ function BlogCard({ post, lang }: { post: BlogPost; lang: string }) {
 
 export default function BlogPage() {
   const { t, i18n } = useTranslation();
-  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
