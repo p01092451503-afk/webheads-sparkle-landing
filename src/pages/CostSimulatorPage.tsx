@@ -224,7 +224,7 @@ export default function CostSimulatorPage() {
           {/* Trust stats */}
           <div className="flex flex-wrap justify-center gap-8 md:gap-14 mt-10 md:mt-14">
             {["16년 LMS 전문", "300+ 고객사", "92.6% 유지율", "숨은 비용 0원"].map((label) => (
-              <span key={label} className="text-sm md:text-base font-semibold text-white/60">{label}</span>
+              <span key={label} className="text-base md:text-lg font-semibold text-white/60">{label}</span>
             ))}
           </div>
         </div>
