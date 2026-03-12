@@ -268,34 +268,31 @@ export default function SeoLandingTemplate({
       {/* Related Services & Articles */}
       <section className="py-20 bg-secondary/60">
         <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {/* Related Services */}
+          <h2 className="text-2xl font-bold text-foreground mb-2 tracking-tight">함께 보면 좋은 서비스</h2>
+          <p className="text-sm text-muted-foreground mb-10">관련 서비스와 가이드를 확인해보세요.</p>
+          <div className="flex flex-wrap gap-3">
             {relatedServices.map((s) => (
               <Link
                 key={s.path}
                 to={s.path}
-                className="group flex items-center justify-between p-6 rounded-2xl bg-background shadow-[0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-border bg-background hover:border-primary/40 hover:bg-primary/5 transition-all duration-200"
               >
-                <div className="flex-1 min-w-0">
-                  <span className="block font-bold text-foreground text-lg mb-1.5 tracking-tight">{s.label}</span>
-                  <span className="block text-[15px] text-primary/60 leading-relaxed">{s.description}</span>
-                </div>
-                <ArrowRight className="w-5 h-5 text-primary/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
+                <span className="font-semibold text-sm text-foreground">{s.label}</span>
+                <span className="hidden sm:inline text-xs text-muted-foreground">·</span>
+                <span className="hidden sm:inline text-xs text-muted-foreground">{s.description}</span>
+                <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-200" />
               </Link>
             ))}
-
-            {/* Related Articles */}
             {relatedArticles?.map((a) => (
               <Link
                 key={a.path}
                 to={a.path}
-                className="group flex items-center justify-between p-6 rounded-2xl bg-background shadow-[0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-dashed border-border bg-background hover:border-primary/40 hover:bg-primary/5 transition-all duration-200"
               >
-                <div className="flex-1 min-w-0">
-                  <span className="block font-bold text-foreground text-lg mb-1.5 tracking-tight">{a.label}</span>
-                  <span className="block text-[15px] text-primary/60 leading-relaxed">{a.description}</span>
-                </div>
-                <ArrowRight className="w-5 h-5 text-primary/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
+                <span className="font-semibold text-sm text-foreground">{a.label}</span>
+                <span className="hidden sm:inline text-xs text-muted-foreground">·</span>
+                <span className="hidden sm:inline text-xs text-muted-foreground">{a.description}</span>
+                <ChevronRight className="w-3.5 h-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-200" />
               </Link>
             ))}
           </div>
