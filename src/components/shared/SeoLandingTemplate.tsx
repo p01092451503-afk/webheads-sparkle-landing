@@ -133,14 +133,18 @@ export default function SeoLandingTemplate({
       </section>
 
       {/* Table of Contents */}
-      <section id="toc" className="py-12 bg-secondary/50 border-b border-border">
+      <section id="toc" className="py-16 bg-secondary/40">
         <div className="container mx-auto px-6 max-w-3xl">
-          <h2 className="text-lg font-bold text-foreground mb-4">📑 목차</h2>
-          <nav className="space-y-1.5">
-            {sections.map((s) => (
-              <a key={s.id} href={`#${s.id}`} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors py-1">
-                <ChevronRight className="w-3.5 h-3.5 text-primary/60" />
-                {s.title}
+          <h2 className="text-2xl font-bold text-foreground mb-8 tracking-tight">목차</h2>
+          <nav className="space-y-0">
+            {sections.map((s, i) => (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                className="group flex items-center gap-4 text-[17px] text-muted-foreground hover:text-foreground transition-colors py-4 border-b border-border/60 last:border-b-0"
+              >
+                <span className="text-xs font-semibold text-muted-foreground/50 tabular-nums w-6 text-right">{String(i + 1).padStart(2, '0')}</span>
+                <span className="group-hover:translate-x-1 transition-transform duration-200 font-medium">{s.title}</span>
               </a>
             ))}
           </nav>
