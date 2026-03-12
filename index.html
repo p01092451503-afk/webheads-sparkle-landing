@@ -17,6 +17,9 @@
     <meta name="robots" content="index, follow" />
     <meta name="naver-site-verification" content="naverb4c91b8dcc33f82fcbe970f4fdfdc4c5" />
     <meta name="theme-color" content="#1A3A5C" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -25,6 +28,8 @@
     <meta property="og:description" content="LMS 구축, 클라우드 LMS, AI 기반 학습관리시스템, 맞춤형 온라인 교육 플랫폼. 300+ 기업이 신뢰하는 웹헤즈 이러닝 솔루션." />
     <meta property="og:image" content="https://service.webheads.co.kr/og-image.png" />
     <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="ja_JP" />
     <meta property="og:site_name" content="웹헤즈" />
 
     <!-- Twitter Card -->
@@ -123,7 +128,15 @@
           "publisher": {
             "@id": "https://service.webheads.co.kr/#organization"
           },
-          "inLanguage": ["ko", "en", "ja"]
+          "inLanguage": ["ko", "en", "ja"],
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://service.webheads.co.kr/blog?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
         }
       ]
     }
