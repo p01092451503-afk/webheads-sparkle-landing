@@ -16,7 +16,7 @@ export default function HeroPromoBanner() {
   if (dDay <= 0) return null;
 
   return (
-    <section className="py-3 border-b border-border" style={{ background: "hsl(245, 30%, 96%)" }}>
+    <section className="py-1.5 border-b border-border" style={{ background: "hsl(245, 30%, 96%)" }}>
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         <Link
           to="/event"
