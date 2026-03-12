@@ -88,6 +88,10 @@ const App = () => (
                 <Route path="/lms-development" element={<LmsDevelopmentPage />} />
                 <Route path="/corporate-lms" element={<CorporateLmsPage />} />
                 <Route path="/elearning-platform-development" element={<ElearningPlatformPage />} />
+                <Route path="/employee-training-system" element={<EmployeeTrainingPage />} />
+                <Route path="/online-education-site" element={<OnlineEducationSitePage />} />
+                <Route path="/live-class-solution" element={<LiveClassSolutionPage />} />
+                <Route path="/guides" element={<GuidesPage />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 {/* <Route path="/about" element={<AboutPage />} /> */}
