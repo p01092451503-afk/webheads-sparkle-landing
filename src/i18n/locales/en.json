@@ -1821,5 +1821,96 @@
       "plus": "Rental · SaaS | Dedicated",
       "premium": "Rental · SaaS | Dedicated"
     }
+  },
+  "costSim": {
+    "seo": { "title": "LMS Cost Calculator — Get a Quote in 10 Seconds", "description": "Enter your monthly learner count and video storage to instantly find the best LMS plan and estimated cost.", "keywords": "LMS pricing, LMS cost, LMS price comparison, e-learning platform pricing", "breadcrumb": "LMS Cost Calculator", "appName": "WEBHEADS LMS Cost Calculator", "appDesc": "Simulate LMS costs in real time and find the optimal plan." },
+    "hero": { "title1": "Stop Guessing!", "title2": "Design Your LMS Budget with Data", "desc1": "Korea's lowest CDN rates combined with 16 years of expertise.", "desc2": "Get an honest quote with zero hidden costs in just 10 seconds.", "trustNote": "Already <b>300+</b> companies found their optimal plan with this simulator.", "cta1": "Get Quote Now", "cta2": "Free Proposal", "stats": ["16 Years of LMS", "300+ Clients", "92.6% Retention", "Zero Hidden Costs"] },
+    "sim": {
+      "label": "COST SIMULATOR", "title": "What's the right plan for your scale?", "desc": "Enter your monthly learners, video storage, and avg. completion rate to instantly see estimated costs and the best plan.",
+      "scaleTitle": "Enter Scale",
+      "learners": "Monthly Active Learners", "learnersTooltip": "Unique learners who completed at least 1 course in a month", "learnersUnit": "",
+      "storage": "Video Storage", "storageTooltip": "Total size of video files to upload", "storageRef": "Ref: approx. {{count}} SD 30-min lectures",
+      "completion": "Avg. Completion Rate", "completionTooltip": "Average course completion rate of learners",
+      "cdn": "CDN Video Hosting Required", "cdnOn": "Dedicated video server for fast, buffer-free playback.", "cdnOff": "Videos served from your own server without CDN.",
+      "drm": "Secure Player (DRM)", "drmOn": "Video download prevention and piracy protection enabled.", "drmOff": "Enable if you need download prevention and piracy protection.",
+      "server": "Dedicated Server", "serverDesc": "Dedicated server optimized for large-scale traffic of 500+ learners.",
+      "annual": "Annual Contract (10% Off)", "annualOn": "Annual contract applied — 10% discount vs. monthly.", "annualOff": "Choose an annual contract for a 10% discount off monthly rates.",
+      "estTransfer": "Est. Monthly Transfer", "estStorage": "Est. Storage"
+    },
+    "result": {
+      "recommended": "Recommended Plan", "perMonth": "/mo", "discount": "10% Off",
+      "savings": "Save approx. ₩{{amount}}/mo vs. competitors",
+      "cdnOverage": "CDN overage +₩{{amount}}", "storageOverage": "Storage overage +₩{{amount}}",
+      "securePlayer": "Secure player +₩{{amount}}", "dedicatedServer": "Dedicated server +₩{{amount}}",
+      "ctaConsult": "Get Free Consultation with This Quote",
+      "cdnInfo": "Base transfer {{cdn}}GB · Storage {{storage}}GB", "cdnNone": "CDN separate",
+      "annualTitle": "🎉 Annual Contract Bonus", "annualDesc": "With annual payment, choose <b>2 months extension</b> or <b>education tablet</b>. (March only)",
+      "upgradeTitle": "{{plan}} plan is more economical", "upgradeDesc": "Add just <b>₩{{amount}}</b> to {{benefit}}. Consider the {{plan}} plan.",
+      "upgradeBenefit": "get {{multiple}}x more data transfer",
+      "allPlans": "Compare All Plans", "annualApplied": "Annual discount applied", "base": "Base", "overage": "Overage"
+    },
+    "features": {
+      "title": "Core Feature Comparison by Plan", "desc": "See why prices differ — compare features side by side.",
+      "header": "Feature / Item", "rec": "Rec'd",
+      "items": [
+        { "feature": "Base Transfer", "basic": "500GB/mo", "plus": "1,500GB/mo", "premium": "2,000GB/mo" },
+        { "feature": "Storage", "basic": "100GB", "plus": "200GB", "premium": "250GB" },
+        { "feature": "Server Type", "basic": "Rental", "plus": "Rental · SaaS · Dedicated", "premium": "Rental · SaaS · Dedicated" },
+        { "feature": "AI Chatbot Included", "basic": "✓", "plus": "✓", "premium": "✓" },
+        { "feature": "Mobile App (iOS/Android)", "basic": "—", "plus": "✓", "premium": "✓" },
+        { "feature": "DRM Secure Player", "basic": "Option", "plus": "Option", "premium": "Included" },
+        { "feature": "Dedicated Manager", "basic": "—", "plus": "✓", "premium": "✓ 24/7" },
+        { "feature": "PG (Payment) Integration", "basic": "✓", "plus": "✓", "premium": "✓" },
+        { "feature": "Channel Talk / SMS", "basic": "Option", "plus": "✓", "premium": "✓" },
+        { "feature": "SLA Uptime Guarantee", "basic": "99.5%", "plus": "99.9%", "premium": "99.99%" }
+      ],
+      "priceLabel": "Monthly Base (excl. VAT)", "priceUnit": "₩",
+      "priceSub": "+ overage", "customQuote": "Custom quote",
+      "apply": "Apply for This Plan", "inquire": "Inquire", "quoteRequest": "Request Quote"
+    },
+    "comparison": {
+      "title": "WEBHEADS vs. Competitors", "desc": "Same conditions, different results. Compare the key differences.",
+      "headerItem": "Comparison Item", "headerUs": "WEBHEADS", "headerOther": "Industry Avg.",
+      "items": [
+        { "feature": "CDN Transfer Rate (per GB)", "us": "₩300–500", "other": "₩700–1,200" },
+        { "feature": "Secure Player (DRM)", "us": "Optional", "other": "Mandatory (paid)" },
+        { "feature": "Initial Setup Fee", "us": "Free (promo)", "other": "₩500K–2M" },
+        { "feature": "24/7 Monitoring", "us": "✓ Included", "other": "Paid or N/A" },
+        { "feature": "Hidden Costs", "us": "None", "other": "Traffic overage, maintenance, etc." },
+        { "feature": "Client Retention", "us": "92.6%", "other": "Industry avg. 60–70%" }
+      ]
+    },
+    "cases": {
+      "title": "Success Cases by Scale", "desc": "What plans did companies similar to yours choose?",
+      "similarLabel": "Similar to your scale", "planLabel": "Chosen Plan",
+      "items": [
+        { "scale": "50–200", "industry": "Professional Education", "org": "A Legal Academy", "plan": "Basic", "result": "Achieved 40% reduction in monthly operating costs vs. external LMS. Built a branded education platform generating ₩3.5M in monthly tuition revenue, saving one full-time admin's salary through automated learner management." },
+        { "scale": "200–500", "industry": "Corporate Training", "org": "B Manufacturing Group", "plan": "Plus", "result": "Training completion rate improved from 78% to 94%. Saved ₩24M annually compared to pre-LMS era, and reduced new employee onboarding from 4 weeks to 2.5 weeks with role-based learning paths." },
+        { "scale": "500+", "industry": "Public Sector", "org": "C Public Education Center", "plan": "Premium", "result": "Stable operation with 3,000 concurrent users on dedicated servers. Reduced operating costs by 55% vs. self-built solution, achieving 99.9% service availability with 24/7 monitoring." }
+      ]
+    },
+    "midCta": { "title": "Does the calculated cost exceed your budget?", "desc": "Our experts can help optimize costs further with a free consultation.", "cta": "Get Expert Quote PDF" },
+    "guarantees": {
+      "label": "✦ Zero Worries", "title": "Hesitating? Read This",
+      "items": [
+        { "title": "Free Data Migration", "desc": "We migrate all learner & course data from your existing LMS at no cost" },
+        { "title": "2-Week Launch Guarantee", "desc": "Service goes live within 2 weeks of contract. Free extension if delayed" },
+        { "title": "No Penalties", "desc": "Cancel anytime. Zero cancellation fees or penalties" },
+        { "title": "SLA Uptime Guarantee", "desc": "99.9% uptime guaranteed by contract. Service credits if not met" }
+      ]
+    },
+    "lead": {
+      "title": "We'll send you a detailed quote\nand 'Success Roadmap'",
+      "currentPlan": "Current simulation result:",
+      "planSummary": "{{plan}} Plan · ₩{{price}}/mo",
+      "successTitle": "Proposal request received!", "successDesc": "We'll send the detailed quote and success roadmap to your email.",
+      "company": "Company Name", "companyPh": "WEBHEADS Inc.",
+      "contact": "Contact Number", "contactPh": "010-1234-5678",
+      "email": "Email", "emailPh": "info@company.co.kr",
+      "submit": "Get Free Proposal", "submitting": "Submitting...",
+      "consent": "By submitting, you agree to our privacy policy.",
+      "toastSuccess": "Proposal Requested", "toastSuccessDesc": "We'll be in touch soon.",
+      "toastError": "Error", "toastErrorDesc": "Please try again later."
+    }
   }
 }

@@ -1832,5 +1832,96 @@
       "plus": "임대형 · SaaS | 단독서버",
       "premium": "임대형 · SaaS | 단독서버"
     }
+  },
+  "costSim": {
+    "seo": { "title": "LMS 요금 계산기 — 10초 만에 견적 확인", "description": "월 수강생 수와 동영상 용량을 입력하면 최적의 LMS 요금제와 예상 비용을 즉시 확인할 수 있습니다.", "keywords": "LMS 요금, LMS 비용, LMS 가격 비교, 이러닝 플랫폼 요금", "breadcrumb": "LMS 요금 계산기", "appName": "웹헤즈 LMS 요금 계산기", "appDesc": "LMS 요금을 실시간으로 시뮬레이션하고 최적의 플랜을 찾아보세요." },
+    "hero": { "title1": "추측하지 마세요!", "title2": "데이터로 설계하는 효율적인 LMS 예산", "desc1": "국내 최저 수준의 CDN 단가와 16년 운영 노하우를 결합했습니다.", "desc2": "숨은 비용 없는 정직한 견적을 10초 만에 확인하세요.", "trustNote": "이미 <b>300+</b> 기업이 이 시뮬레이터로 최적의 플랜을 찾았습니다.", "cta1": "지금 견적 확인하기", "cta2": "무료 제안서 받기", "stats": ["16년 LMS 전문", "300+ 고객사", "92.6% 유지율", "숨은 비용 0원"] },
+    "sim": {
+      "label": "COST SIMULATOR", "title": "우리 회사 규모에 적당한 요금제는?", "desc": "월 수강생 수와 동영상 용량, 평균 완강률을 입력하면, 예상 비용과 최적 플랜을 즉시 확인할 수 있어요.",
+      "scaleTitle": "규모 입력",
+      "learners": "월 활성 수강생", "learnersTooltip": "한 달 동안 1개 이상의 강의를 수강한 고유 학습자 수", "learnersUnit": "명",
+      "storage": "동영상 용량", "storageTooltip": "업로드할 동영상 파일의 총 용량", "storageRef": "참고: 일반화질(SD) 30분 강의 약 {{count}}개 분량",
+      "completion": "평균 완강률", "completionTooltip": "수강생들의 평균 강의 완료 비율",
+      "cdn": "CDN 영상 호스팅 필요", "cdnOn": "동영상 강의를 빠르고 끊김 없이 재생하기 위한 전용 영상 서버입니다.", "cdnOff": "CDN 없이 자체 서버에서 영상을 제공합니다.",
+      "drm": "보안 플레이어 (DRM)", "drmOn": "영상 다운로드 방지 및 불법 복제 차단이 활성화됩니다.", "drmOff": "영상 다운로드 방지 및 불법 복제 차단이 필요한 경우 활성화하세요.",
+      "server": "단독 서버 구성", "serverDesc": "500명 이상 대규모 트래픽에 최적화된 전용 서버를 구성합니다.",
+      "annual": "연간 계약 (10% 할인)", "annualOn": "연간 계약이 적용되어 월별 대비 10% 할인됩니다.", "annualOff": "연간 계약을 선택하면 월별 대비 10% 할인된 금액으로 이용할 수 있습니다.",
+      "estTransfer": "예상 월 전송량", "estStorage": "예상 저장공간"
+    },
+    "result": {
+      "recommended": "추천 플랜", "perMonth": "원/월", "discount": "10% 할인",
+      "savings": "타사 대비 월 약 {{amount}}원 절감 효과",
+      "cdnOverage": "CDN 초과분 +{{amount}}원", "storageOverage": "저장 초과분 +{{amount}}원",
+      "securePlayer": "보안 플레이어 +{{amount}}원", "dedicatedServer": "단독 서버 +{{amount}}원",
+      "ctaConsult": "지금 이 견적으로 무료 컨설팅 신청하기",
+      "cdnInfo": "기본 전송량 {{cdn}}GB · 저장공간 {{storage}}GB", "cdnNone": "CDN 별도",
+      "annualTitle": "🎉 연간 계약 특별 혜택", "annualDesc": "연간 결제 시 <b>2개월 추가 연장</b> 또는 <b>교육용 태블릿 증정</b> 혜택을 선택하실 수 있습니다. (3월 한정)",
+      "upgradeTitle": "{{plan}} 플랜이 더 경제적입니다", "upgradeDesc": "지금 <b>{{amount}}원만 추가</b>하면 {{benefit}}. {{plan}} 플랜을 고려해 보세요.",
+      "upgradeBenefit": "데이터 전송량이 {{multiple}}배 늘어납니다",
+      "allPlans": "전체 플랜 비교", "annualApplied": "연간 할인 적용됨", "base": "기본", "overage": "초과"
+    },
+    "features": {
+      "title": "플랜별 핵심 기능 비교", "desc": "가격 차이가 왜 발생하는지, 기능적으로 확인해보세요.",
+      "header": "기능 / 항목", "rec": "추천",
+      "items": [
+        { "feature": "기본 전송량", "basic": "500GB/월", "plus": "1,500GB/월", "premium": "2,000GB/월" },
+        { "feature": "저장공간", "basic": "100GB", "plus": "200GB", "premium": "250GB" },
+        { "feature": "서버 형태", "basic": "임대형", "plus": "임대형 · SaaS · 단독서버", "premium": "임대형 · SaaS · 단독서버" },
+        { "feature": "AI 챗봇 포함", "basic": "✓", "plus": "✓", "premium": "✓" },
+        { "feature": "모바일 앱 (iOS/Android)", "basic": "—", "plus": "✓", "premium": "✓" },
+        { "feature": "DRM 보안 플레이어", "basic": "옵션", "plus": "옵션", "premium": "기본 포함" },
+        { "feature": "전담 매니저 배정", "basic": "—", "plus": "✓", "premium": "✓ 24/7" },
+        { "feature": "PG(결제) 연동", "basic": "✓", "plus": "✓", "premium": "✓" },
+        { "feature": "채널톡 / SMS 통합", "basic": "옵션", "plus": "✓", "premium": "✓" },
+        { "feature": "SLA 가동률 보장", "basic": "99.5%", "plus": "99.9%", "premium": "99.99%" }
+      ],
+      "priceLabel": "월 기본 요금 (VAT 별도)", "priceUnit": "원",
+      "priceSub": "+ 초과 사용량", "customQuote": "맞춤 견적",
+      "apply": "이 플랜 신청", "inquire": "문의하기", "quoteRequest": "견적 요청"
+    },
+    "comparison": {
+      "title": "웹헤즈 vs. 타사 비교", "desc": "같은 조건, 다른 결과. 핵심 항목을 비교해 보세요.",
+      "headerItem": "비교 항목", "headerUs": "웹헤즈", "headerOther": "타사 평균",
+      "items": [
+        { "feature": "CDN 전송 단가(GB당)", "us": "300~500원", "other": "700~1,200원" },
+        { "feature": "보안 플레이어(DRM)", "us": "옵션 선택 가능", "other": "필수 유료 포함" },
+        { "feature": "초기 세팅비", "us": "이벤트 무료", "other": "50~200만 원" },
+        { "feature": "24시간 모니터링", "us": "✓ 기본 제공", "other": "유료 또는 미제공" },
+        { "feature": "숨은 비용", "us": "없음", "other": "트래픽 초과, 유지보수비 등" },
+        { "feature": "고객 유지율", "us": "92.6%", "other": "업계 평균 60~70%" }
+      ]
+    },
+    "cases": {
+      "title": "규모 맞춤형 성공 사례", "desc": "고객님과 비슷한 규모의 기업들은 어떤 플랜을 선택했을까요?",
+      "similarLabel": "현재 규모와 유사", "planLabel": "선택 플랜",
+      "items": [
+        { "scale": "50~200명", "industry": "전문직 교육원", "org": "A 법률교육원", "plan": "Basic", "result": "기존 외부 LMS 임대 대비 월 운영비 40% 절감에 성공. 자체 브랜드 교육 플랫폼을 통해 월 수강료 수익 350만 원을 안정적으로 달성하고, 수강생 관리 자동화로 관리 인력 1명분의 인건비를 절약했습니다." },
+        { "scale": "200~500명", "industry": "기업 사내교육", "org": "B 제조그룹", "plan": "Plus", "result": "사내 교육 완료율이 78%에서 94%로 대폭 향상. LMS 도입 전 대비 연간 교육비 2,400만 원을 절감하고, 직무별 맞춤 학습 경로 설정으로 신입사원 온보딩 기간을 기존 4주에서 2.5주로 단축했습니다." },
+        { "scale": "500명 이상", "industry": "공공기관", "org": "C 공공교육센터", "plan": "Premium", "result": "전용 서버 구성으로 동시접속 3,000명 환경에서도 끊김 없이 안정 운영. 기존 구축형 솔루션 대비 운영비 55%를 절감하고, 24시간 모니터링으로 서비스 가용률 99.9%를 달성했습니다." }
+      ]
+    },
+    "midCta": { "title": "계산된 결과가 예산에 맞지 않으신가요?", "desc": "전문가가 비용을 더 줄일 수 있는 최적화 컨설팅을 도와드립니다.", "cta": "전문가에게 견적서 PDF 받기" },
+    "guarantees": {
+      "label": "✦ 걱정 하나도 없습니다", "title": "결정이 망설여진다면, 이걸 보세요",
+      "items": [
+        { "title": "데이터 무료 이전", "desc": "기존 LMS에서 수강생·강의 데이터 전체 이전 비용 없이 지원합니다" },
+        { "title": "2주 내 오픈 보장", "desc": "계약 후 2주 내 서비스 오픈. 늦어질 경우 지연일만큼 무상 제공" },
+        { "title": "위약금 없음", "desc": "언제든 해지 가능. 위약금·해지 수수료 일체 없습니다" },
+        { "title": "SLA 가동률 보장", "desc": "99.9% 가동률 계약서 보장. 미달 시 서비스 크레딧 제공" }
+      ]
+    },
+    "lead": {
+      "title": "계산된 요금제의 상세 견적서와\n'성공 로드맵'을 보내드립니다",
+      "currentPlan": "현재 시뮬레이션 결과:",
+      "planSummary": "{{plan}} 플랜 · 월 {{price}}원",
+      "successTitle": "제안서 요청이 접수되었습니다!", "successDesc": "입력하신 이메일로 상세 견적서와 성공 로드맵을 보내드리겠습니다.",
+      "company": "회사명", "companyPh": "(주)웹헤즈",
+      "contact": "담당자 연락처", "contactPh": "010-1234-5678",
+      "email": "이메일", "emailPh": "info@company.co.kr",
+      "submit": "무료 제안서 받기", "submitting": "요청 중...",
+      "consent": "제출 시 개인정보 처리방침에 동의한 것으로 간주됩니다.",
+      "toastSuccess": "제안서 요청 완료", "toastSuccessDesc": "곧 연락드리겠습니다.",
+      "toastError": "오류 발생", "toastErrorDesc": "잠시 후 다시 시도해주세요."
+    }
   }
 }
