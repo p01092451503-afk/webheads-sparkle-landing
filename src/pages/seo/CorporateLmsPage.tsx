@@ -133,7 +133,7 @@ export default function CorporateLmsPage() {
 
       caseStudies={[
         {
-          org: "한화손해보험",
+          org: "A 보험사",
           industry: "금융·보험",
           summary: "전사 5,000여 명 대상 직무교육·법정의무교육 통합 LMS를 구축. HR 시스템 연동으로 교육 이력이 인사평가에 자동 반영됩니다.",
           metrics: [
@@ -143,7 +143,7 @@ export default function CorporateLmsPage() {
           ],
         },
         {
-          org: "롯데닷컴",
+          org: "B 유통기업",
           industry: "유통·커머스",
           summary: "전국 사업장 통합 교육 플랫폼 구축. 지역별 교육 격차 해소 및 온보딩 프로세스 표준화를 달성했습니다.",
           metrics: [
@@ -153,7 +153,7 @@ export default function CorporateLmsPage() {
           ],
         },
         {
-          org: "효성ITX",
+          org: "C IT서비스 기업",
           industry: "IT·서비스",
           summary: "기술 직군 대상 직무역량 교육 플랫폼 구축. 마이크로러닝과 AI 학습 추천으로 자기주도 학습 문화를 활성화했습니다.",
           metrics: [
