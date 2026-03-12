@@ -1264,13 +1264,13 @@ export default function ExpenseManager({ clients: externalClients, isSuperAdmin,
                 {attachments.length > 0 ? (
                   <div className="space-y-1.5 max-h-[160px] overflow-y-auto">
                     {attachments.map((att) => (
-                      <div key={att.id} className="flex items-center gap-2 rounded-lg border px-2.5 py-1.5 bg-muted/50 min-w-0">
+                       <div key={att.id} className="flex items-center gap-2 rounded-lg border px-2.5 py-1.5 bg-muted/50 min-w-0 overflow-hidden">
                         {isImageType(att.content_type) ? (
                           <Image className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                         ) : (
                           <File className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                         )}
-                        <span className="text-[11px] truncate flex-1 min-w-0">{att.file_name}</span>
+                        <span className="text-[11px] truncate flex-1 min-w-0 max-w-[calc(100%-120px)]" title={att.file_name}>{att.file_name}</span>
                         {att.file_size && (
                           <span className="text-[10px] text-muted-foreground shrink-0">{formatFileSize(att.file_size)}</span>
                         )}
