@@ -24,6 +24,7 @@ import MaintenancePage from "./pages/MaintenancePage";
 import ServiceRequestPage from "./pages/ServiceRequestPage";
 import PricingPage from "./pages/PricingPage";
 import SmsKakaoPage from "./pages/SmsKakaoPage";
+const CostSimulatorPage = lazy(() => import("./pages/CostSimulatorPage"));
 
 import BlogPage from "./pages/BlogPage";
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
