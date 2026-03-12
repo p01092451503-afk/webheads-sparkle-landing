@@ -57,7 +57,7 @@ export default function EventPage() {
 
       {/* Benefits */}
       <section className="py-16 lg:py-24 bg-background">
-        <div className="container mx-auto px-6 max-w-5xl">
+        <div className="container mx-auto px-6 max-w-6xl">
           <p className="text-sm font-bold tracking-widest uppercase text-center mb-3" style={{ color: "hsl(340, 50%, 55%)" }}>
             {t("event.benefits.label")}
           </p>
