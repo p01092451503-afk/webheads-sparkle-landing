@@ -12,7 +12,7 @@ export default function EmployeeTrainingPage() {
       breadcrumbName="사내교육 시스템 구축"
       seoTitle="사내교육 시스템 구축 | 직원교육 플랫폼 개발"
       seoDescription="법정의무교육, 직무교육, 신입사원 온보딩까지 — WEBHEADS(웹헤즈)가 기업 맞춤형 사내교육 시스템을 구축합니다. HR/ERP 연동, 자동 배정, 이수율 관리, AI 학습 분석 통합."
-      seoKeywords="사내교육 시스템, 직원교육 플랫폼, 사내교육 LMS, 기업교육 시스템 구축, 법정의무교육 시스템, 직무교육 플랫폼, 온보딩 시스템, 사내교육 솔루션, 직원 역량 개발, HRD 시스템"
+      seoKeywords="사내교육 시스템, 직원교육 플랫폼, 사내교육 LMS, 기업교육 시스템 구축, 법정의무교육 시스템, 직무교육 플랫폼, 온보딩 시스템, 사내교육 솔루션, 직원 역량 개발, HRD 시스템, 기업 이러닝 시스템, 사내 교육 플랫폼 구축, 기업 교육 관리 시스템, HRD 플랫폼, 직원 교육 플랫폼, 기업 온라인 교육, HR 교육 플랫폼"
       heroTheme="indigo-deep"
       sections={[
         {

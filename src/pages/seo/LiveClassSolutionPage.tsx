@@ -12,7 +12,7 @@ export default function LiveClassSolutionPage() {
       breadcrumbName="화상강의 솔루션"
       seoTitle="실시간 화상강의 솔루션 | 웨비나 플랫폼 구축"
       seoDescription="실시간 화상강의, 웨비나, 하이브리드 교육을 위한 통합 플랫폼 — WEBHEADS(웹헤즈)가 LMS 연동, 출결 자동화, 녹화 VOD 전환까지 지원하는 화상강의 솔루션을 구축합니다."
-      seoKeywords="화상강의 솔루션, 실시간 강의 플랫폼, 웨비나 플랫폼, 온라인 화상수업, 라이브 교육 시스템, 화상교육 시스템, 실시간 수업 플랫폼, 하이브리드 교육, 웨비나 솔루션, 비대면 수업 시스템"
+      seoKeywords="화상강의 솔루션, 실시간 강의 플랫폼, 웨비나 플랫폼, 온라인 화상수업, 라이브 교육 시스템, 화상교육 시스템, 실시간 수업 플랫폼, 하이브리드 교육, 웨비나 솔루션, 비대면 수업 시스템, 온라인 강의 플랫폼, 교육 플랫폼, LMS 시스템"
       heroTheme="indigo-deep"
       sections={[
         {

@@ -12,7 +12,7 @@ export default function ElearningPlatformPage() {
       breadcrumbName="이러닝 플랫폼 개발"
       seoTitle="이러닝 플랫폼 개발 | 온라인 교육 플랫폼 제작"
       seoDescription="온라인 강의 플랫폼, 교육 포탈, 학습 커뮤니티까지 — WEBHEADS(웹헤즈)가 교육 비즈니스에 최적화된 이러닝 플랫폼을 개발합니다. 수강 관리, PG 결제, DRM, AI 학습 분석 통합."
-      seoKeywords="이러닝 플랫폼 개발, 온라인 교육 플랫폼 제작, 교육 플랫폼 구축, 온라인 강의 시스템, 교육 사이트 개발, 학습 플랫폼 제작, e-learning 개발, 교육 포탈 개발, 온라인 강의 플랫폼 구축, 교육 플랫폼 SaaS"
+      seoKeywords="이러닝 플랫폼 개발, 온라인 교육 플랫폼 제작, 교육 플랫폼 구축, 온라인 강의 시스템, 교육 사이트 개발, 학습 플랫폼 제작, 교육 포탈 개발, 온라인 강의 플랫폼 구축, 교육 플랫폼 SaaS, 학원 LMS, 온라인 학원 시스템, 교육기관 LMS, 강의 플랫폼, 온라인 강의 사이트, 인강 플랫폼, 강의 관리 시스템, 학습 플랫폼, 교육 사이트, 강의 사이트 구축, LMS SaaS, 클라우드 LMS, LMS 구독형, 온라인 교육 SaaS"
       heroTheme="teal-cyan"
       sections={[
         {

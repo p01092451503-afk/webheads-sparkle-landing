@@ -94,7 +94,7 @@
     "descDefault": "궁금한 점을 확인하세요."
   },
   "hosting": {
-    "seo": { "title": "호스팅", "description": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스. 99.9% SLA 가동률, 24/7 NOC 모니터링, 자동 스케일링으로 끊김 없는 학습 환경을 제공합니다.", "keywords": "이러닝 호스팅, LMS 호스팅, CDN, AWS 호스팅, IDC 서버, 이러닝 서버, 온라인 강의 호스팅" },
+    "seo": { "title": "호스팅", "description": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스. 99.9% SLA 가동률, 24/7 NOC 모니터링, 자동 스케일링으로 끊김 없는 학습 환경을 제공합니다.", "keywords": "이러닝 호스팅, LMS 호스팅, CDN, AWS 호스팅, IDC 서버, 이러닝 서버, 온라인 강의 호스팅, LMS SaaS, 클라우드 LMS, LMS 구독형, LMS 서비스, 교육 SaaS, LMS 클라우드 서비스, SaaS LMS 플랫폼, 온라인 교육 SaaS, LMS 렌탈" },
     "hero": { "badge": "호스팅", "title": "이러닝에 최적화된", "titleHighlight": "클라우드 호스팅", "desc": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로 학습자에게 끊김 없는 학습 환경을 제공하세요.", "cta1": "무료 상담 신청", "cta2": "요금제 보기" },
     "stats": [
       { "value": "99.9%", "label": "서버 가동률", "sub": "SLA 보장" },
@@ -267,7 +267,7 @@
     ]
   },
   "chatbot": {
-    "seo": { "title": "AI 챗봇", "description": "GPT-4o, Claude 3.5 기반 LMS 연동 AI 챗봇. 학습자 문의 자동 응대, FAQ 자동 학습, 다국어 지원으로 24시간 학습 지원 환경을 구축합니다.", "keywords": "AI 챗봇, LMS 챗봇, 이러닝 챗봇, GPT 챗봇, 학습 챗봇, 이러닝 상담봇" },
+    "seo": { "title": "AI 챗봇", "description": "GPT-4o, Claude 3.5 기반 LMS 연동 AI 챗봇. 학습자 문의 자동 응대, FAQ 자동 학습, 다국어 지원으로 24시간 학습 지원 환경을 구축합니다.", "keywords": "AI 챗봇, LMS 챗봇, 이러닝 챗봇, GPT 챗봇, 학습 챗봇, 이러닝 상담봇, AI LMS, AI 교육 플랫폼, AI 학습 분석, AI 학습 추천, AI 교육 시스템, ChatGPT LMS, AI 튜터 시스템, AI 교육 솔루션, AI 학습관리, AI 이러닝" },
     "hero": { "badge": "AI챗봇", "title": "이러닝 전문", "titleHighlight": "AI 챗봇 솔루션", "desc": "학습자의 질문에 24시간 즉시 응답하는 AI 챗봇으로 교육 운영 비용을 절감하고 학습자 만족도를 획기적으로 높이세요.", "cta1": "무료 데모 신청", "cta2": "구축 과정 보기" },
     "stats": [
       { "value": "80%", "label": "반복 문의 자동 처리", "sub": "운영팀 업무 부담 감소" },
@@ -1048,7 +1048,7 @@
     "stats": [{ "value": "500+", "label": "고객사" }, { "value": "15년+", "label": "운영 경험" }, { "value": "99.9%", "label": "서버 가동률" }, { "value": "24/7", "label": "기술 지원" }]
   },
   "lms": {
-    "seo": { "title": "웹헤즈 LMS | 이러닝 솔루션 · 학습관리시스템 구축", "description": "LMS 구축부터 운영까지, 300+ 기업이 신뢰하는 웹헤즈 이러닝 솔루션. 클라우드 LMS, AI 기반 학습관리, 맞춤형 온라인 교육 플랫폼을 제공합니다. 무료 도입 상담.", "keywords": "이러닝 솔루션, LMS 구축, 학습관리시스템, 온라인 교육 플랫폼, 기업교육 LMS, 사내교육 시스템, 클라우드 LMS, 교육관리 솔루션, 교육플랫폼 개발, e-learning system, LMS 솔루션 비교, 이러닝 플랫폼 추천, LMS 도입 비용, 온라인 학습 시스템 구축 방법, HRD 교육시스템 구축, 비대면 교육 플랫폼, AI 기반 학습관리, 직무교육 플랫폼, 교육용 SaaS 솔루션, 맞춤형 LMS 개발, 웹헤즈 LMS, ai-lms, 국내 LMS, 한국 이러닝 솔루션, B2B 교육 플랫폼, AI LMS, AI 교육 솔루션, AI 챗봇" },
+    "seo": { "title": "웹헤즈 LMS | 이러닝 솔루션 · 학습관리시스템 구축", "description": "LMS 구축부터 운영까지, 300+ 기업이 신뢰하는 웹헤즈 이러닝 솔루션. 클라우드 LMS, AI 기반 학습관리, 맞춤형 온라인 교육 플랫폼을 제공합니다. 무료 도입 상담.", "keywords": "LMS, LMS 구축, LMS 솔루션, LMS 플랫폼, LMS 시스템, LMS 개발, 이러닝 플랫폼, 교육 플랫폼, 온라인 강의 플랫폼, 교육 시스템, LMS 동영상 강의, LMS 시험 시스템, LMS 진도관리, LMS 출석관리, LMS 학습관리, LMS 평가 시스템, 교육 콘텐츠 관리, 교육 플랫폼 기능, 강의 플랫폼 기능, LMS 관리자 기능, 학습 분석 LMS, AI LMS, LMS 자동 채점, LMS 리포트 기능, LMS 통계 시스템, 이러닝 솔루션, 학습관리시스템, 온라인 교육 플랫폼, 기업교육 LMS, 사내교육 시스템, 클라우드 LMS, 교육관리 솔루션, 교육플랫폼 개발, LMS 솔루션 비교, 이러닝 플랫폼 추천, LMS 도입 비용, HRD 교육시스템 구축, 비대면 교육 플랫폼, AI 기반 학습관리, 직무교육 플랫폼, 맞춤형 LMS 개발, 국내 LMS, 한국 이러닝 솔루션, B2B 교육 플랫폼, LMS 프로그램" },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "사업 성공을 위한 첫걸음,", "titleHighlight": "웹헤즈 LMS", "desc": "복잡한 시스템 구축과 운영의 짐을 내려놓으세요. 오랜 시간 다듬어진 웹헤즈의 올인원 LMS 솔루션이 가장 매끄럽고 완벽한 온라인 교육 환경을 제공합니다.", "cta1": "도입 문의", "cta2": "솔루션 비교", "ctaEcosystem": "LMS 외 부가서비스도 중요합니다", "ctaWhy": "왜 웹헤즈 LMS?" },
     "whyWebheads": {
       "title": "왜 웹헤즈 LMS를\n선택해야 할까요?",

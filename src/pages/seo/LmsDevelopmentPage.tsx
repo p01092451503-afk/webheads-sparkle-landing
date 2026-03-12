@@ -12,7 +12,7 @@ export default function LmsDevelopmentPage() {
       breadcrumbName="LMS 구축"
       seoTitle="LMS 구축 | 이러닝 플랫폼 개발 전문 기업"
       seoDescription="16년 경험의 WEBHEADS(웹헤즈)가 제공하는 LMS 구축 서비스. 클라우드 LMS, 맞춤형 학습관리시스템, AI LMS까지 기업·대학·협회를 위한 최적의 이러닝 플랫폼을 개발합니다."
-      seoKeywords="LMS 구축, LMS 개발, 이러닝 플랫폼 개발, 학습관리시스템, 교육 플랫폼 제작, 온라인 강의 시스템, 클라우드 LMS, AI LMS, 맞춤형 LMS, LMS 솔루션, 기업교육 LMS, 사내교육 시스템"
+      seoKeywords="LMS 구축, LMS 개발, LMS 구축 업체, LMS 개발 회사, LMS 구축 비용, LMS 개발 비용, LMS 제작, LMS 사이트 제작, 교육 플랫폼 제작, 온라인 강의 사이트 제작, 교육 사이트 개발, 이러닝 시스템 구축, 교육 플랫폼 개발 회사, LMS SI 업체, 이러닝 플랫폼 개발, 학습관리시스템, 온라인 교육 플랫폼 구축, LMS 구축 절차, LMS 개발 기간, LMS 구축 비용 얼마나, 교육 플랫폼 만들기, 강의 사이트 제작 방법, 이러닝 사이트 구축, 온라인 교육 시스템 개발, 온라인 교육 플랫폼 만드는 방법, LMS 도입 방법, LMS 구축 가이드"
       heroTheme="indigo-deep"
       sections={[
         {

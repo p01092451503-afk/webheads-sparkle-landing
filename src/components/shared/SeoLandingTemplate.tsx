@@ -76,6 +76,8 @@ export default function SeoLandingTemplate({
     "totalTime": "PT30D",
   } : null;
 
+  const keywordsList = seoKeywords.split(",").map(k => k.trim()).filter(Boolean);
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -89,6 +91,11 @@ export default function SeoLandingTemplate({
     "areaServed": "KR",
     "serviceType": seoTitle,
     "url": `${BASE_URL}${path}`,
+    "keywords": keywordsList.join(", "),
+    "about": keywordsList.slice(0, 5).map(k => ({
+      "@type": "Thing",
+      "name": k,
+    })),
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.8",
