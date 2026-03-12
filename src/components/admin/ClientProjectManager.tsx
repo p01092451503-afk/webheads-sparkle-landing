@@ -236,35 +236,33 @@ export default function ClientProjectManager({ companyId, companyName, isSuperAd
                   )}
 
                   {/* Add note */}
-                  {isSuperAdmin && (
-                    <div className="space-y-2">
-                      <div className="flex gap-1">
-                        {NOTE_TYPES.map(t => (
-                          <button
-                            key={t.value}
-                            onClick={() => setNewNoteType(t.value)}
-                            className={`flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium border transition-colors ${
-                              newNoteType === t.value ? "border-primary bg-primary/5 text-primary" : "border-border/40 text-muted-foreground hover:bg-muted/50"
-                            }`}
-                          >
-                            <t.icon className="w-2.5 h-2.5" /> {t.label}
-                          </button>
-                        ))}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          value={newNote}
-                          onChange={e => setNewNote(e.target.value)}
-                          onKeyDown={e => { if (e.key === "Enter" && !e.nativeEvent.isComposing) addNote(); }}
-                          placeholder="진행상황, 이슈, 메모를 기록하세요..."
-                          className="h-7 text-[12px] flex-1"
-                        />
-                        <button onClick={addNote} disabled={!newNote.trim() || isAddingNote} className="px-2.5 py-1 rounded text-[11px] font-medium bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 shrink-0">
-                          추가
+                  <div className="space-y-2">
+                    <div className="flex gap-1">
+                      {NOTE_TYPES.map(t => (
+                        <button
+                          key={t.value}
+                          onClick={() => setNewNoteType(t.value)}
+                          className={`flex items-center gap-1 px-2 py-1 rounded text-[10px] font-medium border transition-colors ${
+                            newNoteType === t.value ? "border-primary bg-primary/5 text-primary" : "border-border/40 text-muted-foreground hover:bg-muted/50"
+                          }`}
+                        >
+                          <t.icon className="w-2.5 h-2.5" /> {t.label}
                         </button>
-                      </div>
+                      ))}
                     </div>
-                  )}
+                    <div className="flex items-center gap-2">
+                      <Input
+                        value={newNote}
+                        onChange={e => setNewNote(e.target.value)}
+                        onKeyDown={e => { if (e.key === "Enter" && !e.nativeEvent.isComposing) addNote(); }}
+                        placeholder="진행상황, 이슈, 메모를 기록하세요..."
+                        className="h-7 text-[12px] flex-1"
+                      />
+                      <button onClick={addNote} disabled={!newNote.trim() || isAddingNote} className="px-2.5 py-1 rounded text-[11px] font-medium bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 shrink-0">
+                        추가
+                      </button>
+                    </div>
+                  </div>
 
                   {/* Notes list */}
                   {notesLoading ? (
