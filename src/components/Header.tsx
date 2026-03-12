@@ -99,7 +99,7 @@ export default function Header() {
               const diffMs = deadline.getTime() - now.getTime();
               const dDay = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
               return (
-                <span className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold border border-white/30 text-white min-h-[28px] sm:min-h-[32px] flex items-center" style={{ background: "hsla(0,0%,100%,0.15)", backdropFilter: "blur(4px)" }}>
+                <span className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold border border-foreground/15 text-foreground min-h-[28px] sm:min-h-[32px] flex items-center" style={{ background: "hsl(245, 70%, 50%)", color: "white" }}>
                   D-{dDay} · 잔여 슬롯 13개
                 </span>
               );
