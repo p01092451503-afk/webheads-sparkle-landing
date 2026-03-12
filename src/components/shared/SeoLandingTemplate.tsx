@@ -256,21 +256,21 @@ export default function SeoLandingTemplate({
       </section>
 
       {/* Related Services & Articles */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-secondary/20">
         <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Related Services */}
             {relatedServices.map((s) => (
               <Link
                 key={s.path}
                 to={s.path}
-                className="group flex items-center justify-between py-6 border-b border-border/50 transition-colors hover:bg-secondary/20 -mx-4 px-4 rounded-lg"
+                className="group flex items-center justify-between p-6 rounded-2xl bg-background shadow-[0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-0.5"
               >
                 <div className="flex-1 min-w-0">
                   <span className="block font-bold text-foreground text-lg mb-1.5 tracking-tight">{s.label}</span>
                   <span className="block text-[15px] text-primary/60 leading-relaxed">{s.description}</span>
                 </div>
-                <ArrowRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
+                <ArrowRight className="w-5 h-5 text-primary/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
               </Link>
             ))}
 
@@ -279,13 +279,13 @@ export default function SeoLandingTemplate({
               <Link
                 key={a.path}
                 to={a.path}
-                className="group flex items-center justify-between py-6 border-b border-border/50 transition-colors hover:bg-secondary/20 -mx-4 px-4 rounded-lg"
+                className="group flex items-center justify-between p-6 rounded-2xl bg-background shadow-[0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-0.5"
               >
                 <div className="flex-1 min-w-0">
                   <span className="block font-bold text-foreground text-lg mb-1.5 tracking-tight">{a.label}</span>
                   <span className="block text-[15px] text-primary/60 leading-relaxed">{a.description}</span>
                 </div>
-                <ArrowRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
+                <ArrowRight className="w-5 h-5 text-primary/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
               </Link>
             ))}
           </div>
