@@ -14,8 +14,8 @@ const API_URL_PROD = "https://popbill.linkhub.co.kr";
 const SERVICE_ID_TEST = "POPBILL_TEST";
 const SERVICE_ID_PROD = "POPBILL";
 
-// Use test environment by default, switch to prod when ready
-const IS_PRODUCTION = Deno.env.get("POPBILL_IS_PRODUCTION") === "true";
+// 운영 환경 전환: true = 운영, false = 테스트
+const IS_PRODUCTION = true;
 const API_URL = IS_PRODUCTION ? API_URL_PROD : API_URL_TEST;
 const SERVICE_ID = IS_PRODUCTION ? SERVICE_ID_PROD : SERVICE_ID_TEST;
 
