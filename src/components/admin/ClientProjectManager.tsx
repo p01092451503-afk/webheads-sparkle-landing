@@ -186,11 +186,9 @@ export default function ClientProjectManager({ companyId, companyName, isSuperAd
         <p className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
           <FolderKanban className="w-3.5 h-3.5 text-primary" /> 프로젝트 ({projects.length})
         </p>
-        {isSuperAdmin && (
-          <button onClick={openAdd} className="text-[11px] text-primary hover:underline flex items-center gap-1">
-            <Plus className="w-3 h-3" /> 추가
-          </button>
-        )}
+        <button onClick={openAdd} className="text-[11px] text-primary hover:underline flex items-center gap-1">
+          <Plus className="w-3 h-3" /> 추가
+        </button>
       </div>
 
       {projects.length === 0 ? (
