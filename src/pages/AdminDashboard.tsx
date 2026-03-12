@@ -389,7 +389,7 @@ export default function AdminDashboard() {
 
             {/* 업무 그룹 */}
             <div className="flex items-center shrink-0 rounded-t-lg bg-[hsl(35,35%,89%)] px-1 pt-1">
-              {tabs.filter(t => ["checklist","client_work","work_files"].includes(t.key)).map((t) => {
+              {tabs.filter(t => ["checklist","client_work","work_files","backup_files"].includes(t.key)).map((t) => {
                 const isActive = tab === t.key;
                 return (
                   <button
