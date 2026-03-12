@@ -22,7 +22,7 @@ const LOCALE_MAP: Record<string, { og: string; siteName: string; suffix: string;
   ja: { og: "ja_JP", siteName: "WEBHEADS", suffix: "WEBHEADS", imageAlt: "代表イメージ" },
 };
 
-export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, breadcrumb, ogImage }: SEOProps) {
+export default function SEO({ title, description, keywords, path = "", jsonLd, faqJsonLd, howToJsonLd, breadcrumb, ogImage }: SEOProps) {
   const { i18n } = useTranslation();
   const lang = i18n.language || "ko";
   const locale = LOCALE_MAP[lang] || LOCALE_MAP.ko;
