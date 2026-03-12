@@ -217,25 +217,27 @@ export default function SeoLandingTemplate({
 
       {/* Case Studies Reference */}
       {caseStudies && caseStudies.length > 0 && (
-        <section className="py-20 bg-secondary/30">
-          <div className="container mx-auto px-6 max-w-5xl">
-            <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-3 tracking-tight">도입 사례</h2>
-            <p className="text-muted-foreground mb-10 text-sm">다양한 산업 분야의 성공적인 도입 사례를 확인하세요.</p>
-            <div className={`grid grid-cols-1 ${caseStudies.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-5`}>
-              {caseStudies.map((c) => (
-                <div key={c.org} className="rounded-2xl border border-border bg-background overflow-hidden">
-                  <div className="px-6 pt-6 pb-4">
-                    <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary">{c.industry}</span>
-                    <h3 className="font-bold text-foreground text-lg mt-3 mb-2">{c.org}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{c.summary}</p>
-                  </div>
-                  <div className="border-t border-border px-6 py-4 grid grid-cols-3 gap-3">
-                    {c.metrics.map((m) => (
-                      <div key={m.label} className="text-center">
-                        <span className="block font-bold text-lg text-primary">{m.value}</span>
-                        <span className="block text-xs text-muted-foreground">{m.label}</span>
-                      </div>
-                    ))}
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-2 tracking-tight">도입 사례</h2>
+            <p className="text-muted-foreground mb-12 text-[15px]">다양한 산업 분야의 성공적인 도입 사례를 확인하세요.</p>
+            <div className="space-y-0">
+              {caseStudies.map((c, idx) => (
+                <div key={c.org} className={`py-8 ${idx < caseStudies.length - 1 ? "border-b border-border/50" : ""}`}>
+                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                    <div className="flex-1 min-w-0">
+                      <span className="text-[13px] font-medium text-primary/70 mb-2 block">{c.industry}</span>
+                      <h3 className="font-bold text-foreground text-xl mb-2 tracking-tight">{c.org}</h3>
+                      <p className="text-[15px] text-muted-foreground leading-relaxed max-w-lg">{c.summary}</p>
+                    </div>
+                    <div className="flex gap-8 flex-shrink-0">
+                      {c.metrics.map((m) => (
+                        <div key={m.label} className="text-center min-w-[72px]">
+                          <span className="block font-bold text-2xl text-foreground tracking-tight">{m.value}</span>
+                          <span className="block text-xs text-muted-foreground mt-1">{m.label}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               ))}
