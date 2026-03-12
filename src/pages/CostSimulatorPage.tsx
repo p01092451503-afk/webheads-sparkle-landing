@@ -542,25 +542,25 @@ export default function CostSimulatorPage() {
           <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center">웹헤즈 vs. 타사 비교</h2>
           <p className="text-sm text-muted-foreground text-center mb-10">같은 조건, 다른 결과. 핵심 항목을 비교해 보세요.</p>
           <div className="rounded-2xl border border-border overflow-hidden">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead>
                 <tr className="border-b border-border" style={{ background: "#F8F9FD" }}>
-                  <th className="text-left px-5 py-3 font-semibold text-muted-foreground text-xs">비교 항목</th>
-                  <th className="text-center px-5 py-3 font-bold text-xs" style={{ color: "#5D45FF" }}>웹헤즈</th>
-                  <th className="text-center px-5 py-3 font-semibold text-muted-foreground text-xs">타사 평균</th>
+                  <th className="text-left px-5 py-4 font-semibold text-muted-foreground text-sm">비교 항목</th>
+                  <th className="text-center px-5 py-4 font-bold text-sm" style={{ color: "#5D45FF" }}>웹헤즈</th>
+                  <th className="text-center px-5 py-4 font-semibold text-muted-foreground text-sm">타사 평균</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {COMPARISON_DATA.map(({ feature, webheads, competitor }) => (
                   <tr key={feature} className="hover:bg-muted/30 transition-colors">
-                    <td className="px-5 py-3.5 font-medium text-foreground text-[13px]">{feature}</td>
-                    <td className="px-5 py-3.5 text-center font-semibold text-[13px]" style={{ color: "#5D45FF" }}>
+                    <td className="px-5 py-4 font-medium text-foreground text-[15px]">{feature}</td>
+                    <td className="px-5 py-4 text-center font-semibold text-[15px]" style={{ color: "#5D45FF" }}>
                       <div className="flex items-center justify-center gap-1.5">
-                        <CheckCircle className="w-3.5 h-3.5" style={{ color: "#00C896" }} />
+                        <CheckCircle className="w-4 h-4" style={{ color: "#00C896" }} />
                         {webheads}
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 text-center text-muted-foreground text-[13px]">{competitor}</td>
+                    <td className="px-5 py-4 text-center text-muted-foreground text-[15px]">{competitor}</td>
                   </tr>
                 ))}
               </tbody>
