@@ -267,7 +267,7 @@
     ]
   },
   "chatbot": {
-    "seo": { "title": "AI 챗봇", "description": "GPT-4o, Claude 3.5 기반 LMS 연동 AI 챗봇. 학습자 문의 자동 응대, FAQ 자동 학습, 다국어 지원으로 24시간 학습 지원 환경을 구축합니다.", "keywords": "AI 챗봇, LMS 챗봇, 이러닝 챗봇, GPT 챗봇, 학습 챗봇, 이러닝 상담봇" },
+    "seo": { "title": "AI 챗봇", "description": "GPT-4o, Claude 3.5 기반 LMS 연동 AI 챗봇. 학습자 문의 자동 응대, FAQ 자동 학습, 다국어 지원으로 24시간 학습 지원 환경을 구축합니다.", "keywords": "AI 챗봇, LMS 챗봇, 이러닝 챗봇, GPT 챗봇, 학습 챗봇, 이러닝 상담봇, AI LMS, AI 교육 플랫폼, AI 학습 분석, AI 학습 추천, AI 교육 시스템, ChatGPT LMS, AI 튜터 시스템, AI 교육 솔루션, AI 학습관리, AI 이러닝" },
     "hero": { "badge": "AI챗봇", "title": "이러닝 전문", "titleHighlight": "AI 챗봇 솔루션", "desc": "학습자의 질문에 24시간 즉시 응답하는 AI 챗봇으로 교육 운영 비용을 절감하고 학습자 만족도를 획기적으로 높이세요.", "cta1": "무료 데모 신청", "cta2": "구축 과정 보기" },
     "stats": [
       { "value": "80%", "label": "반복 문의 자동 처리", "sub": "운영팀 업무 부담 감소" },
