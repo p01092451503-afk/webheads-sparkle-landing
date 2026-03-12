@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
@@ -193,26 +194,7 @@ export default function CostSimulatorPage() {
         <HeroPatternBg theme="teal-cyan" />
         <LmsHeroOverlay />
         <div className="container mx-auto px-5 md:px-6 max-w-4xl relative z-10 text-center flex flex-col items-center">
-          {/* Floating badge */}
-          {(() => {
-            const deadline = new Date("2026-03-31T23:59:59+09:00");
-            const now = new Date();
-            const diffMs = deadline.getTime() - now.getTime();
-            const dDay = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
-            return (
-              <div className="inline-flex items-center gap-3 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-wide mb-6 md:mb-8 animate-bounce" style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", color: "#5D45FF", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
-                <span className="flex items-center gap-1.5">
-                  <Zap className="w-4 h-4" style={{ color: "#FF6B00" }} />
-                  <span style={{ color: "#FF6B00" }}>3월 한정 이벤트</span>
-                  <span className="text-muted-foreground font-normal">—</span>
-                  지금 신청 시 2개월 무료 + 마이그레이션 비용 전액 지원
-                </span>
-                <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px]" style={{ background: "rgba(93,69,255,0.1)" }}>
-                  D-{dDay} · 잔여 슬롯 13개
-                </span>
-              </div>
-            );
-          })()}
+          {/* Hero content */}
 
           <h1 className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white" style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}>
             추측하지 마세요!
@@ -244,6 +226,8 @@ export default function CostSimulatorPage() {
           </div>
         </div>
       </section>
+
+      <HeroPromoBanner />
 
       {/* ═══ SIMULATOR ═══ */}
       <section id="simulator" className="py-16 md:py-24" style={{ background: "#F8F9FD" }}>

@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import TestimonialSection from "@/components/TestimonialSection";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import ServiceFAQ from "@/components/shared/ServiceFAQ";
@@ -48,6 +49,8 @@ export default function MaintenancePage() {
           </div>
         </div>
       </section>
+
+      <HeroPromoBanner />
 
       {/* Stats - W */}
       <section className="py-[4.8rem] bg-background border-b border-border">

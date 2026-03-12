@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Check, ArrowRight } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 
 interface SpecRow {
   label: string;
@@ -262,6 +263,8 @@ export default function PricingPage() {
           </Link>
         </div>
       </section>
+
+      <HeroPromoBanner />
 
       {/* Pricing Cards */}
       <section className="py-20 bg-background">

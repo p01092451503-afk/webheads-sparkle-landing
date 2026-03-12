@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
@@ -45,6 +46,8 @@ export default function ChannelPage() {
           </div>
         </div>
       </section>
+
+      <HeroPromoBanner />
 
       {/* Stats - W */}
       <section className="py-[4.8rem] bg-background border-b border-border">

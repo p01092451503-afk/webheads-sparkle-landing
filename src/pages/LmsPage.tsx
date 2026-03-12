@@ -1,4 +1,5 @@
 import ContactSection from "@/components/ContactSection";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import ServiceCaseStudy from "@/components/shared/ServiceCaseStudy";
 
 
@@ -260,6 +261,8 @@ export default function LmsPage() {
           <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />
         </div>
       </section>
+
+      <HeroPromoBanner />
 
       {/* ═══ 2. Stats ═══ */}
       <section className="py-12 md:py-20 relative">

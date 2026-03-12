@@ -1,5 +1,6 @@
 import { CreditCard, Globe, ShieldCheck, Zap, BarChart3, Settings, RefreshCw, Lock, Headphones, Search, FileCheck, Code, Activity } from "lucide-react";
 import ContactSection from "@/components/ContactSection";
+import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 
 import TestimonialSection from "@/components/TestimonialSection";
 import SEO, { BASE_URL } from "@/components/SEO";
@@ -40,6 +41,8 @@ export default function PgPage() {
           </div>
         </div>
       </section>
+
+      <HeroPromoBanner />
 
       {/* Stats - W */}
       <section className="py-[4.8rem] bg-background border-b border-border">
