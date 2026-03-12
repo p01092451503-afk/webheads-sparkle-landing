@@ -187,8 +187,8 @@ export default function CostSimulatorPage() {
         <LmsHeroOverlay />
         <div className="container mx-auto px-5 md:px-6 max-w-4xl relative z-10 text-center flex flex-col items-center">
           {/* Floating badge */}
-          <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-widest uppercase mb-6 md:mb-8 animate-bounce" style={{ background: "rgba(255,107,0,0.15)", backdropFilter: "blur(12px)", color: "#FF6B00", border: "1px solid rgba(255,107,0,0.3)" }}>
-            <Zap className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-bold tracking-wide mb-6 md:mb-8 animate-bounce" style={{ background: "rgba(255,255,255,0.95)", backdropFilter: "blur(12px)", color: "#5D45FF", border: "1px solid rgba(255,255,255,0.6)", boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
+            <Zap className="w-4 h-4" style={{ color: "#FF6B00" }} />
             3월 한정: 연간 계약 시 2개월 무료 + 초기 세팅비 0원
           </div>
 
