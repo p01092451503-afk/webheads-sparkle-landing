@@ -122,6 +122,11 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
           {JSON.stringify(breadcrumbSchema)}
         </script>
       )}
+      {howToSchema && (
+        <script type="application/ld+json">
+          {JSON.stringify(howToSchema)}
+        </script>
+      )}
     </Helmet>
   );
 }

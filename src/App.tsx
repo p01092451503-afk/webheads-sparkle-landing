@@ -81,6 +81,9 @@ const App = () => (
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/event" element={<EventPage />} />
                 <Route path="/overview" element={<OverviewPage />} />
+                <Route path="/lms-development" element={<LmsDevelopmentPage />} />
+                <Route path="/corporate-lms" element={<CorporateLmsPage />} />
+                <Route path="/elearning-platform-development" element={<ElearningPlatformPage />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 {/* <Route path="/about" element={<AboutPage />} /> */}
