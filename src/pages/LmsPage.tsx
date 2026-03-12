@@ -192,11 +192,10 @@ export default function LmsPage() {
                 "lowPrice": "0",
                 "description": "웹헤즈 Light, 웹헤즈 PRO 2가지 솔루션"
               },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "reviewCount": "300",
-                "bestRating": "5"
+              "additionalProperty": {
+                "@type": "PropertyValue",
+                "name": "clientCount",
+                "value": "300"
               }
             }
           ]

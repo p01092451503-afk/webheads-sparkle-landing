@@ -53,7 +53,7 @@ export default function SmsKakaoPage() {
           areaServed: "KR",
           serviceType: t("smsKakao.seo.title"),
           url: `${BASE_URL}/sms-kakao`,
-          aggregateRating: { "@type": "AggregateRating", ratingValue: "4.8", reviewCount: "300", bestRating: "5", worstRating: "1" },
+          additionalProperty: { "@type": "PropertyValue", name: "clientCount", value: "300" },
         }}
       />
 
