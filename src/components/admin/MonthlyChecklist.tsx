@@ -197,18 +197,40 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
                   : <Circle className="w-5 h-5 text-muted-foreground/40 hover:text-primary/60 transition-colors" />
                 }
               </button>
-              <span className={`flex-1 text-[13px] ${item.is_completed ? "line-through text-muted-foreground" : "text-foreground font-medium"}`}>
-                {item.task_name}
-              </span>
+              {editingId === item.id ? (
+                <Input
+                  value={editingText}
+                  onChange={e => setEditingText(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === "Enter" && !e.nativeEvent.isComposing) saveEdit();
+                    if (e.key === "Escape") setEditingId(null);
+                  }}
+                  onBlur={saveEdit}
+                  autoFocus
+                  className="h-7 text-[13px] flex-1"
+                />
+              ) : (
+                <span
+                  className={`flex-1 text-[13px] cursor-pointer ${item.is_completed ? "line-through text-muted-foreground" : "text-foreground font-medium"}`}
+                  onDoubleClick={() => startEdit(item)}
+                >
+                  {item.task_name}
+                </span>
+              )}
               {item.completed_at && (
                 <span className="text-[10px] text-muted-foreground">
                   {new Date(item.completed_at).toLocaleDateString("ko-KR")}
                 </span>
               )}
-              {isSuperAdmin && (
-                <button onClick={() => deleteItem(item.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive">
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
+              {isSuperAdmin && editingId !== item.id && (
+                <>
+                  <button onClick={() => startEdit(item)} className="p-1 rounded hover:bg-muted text-muted-foreground hover:text-foreground" title="수정">
+                    <Pencil className="w-3.5 h-3.5" />
+                  </button>
+                  <button onClick={() => deleteItem(item.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive" title="삭제">
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </>
               )}
             </div>
           ))}
