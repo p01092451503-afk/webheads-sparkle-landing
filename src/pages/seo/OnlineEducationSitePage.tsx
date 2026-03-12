@@ -130,7 +130,7 @@ export default function OnlineEducationSitePage() {
 
       caseStudies={[
         {
-          org: "클래스유",
+          org: "A 크리에이터 교육 플랫폼",
           industry: "교육·크리에이터",
           summary: "예술·공예 분야 강사들의 온라인 강의 사이트를 구축. 오프라인 대비 수강생 도달 범위를 전국으로 확장했습니다.",
           metrics: [
@@ -140,7 +140,7 @@ export default function OnlineEducationSitePage() {
           ],
         },
         {
-          org: "메디런",
+          org: "B 의료교육 기관",
           industry: "의료·보건",
           summary: "의료인 대상 보수교육 온라인 사이트를 구축. 대면 교육 대비 교육 접근성과 이수율을 크게 개선했습니다.",
           metrics: [
@@ -150,7 +150,7 @@ export default function OnlineEducationSitePage() {
           ],
         },
         {
-          org: "코드잇",
+          org: "C IT교육 스타트업",
           industry: "IT·프로그래밍",
           summary: "프로그래밍 교육 사이트의 UX 고도화 및 구독 모델 도입을 진행. 전환율과 고객 생애 가치(LTV)를 동시에 향상시켰습니다.",
           metrics: [

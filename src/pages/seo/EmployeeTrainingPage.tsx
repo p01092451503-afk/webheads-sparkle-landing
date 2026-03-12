@@ -103,7 +103,7 @@ export default function EmployeeTrainingPage() {
 
       caseStudies={[
         {
-          org: "현대오토에버",
+          org: "A IT·제조 기업",
           industry: "IT·자동차",
           summary: "전국 사업장 직원 대상 통합 사내교육 시스템을 구축. 법정의무교육 이수율 자동 관리와 직무교육 개인화를 실현했습니다.",
           metrics: [
@@ -113,7 +113,7 @@ export default function EmployeeTrainingPage() {
           ],
         },
         {
-          org: "삼성화재",
+          org: "B 보험사",
           industry: "금융·보험",
           summary: "설계사 및 임직원 대상 직무교육·보수교육 통합 플랫폼을 구축. 교육 접근성 향상과 이수 관리 자동화를 달성했습니다.",
           metrics: [
@@ -123,7 +123,7 @@ export default function EmployeeTrainingPage() {
           ],
         },
         {
-          org: "CJ올리브영",
+          org: "C 유통기업",
           industry: "유통·리테일",
           summary: "매장 직원 대상 모바일 기반 사내교육 시스템을 구축. 짧은 마이크로러닝 콘텐츠로 현장 직원의 학습 참여율을 극대화했습니다.",
           metrics: [

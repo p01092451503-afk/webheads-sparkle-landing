@@ -195,7 +195,7 @@ export default function LmsDevelopmentPage() {
 
       caseStudies={[
         {
-          org: "한화손해보험",
+          org: "A 보험사",
           industry: "금융·보험",
           summary: "전사 임직원 대상 직무교육 및 법정의무교육 LMS를 구축하여 교육 관리 효율을 크게 향상시켰습니다.",
           metrics: [
@@ -205,7 +205,7 @@ export default function LmsDevelopmentPage() {
           ],
         },
         {
-          org: "한국감정평가사협회",
+          org: "B 전문직 협회",
           industry: "협회·단체",
           summary: "회원 보수교육 온라인 전환 프로젝트를 통해 교육 접근성과 이수율을 대폭 개선했습니다.",
           metrics: [
@@ -215,7 +215,7 @@ export default function LmsDevelopmentPage() {
           ],
         },
         {
-          org: "롯데닷컴",
+          org: "C 유통기업",
           industry: "유통·커머스",
           summary: "전국 사업장 통합 교육 플랫폼을 구축하여 지역별 교육 격차를 해소하고 교육 품질을 표준화했습니다.",
           metrics: [

@@ -118,7 +118,7 @@ export default function LiveClassSolutionPage() {
 
       caseStudies={[
         {
-          org: "한국방송통신대학교",
+          org: "A 국립대학교",
           industry: "대학·교육기관",
           summary: "전국 캠퍼스 대상 실시간 화상강의 시스템을 구축. 지역 격차 없는 동일한 교육 품질을 실현했습니다.",
           metrics: [
@@ -128,7 +128,7 @@ export default function LiveClassSolutionPage() {
           ],
         },
         {
-          org: "패스트캠퍼스",
+          org: "B 직무교육 플랫폼",
           industry: "직무교육",
           summary: "라이브 부트캠프와 VOD 강의를 통합하는 하이브리드 교육 플랫폼을 구축. 수강생 참여도와 완강률을 동시에 개선했습니다.",
           metrics: [
@@ -138,9 +138,9 @@ export default function LiveClassSolutionPage() {
           ],
         },
         {
-          org: "대한의사협회",
+          org: "C 전문직 협회",
           industry: "협회·전문직",
-          summary: "의사 보수교육을 위한 웨비나 플랫폼을 구축. 1,000명 이상 동시접속의 대규모 실시간 강의를 안정적으로 운영합니다.",
+          summary: "회원 보수교육을 위한 웨비나 플랫폼을 구축. 1,000명 이상 동시접속의 대규모 실시간 강의를 안정적으로 운영합니다.",
           metrics: [
             { label: "동시접속", value: "2,000+" },
             { label: "운영비 절감", value: "61%" },

@@ -187,9 +187,9 @@ export default function ElearningPlatformPage() {
 
       caseStudies={[
         {
-          org: "한국감정평가사협회",
+          org: "A 전문직 협회",
           industry: "협회·단체",
-          summary: "전국 감정평가사 대상 온라인 보수교육 플랫폼을 구축. 오프라인 대비 교육 접근성이 크게 향상되고 관리 효율이 개선되었습니다.",
+          summary: "전국 회원 대상 온라인 보수교육 플랫폼을 구축. 오프라인 대비 교육 접근성이 크게 향상되고 관리 효율이 개선되었습니다.",
           metrics: [
             { label: "이수율 향상", value: "+38%p" },
             { label: "회원 만족도", value: "4.7/5" },
@@ -197,7 +197,7 @@ export default function ElearningPlatformPage() {
           ],
         },
         {
-          org: "롯데닷컴",
+          org: "B 유통기업",
           industry: "유통·커머스",
           summary: "전국 사업장 직원 대상 통합 교육 플랫폼 구축. 지역별 교육 격차를 해소하고 교육 품질을 표준화했습니다.",
           metrics: [
@@ -207,7 +207,7 @@ export default function ElearningPlatformPage() {
           ],
         },
         {
-          org: "한화손해보험",
+          org: "C 보험사",
           industry: "금융·보험",
           summary: "직무교육·법정의무교육 통합 이러닝 플랫폼을 구축. 교육 비용 절감과 학습 완료율 향상을 동시에 달성했습니다.",
           metrics: [
