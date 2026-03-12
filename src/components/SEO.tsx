@@ -8,6 +8,7 @@ interface SEOProps {
   path?: string;
   jsonLd?: object;
   faqJsonLd?: { q: string; a: string }[];
+  howToJsonLd?: { name: string; description?: string; steps: { name: string; text: string }[] };
   breadcrumb?: { name: string; url: string }[];
   ogImage?: string;
 }
