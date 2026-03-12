@@ -87,16 +87,13 @@ export default function BlogPage() {
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
   const paginatedPosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
-  const handleToggle = (id: string) => setExpandedId(expandedId === id ? null : id);
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     setCurrentPage(1);
-    setExpandedId(null);
   };
   const handleCategoryChange = (cat: Category | "all") => {
     setActiveCategory(cat);
     setCurrentPage(1);
-    setExpandedId(null);
   };
 
   const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
