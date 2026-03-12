@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, useCallback, lazy, Suspense, useRef } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -285,6 +286,10 @@ export default function AdminDashboard() {
   if (!userId) return null;
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
     <div className="min-h-screen bg-[hsl(220,14%,96%)]">
       {/* Realtime Alert */}
       {newInquiryAlert && (
@@ -450,5 +455,6 @@ export default function AdminDashboard() {
         </Suspense>
       </div>
     </div>
+    </>
   );
 }

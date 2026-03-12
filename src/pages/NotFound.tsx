@@ -1,4 +1,5 @@
 import { useLocation, Link, Navigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Home } from "lucide-react";
@@ -131,6 +132,10 @@ const NotFound = () => {
       };
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, follow" />
+    </Helmet>
     <div className="flex min-h-screen items-center justify-center bg-background px-6">
       <div className="text-center max-w-md">
         <span
@@ -163,6 +168,7 @@ const NotFound = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

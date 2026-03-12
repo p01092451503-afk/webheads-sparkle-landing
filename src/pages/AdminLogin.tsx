@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Lock, Loader2, Mail, Shield } from "lucide-react";
@@ -132,6 +133,10 @@ export default function AdminLogin() {
   const isLocked = lockoutRemaining > 0;
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
     <div className="min-h-screen flex items-center justify-center px-4"
       style={{ background: "hsl(var(--background))" }}
     >
@@ -293,5 +298,6 @@ export default function AdminLogin() {
         </p>
       </div>
     </div>
+    </>
   );
 }
