@@ -84,6 +84,7 @@ const App = () => (
                 <Route path="/sms-kakao" element={<SmsKakaoPage />} />
                 
                 <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:postId" element={<BlogPostPage />} />
                 <Route path="/event" element={<EventPage />} />
                 <Route path="/overview" element={<OverviewPage />} />
                 <Route path="/lms-development" element={<LmsDevelopmentPage />} />

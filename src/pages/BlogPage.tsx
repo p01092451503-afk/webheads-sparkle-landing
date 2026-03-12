@@ -56,10 +56,10 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
             <span key={kw} className="px-2.5 py-0.5 rounded-md text-[11px] font-medium bg-muted text-muted-foreground" itemProp="keywords">#{kw}</span>
           ))}
         </div>
-        <button onClick={onToggle} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline underline-offset-2 transition-colors">
-          {isExpanded ? (lang === "en" ? "Collapse" : lang === "ja" ? "閉じる" : "접기") : (lang === "en" ? "Read more" : lang === "ja" ? "続きを読む" : "자세히 읽기")}
-          <ArrowRight className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90" : ""}`} />
-        </button>
+        <Link to={`/blog/${post.id}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline underline-offset-2 transition-colors">
+          {lang === "en" ? "Read more" : lang === "ja" ? "続きを読む" : "자세히 읽기"}
+          <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
     </article>
   );
