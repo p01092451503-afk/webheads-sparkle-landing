@@ -1659,5 +1659,96 @@
       { "title": "有償保守", "desc": "機能変更、デザイン修正、追加開発など初期契約範囲を超える作業。", "tag": "オプション" },
       { "title": "再開発（再構築）", "desc": "システム全体または一部の再開発。保守範囲を超える拡大・補完開発を含む。", "tag": "別途見積もり" }
     ]
+  },
+  "costSim": {
+    "seo": { "title": "LMS 料金計算機 — 10秒で見積もり確認", "description": "月間受講者数と動画容量を入力すると、最適なLMS料金プランと予想費用を即座に確認できます。", "keywords": "LMS 料金, LMS 費用, LMS 価格比較, eラーニング プラットフォーム 料金", "breadcrumb": "LMS 料金計算機", "appName": "WEBHEADS LMS 料金計算機", "appDesc": "LMS料金をリアルタイムでシミュレーションし、最適なプランを見つけましょう。" },
+    "hero": { "title1": "推測はやめましょう！", "title2": "データで設計する効率的なLMS予算", "desc1": "国内最低水準のCDN単価と16年の運用ノウハウを組み合わせました。", "desc2": "隠れた費用のない正直な見積もりを10秒で確認できます。", "trustNote": "すでに<b>300+</b>企業がこのシミュレーターで最適なプランを見つけました。", "cta1": "今すぐ見積もり確認", "cta2": "無料提案書を受け取る", "stats": ["LMS専門16年", "300+顧客", "92.6%維持率", "隠れた費用ゼロ"] },
+    "sim": {
+      "label": "COST SIMULATOR", "title": "自社の規模に適した料金プランは？", "desc": "月間受講者数と動画容量、平均修了率を入力すると、予想費用と最適プランを即座に確認できます。",
+      "scaleTitle": "規模入力",
+      "learners": "月間アクティブ受講者", "learnersTooltip": "1ヶ月間に1つ以上の講座を受講したユニーク学習者数", "learnersUnit": "名",
+      "storage": "動画容量", "storageTooltip": "アップロードする動画ファイルの合計容量", "storageRef": "参考：SD画質30分講義 約{{count}}本分",
+      "completion": "平均修了率", "completionTooltip": "受講者の平均講座修了率",
+      "cdn": "CDN動画ホスティング必要", "cdnOn": "動画講義を高速・途切れなく再生するための専用動画サーバーです。", "cdnOff": "CDNなしで自社サーバーから動画を配信します。",
+      "drm": "セキュアプレイヤー（DRM）", "drmOn": "動画ダウンロード防止および不正コピー防止が有効化されます。", "drmOff": "ダウンロード防止や不正コピー防止が必要な場合に有効化してください。",
+      "server": "専用サーバー構成", "serverDesc": "500名以上の大規模トラフィックに最適化された専用サーバーを構成します。",
+      "annual": "年間契約（10%割引）", "annualOn": "年間契約が適用され、月額比10%割引されます。", "annualOff": "年間契約を選択すると、月額比10%割引された金額でご利用いただけます。",
+      "estTransfer": "予想月間転送量", "estStorage": "予想ストレージ"
+    },
+    "result": {
+      "recommended": "おすすめプラン", "perMonth": "ウォン/月", "discount": "10%割引",
+      "savings": "他社比 月約{{amount}}ウォン節約効果",
+      "cdnOverage": "CDN超過分 +{{amount}}ウォン", "storageOverage": "ストレージ超過分 +{{amount}}ウォン",
+      "securePlayer": "セキュアプレイヤー +{{amount}}ウォン", "dedicatedServer": "専用サーバー +{{amount}}ウォン",
+      "ctaConsult": "この見積もりで無料コンサルティングを申し込む",
+      "cdnInfo": "基本転送量 {{cdn}}GB · ストレージ {{storage}}GB", "cdnNone": "CDN別途",
+      "annualTitle": "🎉 年間契約特別特典", "annualDesc": "年間払いで<b>2ヶ月延長</b>または<b>教育用タブレットプレゼント</b>をお選びいただけます。（3月限定）",
+      "upgradeTitle": "{{plan}}プランの方が経済的です", "upgradeDesc": "<b>{{amount}}ウォン追加</b>するだけで{{benefit}}。{{plan}}プランをご検討ください。",
+      "upgradeBenefit": "データ転送量が{{multiple}}倍に増えます",
+      "allPlans": "全プラン比較", "annualApplied": "年間割引適用中", "base": "基本", "overage": "超過"
+    },
+    "features": {
+      "title": "プラン別コア機能比較", "desc": "価格差の理由を機能面から確認してください。",
+      "header": "機能 / 項目", "rec": "推奨",
+      "items": [
+        { "feature": "基本転送量", "basic": "500GB/月", "plus": "1,500GB/月", "premium": "2,000GB/月" },
+        { "feature": "ストレージ", "basic": "100GB", "plus": "200GB", "premium": "250GB" },
+        { "feature": "サーバー形態", "basic": "レンタル型", "plus": "レンタル・SaaS・専用サーバー", "premium": "レンタル・SaaS・専用サーバー" },
+        { "feature": "AIチャットボット", "basic": "✓", "plus": "✓", "premium": "✓" },
+        { "feature": "モバイルアプリ (iOS/Android)", "basic": "—", "plus": "✓", "premium": "✓" },
+        { "feature": "DRMセキュアプレイヤー", "basic": "オプション", "plus": "オプション", "premium": "基本含む" },
+        { "feature": "専任マネージャー", "basic": "—", "plus": "✓", "premium": "✓ 24/7" },
+        { "feature": "PG（決済）連携", "basic": "✓", "plus": "✓", "premium": "✓" },
+        { "feature": "チャネルトーク / SMS", "basic": "オプション", "plus": "✓", "premium": "✓" },
+        { "feature": "SLA稼働率保証", "basic": "99.5%", "plus": "99.9%", "premium": "99.99%" }
+      ],
+      "priceLabel": "月額基本料金（税別）", "priceUnit": "ウォン",
+      "priceSub": "+ 超過使用量", "customQuote": "カスタム見積もり",
+      "apply": "このプランを申し込む", "inquire": "問い合わせ", "quoteRequest": "見積もり依頼"
+    },
+    "comparison": {
+      "title": "WEBHEADS vs. 他社比較", "desc": "同じ条件、異なる結果。核心項目を比較してください。",
+      "headerItem": "比較項目", "headerUs": "WEBHEADS", "headerOther": "他社平均",
+      "items": [
+        { "feature": "CDN転送単価（GB当り）", "us": "300～500ウォン", "other": "700～1,200ウォン" },
+        { "feature": "セキュアプレイヤー（DRM）", "us": "オプション選択可能", "other": "必須有料" },
+        { "feature": "初期セットアップ費", "us": "イベント無料", "other": "50～200万ウォン" },
+        { "feature": "24時間モニタリング", "us": "✓ 基本提供", "other": "有料または未提供" },
+        { "feature": "隠れた費用", "us": "なし", "other": "トラフィック超過、保守費など" },
+        { "feature": "顧客維持率", "us": "92.6%", "other": "業界平均 60～70%" }
+      ]
+    },
+    "cases": {
+      "title": "規模別成功事例", "desc": "お客様と似た規模の企業はどのプランを選びましたか？",
+      "similarLabel": "現在の規模と類似", "planLabel": "選択プラン",
+      "items": [
+        { "scale": "50～200名", "industry": "専門職教育機関", "org": "A 法律教育院", "plan": "Basic", "result": "既存の外部LMSレンタル比で月間運営費40%削減に成功。自社ブランド教育プラットフォームで月間受講料収益350万ウォンを安定的に達成し、受講生管理自動化で管理人員1名分の人件費を節約しました。" },
+        { "scale": "200～500名", "industry": "企業社内教育", "org": "B 製造グループ", "plan": "Plus", "result": "社内教育完了率が78%から94%に大幅向上。LMS導入前比で年間教育費2,400万ウォンを削減し、職務別カスタム学習パス設定で新入社員オンボーディング期間を4週間から2.5週間に短縮しました。" },
+        { "scale": "500名以上", "industry": "公共機関", "org": "C 公共教育センター", "plan": "Premium", "result": "専用サーバー構成で同時接続3,000名環境でも途切れなく安定運用。既存構築型ソリューション比で運営費55%を削減し、24時間モニタリングでサービス稼働率99.9%を達成しました。" }
+      ]
+    },
+    "midCta": { "title": "計算結果が予算に合いませんか？", "desc": "専門家がコスト最適化コンサルティングでお手伝いします。", "cta": "専門家に見積書PDFを依頼" },
+    "guarantees": {
+      "label": "✦ 心配はいりません", "title": "迷っているなら、これをご覧ください",
+      "items": [
+        { "title": "データ無料移行", "desc": "既存LMSから受講生・講座データの全移行費用を無料でサポートします" },
+        { "title": "2週間以内オープン保証", "desc": "契約後2週間以内にサービスオープン。遅延した場合、遅延日数分を無償提供" },
+        { "title": "違約金なし", "desc": "いつでも解約可能。違約金・解約手数料は一切ありません" },
+        { "title": "SLA稼働率保証", "desc": "99.9%稼働率を契約書で保証。未達の場合サービスクレジットを提供" }
+      ]
+    },
+    "lead": {
+      "title": "計算された料金プランの詳細見積書と\n'成功ロードマップ'をお送りします",
+      "currentPlan": "現在のシミュレーション結果：",
+      "planSummary": "{{plan}}プラン・月{{price}}ウォン",
+      "successTitle": "提案書リクエストが受付されました！", "successDesc": "ご入力いただいたメールアドレスに詳細見積書と成功ロードマップをお送りします。",
+      "company": "会社名", "companyPh": "(株)WEBHEADS",
+      "contact": "担当者連絡先", "contactPh": "010-1234-5678",
+      "email": "メール", "emailPh": "info@company.co.kr",
+      "submit": "無料提案書を受け取る", "submitting": "リクエスト中...",
+      "consent": "送信により、プライバシーポリシーに同意したものとみなされます。",
+      "toastSuccess": "提案書リクエスト完了", "toastSuccessDesc": "まもなくご連絡いたします。",
+      "toastError": "エラー発生", "toastErrorDesc": "しばらくしてから再度お試しください。"
+    }
   }
 }
