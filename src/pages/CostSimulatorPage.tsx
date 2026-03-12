@@ -195,10 +195,10 @@ export default function CostSimulatorPage() {
           </div>
 
           <h1 className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white" style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}>
-            추측하지 마세요.
+            추측하지 마세요!
             <br />
             <span className="bg-clip-text" style={{ opacity: 0.95 }}>
-              데이터로 설계하는 가장 효율적인 LMS 예산.
+              데이터로 설계하는 효율적인 LMS 예산.
             </span>
           </h1>
           <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
