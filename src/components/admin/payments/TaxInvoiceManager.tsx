@@ -241,10 +241,12 @@ export default function TaxInvoiceManager() {
           const bd = balRes.data.data;
           console.log("[TaxInvoice] bd:", JSON.stringify(bd), "type:", typeof bd);
           let val: number | null = null;
-          if (typeof bd === "number") {
+          if (typeof bd === "object" && bd !== null && "totalPoint" in bd) {
+            // New format: { partnerPoint, popbillPoint, totalPoint }
+            val = typeof bd.totalPoint === "number" ? bd.totalPoint : parseFloat(bd.totalPoint) || null;
+          } else if (typeof bd === "number") {
             val = bd;
           } else if (typeof bd === "object" && bd !== null) {
-            // Try all known field names
             val = bd.remainPoint ?? bd.Balance ?? bd.balance ?? bd.Point ?? bd.point ?? null;
             if (typeof val === "string") val = parseFloat(val);
           } else if (typeof bd === "string") {

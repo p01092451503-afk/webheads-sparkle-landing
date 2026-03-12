@@ -364,20 +364,50 @@ serve(async (req) => {
       }
 
       case "checkBalance": {
-        // 잔여포인트는 auth.linkhub.co.kr 에서 조회
-        const balanceRes = await fetch(`${AUTH_URL}/${SERVICE_ID}/Point`, {
+        // 1) 파트너 포인트 (auth.linkhub.co.kr)
+        const partnerRes = await fetch(`${AUTH_URL}/${SERVICE_ID}/Point`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${popbillToken}`,
             "Content-Type": "application/json",
           },
         });
-        const balanceText = await balanceRes.text();
-        let balanceData;
-        try { balanceData = JSON.parse(balanceText); } catch { balanceData = { Balance: parseFloat(balanceText) || 0 }; }
-        if (!balanceRes.ok) throw new Error(`Balance error: ${balanceText}`);
+        const partnerText = await partnerRes.text();
+        let partnerData: any;
+        try { partnerData = JSON.parse(partnerText); } catch { partnerData = { remainPoint: parseFloat(partnerText) || 0 }; }
+        
+        // 2) 팝빌 포인트 (popbill API)
+        let popbillPoint = 0;
+        try {
+          const pbRes = await callPopbillAPI(popbillToken, "GET", `/Taxinvoice/${CORP_NUM}/Point`);
+          if (typeof pbRes === "number") {
+            popbillPoint = pbRes;
+          } else if (typeof pbRes === "object" && pbRes !== null) {
+            popbillPoint = pbRes.Point ?? pbRes.point ?? pbRes.Balance ?? pbRes.balance ?? pbRes.remainPoint ?? 0;
+            if (typeof popbillPoint === "string") popbillPoint = parseFloat(popbillPoint) || 0;
+          } else if (typeof pbRes === "string") {
+            popbillPoint = parseFloat(pbRes) || 0;
+          }
+        } catch (e) {
+          console.log("Popbill point fetch error (non-fatal):", e);
+        }
+
+        // 파트너 포인트 파싱
+        let partnerPoint = 0;
+        if (typeof partnerData === "number") {
+          partnerPoint = partnerData;
+        } else if (typeof partnerData === "object" && partnerData !== null) {
+          const pp = partnerData.remainPoint ?? partnerData.Balance ?? partnerData.balance ?? partnerData.Point ?? 0;
+          partnerPoint = typeof pp === "string" ? parseFloat(pp) || 0 : pp;
+        }
+
         return new Response(
-          JSON.stringify({ success: true, data: balanceData }),
+          JSON.stringify({ success: true, data: {
+            partnerPoint,
+            popbillPoint,
+            totalPoint: partnerPoint + popbillPoint,
+            raw: partnerData,
+          }}),
           { headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
