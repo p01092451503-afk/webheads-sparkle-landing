@@ -88,7 +88,7 @@ export default function Header() {
           aria-label={t("banner.text")}
         >
           <div className="container mx-auto px-3 sm:px-4 max-w-7xl flex items-center justify-center gap-2 sm:gap-3 py-2.5 relative z-10">
-            <Zap className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" style={{ color: "hsl(245, 70%, 50%)" }} />
+            <Zap className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" fill="hsl(45, 100%, 50%)" style={{ color: "hsl(45, 100%, 50%)" }} />
             <p className="text-sm sm:text-base font-semibold tracking-tight leading-snug text-center text-foreground">
               <span className="sm:hidden">{t("banner.textShort")}</span>
               <span className="hidden sm:inline">{t("banner.text")}</span>
@@ -99,11 +99,17 @@ export default function Header() {
               const diffMs = deadline.getTime() - now.getTime();
               const dDay = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
               return (
-                <span className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold border border-foreground/15 text-foreground min-h-[28px] sm:min-h-[32px] flex items-center" style={{ background: "hsl(245, 70%, 50%)", color: "white" }}>
+                <span className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold min-h-[28px] sm:min-h-[32px] flex items-center" style={{ background: "hsl(245, 70%, 50%)", color: "white" }}>
                   D-{dDay} · 잔여 슬롯 13개
                 </span>
               );
             })()}
+            <Link
+              to="/event"
+              className="shrink-0 rounded-full px-3 sm:px-4 py-1 sm:py-1.5 text-[11px] sm:text-xs font-bold transition-opacity hover:opacity-80 min-h-[28px] sm:min-h-[32px] flex items-center border border-foreground/15 text-foreground"
+            >
+              {t("banner.cta")}
+            </Link>
           </div>
           <button
             onClick={() => {
