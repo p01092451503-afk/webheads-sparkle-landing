@@ -128,9 +128,7 @@ export default function SeoLandingTemplate({
         <div className="container mx-auto px-6 relative z-10 text-center flex flex-col items-center max-w-4xl">
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6" style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", color: "white" }}>{badge}</span>
           <h1 className="text-3xl sm:text-4xl lg:text-[3.2rem] font-bold leading-[1.2] sm:leading-[1.18] mb-5 tracking-tight text-white" style={{ wordBreak: "keep-all", overflowWrap: "break-word" }}>
-            {h1.includes(" — ") ? (
-              <>{h1.split(" — ")[0]} —<br />{h1.split(" — ").slice(1).join(" — ")}</>
-            ) : h1}
+            {h1}
             {h1Highlight && <><br /><span style={{ opacity: 0.95 }}>{h1Highlight}</span></>}
           </h1>
           <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: "rgba(255,255,255,0.75)" }}>{heroDescription}</p>
