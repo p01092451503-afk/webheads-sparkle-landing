@@ -88,9 +88,9 @@ const COMPARISON_DATA = [
 ];
 
 const SUCCESS_CASES = [
-  { scale: "50~200명", industry: "전문직 교육원", org: "A 법률교육원", plan: "Basic", result: "월 수강료 수익 350만 원 달성, 운영비 40% 절감" },
-  { scale: "200~500명", industry: "기업 사내교육", org: "B 제조그룹", plan: "Plus", result: "교육 완료율 78% → 94%로 향상, 연간 교육비 2,400만 원 절감" },
-  { scale: "500명 이상", industry: "공공기관", org: "C 공공교육센터", plan: "Premium", result: "동시접속 3,000명 안정 운영, 기존 대비 운영비 55% 절감" },
+  { scale: "50~200명", industry: "전문직 교육원", org: "A 법률교육원", plan: "Basic", result: "기존 외부 LMS 임대 대비 월 운영비 40% 절감에 성공. 자체 브랜드 교육 플랫폼을 통해 월 수강료 수익 350만 원을 안정적으로 달성하고, 수강생 관리 자동화로 관리 인력 1명분의 인건비를 절약했습니다." },
+  { scale: "200~500명", industry: "기업 사내교육", org: "B 제조그룹", plan: "Plus", result: "사내 교육 완료율이 78%에서 94%로 대폭 향상. LMS 도입 전 대비 연간 교육비 2,400만 원을 절감하고, 직무별 맞춤 학습 경로 설정으로 신입사원 온보딩 기간을 기존 4주에서 2.5주로 단축했습니다." },
+  { scale: "500명 이상", industry: "공공기관", org: "C 공공교육센터", plan: "Premium", result: "전용 서버 구성으로 동시접속 3,000명 환경에서도 끊김 없이 안정 운영. 기존 구축형 솔루션 대비 운영비 55%를 절감하고, 24시간 모니터링으로 서비스 가용률 99.9%를 달성했습니다." },
 ];
 
 export default function CostSimulatorPage() {
