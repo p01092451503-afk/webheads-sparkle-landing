@@ -689,17 +689,6 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
-      {/* ═══ FLOATING KAKAO BUTTON ═══ */}
-      <a
-        href="https://pf.kakao.com/_xjVxbxj/chat"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 rounded-full shadow-xl transition-all hover:scale-105"
-        style={{ background: "#FEE500", color: "#3C1E1E" }}
-      >
-        <MessageCircle className="w-5 h-5" />
-        <span className="font-bold text-sm hidden sm:inline">카카오톡 상담</span>
-      </a>
     </div>
   );
 }
