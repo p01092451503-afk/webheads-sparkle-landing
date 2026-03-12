@@ -67,7 +67,7 @@ export default function EventPage() {
           <p className="text-muted-foreground text-center mb-12 text-lg">
             {t("event.benefits.desc")}
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {benefits.map((b: any, i: number) => {
               const Icon = benefitIcons[i] || Gift;
               const colors = benefitAccents[i] || benefitAccents[0];
