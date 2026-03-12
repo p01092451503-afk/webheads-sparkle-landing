@@ -105,11 +105,9 @@ export default function ClientCommLog({ companyId, isSuperAdmin }: Props) {
                     </div>
                     {log.content && <p className="text-[11px] text-muted-foreground mt-0.5 whitespace-pre-wrap">{log.content}</p>}
                   </div>
-                  {isSuperAdmin && (
-                    <button onClick={() => handleDelete(log.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive shrink-0">
-                      <Trash2 className="w-3 h-3" />
-                    </button>
-                  )}
+                  <button onClick={() => handleDelete(log.id)} className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive shrink-0">
+                    <Trash2 className="w-3 h-3" />
+                  </button>
                 </div>
               </div>
             );

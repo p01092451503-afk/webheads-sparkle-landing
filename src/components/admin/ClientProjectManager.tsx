@@ -285,11 +285,9 @@ export default function ClientProjectManager({ companyId, companyName, isSuperAd
                                 {new Date(note.created_at).toLocaleDateString("ko-KR")} {new Date(note.created_at).toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" })}
                               </span>
                             </div>
-                            {isSuperAdmin && (
-                              <button onClick={() => deleteNote(note.id)} className="p-0.5 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive shrink-0">
-                                <Trash2 className="w-3 h-3" />
-                              </button>
-                            )}
+                            <button onClick={() => deleteNote(note.id)} className="p-0.5 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive shrink-0">
+                              <Trash2 className="w-3 h-3" />
+                            </button>
                           </div>
                         );
                       })}
