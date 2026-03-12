@@ -79,11 +79,9 @@ export default function ClientCommLog({ companyId, isSuperAdmin }: Props) {
         <p className="text-[11px] font-semibold text-foreground flex items-center gap-1.5">
           <MessageCircle className="w-3.5 h-3.5 text-primary" /> 커뮤니케이션 로그 ({logs.length})
         </p>
-        {isSuperAdmin && (
-          <button onClick={() => { setForm({ log_type: "memo", title: "", content: "", log_date: new Date().toISOString().split("T")[0] }); setShowModal(true); }} className="text-[11px] text-primary hover:underline flex items-center gap-1">
-            <Plus className="w-3 h-3" /> 추가
-          </button>
-        )}
+        <button onClick={() => { setForm({ log_type: "memo", title: "", content: "", log_date: new Date().toISOString().split("T")[0] }); setShowModal(true); }} className="text-[11px] text-primary hover:underline flex items-center gap-1">
+          <Plus className="w-3 h-3" /> 추가
+        </button>
       </div>
 
       {logs.length === 0 ? (
