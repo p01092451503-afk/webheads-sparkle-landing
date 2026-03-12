@@ -76,7 +76,7 @@ export default function EventPage() {
                   key={b.title}
                   className="group relative rounded-2xl border border-border bg-card p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: colors.accent }} />
+                  <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-2xl overflow-hidden" style={{ background: colors.accent }} />
                   <div className="absolute top-5 right-5 px-3 py-1 rounded-full text-xs font-bold" style={{ background: colors.accentBg, color: colors.accent }}>
                     {b.value}
                   </div>
