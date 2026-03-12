@@ -213,25 +213,15 @@ export default function CostSimulatorPage() {
               무료 제안서 받기
             </a>
           </div>
+
+          {/* Trust stats */}
+          <div className="flex flex-wrap justify-center gap-8 md:gap-14 mt-10 md:mt-14">
+            {["16년 LMS 전문", "300+ 고객사", "92.6% 유지율", "숨은 비용 0원"].map((label) => (
+              <span key={label} className="text-sm md:text-base font-semibold text-white/60">{label}</span>
+            ))}
+          </div>
         </div>
       </section>
-
-      {/* Trust bar */}
-      <div className="border-t border-border py-4" style={{ background: "hsl(245, 70%, 52%)" }}>
-        <div className="container mx-auto px-5 flex flex-wrap justify-center gap-8 md:gap-14">
-          {[
-            { icon: Clock, label: "16년 LMS 전문" },
-            { icon: Building2, label: "300+ 고객사" },
-            { icon: Award, label: "92.6% 유지율" },
-            { icon: Shield, label: "숨은 비용 0원" },
-          ].map(({ icon: Icon, label }) => (
-            <div key={label} className="flex items-center gap-2 text-white/60 text-xs font-medium">
-              <Icon className="w-3.5 h-3.5" />
-              <span>{label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* ═══ SIMULATOR ═══ */}
       <section id="simulator" className="py-16 md:py-24" style={{ background: "#F8F9FD" }}>
