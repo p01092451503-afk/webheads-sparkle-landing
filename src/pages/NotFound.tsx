@@ -1,4 +1,5 @@
 import { useLocation, Link, Navigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Home } from "lucide-react";
