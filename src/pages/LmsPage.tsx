@@ -261,6 +261,8 @@ export default function LmsPage() {
         </div>
       </section>
 
+      <HeroPromoBanner />
+
       {/* ═══ 2. Stats ═══ */}
       <section className="py-12 md:py-20 relative">
         <div className="container mx-auto px-5 md:px-6 max-w-3xl lg:max-w-[55rem]">

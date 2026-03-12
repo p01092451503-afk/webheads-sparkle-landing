@@ -263,6 +263,8 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <HeroPromoBanner />
+
       {/* Pricing Cards */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6 max-w-6xl">

@@ -67,6 +67,8 @@ export default function ChatbotPage() {
         </div>
       </section>
 
+      <HeroPromoBanner />
+
       {/* Stats - W */}
       <section className="py-[4.8rem] bg-background border-b border-border">
         <div className="container mx-auto px-6 max-w-5xl">
