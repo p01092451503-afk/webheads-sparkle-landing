@@ -103,6 +103,9 @@ export default function CostSimulatorPage() {
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   const [showAnnualBonus, setShowAnnualBonus] = useState(false);
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
+  const [formLoading, setFormLoading] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const { toast } = useToast();
 
   const handleLearnersChange = (v: number) => { setLearners(v); if (v < 500) setNeedsDedicatedServer(false); };
 
