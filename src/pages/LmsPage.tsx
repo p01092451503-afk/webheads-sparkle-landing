@@ -168,10 +168,10 @@ export default function LmsPage() {
                 "B2B 교육 플랫폼",
                 "24/7 고객 지원"
               ],
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "reviewCount": "300"
+              "additionalProperty": {
+                "@type": "PropertyValue",
+                "name": "clientCount",
+                "value": "300"
               },
               "provider": {
                 "@id": `${BASE_URL}/#organization`
