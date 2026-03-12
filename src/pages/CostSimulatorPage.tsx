@@ -460,11 +460,11 @@ export default function CostSimulatorPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: "#1e1b4b" }}>
-                    <th className="text-left px-5 py-4 font-semibold text-white/60 text-xs w-[30%]">기능 / 항목</th>
+                    <th className="text-left px-5 py-4 font-semibold text-white/60 text-sm w-[30%]">기능 / 항목</th>
                     {(["Basic", "Plus", "Premium"] as const).map(p => {
                       const isRecommended = bestPlan?.name === p;
                       return (
-                        <th key={p} className="text-center px-5 py-4 text-sm font-bold" style={isRecommended ? { background: "#5D45FF", color: "white" } : { color: "white" }}>
+                        <th key={p} className="text-center px-5 py-4 text-base font-bold" style={isRecommended ? { background: "#5D45FF", color: "white" } : { color: "white" }}>
                           {p}
                           {isRecommended && <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ background: "#FEE500", color: "#1e1b4b" }}>추천</span>}
                         </th>
