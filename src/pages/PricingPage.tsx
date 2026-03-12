@@ -223,6 +223,24 @@ export default function PricingPage() {
       <Helmet>
         <title>{seoTitle}</title>
         <meta name="description" content={seoDesc} />
+        <link rel="canonical" href="https://service.webheads.co.kr/pricing" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "웹헤즈 LMS 솔루션",
+            "description": seoDesc,
+            "brand": { "@type": "Organization", "name": "웹헤즈" },
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "KRW",
+              "lowPrice": "300000",
+              "highPrice": "1000000",
+              "offerCount": "4",
+              "description": "Starter · Basic · Plus · Premium 요금제"
+            }
+          })}
+        </script>
       </Helmet>
 
       {/* Hero */}
