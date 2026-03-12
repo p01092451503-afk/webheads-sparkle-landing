@@ -186,7 +186,7 @@ export default function BlogPage() {
           ) : (
             <div className="flex flex-col gap-8">
               {paginatedPosts.map((post) => (
-                <BlogCard key={post.id} post={post} isExpanded={expandedId === post.id} onToggle={() => handleToggle(post.id)} lang={lang} />
+                <BlogCard key={post.id} post={post} lang={lang} />
               ))}
             </div>
           )}
