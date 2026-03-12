@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams, useLocation } from "react-router-dom";
+import { useSearchParams, useLocation, Link } from "react-router-dom";
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
@@ -247,14 +247,14 @@ export default function LmsPage() {
             <a href="#solutions" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
               {t("lms.hero.cta2")}
             </a>
-            <a href="#cost-simulator" className="group relative px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
+            <Link to="/cost-simulator" className="group relative px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
               {/* Toss-style emphasis badge */}
               <span className="absolute -top-2.5 -right-3 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide" style={{ background: "hsl(0,0%,10%)", color: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
                 HOT
               </span>
               <Calculator className="w-4 h-4" />
               {t("floatingNav.costSimulator")}
-            </a>
+            </Link>
           </div>
           <LmsEcosystemDialog open={ecosystemOpen} onOpenChange={setEcosystemOpen} />
           <WhyWebheadsDialog open={whyOpen} onOpenChange={setWhyOpen} />

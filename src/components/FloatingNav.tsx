@@ -11,12 +11,7 @@ export default function FloatingNav() {
   const isServiceRequest = location.pathname === "/service-request";
 
   const handleCostSimulator = () => {
-    if (isLmsPage) {
-      const el = document.getElementById("cost-simulator");
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    } else {
-      navigate("/lms#cost-simulator");
-    }
+    navigate("/cost-simulator");
   };
 
   const glassBase = "backdrop-blur-xl bg-background/40 border border-white/20 text-foreground shadow-[0_4px_16px_rgba(0,0,0,0.12)] ring-1 ring-black/5";
