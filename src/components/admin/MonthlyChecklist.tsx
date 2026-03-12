@@ -80,6 +80,9 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
   };
 
   const [isAdding, setIsAdding] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingText, setEditingText] = useState("");
+
   const addTask = async () => {
     if (!newTask.trim() || isAdding) return;
     setIsAdding(true);
@@ -91,6 +94,20 @@ export default function MonthlyChecklist({ isSuperAdmin }: Props) {
     });
     await fetchItems();
     setIsAdding(false);
+  };
+
+  const startEdit = (item: ChecklistItem) => {
+    setEditingId(item.id);
+    setEditingText(item.task_name);
+  };
+
+  const saveEdit = async () => {
+    if (!editingId || !editingText.trim()) { setEditingId(null); return; }
+    await supabase.from("monthly_checklists").update({ task_name: editingText.trim() }).eq("id", editingId);
+    setEditingId(null);
+    setEditingText("");
+    fetchItems();
+    toast.success("항목이 수정되었습니다");
   };
 
   const deleteItem = async (id: string) => {
