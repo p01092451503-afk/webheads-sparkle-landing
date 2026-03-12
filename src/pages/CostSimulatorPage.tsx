@@ -63,15 +63,17 @@ function AnimatedPrice({ value, duration = 600 }: { value: number; duration?: nu
 }
 
 /* ── Plan feature comparison data ── */
-const PLAN_FEATURES = [
-  { feature: "솔루션 유형", starter: "임대형 · Light", basic: "임대형 · Light", plus: "임대형 · SaaS", premium: "구축형 · PRO" },
-  { feature: "월 전송량(CDN)", starter: "별도 협의", basic: "500GB", plus: "1,500GB", premium: "2,000GB" },
-  { feature: "저장 공간", starter: "별도 협의", basic: "100GB", plus: "200GB", premium: "250GB" },
-  { feature: "보안 플레이어(DRM)", starter: "별도 문의", basic: "월 30만 원 추가", plus: "월 30만 원 추가", premium: "기본 포함" },
-  { feature: "단독 서버", starter: "—", basic: "—", plus: "선택 가능", premium: "기본 포함" },
-  { feature: "커스터마이징", starter: "기본 UI만", basic: "기본 UI만", plus: "일부 가능", premium: "완전 커스텀" },
-  { feature: "전담 매니저", starter: "—", basic: "—", plus: "—", premium: "✓" },
-  { feature: "초기 세팅비", starter: "무료", basic: "무료", plus: "무료", premium: "별도 협의" },
+const PLAN_FEATURES: { feature: string; basic: string; plus: string; premium: string; type?: "check" | "text" | "highlight" }[] = [
+  { feature: "기본 전송량", basic: "500GB/월", plus: "1,500GB/월", premium: "2,000GB/월" },
+  { feature: "저장공간", basic: "100GB", plus: "200GB", premium: "250GB" },
+  { feature: "서버 형태", basic: "임대형", plus: "임대형 · SaaS · 단독서버", premium: "임대형 · SaaS · 단독서버" },
+  { feature: "AI 챗봇 포함", basic: "✓", plus: "✓", premium: "✓", type: "check" },
+  { feature: "모바일 앱 (iOS/Android)", basic: "—", plus: "✓", premium: "✓", type: "check" },
+  { feature: "DRM 보안 플레이어", basic: "옵션", plus: "옵션", premium: "기본 포함", type: "highlight" },
+  { feature: "전담 매니저 배정", basic: "—", plus: "✓", premium: "✓ 24/7", type: "check" },
+  { feature: "PG(결제) 연동", basic: "✓", plus: "✓", premium: "✓", type: "check" },
+  { feature: "채널톡 / SMS 통합", basic: "옵션", plus: "✓", premium: "✓", type: "check" },
+  { feature: "SLA 가동률 보장", basic: "99.5%", plus: "99.9%", premium: "99.99%" },
 ];
 
 const COMPARISON_DATA = [
