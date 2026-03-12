@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
@@ -15,7 +16,7 @@ import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import SEO, { BASE_URL } from "@/components/SEO";
 
-/* ── Plan data (shared with CostSimulator) ── */
+/* ── Plan data ── */
 interface PlanRecommendation {
   name: string; monthly: number; cdnIncluded: number; storageIncluded: number;
   cdnOverage: number; storageOverage: number; solutionType: string;
@@ -65,36 +66,8 @@ function AnimatedPrice({ value, duration = 600 }: { value: number; duration?: nu
   return <>{display.toLocaleString("ko-KR")}</>;
 }
 
-/* ── Plan feature comparison data ── */
-const PLAN_FEATURES: { feature: string; basic: string; plus: string; premium: string; type?: "check" | "text" | "highlight" }[] = [
-  { feature: "기본 전송량", basic: "500GB/월", plus: "1,500GB/월", premium: "2,000GB/월" },
-  { feature: "저장공간", basic: "100GB", plus: "200GB", premium: "250GB" },
-  { feature: "서버 형태", basic: "임대형", plus: "임대형 · SaaS · 단독서버", premium: "임대형 · SaaS · 단독서버" },
-  { feature: "AI 챗봇 포함", basic: "✓", plus: "✓", premium: "✓", type: "check" },
-  { feature: "모바일 앱 (iOS/Android)", basic: "—", plus: "✓", premium: "✓", type: "check" },
-  { feature: "DRM 보안 플레이어", basic: "옵션", plus: "옵션", premium: "기본 포함", type: "highlight" },
-  { feature: "전담 매니저 배정", basic: "—", plus: "✓", premium: "✓ 24/7", type: "check" },
-  { feature: "PG(결제) 연동", basic: "✓", plus: "✓", premium: "✓", type: "check" },
-  { feature: "채널톡 / SMS 통합", basic: "옵션", plus: "✓", premium: "✓", type: "check" },
-  { feature: "SLA 가동률 보장", basic: "99.5%", plus: "99.9%", premium: "99.99%" },
-];
-
-const COMPARISON_DATA = [
-  { feature: "CDN 전송 단가(GB당)", webheads: "300~500원", competitor: "700~1,200원" },
-  { feature: "보안 플레이어(DRM)", webheads: "옵션 선택 가능", competitor: "필수 유료 포함" },
-  { feature: "초기 세팅비", webheads: "이벤트 무료", competitor: "50~200만 원" },
-  { feature: "24시간 모니터링", webheads: "✓ 기본 제공", competitor: "유료 또는 미제공" },
-  { feature: "숨은 비용", webheads: "없음", competitor: "트래픽 초과, 유지보수비 등" },
-  { feature: "고객 유지율", webheads: "92.6%", competitor: "업계 평균 60~70%" },
-];
-
-const SUCCESS_CASES = [
-  { scale: "50~200명", industry: "전문직 교육원", org: "A 법률교육원", plan: "Basic", result: "기존 외부 LMS 임대 대비 월 운영비 40% 절감에 성공. 자체 브랜드 교육 플랫폼을 통해 월 수강료 수익 350만 원을 안정적으로 달성하고, 수강생 관리 자동화로 관리 인력 1명분의 인건비를 절약했습니다." },
-  { scale: "200~500명", industry: "기업 사내교육", org: "B 제조그룹", plan: "Plus", result: "사내 교육 완료율이 78%에서 94%로 대폭 향상. LMS 도입 전 대비 연간 교육비 2,400만 원을 절감하고, 직무별 맞춤 학습 경로 설정으로 신입사원 온보딩 기간을 기존 4주에서 2.5주로 단축했습니다." },
-  { scale: "500명 이상", industry: "공공기관", org: "C 공공교육센터", plan: "Premium", result: "전용 서버 구성으로 동시접속 3,000명 환경에서도 끊김 없이 안정 운영. 기존 구축형 솔루션 대비 운영비 55%를 절감하고, 24시간 모니터링으로 서비스 가용률 99.9%를 달성했습니다." },
-];
-
 export default function CostSimulatorPage() {
+  const { t } = useTranslation();
   const [learners, setLearners] = useState(200);
   const [storageInput, setStorageInput] = useState(20);
   const [completionRate, setCompletionRate] = useState(70);
@@ -106,15 +79,17 @@ export default function CostSimulatorPage() {
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
   const [formLoading, setFormLoading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const { toast } = useToast();
+  const { toast: showToast } = useToast();
 
   const handleLearnersChange = (v: number) => { setLearners(v); if (v < 500) setNeedsDedicatedServer(false); };
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, storageInput, completionRate), [learners, storageInput, completionRate]);
 
+  const solutionTypes = t("lms.solutionTypes", { returnObjects: true }) as Record<string, string>;
+
   const recommendations = useMemo<PlanRecommendation[]>(() =>
     PLAN_DEFS.map((plan) => {
-      const solutionType = plan.typeKey === "starter" ? "임대형 · CDN 없음" : plan.typeKey === "basic" ? "임대형 · CDN 포함" : plan.typeKey === "plus" ? "임대형 · SaaS | 단독서버" : "구축형 · PRO";
+      const solutionType = solutionTypes[plan.typeKey] || plan.typeKey;
       const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
       const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
       if (plan.name === "Starter") return { ...plan, solutionType, isMatch: !needsCdn, totalMonthly: plan.monthly + dedicatedAddon, overageCdn: 0, overageStorage: 0 };
@@ -125,7 +100,7 @@ export default function CostSimulatorPage() {
       const overageStorage = overStorage * plan.storageOverage;
       return { ...plan, solutionType, isMatch: true, totalMonthly: plan.monthly + overageCdn + overageStorage + secureAddon + dedicatedAddon, overageCdn, overageStorage };
     }).filter((p) => p.isMatch),
-  [cdnGB, storageGB, needsCdn, needsSecurePlayer, needsDedicatedServer, learners]);
+  [cdnGB, storageGB, needsCdn, needsSecurePlayer, needsDedicatedServer, learners, solutionTypes]);
 
   const bestPlan = useMemo(() => {
     const viable = recommendations.filter((p) => p.name !== "Starter");
@@ -148,42 +123,46 @@ export default function CostSimulatorPage() {
     if (!next) return null;
     const diff = next.monthly - bestPlan.monthly;
     const cdnMultiple = next.cdnIncluded / Math.max(bestPlan.cdnIncluded, 1);
-    return { fromPlan: bestPlan.name, toPlan: nextName, diff, benefit: `데이터 전송량이 ${cdnMultiple.toFixed(0)}배 늘어납니다` };
-  }, [bestPlan, recommendations, needsCdn]);
+    return { fromPlan: bestPlan.name, toPlan: nextName, diff, benefit: t("costSim.result.upgradeBenefit", { multiple: cdnMultiple.toFixed(0) }) };
+  }, [bestPlan, recommendations, needsCdn, t]);
 
-  // Annual bonus popup
   useEffect(() => {
-    if (isAnnual) { setShowAnnualBonus(true); const t = setTimeout(() => setShowAnnualBonus(false), 5000); return () => clearTimeout(t); }
+    if (isAnnual) { setShowAnnualBonus(true); const timer = setTimeout(() => setShowAnnualBonus(false), 5000); return () => clearTimeout(timer); }
     else setShowAnnualBonus(false);
   }, [isAnnual]);
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
   const displayMonthly = bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0;
 
-  // Matched success case
-  const matchedCase = SUCCESS_CASES.find(c => {
-    if (learners < 200) return c.scale === "50~200명";
-    if (learners < 500) return c.scale === "200~500명";
-    return c.scale === "500명 이상";
+  const cases = t("costSim.cases.items", { returnObjects: true }) as any[];
+  const matchedCase = cases.find((c: any) => {
+    if (learners < 200) return c.scale === cases[0]?.scale;
+    if (learners < 500) return c.scale === cases[1]?.scale;
+    return c.scale === cases[2]?.scale;
   });
 
   const competitorEstimate = displayMonthly > 0 ? Math.round(displayMonthly * 1.3) : 0;
   const savingsAmount = competitorEstimate - displayMonthly;
 
+  const featureItems = t("costSim.features.items", { returnObjects: true }) as any[];
+  const comparisonItems = t("costSim.comparison.items", { returnObjects: true }) as any[];
+  const guaranteeItems = t("costSim.guarantees.items", { returnObjects: true }) as any[];
+  const heroStats = t("costSim.hero.stats", { returnObjects: true }) as string[];
+
   return (
     <div className="min-h-screen" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif" }}>
       <SEO
-        title="LMS 요금 계산기 — 10초 만에 견적 확인"
-        description="월 수강생 수와 동영상 용량을 입력하면 최적의 LMS 요금제와 예상 비용을 즉시 확인할 수 있습니다. 16년 경험의 웹헤즈가 제안하는 거품 뺀 진짜 견적."
-        keywords="LMS 요금, LMS 비용, LMS 가격 비교, 이러닝 플랫폼 요금, 온라인 교육 비용, LMS 견적"
+        title={t("costSim.seo.title")}
+        description={t("costSim.seo.description")}
+        keywords={t("costSim.seo.keywords")}
         path="/cost-simulator"
-        breadcrumb={[{ name: "LMS 요금 계산기", url: `${BASE_URL}/cost-simulator` }]}
+        breadcrumb={[{ name: t("costSim.seo.breadcrumb"), url: `${BASE_URL}/cost-simulator` }]}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "WebApplication",
-          "name": "웹헤즈 LMS 요금 계산기",
+          "name": t("costSim.seo.appName"),
           "applicationCategory": "BusinessApplication",
-          "description": "LMS 요금을 실시간으로 시뮬레이션하고 최적의 플랜을 찾아보세요.",
+          "description": t("costSim.seo.appDesc"),
           "provider": { "@type": "Organization", "name": "WEBHEADS (웹헤즈)" },
           "url": `${BASE_URL}/cost-simulator`
         }}
@@ -194,33 +173,30 @@ export default function CostSimulatorPage() {
         <HeroPatternBg theme="teal-cyan" />
         <LmsHeroOverlay />
         <div className="container mx-auto px-5 md:px-6 max-w-4xl relative z-10 text-center flex flex-col items-center">
-          {/* Hero content */}
-
           <h1 className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white" style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}>
-            추측하지 마세요!
+            {t("costSim.hero.title1")}
             <br />
             <span className="bg-clip-text" style={{ opacity: 0.95 }}>
-              데이터로 설계하는 효율적인 LMS 예산
+              {t("costSim.hero.title2")}
             </span>
           </h1>
           <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
-            국내 최저 수준의 CDN 단가와 16년 운영 노하우를 결합했습니다.<br className="hidden sm:block" />
-            숨은 비용 없는 정직한 견적을 10초 만에 확인하세요.
+            {t("costSim.hero.desc1")}<br className="hidden sm:block" />
+            {t("costSim.hero.desc2")}
           </p>
-          <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>이미 <span style={{ color: "rgba(255,255,255,0.8)", fontWeight: 700 }}>300+</span> 기업이 이 시뮬레이터로 최적의 플랜을 찾았습니다.</p>
+          <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.5)" }} dangerouslySetInnerHTML={{ __html: t("costSim.hero.trustNote") }} />
           <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
             <a href="#simulator" className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "#FF6B00", color: "white", boxShadow: "0 8px 30px rgba(255,107,0,0.3)" }}>
-              지금 견적 확인하기
+              {t("costSim.hero.cta1")}
               <ArrowRight className="w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a href="#lead-capture" className="px-7 py-3.5 rounded-xl font-bold text-base transition-colors border border-white/30 text-white hover:bg-white/10" style={{ backdropFilter: "blur(8px)" }}>
-              무료 제안서 받기
+              {t("costSim.hero.cta2")}
             </a>
           </div>
 
-          {/* Trust stats */}
           <div className="flex flex-wrap justify-center gap-8 md:gap-14 mt-10 md:mt-14">
-            {["16년 LMS 전문", "300+ 고객사", "92.6% 유지율", "숨은 비용 0원"].map((label) => (
+            {heroStats.map((label: string) => (
               <span key={label} className="text-base md:text-lg font-semibold text-white/60">{label}</span>
             ))}
           </div>
@@ -233,12 +209,12 @@ export default function CostSimulatorPage() {
       <section id="simulator" className="py-16 md:py-24" style={{ background: "#F8F9FD" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
           <div className="text-center mb-12">
-            <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: "#5D45FF" }}>COST SIMULATOR</p>
+            <p className="text-sm font-semibold tracking-widest uppercase mb-3" style={{ color: "#5D45FF" }}>{t("costSim.sim.label")}</p>
             <h2 className="text-2xl md:text-4xl font-bold text-foreground tracking-tight" style={{ wordBreak: "keep-all" }}>
-              우리 회사 규모에 적당한 요금제는?
+              {t("costSim.sim.title")}
             </h2>
             <p className="text-muted-foreground mt-3 text-sm md:text-base max-w-xl mx-auto">
-              월 수강생 수와 동영상 용량, 평균 완강률을 입력하면, 예상 비용과 최적 플랜을 즉시 확인할 수 있어요.
+              {t("costSim.sim.desc")}
             </p>
           </div>
 
@@ -248,7 +224,7 @@ export default function CostSimulatorPage() {
               <div className="rounded-2xl border border-border p-5 bg-white shadow-sm">
                 <div className="flex items-center gap-2 mb-5">
                   <Calculator className="w-5 h-5" style={{ color: "#5D45FF" }} />
-                  <h3 className="font-bold text-foreground text-base">규모 입력</h3>
+                  <h3 className="font-bold text-foreground text-base">{t("costSim.sim.scaleTitle")}</h3>
                 </div>
 
                 {/* Learners */}
@@ -256,16 +232,16 @@ export default function CostSimulatorPage() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-muted-foreground" />
-                      <span className="text-sm font-semibold text-foreground">월 활성 수강생</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">한 달 동안 1개 이상의 강의를 수강한 고유 학습자 수</p></TooltipContent></Tooltip></TooltipProvider>
+                      <span className="text-sm font-semibold text-foreground">{t("costSim.sim.learners")}</span>
+                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.learnersTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={learners} onChange={(e) => handleLearnersChange(Math.min(2000, Math.max(10, Number(e.target.value) || 10)))} className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={10} max={2000} />
-                      <span className="text-base font-bold" style={{ color: "#5D45FF" }}>명</span>
+                      <span className="text-base font-bold" style={{ color: "#5D45FF" }}>{t("costSim.sim.learnersUnit")}</span>
                     </div>
                   </div>
                   <Slider value={[learners]} onValueChange={([v]) => handleLearnersChange(v)} min={10} max={2000} step={10} className="w-full" />
-                  <div className="flex justify-between text-[10px] text-muted-foreground mt-1"><span>10명</span><span>2,000명</span></div>
+                  <div className="flex justify-between text-[10px] text-muted-foreground mt-1"><span>10</span><span>2,000</span></div>
                 </div>
 
                 {/* Storage */}
@@ -273,8 +249,8 @@ export default function CostSimulatorPage() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5">
                       <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />
-                      <span className="text-sm font-semibold text-foreground">동영상 용량</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs max-w-[220px]">업로드할 동영상 파일의 총 용량</p></TooltipContent></Tooltip></TooltipProvider>
+                      <span className="text-sm font-semibold text-foreground">{t("costSim.sim.storage")}</span>
+                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs max-w-[220px]">{t("costSim.sim.storageTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={storageInput} onChange={(e) => setStorageInput(Math.min(500, Math.max(1, Number(e.target.value) || 1)))} className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={1} max={500} />
@@ -283,7 +259,7 @@ export default function CostSimulatorPage() {
                   </div>
                   <Slider value={[storageInput]} onValueChange={([v]) => setStorageInput(v)} min={1} max={500} step={1} className="w-full" />
                   <div className="flex justify-between text-[10px] text-muted-foreground mt-1"><span>1GB</span><span>500GB</span></div>
-                  <p className="text-[10px] text-muted-foreground mt-0.5">참고: 일반화질(SD) 30분 강의 약 {Math.round(storageInput / 0.3)}개 분량</p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">{t("costSim.sim.storageRef", { count: Math.round(storageInput / 0.3) })}</p>
                 </div>
 
                 {/* Completion */}
@@ -291,8 +267,8 @@ export default function CostSimulatorPage() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5">
                       <GraduationCap className="w-3.5 h-3.5 text-muted-foreground" />
-                      <span className="text-sm font-semibold text-foreground">평균 완강률</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">수강생들의 평균 강의 완료 비율</p></TooltipContent></Tooltip></TooltipProvider>
+                      <span className="text-sm font-semibold text-foreground">{t("costSim.sim.completion")}</span>
+                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.completionTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={completionRate} onChange={(e) => setCompletionRate(Math.min(100, Math.max(10, Number(e.target.value) || 10)))} className="w-12 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={10} max={100} />
@@ -304,31 +280,31 @@ export default function CostSimulatorPage() {
                 </div>
 
                 {/* Toggles */}
-                {renderToggle("CDN 영상 호스팅 필요", <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />, needsCdn, () => setNeedsCdn(!needsCdn))}
-                <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{needsCdn ? "동영상 강의를 빠르고 끊김 없이 재생하기 위한 전용 영상 서버입니다." : "CDN 없이 자체 서버에서 영상을 제공합니다."}</p>
+                {renderToggle(t("costSim.sim.cdn"), <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />, needsCdn, () => setNeedsCdn(!needsCdn))}
+                <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{needsCdn ? t("costSim.sim.cdnOn") : t("costSim.sim.cdnOff")}</p>
 
                 {needsCdn && (
                   <>
-                    {renderToggle("보안 플레이어 (DRM)", <ShieldCheck className="w-3.5 h-3.5 text-muted-foreground" />, needsSecurePlayer, () => setNeedsSecurePlayer(!needsSecurePlayer))}
-                    <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{needsSecurePlayer ? "영상 다운로드 방지 및 불법 복제 차단이 활성화됩니다." : "영상 다운로드 방지 및 불법 복제 차단이 필요한 경우 활성화하세요."}</p>
+                    {renderToggle(t("costSim.sim.drm"), <ShieldCheck className="w-3.5 h-3.5 text-muted-foreground" />, needsSecurePlayer, () => setNeedsSecurePlayer(!needsSecurePlayer))}
+                    <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{needsSecurePlayer ? t("costSim.sim.drmOn") : t("costSim.sim.drmOff")}</p>
                   </>
                 )}
 
                 {learners >= 500 && (
                   <>
-                    {renderToggle("단독 서버 구성", <Server className="w-3.5 h-3.5 text-muted-foreground" />, needsDedicatedServer, () => setNeedsDedicatedServer(!needsDedicatedServer))}
-                    <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">500명 이상 대규모 트래픽에 최적화된 전용 서버를 구성합니다.</p>
+                    {renderToggle(t("costSim.sim.server"), <Server className="w-3.5 h-3.5 text-muted-foreground" />, needsDedicatedServer, () => setNeedsDedicatedServer(!needsDedicatedServer))}
+                    <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{t("costSim.sim.serverDesc")}</p>
                   </>
                 )}
 
-                {renderToggle("연간 계약 (10% 할인)", <CalendarCheck className="w-3.5 h-3.5 text-muted-foreground" />, isAnnual, () => setIsAnnual(!isAnnual))}
-                <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{isAnnual ? "연간 계약이 적용되어 월별 대비 10% 할인됩니다." : "연간 계약을 선택하면 월별 대비 10% 할인된 금액으로 이용할 수 있습니다."}</p>
+                {renderToggle(t("costSim.sim.annual"), <CalendarCheck className="w-3.5 h-3.5 text-muted-foreground" />, isAnnual, () => setIsAnnual(!isAnnual))}
+                <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{isAnnual ? t("costSim.sim.annualOn") : t("costSim.sim.annualOff")}</p>
 
                 {/* Estimated usage */}
                 {needsCdn && (
                   <div className="mt-3 rounded-xl p-3 text-xs text-muted-foreground space-y-1" style={{ background: "#f0eeff" }}>
-                    <p className="flex items-center gap-1.5"><BarChart3 className="w-3.5 h-3.5" style={{ color: "#5D45FF" }} /> 예상 월 전송량: <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
-                    <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "#5D45FF" }} /> 예상 저장공간: <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
+                    <p className="flex items-center gap-1.5"><BarChart3 className="w-3.5 h-3.5" style={{ color: "#5D45FF" }} /> {t("costSim.sim.estTransfer")}: <span className="font-semibold text-foreground">{cdnGB.toLocaleString()}GB</span></p>
+                    <p className="flex items-center gap-1.5"><HardDrive className="w-3.5 h-3.5" style={{ color: "#5D45FF" }} /> {t("costSim.sim.estStorage")}: <span className="font-semibold text-foreground">{storageGB.toLocaleString()}GB</span></p>
                   </div>
                 )}
               </div>
@@ -341,48 +317,46 @@ export default function CostSimulatorPage() {
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles className="w-4 h-4 text-white/80" />
-                      <span className="text-xs font-bold text-white/80 tracking-wider uppercase">추천 플랜</span>
+                      <span className="text-xs font-bold text-white/80 tracking-wider uppercase">{t("costSim.result.recommended")}</span>
                     </div>
                     <div className="flex items-end gap-3 mb-1">
                       <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
                       <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
                     </div>
                     <p className="text-[11px] font-semibold text-white/50 mb-2 tracking-wide">
-                      {bestPlan.cdnIncluded > 0 ? `기본 전송량 ${bestPlan.cdnIncluded.toLocaleString()}GB · 저장공간 ${bestPlan.storageIncluded}GB` : "CDN 별도"}
+                      {bestPlan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: bestPlan.cdnIncluded.toLocaleString(), storage: bestPlan.storageIncluded }) : t("costSim.result.cdnNone")}
                     </p>
 
                     <div className="flex items-end gap-1 mb-1">
                       <span className="font-extrabold text-white text-4xl tabular-nums"><AnimatedPrice value={displayMonthly} /></span>
-                      <span className="text-white/70 text-base mb-1">원/월</span>
+                      <span className="text-white/70 text-base mb-1">{t("costSim.result.perMonth")}</span>
                     </div>
 
                     {isAnnual && (
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs text-white/50 line-through tabular-nums">{formatPrice(bestPlan.totalMonthly)}원/월</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ background: "#00C896", color: "white" }}>10% 할인</span>
+                        <span className="text-xs text-white/50 line-through tabular-nums">{formatPrice(bestPlan.totalMonthly)}{t("costSim.result.perMonth")}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ background: "#00C896", color: "white" }}>{t("costSim.result.discount")}</span>
                       </div>
                     )}
 
-                    {/* Savings label */}
                     {savingsAmount > 0 && (
                       <div className="flex items-center gap-2 mt-3 mb-4 px-4 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}>
                         <TrendingUp className="w-5 h-5 shrink-0" style={{ color: "#4ade80" }} />
-                        <span className="text-base font-extrabold" style={{ color: "#4ade80" }}>타사 대비 월 약 {formatPrice(savingsAmount)}원 절감 효과</span>
+                        <span className="text-base font-extrabold" style={{ color: "#4ade80" }}>{t("costSim.result.savings", { amount: formatPrice(savingsAmount) })}</span>
                       </div>
                     )}
 
-                    {/* Overage tags */}
                     {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer || (needsDedicatedServer && learners >= 500)) && (
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {bestPlan.overageCdn > 0 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">CDN 초과분 +{formatPrice(bestPlan.overageCdn)}원</span>}
-                        {bestPlan.overageStorage > 0 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">저장 초과분 +{formatPrice(bestPlan.overageStorage)}원</span>}
-                        {needsSecurePlayer && bestPlan.name !== "Starter" && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">보안 플레이어 +{formatPrice(SECURE_PLAYER_COST)}원</span>}
-                        {needsDedicatedServer && learners >= 500 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">단독 서버 +{formatPrice(DEDICATED_SERVER_COST)}원</span>}
+                        {bestPlan.overageCdn > 0 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.cdnOverage", { amount: formatPrice(bestPlan.overageCdn) })}</span>}
+                        {bestPlan.overageStorage > 0 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.storageOverage", { amount: formatPrice(bestPlan.overageStorage) })}</span>}
+                        {needsSecurePlayer && bestPlan.name !== "Starter" && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.securePlayer", { amount: formatPrice(SECURE_PLAYER_COST) })}</span>}
+                        {needsDedicatedServer && learners >= 500 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.dedicatedServer", { amount: formatPrice(DEDICATED_SERVER_COST) })}</span>}
                       </div>
                     )}
 
                     <a href="#lead-capture" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all hover:scale-[1.02] shadow-lg" style={{ background: "#FF6B00", color: "white" }}>
-                      지금 이 견적으로 무료 컨설팅 신청하기 <ArrowRight className="w-4 h-4" />
+                      {t("costSim.result.ctaConsult")} <ArrowRight className="w-4 h-4" />
                     </a>
                   </div>
                 </div>
@@ -397,8 +371,8 @@ export default function CostSimulatorPage() {
                       <Star className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="font-bold text-foreground text-sm mb-1">🎉 연간 계약 특별 혜택</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed">연간 결제 시 <span className="font-bold" style={{ color: "#00C896" }}>2개월 추가 연장</span> 또는 <span className="font-bold" style={{ color: "#00C896" }}>교육용 태블릿 증정</span> 혜택을 선택하실 수 있습니다. (3월 한정)</p>
+                      <p className="font-bold text-foreground text-sm mb-1">{t("costSim.result.annualTitle")}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: t("costSim.result.annualDesc") }} />
                     </div>
                   </div>
                 </div>
@@ -411,10 +385,8 @@ export default function CostSimulatorPage() {
                     <TrendingUp className="w-4 h-4" style={{ color: "#5D45FF" }} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground mb-1">{upgradeNudge.toPlan} 플랜이 더 경제적입니다</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      지금 <span className="font-bold" style={{ color: "#5D45FF" }}>{formatPrice(upgradeNudge.diff)}원만 추가</span>하면 {upgradeNudge.benefit}. {upgradeNudge.toPlan} 플랜을 고려해 보세요.
-                    </p>
+                    <p className="text-sm font-bold text-foreground mb-1">{t("costSim.result.upgradeTitle", { plan: upgradeNudge.toPlan })}</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: t("costSim.result.upgradeDesc", { amount: formatPrice(upgradeNudge.diff), benefit: upgradeNudge.benefit, plan: upgradeNudge.toPlan }) }} />
                   </div>
                 </div>
               )}
@@ -422,8 +394,8 @@ export default function CostSimulatorPage() {
               {/* All plans comparison */}
               <div className="rounded-2xl border border-border overflow-hidden bg-white shadow-sm">
                 <div className="px-5 py-3.5 bg-muted/50 border-b border-border flex items-center justify-between">
-                  <span className="text-xs font-bold text-muted-foreground tracking-wider uppercase">전체 플랜 비교</span>
-                  {isAnnual && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "#00C896" }}>연간 할인 적용됨</span>}
+                  <span className="text-xs font-bold text-muted-foreground tracking-wider uppercase">{t("costSim.result.allPlans")}</span>
+                  {isAnnual && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "#00C896" }}>{t("costSim.result.annualApplied")}</span>}
                 </div>
                 <div className="divide-y divide-border">
                   {recommendations.map((plan) => {
@@ -435,13 +407,13 @@ export default function CostSimulatorPage() {
                           <div>
                             <p className="text-sm font-bold" style={plan.name === bestPlan?.name ? { color: "#5D45FF" } : undefined}>{plan.name}</p>
                             <p className="text-xs text-muted-foreground">{plan.solutionType}</p>
-                            <p className="text-[10px] text-muted-foreground/60">{plan.cdnIncluded > 0 ? `기본 전송량 ${plan.cdnIncluded.toLocaleString()}GB · 저장공간 ${plan.storageIncluded}GB` : "CDN 별도"}</p>
+                            <p className="text-[10px] text-muted-foreground/60">{plan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded }) : t("costSim.result.cdnNone")}</p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(discounted)}원/월</p>
-                          {isAnnual && <p className="text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(plan.totalMonthly)}원</p>}
-                          {!isAnnual && plan.totalMonthly > plan.monthly && <p className="text-[10px] text-muted-foreground">기본 {formatPrice(plan.monthly)} + 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>}
+                          <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(discounted)}{t("costSim.result.perMonth")}</p>
+                          {isAnnual && <p className="text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(plan.totalMonthly)}</p>}
+                          {!isAnnual && plan.totalMonthly > plan.monthly && <p className="text-[10px] text-muted-foreground">{t("costSim.result.base")} {formatPrice(plan.monthly)} + {t("costSim.result.overage")} {formatPrice(plan.totalMonthly - plan.monthly)}</p>}
                         </div>
                       </div>
                     );
@@ -456,37 +428,36 @@ export default function CostSimulatorPage() {
       {/* ═══ PLAN FEATURE COMPARISON ═══ */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center" style={{ wordBreak: "keep-all" }}>플랜별 핵심 기능 비교</h2>
-          <p className="text-sm text-muted-foreground text-center mb-10">가격 차이가 왜 발생하는지, 기능적으로 확인해보세요.</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center" style={{ wordBreak: "keep-all" }}>{t("costSim.features.title")}</h2>
+          <p className="text-sm text-muted-foreground text-center mb-10">{t("costSim.features.desc")}</p>
 
           <div className="rounded-2xl border border-border overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ background: "#1e1b4b" }}>
-                    <th className="text-left px-5 py-4 font-bold text-white text-sm w-[30%]">기능 / 항목</th>
+                    <th className="text-left px-5 py-4 font-bold text-white text-sm w-[30%]">{t("costSim.features.header")}</th>
                     {(["Basic", "Plus", "Premium"] as const).map(p => {
                       const isRecommended = bestPlan?.name === p;
                       return (
                         <th key={p} className="text-center px-5 py-4 text-base font-bold" style={isRecommended ? { background: "#5D45FF", color: "white" } : { color: "white" }}>
                           {p}
-                          {isRecommended && <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ background: "#FEE500", color: "#1e1b4b" }}>추천</span>}
+                          {isRecommended && <span className="ml-2 text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ background: "#FEE500", color: "#1e1b4b" }}>{t("costSim.features.rec")}</span>}
                         </th>
                       );
                     })}
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {PLAN_FEATURES.map(({ feature, basic, plus, premium, type }) => {
-                    const values = { Basic: basic, Plus: plus, Premium: premium };
+                  {featureItems.map((item: any) => {
+                    const values = { Basic: item.basic, Plus: item.plus, Premium: item.premium };
                     return (
-                      <tr key={feature} className="hover:bg-muted/30 transition-colors">
-                        <td className="px-5 py-4 font-medium text-foreground text-[13px]">{feature}</td>
+                      <tr key={item.feature} className="hover:bg-muted/30 transition-colors">
+                        <td className="px-5 py-4 font-medium text-foreground text-[13px]">{item.feature}</td>
                         {(["Basic", "Plus", "Premium"] as const).map(p => {
                           const val = values[p];
                           const isRec = bestPlan?.name === p;
                           const isCheck = val === "✓" || val.startsWith("✓");
-                          const isHighlight = type === "highlight" && val === "기본 포함";
                           return (
                             <td key={p} className="px-5 py-4 text-center text-[13px]" style={isRec ? { background: "rgba(93,69,255,0.03)" } : undefined}>
                               {isCheck ? (
@@ -496,8 +467,6 @@ export default function CostSimulatorPage() {
                                 </span>
                               ) : val === "—" ? (
                                 <span className="text-muted-foreground">—</span>
-                              ) : isHighlight ? (
-                                <span className="font-bold" style={{ color: "#00C896" }}>{val}</span>
                               ) : (
                                 <span className={isRec ? "font-semibold" : "text-muted-foreground"}>{val}</span>
                               )}
@@ -509,24 +478,24 @@ export default function CostSimulatorPage() {
                   })}
                   {/* Price row */}
                   <tr style={{ background: "#F8F9FD" }}>
-                    <td className="px-5 py-6 font-semibold text-muted-foreground text-[13px]">월 기본 요금 (VAT 별도)</td>
+                    <td className="px-5 py-6 font-semibold text-muted-foreground text-[13px]">{t("costSim.features.priceLabel")}</td>
                     {([
-                      { name: "Basic", price: 500000, sub: "+ 초과 사용량" },
-                      { name: "Plus", price: 700000, sub: "+ 초과 사용량" },
-                      { name: "Premium", price: 1000000, sub: "맞춤 견적" },
+                      { name: "Basic", price: 500000, sub: t("costSim.features.priceSub") },
+                      { name: "Plus", price: 700000, sub: t("costSim.features.priceSub") },
+                      { name: "Premium", price: 1000000, sub: t("costSim.features.customQuote") },
                     ] as const).map(({ name, price, sub }) => {
                       const isRec = bestPlan?.name === name;
                       return (
                         <td key={name} className="px-5 py-6 text-center" style={isRec ? { background: "rgba(93,69,255,0.06)" } : undefined}>
-                          <p className="font-extrabold text-xl tabular-nums tracking-tight text-foreground">{formatPrice(price)}<span className="text-sm font-bold">원</span></p>
+                          <p className="font-extrabold text-xl tabular-nums tracking-tight text-foreground">{formatPrice(price)}<span className="text-sm font-bold">{t("costSim.features.priceUnit")}</span></p>
                           <p className="text-[11px] text-muted-foreground mt-1">{sub}</p>
                           {isRec ? (
                             <a href="#lead-capture" className="inline-flex items-center gap-1.5 mt-3 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all hover:scale-[1.02]" style={{ background: "#5D45FF" }}>
-                              이 플랜 신청 <ArrowRight className="w-3.5 h-3.5" />
+                              {t("costSim.features.apply")} <ArrowRight className="w-3.5 h-3.5" />
                             </a>
                           ) : (
                             <a href="#lead-capture" className="inline-flex items-center gap-1.5 mt-3 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-foreground border border-border transition-all hover:bg-muted/50">
-                              {name === "Premium" ? "견적 요청" : "문의하기"}
+                              {name === "Premium" ? t("costSim.features.quoteRequest") : t("costSim.features.inquire")}
                             </a>
                           )}
                         </td>
@@ -543,28 +512,28 @@ export default function CostSimulatorPage() {
       {/* ═══ COMPETITOR COMPARISON ═══ */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center">웹헤즈 vs. 타사 비교</h2>
-          <p className="text-sm text-muted-foreground text-center mb-10">같은 조건, 다른 결과. 핵심 항목을 비교해 보세요.</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center">{t("costSim.comparison.title")}</h2>
+          <p className="text-sm text-muted-foreground text-center mb-10">{t("costSim.comparison.desc")}</p>
           <div className="rounded-2xl border border-border overflow-hidden">
             <table className="w-full text-base">
               <thead>
                 <tr className="border-b border-border" style={{ background: "#F8F9FD" }}>
-                  <th className="text-left px-5 py-4 font-semibold text-muted-foreground text-sm">비교 항목</th>
-                  <th className="text-center px-5 py-4 font-bold text-sm" style={{ color: "#5D45FF" }}>웹헤즈</th>
-                  <th className="text-center px-5 py-4 font-semibold text-muted-foreground text-sm">타사 평균</th>
+                  <th className="text-left px-5 py-4 font-semibold text-muted-foreground text-sm">{t("costSim.comparison.headerItem")}</th>
+                  <th className="text-center px-5 py-4 font-bold text-sm" style={{ color: "#5D45FF" }}>{t("costSim.comparison.headerUs")}</th>
+                  <th className="text-center px-5 py-4 font-semibold text-muted-foreground text-sm">{t("costSim.comparison.headerOther")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {COMPARISON_DATA.map(({ feature, webheads, competitor }) => (
-                  <tr key={feature} className="hover:bg-muted/30 transition-colors">
-                    <td className="px-5 py-4 font-medium text-foreground text-[15px]">{feature}</td>
+                {comparisonItems.map((item: any) => (
+                  <tr key={item.feature} className="hover:bg-muted/30 transition-colors">
+                    <td className="px-5 py-4 font-medium text-foreground text-[15px]">{item.feature}</td>
                     <td className="px-5 py-4 text-center font-semibold text-[15px]" style={{ color: "#5D45FF" }}>
                       <div className="flex items-center justify-center gap-1.5">
                         <CheckCircle className="w-4 h-4" style={{ color: "#00C896" }} />
-                        {webheads}
+                        {item.us}
                       </div>
                     </td>
-                    <td className="px-5 py-4 text-center text-muted-foreground text-[15px]">{competitor}</td>
+                    <td className="px-5 py-4 text-center text-muted-foreground text-[15px]">{item.other}</td>
                   </tr>
                 ))}
               </tbody>
@@ -576,25 +545,23 @@ export default function CostSimulatorPage() {
       {/* ═══ SUCCESS CASES ═══ */}
       <section className="py-16 md:py-20" style={{ background: "#F8F9FD" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center">규모 맞춤형 성공 사례</h2>
-          <p className="text-sm text-muted-foreground text-center mb-10">
-            고객님과 비슷한 규모의 기업들은 어떤 플랜을 선택했을까요?
-          </p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center">{t("costSim.cases.title")}</h2>
+          <p className="text-sm text-muted-foreground text-center mb-10">{t("costSim.cases.desc")}</p>
           <div className="space-y-4">
-            {SUCCESS_CASES.map((c, i) => (
+            {cases.map((c: any) => (
               <div key={c.org} className={`rounded-2xl p-6 bg-white border-2 transition-all ${matchedCase === c ? "shadow-lg" : "border-border"}`} style={matchedCase === c ? { borderColor: "#5D45FF" } : undefined}>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "#5D45FF" }}>{c.scale}</span>
                       <span className="text-xs text-muted-foreground">{c.industry}</span>
-                      {matchedCase === c && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(255,107,0,0.1)", color: "#FF6B00" }}>현재 규모와 유사</span>}
+                      {matchedCase === c && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(255,107,0,0.1)", color: "#FF6B00" }}>{t("costSim.cases.similarLabel")}</span>}
                     </div>
                     <h3 className="font-bold text-foreground text-base mb-1">{c.org}</h3>
                     <p className="text-sm text-muted-foreground">{c.result}</p>
                   </div>
                   <div className="shrink-0 text-center px-4">
-                    <span className="text-xs text-muted-foreground">선택 플랜</span>
+                    <span className="text-xs text-muted-foreground">{t("costSim.cases.planLabel")}</span>
                     <p className="text-xl font-extrabold tracking-tight" style={{ color: "#5D45FF" }}>{c.plan}</p>
                   </div>
                 </div>
@@ -607,10 +574,10 @@ export default function CostSimulatorPage() {
       {/* ═══ MID CTA ═══ */}
       <section className="py-14" style={{ background: "linear-gradient(135deg, #5D45FF, #7c68ff)" }}>
         <div className="container mx-auto px-5 max-w-4xl text-center">
-          <h3 className="font-bold text-white text-2xl tracking-tight mb-3">계산된 결과가 예산에 맞지 않으신가요?</h3>
-          <p className="text-white/60 text-sm mb-8 max-w-xl mx-auto">전문가가 비용을 더 줄일 수 있는 최적화 컨설팅을 도와드립니다.</p>
+          <h3 className="font-bold text-white text-2xl tracking-tight mb-3">{t("costSim.midCta.title")}</h3>
+          <p className="text-white/60 text-sm mb-8 max-w-xl mx-auto">{t("costSim.midCta.desc")}</p>
           <a href="#lead-capture" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-sm transition-all hover:scale-[1.02]" style={{ background: "#FF6B00", color: "white" }}>
-            전문가에게 견적서 PDF 받기 <FileText className="w-4 h-4" />
+            {t("costSim.midCta.cta")} <FileText className="w-4 h-4" />
           </a>
         </div>
       </section>
@@ -619,64 +586,27 @@ export default function CostSimulatorPage() {
       <section className="py-16 md:py-20" style={{ background: "#F8F9FD" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
           <div className="text-center mb-10">
-            <p className="text-sm font-bold tracking-widest uppercase mb-3" style={{ color: "#5D45FF" }}>✦ 걱정 하나도 없습니다</p>
+            <p className="text-sm font-bold tracking-widest uppercase mb-3" style={{ color: "#5D45FF" }}>{t("costSim.guarantees.label")}</p>
             <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight" style={{ wordBreak: "keep-all" }}>
-              결정이 망설여진다면, 이걸 보세요
+              {t("costSim.guarantees.title")}
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              {
-                title: "데이터 무료 이전",
-                desc: "기존 LMS에서 수강생·강의 데이터 전체 이전 비용 없이 지원합니다",
-                icon: (
-                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                    <rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" />
-                    <path d="M10 16h12M18 12l4 4-4 4" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M8 10v12M24 10v12" stroke="hsl(255, 75%, 58%)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
-                  </svg>
-                ),
-              },
-              {
-                title: "2주 내 오픈 보장",
-                desc: "계약 후 2주 내 서비스 오픈. 늦어질 경우 지연일만큼 무상 제공",
-                icon: (
-                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                    <rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" />
-                    <circle cx="16" cy="16" r="7" stroke="hsl(255, 75%, 58%)" strokeWidth="2" />
-                    <path d="M16 12v4l3 2" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                ),
-              },
-              {
-                title: "위약금 없음",
-                desc: "언제든 해지 가능. 위약금·해지 수수료 일체 없습니다",
-                icon: (
-                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                    <rect width="32" height="32" rx="8" fill="hsl(0, 80%, 95%)" />
-                    <circle cx="16" cy="16" r="7" stroke="hsl(0, 70%, 55%)" strokeWidth="2" />
-                    <path d="M12.5 12.5l7 7M19.5 12.5l-7 7" stroke="hsl(0, 70%, 55%)" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
-                ),
-              },
-              {
-                title: "SLA 가동률 보장",
-                desc: "99.9% 가동률 계약서 보장. 미달 시 서비스 크레딧 제공",
-                icon: (
-                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                    <rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" />
-                    <path d="M16 8l6 3v6c0 4-3 6.5-6 8-3-1.5-6-4-6-8v-6l6-3z" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinejoin="round" />
-                    <path d="M13 16l2 2 4-4" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                ),
-              },
-            ].map(({ title, desc, icon }) => (
-              <div key={title} className="rounded-2xl p-6 bg-white border border-border shadow-sm text-center hover:shadow-md transition-shadow">
-                <div className="flex justify-center mb-4">{icon}</div>
-                <h3 className="font-bold text-foreground text-sm mb-2">{title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
-              </div>
-            ))}
+            {guaranteeItems.map((item: any, i: number) => {
+              const icons = [
+                <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" /><path d="M10 16h12M18 12l4 4-4 4" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /><path d="M8 10v12M24 10v12" stroke="hsl(255, 75%, 58%)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" /></svg>,
+                <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" /><circle cx="16" cy="16" r="7" stroke="hsl(255, 75%, 58%)" strokeWidth="2" /><path d="M16 12v4l3 2" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+                <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="hsl(0, 80%, 95%)" /><circle cx="16" cy="16" r="7" stroke="hsl(0, 70%, 55%)" strokeWidth="2" /><path d="M12.5 12.5l7 7M19.5 12.5l-7 7" stroke="hsl(0, 70%, 55%)" strokeWidth="2" strokeLinecap="round" /></svg>,
+                <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" /><path d="M16 8l6 3v6c0 4-3 6.5-6 8-3-1.5-6-4-6-8v-6l6-3z" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinejoin="round" /><path d="M13 16l2 2 4-4" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+              ];
+              return (
+                <div key={item.title} className="rounded-2xl p-6 bg-white border border-border shadow-sm text-center hover:shadow-md transition-shadow">
+                  <div className="flex justify-center mb-4">{icons[i]}</div>
+                  <h3 className="font-bold text-foreground text-sm mb-2">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -685,19 +615,19 @@ export default function CostSimulatorPage() {
       <section id="lead-capture" className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-2xl">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-3" style={{ wordBreak: "keep-all" }}>
-              계산된 요금제의 상세 견적서와<br />'성공 로드맵'을 보내드립니다
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-3 whitespace-pre-line" style={{ wordBreak: "keep-all" }}>
+              {t("costSim.lead.title")}
             </h2>
             <p className="text-sm text-muted-foreground">
-              {bestPlan && <>현재 시뮬레이션 결과: <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name} 플랜 · 월 {formatPrice(displayMonthly)}원</span></>}
+              {bestPlan && <>{t("costSim.lead.currentPlan")} <span className="font-bold" style={{ color: "#5D45FF" }}>{t("costSim.lead.planSummary", { plan: bestPlan.name, price: formatPrice(displayMonthly) })}</span></>}
             </p>
           </div>
 
           {formSubmitted ? (
             <div className="text-center py-10">
               <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#00C896" }} />
-              <h3 className="text-xl font-bold text-foreground mb-2">제안서 요청이 접수되었습니다!</h3>
-              <p className="text-sm text-muted-foreground">입력하신 이메일로 상세 견적서와 성공 로드맵을 보내드리겠습니다.</p>
+              <h3 className="text-xl font-bold text-foreground mb-2">{t("costSim.lead.successTitle")}</h3>
+              <p className="text-sm text-muted-foreground">{t("costSim.lead.successDesc")}</p>
             </div>
           ) : (
           <form className="space-y-4" onSubmit={async (e) => {
@@ -706,8 +636,8 @@ export default function CostSimulatorPage() {
             setFormLoading(true);
             try {
               const simulationSummary = bestPlan
-                ? `[요금 계산기 제안서 요청] 추천 플랜: ${bestPlan.name} / 월 ${formatPrice(displayMonthly)}원 / 수강생: ${learners}명 / 저장공간: ${storageInput}GB / 완료율: ${completionRate}% / 보안플레이어: ${needsSecurePlayer ? "예" : "아니오"} / 전용서버: ${needsDedicatedServer ? "예" : "아니오"} / 연간계약: ${isAnnual ? "예" : "아니오"}`
-                : "[요금 계산기 제안서 요청]";
+                ? `[Cost Simulator Proposal] Plan: ${bestPlan.name} / Monthly: ${formatPrice(displayMonthly)} / Learners: ${learners} / Storage: ${storageInput}GB / Completion: ${completionRate}% / DRM: ${needsSecurePlayer ? "Y" : "N"} / Dedicated: ${needsDedicatedServer ? "Y" : "N"} / Annual: ${isAnnual ? "Y" : "N"}`
+                : "[Cost Simulator Proposal]";
               
               const { error: fnError } = await supabase.functions.invoke("send-contact-email", {
                 body: {
@@ -715,7 +645,7 @@ export default function CostSimulatorPage() {
                   name: formData.company,
                   phone: formData.contact,
                   email: formData.email,
-                  service: "LMS 요금제",
+                  service: "LMS Pricing",
                   message: simulationSummary,
                   inquiryType: "proposal_request",
                   marketingAgreed: false,
@@ -724,31 +654,31 @@ export default function CostSimulatorPage() {
               });
               if (fnError) throw new Error(fnError.message);
               setFormSubmitted(true);
-              toast({ title: "제안서 요청 완료", description: "곧 연락드리겠습니다." });
+              showToast({ title: t("costSim.lead.toastSuccess"), description: t("costSim.lead.toastSuccessDesc") });
             } catch (err: any) {
-              toast({ title: "오류 발생", description: err.message || "잠시 후 다시 시도해주세요.", variant: "destructive" });
+              showToast({ title: t("costSim.lead.toastError"), description: err.message || t("costSim.lead.toastErrorDesc"), variant: "destructive" });
             } finally {
               setFormLoading(false);
             }
           }}>
             <div>
-              <label className="block text-sm font-semibold text-foreground mb-1.5">회사명</label>
-              <input type="text" value={formData.company} onChange={(e) => setFormData(p => ({ ...p, company: e.target.value }))} placeholder="(주)웹헤즈" className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" required />
+              <label className="block text-sm font-semibold text-foreground mb-1.5">{t("costSim.lead.company")}</label>
+              <input type="text" value={formData.company} onChange={(e) => setFormData(p => ({ ...p, company: e.target.value }))} placeholder={t("costSim.lead.companyPh")} className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all" required />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-foreground mb-1.5">담당자 연락처</label>
-                <input type="tel" value={formData.contact} onChange={(e) => setFormData(p => ({ ...p, contact: e.target.value }))} placeholder="010-1234-5678" className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 transition-all" required />
+                <label className="block text-sm font-semibold text-foreground mb-1.5">{t("costSim.lead.contact")}</label>
+                <input type="tel" value={formData.contact} onChange={(e) => setFormData(p => ({ ...p, contact: e.target.value }))} placeholder={t("costSim.lead.contactPh")} className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 transition-all" required />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-foreground mb-1.5">이메일</label>
-                <input type="email" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} placeholder="info@company.co.kr" className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 transition-all" required />
+                <label className="block text-sm font-semibold text-foreground mb-1.5">{t("costSim.lead.email")}</label>
+                <input type="email" value={formData.email} onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))} placeholder={t("costSim.lead.emailPh")} className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 transition-all" required />
               </div>
             </div>
             <button type="submit" disabled={formLoading} className="w-full py-3.5 rounded-xl font-bold text-sm text-white transition-all hover:scale-[1.01] shadow-lg disabled:opacity-60" style={{ background: "#FF6B00" }}>
-              {formLoading ? "요청 중..." : "무료 제안서 받기"}
+              {formLoading ? t("costSim.lead.submitting") : t("costSim.lead.submit")}
             </button>
-            <p className="text-[11px] text-muted-foreground text-center">제출 시 개인정보 처리방침에 동의한 것으로 간주됩니다.</p>
+            <p className="text-[11px] text-muted-foreground text-center">{t("costSim.lead.consent")}</p>
           </form>
           )}
         </div>
