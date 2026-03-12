@@ -197,17 +197,18 @@ export default function SeoLandingTemplate({
 
       {/* HowTo Steps */}
       {howToSteps && howToName && (
-        <section className="py-20 bg-primary/5">
-          <div className="container mx-auto px-6 max-w-3xl">
-            <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-8 tracking-tight">{howToName}</h2>
-            <div className="space-y-6">
+        <section className="py-20 bg-secondary/40">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-3 tracking-tight">{howToName}</h2>
+            <p className="text-muted-foreground text-[15px] mb-12">단계별로 진행되는 체계적인 프로세스를 확인하세요.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {howToSteps.map((step, i) => (
-                <div key={i} className="flex gap-4">
-                  <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">{i + 1}</div>
-                  <div className="pt-1">
-                    <h3 className="font-bold text-foreground mb-1">{step.name}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{step.text}</p>
+                <div key={i} className="group p-6 rounded-2xl bg-background shadow-[0_1px_4px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-0.5">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-sm">{String(i + 1).padStart(2, '0')}</span>
+                    <h3 className="font-bold text-foreground text-lg tracking-tight">{step.name}</h3>
                   </div>
+                  <p className="text-[15px] text-muted-foreground leading-relaxed pl-11">{step.text}</p>
                 </div>
               ))}
             </div>
