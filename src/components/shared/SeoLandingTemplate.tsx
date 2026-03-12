@@ -256,48 +256,36 @@ export default function SeoLandingTemplate({
       {/* Related Services & Articles */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6 max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-6">
             {/* Related Services */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8 tracking-tight">관련 서비스</h2>
-              <div className="space-y-0">
-                {relatedServices.map((s) => (
-                  <Link
-                    key={s.path}
-                    to={s.path}
-                    className="group flex items-center justify-between py-5 border-b border-border/60 last:border-b-0 transition-colors hover:bg-secondary/30 -mx-4 px-4 rounded-lg"
-                  >
-                    <div className="flex-1 min-w-0">
-                      <span className="block font-semibold text-foreground text-[15px] mb-1">{s.label}</span>
-                      <span className="block text-sm text-muted-foreground">{s.description}</span>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-4" />
-                  </Link>
-                ))}
-              </div>
-            </div>
+            {relatedServices.map((s) => (
+              <Link
+                key={s.path}
+                to={s.path}
+                className="group flex items-center justify-between py-6 border-b border-border/50 transition-colors hover:bg-secondary/20 -mx-4 px-4 rounded-lg"
+              >
+                <div className="flex-1 min-w-0">
+                  <span className="block font-bold text-foreground text-lg mb-1.5 tracking-tight">{s.label}</span>
+                  <span className="block text-[15px] text-primary/60 leading-relaxed">{s.description}</span>
+                </div>
+                <ArrowRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
+              </Link>
+            ))}
 
             {/* Related Articles */}
-            {relatedArticles && relatedArticles.length > 0 && (
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-8 tracking-tight">관련 콘텐츠</h2>
-                <div className="space-y-0">
-                  {relatedArticles.map((a) => (
-                    <Link
-                      key={a.path}
-                      to={a.path}
-                      className="group flex items-center justify-between py-5 border-b border-border/60 last:border-b-0 transition-colors hover:bg-secondary/30 -mx-4 px-4 rounded-lg"
-                    >
-                      <div className="flex-1 min-w-0">
-                        <span className="block font-semibold text-foreground text-[15px] mb-1">{a.label}</span>
-                        <span className="block text-sm text-muted-foreground">{a.description}</span>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-4" />
-                    </Link>
-                  ))}
+            {relatedArticles?.map((a) => (
+              <Link
+                key={a.path}
+                to={a.path}
+                className="group flex items-center justify-between py-6 border-b border-border/50 transition-colors hover:bg-secondary/20 -mx-4 px-4 rounded-lg"
+              >
+                <div className="flex-1 min-w-0">
+                  <span className="block font-bold text-foreground text-lg mb-1.5 tracking-tight">{a.label}</span>
+                  <span className="block text-[15px] text-primary/60 leading-relaxed">{a.description}</span>
                 </div>
-              </div>
-            )}
+                <ArrowRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 ml-6" />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
