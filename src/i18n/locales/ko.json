@@ -94,7 +94,7 @@
     "descDefault": "궁금한 점을 확인하세요."
   },
   "hosting": {
-    "seo": { "title": "호스팅", "description": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스. 99.9% SLA 가동률, 24/7 NOC 모니터링, 자동 스케일링으로 끊김 없는 학습 환경을 제공합니다.", "keywords": "이러닝 호스팅, LMS 호스팅, CDN, AWS 호스팅, IDC 서버, 이러닝 서버, 온라인 강의 호스팅" },
+    "seo": { "title": "호스팅", "description": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스. 99.9% SLA 가동률, 24/7 NOC 모니터링, 자동 스케일링으로 끊김 없는 학습 환경을 제공합니다.", "keywords": "이러닝 호스팅, LMS 호스팅, CDN, AWS 호스팅, IDC 서버, 이러닝 서버, 온라인 강의 호스팅, LMS SaaS, 클라우드 LMS, LMS 구독형, LMS 서비스, 교육 SaaS, LMS 클라우드 서비스, SaaS LMS 플랫폼, 온라인 교육 SaaS, LMS 렌탈" },
     "hero": { "badge": "호스팅", "title": "이러닝에 최적화된", "titleHighlight": "클라우드 호스팅", "desc": "CDN, AWS, IDC를 모두 지원하는 이러닝 전문 호스팅 서비스로 학습자에게 끊김 없는 학습 환경을 제공하세요.", "cta1": "무료 상담 신청", "cta2": "요금제 보기" },
     "stats": [
       { "value": "99.9%", "label": "서버 가동률", "sub": "SLA 보장" },
