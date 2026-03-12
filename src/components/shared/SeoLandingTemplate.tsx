@@ -256,7 +256,7 @@ export default function SeoLandingTemplate({
       </section>
 
       {/* Related Services & Articles */}
-      <section className="py-20 bg-secondary/20">
+      <section className="py-20 bg-secondary/60">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {/* Related Services */}
