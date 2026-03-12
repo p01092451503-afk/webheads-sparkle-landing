@@ -631,6 +631,72 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
+      {/* ═══ RISK-FREE GUARANTEES ═══ */}
+      <section className="py-16 md:py-20" style={{ background: "#F8F9FD" }}>
+        <div className="container mx-auto px-5 md:px-6 max-w-4xl">
+          <div className="text-center mb-10">
+            <p className="text-sm font-bold tracking-widest uppercase mb-3" style={{ color: "#5D45FF" }}>✦ 걱정 하나도 없습니다</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight" style={{ wordBreak: "keep-all" }}>
+              결정이 망설여진다면, 이걸 보세요
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                title: "데이터 무료 이전",
+                desc: "기존 LMS에서 수강생·강의 데이터 전체 이전 비용 없이 지원합니다",
+                icon: (
+                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" />
+                    <path d="M10 16h12M18 12l4 4-4 4" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M8 10v12M24 10v12" stroke="hsl(255, 75%, 58%)" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+                  </svg>
+                ),
+              },
+              {
+                title: "2주 내 오픈 보장",
+                desc: "계약 후 2주 내 서비스 오픈. 늦어질 경우 지연일만큼 무상 제공",
+                icon: (
+                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" />
+                    <circle cx="16" cy="16" r="7" stroke="hsl(255, 75%, 58%)" strokeWidth="2" />
+                    <path d="M16 12v4l3 2" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ),
+              },
+              {
+                title: "위약금 없음",
+                desc: "언제든 해지 가능. 위약금·해지 수수료 일체 없습니다",
+                icon: (
+                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="hsl(0, 80%, 95%)" />
+                    <circle cx="16" cy="16" r="7" stroke="hsl(0, 70%, 55%)" strokeWidth="2" />
+                    <path d="M12.5 12.5l7 7M19.5 12.5l-7 7" stroke="hsl(0, 70%, 55%)" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                ),
+              },
+              {
+                title: "SLA 가동률 보장",
+                desc: "99.9% 가동률 계약서 보장. 미달 시 서비스 크레딧 제공",
+                icon: (
+                  <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="hsl(255, 75%, 95%)" />
+                    <path d="M16 8l6 3v6c0 4-3 6.5-6 8-3-1.5-6-4-6-8v-6l6-3z" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinejoin="round" />
+                    <path d="M13 16l2 2 4-4" stroke="hsl(255, 75%, 58%)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ),
+              },
+            ].map(({ title, desc, icon }) => (
+              <div key={title} className="rounded-2xl p-6 bg-white border border-border shadow-sm text-center hover:shadow-md transition-shadow">
+                <div className="flex justify-center mb-4">{icon}</div>
+                <h3 className="font-bold text-foreground text-sm mb-2">{title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ LEAD CAPTURE ═══ */}
       <section id="lead-capture" className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-2xl">
