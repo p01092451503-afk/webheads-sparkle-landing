@@ -190,7 +190,7 @@ export default function CostSimulatorPage() {
 
       {/* ═══ HERO ═══ */}
       <section className="relative flex items-center justify-center pt-28 pb-16 md:pt-44 md:pb-28 overflow-hidden">
-        <HeroPatternBg theme="blue-purple" />
+        <HeroPatternBg theme="teal-cyan" />
         <LmsHeroOverlay />
         <div className="container mx-auto px-5 md:px-6 max-w-4xl relative z-10 text-center flex flex-col items-center">
           {/* Floating badge */}
