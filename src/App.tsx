@@ -26,6 +26,7 @@ import PricingPage from "./pages/PricingPage";
 import SmsKakaoPage from "./pages/SmsKakaoPage";
 
 import BlogPage from "./pages/BlogPage";
+const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 import EventPage from "./pages/EventPage";
 import OverviewPage from "./pages/OverviewPage";
 const LmsDevelopmentPage = lazy(() => import("./pages/seo/LmsDevelopmentPage"));
@@ -83,6 +84,7 @@ const App = () => (
                 <Route path="/sms-kakao" element={<SmsKakaoPage />} />
                 
                 <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:postId" element={<BlogPostPage />} />
                 <Route path="/event" element={<EventPage />} />
                 <Route path="/overview" element={<OverviewPage />} />
                 <Route path="/lms-development" element={<LmsDevelopmentPage />} />

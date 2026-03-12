@@ -21,7 +21,7 @@ const categoryColors: Record<Category, string> = {
   tip: "hsl(40,80%,50%)",
 };
 
-function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpanded: boolean; onToggle: () => void; lang: string }) {
+function BlogCard({ post, lang }: { post: BlogPost; lang: string }) {
   const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
   const label = catConfig[post.category].label;
   const Icon = categoryIcons[post.category];
@@ -44,22 +44,15 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
         </div>
         <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3 leading-tight" itemProp="headline" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{post.title}</h2>
         <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed mb-4" itemProp="description" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }}>{post.summary}</p>
-        {isExpanded && (
-          <div className="space-y-4 mb-5 pt-4 border-t border-border">
-            {post.content.map((paragraph, i) => (
-              <p key={i} className="text-sm md:text-[15px] text-foreground/80 leading-[1.8]" style={{ fontFamily: "'Noto Sans', 'Noto Sans KR', sans-serif" }} itemProp="articleBody">{paragraph}</p>
-            ))}
-          </div>
-        )}
         <div className="flex flex-wrap gap-1.5 mb-5">
           {post.keywords.map((kw) => (
             <span key={kw} className="px-2.5 py-0.5 rounded-md text-[11px] font-medium bg-muted text-muted-foreground" itemProp="keywords">#{kw}</span>
           ))}
         </div>
-        <button onClick={onToggle} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline underline-offset-2 transition-colors">
-          {isExpanded ? (lang === "en" ? "Collapse" : lang === "ja" ? "閉じる" : "접기") : (lang === "en" ? "Read more" : lang === "ja" ? "続きを読む" : "자세히 읽기")}
-          <ArrowRight className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-90" : ""}`} />
-        </button>
+        <Link to={`/blog/${post.id}`} className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline underline-offset-2 transition-colors">
+          {lang === "en" ? "Read more" : lang === "ja" ? "続きを読む" : "자세히 읽기"}
+          <ArrowRight className="w-4 h-4" />
+        </Link>
       </div>
     </article>
   );
@@ -67,7 +60,6 @@ function BlogCard({ post, isExpanded, onToggle, lang }: { post: BlogPost; isExpa
 
 export default function BlogPage() {
   const { t, i18n } = useTranslation();
-  const [expandedId, setExpandedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -95,16 +87,13 @@ export default function BlogPage() {
   const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
   const paginatedPosts = filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
-  const handleToggle = (id: string) => setExpandedId(expandedId === id ? null : id);
   const handleSearch = (value: string) => {
     setSearchQuery(value);
     setCurrentPage(1);
-    setExpandedId(null);
   };
   const handleCategoryChange = (cat: Category | "all") => {
     setActiveCategory(cat);
     setCurrentPage(1);
-    setExpandedId(null);
   };
 
   const catConfig = lang === "en" ? categoryConfigEn : lang === "ja" ? categoryConfigJa : categoryConfigKo;
@@ -197,7 +186,7 @@ export default function BlogPage() {
           ) : (
             <div className="flex flex-col gap-8">
               {paginatedPosts.map((post) => (
-                <BlogCard key={post.id} post={post} isExpanded={expandedId === post.id} onToggle={() => handleToggle(post.id)} lang={lang} />
+                <BlogCard key={post.id} post={post} lang={lang} />
               ))}
             </div>
           )}
