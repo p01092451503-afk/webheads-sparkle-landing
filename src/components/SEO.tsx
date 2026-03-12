@@ -46,6 +46,19 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       }
     : null;
 
+  const howToSchema = howToJsonLd ? {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": howToJsonLd.name,
+    "description": howToJsonLd.description || howToJsonLd.name,
+    "step": howToJsonLd.steps.map((step, i) => ({
+      "@type": "HowToStep",
+      "position": i + 1,
+      "name": step.name,
+      "text": step.text,
+    })),
+  } : null;
+
   const breadcrumbSchema = breadcrumb && breadcrumb.length > 0 ? {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
