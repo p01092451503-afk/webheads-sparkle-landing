@@ -12,7 +12,7 @@ export default function CorporateLmsPage() {
       breadcrumbName="기업 LMS"
       seoTitle="기업 LMS 구축 | 사내교육 시스템 전문"
       seoDescription="기업 LMS 구축 전문 WEBHEADS(웹헤즈). 직무교육, 법정의무교육, 신입사원 온보딩까지 사내교육 디지털 전환을 위한 맞춤형 학습관리시스템을 제공합니다. HR 시스템 연동, AI 학습 분석 지원."
-      seoKeywords="기업 LMS, 사내교육 시스템, 기업교육 LMS 구축, 직무교육 플랫폼, 법정의무교육 LMS, 온보딩 시스템, HR 연동 LMS, 사내교육 플랫폼, 기업 이러닝, 직원 교육 시스템"
+      seoKeywords="기업 LMS, 사내교육 시스템, 기업교육 LMS 구축, 기업 이러닝 시스템, 사내 교육 시스템, HR 교육 플랫폼, 직원 교육 플랫폼, 기업 온라인 교육, 사내 교육 플랫폼 구축, 기업 LMS 솔루션, 기업 교육 관리 시스템, HRD 플랫폼, 직무교육 플랫폼, 법정의무교육 LMS, 온보딩 시스템, HR 연동 LMS, 직원 교육 시스템, 기업 LMS 도입 방법"
       heroTheme="blue-purple"
       sections={[
         {

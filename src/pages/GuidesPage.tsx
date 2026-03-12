@@ -70,7 +70,7 @@ export default function GuidesPage() {
       <SEO
         title="이러닝 가이드 허브 | 교육 플랫폼 구축 가이드"
         description="LMS 구축, 이러닝 플랫폼 개발, 사내교육 시스템, 화상강의 솔루션까지 — WEBHEADS(웹헤즈)의 교육 기술 전문 가이드 모음입니다."
-        keywords="LMS 구축 가이드, 이러닝 플랫폼 개발, 사내교육 시스템, 화상강의 솔루션, 온라인 교육 사이트 제작, 기업교육 LMS"
+        keywords="LMS 구축 가이드, LMS 추천, LMS 비교, LMS 종류, LMS 기능, LMS 가격, LMS 비용, LMS 플랫폼 비교, 교육 플랫폼 추천, LMS 도입 방법, 이러닝 플랫폼 개발, 사내교육 시스템, 화상강의 솔루션, 온라인 교육 사이트 제작, 기업교육 LMS"
         path="/guides"
         breadcrumb={[{ name: "가이드 허브", url: `${BASE_URL}/guides` }]}
         jsonLd={{
