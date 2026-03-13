@@ -104,7 +104,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="sm:max-w-[440px]">
+      <DialogContent className="sm:max-w-[440px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-[16px]">{editPayment ? "입금 수정" : "입금 등록"}</DialogTitle>
         </DialogHeader>
