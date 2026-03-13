@@ -240,6 +240,8 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
               className="h-9 text-[13px]"
             />
           </div>
+
+          <Button
             onClick={handleSubmit}
             disabled={!clientId}
             className="w-full h-10 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]"
