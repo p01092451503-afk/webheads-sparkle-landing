@@ -339,19 +339,19 @@ export default function CostSimulatorPage() {
                       </div>
                     )}
 
-                    {savingsAmount > 0 && (
-                      <div className="flex items-center gap-2 mt-3 mb-4 px-4 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}>
-                        <TrendingUp className="w-5 h-5 shrink-0" style={{ color: "#4ade80" }} />
-                        <span className="text-base font-extrabold" style={{ color: "#4ade80" }}>{t("costSim.result.savings", { amount: formatPrice(savingsAmount) })}</span>
-                      </div>
-                    )}
-
                     {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer || (needsDedicatedServer && learners >= 500)) && (
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="flex flex-wrap gap-2 mt-3 mb-3">
                         {bestPlan.overageCdn > 0 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.cdnOverage", { amount: formatPrice(bestPlan.overageCdn) })}</span>}
                         {bestPlan.overageStorage > 0 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.storageOverage", { amount: formatPrice(bestPlan.overageStorage) })}</span>}
                         {needsSecurePlayer && bestPlan.name !== "Starter" && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.securePlayer", { amount: formatPrice(SECURE_PLAYER_COST) })}</span>}
                         {needsDedicatedServer && learners >= 500 && <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">{t("costSim.result.dedicatedServer", { amount: formatPrice(DEDICATED_SERVER_COST) })}</span>}
+                      </div>
+                    )}
+
+                    {savingsAmount > 0 && (
+                      <div className="flex items-center gap-2 mb-4 px-4 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                        <TrendingUp className="w-5 h-5 shrink-0" style={{ color: "#4ade80" }} />
+                        <span className="text-base font-extrabold" style={{ color: "#4ade80" }}>{t("costSim.result.savings", { amount: formatPrice(savingsAmount) })}</span>
                       </div>
                     )}
 
