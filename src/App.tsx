@@ -55,6 +55,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {!isAdmin && <Footer />}
       {!isAdmin && <FloatingNav />}
       {!isAdmin && <ChatbotPanel />}
+      {!isAdmin && <CookieConsent />}
     </>
   );
 };
