@@ -427,6 +427,61 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
         </DialogContent>
       </Dialog>
 
+      {/* Edit Dialog */}
+      <Dialog open={!!editTarget} onOpenChange={(open) => { if (!open) setEditTarget(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>파일 편집</DialogTitle>
+            <DialogDescription>파일 정보를 수정하거나 파일을 교체합니다.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label>현재 파일</Label>
+              <p className="text-sm text-muted-foreground mt-1 truncate">{editTarget?.file_name}</p>
+            </div>
+            <div>
+              <Label>폴더</Label>
+              <Select value={editFolder} onValueChange={setEditFolder}>
+                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {folders.map((f) => (
+                    <SelectItem key={f} value={f}>{f}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>메모</Label>
+              <Input className="mt-1" value={editMemo} onChange={(e) => setEditMemo(e.target.value)} placeholder="파일에 대한 간단한 메모" />
+            </div>
+            <div>
+              <Label>파일 교체 (선택)</Label>
+              {editReplaceFile ? (
+                <div className="mt-1 flex items-center gap-2 text-sm bg-muted/50 rounded px-3 py-2">
+                  <span className="truncate flex-1">{editReplaceFile.name}</span>
+                  <button onClick={() => setEditReplaceFile(null)}><X className="w-3 h-3 text-muted-foreground hover:text-destructive" /></button>
+                </div>
+              ) : (
+                <div
+                  className="mt-1 border-2 border-dashed rounded-xl p-4 text-center cursor-pointer border-muted-foreground/25 hover:border-primary/40 hover:bg-muted/30 transition-colors"
+                  onClick={() => { const inp = document.createElement("input"); inp.type = "file"; inp.onchange = (e: any) => { if (e.target.files?.[0]) setEditReplaceFile(e.target.files[0]); }; inp.click(); }}
+                >
+                  <Upload className="w-5 h-5 mx-auto mb-1 text-muted-foreground" />
+                  <p className="text-xs text-muted-foreground">클릭하여 새 파일 선택</p>
+                </div>
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditTarget(null)}>취소</Button>
+            <Button onClick={handleEditSave} disabled={editSaving} className="gap-2">
+              {editSaving && <Loader2 className="w-4 h-4 animate-spin" />}
+              저장
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Delete Confirm */}
       <Dialog open={!!deleteTarget} onOpenChange={() => setDeleteTarget(null)}>
         <DialogContent className="max-w-sm">
