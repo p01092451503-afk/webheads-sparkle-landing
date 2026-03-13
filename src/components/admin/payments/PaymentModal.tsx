@@ -93,6 +93,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
       paid_date: paidDate ? format(paidDate, "yyyy-MM-dd") : null,
       is_unpaid: isUnpaid,
       memo,
+      remarks,
       payment_type: paymentType,
     });
   };
