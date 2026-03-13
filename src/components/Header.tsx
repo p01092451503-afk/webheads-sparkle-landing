@@ -212,73 +212,18 @@ export default function Header() {
               >
                 {t("header.cta")}
               </a>
-              <div className="relative" ref={supportRef} onMouseEnter={() => setSupportOpen(true)} onMouseLeave={() => setSupportOpen(false)}>
-                <button
-                  className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
-                    effectiveScrolled
-                      ? "text-foreground hover:bg-muted border border-border"
-                      : "bg-white/20 text-white hover:bg-white/30"
-                  }`}
-                >
-                  {t("header.customerSupport")}
-                </button>
-
-                {/* Support Popover */}
-                {supportOpen && (
-                  <div className="absolute right-0 top-full pt-[10px] w-[360px]" style={{ zIndex: 100 }}>
-                  <div
-                    className="w-full bg-card rounded-2xl overflow-hidden animate-fade-in border border-border"
-                    style={{
-                      boxShadow: "0 16px 48px -12px hsla(220, 30%, 20%, 0.15)",
-                    }}
-                  >
-                    <a
-                      href="https://help.webheads.co.kr/login.php"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-4 px-5 py-4 transition-colors"
-                      style={{ background: "transparent" }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = "hsl(220, 14%, 92%)"}
-                      onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-                    >
-                      <div
-                        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                        style={{ background: "hsl(221, 83%, 53%, 0.08)", color: "hsl(221, 83%, 53%)" }}
-                      >
-                        <MessageSquareText className="w-6 h-6" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">{t("header.smsRechargeTitle")}</p>
-                        <p className="text-[12px] text-muted-foreground mt-0.5">{t("header.smsRechargeDesc")}</p>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
-                    </a>
-                    <div className="mx-5 h-px bg-border/60" />
-                    <a
-                      href="https://help.webheads.co.kr/kolluscrm.php"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group flex items-center gap-4 px-5 py-4 transition-colors"
-                      style={{ background: "transparent" }}
-                      onMouseEnter={(e) => e.currentTarget.style.background = "hsl(220, 14%, 92%)"}
-                      onMouseLeave={(e) => e.currentTarget.style.background = "transparent"}
-                    >
-                      <div
-                        className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                        style={{ background: "hsl(152, 57%, 42%, 0.08)", color: "hsl(152, 57%, 42%)" }}
-                      >
-                        <ScreenShare className="w-6 h-6" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[14px] font-semibold text-foreground tracking-[-0.02em]">{t("header.remoteSupportTitle")}</p>
-                        <p className="text-[12px] text-muted-foreground mt-0.5">{t("header.remoteSupportDesc")}</p>
-                      </div>
-                      <ChevronRight className="w-4 h-4 text-muted-foreground/30 shrink-0 transition-transform group-hover:translate-x-0.5" />
-                    </a>
-                  </div>
-                  </div>
-                )}
-              </div>
+              <a
+                href="https://help.webheads.co.kr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                  effectiveScrolled
+                    ? "text-foreground hover:bg-muted border border-border"
+                    : "bg-white/20 text-white hover:bg-white/30"
+                }`}
+              >
+                {t("header.customerSupport")}
+              </a>
             </div>
 
             {/* Mobile toggle */}
