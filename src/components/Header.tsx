@@ -263,36 +263,14 @@ export default function Header() {
             <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border">
               <LanguageSwitcher />
             </div>
-            <button
-              onClick={() => setSupportOpen((v) => !v)}
+            <a
+              href="https://help.webheads.co.kr"
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-2 inline-block w-fit px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors text-left"
             >
               {t("header.customerSupport")}
-            </button>
-            {supportOpen && (
-              <div className="mx-1 mb-2 rounded-xl border border-border bg-accent/30 overflow-hidden">
-                <a
-                  href="https://help.webheads.co.kr/login.php"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
-                >
-                  <Mail className="w-4 h-4" style={{ color: "hsl(221, 83%, 53%)" }} />
-                  <span className="text-sm font-medium text-foreground">{t("header.smsRechargeTitle")}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
-                </a>
-                <div className="mx-4 h-px bg-border/60" />
-                <a
-                  href="https://help.webheads.co.kr/kolluscrm.php"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-accent/60 transition-colors"
-                >
-                  <MonitorSmartphone className="w-4 h-4" style={{ color: "hsl(152, 57%, 42%)" }} />
-                  <span className="text-sm font-medium text-foreground">{t("header.remoteSupportTitle")}</span>
-                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/40 ml-auto" />
-                </a>
-              </div>
+            </a>
             )}
             <a
               href={location.pathname === "/service-request" ? "/lms#contact" : "#contact"}
