@@ -293,14 +293,17 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
                   </td>
                   <td className="px-4 py-3 text-muted-foreground truncate max-w-[12rem]">{file.memo || "-"}</td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center justify-center gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => handleDownload(file)} title="다운로드">
-                        <Download className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(file)} title="삭제" className="text-destructive hover:text-destructive">
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
+                     <div className="flex items-center justify-center gap-1">
+                       <Button variant="ghost" size="icon" onClick={() => handleDownload(file)} title="다운로드">
+                         <Download className="w-4 h-4" />
+                       </Button>
+                       <Button variant="ghost" size="icon" onClick={() => openEdit(file)} title="편집">
+                         <Pencil className="w-4 h-4" />
+                       </Button>
+                       <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(file)} title="삭제" className="text-destructive hover:text-destructive">
+                         <Trash2 className="w-4 h-4" />
+                       </Button>
+                     </div>
                   </td>
                 </tr>
               ))}
