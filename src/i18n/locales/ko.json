@@ -1853,7 +1853,7 @@
       "securePlayer": "보안 플레이어 +{{amount}}원", "dedicatedServer": "단독 서버 +{{amount}}원",
       "ctaConsult": "지금 이 견적으로 무료 컨설팅 신청하기",
       "cdnInfo": "기본 전송량 {{cdn}}GB · 저장공간 {{storage}}GB", "cdnNone": "CDN 별도",
-      "annualTitle": "🎉 연간 계약 특별 혜택", "annualDesc": "연간 결제 시 <b>2개월 추가 연장</b> 또는 <b>교육용 태블릿 증정</b> 혜택을 선택하실 수 있습니다. (3월 한정)",
+      "annualTitle": "연간 계약 특별 혜택", "annualDesc": "연간 결제 시 <b>2개월 추가 연장</b> 또는 <b>교육용 태블릿 증정</b> 혜택을 선택하실 수 있습니다. (3월 한정)",
       "upgradeTitle": "{{plan}} 플랜이 더 경제적입니다", "upgradeDesc": "지금 <b>{{amount}}원만 추가</b>하면 {{benefit}}. {{plan}} 플랜을 고려해 보세요.",
       "upgradeBenefit": "데이터 전송량이 {{multiple}}배 늘어납니다",
       "allPlans": "전체 플랜 비교", "annualApplied": "연간 할인 적용됨", "base": "기본", "overage": "초과"
