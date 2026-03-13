@@ -206,12 +206,26 @@ export default function TaxInvoiceManager() {
       buyerBusinessItem: company?.business_item || f.buyerBusinessItem,
     }));
 
-    // Auto-populate addContacts with additional contacts that have email (excluding the primary)
+    // Auto-populate addContacts with all other contacts that have email (excluding primary at idx 0)
     const additionalContacts = companyContacts
       .filter((ct, idx) => idx > 0 && ct.email)
       .slice(0, 5)
       .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
     setAddContacts(additionalContacts);
+  };
+
+  // When담당자 changes, update addContacts to include all OTHER contacts with email
+  const handleContactChange = (idx: number) => {
+    setSelectedContactIdx(idx);
+    const selected = matchedContacts[idx];
+    setForm(f => ({ ...f, buyerEmail: selected?.email || f.buyerEmail }));
+
+    // Rebuild addContacts: all contacts with email except the selected one
+    const others = matchedContacts
+      .filter((ct, i) => i !== idx && ct.email)
+      .slice(0, 5)
+      .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
+    setAddContacts(others);
   };
 
   const fetchData = useCallback(async () => {
@@ -1242,11 +1256,7 @@ export default function TaxInvoiceManager() {
                           {matchedContacts.length > 0 ? (
                             <select
                               value={selectedContactIdx}
-                              onChange={(e) => {
-                                const idx = parseInt(e.target.value);
-                                setSelectedContactIdx(idx);
-                                setForm(f => ({ ...f, buyerEmail: matchedContacts[idx]?.email || f.buyerEmail }));
-                              }}
+                              onChange={(e) => handleContactChange(parseInt(e.target.value))}
                               className="h-6 text-[13px] bg-transparent border-0 p-0 w-full focus:outline-none"
                             >
                               {matchedContacts.map((ct, i) => (
