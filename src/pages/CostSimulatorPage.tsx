@@ -487,14 +487,14 @@ export default function CostSimulatorPage() {
                       const isRec = bestPlan?.name === name;
                       return (
                         <td key={name} className="px-5 py-6 text-center" style={isRec ? { background: "rgba(93,69,255,0.06)" } : undefined}>
-                          <p className="font-extrabold text-xl tabular-nums tracking-tight text-foreground">{formatPrice(price)}<span className="text-sm font-bold">{t("costSim.features.priceUnit")}</span></p>
+                          <p className="font-extrabold text-lg md:text-xl tabular-nums tracking-tight text-foreground">{formatPrice(price)}<span className="text-xs md:text-sm font-bold">{t("costSim.features.priceUnit")}</span></p>
                           <p className="text-[11px] text-muted-foreground mt-1">{sub}</p>
                           {isRec ? (
-                            <a href="#lead-capture" className="inline-flex items-center gap-1.5 mt-3 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-white transition-all hover:scale-[1.02]" style={{ background: "#5D45FF" }}>
-                              {t("costSim.features.apply")} <ArrowRight className="w-3.5 h-3.5" />
+                            <a href="#lead-capture" className="inline-flex items-center gap-1 mt-3 px-3 py-2 md:px-5 md:py-2.5 rounded-xl text-[11px] md:text-[13px] font-semibold text-white transition-all hover:scale-[1.02] whitespace-nowrap" style={{ background: "#5D45FF" }}>
+                              {t("costSim.features.apply")} <ArrowRight className="w-3 h-3 md:w-3.5 md:h-3.5" />
                             </a>
                           ) : (
-                            <a href="#lead-capture" className="inline-flex items-center gap-1.5 mt-3 px-5 py-2.5 rounded-xl text-[13px] font-semibold text-foreground border border-border transition-all hover:bg-muted/50">
+                            <a href="#lead-capture" className="inline-flex items-center gap-1 mt-3 px-3 py-2 md:px-5 md:py-2.5 rounded-xl text-[11px] md:text-[13px] font-semibold text-foreground border border-border transition-all hover:bg-muted/50 whitespace-nowrap">
                               {name === "Premium" ? t("costSim.features.quoteRequest") : t("costSim.features.inquire")}
                             </a>
                           )}
