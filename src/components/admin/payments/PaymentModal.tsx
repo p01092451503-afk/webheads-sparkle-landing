@@ -29,6 +29,7 @@ interface Props {
     paid_date: string | null;
     is_unpaid: boolean;
     memo: string;
+    remarks: string;
     payment_type: string;
   }) => void;
   clients: Client[];
@@ -45,6 +46,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
   const [paidDate, setPaidDate] = useState<Date | undefined>(undefined);
   const [isUnpaid, setIsUnpaid] = useState(false);
   const [memo, setMemo] = useState("");
+  const [remarks, setRemarks] = useState("");
   const [paymentType, setPaymentType] = useState("hosting");
   const [clientSearch, setClientSearch] = useState("");
 
@@ -58,6 +60,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
         setPaidDate(editPayment.paid_date ? new Date(editPayment.paid_date) : undefined);
         setIsUnpaid(editPayment.is_unpaid);
         setMemo(editPayment.memo || "");
+        setRemarks(editPayment.remarks || "");
         setPaymentType(editPayment.payment_type || "hosting");
       } else {
         setClientId(preselectedClientId || "");
@@ -67,6 +70,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
         setPaidDate(undefined);
         setIsUnpaid(false);
         setMemo("");
+        setRemarks("");
         setPaymentType("hosting");
       }
       setClientSearch("");
@@ -89,6 +93,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
       paid_date: paidDate ? format(paidDate, "yyyy-MM-dd") : null,
       is_unpaid: isUnpaid,
       memo,
+      remarks,
       payment_type: paymentType,
     });
   };
@@ -221,6 +226,17 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
               value={memo}
               onChange={(e) => setMemo(e.target.value)}
               placeholder="메모 (선택)"
+              className="h-9 text-[13px]"
+            />
+          </div>
+
+          {/* Remarks */}
+          <div className="space-y-1.5">
+            <Label className="text-[13px]">비고</Label>
+            <Input
+              value={remarks}
+              onChange={(e) => setRemarks(e.target.value)}
+              placeholder="비고 (선택)"
               className="h-9 text-[13px]"
             />
           </div>

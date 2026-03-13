@@ -1,0 +1,1 @@
+ALTER TABLE public.payments ADD COLUMN remarks text DEFAULT null;
