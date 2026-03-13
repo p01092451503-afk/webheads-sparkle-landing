@@ -589,7 +589,12 @@ export default function TaxInvoiceManager() {
       taxAmount: log.tax_amount.toLocaleString("ko-KR"),
       totalAmount: log.total_amount.toLocaleString("ko-KR"),
     }]);
-    setAddContacts([]);
+    // Auto-populate addContacts with additional contacts that have email (excluding primary)
+    const additionalContacts = contacts
+      .filter((ct, idx) => idx > 0 && ct.email)
+      .slice(0, 5)
+      .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
+    setAddContacts(additionalContacts);
     setIssueStep(2);
     setIssueOpen(true);
   };
