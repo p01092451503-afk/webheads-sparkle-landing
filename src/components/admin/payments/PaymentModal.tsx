@@ -230,7 +230,16 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
             />
           </div>
 
-          <Button
+          {/* Remarks */}
+          <div className="space-y-1.5">
+            <Label className="text-[13px]">비고</Label>
+            <Input
+              value={remarks}
+              onChange={(e) => setRemarks(e.target.value)}
+              placeholder="비고 (선택)"
+              className="h-9 text-[13px]"
+            />
+          </div>
             onClick={handleSubmit}
             disabled={!clientId}
             className="w-full h-10 text-[13px] bg-[hsl(221,83%,53%)] hover:bg-[hsl(221,83%,45%)]"
