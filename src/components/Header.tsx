@@ -35,6 +35,8 @@ export default function Header() {
   });
   const [bannerReady, setBannerReady] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [bannerHeight, setBannerHeight] = useState(44);
+  const bannerRef = useRef<HTMLDivElement>(null);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const location = useLocation();
   const { t, i18n } = useTranslation();
@@ -76,26 +78,25 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Check if current user is super_admin
-  useEffect(() => {
-    const checkRole = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user) { setIsSuperAdmin(false); return; }
-      const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "super_admin" });
-      setIsSuperAdmin(!!data);
-    };
-    checkRole();
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => checkRole());
-    return () => subscription.unsubscribe();
-  }, []);
-
   const showBanner = isKorean && bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
+
+  // Measure actual banner height
+  useEffect(() => {
+    const el = bannerRef.current;
+    if (!el) return;
+    const update = () => setBannerHeight(el.offsetHeight);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [showBanner]);
 
   return (
     <>
       {/* Top promo banner */}
       {(isKorean && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00")) && (
         <div
+          ref={bannerRef}
           className={`fixed top-0 left-0 right-0 z-[60] overflow-hidden border-b border-border/30 transition-transform duration-500 ease-out ${showBanner ? "translate-y-0" : "-translate-y-full"}`}
           style={{ background: "hsl(230, 15%, 93%)" }}
           role="banner"
@@ -137,8 +138,8 @@ export default function Header() {
           </button>
         </div>
       )}
-      <div className={`transition-[height] duration-500 ease-out ${showBanner ? "h-[44px]" : "h-0"}`} aria-hidden="true" />
-    <header className={`fixed left-0 right-0 z-50 transition-[top] duration-500 ease-out ${showBanner ? "top-[44px]" : "top-0"}`}>
+      <div className="transition-[height] duration-500 ease-out" style={{ height: showBanner ? `${bannerHeight}px` : "0px" }} aria-hidden="true" />
+    <header className="fixed left-0 right-0 z-50 transition-[top] duration-500 ease-out" style={{ top: showBanner ? `${bannerHeight}px` : "0px" }}>
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
