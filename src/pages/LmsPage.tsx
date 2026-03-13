@@ -250,7 +250,7 @@ export default function LmsPage() {
             </a>
             <Link to="/cost-simulator" className="group relative px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "white", color: "hsl(245, 70%, 50%)", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
               {/* Toss-style emphasis badge */}
-              <span className="absolute -top-2.5 -right-3 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide" style={{ background: "hsl(0,0%,10%)", color: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>
+              <span className="absolute -top-2.5 -right-3 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wide" style={{ background: "linear-gradient(135deg, hsl(45,100%,50%), hsl(38,100%,45%))", color: "hsl(30,80%,15%)", boxShadow: "0 2px 8px rgba(200,150,0,0.4)" }}>
                 HOT
               </span>
               <Calculator className="w-4 h-4" />
