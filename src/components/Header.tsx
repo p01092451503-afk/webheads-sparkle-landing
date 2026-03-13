@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, ScreenShare, Zap } from "lucide-react";
+import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, ScreenShare, Zap, Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { supabase } from "@/integrations/supabase/client";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app", "/drm", "/channel", "/pg", "/content"];
 
