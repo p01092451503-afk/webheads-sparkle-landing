@@ -191,17 +191,27 @@ export default function TaxInvoiceManager() {
       ? [company.address1, company.address2].filter(Boolean).join(" ")
       : "";
 
+    // Primary email = first contact's email
+    const primaryEmail = companyContacts[0]?.email || "";
+
     setForm(f => ({
       ...f,
       clientId,
       buyerCorpNum: company?.business_number || f.buyerCorpNum,
       buyerCorpName: company?.company_name || client.name,
       buyerCEOName: company?.ceo_name || f.buyerCEOName,
-      buyerEmail: companyContacts[0]?.email || f.buyerEmail,
+      buyerEmail: primaryEmail || f.buyerEmail,
       buyerAddress: address || f.buyerAddress,
       buyerBusinessType: company?.business_type || f.buyerBusinessType,
       buyerBusinessItem: company?.business_item || f.buyerBusinessItem,
     }));
+
+    // Auto-populate addContacts with additional contacts that have email (excluding the primary)
+    const additionalContacts = companyContacts
+      .filter((ct, idx) => idx > 0 && ct.email)
+      .slice(0, 5)
+      .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
+    setAddContacts(additionalContacts);
   };
 
   const fetchData = useCallback(async () => {
