@@ -349,12 +349,12 @@ export default function Header() {
                 </a>
               </div>
             )}
-            <Link
-              to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
+            <a
+              href={location.pathname === "/service-request" ? "/lms#contact" : "#contact"}
               className="mt-1 inline-block w-fit px-3 py-2.5 rounded-lg text-sm font-semibold text-foreground text-left"
             >
               {t("header.cta")}
-            </Link>
+            </a>
           </div>
         </div>
       )}
