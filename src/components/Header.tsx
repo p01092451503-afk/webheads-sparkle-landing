@@ -35,6 +35,7 @@ export default function Header() {
   });
   const [bannerReady, setBannerReady] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const location = useLocation();
   const { t, i18n } = useTranslation();
   const isKorean = i18n.language === "ko" || i18n.language?.startsWith("ko-");
