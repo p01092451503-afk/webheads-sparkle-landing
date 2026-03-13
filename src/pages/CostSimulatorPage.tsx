@@ -349,14 +349,14 @@ export default function CostSimulatorPage() {
                     )}
 
                     {savingsAmount > 0 && (
-                      <div className="flex items-center gap-1.5 mb-4">
-                        <TrendingUp className="w-4 h-4 shrink-0" style={{ color: "#4ade80" }} />
-                        <span className="text-sm font-bold" style={{ color: "#4ade80" }}>{t("costSim.result.savings", { amount: formatPrice(savingsAmount) })}</span>
+                      <div className="flex items-center gap-2 mb-4 w-full px-5 py-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}>
+                        <TrendingUp className="w-5 h-5 shrink-0" style={{ color: "#4ade80" }} />
+                        <span className="text-base font-extrabold" style={{ color: "#4ade80" }}>{t("costSim.result.savings", { amount: formatPrice(savingsAmount) })}</span>
                       </div>
                     )}
 
-                    <a href="#lead-capture" className="inline-flex items-center justify-center gap-2 w-full px-6 py-4 rounded-2xl font-bold text-base transition-all hover:scale-[1.02] shadow-lg" style={{ background: "#FF6B00", color: "white" }}>
-                      {t("costSim.result.ctaConsult")} <ArrowRight className="w-5 h-5" />
+                    <a href="#lead-capture" className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl font-semibold text-[13px] transition-all hover:opacity-90 text-white/80 bg-white/15 hover:bg-white/25">
+                      {t("costSim.result.ctaConsult")} <ArrowRight className="w-3.5 h-3.5" />
                     </a>
                   </div>
                 </div>
