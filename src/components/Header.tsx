@@ -187,6 +187,19 @@ export default function Header() {
 
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
+              {isSuperAdmin && (
+                <Link
+                  to="/admin"
+                  className={`p-2 rounded-full transition-all duration-200 ${
+                    effectiveScrolled
+                      ? "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      : "text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                  aria-label="Admin Dashboard"
+                >
+                  <Settings className="w-[18px] h-[18px]" />
+                </Link>
+              )}
               <LanguageSwitcher scrolled={effectiveScrolled} />
               <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
