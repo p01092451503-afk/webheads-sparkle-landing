@@ -34,7 +34,7 @@ interface Props {
 export default function AdminPayments({ isSuperAdmin, logActivity }: Props) {
   const [clients, setClients] = useState<Client[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
-  const [subView, setSubView] = useState<SubView>("dashboard");
+  const [subView, setSubView] = useState<SubView>("clients");
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [clientModalOpen, setClientModalOpen] = useState(false);
