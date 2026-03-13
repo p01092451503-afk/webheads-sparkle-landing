@@ -191,17 +191,27 @@ export default function TaxInvoiceManager() {
       ? [company.address1, company.address2].filter(Boolean).join(" ")
       : "";
 
+    // Primary email = first contact's email
+    const primaryEmail = companyContacts[0]?.email || "";
+
     setForm(f => ({
       ...f,
       clientId,
       buyerCorpNum: company?.business_number || f.buyerCorpNum,
       buyerCorpName: company?.company_name || client.name,
       buyerCEOName: company?.ceo_name || f.buyerCEOName,
-      buyerEmail: companyContacts[0]?.email || f.buyerEmail,
+      buyerEmail: primaryEmail || f.buyerEmail,
       buyerAddress: address || f.buyerAddress,
       buyerBusinessType: company?.business_type || f.buyerBusinessType,
       buyerBusinessItem: company?.business_item || f.buyerBusinessItem,
     }));
+
+    // Auto-populate addContacts with additional contacts that have email (excluding the primary)
+    const additionalContacts = companyContacts
+      .filter((ct, idx) => idx > 0 && ct.email)
+      .slice(0, 5)
+      .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
+    setAddContacts(additionalContacts);
   };
 
   const fetchData = useCallback(async () => {
@@ -579,7 +589,12 @@ export default function TaxInvoiceManager() {
       taxAmount: log.tax_amount.toLocaleString("ko-KR"),
       totalAmount: log.total_amount.toLocaleString("ko-KR"),
     }]);
-    setAddContacts([]);
+    // Auto-populate addContacts with additional contacts that have email (excluding primary)
+    const additionalContacts = contacts
+      .filter((ct, idx) => idx > 0 && ct.email)
+      .slice(0, 5)
+      .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
+    setAddContacts(additionalContacts);
     setIssueStep(2);
     setIssueOpen(true);
   };
@@ -1514,7 +1529,9 @@ export default function TaxInvoiceManager() {
               <div className="flex items-start gap-3">
                 <span className="font-bold w-[80px] shrink-0 pt-1" style={{ color: "#333" }}>추가담당자 ⓘ</span>
                 <div className="flex-1 space-y-1.5">
-                  <p className="text-[12px]" style={{ color: "#999" }}>이메일 주소를 5개까지 추가할 수 있습니다. 예시) popbill@popbill.com</p>
+                  <p className="text-[12px]" style={{ color: "#999" }}>
+                    고객사 관리에 등록된 이메일 수신자가 자동으로 표시됩니다. 최대 5개까지 추가할 수 있습니다.
+                  </p>
                   {addContacts.map((ac, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <Input value={ac.name} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, name: e.target.value } : p))} className="h-7 text-[13px] w-28" placeholder="성명" />
