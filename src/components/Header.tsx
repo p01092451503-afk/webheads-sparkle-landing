@@ -271,7 +271,6 @@ export default function Header() {
             >
               {t("header.customerSupport")}
             </a>
-            )}
             <a
               href={location.pathname === "/service-request" ? "/lms#contact" : "#contact"}
               className="mt-1 inline-block w-fit px-3 py-2.5 rounded-lg text-sm font-semibold text-foreground text-left"
