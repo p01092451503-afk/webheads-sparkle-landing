@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import {
   Upload, Trash2, Download, Eye, FileText, FileImage, FileSpreadsheet,
-  File, FolderOpen, Plus, Search, Loader2, X,
+  File, FolderOpen, Plus, Search, Loader2, X, Pencil,
 } from "lucide-react";
 import { toast } from "sonner";
 
