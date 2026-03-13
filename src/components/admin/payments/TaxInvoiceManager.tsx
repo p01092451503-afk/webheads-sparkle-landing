@@ -1287,6 +1287,26 @@ export default function TaxInvoiceManager() {
                                           </CommandItem>
                                         );
                                       })}
+                                      {combinedSearchItems.unlinkedCompanies.length > 0 && (
+                                        <>
+                                          <div className="px-3 py-1.5 text-[11px] text-muted-foreground font-semibold border-t">고객사관리 (미등록)</div>
+                                          {combinedSearchItems.unlinkedCompanies.map((cc) => (
+                                            <CommandItem
+                                              key={`cc-${cc.id}`}
+                                              value={`${cc.company_name} ${cc.business_number} ${cc.ceo_name || ""}`}
+                                              onSelect={() => {
+                                                handleUnlinkedCompanySelect(cc);
+                                                setClientSearchOpen(false);
+                                              }}
+                                              className="text-[13px] cursor-pointer"
+                                            >
+                                              <span className="font-medium">{cc.company_name}</span>
+                                              <span className="text-muted-foreground ml-2">({cc.business_number})</span>
+                                              <span className="text-orange-500 ml-1 text-[11px]">신규</span>
+                                            </CommandItem>
+                                          ))}
+                                        </>
+                                      )}
                                     </CommandList>
                                   </div>
                                 </Command>
