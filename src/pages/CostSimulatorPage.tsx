@@ -355,7 +355,7 @@ export default function CostSimulatorPage() {
                       </div>
                     )}
 
-                    <a href="#lead-capture" className="inline-flex items-center gap-1 text-[13px] font-semibold text-white/60 hover:text-white/90 transition-colors mt-1">
+                    <a href="#lead-capture" className="inline-flex items-center justify-center gap-1 w-full text-[13px] font-semibold text-white/60 hover:text-white/90 transition-colors mt-1">
                       {t("costSim.result.ctaConsult")} <ArrowRight className="w-3.5 h-3.5" />
                     </a>
                   </div>
