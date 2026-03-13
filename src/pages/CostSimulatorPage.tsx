@@ -127,7 +127,7 @@ export default function CostSimulatorPage() {
   }, [bestPlan, recommendations, needsCdn, t]);
 
   useEffect(() => {
-    if (isAnnual) { setShowAnnualBonus(true); const timer = setTimeout(() => setShowAnnualBonus(false), 5000); return () => clearTimeout(timer); }
+    if (isAnnual) { setShowAnnualBonus(true); }
     else setShowAnnualBonus(false);
   }, [isAnnual]);
 
