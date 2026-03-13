@@ -29,6 +29,7 @@ interface Props {
     paid_date: string | null;
     is_unpaid: boolean;
     memo: string;
+    remarks: string;
     payment_type: string;
   }) => void;
   clients: Client[];

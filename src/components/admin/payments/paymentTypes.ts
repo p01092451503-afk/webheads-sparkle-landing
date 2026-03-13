@@ -30,6 +30,7 @@ export interface PaymentRecord {
   paid_date: string | null;
   is_unpaid: boolean;
   memo: string | null;
+  remarks: string | null;
   payment_type: string;
   invoice_status: string;
   invoice_date: string | null;
