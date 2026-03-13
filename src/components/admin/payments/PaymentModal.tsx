@@ -60,6 +60,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
         setPaidDate(editPayment.paid_date ? new Date(editPayment.paid_date) : undefined);
         setIsUnpaid(editPayment.is_unpaid);
         setMemo(editPayment.memo || "");
+        setRemarks(editPayment.remarks || "");
         setPaymentType(editPayment.payment_type || "hosting");
       } else {
         setClientId(preselectedClientId || "");
