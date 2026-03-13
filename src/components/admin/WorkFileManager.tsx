@@ -153,6 +153,41 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
     }
   };
 
+  const openEdit = (file: WorkFile) => {
+    setEditTarget(file);
+    setEditFolder(file.folder);
+    setEditMemo(file.memo || "");
+    setEditReplaceFile(null);
+  };
+
+  const handleEditSave = async () => {
+    if (!editTarget) return;
+    setEditSaving(true);
+    try {
+      const updates: Record<string, any> = { folder: editFolder, memo: editMemo || null };
+      if (editReplaceFile) {
+        await supabase.storage.from("work-files").remove([editTarget.file_path]);
+        const ext = editReplaceFile.name.split(".").pop();
+        const safeFolder = folderToPathKey[editFolder] || "general";
+        const newPath = `${safeFolder}/${Date.now()}_${crypto.randomUUID().slice(0, 6)}.${ext}`;
+        const { error: storageError } = await supabase.storage.from("work-files").upload(newPath, editReplaceFile);
+        if (storageError) throw storageError;
+        updates.file_path = newPath;
+        updates.file_name = editReplaceFile.name;
+        updates.file_size = editReplaceFile.size;
+        updates.content_type = editReplaceFile.type;
+      }
+      const { error } = await supabase.from("work_files").update(updates).eq("id", editTarget.id);
+      if (error) throw error;
+      toast.success("파일 정보가 수정되었습니다");
+      setEditTarget(null);
+      fetchFiles();
+    } catch (e: any) {
+      toast.error("수정 실패: " + (e.message || "알 수 없는 오류"));
+    }
+    setEditSaving(false);
+  };
+
   const handlePreview = async (file: WorkFile) => {
     const { data, error } = await supabase.storage.from("work-files").download(file.file_path);
     if (error || !data) { toast.error("미리보기 실패"); return; }
