@@ -45,6 +45,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
   const [paidDate, setPaidDate] = useState<Date | undefined>(undefined);
   const [isUnpaid, setIsUnpaid] = useState(false);
   const [memo, setMemo] = useState("");
+  const [remarks, setRemarks] = useState("");
   const [paymentType, setPaymentType] = useState("hosting");
   const [clientSearch, setClientSearch] = useState("");
 
