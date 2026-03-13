@@ -35,6 +35,8 @@ export default function Header() {
   });
   const [bannerReady, setBannerReady] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [bannerHeight, setBannerHeight] = useState(44);
+  const bannerRef = useRef<HTMLDivElement>(null);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const location = useLocation();
   const { t, i18n } = useTranslation();
