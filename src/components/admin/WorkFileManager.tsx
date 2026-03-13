@@ -72,6 +72,13 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
   // Delete confirm
   const [deleteTarget, setDeleteTarget] = useState<WorkFile | null>(null);
 
+  // Edit dialog
+  const [editTarget, setEditTarget] = useState<WorkFile | null>(null);
+  const [editFolder, setEditFolder] = useState("일반");
+  const [editMemo, setEditMemo] = useState("");
+  const [editReplaceFile, setEditReplaceFile] = useState<File | null>(null);
+  const [editSaving, setEditSaving] = useState(false);
+
   const fetchFiles = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase
