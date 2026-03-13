@@ -10,15 +10,16 @@ export default function ScrollToTop() {
       requestAnimationFrame(() => {
         const target = document.getElementById(id);
         if (target) {
-          const headerOffset = 56;
-          const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
-          window.scrollTo({ top, behavior: "instant" });
+          const header = document.querySelector("header.fixed") as HTMLElement | null;
+          const headerOffset = header ? header.getBoundingClientRect().bottom : 56;
+          const top = target.getBoundingClientRect().top + window.scrollY - headerOffset - 8;
+          window.scrollTo({ top, behavior: "auto" });
         }
       });
       return;
     }
 
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, [pathname, hash]);
 
   return null;

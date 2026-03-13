@@ -202,8 +202,8 @@ export default function Header() {
                 </Link>
               )}
               <LanguageSwitcher scrolled={effectiveScrolled} />
-              <Link
-                to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
+              <a
+                href={location.pathname === "/service-request" ? "/lms#contact" : "#contact"}
                 className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:shadow-md whitespace-nowrap ${
                   effectiveScrolled
                     ? "bg-foreground text-background hover:opacity-90"
@@ -211,7 +211,7 @@ export default function Header() {
                 }`}
               >
                 {t("header.cta")}
-              </Link>
+              </a>
               <div className="relative" ref={supportRef} onMouseEnter={() => setSupportOpen(true)} onMouseLeave={() => setSupportOpen(false)}>
                 <button
                   className={`shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap ${
