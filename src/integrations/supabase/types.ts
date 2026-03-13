@@ -1029,6 +1029,7 @@ export type Database = {
           month: number
           paid_date: string | null
           payment_type: string
+          remarks: string | null
           updated_at: string | null
           year: number
         }
@@ -1045,6 +1046,7 @@ export type Database = {
           month: number
           paid_date?: string | null
           payment_type?: string
+          remarks?: string | null
           updated_at?: string | null
           year: number
         }
@@ -1061,6 +1063,7 @@ export type Database = {
           month?: number
           paid_date?: string | null
           payment_type?: string
+          remarks?: string | null
           updated_at?: string | null
           year?: number
         }
