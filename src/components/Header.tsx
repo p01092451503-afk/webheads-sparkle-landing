@@ -78,6 +78,17 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Measure actual banner height
+  useEffect(() => {
+    const el = bannerRef.current;
+    if (!el) return;
+    const update = () => setBannerHeight(el.offsetHeight);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [showBanner]);
+
   // Check if current user is super_admin
   useEffect(() => {
     const checkRole = async () => {
