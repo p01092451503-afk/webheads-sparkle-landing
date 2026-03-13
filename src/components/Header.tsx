@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, ScreenShare, Zap } from "lucide-react";
+import { Menu, X, Mail, MonitorSmartphone, ChevronRight, MessageSquareText, ScreenShare, Zap, Settings } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { supabase } from "@/integrations/supabase/client";
 
 const servicePaths = ["/lms", "/hosting", "/maintenance", "/chatbot", "/app", "/drm", "/channel", "/pg", "/content"];
 
@@ -34,6 +35,7 @@ export default function Header() {
   });
   const [bannerReady, setBannerReady] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const location = useLocation();
   const { t, i18n } = useTranslation();
   const isKorean = i18n.language === "ko" || i18n.language?.startsWith("ko-");
@@ -74,6 +76,18 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Check if current user is super_admin
+  useEffect(() => {
+    const checkRole = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) { setIsSuperAdmin(false); return; }
+      const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "super_admin" });
+      setIsSuperAdmin(!!data);
+    };
+    checkRole();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => checkRole());
+    return () => subscription.unsubscribe();
+  }, []);
 
   const showBanner = isKorean && bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
@@ -173,6 +187,19 @@ export default function Header() {
 
             {/* Right side */}
             <div className="hidden lg:flex items-center gap-2 ml-auto">
+              {isSuperAdmin && (
+                <Link
+                  to="/admin"
+                  className={`p-2 rounded-full transition-all duration-200 ${
+                    effectiveScrolled
+                      ? "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      : "text-white/70 hover:text-white hover:bg-white/10"
+                  }`}
+                  aria-label="Admin Dashboard"
+                >
+                  <Settings className="w-[18px] h-[18px]" />
+                </Link>
+              )}
               <LanguageSwitcher scrolled={effectiveScrolled} />
               <Link
                 to={location.pathname === "/service-request" ? "/#contact" : "#contact"}
