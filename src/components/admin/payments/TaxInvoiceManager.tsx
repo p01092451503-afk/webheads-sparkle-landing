@@ -1279,6 +1279,33 @@ export default function TaxInvoiceManager() {
                         </td>
                         <td className="px-3 py-[7px]"></td>
                       </tr>
+                      {addContacts.length > 0 && (
+                        <tr>
+                          <td className="px-3 py-[7px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>추가수신</td>
+                          <td colSpan={3} className="px-3 py-[5px]">
+                            <div className="space-y-1">
+                              {addContacts.map((ac, i) => (
+                                <div key={i} className="flex items-center gap-2">
+                                  <Input value={ac.name} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, name: e.target.value } : p))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0 w-24" placeholder="성명" />
+                                  <Input value={ac.email} onChange={(e) => setAddContacts(prev => prev.map((p, j) => j === i ? { ...p, email: e.target.value } : p))} className="h-6 text-[13px] border-0 p-0 shadow-none focus-visible:ring-0 flex-1" placeholder="이메일" type="email" />
+                                  <button onClick={() => setAddContacts(prev => prev.filter((_, j) => j !== i))} style={{ color: "#999" }} className="hover:text-destructive"><X className="w-3 h-3" /></button>
+                                </div>
+                              ))}
+                              {addContacts.length < 5 && (
+                                <button onClick={() => setAddContacts(prev => [...prev, { name: "", email: "" }])} className="text-[11px] text-primary hover:underline">+ 수신자 추가</button>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                      {addContacts.length === 0 && (
+                        <tr>
+                          <td className="px-3 py-[7px] font-bold" style={{ color: "#333", backgroundColor: "#f5f8ff", borderRight: "1px solid #ddd" }}>추가수신</td>
+                          <td colSpan={3} className="px-3 py-[5px]">
+                            <button onClick={() => setAddContacts(prev => [...prev, { name: "", email: "" }])} className="text-[11px] text-primary hover:underline">+ 수신자 추가</button>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
