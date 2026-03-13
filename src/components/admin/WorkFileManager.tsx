@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import {
   Upload, Trash2, Download, Eye, FileText, FileImage, FileSpreadsheet,
-  File, FolderOpen, Plus, Search, Loader2, X,
+  File, FolderOpen, Plus, Search, Loader2, X, Pencil,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -71,6 +71,13 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
 
   // Delete confirm
   const [deleteTarget, setDeleteTarget] = useState<WorkFile | null>(null);
+
+  // Edit dialog
+  const [editTarget, setEditTarget] = useState<WorkFile | null>(null);
+  const [editFolder, setEditFolder] = useState("일반");
+  const [editMemo, setEditMemo] = useState("");
+  const [editReplaceFile, setEditReplaceFile] = useState<File | null>(null);
+  const [editSaving, setEditSaving] = useState(false);
 
   const fetchFiles = useCallback(async () => {
     setLoading(true);
@@ -144,6 +151,41 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
     } catch {
       toast.error("삭제 실패");
     }
+  };
+
+  const openEdit = (file: WorkFile) => {
+    setEditTarget(file);
+    setEditFolder(file.folder);
+    setEditMemo(file.memo || "");
+    setEditReplaceFile(null);
+  };
+
+  const handleEditSave = async () => {
+    if (!editTarget) return;
+    setEditSaving(true);
+    try {
+      const updates: Record<string, any> = { folder: editFolder, memo: editMemo || null };
+      if (editReplaceFile) {
+        await supabase.storage.from("work-files").remove([editTarget.file_path]);
+        const ext = editReplaceFile.name.split(".").pop();
+        const safeFolder = folderToPathKey[editFolder] || "general";
+        const newPath = `${safeFolder}/${Date.now()}_${crypto.randomUUID().slice(0, 6)}.${ext}`;
+        const { error: storageError } = await supabase.storage.from("work-files").upload(newPath, editReplaceFile);
+        if (storageError) throw storageError;
+        updates.file_path = newPath;
+        updates.file_name = editReplaceFile.name;
+        updates.file_size = editReplaceFile.size;
+        updates.content_type = editReplaceFile.type;
+      }
+      const { error } = await supabase.from("work_files").update(updates).eq("id", editTarget.id);
+      if (error) throw error;
+      toast.success("파일 정보가 수정되었습니다");
+      setEditTarget(null);
+      fetchFiles();
+    } catch (e: any) {
+      toast.error("수정 실패: " + (e.message || "알 수 없는 오류"));
+    }
+    setEditSaving(false);
   };
 
   const handlePreview = async (file: WorkFile) => {
@@ -251,14 +293,17 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
                   </td>
                   <td className="px-4 py-3 text-muted-foreground truncate max-w-[12rem]">{file.memo || "-"}</td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center justify-center gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => handleDownload(file)} title="다운로드">
-                        <Download className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(file)} title="삭제" className="text-destructive hover:text-destructive">
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
+                     <div className="flex items-center justify-center gap-1">
+                       <Button variant="ghost" size="icon" onClick={() => handleDownload(file)} title="다운로드">
+                         <Download className="w-4 h-4" />
+                       </Button>
+                       <Button variant="ghost" size="icon" onClick={() => openEdit(file)} title="편집">
+                         <Pencil className="w-4 h-4" />
+                       </Button>
+                       <Button variant="ghost" size="icon" onClick={() => setDeleteTarget(file)} title="삭제" className="text-destructive hover:text-destructive">
+                         <Trash2 className="w-4 h-4" />
+                       </Button>
+                     </div>
                   </td>
                 </tr>
               ))}
@@ -377,6 +422,61 @@ export default function WorkFileManager({ isSuperAdmin }: { isSuperAdmin: boolea
           <DialogFooter>
             <Button variant="outline" onClick={() => previewFile && handleDownload(previewFile)} className="gap-2">
               <Download className="w-4 h-4" /> 다운로드
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Dialog */}
+      <Dialog open={!!editTarget} onOpenChange={(open) => { if (!open) setEditTarget(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>파일 편집</DialogTitle>
+            <DialogDescription>파일 정보를 수정하거나 파일을 교체합니다.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label>현재 파일</Label>
+              <p className="text-sm text-muted-foreground mt-1 truncate">{editTarget?.file_name}</p>
+            </div>
+            <div>
+              <Label>폴더</Label>
+              <Select value={editFolder} onValueChange={setEditFolder}>
+                <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {folders.map((f) => (
+                    <SelectItem key={f} value={f}>{f}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>메모</Label>
+              <Input className="mt-1" value={editMemo} onChange={(e) => setEditMemo(e.target.value)} placeholder="파일에 대한 간단한 메모" />
+            </div>
+            <div>
+              <Label>파일 교체 (선택)</Label>
+              {editReplaceFile ? (
+                <div className="mt-1 flex items-center gap-2 text-sm bg-muted/50 rounded px-3 py-2">
+                  <span className="truncate flex-1">{editReplaceFile.name}</span>
+                  <button onClick={() => setEditReplaceFile(null)}><X className="w-3 h-3 text-muted-foreground hover:text-destructive" /></button>
+                </div>
+              ) : (
+                <div
+                  className="mt-1 border-2 border-dashed rounded-xl p-4 text-center cursor-pointer border-muted-foreground/25 hover:border-primary/40 hover:bg-muted/30 transition-colors"
+                  onClick={() => { const inp = document.createElement("input"); inp.type = "file"; inp.onchange = (e: any) => { if (e.target.files?.[0]) setEditReplaceFile(e.target.files[0]); }; inp.click(); }}
+                >
+                  <Upload className="w-5 h-5 mx-auto mb-1 text-muted-foreground" />
+                  <p className="text-xs text-muted-foreground">클릭하여 새 파일 선택</p>
+                </div>
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditTarget(null)}>취소</Button>
+            <Button onClick={handleEditSave} disabled={editSaving} className="gap-2">
+              {editSaving && <Loader2 className="w-4 h-4 animate-spin" />}
+              저장
             </Button>
           </DialogFooter>
         </DialogContent>
