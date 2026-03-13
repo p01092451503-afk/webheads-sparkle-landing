@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import {
   Upload, Trash2, Download, FileText, FileImage, FileSpreadsheet,
-  File, FolderOpen, Plus, Search, Loader2, X, HardDrive,
+  File, Search, Loader2, X, HardDrive, Pencil, RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -44,6 +44,14 @@ function getFileIcon(contentType: string | null, fileName: string) {
   return <File className="w-5 h-5 text-muted-foreground" />;
 }
 
+const folderToPathKey: Record<string, string> = {
+  "일반": "general",
+  "계약서": "contracts",
+  "세금계산서": "invoices",
+  "견적서": "quotes",
+  "기타": "etc",
+};
+
 export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: boolean }) {
   const [files, setFiles] = useState<BackupFile[]>([]);
   const [loading, setLoading] = useState(true);
@@ -64,6 +72,14 @@ export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: bool
 
   const [deleteTarget, setDeleteTarget] = useState<BackupFile | null>(null);
 
+  // Edit state
+  const [editTarget, setEditTarget] = useState<BackupFile | null>(null);
+  const [editFolder, setEditFolder] = useState("");
+  const [editMemo, setEditMemo] = useState("");
+  const [editReplaceFile, setEditReplaceFile] = useState<File | null>(null);
+  const [editSaving, setEditSaving] = useState(false);
+  const editFileInputRef = useRef<HTMLInputElement>(null);
+
   const fetchFiles = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase
@@ -81,14 +97,6 @@ export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: bool
   }, []);
 
   useEffect(() => { fetchFiles(); }, [fetchFiles]);
-
-  const folderToPathKey: Record<string, string> = {
-    "일반": "general",
-    "계약서": "contracts",
-    "세금계산서": "invoices",
-    "견적서": "quotes",
-    "기타": "etc",
-  };
 
   const handleUpload = async () => {
     if (selectedFiles.length === 0) return;
@@ -160,6 +168,57 @@ export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: bool
     setPreviewOpen(true);
   };
 
+  const openEdit = (file: BackupFile) => {
+    setEditTarget(file);
+    setEditFolder(file.folder);
+    setEditMemo(file.memo || "");
+    setEditReplaceFile(null);
+  };
+
+  const handleEditSave = async () => {
+    if (!editTarget) return;
+    setEditSaving(true);
+    try {
+      const updates: Record<string, any> = {
+        folder: editFolder,
+        memo: editMemo || null,
+      };
+
+      // If replacing file
+      if (editReplaceFile) {
+        // Remove old file from storage
+        await supabase.storage.from("backup-files").remove([editTarget.file_path]);
+
+        // Upload new file
+        const ext = editReplaceFile.name.split(".").pop();
+        const safeFolder = folderToPathKey[editFolder] || "general";
+        const newPath = `${safeFolder}/${Date.now()}_${crypto.randomUUID().slice(0, 6)}.${ext}`;
+
+        const { error: storageError } = await supabase.storage
+          .from("backup-files")
+          .upload(newPath, editReplaceFile);
+        if (storageError) throw storageError;
+
+        updates.file_name = editReplaceFile.name;
+        updates.file_path = newPath;
+        updates.file_size = editReplaceFile.size;
+        updates.content_type = editReplaceFile.type;
+      }
+
+      const { error: dbError } = await (supabase.from("backup_files" as any) as any)
+        .update(updates)
+        .eq("id", editTarget.id);
+      if (dbError) throw dbError;
+
+      toast.success("수정 완료");
+      setEditTarget(null);
+      fetchFiles();
+    } catch (e: any) {
+      toast.error("수정 실패: " + (e.message || "알 수 없는 오류"));
+    }
+    setEditSaving(false);
+  };
+
   const filtered = files.filter((f) => {
     const matchFolder = folderFilter === "all" || f.folder === folderFilter;
     const matchSearch = !search || f.file_name.toLowerCase().includes(search.toLowerCase()) || (f.memo || "").toLowerCase().includes(search.toLowerCase());
@@ -219,7 +278,7 @@ export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: bool
                 <th className="text-left px-4 py-3 font-medium w-24">크기</th>
                 <th className="text-left px-4 py-3 font-medium w-28">업로드일</th>
                 <th className="text-left px-4 py-3 font-medium w-48">메모</th>
-                <th className="text-center px-4 py-3 font-medium w-32">작업</th>
+                <th className="text-center px-4 py-3 font-medium w-36">작업</th>
               </tr>
             </thead>
             <tbody>
@@ -241,6 +300,9 @@ export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: bool
                   <td className="px-4 py-3 text-muted-foreground truncate max-w-[12rem]">{file.memo || "-"}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-center gap-1">
+                      <Button variant="ghost" size="icon" onClick={() => openEdit(file)} title="편집">
+                        <Pencil className="w-4 h-4" />
+                      </Button>
                       <Button variant="ghost" size="icon" onClick={() => handleDownload(file)} title="다운로드">
                         <Download className="w-4 h-4" />
                       </Button>
@@ -338,6 +400,85 @@ export default function BackupFileManager({ isSuperAdmin }: { isSuperAdmin: bool
             <Button onClick={handleUpload} disabled={uploading || selectedFiles.length === 0} className="gap-2">
               {uploading && <Loader2 className="w-4 h-4 animate-spin" />}
               업로드
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Dialog */}
+      <Dialog open={!!editTarget} onOpenChange={(open) => { if (!open) setEditTarget(null); }}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>파일 편집</DialogTitle>
+            <DialogDescription>폴더, 메모를 변경하거나 파일을 교체할 수 있습니다.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <Label>현재 파일</Label>
+              <div className="mt-1 flex items-center gap-2 text-sm bg-muted/50 rounded-lg px-3 py-2">
+                {editTarget && getFileIcon(editTarget.content_type, editTarget.file_name)}
+                <span className="truncate">{editTarget?.file_name}</span>
+                <span className="text-muted-foreground ml-auto text-xs">{formatFileSize(editTarget?.file_size ?? null)}</span>
+              </div>
+            </div>
+            <div>
+              <Label>폴더</Label>
+              <Select value={editFolder} onValueChange={setEditFolder}>
+                <SelectTrigger className="mt-1">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {folders.map((f) => (
+                    <SelectItem key={f} value={f}>{f}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>메모</Label>
+              <Input
+                className="mt-1"
+                value={editMemo}
+                onChange={(e) => setEditMemo(e.target.value)}
+                placeholder="파일에 대한 간단한 메모"
+              />
+            </div>
+            <div>
+              <Label>파일 교체 (선택)</Label>
+              <input
+                ref={editFileInputRef}
+                type="file"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files?.[0]) setEditReplaceFile(e.target.files[0]);
+                }}
+              />
+              {editReplaceFile ? (
+                <div className="mt-1 flex items-center gap-2 text-sm bg-muted/50 rounded-lg px-3 py-2">
+                  <RefreshCw className="w-4 h-4 text-primary" />
+                  <span className="truncate">{editReplaceFile.name}</span>
+                  <button onClick={() => setEditReplaceFile(null)} className="ml-auto">
+                    <X className="w-3.5 h-3.5 text-muted-foreground hover:text-destructive" />
+                  </button>
+                </div>
+              ) : (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="mt-1 gap-2"
+                  onClick={() => editFileInputRef.current?.click()}
+                >
+                  <RefreshCw className="w-3.5 h-3.5" /> 새 파일 선택
+                </Button>
+              )}
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditTarget(null)}>취소</Button>
+            <Button onClick={handleEditSave} disabled={editSaving} className="gap-2">
+              {editSaving && <Loader2 className="w-4 h-4 animate-spin" />}
+              저장
             </Button>
           </DialogFooter>
         </DialogContent>
