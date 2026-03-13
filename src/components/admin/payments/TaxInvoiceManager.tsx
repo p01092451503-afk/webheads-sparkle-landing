@@ -1256,11 +1256,7 @@ export default function TaxInvoiceManager() {
                           {matchedContacts.length > 0 ? (
                             <select
                               value={selectedContactIdx}
-                              onChange={(e) => {
-                                const idx = parseInt(e.target.value);
-                                setSelectedContactIdx(idx);
-                                setForm(f => ({ ...f, buyerEmail: matchedContacts[idx]?.email || f.buyerEmail }));
-                              }}
+                              onChange={(e) => handleContactChange(parseInt(e.target.value))}
                               className="h-6 text-[13px] bg-transparent border-0 p-0 w-full focus:outline-none"
                             >
                               {matchedContacts.map((ct, i) => (
