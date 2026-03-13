@@ -250,14 +250,14 @@ export default function ChatbotPanel() {
       <button
         onClick={() => setOpen(true)}
         className={cn(
-          "fixed bottom-[160px] md:bottom-[140px] right-3 md:right-5 z-50 flex items-center gap-2 rounded-full bg-foreground text-background shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:scale-105 transition-all duration-200",
-          "pl-4 pr-5 h-[48px]",
+          "fixed bottom-[160px] md:bottom-[140px] right-3 md:right-5 z-50 flex items-center justify-center gap-2 rounded-full bg-foreground text-background shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:scale-105 transition-all duration-200",
+          "w-[44px] h-[44px] md:pl-4 md:pr-5 md:w-auto md:h-[48px]",
           open && "hidden"
         )}
         aria-label="AI 상담"
       >
         <MessageCircle className="w-5 h-5" />
-        <span className="text-sm font-medium whitespace-nowrap">AI 챗봇</span>
+        <span className="text-sm font-medium whitespace-nowrap hidden md:inline">AI 챗봇</span>
       </button>
 
       {/* Floating chat window */}
