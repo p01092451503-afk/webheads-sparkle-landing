@@ -70,6 +70,7 @@ export default function PaymentModal({ open, onClose, onSubmit, clients, editPay
         setPaidDate(undefined);
         setIsUnpaid(false);
         setMemo("");
+        setRemarks("");
         setPaymentType("hosting");
       }
       setClientSearch("");
