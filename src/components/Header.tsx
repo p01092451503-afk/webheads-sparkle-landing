@@ -134,7 +134,7 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto px-4 lg:px-6 max-w-7xl">
-          <div className="flex items-center h-[56px]">
+          <div className="flex items-center h-[60px]">
             {/* Logo */}
             <Link
               to="/lms"
