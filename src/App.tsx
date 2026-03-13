@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import FloatingNav from "./components/FloatingNav";
 import ChatbotPanel from "./components/ChatbotPanel";
+import CookieConsent from "./components/CookieConsent";
 
 import PageTracker from "./components/PageTracker";
 import LmsPage from "./pages/LmsPage";
