@@ -138,8 +138,8 @@ export default function Header() {
           </button>
         </div>
       )}
-      <div className={`transition-[height] duration-500 ease-out ${showBanner ? "h-[44px]" : "h-0"}`} aria-hidden="true" />
-    <header className={`fixed left-0 right-0 z-50 transition-[top] duration-500 ease-out ${showBanner ? "top-[44px]" : "top-0"}`}>
+      <div className="transition-[height] duration-500 ease-out" style={{ height: showBanner ? `${bannerHeight}px` : "0px" }} aria-hidden="true" />
+    <header className="fixed left-0 right-0 z-50 transition-[top] duration-500 ease-out" style={{ top: showBanner ? `${bannerHeight}px` : "0px" }}>
       {/* Main bar */}
       <div
         className={`transition-all duration-300 ${
