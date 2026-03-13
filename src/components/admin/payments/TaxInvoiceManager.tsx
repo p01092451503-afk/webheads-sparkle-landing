@@ -173,6 +173,21 @@ export default function TaxInvoiceManager() {
     return clientCompanyMap.get(String(client.client_no)) || null;
   }, [clientCompanyMap]);
 
+  // Build combined search list: clients + unlinked client_companies
+  const combinedSearchItems = useMemo(() => {
+    // Track which company IDs are already linked via clients
+    const linkedCompanyIds = new Set<string>();
+    for (const c of clients) {
+      const company = getCompanyForClient(c);
+      if (company) linkedCompanyIds.add(company.id);
+    }
+    // client_companies that have NO matching client entry
+    const unlinkedCompanies = clientCompanies.filter(
+      cc => cc.is_active && !linkedCompanyIds.has(cc.id)
+    );
+    return { linkedCompanyIds, unlinkedCompanies };
+  }, [clients, clientCompanies, getCompanyForClient]);
+
   const handleClientSelect = (clientId: string) => {
     const client = clients.find(c => c.id === clientId);
     if (!client) {
@@ -212,6 +227,65 @@ export default function TaxInvoiceManager() {
       .slice(0, 5)
       .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
     setAddContacts(additionalContacts);
+  };
+
+  // Select an unlinked company: auto-create a clients record, then select it
+  const handleUnlinkedCompanySelect = async (company: ClientCompany) => {
+    try {
+      // Find the next client_no
+      const maxNo = clients.reduce((max, c) => Math.max(max, c.client_no || 0), 0);
+      const newClientNo = maxNo + 1;
+
+      // Also set num on client_companies if not set
+      if (!company.num) {
+        await supabase.from("client_companies").update({ num: String(newClientNo) } as any).eq("id", company.id);
+      }
+
+      const { data, error } = await supabase.from("clients").insert({
+        name: company.company_name,
+        client_no: newClientNo,
+        is_active: true,
+        sort_order: newClientNo,
+      } as any).select("id, name, client_no").single();
+
+      if (error) throw error;
+
+      // Update num on client_companies to match
+      await supabase.from("client_companies").update({ num: String(newClientNo) } as any).eq("id", company.id);
+
+      const newClient = data as Client;
+      setClients(prev => [...prev, newClient]);
+
+      // Now select it
+      const companyContacts2 = clientContacts.filter(ct => ct.company_id === company.id);
+      setMatchedContacts(companyContacts2);
+      setSelectedContactIdx(0);
+
+      const address = [company.address1, company.address2].filter(Boolean).join(" ");
+      const primaryEmail = companyContacts2[0]?.email || "";
+
+      setForm(f => ({
+        ...f,
+        clientId: newClient.id,
+        buyerCorpNum: company.business_number || f.buyerCorpNum,
+        buyerCorpName: company.company_name,
+        buyerCEOName: company.ceo_name || f.buyerCEOName,
+        buyerEmail: primaryEmail || f.buyerEmail,
+        buyerAddress: address || f.buyerAddress,
+        buyerBusinessType: company.business_type || f.buyerBusinessType,
+        buyerBusinessItem: company.business_item || f.buyerBusinessItem,
+      }));
+
+      const additionalContacts = companyContacts2
+        .filter((ct, idx) => idx > 0 && ct.email)
+        .slice(0, 5)
+        .map(ct => ({ name: ct.name || "", email: ct.email || "" }));
+      setAddContacts(additionalContacts);
+
+      toast.success(`${company.company_name}이(가) 매출관리에 자동 등록되었습니다.`);
+    } catch (err: any) {
+      toast.error("자동 등록 실패: " + (err.message || "오류"));
+    }
   };
 
   // When담당자 changes, update addContacts to include all OTHER contacts with email
@@ -1213,6 +1287,26 @@ export default function TaxInvoiceManager() {
                                           </CommandItem>
                                         );
                                       })}
+                                      {combinedSearchItems.unlinkedCompanies.length > 0 && (
+                                        <>
+                                          <div className="px-3 py-1.5 text-[11px] text-muted-foreground font-semibold border-t">고객사관리 (미등록)</div>
+                                          {combinedSearchItems.unlinkedCompanies.map((cc) => (
+                                            <CommandItem
+                                              key={`cc-${cc.id}`}
+                                              value={`${cc.company_name} ${cc.business_number} ${cc.ceo_name || ""}`}
+                                              onSelect={() => {
+                                                handleUnlinkedCompanySelect(cc);
+                                                setClientSearchOpen(false);
+                                              }}
+                                              className="text-[13px] cursor-pointer"
+                                            >
+                                              <span className="font-medium">{cc.company_name}</span>
+                                              <span className="text-muted-foreground ml-2">({cc.business_number})</span>
+                                              <span className="text-orange-500 ml-1 text-[11px]">신규</span>
+                                            </CommandItem>
+                                          ))}
+                                        </>
+                                      )}
                                     </CommandList>
                                   </div>
                                 </Command>
