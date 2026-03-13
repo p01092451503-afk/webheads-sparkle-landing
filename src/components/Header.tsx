@@ -78,6 +78,8 @@ export default function Header() {
     return () => clearTimeout(timer);
   }, []);
 
+  const showBanner = isKorean && bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
+
   // Measure actual banner height
   useEffect(() => {
     const el = bannerRef.current;
@@ -88,21 +90,6 @@ export default function Header() {
     ro.observe(el);
     return () => ro.disconnect();
   }, [showBanner]);
-
-  // Check if current user is super_admin
-  useEffect(() => {
-    const checkRole = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user) { setIsSuperAdmin(false); return; }
-      const { data } = await supabase.rpc("has_role", { _user_id: session.user.id, _role: "super_admin" });
-      setIsSuperAdmin(!!data);
-    };
-    checkRole();
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => checkRole());
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const showBanner = isKorean && bannerReady && !bannerDismissed && new Date() <= new Date("2026-03-31T23:59:59+09:00");
 
   return (
     <>
