@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
+import LazySection from "@/components/shared/LazySection";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
   GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck,
@@ -13,7 +14,7 @@ import {
   Zap, Award, Building2, Star
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import SEO, { BASE_URL } from "@/components/SEO";
 
 /* ── Plan data ── */
@@ -228,7 +229,7 @@ export default function CostSimulatorPage() {
                     <div className="flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm font-semibold text-foreground">{t("costSim.sim.learners")}</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.learnersTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
+                      <Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.learnersTooltip")}</p></TooltipContent></Tooltip>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={learners} onChange={(e) => handleLearnersChange(Math.min(2000, Math.max(10, Number(e.target.value) || 10)))} className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={10} max={2000} />
@@ -245,7 +246,7 @@ export default function CostSimulatorPage() {
                     <div className="flex items-center gap-1.5">
                       <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm font-semibold text-foreground">{t("costSim.sim.storage")}</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs max-w-[220px]">{t("costSim.sim.storageTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
+                      <Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs max-w-[220px]">{t("costSim.sim.storageTooltip")}</p></TooltipContent></Tooltip>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={storageInput} onChange={(e) => setStorageInput(Math.min(500, Math.max(1, Number(e.target.value) || 1)))} className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={1} max={500} />
@@ -263,7 +264,7 @@ export default function CostSimulatorPage() {
                     <div className="flex items-center gap-1.5">
                       <GraduationCap className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm font-semibold text-foreground">{t("costSim.sim.completion")}</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.completionTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
+                      <Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.completionTooltip")}</p></TooltipContent></Tooltip>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={completionRate} onChange={(e) => setCompletionRate(Math.min(100, Math.max(10, Number(e.target.value) || 10)))} className="w-12 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={10} max={100} />
@@ -405,6 +406,7 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
+      <LazySection>
       {/* ═══ PLAN FEATURE COMPARISON ═══ */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-5xl">
@@ -488,7 +490,9 @@ export default function CostSimulatorPage() {
           </div>
         </div>
       </section>
+      </LazySection>
 
+      <LazySection>
       {/* ═══ COMPETITOR COMPARISON ═══ */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
@@ -521,7 +525,9 @@ export default function CostSimulatorPage() {
           </div>
         </div>
       </section>
+      </LazySection>
 
+      <LazySection>
       {/* ═══ SUCCESS CASES ═══ */}
       <section className="py-16 md:py-20" style={{ background: "#F8F9FD" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
@@ -551,7 +557,9 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
-      {/* ═══ MID CTA ═══ */}
+      </LazySection>
+
+      <LazySection>
       <section className="py-14" style={{ background: "linear-gradient(135deg, #5D45FF, #7c68ff)" }}>
         <div className="container mx-auto px-5 max-w-4xl text-center">
           <h3 className="font-bold text-white text-2xl tracking-tight mb-3">{t("costSim.midCta.title")}</h3>
@@ -664,6 +672,7 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
+      </LazySection>
     </div>
   );
 }
