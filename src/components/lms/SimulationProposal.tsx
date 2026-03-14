@@ -28,6 +28,13 @@ const PLAN_BASE_PRICES: Record<string, number> = {
   Starter: 300000, Basic: 500000, Plus: 700000, Premium: 1000000,
 };
 
+const PLAN_SPECS: Record<string, { cdn: string; storage: string; members: string; extras: string[] }> = {
+  Starter: { cdn: "—", storage: "—", members: "무제한", extras: ["디자인 무료 템플릿", "SSL 보안인증서"] },
+  Basic: { cdn: "500GB/월", storage: "100GB", members: "무제한", extras: ["디자인 무료 템플릿", "SSL 보안인증서", "하이브리드앱 개발(별도 문의)"] },
+  Plus: { cdn: "1,500GB/월", storage: "200GB", members: "무제한", extras: ["모바일 앱 제공", "디자인 무료 템플릿", "SSL 보안인증서"] },
+  Premium: { cdn: "2,000GB/월", storage: "250GB", members: "무제한", extras: ["모바일 앱 제공", "DRM 보안 플레이어", "디자인 무료 템플릿", "SSL 보안인증서"] },
+};
+
 const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(({ data }, ref) => {
   const { t } = useTranslation();
   const fmt = (n: number) => n.toLocaleString("ko-KR");
