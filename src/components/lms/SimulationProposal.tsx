@@ -309,9 +309,9 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
       {/* Footer */}
       <div className="px-8 py-6 text-center" style={{ background: "#F9FAFB" }}>
         <p className="text-sm font-bold text-gray-700 mb-1">(주)웹헤즈 — 16년 e러닝 전문 기업</p>
-        <p className="text-xs text-gray-400">서울특별시 금천구 가산디지털1로 30, 에이스 하이엔드타워3차 1208호</p>
+        <p className="text-xs text-gray-400">서울특별시 마포구 월드컵로114, 3층 (성산동, 효남빌딩)</p>
         <p className="text-xs text-gray-400 mt-1">
-          Tel: 02-6925-0063 · Email: 34bus@webheads.co.kr · <span style={{ color: "#5D45FF" }}>www.webheads.co.kr</span>
+          Tel: 02-540-4337 · Email: 34bus@webheads.co.kr · <span style={{ color: "#5D45FF" }}>www.webheads.co.kr</span>
         </p>
         <p className="text-[10px] text-gray-300 mt-3">본 견적서는 시뮬레이션 결과를 기반으로 자동 생성되었으며, 실제 계약 조건은 상담 후 확정됩니다. VAT 별도.</p>
       </div>
