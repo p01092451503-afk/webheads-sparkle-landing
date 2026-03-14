@@ -72,17 +72,17 @@ const CookieConsent = () => {
 
         {/* Settings panel */}
         {showSettings && (
-          <div className="mb-4 p-3 rounded-xl space-y-3 text-xs" style={{ background: "hsl(0, 0%, 14%)" }}>
-            <label className="flex items-center gap-2" style={{ color: "hsl(0, 0%, 50%)" }}>
-              <input type="checkbox" checked disabled className="accent-primary rounded" />
+          <div className="mb-4 p-4 rounded-xl space-y-4 text-sm" style={{ background: "hsl(0, 0%, 14%)" }}>
+            <label className="flex items-center gap-3" style={{ color: "hsl(0, 0%, 50%)" }}>
+              <input type="checkbox" checked disabled className="accent-primary rounded w-5 h-5" />
               {labelEssential}
             </label>
-            <label className="flex items-center gap-2 cursor-pointer" style={{ color: "hsl(0, 0%, 85%)" }}>
-              <input type="checkbox" checked={analytics} onChange={(e) => setAnalytics(e.target.checked)} className="accent-primary rounded" />
+            <label className="flex items-center gap-3 cursor-pointer" style={{ color: "hsl(0, 0%, 85%)" }}>
+              <input type="checkbox" checked={analytics} onChange={(e) => setAnalytics(e.target.checked)} className="accent-primary rounded w-5 h-5" />
               {labelAnalytics}
             </label>
-            <label className="flex items-center gap-2 cursor-pointer" style={{ color: "hsl(0, 0%, 85%)" }}>
-              <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} className="accent-primary rounded" />
+            <label className="flex items-center gap-3 cursor-pointer" style={{ color: "hsl(0, 0%, 85%)" }}>
+              <input type="checkbox" checked={marketing} onChange={(e) => setMarketing(e.target.checked)} className="accent-primary rounded w-5 h-5" />
               {labelMarketing}
             </label>
           </div>
