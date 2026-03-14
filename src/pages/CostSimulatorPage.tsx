@@ -167,14 +167,14 @@ export default function CostSimulatorPage() {
       const html2pdf = (await import("html2pdf.js")).default;
       const planName = bestPlan?.name || "LMS";
       const filename = `웹헤즈_LMS_견적서_${planName}_${new Date().toISOString().slice(0, 10)}.pdf`;
-      await html2pdf().set({
+      const opt = {
         margin: 0,
         filename,
         image: { type: "jpeg", quality: 0.95 },
         html2canvas: { scale: 2, useCORS: true, logging: false },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
-      }).from(proposalRef.current).save();
+      };
+      await (html2pdf() as any).set(opt).from(proposalRef.current).save();
       showToast({ title: "PDF 다운로드 완료", description: `${filename} 파일이 저장되었습니다.` });
     } catch (err) {
       showToast({ title: "PDF 생성 오류", description: "잠시 후 다시 시도해주세요.", variant: "destructive" });
