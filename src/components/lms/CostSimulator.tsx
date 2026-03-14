@@ -612,6 +612,7 @@ export default function CostSimulator() {
               {t("costSim.disclaimer")}
             </p>
           </div>
+        </div>
       </div>
       {bestPlan && <QuoteEmailModal open={quoteModalOpen} onOpenChange={setQuoteModalOpen} planName={bestPlan.name} monthlyTotal={bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0} />}
     </section>
