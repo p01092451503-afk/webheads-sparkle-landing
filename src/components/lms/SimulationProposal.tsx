@@ -178,14 +178,21 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
             </tbody>
             <tfoot>
               <tr style={{ background: "#5D45FF" }}>
-                <td className="px-5 py-4 font-bold text-white text-base">합계 (VAT 별도)</td>
+                <td className="px-5 py-4 font-bold text-white text-base">첫 달 합계 (VAT 별도)</td>
                 <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(planBasePrice + SETUP_FEE - discount)}원</td>
               </tr>
             </tfoot>
           </table>
         </div>
+        <div className="mt-3 rounded-xl p-4 flex items-center justify-between" style={{ background: "#F0EEFF", border: "1px solid #E8E5FF" }}>
+          <div>
+            <p className="text-sm font-bold text-gray-800">2개월차부터 월 이용료</p>
+            <p className="text-xs text-gray-500 mt-0.5">세팅료는 최초 1회만 발생합니다</p>
+          </div>
+          <p className="text-xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(planBasePrice - discount)}원<span className="text-sm font-bold">/월</span></p>
+        </div>
         {data.isAnnual && (
-          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice - discount) * 12)}원 (VAT 별도)</p>
+          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice - discount) * 12 + SETUP_FEE)}원 (VAT 별도)</p>
         )}
       </div>
 
