@@ -48,6 +48,7 @@ export default function CostSimulator() {
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const [isAnnual, setIsAnnual] = useState(true);
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
+  const [detailOpen, setDetailOpen] = useState(false);
   const SECURE_PLAYER_COST = 300000;
   const DEDICATED_SERVER_COST = 250000;
   const ANNUAL_DISCOUNT = 0.1;
