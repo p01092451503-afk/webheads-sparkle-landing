@@ -391,28 +391,28 @@ export default function CostSimulatorPage() {
 
               {/* All plans comparison */}
               <div className="rounded-2xl border border-border overflow-hidden bg-white shadow-sm">
-                <div className="px-5 py-3.5 bg-muted/50 border-b border-border flex items-center justify-between">
-                  <span className="text-xs font-bold text-muted-foreground tracking-wider uppercase">{t("costSim.result.allPlans")}</span>
-                  {isAnnual && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "#00C896" }}>{t("costSim.result.annualApplied")}</span>}
+                <div className="px-6 py-4 bg-muted/50 border-b border-border flex items-center justify-between">
+                  <span className="text-sm font-bold text-muted-foreground tracking-wider uppercase">{t("costSim.result.allPlans")}</span>
+                  {isAnnual && <span className="text-xs font-bold px-2.5 py-1 rounded-full text-white" style={{ background: "#00C896" }}>{t("costSim.result.annualApplied")}</span>}
                 </div>
                 <div className="divide-y divide-border">
                   {recommendations.map((plan) => {
                     const discounted = isAnnual ? Math.round(plan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : plan.totalMonthly;
                     return (
-                      <div key={plan.name} className={`flex items-center justify-between px-5 py-4 transition-colors ${plan.name === bestPlan?.name ? "" : "hover:bg-muted/30"}`} style={plan.name === bestPlan?.name ? { background: "rgba(93,69,255,0.05)" } : undefined}>
+                      <div key={plan.name} className={`flex items-center justify-between px-6 py-5 transition-colors ${plan.name === bestPlan?.name ? "" : "hover:bg-muted/30"}`} style={plan.name === bestPlan?.name ? { background: "rgba(93,69,255,0.05)" } : undefined}>
                         <div className="flex items-center gap-3">
-                          {plan.name === bestPlan?.name && <span className="w-2 h-2 rounded-full shrink-0" style={{ background: "#5D45FF" }} />}
+                          {plan.name === bestPlan?.name && <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: "#5D45FF" }} />}
                           <div>
-                            <p className="text-sm font-bold" style={plan.name === bestPlan?.name ? { color: "#5D45FF" } : undefined}>{plan.name}</p>
-                            <p className="text-xs text-muted-foreground">{plan.solutionType}</p>
-                            <p className="text-[10px] text-muted-foreground/60">{plan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded }) : t("costSim.result.cdnNone")}</p>
+                            <p className="text-base font-bold" style={plan.name === bestPlan?.name ? { color: "#5D45FF" } : undefined}>{plan.name}</p>
+                            <p className="text-sm text-muted-foreground">{plan.solutionType}</p>
+                            <p className="text-xs text-muted-foreground/60">{plan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded }) : t("costSim.result.cdnNone")}</p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly)}{t("costSim.result.perMonth")}</p>
-                          {isAnnual && <p className="text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(plan.monthly)}</p>}
+                          <p className="text-base font-bold text-foreground tabular-nums">{formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly)}{t("costSim.result.perMonth")}</p>
+                          {isAnnual && <p className="text-xs text-muted-foreground line-through tabular-nums">{formatPrice(plan.monthly)}</p>}
                           {plan.totalMonthly > plan.monthly && (
-                            <p className="text-[10px] text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>
+                            <p className="text-xs text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>
                           )}
                         </div>
                       </div>
