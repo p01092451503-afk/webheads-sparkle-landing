@@ -31,7 +31,7 @@ serve(async (req) => {
 
   try {
     const formData: ContactFormData = await req.json();
-    const { company, name, phone, email, service, message, inquiryType = "consultation", marketingAgreed = false, session_id } = formData;
+    const { company, name, phone, email, service, message, inquiryType = "consultation", marketingAgreed = false, session_id, proposal_data } = formData;
 
     if (!name || !phone) {
       return new Response(
