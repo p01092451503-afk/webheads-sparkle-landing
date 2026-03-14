@@ -409,6 +409,7 @@ export default function CostSimulatorPage() {
       <LazySection>
       {/* ═══ PLAN FEATURE COMPARISON ═══ */}
       <section className="py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-5 md:px-6 max-w-5xl">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-2 text-center" style={{ wordBreak: "keep-all" }}>{t("costSim.features.title")}</h2>
           <p className="text-sm text-muted-foreground text-center mb-10">{t("costSim.features.desc")}</p>
 
