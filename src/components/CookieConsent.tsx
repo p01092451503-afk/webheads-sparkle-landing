@@ -49,7 +49,7 @@ const CookieConsent = () => {
   const labelMarketing = isKo ? "마케팅 쿠키" : isJa ? "マーケティングCookie" : "Marketing Cookies";
 
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] animate-in slide-in-from-bottom-4 duration-500">
+    <div className="fixed bottom-6 left-6 z-[9999] animate-in slide-in-from-bottom-4 duration-500">
       <div
         className="w-[320px] rounded-2xl p-6 shadow-2xl"
         style={{ background: "hsl(0, 0%, 8%)" }}
