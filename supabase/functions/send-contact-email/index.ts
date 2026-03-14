@@ -54,7 +54,7 @@ serve(async (req) => {
       inquiry_type: inquiryType,
       marketing_agreed: marketingAgreed,
       session_id: session_id || null,
-      proposal_data: proposal_data || null,
+      proposal_data: proposal_data && Object.keys(proposal_data).length > 0 ? proposal_data : null,
     });
 
     if (dbError) {
