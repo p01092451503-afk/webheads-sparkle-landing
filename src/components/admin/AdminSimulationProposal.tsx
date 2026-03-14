@@ -64,8 +64,8 @@ export default function AdminSimulationProposal({ inquiry, logActivity }: Props)
       const filename = `웹헤즈_LMS_견적서_${currentData?.planName}_${inquiry.company}_${new Date().toISOString().slice(0, 10)}.pdf`;
       await (html2pdf() as any).set({
         margin: [0, 0, 0, 0], filename,
-        image: { type: "jpeg", quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: { scale: 4, useCORS: true, logging: false },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       }).from(proposalRef.current).save();
