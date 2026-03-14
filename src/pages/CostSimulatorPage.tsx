@@ -21,6 +21,12 @@ import SEO, { BASE_URL } from "@/components/SEO";
 const COMPETITOR_NOTE = "비교 대상: 국내 주요 이러닝 호스팅 서비스 A, B, C사의 동일 조건 공개 견적 기준 (2025년 1분기)";
 const COMPETITOR_LABEL = "* 동일 사양(수강생 수, 전송량, DRM 포함) 기준 주요 이러닝 호스팅 3사 견적 평균과 비교";
 
+const PLAN_KEY_FEATURES: Record<string, string[]> = {
+  Basic: ["기본 고객 지원 (이메일, 평일 9-18시)", "월간 이용 리포트 제공"],
+  Plus: ["우선 고객 지원 (이메일+채팅, 평일 9-21시)", "실시간 트래픽 모니터링 대시보드", "월간 + 주간 이용 리포트"],
+  Premium: ["전담 CS 매니저 배정", "SLA 99.99% 보장 (장애 시 크레딧 환급)", "실시간 알림 + 맞춤형 월간 리포트"],
+};
+
 /* ── Plan data ── */
 interface PlanRecommendation {
   name: string; monthly: number; cdnIncluded: number; storageIncluded: number;
@@ -460,22 +466,43 @@ export default function CostSimulatorPage() {
                     const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
                     const overageOnly = plan.overageCdn + plan.overageStorage;
                     const addonsTotal = secureAddon + dedicatedAddon + overageOnly;
+                    const isBest = plan.name === bestPlan?.name;
+                    const features = PLAN_KEY_FEATURES[plan.name] || [];
                     return (
-                      <div key={plan.name} className={`flex items-center justify-between px-6 py-5 transition-colors ${plan.name === bestPlan?.name ? "" : "hover:bg-muted/30"}`} style={plan.name === bestPlan?.name ? { background: "rgba(93,69,255,0.05)" } : undefined}>
-                        <div className="flex items-center gap-3">
-                          {plan.name === bestPlan?.name && <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: "#5D45FF" }} />}
-                          <div>
-                            <p className="text-base font-bold" style={plan.name === bestPlan?.name ? { color: "#5D45FF" } : undefined}>{plan.name}</p>
+                      <div key={plan.name} className={`flex items-start justify-between px-6 py-5 transition-colors ${isBest ? "" : "hover:bg-muted/30"}`} style={{ background: isBest ? "rgba(93,69,255,0.05)" : undefined, borderLeft: isBest ? "3px solid #5D45FF" : "3px solid transparent" }}>
+                        <div className="flex items-start gap-3 flex-1 min-w-0">
+                          {isBest && <span className="w-2.5 h-2.5 rounded-full shrink-0 mt-1.5" style={{ background: "#5D45FF" }} />}
+                          <div className="min-w-0">
+                            <p className="text-base font-bold" style={isBest ? { color: "#5D45FF" } : undefined}>{plan.name}</p>
                             <p className="text-sm text-muted-foreground">{plan.solutionType}</p>
                             <p className="text-xs text-muted-foreground/60">{plan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded }) : t("costSim.result.cdnNone")}</p>
+                            {features.length > 0 && (
+                              <div className="mt-2 space-y-0.5">
+                                {features.map((f) => (
+                                  <p key={f} className="text-xs text-muted-foreground flex items-start gap-1.5">
+                                    <CheckCircle className="w-3 h-3 shrink-0 mt-0.5" style={{ color: isBest ? "#5D45FF" : "#9ca3af" }} />
+                                    {f}
+                                  </p>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
-                        <div className="text-right">
-                          <p className="text-base font-bold text-foreground tabular-nums">{formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly)}{t("costSim.result.perMonth")}</p>
-                          {isAnnual && <p className="text-xs text-muted-foreground line-through tabular-nums">{formatPrice(plan.monthly)}</p>}
-                          {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {formatPrice(secureAddon)}</p>}
-                          {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {formatPrice(dedicatedAddon)}</p>}
-                          {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {formatPrice(overageOnly)}</p>}
+                        <div className="text-right shrink-0 flex flex-col items-end gap-2">
+                          <div>
+                            <p className="text-base font-bold text-foreground tabular-nums">{formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly)}{t("costSim.result.perMonth")}</p>
+                            {isAnnual && <p className="text-xs text-muted-foreground line-through tabular-nums">{formatPrice(plan.monthly)}</p>}
+                            {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {formatPrice(secureAddon)}</p>}
+                            {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {formatPrice(dedicatedAddon)}</p>}
+                            {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {formatPrice(overageOnly)}</p>}
+                          </div>
+                          <a
+                            href="#lead-capture"
+                            className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${isBest ? "text-white hover:opacity-90" : "border hover:bg-muted/50"}`}
+                            style={isBest ? { background: "#5D45FF" } : { borderColor: "#5D45FF", color: "#5D45FF" }}
+                          >
+                            이 플랜으로 상담받기
+                          </a>
                         </div>
                       </div>
                     );

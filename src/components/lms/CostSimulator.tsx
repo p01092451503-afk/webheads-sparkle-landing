@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import type { TOptions } from "i18next";
-import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown } from "lucide-react";
+import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown, CheckCircle } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -29,6 +29,12 @@ const PLAN_DEFS = [
 /* ── Competitor comparison note (운영팀 수정 가능) ── */
 const COMPETITOR_NOTE = "비교 대상: 국내 주요 이러닝 호스팅 서비스 A, B, C사의 동일 조건 공개 견적 기준 (2025년 1분기)";
 const COMPETITOR_LABEL = "* 동일 사양(수강생 수, 전송량, DRM 포함) 기준 주요 이러닝 호스팅 3사 견적 평균과 비교";
+
+const PLAN_KEY_FEATURES: Record<string, string[]> = {
+  Basic: ["기본 고객 지원 (이메일, 평일 9-18시)", "월간 이용 리포트 제공"],
+  Plus: ["우선 고객 지원 (이메일+채팅, 평일 9-21시)", "실시간 트래픽 모니터링 대시보드", "월간 + 주간 이용 리포트"],
+  Premium: ["전담 CS 매니저 배정", "SLA 99.99% 보장 (장애 시 크레딧 환급)", "실시간 알림 + 맞춤형 월간 리포트"],
+};
 
 const GB_CDN_PER_HOUR_VIEWED = 0.588;
 const STORAGE_GB_PER_VIDEO_HOUR = 0.602;
@@ -532,17 +538,20 @@ export default function CostSimulator() {
                   const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
                   const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
                   const overageOnly = plan.overageCdn + plan.overageStorage;
+                  const isBest = plan.name === bestPlan?.name;
+                  const features = PLAN_KEY_FEATURES[plan.name] || [];
                   return (
                   <div
                     key={plan.name}
-                    className={`flex items-center justify-between px-6 py-5 transition-colors ${plan.name === bestPlan?.name ? "bg-primary/5" : "bg-background hover:bg-muted/30"}`}
+                    className={`flex items-start justify-between px-6 py-5 transition-colors ${isBest ? "bg-primary/5" : "bg-background hover:bg-muted/30"}`}
+                    style={{ borderLeft: isBest ? "3px solid hsl(var(--lms-primary))" : "3px solid transparent" }}
                   >
-                    <div className="flex items-center gap-3">
-                      {plan.name === bestPlan?.name && (
-                        <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: "hsl(var(--lms-primary))" }} />
+                    <div className="flex items-start gap-3 flex-1 min-w-0">
+                      {isBest && (
+                        <span className="w-2.5 h-2.5 rounded-full shrink-0 mt-1.5" style={{ background: "hsl(var(--lms-primary))" }} />
                       )}
-                      <div>
-                        <p className={`text-base font-bold ${plan.name === bestPlan?.name ? "" : "text-foreground"}`} style={plan.name === bestPlan?.name ? { color: "hsl(var(--lms-primary))" } : undefined}>
+                      <div className="min-w-0">
+                        <p className={`text-base font-bold ${isBest ? "" : "text-foreground"}`} style={isBest ? { color: "hsl(var(--lms-primary))" } : undefined}>
                           {plan.name}
                         </p>
                         <p className="text-sm text-muted-foreground">{plan.solutionType}</p>
@@ -551,16 +560,35 @@ export default function CostSimulator() {
                             ? t("costSim.planSpecs", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded.toLocaleString() })
                             : t("costSim.planSpecsNone")}
                         </p>
+                        {features.length > 0 && (
+                          <div className="mt-2 space-y-0.5">
+                            {features.map((f) => (
+                              <p key={f} className="text-xs text-muted-foreground flex items-start gap-1.5">
+                                <CheckCircle className="w-3 h-3 shrink-0 mt-0.5" style={{ color: isBest ? "hsl(var(--lms-primary))" : "#9ca3af" }} />
+                                {f}
+                              </p>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-base font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
-                      {isAnnual && (
-                        <p className="text-xs text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
-                      )}
-                      {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {currency(formatPrice(secureAddon))}</p>}
-                      {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {currency(formatPrice(dedicatedAddon))}</p>}
-                      {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {currency(formatPrice(overageOnly))}</p>}
+                    <div className="text-right shrink-0 flex flex-col items-end gap-2">
+                      <div>
+                        <p className="text-base font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
+                        {isAnnual && (
+                          <p className="text-xs text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
+                        )}
+                        {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {currency(formatPrice(secureAddon))}</p>}
+                        {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {currency(formatPrice(dedicatedAddon))}</p>}
+                        {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {currency(formatPrice(overageOnly))}</p>}
+                      </div>
+                      <a
+                        href="#contact"
+                        className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${isBest ? "text-white hover:opacity-90" : "border hover:bg-muted/50"}`}
+                        style={isBest ? { background: "hsl(var(--lms-primary))" } : { borderColor: "hsl(var(--lms-primary))", color: "hsl(var(--lms-primary))" }}
+                      >
+                        이 플랜으로 상담받기
+                      </a>
                     </div>
                   </div>
                   );
