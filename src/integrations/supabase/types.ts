@@ -588,6 +588,48 @@ export type Database = {
         }
         Relationships: []
       }
+      cookie_consent_logs: {
+        Row: {
+          action: string
+          analytics: boolean
+          created_at: string
+          essential: boolean
+          id: string
+          ip_address: string | null
+          language: string | null
+          marketing: boolean
+          session_id: string | null
+          user_agent: string | null
+          visitor_id: string | null
+        }
+        Insert: {
+          action?: string
+          analytics?: boolean
+          created_at?: string
+          essential?: boolean
+          id?: string
+          ip_address?: string | null
+          language?: string | null
+          marketing?: boolean
+          session_id?: string | null
+          user_agent?: string | null
+          visitor_id?: string | null
+        }
+        Update: {
+          action?: string
+          analytics?: boolean
+          created_at?: string
+          essential?: boolean
+          id?: string
+          ip_address?: string | null
+          language?: string | null
+          marketing?: boolean
+          session_id?: string | null
+          user_agent?: string | null
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       expense_attachments: {
         Row: {
           content_type: string | null
