@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Cookie, ToggleLeft, ToggleRight, Loader2, Save, Trash2, BarChart3, Edit3, Eye, Check, RefreshCw } from "lucide-react";
+import { Cookie, ToggleLeft, ToggleRight, Loader2, Save, Trash2, BarChart3, Edit3, Eye, Check, RefreshCw, Languages } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 
 interface Props {
