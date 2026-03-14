@@ -229,7 +229,7 @@ export default function CostSimulatorPage() {
                     <div className="flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm font-semibold text-foreground">{t("costSim.sim.learners")}</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.learnersTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
+                      <Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.learnersTooltip")}</p></TooltipContent></Tooltip>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={learners} onChange={(e) => handleLearnersChange(Math.min(2000, Math.max(10, Number(e.target.value) || 10)))} className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={10} max={2000} />
