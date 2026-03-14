@@ -637,7 +637,8 @@ export default function CostSimulatorPage() {
                 <p className="text-sm font-semibold text-foreground mb-2">📋 제안서 요약</p>
                 {bestPlan && (
                   <div className="text-xs text-muted-foreground space-y-1">
-                    <p>추천 플랜: <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name}</span> — 월 {formatPrice(displayMonthly)}원</p>
+                    <p>추천 플랜: <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name}</span> — 월 {formatPrice(bestPlan.monthly)}원</p>
+                    <p>기본 전송량 {bestPlan.cdnIncluded > 0 ? `${formatPrice(bestPlan.cdnIncluded)}GB/월` : "—"} · 저장공간 {bestPlan.storageIncluded > 0 ? `${bestPlan.storageIncluded}GB` : "—"}</p>
                     <p>수강생 {learners.toLocaleString()}명 · 저장공간 {storageInput}GB · 완강률 {completionRate}%</p>
                   </div>
                 )}
