@@ -76,8 +76,10 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
   const planBasePrice = PLAN_BASE_PRICES[data.planName] || data.basePrice;
   const planSpec = PLAN_SPECS[data.planName] || PLAN_SPECS.Basic;
 
+  const SETUP_FEE = 300000;
   const costBreakdown: { label: string; amount: number }[] = [
-    { label: `${data.planName} 플랜 기본 요금`, amount: planBasePrice },
+    { label: `${data.planName} 플랜 월 이용료`, amount: planBasePrice },
+    { label: "최초 세팅료 (1회)", amount: SETUP_FEE },
   ];
 
   const discount = data.isAnnual ? Math.round(planBasePrice * 0.1) : 0;
