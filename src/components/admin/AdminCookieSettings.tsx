@@ -30,6 +30,7 @@ export default function AdminCookieSettings({ isSuperAdmin, logActivity }: Props
   const [bannerTextKo, setBannerTextKo] = useState("당사는 웹사이트 운영, 더 나은 브라우징 경험 제공, 웹사이트 트래픽 분석을 위해 쿠키 및 관련 기술을 사용합니다.");
   const [bannerTextEn, setBannerTextEn] = useState("We use cookies to enhance your browsing experience and analyze website traffic.");
   const [bannerTextJa, setBannerTextJa] = useState("当社はウェブサイトの運営、ブラウジング体験の向上、トラフィック分析のためにCookieを使用しています。");
+  const [translating, setTranslating] = useState(false);
 
   // Logs
   const [logs, setLogs] = useState<ConsentLog[]>([]);
