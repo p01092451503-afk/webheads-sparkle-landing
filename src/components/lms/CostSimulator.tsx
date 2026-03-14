@@ -372,9 +372,19 @@ export default function CostSimulator() {
                   <span className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform ${isAnnual ? "translate-x-5" : "translate-x-0"}`} />
                 </button>
               </div>
-              <p className="text-[10px] text-muted-foreground mt-1.5 leading-relaxed pl-1">
-                {isAnnual ? t("costSim.annualOnDesc") : t("costSim.annualOffDesc")}
-              </p>
+              {(() => {
+                const monthlySavings = bestPlan ? Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT) : 0;
+                return (
+                  <>
+                    <p className={`text-[11px] font-semibold mt-1.5 pl-1 ${isAnnual ? 'text-green-600' : 'text-muted-foreground'}`}>
+                      연간 계약 시 월 {formatPrice(monthlySavings)}원 절약
+                    </p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5 pl-1">
+                      연간 계약 시 12개월 기준 총 {formatPrice(monthlySavings * 12)}원을 절약할 수 있습니다.
+                    </p>
+                  </>
+                );
+              })()}
 
               {/* Estimated usage */}
               {needsCdn && (
