@@ -7,7 +7,8 @@ import LazySection from "@/components/shared/LazySection";
 import {
   Server, Wrench, Bot, Smartphone, ShieldCheck,
   MessageSquare, CreditCard, Film, ArrowRight, Phone, CheckCircle2,
-  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight, Rocket, PenSquare
+  Users, Clock, Award, Zap, Check, X, Triangle, ChevronRight, Rocket, PenSquare,
+  Building2, Code, Monitor, Cpu, BriefcaseBusiness, UserCheck, Layers
 } from "lucide-react";
 
 /* ── Service config ── */
