@@ -184,7 +184,7 @@ export default function CostSimulatorPage() {
   const heroStats = t("costSim.hero.stats", { returnObjects: true }) as string[];
 
   return (
-    <div className="min-h-screen" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif" }}>
+    <div className={`min-h-screen ${isMobile && bestPlan ? "pb-20" : ""}`} style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif" }}>
       <SEO
         title={t("costSim.seo.title")}
         description={t("costSim.seo.description")}
