@@ -658,42 +658,19 @@ export default function CostSimulatorPage() {
             <div className="text-center py-6">
               <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#00C896" }} />
               <h3 className="text-xl font-bold text-foreground mb-2">{t("costSim.lead.successTitle")}</h3>
-              <p className="text-sm text-muted-foreground mb-8">{t("costSim.lead.successDesc")}</p>
-              
-              {/* Proposal Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-                <button
-                  onClick={() => setShowProposal(!showProposal)}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all hover:scale-[1.02] border-2"
-                  style={{ borderColor: "#5D45FF", color: "#5D45FF" }}
-                >
-                  {showProposal ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  {showProposal ? "제안서 닫기" : "제안서 미리보기"}
-                </button>
-                <button
-                  onClick={handleDownloadPdf}
-                  disabled={pdfLoading}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all hover:scale-[1.02] disabled:opacity-60"
-                  style={{ background: "#5D45FF" }}
-                >
-                  <Download className="w-4 h-4" />
-                  {pdfLoading ? "PDF 생성 중..." : "PDF 다운로드"}
-                </button>
+              <p className="text-sm text-muted-foreground mb-4">{t("costSim.lead.successDesc")}</p>
+              <div className="rounded-xl p-4 text-left" style={{ background: "#F8F7FF", border: "1px solid #E8E5FF" }}>
+                <p className="text-sm font-semibold text-foreground mb-2">📋 제안서 요약</p>
+                {bestPlan && (
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    <p>추천 플랜: <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name}</span> — 월 {formatPrice(displayMonthly)}원</p>
+                    <p>수강생 {learners.toLocaleString()}명 · 저장공간 {storageInput}GB · 완강률 {completionRate}%</p>
+                  </div>
+                )}
+                <p className="text-xs text-muted-foreground mt-3">
+                  담당자가 맞춤 제안서를 검토 후 입력하신 이메일로 발송해드립니다.
+                </p>
               </div>
-
-              {/* Proposal Preview */}
-              {showProposal && simulationData && (
-                <div className="mt-6 rounded-2xl border-2 overflow-hidden shadow-xl" style={{ borderColor: "#E8E5FF" }}>
-                  <SimulationProposal ref={proposalRef} data={simulationData} />
-                </div>
-              )}
-
-              {/* Hidden proposal for PDF generation when preview is closed */}
-              {!showProposal && simulationData && (
-                <div style={{ position: "absolute", left: "-9999px", top: 0 }}>
-                  <SimulationProposal ref={proposalRef} data={simulationData} />
-                </div>
-              )}
             </div>
           ) : (
           <form className="space-y-4" onSubmit={async (e) => {
