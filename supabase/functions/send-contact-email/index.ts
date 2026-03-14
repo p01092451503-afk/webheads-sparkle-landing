@@ -21,6 +21,7 @@ interface ContactFormData {
   inquiryType?: "consultation" | "demo" | "proposal_request";
   marketingAgreed?: boolean;
   session_id?: string;
+  proposal_data?: Record<string, unknown>;
 }
 
 serve(async (req) => {
