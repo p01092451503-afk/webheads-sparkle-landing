@@ -383,15 +383,17 @@ export default function CostSimulatorPage() {
               )}
 
 
-              {/* Upgrade nudge */}
-              {upgradeNudge && (
+              {/* Upgrade nudge — only when Basic and Plus is cheaper */}
+              {upgradeNudge && upgradeNudge.savings > 0 && (
                 <div className="rounded-2xl border p-4 flex items-start gap-3" style={{ borderColor: "rgba(93,69,255,0.3)", background: "rgba(93,69,255,0.04)" }}>
                   <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(93,69,255,0.12)" }}>
                     <TrendingUp className="w-4 h-4" style={{ color: "#5D45FF" }} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground mb-1">{t("costSim.result.upgradeTitle", { plan: upgradeNudge.toPlan })}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: t("costSim.result.upgradeDesc", { amount: formatPrice(upgradeNudge.diff), benefit: upgradeNudge.benefit, plan: upgradeNudge.toPlan }) }} />
+                    <p className="text-sm font-bold text-foreground mb-1">전송량 기준 Plus 플랜 추천</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      전송량 기준으로 보면 Plus 플랜이 월 {formatPrice(upgradeNudge.savings)}원 더 저렴합니다. Plus로 바꿔볼까요?
+                    </p>
                   </div>
                 </div>
               )}
