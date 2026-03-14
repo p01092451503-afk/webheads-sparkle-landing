@@ -129,6 +129,7 @@ export default function CostSimulator() {
 
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
+  const displayMonthlyGlobal = bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0;
   const currency = (amount: string) => {
     if (lang === 'en') return `₩${amount}`;
     return `${amount}${lang === 'ja' ? 'ウォン' : '원'}`;
