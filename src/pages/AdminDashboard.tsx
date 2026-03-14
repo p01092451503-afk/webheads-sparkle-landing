@@ -30,7 +30,7 @@ type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settin
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
-  { key: "analytics", icon: BarChart3, label: "분석" },
+  { key: "analytics", icon: BarChart3, label: "접속" },
   { key: "inquiries", icon: MessageSquare, label: "문의" },
   { key: "settings", icon: Settings, label: "설정" },
   { key: "404logs", icon: FileWarning, label: "404" },
