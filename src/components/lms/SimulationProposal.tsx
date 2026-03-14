@@ -65,13 +65,8 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
   const costBreakdown: { label: string; amount: number }[] = [
     { label: `${data.planName} 플랜 기본 요금`, amount: data.basePrice },
   ];
-  if (data.overageCdn > 0) costBreakdown.push({ label: "CDN 초과 전송량", amount: data.overageCdn });
-  if (data.overageStorage > 0) costBreakdown.push({ label: "저장공간 초과", amount: data.overageStorage });
-  if (data.needsSecurePlayer && data.planName !== "Starter" && data.planName !== "Premium") costBreakdown.push({ label: "보안 플레이어(DRM)", amount: 300000 });
-  if (data.needsDedicatedServer && data.learners >= 500) costBreakdown.push({ label: "단독서버(WEB)", amount: 250000 });
 
-  const subtotal = costBreakdown.reduce((s, c) => s + c.amount, 0);
-  const discount = data.isAnnual ? Math.round(subtotal * 0.1) : 0;
+  const discount = data.isAnnual ? Math.round(data.basePrice * 0.1) : 0;
 
   return (
     <div ref={ref} className="bg-white text-gray-900" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif", maxWidth: "800px", margin: "0 auto" }}>
