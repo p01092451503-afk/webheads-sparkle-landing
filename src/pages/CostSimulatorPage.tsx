@@ -75,7 +75,7 @@ export default function CostSimulatorPage() {
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const [isAnnual, setIsAnnual] = useState(false);
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
-  const [showAnnualBonus, setShowAnnualBonus] = useState(false);
+  
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
   const [formLoading, setFormLoading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -125,11 +125,6 @@ export default function CostSimulatorPage() {
     const cdnMultiple = next.cdnIncluded / Math.max(bestPlan.cdnIncluded, 1);
     return { fromPlan: bestPlan.name, toPlan: nextName, diff, benefit: t("costSim.result.upgradeBenefit", { multiple: cdnMultiple.toFixed(0) }) };
   }, [bestPlan, recommendations, needsCdn, t]);
-
-  useEffect(() => {
-    if (isAnnual) { setShowAnnualBonus(true); }
-    else setShowAnnualBonus(false);
-  }, [isAnnual]);
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
   const displayMonthly = bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0;
@@ -362,21 +357,6 @@ export default function CostSimulatorPage() {
                 </div>
               )}
 
-              {/* Annual bonus popup */}
-              {showAnnualBonus && (
-                <div className="rounded-2xl border-2 p-4 relative animate-in slide-in-from-top-2 duration-300" style={{ borderColor: "#00C896", background: "linear-gradient(135deg, #f0fdf9, #ecfdf5)" }}>
-                  <button onClick={() => setShowAnnualBonus(false)} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground"><X className="w-4 h-4" /></button>
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "#00C896" }}>
-                      <Star className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-foreground text-sm mb-1">{t("costSim.result.annualTitle")}</p>
-                      <p className="text-xs text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: t("costSim.result.annualDesc") }} />
-                    </div>
-                  </div>
-                </div>
-              )}
 
               {/* Upgrade nudge */}
               {upgradeNudge && (
