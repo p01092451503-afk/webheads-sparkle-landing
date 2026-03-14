@@ -489,7 +489,9 @@ export default function CostSimulatorPage() {
           </div>
         </div>
       </section>
+      </LazySection>
 
+      <LazySection>
       {/* ═══ COMPETITOR COMPARISON ═══ */}
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
