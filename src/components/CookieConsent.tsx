@@ -56,7 +56,7 @@ const CookieConsent = () => {
       >
         {/* Description */}
         {!showSettings && (
-          <p className="text-sm leading-relaxed mb-5" style={{ color: "hsl(0, 0%, 75%)" }}>
+          <p className="text-sm leading-relaxed mb-5 text-center" style={{ color: "hsl(0, 0%, 75%)" }}>
             {desc}{" "}
             <span
               className="underline underline-offset-2 cursor-pointer transition-colors"
