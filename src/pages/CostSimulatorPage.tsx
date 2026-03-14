@@ -624,7 +624,7 @@ export default function CostSimulatorPage() {
               {t("costSim.lead.title")}
             </h2>
             <p className="text-sm text-muted-foreground">
-              {bestPlan && <>{t("costSim.lead.currentPlan")} <span className="font-bold" style={{ color: "#5D45FF" }}>{t("costSim.lead.planSummary", { plan: bestPlan.name, price: formatPrice(displayMonthly) })}</span></>}
+              {bestPlan && <>{t("costSim.lead.currentPlan")} <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name} 플랜 · 월 {formatPrice(bestPlan.monthly)}원</span></>}
             </p>
           </div>
 
