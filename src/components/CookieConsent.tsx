@@ -73,15 +73,17 @@ const CookieConsent = () => {
         </button>
 
         {/* Description */}
-        <p className="text-sm leading-relaxed text-[hsl(0,0%,88%)] mb-5 pr-4">
-          {desc}{" "}
-          <span
-            className="underline underline-offset-2 cursor-pointer hover:text-white transition-colors"
-            onClick={() => window.dispatchEvent(new CustomEvent("open-privacy-policy"))}
-          >
-            {isKo ? "개인정보 처리방침" : isJa ? "プライバシーポリシー" : "Privacy Policy"}
-          </span>
-        </p>
+        {!showSettings && (
+          <p className="text-sm leading-relaxed text-[hsl(0,0%,88%)] mb-5 pr-4">
+            {desc}{" "}
+            <span
+              className="underline underline-offset-2 cursor-pointer hover:text-white transition-colors"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-privacy-policy"))}
+            >
+              {isKo ? "개인정보 처리방침" : isJa ? "プライバシーポリシー" : "Privacy Policy"}
+            </span>
+          </p>
+        )}
 
         {/* Settings panel */}
         {showSettings && (
