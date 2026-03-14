@@ -26,6 +26,10 @@ const PLAN_DEFS = [
   { name: "Premium", monthly: 1000000, cdnIncluded: 2000, storageIncluded: 250, cdnOverage: 300, storageOverage: 500, typeKey: "premium" },
 ];
 
+/* ── Competitor comparison note (운영팀 수정 가능) ── */
+const COMPETITOR_NOTE = "비교 대상: 국내 주요 이러닝 호스팅 서비스 A, B, C사의 동일 조건 공개 견적 기준 (2025년 1분기)";
+const COMPETITOR_LABEL = "* 동일 사양(수강생 수, 전송량, DRM 포함) 기준 주요 이러닝 호스팅 3사 견적 평균과 비교";
+
 const GB_CDN_PER_HOUR_VIEWED = 0.588;
 const STORAGE_GB_PER_VIDEO_HOUR = 0.602;
 const BASE_MONTHLY_HOURS_PER_LEARNER = 10;
@@ -414,10 +418,24 @@ export default function CostSimulator() {
                     const competitorEstimate = displayMonthly > 0 ? Math.round(displayMonthly * 1.3) : 0;
                     const savingsAmount = competitorEstimate - displayMonthly;
                     return savingsAmount > 0 ? (
-                      <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
-                        <TrendingUp className="w-4 h-4 shrink-0" />
-                        경쟁사 동일 사양 평균 대비 월 {formatPrice(savingsAmount)}원 절약
-                      </div>
+                      <>
+                        <div className="mb-1 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
+                          <TrendingUp className="w-4 h-4 shrink-0" />
+                          경쟁사 동일 사양 평균 대비 월 {formatPrice(savingsAmount)}원 절약
+                        </div>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <p className="text-[11px] mb-4 pl-1 cursor-help" style={{ color: "rgba(255,255,255,0.6)" }}>
+                                {COMPETITOR_LABEL}
+                              </p>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom" className="max-w-[280px] text-xs">
+                              {COMPETITOR_NOTE}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </>
                     ) : null;
                   })()}
 
