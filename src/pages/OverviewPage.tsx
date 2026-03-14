@@ -318,6 +318,156 @@ function AddOnServicesSection() {
 }
 
 /* ══════════════════════════════════════════
+   Company Profile Section (from 회사소개서)
+   ══════════════════════════════════════════ */
+function CompanyProfileSection() {
+  const companyInfo = [
+    { icon: Building2, label: "회사명", value: "주식회사 웹헤즈 (204-86-20072)" },
+    { icon: UserCheck, label: "대표자", value: "박진열" },
+    { icon: Clock, label: "설립연도", value: "2010년 4월 (16년차)" },
+    { icon: Monitor, label: "소재지", value: "서울시 마포구 월드컵로 114, 3층" },
+    { icon: Phone, label: "연락처", value: "02-540-4337" },
+  ];
+
+  const teams = [
+    { name: "솔루션사업팀", count: "9명", detail: "고급 4 · 중급 4 · 초급 1" },
+    { name: "콘텐츠사업팀", count: "2명", detail: "고급 2" },
+    { name: "호스팅사업팀", count: "2명", detail: "고급 1 · 중급 1" },
+    { name: "사업지원팀", count: "1명", detail: "" },
+  ];
+
+  const bizAreas = [
+    { icon: Layers, title: "LMS 개발 · 공급", desc: "기업, 공공기관, 대학 등 300+기관에 독립형(SI) 및 임대형(SaaS) LMS 구축" },
+    { icon: Server, title: "호스팅 · CDN", desc: "IDC 센터 운영, 웹호스팅, 미디어 CDN, AWS/NCP 클라우드 관리" },
+    { icon: Cpu, title: "AI 기술", desc: "AI 챗봇, AI 튜터, 콘텐츠 분석 · 추천 엔진 개발" },
+    { icon: ShieldCheck, title: "DRM · 보안", desc: "동영상 콘텐츠 보안 솔루션 공급 (존플레이어, 콜러스 등 연동)" },
+  ];
+
+  const keyClients = [
+    { name: "야나두", desc: "기초영어 동영상 유료 서비스, 회원 60만+" },
+    { name: "월급쟁이부자들", desc: "국내 최대 부동산 온라인 교육, 회원 30만+" },
+    { name: "한국능률협회컨설팅", desc: "기업 컨설팅 · 교육 서비스, 회원 400만+" },
+    { name: "한국입학사정관협의회", desc: "전국 대학 입학사정관 온라인 교육" },
+  ];
+
+  return (
+    <section id="company-profile" data-pdf-section className="py-16" style={{ background: "hsl(250, 35%, 94%)" }}>
+      <div className="container mx-auto px-6 max-w-5xl">
+        <SectionHead sub="COMPANY PROFILE" title="회사 소개" desc="16년간 이러닝 기술에만 집중해온 전문 기업" />
+
+        {/* Company Info */}
+        <div className="rounded-2xl bg-white border border-border shadow-sm p-6 mb-6">
+          <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
+            <Building2 className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
+            회사 개요
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {companyInfo.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-secondary/30">
+                  <Icon className="w-4 h-4 mt-0.5 shrink-0 text-muted-foreground" />
+                  <div>
+                    <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">{item.label}</p>
+                    <p className="text-sm font-semibold text-foreground mt-0.5">{item.value}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Organization */}
+          <div className="mt-5 pt-5 border-t border-border">
+            <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">조직 구성 (총 15명)</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {teams.map((team, i) => (
+                <div key={i} className="rounded-xl p-3 text-center" style={{ background: "hsl(255,75%,58%,0.04)" }}>
+                  <p className="font-bold text-sm text-foreground">{team.name}</p>
+                  <p className="text-lg font-black mt-1" style={{ color: "hsl(255,75%,58%)" }}>{team.count}</p>
+                  {team.detail && <p className="text-[10px] text-muted-foreground mt-0.5">{team.detail}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Business Areas */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          {bizAreas.map((area, i) => {
+            const Icon = area.icon;
+            return (
+              <div key={i} className="rounded-2xl bg-white border border-border shadow-sm p-5">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: "hsl(255,75%,58%,0.1)", color: "hsl(255,75%,58%)" }}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-foreground">{area.title}</h4>
+                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{area.desc}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Key Clients */}
+        <div className="rounded-2xl bg-white border border-border shadow-sm p-6">
+          <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
+            <BriefcaseBusiness className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
+            주요 구축 사례
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {keyClients.map((client, i) => (
+              <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-secondary/30">
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 font-black text-xs" style={{ background: "hsl(255,75%,58%,0.1)", color: "hsl(255,75%,58%)" }}>
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-foreground">{client.name}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{client.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground mt-4 text-center">
+            외 SK하이닉스, 풀무원, 인천국제공항공사, 삼양식품, 서울경찰청, 성균관대 등 300+ 기관
+          </p>
+        </div>
+
+        {/* Tech & Maintenance */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+          <div className="rounded-2xl bg-white border border-border shadow-sm p-5">
+            <h4 className="font-bold text-sm text-foreground mb-3 flex items-center gap-2">
+              <Code className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
+              기술 스택
+            </h4>
+            <div className="space-y-2 text-xs text-muted-foreground">
+              <p>• <strong className="text-foreground">Backend:</strong> PHP, JAVA</p>
+              <p>• <strong className="text-foreground">App:</strong> Flutter, React Native</p>
+              <p>• <strong className="text-foreground">Infra:</strong> AWS, NCP, IDC (LG U+ 가산센터)</p>
+              <p>• <strong className="text-foreground">OS:</strong> Linux / Apache 2.0 / MySQL · MariaDB</p>
+            </div>
+          </div>
+          <div className="rounded-2xl bg-white border border-border shadow-sm p-5">
+            <h4 className="font-bold text-sm text-foreground mb-3 flex items-center gap-2">
+              <Wrench className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
+              유지보수 정책
+            </h4>
+            <div className="space-y-2 text-xs text-muted-foreground">
+              <p>• <strong className="text-foreground">무상 유지보수:</strong> 구축 완료 후 12개월</p>
+              <p>• <strong className="text-foreground">장애 처리:</strong> 단순 오류 접수 후 3시간 이내</p>
+              <p>• <strong className="text-foreground">라이선스:</strong> 영구 사용권 + 소스 완전 오픈</p>
+              <p>• <strong className="text-foreground">품질 보증:</strong> 납품 솔루션 2년 보증</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════
    Client Reference Grid (for Overview PDF)
    ══════════════════════════════════════════ */
 function ClientMarqueeGrid() {
