@@ -834,13 +834,7 @@ export default function CostSimulatorPage() {
           </button>
         </div>
       )}
-      
-    </div>
-  );
 
-  return (
-    <div className={isMobile ? "pb-20" : ""}>
-      {content}
     </div>
   );
 }
