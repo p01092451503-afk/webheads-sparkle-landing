@@ -85,7 +85,10 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
   const discount = data.isAnnual ? Math.round(planBasePrice * 0.1) : 0;
 
   return (
-    <div ref={ref} className="bg-white text-gray-900" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif", maxWidth: "800px", margin: "0 auto" }}>
+    <div ref={ref} className="bg-white text-gray-900 proposal-pdf" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif", maxWidth: "800px", margin: "0 auto" }}>
+      <style>{`
+        .proposal-pdf > div { page-break-inside: avoid; break-inside: avoid; }
+      `}</style>
       {/* Header */}
       <div className="px-8 pt-10 pb-6" style={{ background: "linear-gradient(135deg, #5D45FF, #7c68ff)", color: "white" }}>
         <div className="flex items-center justify-between mb-6">
