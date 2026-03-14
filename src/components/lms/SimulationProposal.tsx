@@ -327,7 +327,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
               <Monitor className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#5D45FF" }} />
               <div>
                 <p className="font-semibold text-gray-700">인프라</p>
-                <p>LG U+ 가산디지털센터 IDC, 전용 CDN 서비스, 24시간 장애 모니터링</p>
+                <p>LG U+ 가산디지털센터 IDC, AWS, 전용 CDN 서비스, 24시간 장애 모니터링</p>
               </div>
             </div>
           </div>
