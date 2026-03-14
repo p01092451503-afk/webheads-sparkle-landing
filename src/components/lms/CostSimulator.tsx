@@ -407,6 +407,20 @@ export default function CostSimulator() {
                     <Sparkles className="w-4 h-4 text-white/80" />
                     <span className="text-xs font-bold text-white/80 tracking-wider uppercase">{t("costSim.recommended")}</span>
                   </div>
+
+                  {/* 1. Savings badge — most prominent */}
+                  {(() => {
+                    const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
+                    const competitorEstimate = displayMonthly > 0 ? Math.round(displayMonthly * 1.3) : 0;
+                    const savingsAmount = competitorEstimate - displayMonthly;
+                    return savingsAmount > 0 ? (
+                      <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
+                        <TrendingUp className="w-4 h-4 shrink-0" />
+                        경쟁사 동일 사양 평균 대비 월 {formatPrice(savingsAmount)}원 절약
+                      </div>
+                    ) : null;
+                  })()}
+
                   <div className="flex items-end gap-3 mb-1">
                     <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
                     <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
@@ -416,6 +430,8 @@ export default function CostSimulator() {
                       ? t("costSim.planSpecs", { cdn: bestPlan.cdnIncluded.toLocaleString(), storage: bestPlan.storageIncluded.toLocaleString() })
                       : t("costSim.planSpecsNone")}
                   </p>
+
+                  {/* 2. Final total price */}
                   {(() => {
                     const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
                     return (
@@ -425,42 +441,43 @@ export default function CostSimulator() {
                           <span className="text-white/70 text-base mb-1">{t("costSim.perMonth")}</span>
                         </div>
                         {isAnnual && (
-                          <div className="flex items-center gap-2 mb-4">
+                          <div className="flex items-center gap-2 mb-2">
                             <span className="text-xs text-white/50 line-through tabular-nums">{formatPrice(bestPlan.totalMonthly)}{t("costSim.perMonth")}</span>
                             <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>{t("costSim.discount")}</span>
                             <span className="text-xs text-white/60">{t("costSim.annualTotal", { amount: formatPrice(displayMonthly * 12) })}</span>
                           </div>
                         )}
-                        {!isAnnual && <div className="mb-4" />}
+
+                        {/* 3. Detail accordion */}
+                        {(() => {
+                          const secureAddon = (needsSecurePlayer && bestPlan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
+                          const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
+                          const hasDetails = bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || secureAddon > 0 || dedicatedAddon > 0 || bestPlan.monthly > 0;
+                          if (!hasDetails) return null;
+                          return (
+                            <div className="mt-2 mb-4">
+                              <button onClick={() => setDetailOpen(!detailOpen)} className="flex items-center gap-1 text-xs font-semibold text-white/70 hover:text-white/90 transition-colors">
+                                금액 상세 보기
+                                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${detailOpen ? "rotate-180" : ""}`} />
+                              </button>
+                              {detailOpen && (
+                                <div className="mt-2 rounded-xl p-3 space-y-1.5 text-xs text-white/80" style={{ background: "rgba(255,255,255,0.1)" }}>
+                                  <div className="flex justify-between"><span>기본 플랜 요금</span><span className="tabular-nums font-semibold">{formatPrice(isAnnual ? Math.round(bestPlan.monthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.monthly)}원</span></div>
+                                  {bestPlan.overageCdn > 0 && <div className="flex justify-between"><span>CDN 초과 사용분</span><span className="tabular-nums font-semibold">+{formatPrice(bestPlan.overageCdn)}원</span></div>}
+                                  {bestPlan.overageStorage > 0 && <div className="flex justify-between"><span>저장공간 초과분</span><span className="tabular-nums font-semibold">+{formatPrice(bestPlan.overageStorage)}원</span></div>}
+                                  {secureAddon > 0 && <div className="flex justify-between"><span>보안 플레이어 (DRM)</span><span className="tabular-nums font-semibold">+{formatPrice(secureAddon)}원</span></div>}
+                                  {dedicatedAddon > 0 && <div className="flex justify-between"><span>단독 서버</span><span className="tabular-nums font-semibold">+{formatPrice(dedicatedAddon)}원</span></div>}
+                                  {isAnnual && <div className="flex justify-between text-green-300"><span>연간 계약 할인 (10%)</span><span className="tabular-nums font-semibold">-{formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT))}원</span></div>}
+                                  <div className="border-t border-white/20 pt-1.5 flex justify-between font-bold text-white"><span>월 납부 합계</span><span className="tabular-nums">{formatPrice(displayMonthly)}원</span></div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </>
                     );
                   })()}
 
-
-                  {(bestPlan.overageCdn > 0 || bestPlan.overageStorage > 0 || needsSecurePlayer || (needsDedicatedServer && learners >= 500)) && (
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {bestPlan.overageCdn > 0 && (
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
-                          {t("costSim.cdnOverage", { amount: formatPrice(bestPlan.overageCdn) })}
-                        </span>
-                      )}
-                      {bestPlan.overageStorage > 0 && (
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
-                          {t("costSim.storageOverage", { amount: formatPrice(bestPlan.overageStorage) })}
-                        </span>
-                      )}
-                      {needsSecurePlayer && bestPlan.name !== "Starter" && (
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
-                          {t("costSim.secureAddon", { amount: formatPrice(SECURE_PLAYER_COST) })}
-                        </span>
-                      )}
-                      {needsDedicatedServer && learners >= 500 && (
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-white/15 text-white/90">
-                          {t("costSim.dedicatedAddon", { amount: formatPrice(DEDICATED_SERVER_COST) })}
-                        </span>
-                      )}
-                    </div>
-                  )}
                   <a href="#contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm bg-white transition-all hover:scale-[1.02]" style={{ color: "hsl(var(--lms-primary))" }}>
                     {t("costSim.ctaPlan")}
                     <ArrowRight className="w-4 h-4" />
