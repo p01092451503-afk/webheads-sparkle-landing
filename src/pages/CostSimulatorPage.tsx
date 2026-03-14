@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
+import QuoteEmailModal from "@/components/lms/QuoteEmailModal";
 import LazySection from "@/components/shared/LazySection";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
@@ -87,6 +88,7 @@ export default function CostSimulatorPage() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
   const [formLoading, setFormLoading] = useState(false);
@@ -441,6 +443,12 @@ export default function CostSimulatorPage() {
                     <a href="#lead-capture" className="inline-flex items-center justify-center gap-1 w-full text-[13px] font-semibold text-white/60 hover:text-white/90 transition-colors mt-1">
                       {t("costSim.result.ctaConsult")} <ArrowRight className="w-3.5 h-3.5" />
                     </a>
+                    <button
+                      onClick={() => setQuoteModalOpen(true)}
+                      className="inline-flex items-center justify-center gap-1.5 w-full text-[13px] font-semibold text-white/80 hover:text-white transition-colors mt-2 py-2 rounded-xl border border-white/30 hover:border-white/50"
+                    >
+                      📧 이 견적을 이메일로 받기
+                    </button>
                   </div>
                 </div>
               )}
@@ -811,7 +819,7 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
-      
+      {bestPlan && <QuoteEmailModal open={quoteModalOpen} onOpenChange={setQuoteModalOpen} planName={bestPlan.name} monthlyTotal={displayMonthly} />}
     </div>
   );
 }
