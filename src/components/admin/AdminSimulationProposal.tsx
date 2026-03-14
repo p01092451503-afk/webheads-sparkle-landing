@@ -9,7 +9,38 @@ interface Props {
 }
 
 export default function AdminSimulationProposal({ inquiry, logActivity }: Props) {
-  const proposalData = inquiry.proposal_data;
+  const rawProposalData = inquiry.proposal_data;
+
+  // Fallback: parse from message if proposal_data is null
+  const parsedFromMessage = !rawProposalData && inquiry.message ? (() => {
+    try {
+      const m = inquiry.message as string;
+      const get = (key: string) => {
+        const match = m.match(new RegExp(`${key}:\\s*([^/]+)`));
+        return match ? match[1].trim() : "";
+      };
+      const planName = get("Plan");
+      const monthly = parseInt(get("Monthly").replace(/,/g, "")) || 0;
+      const learners = parseInt(get("Learners").replace(/,/g, "")) || 0;
+      const storage = parseInt(get("Storage").replace(/GB/g, "").replace(/,/g, "")) || 0;
+      const completion = parseInt(get("Completion").replace(/%/g, "")) || 70;
+      const drm = get("DRM") === "Y";
+      const dedicated = get("Dedicated") === "Y";
+      const annual = get("Annual") === "Y";
+      if (!planName) return null;
+      return {
+        planName, solutionType: "SaaS", monthlyPrice: monthly, basePrice: monthly,
+        cdnIncluded: 0, storageIncluded: 0, overageCdn: 0, overageStorage: 0,
+        learners, storageInput: storage, completionRate: completion,
+        needsCdn: true, needsSecurePlayer: drm, needsDedicatedServer: dedicated,
+        isAnnual: annual, cdnGB: 0, storageGB: storage, savingsAmount: 0,
+        companyName: inquiry.company || undefined,
+      };
+    } catch { return null; }
+  })() : null;
+
+  const proposalData = rawProposalData || parsedFromMessage;
+
   const [showPreview, setShowPreview] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editData, setEditData] = useState<any>(null);
