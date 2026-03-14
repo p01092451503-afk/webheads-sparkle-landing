@@ -282,6 +282,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
             ))}
           </div>
         </div>
+        <p className="text-xs text-gray-400 mt-4 leading-relaxed">※ 디자인 커스터마이징, PG(결제) 계약 및 심사 과정에 따라 오픈 기간은 다소 늘어날 수 있습니다.</p>
       </div>
 
       {/* Why WEBHEADS */}
