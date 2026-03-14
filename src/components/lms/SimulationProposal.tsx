@@ -169,13 +169,13 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
             <tfoot>
               <tr style={{ background: "#5D45FF" }}>
                 <td className="px-5 py-4 font-bold text-white text-base">합계 (VAT 별도)</td>
-                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(data.basePrice - discount)}원/월</td>
+                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(planBasePrice - discount)}원/월</td>
               </tr>
             </tfoot>
           </table>
         </div>
         {data.isAnnual && (
-          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((data.basePrice - discount) * 12)}원 (VAT 별도)</p>
+          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice - discount) * 12)}원 (VAT 별도)</p>
         )}
       </div>
 
