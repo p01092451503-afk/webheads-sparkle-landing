@@ -17,6 +17,9 @@ interface ConsentLog {
   marketing: boolean;
   action: string;
   language: string | null;
+  ip_address: string | null;
+  country: string | null;
+  city: string | null;
   created_at: string;
 }
 
