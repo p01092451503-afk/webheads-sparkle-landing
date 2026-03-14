@@ -59,14 +59,16 @@ const CookieConsent = () => {
     try {
       const visitorId = localStorage.getItem("visitor_id");
       const sessionId = sessionStorage.getItem("wh_session_id");
-      await supabase.from("cookie_consent_logs").insert({
-        session_id: sessionId,
-        visitor_id: visitorId,
-        essential,
-        analytics: analyticsVal,
-        marketing: marketingVal,
-        action,
-        language: i18n.language,
+      await supabase.functions.invoke("log-cookie-consent", {
+        body: {
+          session_id: sessionId,
+          visitor_id: visitorId,
+          essential,
+          analytics: analyticsVal,
+          marketing: marketingVal,
+          action,
+          language: i18n.language,
+        },
       });
     } catch {
       // silent fail
