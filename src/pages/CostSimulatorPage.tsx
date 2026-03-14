@@ -106,26 +106,33 @@ export default function CostSimulatorPage() {
   const bestPlan = useMemo(() => {
     const viable = recommendations.filter((p) => p.name !== "Starter");
     if (!needsCdn) return recommendations.find((p) => p.name === "Starter") || viable[0];
+    // Sort by total cost
     const sorted = [...viable].sort((a, b) => a.totalMonthly - b.totalMonthly);
-    if (sorted[0] && (sorted[0].overageCdn + sorted[0].overageStorage) > sorted[0].monthly * 0.5) return sorted[1] || sorted[0];
-    return sorted[0];
-  }, [recommendations, needsCdn]);
-
-  const upgradeNudge = useMemo<{ fromPlan: string; toPlan: string; diff: number; benefit: string } | null>(() => {
-    if (!bestPlan || !needsCdn) return null;
+    let candidate = sorted[0];
+    if (!candidate) return sorted[0];
+    // 80% threshold: if CDN usage >= 80% of plan's included CDN, auto-upgrade
     const planOrder = ["Basic", "Plus", "Premium"];
-    const idx = planOrder.indexOf(bestPlan.name);
-    if (idx < 0) return null;
-    const overage = bestPlan.overageCdn + bestPlan.overageStorage;
-    if (overage <= 0) return null;
-    const nextName = planOrder[idx + 1];
-    if (!nextName) return null;
-    const next = recommendations.find((p) => p.name === nextName);
-    if (!next) return null;
-    const diff = next.monthly - bestPlan.monthly;
-    const cdnMultiple = next.cdnIncluded / Math.max(bestPlan.cdnIncluded, 1);
-    return { fromPlan: bestPlan.name, toPlan: nextName, diff, benefit: t("costSim.result.upgradeBenefit", { multiple: cdnMultiple.toFixed(0) }) };
-  }, [bestPlan, recommendations, needsCdn, t]);
+    const candIdx = planOrder.indexOf(candidate.name);
+    if (candIdx >= 0 && candidate.cdnIncluded > 0 && cdnGB >= candidate.cdnIncluded * 0.8) {
+      const nextName = planOrder[candIdx + 1];
+      if (nextName) {
+        const nextPlan = recommendations.find((p) => p.name === nextName);
+        if (nextPlan) candidate = nextPlan;
+      }
+    }
+    return candidate;
+  }, [recommendations, needsCdn, cdnGB]);
+
+  const upgradeNudge = useMemo<{ fromPlan: string; toPlan: string; savings: number } | null>(() => {
+    if (!bestPlan || !needsCdn) return null;
+    // Only show nudge when bestPlan is Basic and Plus is cheaper
+    if (bestPlan.name !== "Basic") return null;
+    const plusPlan = recommendations.find((p) => p.name === "Plus");
+    if (!plusPlan) return null;
+    if (plusPlan.totalMonthly >= bestPlan.totalMonthly) return null;
+    const savings = bestPlan.totalMonthly - plusPlan.totalMonthly;
+    return { fromPlan: "Basic", toPlan: "Plus", savings };
+  }, [bestPlan, recommendations, needsCdn]);
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
   const displayMonthly = bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0;
@@ -376,15 +383,17 @@ export default function CostSimulatorPage() {
               )}
 
 
-              {/* Upgrade nudge */}
-              {upgradeNudge && (
+              {/* Upgrade nudge — only when Basic and Plus is cheaper */}
+              {upgradeNudge && upgradeNudge.savings > 0 && (
                 <div className="rounded-2xl border p-4 flex items-start gap-3" style={{ borderColor: "rgba(93,69,255,0.3)", background: "rgba(93,69,255,0.04)" }}>
                   <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(93,69,255,0.12)" }}>
                     <TrendingUp className="w-4 h-4" style={{ color: "#5D45FF" }} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground mb-1">{t("costSim.result.upgradeTitle", { plan: upgradeNudge.toPlan })}</p>
-                    <p className="text-xs text-muted-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: t("costSim.result.upgradeDesc", { amount: formatPrice(upgradeNudge.diff), benefit: upgradeNudge.benefit, plan: upgradeNudge.toPlan }) }} />
+                    <p className="text-sm font-bold text-foreground mb-1">전송량 기준 Plus 플랜 추천</p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      전송량 기준으로 보면 Plus 플랜이 월 {formatPrice(upgradeNudge.savings)}원 더 저렴합니다. Plus로 바꿔볼까요?
+                    </p>
                   </div>
                 </div>
               )}

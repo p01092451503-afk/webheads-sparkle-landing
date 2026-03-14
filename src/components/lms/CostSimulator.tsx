@@ -86,31 +86,29 @@ export default function CostSimulator() {
     const viable = recommendations.filter((p) => p.name !== "Starter");
     if (!needsCdn) return recommendations.find((p) => p.name === "Starter") || viable[0];
     const sorted = [...viable].sort((a, b) => a.totalMonthly - b.totalMonthly);
-    if (sorted[0] && (sorted[0].overageCdn + sorted[0].overageStorage) > sorted[0].monthly * 0.5) {
-      return sorted[1] || sorted[0];
+    let candidate = sorted[0];
+    if (!candidate) return sorted[0];
+    // 80% threshold: if CDN usage >= 80% of plan's included CDN, auto-upgrade
+    const planOrder = ["Basic", "Plus", "Premium"];
+    const candIdx = planOrder.indexOf(candidate.name);
+    if (candIdx >= 0 && candidate.cdnIncluded > 0 && cdnGB >= candidate.cdnIncluded * 0.8) {
+      const nextName = planOrder[candIdx + 1];
+      if (nextName) {
+        const nextPlan = recommendations.find((p) => p.name === nextName);
+        if (nextPlan) candidate = nextPlan;
+      }
     }
-    return sorted[0];
-  }, [recommendations, needsCdn]);
+    return candidate;
+  }, [recommendations, needsCdn, cdnGB]);
 
   const upgradeNudge = useMemo<{ fromPlan: string; toPlan: string; savings: number } | null>(() => {
     if (!bestPlan || !needsCdn) return null;
-    const planOrder = ["Basic", "Plus", "Premium"];
-    const bestIdx = planOrder.indexOf(bestPlan.name);
-    if (bestIdx < 0) return null;
-    const overage = bestPlan.overageCdn + bestPlan.overageStorage;
-    if (overage <= 0) return null;
-    const nextTierName = planOrder[bestIdx + 1];
-    if (!nextTierName) return null;
-    const nextTier = recommendations.find((p) => p.name === nextTierName);
-    if (!nextTier) return null;
-    const baseDiff = nextTier.monthly - bestPlan.monthly;
-    if (nextTier.totalMonthly < bestPlan.totalMonthly) {
-      return { fromPlan: bestPlan.name, toPlan: nextTier.name, savings: bestPlan.totalMonthly - nextTier.totalMonthly };
-    }
-    if (overage >= baseDiff * 0.7) {
-      return { fromPlan: bestPlan.name, toPlan: nextTier.name, savings: 0 };
-    }
-    return null;
+    if (bestPlan.name !== "Basic") return null;
+    const plusPlan = recommendations.find((p) => p.name === "Plus");
+    if (!plusPlan) return null;
+    if (plusPlan.totalMonthly >= bestPlan.totalMonthly) return null;
+    const savings = bestPlan.totalMonthly - plusPlan.totalMonthly;
+    return { fromPlan: "Basic", toPlan: "Plus", savings };
   }, [bestPlan, recommendations, needsCdn]);
 
 
@@ -461,20 +459,17 @@ export default function CostSimulator() {
             )}
 
             {/* Upgrade nudge */}
-            {upgradeNudge && (
+            {upgradeNudge && upgradeNudge.savings > 0 && (
               <div className="rounded-2xl border p-4 flex items-start gap-3" style={{ borderColor: "hsl(var(--lms-primary) / 0.3)", background: "hsl(var(--lms-primary) / 0.05)" }}>
                 <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.12)" }}>
                   <TrendingUp className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-foreground mb-1">
-                    {t("costSim.nudgeTitle", { plan: upgradeNudge.toPlan })}
+                    전송량 기준 Plus 플랜 추천
                   </p>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    {upgradeNudge.savings > 0
-                      ? t("costSim.nudgeSavings", { from: upgradeNudge.fromPlan, to: upgradeNudge.toPlan, amount: formatPrice(upgradeNudge.savings) })
-                      : t("costSim.nudgeClose", { from: upgradeNudge.fromPlan, to: upgradeNudge.toPlan })
-                    }
+                    전송량 기준으로 보면 Plus 플랜이 월 {formatPrice(upgradeNudge.savings)}원 더 저렴합니다. Plus로 바꿔볼까요?
                   </p>
                 </div>
               </div>
