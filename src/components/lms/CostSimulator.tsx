@@ -418,10 +418,24 @@ export default function CostSimulator() {
                     const competitorEstimate = displayMonthly > 0 ? Math.round(displayMonthly * 1.3) : 0;
                     const savingsAmount = competitorEstimate - displayMonthly;
                     return savingsAmount > 0 ? (
-                      <div className="mb-4 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
-                        <TrendingUp className="w-4 h-4 shrink-0" />
-                        경쟁사 동일 사양 평균 대비 월 {formatPrice(savingsAmount)}원 절약
-                      </div>
+                      <>
+                        <div className="mb-1 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
+                          <TrendingUp className="w-4 h-4 shrink-0" />
+                          경쟁사 동일 사양 평균 대비 월 {formatPrice(savingsAmount)}원 절약
+                        </div>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <p className="text-[11px] mb-4 pl-1 cursor-help" style={{ color: "rgba(255,255,255,0.6)" }}>
+                                {COMPETITOR_LABEL}
+                              </p>
+                            </TooltipTrigger>
+                            <TooltipContent side="bottom" className="max-w-[280px] text-xs">
+                              {COMPETITOR_NOTE}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </>
                     ) : null;
                   })()}
 
