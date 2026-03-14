@@ -74,7 +74,7 @@ export default function CostSimulatorPage() {
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
-  const [isAnnual, setIsAnnual] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(true);
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
@@ -318,7 +318,19 @@ export default function CostSimulatorPage() {
                 )}
 
                 {renderToggle(t("costSim.sim.annual"), <CalendarCheck className="w-3.5 h-3.5 text-muted-foreground" />, isAnnual, () => setIsAnnual(!isAnnual))}
-                <p className="text-[10px] text-muted-foreground mt-1.5 pl-1">{isAnnual ? t("costSim.sim.annualOn") : t("costSim.sim.annualOff")}</p>
+                {(() => {
+                  const monthlySavings = bestPlan ? Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT) : 0;
+                  return (
+                    <>
+                      <p className={`text-[11px] font-semibold mt-1.5 pl-1 ${isAnnual ? 'text-green-600' : 'text-muted-foreground'}`}>
+                        연간 계약 시 월 {formatPrice(monthlySavings)}원 절약
+                      </p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5 pl-1">
+                        연간 계약 시 12개월 기준 총 {formatPrice(monthlySavings * 12)}원을 절약할 수 있습니다.
+                      </p>
+                    </>
+                  );
+                })()}
 
                 {/* Estimated usage */}
                 {needsCdn && (
