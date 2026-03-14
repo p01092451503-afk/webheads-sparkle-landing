@@ -511,12 +511,12 @@ export default function CostSimulator() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-foreground tabular-nums">{currency(formatPrice(discounted))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
+                      <p className="text-sm font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
                       {isAnnual && (
-                        <p className="text-[10px] text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.totalMonthly))}</p>
+                        <p className="text-[10px] text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
                       )}
-                      {!isAnnual && plan.totalMonthly > plan.monthly && (
-                        <p className="text-[10px] text-muted-foreground">{t("costSim.basePlusOverage", { base: formatPrice(plan.monthly), overage: formatPrice(plan.totalMonthly - plan.monthly) })}</p>
+                      {plan.totalMonthly > plan.monthly && (
+                        <p className="text-[10px] text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {currency(formatPrice(plan.totalMonthly - plan.monthly))}</p>
                       )}
                     </div>
                   </div>
