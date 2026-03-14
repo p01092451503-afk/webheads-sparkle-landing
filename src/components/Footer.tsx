@@ -37,12 +37,11 @@ export default function Footer() {
   const location = useLocation();
   const [privacyOpen, setPrivacyOpen] = useState(false);
 
-  // Listen for privacy policy open events from other components (e.g. CookieConsent)
-  useState(() => {
+  useEffect(() => {
     const handler = () => setPrivacyOpen(true);
     window.addEventListener("open-privacy-policy", handler);
     return () => window.removeEventListener("open-privacy-policy", handler);
-  });
+  }, []);
   const [supportOpen, setSupportOpen] = useState(false);
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
