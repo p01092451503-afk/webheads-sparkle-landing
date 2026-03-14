@@ -17,6 +17,10 @@ import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import SEO, { BASE_URL } from "@/components/SEO";
 
+/* ── Competitor comparison note (운영팀 수정 가능) ── */
+const COMPETITOR_NOTE = "비교 대상: 국내 주요 이러닝 호스팅 서비스 A, B, C사의 동일 조건 공개 견적 기준 (2025년 1분기)";
+const COMPETITOR_LABEL = "* 동일 사양(수강생 수, 전송량, DRM 포함) 기준 주요 이러닝 호스팅 3사 견적 평균과 비교";
+
 /* ── Plan data ── */
 interface PlanRecommendation {
   name: string; monthly: number; cdnIncluded: number; storageIncluded: number;
