@@ -24,6 +24,10 @@ interface SimulationData {
   companyName?: string;
 }
 
+const PLAN_BASE_PRICES: Record<string, number> = {
+  Starter: 300000, Basic: 500000, Plus: 700000, Premium: 1000000,
+};
+
 const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(({ data }, ref) => {
   const { t } = useTranslation();
   const fmt = (n: number) => n.toLocaleString("ko-KR");
@@ -62,11 +66,13 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
     { week: "오픈 후", title: "운영·최적화", desc: "24시간 모니터링, 월간 리포트, 지속 개선" },
   ];
 
+  const planBasePrice = PLAN_BASE_PRICES[data.planName] || data.basePrice;
+
   const costBreakdown: { label: string; amount: number }[] = [
-    { label: `${data.planName} 플랜 기본 요금`, amount: data.basePrice },
+    { label: `${data.planName} 플랜 기본 요금`, amount: planBasePrice },
   ];
 
-  const discount = data.isAnnual ? Math.round(data.basePrice * 0.1) : 0;
+  const discount = data.isAnnual ? Math.round(planBasePrice * 0.1) : 0;
 
   return (
     <div ref={ref} className="bg-white text-gray-900" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif", maxWidth: "800px", margin: "0 auto" }}>
@@ -96,8 +102,8 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
               <span className="text-sm text-gray-500 ml-2">{data.solutionType}</span>
             </div>
             <div className="text-right">
-              <p className="text-2xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(data.basePrice)}<span className="text-sm font-bold">원/월</span></p>
-              {data.isAnnual && <p className="text-xs text-gray-400">연간 계약 10% 할인 적용 시 {fmt(Math.round(data.basePrice * 0.9))}원/월</p>}
+              <p className="text-2xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(planBasePrice)}<span className="text-sm font-bold">원/월</span></p>
+              {data.isAnnual && <p className="text-xs text-gray-400">연간 계약 10% 할인 적용 시 {fmt(Math.round(planBasePrice * 0.9))}원/월</p>}
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
@@ -163,13 +169,13 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
             <tfoot>
               <tr style={{ background: "#5D45FF" }}>
                 <td className="px-5 py-4 font-bold text-white text-base">합계 (VAT 별도)</td>
-                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(data.basePrice - discount)}원/월</td>
+                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(planBasePrice - discount)}원/월</td>
               </tr>
             </tfoot>
           </table>
         </div>
         {data.isAnnual && (
-          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((data.basePrice - discount) * 12)}원 (VAT 별도)</p>
+          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice - discount) * 12)}원 (VAT 별도)</p>
         )}
       </div>
 
