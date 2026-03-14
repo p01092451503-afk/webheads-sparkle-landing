@@ -329,18 +329,13 @@ function CompanyProfileSection() {
     { icon: Phone, label: "연락처", value: "02-540-4337" },
   ];
 
-  const teams = [
-    { name: "솔루션사업팀", count: "9명", detail: "고급 4 · 중급 4 · 초급 1" },
-    { name: "콘텐츠사업팀", count: "2명", detail: "고급 2" },
-    { name: "호스팅사업팀", count: "2명", detail: "고급 1 · 중급 1" },
-    { name: "사업지원팀", count: "1명", detail: "" },
-  ];
-
   const bizAreas = [
     { icon: Layers, title: "LMS 개발 · 공급", desc: "기업, 공공기관, 대학 등 300+기관에 독립형(SI) 및 임대형(SaaS) LMS 구축" },
     { icon: Server, title: "호스팅 · CDN", desc: "IDC 센터 운영, 웹호스팅, 미디어 CDN, AWS/NCP 클라우드 관리" },
     { icon: Cpu, title: "AI 기술", desc: "AI 챗봇, AI 튜터, 콘텐츠 분석 · 추천 엔진 개발" },
     { icon: ShieldCheck, title: "DRM · 보안", desc: "동영상 콘텐츠 보안 솔루션 공급 (존플레이어, 콜러스 등 연동)" },
+    { icon: Smartphone, title: "APP 개발", desc: "Flutter, React Native 기반 모바일 앱 개발 및 멀티플랫폼 학습환경 구현" },
+    { icon: Film, title: "콘텐츠 개발", desc: "교육용 동영상 콘텐츠 기획·촬영·편집, SCORM/xAPI 표준 콘텐츠 제작" },
   ];
 
   const keyClients = [
@@ -375,24 +370,10 @@ function CompanyProfileSection() {
               );
             })}
           </div>
-
-          {/* Organization */}
-          <div className="mt-5 pt-5 border-t border-border">
-            <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">조직 구성 (총 15명)</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {teams.map((team, i) => (
-                <div key={i} className="rounded-xl p-3 text-center" style={{ background: "hsl(255,75%,58%,0.04)" }}>
-                  <p className="font-bold text-sm text-foreground">{team.name}</p>
-                  <p className="text-lg font-black mt-1" style={{ color: "hsl(255,75%,58%)" }}>{team.count}</p>
-                  {team.detail && <p className="text-[10px] text-muted-foreground mt-0.5">{team.detail}</p>}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* Business Areas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
           {bizAreas.map((area, i) => {
             const Icon = area.icon;
             return (
