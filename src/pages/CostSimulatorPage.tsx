@@ -366,7 +366,7 @@ export default function CostSimulatorPage() {
             {/* ── Right: Results ── */}
             <div className="lg:col-span-3 flex flex-col gap-4">
               {bestPlan && (
-                <div className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "hsl(255, 75%, 58%)" }}>
+                <div ref={resultCardRef} className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "hsl(255, 75%, 58%)" }}>
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles className="w-4 h-4 text-white/80" />
