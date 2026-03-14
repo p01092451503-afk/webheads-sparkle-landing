@@ -559,7 +559,7 @@ export default function CostSimulatorPage() {
 
       </LazySection>
 
-      <LazySection>
+      
       <section className="py-14" style={{ background: "linear-gradient(135deg, #5D45FF, #7c68ff)" }}>
         <div className="container mx-auto px-5 max-w-4xl text-center">
           <h3 className="font-bold text-white text-2xl tracking-tight mb-3">{t("costSim.midCta.title")}</h3>
