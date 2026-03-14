@@ -179,7 +179,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
             <tfoot>
               <tr style={{ background: "#5D45FF" }}>
                 <td className="px-5 py-4 font-bold text-white text-base">합계 (VAT 별도)</td>
-                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(planBasePrice - discount)}원/월</td>
+                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(planBasePrice + SETUP_FEE - discount)}원</td>
               </tr>
             </tfoot>
           </table>
