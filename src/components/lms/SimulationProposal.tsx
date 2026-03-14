@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
-import { CheckCircle, TrendingUp, Shield, Clock, Headphones, Zap, Award, Server, ShieldCheck, HardDrive, Users, GraduationCap, Globe, Star, ArrowRight, FileText } from "lucide-react";
+import { CheckCircle, TrendingUp, Shield, Clock, Headphones, Zap, Award, Server, ShieldCheck, HardDrive, Users, Globe, Star, ArrowRight, FileText } from "lucide-react";
 
 interface SimulationData {
   planName: string;
@@ -26,6 +26,13 @@ interface SimulationData {
 
 const PLAN_BASE_PRICES: Record<string, number> = {
   Starter: 300000, Basic: 500000, Plus: 700000, Premium: 1000000,
+};
+
+const PLAN_SPECS: Record<string, { cdn: string; storage: string; members: string; extras: string[] }> = {
+  Starter: { cdn: "—", storage: "—", members: "무제한", extras: ["디자인 무료 템플릿", "SSL 보안인증서"] },
+  Basic: { cdn: "500GB/월", storage: "100GB", members: "무제한", extras: ["디자인 무료 템플릿", "SSL 보안인증서", "하이브리드앱 개발(별도 문의)"] },
+  Plus: { cdn: "1,500GB/월", storage: "200GB", members: "무제한", extras: ["모바일 앱 제공", "디자인 무료 템플릿", "SSL 보안인증서"] },
+  Premium: { cdn: "2,000GB/월", storage: "250GB", members: "무제한", extras: ["모바일 앱 제공", "DRM 보안 플레이어", "디자인 무료 템플릿", "SSL 보안인증서"] },
 };
 
 const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(({ data }, ref) => {
@@ -67,6 +74,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
   ];
 
   const planBasePrice = PLAN_BASE_PRICES[data.planName] || data.basePrice;
+  const planSpec = PLAN_SPECS[data.planName] || PLAN_SPECS.Basic;
 
   const costBreakdown: { label: string; amount: number }[] = [
     { label: `${data.planName} 플랜 기본 요금`, amount: planBasePrice },
@@ -108,24 +116,24 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
             <div className="rounded-lg p-3 bg-white">
-              <Users className="w-4 h-4 mx-auto mb-1 text-gray-400" />
-              <p className="text-xs text-gray-500">수강생</p>
-              <p className="text-sm font-bold">{fmt(data.learners)}명</p>
+              <Globe className="w-4 h-4 mx-auto mb-1 text-gray-400" />
+              <p className="text-xs text-gray-500">동영상 전송량</p>
+              <p className="text-sm font-bold">{planSpec.cdn}</p>
             </div>
             <div className="rounded-lg p-3 bg-white">
               <HardDrive className="w-4 h-4 mx-auto mb-1 text-gray-400" />
               <p className="text-xs text-gray-500">저장공간</p>
-              <p className="text-sm font-bold">{fmt(data.storageInput)}GB</p>
+              <p className="text-sm font-bold">{planSpec.storage}</p>
             </div>
             <div className="rounded-lg p-3 bg-white">
-              <GraduationCap className="w-4 h-4 mx-auto mb-1 text-gray-400" />
-              <p className="text-xs text-gray-500">완강률</p>
-              <p className="text-sm font-bold">{data.completionRate}%</p>
+              <Users className="w-4 h-4 mx-auto mb-1 text-gray-400" />
+              <p className="text-xs text-gray-500">회원수</p>
+              <p className="text-sm font-bold">{planSpec.members}</p>
             </div>
             <div className="rounded-lg p-3 bg-white">
-              <Globe className="w-4 h-4 mx-auto mb-1 text-gray-400" />
-              <p className="text-xs text-gray-500">예상 CDN</p>
-              <p className="text-sm font-bold">{fmt(data.cdnGB)}GB/월</p>
+              <Shield className="w-4 h-4 mx-auto mb-1 text-gray-400" />
+              <p className="text-xs text-gray-500">SSL 인증서</p>
+              <p className="text-sm font-bold">포함</p>
             </div>
           </div>
         </div>
