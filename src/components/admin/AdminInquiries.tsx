@@ -687,7 +687,7 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
                     <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
 
                     {/* Simulation Proposal (from cost simulator) */}
-                    {selectedInquiry.proposal_data && (
+                    {(selectedInquiry.proposal_data || selectedInquiry.inquiry_type === "proposal_request") && (
                       <AdminSimulationProposal inquiry={selectedInquiry} logActivity={logActivity} />
                     )}
 
