@@ -459,6 +459,7 @@ export default function AdminDashboard() {
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
+          {tab === "cookie_settings" && <AdminCookieSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
       </div>
     </div>
