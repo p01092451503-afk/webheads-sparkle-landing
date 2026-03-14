@@ -488,7 +488,9 @@ export default function CostSimulator() {
               </div>
               <div className="divide-y divide-border">
                 {recommendations.map((plan) => {
-                  const discounted = isAnnual ? Math.round(plan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : plan.totalMonthly;
+                  const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
+                  const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
+                  const overageOnly = plan.overageCdn + plan.overageStorage;
                   return (
                   <div
                     key={plan.name}
@@ -515,9 +517,9 @@ export default function CostSimulator() {
                       {isAnnual && (
                         <p className="text-xs text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
                       )}
-                      {plan.totalMonthly > plan.monthly && (
-                        <p className="text-xs text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {currency(formatPrice(plan.totalMonthly - plan.monthly))}</p>
-                      )}
+                      {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {currency(formatPrice(secureAddon))}</p>}
+                      {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {currency(formatPrice(dedicatedAddon))}</p>}
+                      {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {currency(formatPrice(overageOnly))}</p>}
                     </div>
                   </div>
                   );

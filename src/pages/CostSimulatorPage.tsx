@@ -397,7 +397,10 @@ export default function CostSimulatorPage() {
                 </div>
                 <div className="divide-y divide-border">
                   {recommendations.map((plan) => {
-                    const discounted = isAnnual ? Math.round(plan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : plan.totalMonthly;
+                    const secureAddon = (needsSecurePlayer && plan.name !== "Starter") ? SECURE_PLAYER_COST : 0;
+                    const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
+                    const overageOnly = plan.overageCdn + plan.overageStorage;
+                    const addonsTotal = secureAddon + dedicatedAddon + overageOnly;
                     return (
                       <div key={plan.name} className={`flex items-center justify-between px-6 py-5 transition-colors ${plan.name === bestPlan?.name ? "" : "hover:bg-muted/30"}`} style={plan.name === bestPlan?.name ? { background: "rgba(93,69,255,0.05)" } : undefined}>
                         <div className="flex items-center gap-3">
@@ -411,9 +414,12 @@ export default function CostSimulatorPage() {
                         <div className="text-right">
                           <p className="text-base font-bold text-foreground tabular-nums">{formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly)}{t("costSim.result.perMonth")}</p>
                           {isAnnual && <p className="text-xs text-muted-foreground line-through tabular-nums">{formatPrice(plan.monthly)}</p>}
-                          {plan.totalMonthly > plan.monthly && (
-                            <p className="text-xs text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>
-                          )}
+                          {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {formatPrice(secureAddon)}</p>}
+                          {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {formatPrice(dedicatedAddon)}</p>}
+                          {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {formatPrice(overageOnly)}</p>}
+                        </div>
+                      </div>
+                    );
                         </div>
                       </div>
                     );
