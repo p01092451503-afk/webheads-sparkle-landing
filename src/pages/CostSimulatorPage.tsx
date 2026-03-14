@@ -1,4 +1,5 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,7 +12,7 @@ import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
   GraduationCap, Server, ShieldCheck, TrendingUp, CalendarCheck,
   CheckCircle, Shield, Clock, Headphones, MessageCircle, FileText,
-  Zap, Award, Building2, Star, ChevronDown
+  Zap, Award, Building2, Star, ChevronDown, ChevronUp
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -79,6 +80,8 @@ function AnimatedPrice({ value, duration = 600 }: { value: number; duration?: nu
 
 export default function CostSimulatorPage() {
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
+  const resultCardRef = useRef<HTMLDivElement>(null);
   const [learners, setLearners] = useState(200);
   const [storageInput, setStorageInput] = useState(20);
   const [completionRate, setCompletionRate] = useState(70);
@@ -181,7 +184,7 @@ export default function CostSimulatorPage() {
   const heroStats = t("costSim.hero.stats", { returnObjects: true }) as string[];
 
   return (
-    <div className="min-h-screen" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif" }}>
+    <div className={`min-h-screen ${isMobile && bestPlan ? "pb-20" : ""}`} style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif" }}>
       <SEO
         title={t("costSim.seo.title")}
         description={t("costSim.seo.description")}
@@ -363,7 +366,7 @@ export default function CostSimulatorPage() {
             {/* ── Right: Results ── */}
             <div className="lg:col-span-3 flex flex-col gap-4">
               {bestPlan && (
-                <div className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "hsl(255, 75%, 58%)" }}>
+                <div ref={resultCardRef} className="rounded-2xl p-6 relative overflow-hidden shadow-xl" style={{ background: "hsl(255, 75%, 58%)" }}>
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles className="w-4 h-4 text-white/80" />
@@ -817,7 +820,21 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
-      
+      {/* Mobile floating bar */}
+      {isMobile && bestPlan && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:hidden" style={{ height: 64, background: "#6C40FF" }}>
+          <div className="text-white min-w-0">
+            <p className="text-[12px] font-bold truncate">추천: {bestPlan.name} · {formatPrice(displayMonthly)}원/월</p>
+          </div>
+          <button
+            onClick={() => resultCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+            className="shrink-0 ml-3 flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-white border border-white/40 hover:bg-white/15 transition-colors"
+          >
+            상세 보기 <ChevronUp className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
+
     </div>
   );
 }

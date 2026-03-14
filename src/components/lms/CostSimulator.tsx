@@ -1,9 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { TOptions } from "i18next";
-import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown, CheckCircle } from "lucide-react";
+import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown, ChevronUp, CheckCircle } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface PlanRecommendation {
   name: string;
@@ -51,6 +52,8 @@ function estimateUsage(learners: number, storageInput: number, completionRate: n
 export default function CostSimulator() {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
+  const isMobile = useIsMobile();
+  const resultCardRef = useRef<HTMLDivElement>(null);
   const [learners, setLearners] = useState(200);
   const [storageInput, setStorageInput] = useState(20);
   const [completionRate, setCompletionRate] = useState(70);
@@ -126,13 +129,14 @@ export default function CostSimulator() {
 
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
+  const displayMonthlyGlobal = bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0;
   const currency = (amount: string) => {
     if (lang === 'en') return `₩${amount}`;
     return `${amount}${lang === 'ja' ? 'ウォン' : '원'}`;
   };
 
   return (
-    <section id="cost-simulator" className="py-16 md:py-28 bg-background">
+    <section id="cost-simulator" className={`py-16 md:py-28 bg-background ${isMobile && bestPlan ? "pb-24" : ""}`}>
       <div className="container mx-auto px-5 md:px-6 max-w-5xl">
         <div className="mb-10 md:mb-14 text-center">
           <p className="text-sm font-semibold tracking-widest uppercase mb-3 md:mb-4" style={{ color: "hsl(var(--lms-primary))" }}>
@@ -415,7 +419,7 @@ export default function CostSimulator() {
           {/* ── Right: Results ── */}
           <div className="lg:col-span-3 flex flex-col gap-4">
             {bestPlan && (
-              <div className="rounded-2xl p-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(var(--lms-primary)), hsl(var(--lms-primary) / 0.85))" }}>
+              <div ref={resultCardRef} className="rounded-2xl p-6 relative overflow-hidden" style={{ background: "linear-gradient(135deg, hsl(var(--lms-primary)), hsl(var(--lms-primary) / 0.85))" }}>
                 <div className="relative z-10">
                   <div className="flex items-center gap-2 mb-3">
                     <Sparkles className="w-4 h-4 text-white/80" />
@@ -612,6 +616,20 @@ export default function CostSimulator() {
           </div>
         </div>
       </div>
+      {/* Mobile floating bar */}
+      {isMobile && bestPlan && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:hidden" style={{ height: 64, background: "#6C40FF" }}>
+          <div className="text-white min-w-0">
+            <p className="text-[12px] font-bold truncate">추천: {bestPlan.name} · {formatPrice(displayMonthlyGlobal)}원/월</p>
+          </div>
+          <button
+            onClick={() => resultCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+            className="shrink-0 ml-3 flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-white border border-white/40 hover:bg-white/15 transition-colors"
+          >
+            상세 보기 <ChevronUp className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
     </section>
   );
 }
