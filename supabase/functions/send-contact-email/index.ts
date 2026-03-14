@@ -32,6 +32,7 @@ serve(async (req) => {
   try {
     const formData: ContactFormData = await req.json();
     const { company, name, phone, email, service, message, inquiryType = "consultation", marketingAgreed = false, session_id, proposal_data } = formData;
+    console.log("proposal_data received:", proposal_data ? "yes" : "no", typeof proposal_data);
 
     if (!name || !phone) {
       return new Response(
@@ -54,7 +55,7 @@ serve(async (req) => {
       inquiry_type: inquiryType,
       marketing_agreed: marketingAgreed,
       session_id: session_id || null,
-      proposal_data: proposal_data || null,
+      proposal_data: proposal_data && Object.keys(proposal_data).length > 0 ? proposal_data : null,
     });
 
     if (dbError) {
