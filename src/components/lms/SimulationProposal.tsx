@@ -77,8 +77,11 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
   const planSpec = PLAN_SPECS[data.planName] || PLAN_SPECS.Basic;
 
   const SETUP_FEE = 300000;
+  const SECURE_PLAYER_COST = 300000;
+  const secureAddon = (data.needsSecurePlayer && data.planName !== "Starter" && data.planName !== "Premium") ? SECURE_PLAYER_COST : 0;
   const costBreakdown: { label: string; amount: number }[] = [
     { label: `${data.planName} 플랜 월 이용료`, amount: planBasePrice },
+    ...(secureAddon > 0 ? [{ label: "보안 플레이어 (DRM)", amount: secureAddon }] : []),
     { label: "최초 세팅료 (1회)", amount: SETUP_FEE },
   ];
 
@@ -182,7 +185,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
             <tfoot>
               <tr style={{ background: "#5D45FF" }}>
                 <td className="px-5 py-4 font-bold text-white text-base">첫 달 합계 (VAT 별도)</td>
-                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(planBasePrice + SETUP_FEE - discount)}원</td>
+                <td className="px-5 py-4 text-right font-extrabold text-white text-lg tabular-nums">{fmt(planBasePrice + secureAddon + SETUP_FEE - discount)}원</td>
               </tr>
             </tfoot>
           </table>
@@ -192,10 +195,10 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
             <p className="text-sm font-bold text-gray-800">2개월차부터 월 이용료</p>
             <p className="text-xs text-gray-500 mt-0.5">세팅료는 최초 1회만 발생합니다</p>
           </div>
-          <p className="text-xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(planBasePrice - discount)}원<span className="text-sm font-bold">/월</span></p>
+          <p className="text-xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(planBasePrice + secureAddon - discount)}원<span className="text-sm font-bold">/월</span></p>
         </div>
         {data.isAnnual && (
-          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice - discount) * 12 + SETUP_FEE)}원 (VAT 별도)</p>
+          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice + secureAddon - discount) * 12 + SETUP_FEE)}원 (VAT 별도)</p>
         )}
       </div>
 
