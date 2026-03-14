@@ -7,7 +7,6 @@ import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
 import LazySection from "@/components/shared/LazySection";
-import SimulationProposal from "@/components/lms/SimulationProposal";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
   GraduationCap, Server, ShieldCheck, TrendingUp, CalendarCheck,
