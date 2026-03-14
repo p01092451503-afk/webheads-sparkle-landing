@@ -144,6 +144,45 @@ export default function CostSimulatorPage() {
   const competitorEstimate = displayMonthly > 0 ? Math.round(displayMonthly * 1.3) : 0;
   const savingsAmount = competitorEstimate - displayMonthly;
 
+  const simulationData = useMemo(() => bestPlan ? {
+    planName: bestPlan.name,
+    solutionType: bestPlan.solutionType,
+    monthlyPrice: displayMonthly,
+    basePrice: bestPlan.monthly,
+    cdnIncluded: bestPlan.cdnIncluded,
+    storageIncluded: bestPlan.storageIncluded,
+    overageCdn: bestPlan.overageCdn,
+    overageStorage: bestPlan.overageStorage,
+    learners, storageInput, completionRate,
+    needsCdn, needsSecurePlayer, needsDedicatedServer, isAnnual,
+    cdnGB, storageGB: storageInput,
+    savingsAmount,
+    companyName: formData.company || undefined,
+  } : null, [bestPlan, displayMonthly, learners, storageInput, completionRate, needsCdn, needsSecurePlayer, needsDedicatedServer, isAnnual, cdnGB, savingsAmount, formData.company]);
+
+  const handleDownloadPdf = useCallback(async () => {
+    if (!proposalRef.current) return;
+    setPdfLoading(true);
+    try {
+      const html2pdf = (await import("html2pdf.js")).default;
+      const planName = bestPlan?.name || "LMS";
+      const filename = `웹헤즈_LMS_견적서_${planName}_${new Date().toISOString().slice(0, 10)}.pdf`;
+      await html2pdf().set({
+        margin: 0,
+        filename,
+        image: { type: "jpeg", quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      }).from(proposalRef.current).save();
+      showToast({ title: "PDF 다운로드 완료", description: `${filename} 파일이 저장되었습니다.` });
+    } catch (err) {
+      showToast({ title: "PDF 생성 오류", description: "잠시 후 다시 시도해주세요.", variant: "destructive" });
+    } finally {
+      setPdfLoading(false);
+    }
+  }, [bestPlan, showToast]);
+
   const featureItems = t("costSim.features.items", { returnObjects: true }) as any[];
   const comparisonItems = t("costSim.comparison.items", { returnObjects: true }) as any[];
   const guaranteeItems = t("costSim.guarantees.items", { returnObjects: true }) as any[];
