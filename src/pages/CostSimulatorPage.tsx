@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,12 +7,11 @@ import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
 import LazySection from "@/components/shared/LazySection";
-import SimulationProposal from "@/components/lms/SimulationProposal";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
-  GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck,
-  CheckCircle, X, Shield, Clock, Headphones, MessageCircle, FileText,
-  Zap, Award, Building2, Star, Download, Send, Eye, EyeOff
+  GraduationCap, Server, ShieldCheck, TrendingUp, CalendarCheck,
+  CheckCircle, Shield, Clock, Headphones, MessageCircle, FileText,
+  Zap, Award, Building2, Star
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -81,9 +80,6 @@ export default function CostSimulatorPage() {
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
   const [formLoading, setFormLoading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [showProposal, setShowProposal] = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const proposalRef = useRef<HTMLDivElement>(null);
   const { toast: showToast } = useToast();
 
   const handleLearnersChange = (v: number) => { setLearners(v); if (v < 500) setNeedsDedicatedServer(false); };
@@ -160,28 +156,6 @@ export default function CostSimulatorPage() {
     companyName: formData.company || undefined,
   } : null, [bestPlan, displayMonthly, learners, storageInput, completionRate, needsCdn, needsSecurePlayer, needsDedicatedServer, isAnnual, cdnGB, savingsAmount, formData.company]);
 
-  const handleDownloadPdf = useCallback(async () => {
-    if (!proposalRef.current) return;
-    setPdfLoading(true);
-    try {
-      const html2pdf = (await import("html2pdf.js")).default;
-      const planName = bestPlan?.name || "LMS";
-      const filename = `웹헤즈_LMS_견적서_${planName}_${new Date().toISOString().slice(0, 10)}.pdf`;
-      const opt = {
-        margin: 0,
-        filename,
-        image: { type: "jpeg", quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      };
-      await (html2pdf() as any).set(opt).from(proposalRef.current).save();
-      showToast({ title: "PDF 다운로드 완료", description: `${filename} 파일이 저장되었습니다.` });
-    } catch (err) {
-      showToast({ title: "PDF 생성 오류", description: "잠시 후 다시 시도해주세요.", variant: "destructive" });
-    } finally {
-      setPdfLoading(false);
-    }
-  }, [bestPlan, showToast]);
 
   const featureItems = t("costSim.features.items", { returnObjects: true }) as any[];
   const comparisonItems = t("costSim.comparison.items", { returnObjects: true }) as any[];
@@ -658,42 +632,19 @@ export default function CostSimulatorPage() {
             <div className="text-center py-6">
               <CheckCircle className="w-12 h-12 mx-auto mb-4" style={{ color: "#00C896" }} />
               <h3 className="text-xl font-bold text-foreground mb-2">{t("costSim.lead.successTitle")}</h3>
-              <p className="text-sm text-muted-foreground mb-8">{t("costSim.lead.successDesc")}</p>
-              
-              {/* Proposal Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-                <button
-                  onClick={() => setShowProposal(!showProposal)}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all hover:scale-[1.02] border-2"
-                  style={{ borderColor: "#5D45FF", color: "#5D45FF" }}
-                >
-                  {showProposal ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  {showProposal ? "제안서 닫기" : "제안서 미리보기"}
-                </button>
-                <button
-                  onClick={handleDownloadPdf}
-                  disabled={pdfLoading}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white transition-all hover:scale-[1.02] disabled:opacity-60"
-                  style={{ background: "#5D45FF" }}
-                >
-                  <Download className="w-4 h-4" />
-                  {pdfLoading ? "PDF 생성 중..." : "PDF 다운로드"}
-                </button>
+              <p className="text-sm text-muted-foreground mb-4">{t("costSim.lead.successDesc")}</p>
+              <div className="rounded-xl p-4 text-left" style={{ background: "#F8F7FF", border: "1px solid #E8E5FF" }}>
+                <p className="text-sm font-semibold text-foreground mb-2">📋 제안서 요약</p>
+                {bestPlan && (
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    <p>추천 플랜: <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name}</span> — 월 {formatPrice(displayMonthly)}원</p>
+                    <p>수강생 {learners.toLocaleString()}명 · 저장공간 {storageInput}GB · 완강률 {completionRate}%</p>
+                  </div>
+                )}
+                <p className="text-xs text-muted-foreground mt-3">
+                  담당자가 맞춤 제안서를 검토 후 입력하신 이메일로 발송해드립니다.
+                </p>
               </div>
-
-              {/* Proposal Preview */}
-              {showProposal && simulationData && (
-                <div className="mt-6 rounded-2xl border-2 overflow-hidden shadow-xl" style={{ borderColor: "#E8E5FF" }}>
-                  <SimulationProposal ref={proposalRef} data={simulationData} />
-                </div>
-              )}
-
-              {/* Hidden proposal for PDF generation when preview is closed */}
-              {!showProposal && simulationData && (
-                <div style={{ position: "absolute", left: "-9999px", top: 0 }}>
-                  <SimulationProposal ref={proposalRef} data={simulationData} />
-                </div>
-              )}
             </div>
           ) : (
           <form className="space-y-4" onSubmit={async (e) => {
@@ -716,6 +667,7 @@ export default function CostSimulatorPage() {
                   inquiryType: "proposal_request",
                   marketingAgreed: false,
                   session_id: sessionStorage.getItem("_sid") || undefined,
+                  proposal_data: simulationData,
                 },
               });
               if (fnError) throw new Error(fnError.message);

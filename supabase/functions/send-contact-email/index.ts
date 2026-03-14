@@ -21,6 +21,7 @@ interface ContactFormData {
   inquiryType?: "consultation" | "demo" | "proposal_request";
   marketingAgreed?: boolean;
   session_id?: string;
+  proposal_data?: Record<string, unknown>;
 }
 
 serve(async (req) => {
@@ -30,7 +31,7 @@ serve(async (req) => {
 
   try {
     const formData: ContactFormData = await req.json();
-    const { company, name, phone, email, service, message, inquiryType = "consultation", marketingAgreed = false, session_id } = formData;
+    const { company, name, phone, email, service, message, inquiryType = "consultation", marketingAgreed = false, session_id, proposal_data } = formData;
 
     if (!name || !phone) {
       return new Response(
@@ -53,6 +54,7 @@ serve(async (req) => {
       inquiry_type: inquiryType,
       marketing_agreed: marketingAgreed,
       session_id: session_id || null,
+      proposal_data: proposal_data || null,
     });
 
     if (dbError) {

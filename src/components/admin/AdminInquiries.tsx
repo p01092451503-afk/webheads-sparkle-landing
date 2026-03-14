@@ -9,6 +9,7 @@ import InquiryVisitorStats from "./InquiryVisitorStats";
 import InquiryAIAnalysis from "./InquiryAIAnalysis";
 import InquiryProAnalysis from "./InquiryProAnalysis";
 import InquiryProposal from "./InquiryProposal";
+import AdminSimulationProposal from "./AdminSimulationProposal";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 type InquiryStatus = "new" | "in_progress" | "completed" | "archived";
@@ -684,6 +685,11 @@ export default function AdminInquiries({ inquiries, setInquiries, onRefresh, log
 
                     {/* Proposal */}
                     <InquiryProposal inquiry={selectedInquiry} onFreeze={() => setProposalFrozen(true)} />
+
+                    {/* Simulation Proposal (from cost simulator) */}
+                    {selectedInquiry.proposal_data && (
+                      <AdminSimulationProposal inquiry={selectedInquiry} logActivity={logActivity} />
+                    )}
 
                     {/* Delete */}
                     {/* 삭제 버튼 숨김 처리
