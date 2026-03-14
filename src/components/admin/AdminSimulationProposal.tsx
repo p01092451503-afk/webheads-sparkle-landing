@@ -64,24 +64,6 @@ export default function AdminSimulationProposal({ inquiry, logActivity }: Props)
     }
   };
 
-  const handleDownloadPdf = useCallback(async () => {
-    if (!proposalRef.current) return;
-    setPdfLoading(true);
-    try {
-      const html2pdf = (await import("html2pdf.js")).default;
-      const filename = `웹헤즈_LMS_견적서_${currentData.planName}_${inquiry.company}_${new Date().toISOString().slice(0, 10)}.pdf`;
-      await (html2pdf() as any).set({
-        margin: 0, filename,
-        image: { type: "jpeg", quality: 0.95 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      }).from(proposalRef.current).save();
-    } catch {
-      alert("PDF 생성 오류");
-    } finally {
-      setPdfLoading(false);
-    }
-  }, [currentData, inquiry.company]);
 
   const handleSendEmail = async () => {
     if (!inquiry.email) {
