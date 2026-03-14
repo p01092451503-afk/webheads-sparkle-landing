@@ -441,6 +441,12 @@ export default function CostSimulatorPage() {
                     <a href="#lead-capture" className="inline-flex items-center justify-center gap-1 w-full text-[13px] font-semibold text-white/60 hover:text-white/90 transition-colors mt-1">
                       {t("costSim.result.ctaConsult")} <ArrowRight className="w-3.5 h-3.5" />
                     </a>
+
+                    {/* Trust signal badge */}
+                    <div className="mt-3 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] text-white" style={{ background: "rgba(255,255,255,0.15)" }}>
+                      <CalendarCheck className="w-3.5 h-3.5 shrink-0 text-white/80" />
+                      <span>평균 응답 2시간 이내</span>
+                    </div>
                   </div>
                 </div>
               )}
