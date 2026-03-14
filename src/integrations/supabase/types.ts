@@ -592,6 +592,8 @@ export type Database = {
         Row: {
           action: string
           analytics: boolean
+          city: string | null
+          country: string | null
           created_at: string
           essential: boolean
           id: string
@@ -605,6 +607,8 @@ export type Database = {
         Insert: {
           action?: string
           analytics?: boolean
+          city?: string | null
+          country?: string | null
           created_at?: string
           essential?: boolean
           id?: string
@@ -618,6 +622,8 @@ export type Database = {
         Update: {
           action?: string
           analytics?: boolean
+          city?: string | null
+          country?: string | null
           created_at?: string
           essential?: boolean
           id?: string
