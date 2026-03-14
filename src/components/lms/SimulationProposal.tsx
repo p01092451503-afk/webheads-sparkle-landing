@@ -110,7 +110,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
         <div className="rounded-xl p-5" style={{ background: "#F8F7FF", border: "1px solid #E8E5FF" }}>
           <div className="flex items-center justify-between mb-3">
             <div>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ background: "#5D45FF" }}>추천</span>
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full text-white inline-flex items-center justify-center leading-none" style={{ background: "#5D45FF" }}>추천</span>
               <span className="text-xl font-extrabold ml-2">{data.planName}</span>
               <span className="text-sm text-gray-500 ml-2">{data.solutionType}</span>
             </div>
