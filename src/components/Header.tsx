@@ -41,7 +41,7 @@ export default function Header() {
   const location = useLocation();
   const { t, i18n } = useTranslation();
   const isKorean = i18n.language === "ko" || i18n.language?.startsWith("ko-");
-  const isLightPage = location.pathname === "/service-request" || location.pathname === "/overview" || location.pathname === "/blog" || location.pathname === "/event";
+  const isLightPage = location.pathname === "/service-request" || location.pathname === "/overview" || location.pathname === "/blog" || location.pathname.startsWith("/blog/") || location.pathname === "/event";
   const effectiveScrolled = scrolled || isLightPage;
 
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
