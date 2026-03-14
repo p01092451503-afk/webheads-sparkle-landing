@@ -482,9 +482,9 @@ export default function CostSimulator() {
 
             {/* All plans comparison */}
             <div className="rounded-2xl border border-border overflow-hidden">
-              <div className="px-5 py-3.5 bg-muted/50 border-b border-border flex items-center justify-between">
-                <span className="text-xs font-bold text-muted-foreground tracking-wider uppercase">{t("costSim.allPlans")}</span>
-                {isAnnual && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>{t("costSim.annualApplied")}</span>}
+              <div className="px-6 py-4 bg-muted/50 border-b border-border flex items-center justify-between">
+                <span className="text-sm font-bold text-muted-foreground tracking-wider uppercase">{t("costSim.allPlans")}</span>
+                {isAnnual && <span className="text-xs font-bold px-2.5 py-1 rounded-full" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>{t("costSim.annualApplied")}</span>}
               </div>
               <div className="divide-y divide-border">
                 {recommendations.map((plan) => {
@@ -492,18 +492,18 @@ export default function CostSimulator() {
                   return (
                   <div
                     key={plan.name}
-                    className={`flex items-center justify-between px-5 py-4 transition-colors ${plan.name === bestPlan?.name ? "bg-primary/5" : "bg-background hover:bg-muted/30"}`}
+                    className={`flex items-center justify-between px-6 py-5 transition-colors ${plan.name === bestPlan?.name ? "bg-primary/5" : "bg-background hover:bg-muted/30"}`}
                   >
                     <div className="flex items-center gap-3">
                       {plan.name === bestPlan?.name && (
-                        <span className="w-2 h-2 rounded-full shrink-0" style={{ background: "hsl(var(--lms-primary))" }} />
+                        <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: "hsl(var(--lms-primary))" }} />
                       )}
                       <div>
-                        <p className={`text-sm font-bold ${plan.name === bestPlan?.name ? "" : "text-foreground"}`} style={plan.name === bestPlan?.name ? { color: "hsl(var(--lms-primary))" } : undefined}>
+                        <p className={`text-base font-bold ${plan.name === bestPlan?.name ? "" : "text-foreground"}`} style={plan.name === bestPlan?.name ? { color: "hsl(var(--lms-primary))" } : undefined}>
                           {plan.name}
                         </p>
-                        <p className="text-xs text-muted-foreground">{plan.solutionType}</p>
-                        <p className="text-[10px] text-muted-foreground/60 font-medium">
+                        <p className="text-sm text-muted-foreground">{plan.solutionType}</p>
+                        <p className="text-xs text-muted-foreground/60 font-medium">
                           {plan.cdnIncluded > 0
                             ? t("costSim.planSpecs", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded.toLocaleString() })
                             : t("costSim.planSpecsNone")}
@@ -511,12 +511,12 @@ export default function CostSimulator() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
+                      <p className="text-base font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
                       {isAnnual && (
-                        <p className="text-[10px] text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
+                        <p className="text-xs text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
                       )}
                       {plan.totalMonthly > plan.monthly && (
-                        <p className="text-[10px] text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {currency(formatPrice(plan.totalMonthly - plan.monthly))}</p>
+                        <p className="text-xs text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {currency(formatPrice(plan.totalMonthly - plan.monthly))}</p>
                       )}
                     </div>
                   </div>
