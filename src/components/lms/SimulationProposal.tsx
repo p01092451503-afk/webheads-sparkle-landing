@@ -92,7 +92,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
         </div>
         <h1 className="text-2xl font-extrabold mb-2 tracking-tight">LMS 맞춤 견적서 & 성공 로드맵</h1>
         <p className="text-sm opacity-70">
-          {data.companyName ? `${data.companyName} 귀중` : "귀사"}의 교육 환경에 최적화된 플랜을 제안드립니다.
+          {data.companyName ? `${data.companyName}님의` : "귀사의"} 교육 환경에 최적화된 플랜을 제안드립니다.
         </p>
       </div>
 
