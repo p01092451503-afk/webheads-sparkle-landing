@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,11 +7,12 @@ import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
 import LazySection from "@/components/shared/LazySection";
+import SimulationProposal from "@/components/lms/SimulationProposal";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
   GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck,
   CheckCircle, X, Shield, Clock, Headphones, MessageCircle, FileText,
-  Zap, Award, Building2, Star
+  Zap, Award, Building2, Star, Download, Send, Eye, EyeOff
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
