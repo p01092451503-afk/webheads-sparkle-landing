@@ -524,7 +524,9 @@ export default function CostSimulatorPage() {
           </div>
         </div>
       </section>
+      </LazySection>
 
+      <LazySection>
       {/* ═══ SUCCESS CASES ═══ */}
       <section className="py-16 md:py-20" style={{ background: "#F8F9FD" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-4xl">
