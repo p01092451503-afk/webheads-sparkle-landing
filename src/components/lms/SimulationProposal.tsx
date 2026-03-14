@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
-import { CheckCircle, TrendingUp, Shield, Clock, Headphones, Zap, Award, Server, ShieldCheck, HardDrive, Users, Globe, Star, ArrowRight, FileText } from "lucide-react";
+import { CheckCircle, TrendingUp, Shield, Clock, Headphones, Zap, Award, Server, ShieldCheck, HardDrive, Users, Globe, Star, ArrowRight, FileText, Building2, Code, Monitor, Cpu } from "lucide-react";
 
 interface SimulationData {
   planName: string;
@@ -286,6 +286,58 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
           </div>
         </div>
         <p className="text-xs text-gray-400 mt-4 leading-relaxed">※ 디자인 커스터마이징, PG(결제) 계약 및 심사 과정에 따라 오픈 기간은 다소 늘어날 수 있습니다.</p>
+      </div>
+
+      {/* Company Introduction */}
+      <div className="px-8 py-6 border-b border-gray-100">
+        <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
+          <span className="w-1 h-5 rounded-full" style={{ background: "#5D45FF" }} />
+          회사 소개
+        </h2>
+        <div className="rounded-xl p-5" style={{ background: "#F8F7FF", border: "1px solid #E8E5FF" }}>
+          <div className="flex items-start gap-4 mb-4">
+            <div>
+              <p className="text-base font-extrabold text-gray-900">(주)웹헤즈</p>
+              <p className="text-xs text-gray-500 mt-0.5">설립 2010년 · 사업자등록번호 204-86-20072</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-600 mb-4">
+            <div className="flex items-start gap-2">
+              <Building2 className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#5D45FF" }} />
+              <div>
+                <p className="font-semibold text-gray-700">사업 분야</p>
+                <p>LMS 솔루션 구축·임대(SaaS), CDN 호스팅, DRM 보안, AI 챗봇·튜터, 콘텐츠 개발</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <Code className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#5D45FF" }} />
+              <div>
+                <p className="font-semibold text-gray-700">기술 역량</p>
+                <p>PHP/JAVA 기반 맞춤 개발, Flutter/React Native 앱, AWS·NCP 클라우드, AI 학습 분석</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <Users className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#5D45FF" }} />
+              <div>
+                <p className="font-semibold text-gray-700">조직 구성</p>
+                <p>솔루션사업팀 9명, 콘텐츠사업팀 2명, 호스팅사업팀 2명 등 총 15명</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <Monitor className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: "#5D45FF" }} />
+              <div>
+                <p className="font-semibold text-gray-700">인프라</p>
+                <p>LG U+ 가산디지털센터 IDC, 전용 CDN 서비스, 24시간 장애 모니터링</p>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-gray-200 pt-3">
+            <p className="text-[11px] font-semibold text-gray-500 mb-1.5">주요 고객사</p>
+            <p className="text-[10px] text-gray-400 leading-relaxed">
+              야나두(60만 회원) · 월급쟁이부자들(30만 회원) · 한국능률협회컨설팅(400만 회원) · 한국입학사정관협의회 · 한국재정정보원 · 인천국제공항공사 · SK하이닉스 · 풀무원 · 삼양식품 · 서울경찰청 · 성균관대학교 · 고려대학교 · 중앙대학교 · 카톨릭대학교 · 공주대학교 외 300+ 기관
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Why WEBHEADS */}
