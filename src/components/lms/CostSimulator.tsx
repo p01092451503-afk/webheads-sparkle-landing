@@ -510,6 +510,12 @@ export default function CostSimulator() {
                     {t("costSim.ctaPlan")}
                     <ArrowRight className="w-4 h-4" />
                   </a>
+                  <button
+                    onClick={() => setQuoteModalOpen(true)}
+                    className="inline-flex items-center justify-center gap-1.5 w-full text-[13px] font-semibold text-white/80 hover:text-white transition-colors mt-2 py-2 rounded-xl border border-white/30 hover:border-white/50"
+                  >
+                    📧 이 견적을 이메일로 받기
+                  </button>
                 </div>
               </div>
             )}
