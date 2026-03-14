@@ -819,7 +819,7 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
-      
+      {bestPlan && <QuoteEmailModal open={quoteModalOpen} onOpenChange={setQuoteModalOpen} planName={bestPlan.name} monthlyTotal={displayMonthly} />}
     </div>
   );
 }
