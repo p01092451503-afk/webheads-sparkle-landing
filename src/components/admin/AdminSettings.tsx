@@ -58,6 +58,7 @@ export default function AdminSettings({ isSuperAdmin, logActivity }: AdminSettin
     { key: "settings", label: "설정" },
     { key: "404logs", label: "404" },
     { key: "chatbot", label: "챗봇" },
+    { key: "cookie_settings", label: "쿠키" },
     { key: "client_companies", label: "고객사관리" },
     { key: "payments", label: "매출관리" },
     { key: "expenses", label: "매입/지출관리" },
