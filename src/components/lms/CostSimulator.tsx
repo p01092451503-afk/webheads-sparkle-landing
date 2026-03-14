@@ -1,9 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { TOptions } from "i18next";
-import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown, CheckCircle } from "lucide-react";
+import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown, ChevronUp, CheckCircle } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface PlanRecommendation {
   name: string;
