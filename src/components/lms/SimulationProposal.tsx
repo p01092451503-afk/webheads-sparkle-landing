@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
-import { CheckCircle, TrendingUp, Shield, Clock, Headphones, Zap, Award, Server, ShieldCheck, HardDrive, Users, GraduationCap, Globe, Star, ArrowRight, FileText } from "lucide-react";
+import { CheckCircle, TrendingUp, Shield, Clock, Headphones, Zap, Award, Server, ShieldCheck, HardDrive, Users, Globe, Star, ArrowRight, FileText } from "lucide-react";
 
 interface SimulationData {
   planName: string;
