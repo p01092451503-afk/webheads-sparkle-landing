@@ -634,12 +634,22 @@ export default function CostSimulatorPage() {
               <h3 className="text-xl font-bold text-foreground mb-2">{t("costSim.lead.successTitle")}</h3>
               <p className="text-sm text-muted-foreground mb-4">{t("costSim.lead.successDesc")}</p>
               <div className="rounded-xl p-4 text-left" style={{ background: "#F8F7FF", border: "1px solid #E8E5FF" }}>
-                <p className="text-sm font-semibold text-foreground mb-2">📋 제안서 요약</p>
+                <p className="text-sm font-semibold text-foreground mb-2">제안서 요약</p>
                 {bestPlan && (
                   <div className="text-xs text-muted-foreground space-y-1">
                     <p>추천 플랜: <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name}</span> — 월 {formatPrice(bestPlan.monthly)}원</p>
                     <p>기본 전송량 {bestPlan.cdnIncluded > 0 ? `${formatPrice(bestPlan.cdnIncluded)}GB/월` : "—"} · 저장공간 {bestPlan.storageIncluded > 0 ? `${bestPlan.storageIncluded}GB` : "—"}</p>
-                    <p>수강생 {learners.toLocaleString()}명 · 저장공간 {storageInput}GB · 완강률 {completionRate}%</p>
+                    <p className="pt-1 font-medium text-foreground">기본 포함 서비스</p>
+                    <p>✓ 회원수 무제한 · 디자인 무료 템플릿 · SSL 보안인증서</p>
+                    {(bestPlan.name === "Plus" || bestPlan.name === "Premium") && <p>✓ 모바일 앱 (iOS/Android)</p>}
+                    {bestPlan.name === "Premium" && <p>✓ DRM 보안 플레이어</p>}
+                    {needsSecurePlayer && bestPlan.name !== "Premium" && bestPlan.name !== "Starter" && (
+                      <p className="text-amber-600">⚡ DRM 보안 플레이어 (선택 · 월 300,000원)</p>
+                    )}
+                    {!needsSecurePlayer && bestPlan.name !== "Premium" && bestPlan.name !== "Starter" && (
+                      <p className="text-muted-foreground/60">DRM 보안 플레이어 (선택 · 월 300,000원)</p>
+                    )}
+                    <p className="pt-1">수강생 {learners.toLocaleString()}명 · 저장공간 {storageInput}GB · 완강률 {completionRate}%</p>
                   </div>
                 )}
                 <p className="text-xs text-muted-foreground mt-3">
