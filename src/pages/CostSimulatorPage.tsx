@@ -299,7 +299,13 @@ export default function CostSimulatorPage() {
                     <div className="flex items-center gap-1.5">
                       <GraduationCap className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm font-semibold text-foreground">{t("costSim.sim.completion")}</span>
-                      <Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs">{t("costSim.sim.completionTooltip")}</p></TooltipContent></Tooltip>
+                      <Tooltip>
+                        <TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger>
+                        <TooltipContent side="bottom" className="max-w-[240px] text-xs">
+                          <p>완강률이 높을수록 실제 영상 재생 횟수가 많아져 CDN 전송량이 증가합니다.</p>
+                          <p className="mt-1">예상 월 전송량 = 수강생 수 × 동영상 용량 × 완강률</p>
+                        </TooltipContent>
+                      </Tooltip>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={completionRate} onChange={(e) => setCompletionRate(Math.min(100, Math.max(10, Number(e.target.value) || 10)))} className="w-12 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={10} max={100} />
@@ -308,6 +314,7 @@ export default function CostSimulatorPage() {
                   </div>
                   <Slider value={[completionRate]} onValueChange={([v]) => setCompletionRate(v)} min={10} max={100} step={5} className="w-full" />
                   <div className="flex justify-between text-[10px] text-muted-foreground mt-1"><span>10%</span><span>100%</span></div>
+                  <p className="text-[10px] text-muted-foreground mt-0.5 italic">완강률 {completionRate}% 기준, 수강생 1인당 월 {(storageInput * (completionRate / 100)).toFixed(1)}GB 전송 예상</p>
                 </div>
 
                 {/* Toggles */}
