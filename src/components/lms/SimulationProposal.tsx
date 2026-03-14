@@ -169,7 +169,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
           </table>
         </div>
         {data.isAnnual && (
-          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt(data.monthlyPrice * 12)}원 (VAT 별도)</p>
+          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((data.basePrice - discount) * 12)}원 (VAT 별도)</p>
         )}
       </div>
 
