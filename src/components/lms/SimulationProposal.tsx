@@ -115,24 +115,24 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
             <div className="rounded-lg p-3 bg-white">
-              <Users className="w-4 h-4 mx-auto mb-1 text-gray-400" />
-              <p className="text-xs text-gray-500">수강생</p>
-              <p className="text-sm font-bold">{fmt(data.learners)}명</p>
+              <Globe className="w-4 h-4 mx-auto mb-1 text-gray-400" />
+              <p className="text-xs text-gray-500">동영상 전송량</p>
+              <p className="text-sm font-bold">{planSpec.cdn}</p>
             </div>
             <div className="rounded-lg p-3 bg-white">
               <HardDrive className="w-4 h-4 mx-auto mb-1 text-gray-400" />
               <p className="text-xs text-gray-500">저장공간</p>
-              <p className="text-sm font-bold">{fmt(data.storageInput)}GB</p>
+              <p className="text-sm font-bold">{planSpec.storage}</p>
             </div>
             <div className="rounded-lg p-3 bg-white">
-              <GraduationCap className="w-4 h-4 mx-auto mb-1 text-gray-400" />
-              <p className="text-xs text-gray-500">완강률</p>
-              <p className="text-sm font-bold">{data.completionRate}%</p>
+              <Users className="w-4 h-4 mx-auto mb-1 text-gray-400" />
+              <p className="text-xs text-gray-500">회원수</p>
+              <p className="text-sm font-bold">{planSpec.members}</p>
             </div>
             <div className="rounded-lg p-3 bg-white">
-              <Globe className="w-4 h-4 mx-auto mb-1 text-gray-400" />
-              <p className="text-xs text-gray-500">예상 CDN</p>
-              <p className="text-sm font-bold">{fmt(data.cdnGB)}GB/월</p>
+              <Shield className="w-4 h-4 mx-auto mb-1 text-gray-400" />
+              <p className="text-xs text-gray-500">SSL 인증서</p>
+              <p className="text-sm font-bold">포함</p>
             </div>
           </div>
         </div>
