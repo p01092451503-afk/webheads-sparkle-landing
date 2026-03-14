@@ -52,6 +52,8 @@ function estimateUsage(learners: number, storageInput: number, completionRate: n
 export default function CostSimulator() {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
+  const isMobile = useIsMobile();
+  const resultCardRef = useRef<HTMLDivElement>(null);
   const [learners, setLearners] = useState(200);
   const [storageInput, setStorageInput] = useState(20);
   const [completionRate, setCompletionRate] = useState(70);
