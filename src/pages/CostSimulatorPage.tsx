@@ -693,6 +693,7 @@ export default function CostSimulatorPage() {
                   inquiryType: "proposal_request",
                   marketingAgreed: false,
                   session_id: sessionStorage.getItem("_sid") || undefined,
+                  proposal_data: simulationData,
                 },
               });
               if (fnError) throw new Error(fnError.message);
