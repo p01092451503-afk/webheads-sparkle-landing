@@ -106,26 +106,33 @@ export default function CostSimulatorPage() {
   const bestPlan = useMemo(() => {
     const viable = recommendations.filter((p) => p.name !== "Starter");
     if (!needsCdn) return recommendations.find((p) => p.name === "Starter") || viable[0];
+    // Sort by total cost
     const sorted = [...viable].sort((a, b) => a.totalMonthly - b.totalMonthly);
-    if (sorted[0] && (sorted[0].overageCdn + sorted[0].overageStorage) > sorted[0].monthly * 0.5) return sorted[1] || sorted[0];
-    return sorted[0];
-  }, [recommendations, needsCdn]);
-
-  const upgradeNudge = useMemo<{ fromPlan: string; toPlan: string; diff: number; benefit: string } | null>(() => {
-    if (!bestPlan || !needsCdn) return null;
+    let candidate = sorted[0];
+    if (!candidate) return sorted[0];
+    // 80% threshold: if CDN usage >= 80% of plan's included CDN, auto-upgrade
     const planOrder = ["Basic", "Plus", "Premium"];
-    const idx = planOrder.indexOf(bestPlan.name);
-    if (idx < 0) return null;
-    const overage = bestPlan.overageCdn + bestPlan.overageStorage;
-    if (overage <= 0) return null;
-    const nextName = planOrder[idx + 1];
-    if (!nextName) return null;
-    const next = recommendations.find((p) => p.name === nextName);
-    if (!next) return null;
-    const diff = next.monthly - bestPlan.monthly;
-    const cdnMultiple = next.cdnIncluded / Math.max(bestPlan.cdnIncluded, 1);
-    return { fromPlan: bestPlan.name, toPlan: nextName, diff, benefit: t("costSim.result.upgradeBenefit", { multiple: cdnMultiple.toFixed(0) }) };
-  }, [bestPlan, recommendations, needsCdn, t]);
+    const candIdx = planOrder.indexOf(candidate.name);
+    if (candIdx >= 0 && candidate.cdnIncluded > 0 && cdnGB >= candidate.cdnIncluded * 0.8) {
+      const nextName = planOrder[candIdx + 1];
+      if (nextName) {
+        const nextPlan = recommendations.find((p) => p.name === nextName);
+        if (nextPlan) candidate = nextPlan;
+      }
+    }
+    return candidate;
+  }, [recommendations, needsCdn, cdnGB]);
+
+  const upgradeNudge = useMemo<{ fromPlan: string; toPlan: string; savings: number } | null>(() => {
+    if (!bestPlan || !needsCdn) return null;
+    // Only show nudge when bestPlan is Basic and Plus is cheaper
+    if (bestPlan.name !== "Basic") return null;
+    const plusPlan = recommendations.find((p) => p.name === "Plus");
+    if (!plusPlan) return null;
+    if (plusPlan.totalMonthly >= bestPlan.totalMonthly) return null;
+    const savings = bestPlan.totalMonthly - plusPlan.totalMonthly;
+    return { fromPlan: "Basic", toPlan: "Plus", savings };
+  }, [bestPlan, recommendations, needsCdn]);
 
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
   const displayMonthly = bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0;
