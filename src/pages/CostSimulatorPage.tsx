@@ -420,9 +420,6 @@ export default function CostSimulatorPage() {
                         </div>
                       </div>
                     );
-                        </div>
-                      </div>
-                    );
                   })}
                 </div>
               </div>
