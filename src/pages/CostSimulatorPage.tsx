@@ -74,7 +74,7 @@ export default function CostSimulatorPage() {
   const [completionRate, setCompletionRate] = useState(70);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
-  const [isAnnual, setIsAnnual] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(true);
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
