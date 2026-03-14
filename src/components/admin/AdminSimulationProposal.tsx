@@ -110,9 +110,9 @@ export default function AdminSimulationProposal({ inquiry, logActivity }: Props)
       const html2pdf = (await import("html2pdf.js")).default;
       const pdfBlob: Blob = await (html2pdf() as any).set({
         margin: [0, 0, 0, 0],
-        image: { type: "jpeg", quality: 1 },
-        html2canvas: { scale: 4, useCORS: true, logging: false },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        image: { type: "png", quality: 1 },
+        html2canvas: { scale: 5, useCORS: true, logging: false, backgroundColor: "#ffffff" },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait", compress: false },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       }).from(proposalRef.current).outputPdf("blob");
 
