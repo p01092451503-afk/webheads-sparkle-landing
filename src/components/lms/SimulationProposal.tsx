@@ -24,6 +24,10 @@ interface SimulationData {
   companyName?: string;
 }
 
+const PLAN_BASE_PRICES: Record<string, number> = {
+  Starter: 300000, Basic: 500000, Plus: 700000, Premium: 1000000,
+};
+
 const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(({ data }, ref) => {
   const { t } = useTranslation();
   const fmt = (n: number) => n.toLocaleString("ko-KR");
