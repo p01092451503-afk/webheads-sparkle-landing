@@ -74,6 +74,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
   ];
 
   const planBasePrice = PLAN_BASE_PRICES[data.planName] || data.basePrice;
+  const planSpec = PLAN_SPECS[data.planName] || PLAN_SPECS.Basic;
 
   const costBreakdown: { label: string; amount: number }[] = [
     { label: `${data.planName} 플랜 기본 요금`, amount: planBasePrice },
