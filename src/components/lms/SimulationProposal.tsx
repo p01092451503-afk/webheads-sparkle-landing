@@ -102,8 +102,8 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
               <span className="text-sm text-gray-500 ml-2">{data.solutionType}</span>
             </div>
             <div className="text-right">
-              <p className="text-2xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(data.basePrice)}<span className="text-sm font-bold">원/월</span></p>
-              {data.isAnnual && <p className="text-xs text-gray-400">연간 계약 10% 할인 적용 시 {fmt(Math.round(data.basePrice * 0.9))}원/월</p>}
+              <p className="text-2xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(planBasePrice)}<span className="text-sm font-bold">원/월</span></p>
+              {data.isAnnual && <p className="text-xs text-gray-400">연간 계약 10% 할인 적용 시 {fmt(Math.round(planBasePrice * 0.9))}원/월</p>}
             </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
