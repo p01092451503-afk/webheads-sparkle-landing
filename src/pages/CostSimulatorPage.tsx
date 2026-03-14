@@ -671,6 +671,7 @@ export default function CostSimulatorPage() {
         </div>
       </section>
 
+      </LazySection>
     </div>
   );
 }
