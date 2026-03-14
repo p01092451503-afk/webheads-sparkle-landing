@@ -77,8 +77,11 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
   const planSpec = PLAN_SPECS[data.planName] || PLAN_SPECS.Basic;
 
   const SETUP_FEE = 300000;
+  const SECURE_PLAYER_COST = 300000;
+  const secureAddon = (data.needsSecurePlayer && data.planName !== "Starter" && data.planName !== "Premium") ? SECURE_PLAYER_COST : 0;
   const costBreakdown: { label: string; amount: number }[] = [
     { label: `${data.planName} 플랜 월 이용료`, amount: planBasePrice },
+    ...(secureAddon > 0 ? [{ label: "보안 플레이어 (DRM)", amount: secureAddon }] : []),
     { label: "최초 세팅료 (1회)", amount: SETUP_FEE },
   ];
 
