@@ -126,11 +126,6 @@ export default function CostSimulatorPage() {
     return { fromPlan: bestPlan.name, toPlan: nextName, diff, benefit: t("costSim.result.upgradeBenefit", { multiple: cdnMultiple.toFixed(0) }) };
   }, [bestPlan, recommendations, needsCdn, t]);
 
-  useEffect(() => {
-    if (isAnnual) { setShowAnnualBonus(true); }
-    else setShowAnnualBonus(false);
-  }, [isAnnual]);
-
   const formatPrice = (n: number) => n.toLocaleString("ko-KR");
   const displayMonthly = bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0;
 
