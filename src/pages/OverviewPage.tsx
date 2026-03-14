@@ -370,20 +370,6 @@ function CompanyProfileSection() {
               );
             })}
           </div>
-
-          {/* Organization */}
-          <div className="mt-5 pt-5 border-t border-border">
-            <p className="text-xs font-bold text-muted-foreground tracking-wider uppercase mb-3">조직 구성 (총 15명)</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              {teams.map((team, i) => (
-                <div key={i} className="rounded-xl p-3 text-center" style={{ background: "hsl(255,75%,58%,0.04)" }}>
-                  <p className="font-bold text-sm text-foreground">{team.name}</p>
-                  <p className="text-lg font-black mt-1" style={{ color: "hsl(255,75%,58%)" }}>{team.count}</p>
-                  {team.detail && <p className="text-[10px] text-muted-foreground mt-0.5">{team.detail}</p>}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* Business Areas */}
