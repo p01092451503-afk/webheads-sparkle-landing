@@ -11,7 +11,7 @@ import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
   GraduationCap, Server, ShieldCheck, TrendingUp, CalendarCheck,
   CheckCircle, Shield, Clock, Headphones, MessageCircle, FileText,
-  Zap, Award, Building2, Star
+  Zap, Award, Building2, Star, ChevronDown
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
