@@ -93,7 +93,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
       <div className="px-8 pt-10 pb-6" style={{ background: "linear-gradient(135deg, #5D45FF, #7c68ff)", color: "white" }}>
         <div className="flex items-center justify-between mb-6">
           <span className="text-lg font-extrabold italic tracking-tight" style={{ color: "white" }}>WEBHEADS.</span>
-          <span className="text-xs opacity-60">{dateStr}</span>
+          <span className="text-base opacity-60">{dateStr}</span>
         </div>
         <h1 className="text-2xl font-extrabold mb-2 tracking-tight">LMS 맞춤 견적서 & 성공 로드맵</h1>
         <p className="text-sm opacity-70">
