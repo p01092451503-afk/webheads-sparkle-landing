@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import QuoteEmailModal from "./QuoteEmailModal";
 import { useTranslation } from "react-i18next";
 import type { TOptions } from "i18next";
 import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown, CheckCircle } from "lucide-react";
@@ -60,7 +59,6 @@ export default function CostSimulator() {
   const [isAnnual, setIsAnnual] = useState(true);
   const [needsDedicatedServer, setNeedsDedicatedServer] = useState(false);
   const [detailOpen, setDetailOpen] = useState(false);
-  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const SECURE_PLAYER_COST = 300000;
   const DEDICATED_SERVER_COST = 250000;
   const ANNUAL_DISCOUNT = 0.1;
@@ -512,12 +510,6 @@ export default function CostSimulator() {
                     {t("costSim.ctaPlan")}
                     <ArrowRight className="w-4 h-4" />
                   </a>
-                  <button
-                    onClick={() => setQuoteModalOpen(true)}
-                    className="inline-flex items-center justify-center gap-1.5 w-full text-[13px] font-semibold text-white/80 hover:text-white transition-colors mt-2 py-2 rounded-xl border border-white/30 hover:border-white/50"
-                  >
-                    📧 이 견적을 이메일로 받기
-                  </button>
                 </div>
               </div>
             )}
@@ -614,7 +606,6 @@ export default function CostSimulator() {
           </div>
         </div>
       </div>
-      {bestPlan && <QuoteEmailModal open={quoteModalOpen} onOpenChange={setQuoteModalOpen} planName={bestPlan.name} monthlyTotal={bestPlan ? (isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly) : 0} />}
     </section>
   );
 }
