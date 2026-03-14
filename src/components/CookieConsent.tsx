@@ -56,89 +56,83 @@ const CookieConsent = () => {
   const labelMarketing = isKo ? "마케팅 쿠키" : isJa ? "マーケティングCookie" : "Marketing Cookies";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[9999] animate-in slide-in-from-bottom duration-500">
-      <div className="bg-[hsl(220,20%,10%)] text-[hsl(0,0%,92%)] border-t border-[hsl(220,15%,20%)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-5">
-          {/* Close */}
-          <button
-            onClick={handleRejectOptional}
-            className="absolute top-3 right-4 text-[hsl(0,0%,60%)] hover:text-white transition-colors"
-            aria-label="Close"
-          >
-            <X size={18} />
-          </button>
+    <div className="fixed bottom-6 right-6 z-[9999] animate-in slide-in-from-bottom-4 duration-500">
+      <div
+        className="w-[320px] rounded-2xl p-6 shadow-2xl"
+        style={{
+          background: "linear-gradient(145deg, hsl(340,60%,45%), hsl(260,40%,25%), hsl(220,30%,12%))",
+        }}
+      >
+        {/* Close */}
+        <button
+          onClick={handleRejectOptional}
+          className="absolute top-3 right-3 text-[hsl(0,0%,60%)] hover:text-white transition-colors"
+          aria-label="Close"
+        >
+          <X size={16} />
+        </button>
 
-          {/* Title */}
-          <h3 className="text-sm font-bold mb-2 flex items-center gap-2">
-            <Cookie size={16} className="text-primary" />
-            {title}
-          </h3>
+        {/* Description */}
+        <p className="text-sm leading-relaxed text-[hsl(0,0%,88%)] mb-5 pr-4">
+          {desc}{" "}
+          <span className="underline underline-offset-2 cursor-pointer hover:text-white transition-colors">
+            {isKo ? "개인정보 처리방침" : isJa ? "プライバシーポリシー" : "Privacy Policy"}
+          </span>
+        </p>
 
-          {/* Description */}
-          <p className="text-xs leading-relaxed text-[hsl(0,0%,65%)] max-w-4xl mb-4">
-            {desc}
-          </p>
-
-          {/* Settings panel */}
-          {showSettings && (
-            <div className="mb-4 p-3 rounded-md bg-[hsl(220,15%,15%)] space-y-3 text-xs">
-              <label className="flex items-center gap-2 text-[hsl(0,0%,60%)]">
-                <input type="checkbox" checked disabled className="accent-primary" />
-                {labelEssential}
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={analytics}
-                  onChange={(e) => setAnalytics(e.target.checked)}
-                  className="accent-primary"
-                />
-                {labelAnalytics}
-              </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={marketing}
-                  onChange={(e) => setMarketing(e.target.checked)}
-                  className="accent-primary"
-                />
-                {labelMarketing}
-              </label>
-            </div>
-          )}
-
-          {/* Buttons */}
-          <div className="flex flex-wrap gap-2">
-            {!showSettings ? (
-              <>
-                <button
-                  onClick={() => setShowSettings(true)}
-                  className="px-4 py-2 text-xs font-medium rounded-md border border-[hsl(0,0%,40%)] text-white hover:bg-[hsl(220,15%,20%)] transition-colors"
-                >
-                  {btnSettings}
-                </button>
-                <button
-                  onClick={handleAcceptAll}
-                  className="px-4 py-2 text-xs font-medium rounded-md bg-white text-[hsl(220,20%,10%)] hover:bg-[hsl(0,0%,90%)] transition-colors"
-                >
-                  {btnAccept}
-                </button>
-                <button
-                  onClick={handleRejectOptional}
-                  className="px-4 py-2 text-xs font-medium rounded-md border border-[hsl(0,0%,30%)] text-[hsl(0,0%,60%)] hover:text-white hover:border-[hsl(0,0%,50%)] transition-colors"
-                >
-                  {btnReject}
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={handleSaveSettings}
-                className="px-4 py-2 text-xs font-medium rounded-md bg-white text-[hsl(220,20%,10%)] hover:bg-[hsl(0,0%,90%)] transition-colors"
-              >
-                {btnSave}
-              </button>
-            )}
+        {/* Settings panel */}
+        {showSettings && (
+          <div className="mb-4 p-3 rounded-xl bg-[hsl(220,20%,8%/0.6)] space-y-3 text-xs">
+            <label className="flex items-center gap-2 text-[hsl(0,0%,55%)]">
+              <input type="checkbox" checked disabled className="accent-primary rounded" />
+              {labelEssential}
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-[hsl(0,0%,88%)]">
+              <input
+                type="checkbox"
+                checked={analytics}
+                onChange={(e) => setAnalytics(e.target.checked)}
+                className="accent-primary rounded"
+              />
+              {labelAnalytics}
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-[hsl(0,0%,88%)]">
+              <input
+                type="checkbox"
+                checked={marketing}
+                onChange={(e) => setMarketing(e.target.checked)}
+                className="accent-primary rounded"
+              />
+              {labelMarketing}
+            </label>
           </div>
+        )}
+
+        {/* Buttons */}
+        <div className="flex flex-col gap-2.5">
+          {!showSettings ? (
+            <>
+              <button
+                onClick={handleAcceptAll}
+                className="w-full py-3 text-sm font-semibold rounded-xl bg-[hsl(0,0%,95%)] text-[hsl(220,20%,10%)] hover:bg-white transition-colors"
+              >
+                {btnAccept}
+              </button>
+              <button
+                onClick={() => setShowSettings(true)}
+                className="w-full py-3 text-sm font-semibold rounded-xl bg-[hsl(220,15%,18%)] text-[hsl(0,0%,85%)] hover:bg-[hsl(220,15%,24%)] transition-colors"
+              >
+                {btnSettings}
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={handleSaveSettings}
+              className="w-full py-3 text-sm font-semibold rounded-xl bg-[hsl(0,0%,95%)] text-[hsl(220,20%,10%)] hover:bg-white transition-colors"
+            >
+              {btnSave}
+            </button>
+          )}
         </div>
       </div>
     </div>
