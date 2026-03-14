@@ -6,6 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import HeroPatternBg from "@/components/visuals/HeroPatternBg";
 import HeroPromoBanner from "@/components/shared/HeroPromoBanner";
 import LmsHeroOverlay from "@/components/visuals/LmsHeroOverlay";
+import QuoteEmailModal from "@/components/lms/QuoteEmailModal";
 import LazySection from "@/components/shared/LazySection";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
