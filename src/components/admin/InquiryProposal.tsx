@@ -75,7 +75,7 @@ export default function InquiryProposal({ inquiry, onFreeze }: Props) {
       const savedProposal = proposalResult.data?.proposal_data as unknown as Proposal | null;
 
       setFrozen(isFrozen);
-      if (savedProposal) {
+      if (savedProposal && savedProposal.title && Array.isArray(savedProposal.sections)) {
         setProposal(savedProposal);
         setState("done");
       }
