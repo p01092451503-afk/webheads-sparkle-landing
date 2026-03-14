@@ -50,9 +50,9 @@ export default function Footer() {
       <div className="container mx-auto px-6 max-w-5xl pt-16 pb-[4.4rem]">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_auto_auto] gap-12">
           <div className="flex flex-col gap-8">
-            <span className="text-foreground" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic", letterSpacing: "-0.04em", lineHeight: 1 }}>
+            <Link to="/overview#company-profile" className="text-foreground hover:opacity-80 transition-opacity" style={{ fontFamily: "'Noto Sans', sans-serif", fontWeight: 700, fontSize: "1.625rem", fontStyle: "italic", letterSpacing: "-0.04em", lineHeight: 1 }}>
               {t("header.logo")}
-            </span>
+            </Link>
 
             <div className="flex flex-col gap-6">
               {/* Company */}

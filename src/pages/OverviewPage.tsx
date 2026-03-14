@@ -422,6 +422,11 @@ export default function OverviewPage() {
         </div>
       </section>
 
+      {/* ── Company Profile Detail ── */}
+      <LazySection fallbackHeight="600px">
+        <CompanyProfileSection />
+      </LazySection>
+
       <Divider />
 
       {/* ── LMS Section (deferred) ── */}
