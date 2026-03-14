@@ -30,6 +30,12 @@ const PLAN_DEFS = [
 const COMPETITOR_NOTE = "비교 대상: 국내 주요 이러닝 호스팅 서비스 A, B, C사의 동일 조건 공개 견적 기준 (2025년 1분기)";
 const COMPETITOR_LABEL = "* 동일 사양(수강생 수, 전송량, DRM 포함) 기준 주요 이러닝 호스팅 3사 견적 평균과 비교";
 
+const PLAN_KEY_FEATURES: Record<string, string[]> = {
+  Basic: ["기본 고객 지원 (이메일, 평일 9-18시)", "월간 이용 리포트 제공"],
+  Plus: ["우선 고객 지원 (이메일+채팅, 평일 9-21시)", "실시간 트래픽 모니터링 대시보드", "월간 + 주간 이용 리포트"],
+  Premium: ["전담 CS 매니저 배정", "SLA 99.99% 보장 (장애 시 크레딧 환급)", "실시간 알림 + 맞춤형 월간 리포트"],
+};
+
 const GB_CDN_PER_HOUR_VIEWED = 0.588;
 const STORAGE_GB_PER_VIDEO_HOUR = 0.602;
 const BASE_MONTHLY_HOURS_PER_LEARNER = 10;
