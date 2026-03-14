@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import QuoteEmailModal from "./QuoteEmailModal";
 import { useTranslation } from "react-i18next";
 import type { TOptions } from "i18next";
 import { Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3, GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck, ChevronDown, CheckCircle } from "lucide-react";
