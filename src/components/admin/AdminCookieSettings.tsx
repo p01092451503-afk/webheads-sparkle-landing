@@ -233,22 +233,66 @@ export default function AdminCookieSettings({ isSuperAdmin, logActivity }: Props
           <div className="bg-white rounded-2xl p-6 border border-border space-y-4">
             <h3 className="text-sm font-semibold text-foreground">배너 문구 편집</h3>
 
-            {[
-              { label: "한국어", value: bannerTextKo, setter: setBannerTextKo },
-              { label: "English", value: bannerTextEn, setter: setBannerTextEn },
-              { label: "日本語", value: bannerTextJa, setter: setBannerTextJa },
-            ].map((lang) => (
-              <div key={lang.label}>
-                <label className="text-[12px] font-medium text-muted-foreground mb-1 block">{lang.label}</label>
-                <textarea
-                  value={lang.value}
-                  onChange={(e) => lang.setter(e.target.value)}
-                  disabled={!isSuperAdmin}
-                  rows={2}
-                  className="w-full rounded-xl border border-border bg-muted/30 px-4 py-3 text-[13px] text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none disabled:opacity-50"
-                />
-              </div>
-            ))}
+            {/* Korean - editable with translate button */}
+            <div>
+              <label className="text-[12px] font-medium text-muted-foreground mb-1 block">한국어</label>
+              <textarea
+                value={bannerTextKo}
+                onChange={(e) => setBannerTextKo(e.target.value)}
+                disabled={!isSuperAdmin}
+                rows={2}
+                className="w-full rounded-xl border border-border bg-muted/30 px-4 py-3 text-[13px] text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none disabled:opacity-50"
+              />
+            </div>
+
+            {/* Translate button */}
+            {isSuperAdmin && (
+              <button
+                onClick={async () => {
+                  setTranslating(true);
+                  try {
+                    const { data, error } = await supabase.functions.invoke("translate-cookie-text", {
+                      body: { koreanText: bannerTextKo },
+                    });
+                    if (error) throw error;
+                    if (data?.en) setBannerTextEn(data.en);
+                    if (data?.ja) setBannerTextJa(data.ja);
+                  } catch (err) {
+                    console.error("Translation failed:", err);
+                  }
+                  setTranslating(false);
+                }}
+                disabled={translating}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-[12px] font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors disabled:opacity-50"
+              >
+                {translating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Languages className="w-3.5 h-3.5" />}
+                {translating ? "번역 중..." : "한국어 → 영어/일본어 자동 번역"}
+              </button>
+            )}
+
+            {/* English - auto-filled */}
+            <div>
+              <label className="text-[12px] font-medium text-muted-foreground mb-1 block">English</label>
+              <textarea
+                value={bannerTextEn}
+                onChange={(e) => setBannerTextEn(e.target.value)}
+                disabled={!isSuperAdmin}
+                rows={2}
+                className="w-full rounded-xl border border-border bg-muted/30 px-4 py-3 text-[13px] text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none disabled:opacity-50"
+              />
+            </div>
+
+            {/* Japanese - auto-filled */}
+            <div>
+              <label className="text-[12px] font-medium text-muted-foreground mb-1 block">日本語</label>
+              <textarea
+                value={bannerTextJa}
+                onChange={(e) => setBannerTextJa(e.target.value)}
+                disabled={!isSuperAdmin}
+                rows={2}
+                className="w-full rounded-xl border border-border bg-muted/30 px-4 py-3 text-[13px] text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none disabled:opacity-50"
+              />
+            </div>
 
             {isSuperAdmin && (
               <button
