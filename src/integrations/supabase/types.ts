@@ -1252,6 +1252,36 @@ export type Database = {
         }
         Relationships: []
       }
+      simulator_leads: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          monthly_total: number
+          name: string
+          plan_recommended: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          monthly_total?: number
+          name: string
+          plan_recommended: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          monthly_total?: number
+          name?: string
+          plan_recommended?: string
+        }
+        Relationships: []
+      }
       tax_invoice_logs: {
         Row: {
           buyer_ceo_name: string | null
