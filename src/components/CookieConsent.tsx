@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { X } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
+import { supabase } from "@/integrations/supabase/client";
 
 const COOKIE_KEY = "webheads_cookie_consent";
 
@@ -11,36 +12,94 @@ const CookieConsent = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [analytics, setAnalytics] = useState(true);
   const [marketing, setMarketing] = useState(false);
+  const [bannerEnabled, setBannerEnabled] = useState(true);
+  const [customTextKo, setCustomTextKo] = useState("");
+  const [customTextEn, setCustomTextEn] = useState("");
+  const [customTextJa, setCustomTextJa] = useState("");
 
   useEffect(() => {
     const consent = localStorage.getItem(COOKIE_KEY);
-    if (!consent) {
-      const timer = setTimeout(() => setVisible(true), 1500);
-      return () => clearTimeout(timer);
-    }
+    if (consent) return;
+
+    // Check admin settings for banner enabled & custom text
+    const init = async () => {
+      try {
+        const { data } = await supabase
+          .from("admin_settings")
+          .select("key, value")
+          .in("key", ["cookie_banner_enabled", "cookie_banner_text"]);
+
+        let enabled = true;
+        if (data) {
+          for (const row of data) {
+            if (row.key === "cookie_banner_enabled") {
+              enabled = (row.value as any)?.enabled !== false;
+            }
+            if (row.key === "cookie_banner_text") {
+              const v = row.value as any;
+              if (v?.ko) setCustomTextKo(v.ko);
+              if (v?.en) setCustomTextEn(v.en);
+              if (v?.ja) setCustomTextJa(v.ja);
+            }
+          }
+        }
+        setBannerEnabled(enabled);
+        if (enabled) {
+          setTimeout(() => setVisible(true), 1500);
+        }
+      } catch {
+        // Fallback: show banner with defaults
+        setTimeout(() => setVisible(true), 1500);
+      }
+    };
+    init();
   }, []);
+
+  const logConsent = async (action: string, essential: boolean, analyticsVal: boolean, marketingVal: boolean) => {
+    try {
+      const visitorId = localStorage.getItem("visitor_id");
+      const sessionId = sessionStorage.getItem("wh_session_id");
+      await supabase.from("cookie_consent_logs").insert({
+        session_id: sessionId,
+        visitor_id: visitorId,
+        essential,
+        analytics: analyticsVal,
+        marketing: marketingVal,
+        action,
+        language: i18n.language,
+      });
+    } catch {
+      // silent fail
+    }
+  };
 
   const handleAcceptAll = () => {
     localStorage.setItem(COOKIE_KEY, JSON.stringify({ essential: true, analytics: true, marketing: true, date: new Date().toISOString() }));
     setVisible(false);
+    logConsent("accept_all", true, true, true);
   };
 
   const handleSaveSettings = () => {
     localStorage.setItem(COOKIE_KEY, JSON.stringify({ essential: true, analytics, marketing, date: new Date().toISOString() }));
     setVisible(false);
     setShowSettings(false);
+    logConsent("custom", true, analytics, marketing);
   };
 
-  if (!visible) return null;
+  if (!visible || !bannerEnabled) return null;
 
   const isKo = i18n.language === "ko";
   const isJa = i18n.language === "ja";
 
+  const defaultDescKo = "당사는 웹사이트 운영, 더 나은 브라우징 경험 제공, 웹사이트 트래픽 분석을 위해 쿠키 및 관련 기술을 사용합니다.";
+  const defaultDescEn = "We use cookies to enhance your browsing experience and analyze website traffic.";
+  const defaultDescJa = "当社はウェブサイトの運営、ブラウジング体験の向上、トラフィック分析のためにCookieを使用しています。";
+
   const desc = isKo
-    ? "당사는 웹사이트 운영, 더 나은 브라우징 경험 제공, 웹사이트 트래픽 분석을 위해 쿠키 및 관련 기술을 사용합니다."
+    ? (customTextKo || defaultDescKo)
     : isJa
-    ? "当社はウェブサイトの運営、ブラウジング体験の向上、トラフィック分析のためにCookieを使用しています。"
-    : "We use cookies to enhance your browsing experience and analyze website traffic.";
+    ? (customTextJa || defaultDescJa)
+    : (customTextEn || defaultDescEn);
 
   const privacyLabel = isKo ? "개인정보 처리방침" : isJa ? "プライバシーポリシー" : "Privacy Policy";
   const btnAccept = isKo ? "모두 수락" : isJa ? "すべて許可" : "Accept all";

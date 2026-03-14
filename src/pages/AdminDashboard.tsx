@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
-  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart, FolderKanban, FolderOpen, HardDrive
+  LogOut, MessageSquare, BarChart3, Loader2, Bell, Settings, ExternalLink, Wrench, CreditCard, Receipt, FileWarning, Bot, FileText, Building2, ListChecks, FileBarChart, FolderKanban, FolderOpen, HardDrive, Cookie
 } from "lucide-react";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 
@@ -23,9 +23,10 @@ const MonthlyReport = lazy(() => import("@/components/admin/MonthlyReport"));
 const ClientWorkManager = lazy(() => import("@/components/admin/ClientWorkManager"));
 const WorkFileManager = lazy(() => import("@/components/admin/WorkFileManager"));
 const BackupFileManager = lazy(() => import("@/components/admin/BackupFileManager"));
+const AdminCookieSettings = lazy(() => import("@/components/admin/AdminCookieSettings"));
 
 
-type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work" | "work_files" | "backup_files";
+type Tab = "inquiries" | "service_requests" | "analytics" | "activity" | "settings" | "payments" | "expenses" | "taxinvoice" | "404logs" | "chatbot" | "client_companies" | "checklist" | "report" | "client_work" | "work_files" | "backup_files" | "cookie_settings";
 type UserRole = "super_admin" | "admin" | "user";
 
 const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
@@ -34,6 +35,7 @@ const ALL_TABS: { key: Tab; icon: any; label: string }[] = [
   { key: "settings", icon: Settings, label: "설정" },
   { key: "404logs", icon: FileWarning, label: "404" },
   { key: "chatbot", icon: Bot, label: "챗봇" },
+  { key: "cookie_settings", icon: Cookie, label: "쿠키" },
   { key: "client_companies", icon: Building2, label: "고객사관리" },
   { key: "payments", icon: CreditCard, label: "매출관리" },
   { key: "expenses", icon: Receipt, label: "매입/지출관리" },
@@ -55,7 +57,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   useSessionTimeout();
   const [searchParams] = useSearchParams();
-  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies", "checklist", "report", "client_work", "work_files", "backup_files"];
+  const validTabs: Tab[] = ["inquiries", "service_requests", "analytics", "activity", "settings", "payments", "expenses", "taxinvoice", "404logs", "chatbot", "client_companies", "checklist", "report", "client_work", "work_files", "backup_files", "cookie_settings"];
   const getValidTab = (value: string | null): Tab | null =>
     value && validTabs.includes(value as Tab) ? (value as Tab) : null;
 
@@ -457,6 +459,7 @@ export default function AdminDashboard() {
           )}
           {tab === "activity" && <AdminActivityLog />}
           {tab === "settings" && <AdminSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
+          {tab === "cookie_settings" && <AdminCookieSettings isSuperAdmin={isSuperAdmin} logActivity={logActivity} />}
         </Suspense>
       </div>
     </div>
