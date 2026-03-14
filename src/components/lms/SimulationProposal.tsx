@@ -66,11 +66,13 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
     { week: "오픈 후", title: "운영·최적화", desc: "24시간 모니터링, 월간 리포트, 지속 개선" },
   ];
 
+  const planBasePrice = PLAN_BASE_PRICES[data.planName] || data.basePrice;
+
   const costBreakdown: { label: string; amount: number }[] = [
-    { label: `${data.planName} 플랜 기본 요금`, amount: data.basePrice },
+    { label: `${data.planName} 플랜 기본 요금`, amount: planBasePrice },
   ];
 
-  const discount = data.isAnnual ? Math.round(data.basePrice * 0.1) : 0;
+  const discount = data.isAnnual ? Math.round(planBasePrice * 0.1) : 0;
 
   return (
     <div ref={ref} className="bg-white text-gray-900" style={{ fontFamily: "'Pretendard Variable', 'Noto Sans KR', sans-serif", maxWidth: "800px", margin: "0 auto" }}>
