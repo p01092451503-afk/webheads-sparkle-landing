@@ -355,11 +355,13 @@ export default function AdminCookieSettings({ isSuperAdmin, logActivity }: Props
           ) : (
             <div className="bg-white rounded-2xl border border-border overflow-hidden">
               <div className="overflow-x-auto">
-                <table className="w-full text-[13px]">
+                 <table className="w-full text-[13px]">
                   <thead>
                     <tr className="border-b border-border bg-muted/30">
                       <th className="text-left px-4 py-3 font-semibold text-muted-foreground">일시</th>
                       <th className="text-left px-4 py-3 font-semibold text-muted-foreground">유형</th>
+                      <th className="text-left px-4 py-3 font-semibold text-muted-foreground">IP</th>
+                      <th className="text-left px-4 py-3 font-semibold text-muted-foreground">지역</th>
                       <th className="text-center px-4 py-3 font-semibold text-muted-foreground">필수</th>
                       <th className="text-center px-4 py-3 font-semibold text-muted-foreground">분석</th>
                       <th className="text-center px-4 py-3 font-semibold text-muted-foreground">마케팅</th>
@@ -380,6 +382,14 @@ export default function AdminCookieSettings({ isSuperAdmin, logActivity }: Props
                           }`}>
                             {log.action === "accept_all" ? "모두 수락" : "사용자 설정"}
                           </span>
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground font-mono text-[12px] whitespace-nowrap">
+                          {log.ip_address || "-"}
+                        </td>
+                        <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
+                          {log.country || log.city
+                            ? [log.country, log.city].filter(Boolean).join(" · ")
+                            : "-"}
                         </td>
                         <td className="px-4 py-3 text-center">
                           <span className="text-emerald-600">✓</span>
