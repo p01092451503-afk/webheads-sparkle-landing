@@ -731,7 +731,7 @@ export default function CostSimulatorPage() {
               {t("costSim.lead.title")}
             </h2>
             <p className="text-sm text-muted-foreground">
-              {bestPlan && <>{t("costSim.lead.currentPlan")} <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name} 플랜 · 월 {formatPrice(bestPlan.monthly)}원{needsSecurePlayer && bestPlan.name !== "Starter" && bestPlan.name !== "Premium" ? ` + 보안플레이어 ${formatPrice(SECURE_PLAYER_COST)}원` : ""}</span></>}
+              {bestPlan && <>{t("costSim.lead.currentPlan")} <span className="font-bold" style={{ color: "#5D45FF" }}>{bestPlan.name} 플랜 · 월 {formatPrice(displayMonthly)}원{needsSecurePlayer && bestPlan.name !== "Starter" && bestPlan.name !== "Premium" ? ` + 보안플레이어 ${formatPrice(SECURE_PLAYER_COST)}원` : ""}{isAnnual ? " (연간 10% 할인 적용)" : ""}</span></>}
             </p>
           </div>
 
