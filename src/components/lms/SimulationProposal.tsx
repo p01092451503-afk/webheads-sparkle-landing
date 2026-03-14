@@ -198,7 +198,7 @@ const SimulationProposal = forwardRef<HTMLDivElement, { data: SimulationData }>(
           <p className="text-xl font-extrabold tabular-nums" style={{ color: "#5D45FF" }}>{fmt(planBasePrice + secureAddon - discount)}원<span className="text-sm font-bold">/월</span></p>
         </div>
         {data.isAnnual && (
-          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice - discount) * 12 + SETUP_FEE)}원 (VAT 별도)</p>
+          <p className="text-xs text-gray-400 mt-2 text-right">연간 총액: {fmt((planBasePrice + secureAddon - discount) * 12 + SETUP_FEE)}원 (VAT 별도)</p>
         )}
       </div>
 
