@@ -81,6 +81,9 @@ export default function CostSimulatorPage() {
   const [formData, setFormData] = useState({ company: "", contact: "", email: "" });
   const [formLoading, setFormLoading] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [showProposal, setShowProposal] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const proposalRef = useRef<HTMLDivElement>(null);
   const { toast: showToast } = useToast();
 
   const handleLearnersChange = (v: number) => { setLearners(v); if (v < 500) setNeedsDedicatedServer(false); };
