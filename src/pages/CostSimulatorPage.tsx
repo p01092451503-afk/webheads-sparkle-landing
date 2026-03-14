@@ -80,6 +80,8 @@ function AnimatedPrice({ value, duration = 600 }: { value: number; duration?: nu
 
 export default function CostSimulatorPage() {
   const { t } = useTranslation();
+  const isMobile = useIsMobile();
+  const resultCardRef = useRef<HTMLDivElement>(null);
   const [learners, setLearners] = useState(200);
   const [storageInput, setStorageInput] = useState(20);
   const [completionRate, setCompletionRate] = useState(70);
