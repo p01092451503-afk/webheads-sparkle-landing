@@ -246,7 +246,7 @@ export default function CostSimulatorPage() {
                     <div className="flex items-center gap-1.5">
                       <HardDrive className="w-3.5 h-3.5 text-muted-foreground" />
                       <span className="text-sm font-semibold text-foreground">{t("costSim.sim.storage")}</span>
-                      <TooltipProvider><Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs max-w-[220px]">{t("costSim.sim.storageTooltip")}</p></TooltipContent></Tooltip></TooltipProvider>
+                      <Tooltip><TooltipTrigger><Info className="w-3.5 h-3.5 text-muted-foreground" /></TooltipTrigger><TooltipContent><p className="text-xs max-w-[220px]">{t("costSim.sim.storageTooltip")}</p></TooltipContent></Tooltip>
                     </div>
                     <div className="flex items-center gap-1">
                       <input type="number" value={storageInput} onChange={(e) => setStorageInput(Math.min(500, Math.max(1, Number(e.target.value) || 1)))} className="w-14 text-right text-base font-bold tabular-nums bg-transparent border-b border-border focus:border-primary outline-none" style={{ color: "#5D45FF" }} min={1} max={500} />
