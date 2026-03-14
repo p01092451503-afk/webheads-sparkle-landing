@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Mail, MonitorSmartphone, BookOpen, Phone, ChevronRight, ShieldCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -36,6 +36,12 @@ export default function Footer() {
   const lang = i18n.language?.startsWith("en") ? "en" : i18n.language?.startsWith("ja") ? "ja" : "ko";
   const location = useLocation();
   const [privacyOpen, setPrivacyOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setPrivacyOpen(true);
+    window.addEventListener("open-privacy-policy", handler);
+    return () => window.removeEventListener("open-privacy-policy", handler);
+  }, []);
   const [supportOpen, setSupportOpen] = useState(false);
   const serviceLabels = t("header.services", { returnObjects: true }) as string[];
 
