@@ -10,9 +10,9 @@ import LazySection from "@/components/shared/LazySection";
 import SimulationProposal from "@/components/lms/SimulationProposal";
 import {
   Calculator, Users, HardDrive, ArrowRight, Sparkles, Info, BarChart3,
-  GraduationCap, Server, Globe, ShieldCheck, TrendingUp, CalendarCheck,
-  CheckCircle, X, Shield, Clock, Headphones, MessageCircle, FileText,
-  Zap, Award, Building2, Star, Download, Send, Eye, EyeOff
+  GraduationCap, Server, ShieldCheck, TrendingUp, CalendarCheck,
+  CheckCircle, Shield, Clock, Headphones, MessageCircle, FileText,
+  Zap, Award, Building2, Star
 } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
