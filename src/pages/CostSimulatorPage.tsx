@@ -409,9 +409,11 @@ export default function CostSimulatorPage() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(discounted)}{t("costSim.result.perMonth")}</p>
-                          {isAnnual && <p className="text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(plan.totalMonthly)}</p>}
-                          {!isAnnual && plan.totalMonthly > plan.monthly && <p className="text-[10px] text-muted-foreground">{t("costSim.result.base")} {formatPrice(plan.monthly)} + {t("costSim.result.overage")} {formatPrice(plan.totalMonthly - plan.monthly)}</p>}
+                          <p className="text-sm font-bold text-foreground tabular-nums">{formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly)}{t("costSim.result.perMonth")}</p>
+                          {isAnnual && <p className="text-[10px] text-muted-foreground line-through tabular-nums">{formatPrice(plan.monthly)}</p>}
+                          {plan.totalMonthly > plan.monthly && (
+                            <p className="text-[10px] text-orange-500 font-medium tabular-nums mt-0.5">+ 초과 {formatPrice(plan.totalMonthly - plan.monthly)}</p>
+                          )}
                         </div>
                       </div>
                     );
