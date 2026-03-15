@@ -437,15 +437,15 @@ export default function CostSimulator() {
                            <TrendingUp className="w-4 h-4 shrink-0" />
                            {t("costSim.competitorSavings", { amount: formatPrice(savingsAmount) } as TOptions)}
                         </div>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <p className="text-[11px] mb-4 pl-1 cursor-help" style={{ color: "rgba(255,255,255,0.6)" }}>
-                                {COMPETITOR_LABEL}
-                              </p>
-                            </TooltipTrigger>
-                            <TooltipContent side="bottom" className="max-w-[280px] text-xs">
-                              {COMPETITOR_NOTE}
+                         <TooltipProvider>
+                           <Tooltip>
+                             <TooltipTrigger asChild>
+                               <p className="text-[11px] mb-4 pl-1 cursor-help" style={{ color: "rgba(255,255,255,0.6)" }}>
+                                 {t("costSim.competitorLabel")}
+                               </p>
+                             </TooltipTrigger>
+                             <TooltipContent side="bottom" className="max-w-[280px] text-xs">
+                               {t("costSim.competitorNote")}
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
