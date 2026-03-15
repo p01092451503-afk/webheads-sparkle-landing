@@ -79,6 +79,8 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
       {keywords && <meta name="keywords" content={keywords} />}
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
       <link rel="canonical" href={canonicalUrl} />
+      <link rel="alternate" hrefLang="ko" href={canonicalUrl} />
+      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
       {/* Open Graph */}
       <meta property="og:type" content="website" />
