@@ -317,7 +317,7 @@ export default function LmsPage() {
                   </div>
                 ))}
               </div>
-              <a href="#contact" className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg" style={{ background: "hsl(245, 58%, 55%)" }}>
+              <a href="#contact" className="block text-center mt-8 py-3.5 rounded-full font-bold text-sm transition-all duration-200 text-white hover:opacity-90 hover:shadow-lg" style={{ background: "hsl(var(--lms-light-accent))" }}>
                 {t("lms.light.cta")}
               </a>
             </div>
