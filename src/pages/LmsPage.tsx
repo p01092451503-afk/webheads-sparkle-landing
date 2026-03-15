@@ -59,29 +59,26 @@ export default function LmsPage() {
     }
   }, [location.state]);
 
-  const variant = useMemo(() => {
+  const industryKey = useMemo(() => {
     const paramIndustry = searchParams.get("industry");
-    if (paramIndustry && industryVariants[paramIndustry]) {
+    if (paramIndustry && INDUSTRY_KEYS.includes(paramIndustry as any)) {
       try { sessionStorage.setItem("lms_industry", paramIndustry); } catch {}
-      return industryVariants[paramIndustry];
+      return paramIndustry;
     }
     try {
       const stored = sessionStorage.getItem("lms_industry");
-      if (stored && industryVariants[stored]) return industryVariants[stored];
+      if (stored && INDUSTRY_KEYS.includes(stored as any)) return stored;
     } catch {}
-    return industryVariants.default;
+    return "default";
   }, [searchParams]);
 
-  const isKorean = i18n.language?.startsWith("ko") ?? true;
-  const useVariant = isKorean && variant !== industryVariants.default;
+  const useVariant = industryKey !== "default";
 
   const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
   const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
   const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
   const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
-  const kdtFeatures = (t("lms.kdtFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: kdtFeatureIcons[i] || GraduationCap }));
   const stats = t("lms.stats", { returnObjects: true }) as any[];
-  const partners = t("lms.partners", { returnObjects: true }) as string[];
   const faqs = t("lms.faqs", { returnObjects: true }) as any[];
   const testimonials = t("lms.testimonials", { returnObjects: true }) as any[];
   const processSteps = (t("lms.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || ClipboardCheck }));
