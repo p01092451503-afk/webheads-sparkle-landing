@@ -601,7 +601,7 @@ export default function CostSimulator() {
                         className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${isBest ? "text-white hover:opacity-90" : "border hover:bg-muted/50"}`}
                         style={isBest ? { background: "hsl(var(--lms-primary))" } : { borderColor: "hsl(var(--lms-primary))", color: "hsl(var(--lms-primary))" }}
                       >
-                        이 플랜으로 상담받기
+                        {t("costSim.consultPlan")}
                       </a>
                     </div>
                   </div>
