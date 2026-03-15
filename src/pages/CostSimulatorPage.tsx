@@ -491,7 +491,7 @@ export default function CostSimulatorPage() {
                           {isBest && <span className="w-2.5 h-2.5 rounded-full shrink-0 mt-1.5" style={{ background: "#5D45FF" }} />}
                           <div className="min-w-0">
                             <p className="text-base font-bold" style={isBest ? { color: "#5D45FF" } : undefined}>{plan.name}</p>
-                            <p className="text-sm text-muted-foreground">{plan.solutionType}</p>
+                            
                             <p className="text-xs text-muted-foreground/60">{plan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded }) : t("costSim.result.cdnNone")}</p>
                             {features.length > 0 && (
                               <div className="mt-2 space-y-0.5">

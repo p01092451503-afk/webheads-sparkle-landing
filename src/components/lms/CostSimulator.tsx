@@ -569,7 +569,7 @@ export default function CostSimulator() {
                         <p className={`text-base font-bold ${isBest ? "" : "text-foreground"}`} style={isBest ? { color: "hsl(var(--lms-primary))" } : undefined}>
                           {plan.name}
                         </p>
-                        <p className="text-sm text-muted-foreground">{plan.solutionType}</p>
+                        
                         <p className="text-xs text-muted-foreground/60 font-medium">
                           {plan.cdnIncluded > 0
                             ? t("costSim.planSpecs", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded.toLocaleString() })
