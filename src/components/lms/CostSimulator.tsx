@@ -54,9 +54,9 @@ export default function CostSimulator() {
   const lang = i18n.language;
   const isMobile = useIsMobile();
   const resultCardRef = useRef<HTMLDivElement>(null);
-  const [learners, setLearners] = useState(200);
-  const [storageInput, setStorageInput] = useState(20);
-  const [completionRate, setCompletionRate] = useState(70);
+  const [learners, setLearners] = useState(10);
+  const [storageInput, setStorageInput] = useState(1);
+  const [completionRate, setCompletionRate] = useState(10);
   const [needsCdn, setNeedsCdn] = useState(true);
   const [needsSecurePlayer, setNeedsSecurePlayer] = useState(false);
   const [isAnnual, setIsAnnual] = useState(true);
