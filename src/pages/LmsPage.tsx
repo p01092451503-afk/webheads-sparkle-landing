@@ -398,7 +398,7 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* ═══ 11. Competitor Comparison ═══ */}
+      {/* ═══ 9. Competitor Comparison ═══ */}
       <CompetitorComparison />
 
       {/* ═══ 12. Plans — 요금제 ═══ */}
