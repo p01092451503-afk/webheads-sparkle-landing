@@ -41,6 +41,63 @@ const GB_CDN_PER_HOUR_VIEWED = 0.588;
 const STORAGE_GB_PER_VIDEO_HOUR = 0.602;
 const BASE_MONTHLY_HOURS_PER_LEARNER = 10;
 
+/* Plan zone thresholds for visual indicators */
+const PLAN_COLORS = {
+  Starter: "hsl(220, 14%, 80%)",
+  Basic: "hsl(250, 70%, 72%)",
+  Plus: "hsl(250, 80%, 60%)",
+  Premium: "hsl(250, 90%, 45%)",
+};
+
+interface ZoneDef { label: string; start: number; end: number; color: string }
+
+function PlanZoneBar({ zones, min, max }: { zones: ZoneDef[]; min: number; max: number }) {
+  const range = max - min;
+  return (
+    <div className="flex w-full h-1.5 rounded-full overflow-hidden mt-1 gap-px">
+      {zones.map((z) => {
+        const left = ((Math.max(z.start, min) - min) / range) * 100;
+        const width = ((Math.min(z.end, max) - Math.max(z.start, min)) / range) * 100;
+        if (width <= 0) return null;
+        return (
+          <div
+            key={z.label}
+            className="relative group h-full rounded-sm"
+            style={{ width: `${width}%`, backgroundColor: z.color, opacity: 0.5 }}
+            title={z.label}
+          >
+            <span className="absolute -bottom-3.5 left-1/2 -translate-x-1/2 text-[8px] font-semibold whitespace-nowrap" style={{ color: z.color }}>
+              {z.label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* Learner zones: approximate plan fit based on typical 20GB storage, 50% completion */
+const LEARNER_ZONES: ZoneDef[] = [
+  { label: "Starter", start: 10, end: 100, color: PLAN_COLORS.Starter },
+  { label: "Basic", start: 100, end: 500, color: PLAN_COLORS.Basic },
+  { label: "Plus", start: 500, end: 1200, color: PLAN_COLORS.Plus },
+  { label: "Premium", start: 1200, end: 2000, color: PLAN_COLORS.Premium },
+];
+
+const STORAGE_ZONES: ZoneDef[] = [
+  { label: "Starter", start: 1, end: 30, color: PLAN_COLORS.Starter },
+  { label: "Basic", start: 30, end: 100, color: PLAN_COLORS.Basic },
+  { label: "Plus", start: 100, end: 200, color: PLAN_COLORS.Plus },
+  { label: "Premium", start: 200, end: 500, color: PLAN_COLORS.Premium },
+];
+
+const COMPLETION_ZONES: ZoneDef[] = [
+  { label: "Starter", start: 10, end: 25, color: PLAN_COLORS.Starter },
+  { label: "Basic", start: 25, end: 50, color: PLAN_COLORS.Basic },
+  { label: "Plus", start: 50, end: 80, color: PLAN_COLORS.Plus },
+  { label: "Premium", start: 80, end: 100, color: PLAN_COLORS.Premium },
+];
+
 function estimateUsage(learners: number, storageInput: number, completionRate: number) {
   const rate = completionRate / 100;
   const videoHours = storageInput / STORAGE_GB_PER_VIDEO_HOUR;
