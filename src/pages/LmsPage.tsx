@@ -26,8 +26,18 @@ import {
   Calculator
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, type ComponentType } from "react";
 import { useSearchParams, useLocation, Link } from "react-router-dom";
+
+// ── i18n returnObjects type definitions ──
+interface LmsFeatureItem { title: string; desc: string; icon?: ComponentType<any> }
+interface LmsStatItem { value: string; label: string }
+interface LmsFaqItem { q: string; a: string }
+interface LmsTestimonialItem { name: string; role: string; org: string; content: string; rating?: number; date?: string; period?: string }
+interface LmsProcessStep { title: string; desc: string; tag: string; icon?: ComponentType<any> }
+interface LmsPlanFeature { main: string; sub?: string }
+interface LmsPlan { name: string; price: string; unit?: string; priceNote?: string; specs?: string; badge?: string; highlight?: boolean; recommend: string; features: LmsPlanFeature[] }
+interface LmsCaseItem { org: string; industry: string; challenge: string; result: string; metrics: { label: string; value: string }[] }
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 import ClientMarquee from "@/components/ClientMarquee";
@@ -74,14 +84,14 @@ export default function LmsPage() {
 
   const useVariant = industryKey !== "default";
 
-  const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
-  const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
-  const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
-  const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
-  const stats = t("lms.stats", { returnObjects: true }) as any[];
-  const faqs = t("lms.faqs", { returnObjects: true }) as any[];
-  const testimonials = t("lms.testimonials", { returnObjects: true }) as any[];
-  const processSteps = (t("lms.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || ClipboardCheck }));
+  const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as LmsFeatureItem[]).map((item, i) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
+  const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as LmsFeatureItem[]).map((item, i) => ({ ...item, icon: proFeatureIcons[i] || Server }));
+  const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as LmsFeatureItem[];
+  const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as LmsFeatureItem[];
+  const stats = t("lms.stats", { returnObjects: true }) as LmsStatItem[];
+  const faqs = t("lms.faqs", { returnObjects: true }) as LmsFaqItem[];
+  const testimonials = t("lms.testimonials", { returnObjects: true }) as LmsTestimonialItem[];
+  const processSteps = (t("lms.processSteps", { returnObjects: true }) as LmsProcessStep[]).map((item, i) => ({ ...item, icon: processIcons[i] || ClipboardCheck }));
 
   return (
     <div className="min-h-screen" style={{ background: "var(--lms-page-bg)", fontFamily: "'Noto Sans KR', 'Pretendard Variable', 'Pretendard', sans-serif" }}>
@@ -410,7 +420,7 @@ export default function LmsPage() {
             <p className="text-muted-foreground mt-3 md:mt-4 text-sm md:text-base">{t("lms.plansSection.desc")}</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
-            {(t("lms.plans", { returnObjects: true }) as any[]).map((plan: any) => (
+            {(t("lms.plans", { returnObjects: true }) as LmsPlan[]).map((plan) => (
               <div key={plan.name} className={`relative rounded-3xl flex flex-col gap-0 transition-all duration-200 overflow-hidden ${plan.highlight ? "bg-background border-2 shadow-xl scale-[1.02]" : "bg-background border border-border hover:border-muted-foreground/30 hover:shadow-md"}`} style={plan.highlight ? { borderColor: "hsl(var(--lms-primary))" } : undefined}>
                 {plan.badge && <div className="text-sm font-bold text-center py-2.5 tracking-wide text-white" style={{ background: "hsl(var(--lms-primary))" }}>{plan.badge}</div>}
                 <div className="p-8 flex flex-col gap-5 flex-1">
@@ -429,7 +439,7 @@ export default function LmsPage() {
                     {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
                   </div>
                   <ul className="flex flex-col gap-3.5 flex-1">
-                    {plan.features.map((f: any) => (
+                    {plan.features.map((f: LmsPlanFeature) => (
                       <li key={f.main} className="flex items-start gap-2.5">
                         <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: "hsl(var(--lms-primary))" }}>✓</span>
                         <div>
@@ -464,7 +474,7 @@ export default function LmsPage() {
         subheading={t("lms.caseStudy.sub")}
         heading={t("lms.caseStudy.heading")}
         description={t("lms.caseStudy.desc")}
-        cases={t("lms.caseStudy.cases", { returnObjects: true }) as any[]}
+        cases={t("lms.caseStudy.cases", { returnObjects: true }) as LmsCaseItem[]}
       />
 
       {/* ═══ 11. Process ═══ */}
