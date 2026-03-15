@@ -8,7 +8,8 @@ import path from "path";
 const BASE_URL = "https://service.webheads.co.kr";
 
 const STATIC_PAGES = [
-  { loc: "/lms", changefreq: "weekly", priority: "1.0" },
+  { loc: "/", changefreq: "weekly", priority: "1.0" },
+  { loc: "/lms", changefreq: "weekly", priority: "0.9" },
   { loc: "/hosting", changefreq: "monthly", priority: "0.9" },
   { loc: "/maintenance", changefreq: "monthly", priority: "0.9" },
   { loc: "/chatbot", changefreq: "monthly", priority: "0.9" },
@@ -21,7 +22,7 @@ const STATIC_PAGES = [
   { loc: "/pricing", changefreq: "monthly", priority: "0.8" },
   { loc: "/event", changefreq: "weekly", priority: "0.8" },
   { loc: "/service-request", changefreq: "monthly", priority: "0.6" },
-  { loc: "/overview", changefreq: "monthly", priority: "0.6" },
+  /* /overview is now redirected to / */
   { loc: "/blog", changefreq: "weekly", priority: "0.8" },
   { loc: "/support", changefreq: "monthly", priority: "0.5" },
   { loc: "/lms-development", changefreq: "monthly", priority: "0.9" },

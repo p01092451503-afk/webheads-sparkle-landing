@@ -72,7 +72,8 @@ const App = () => (
           <Layout>
             <Suspense fallback={<div className="min-h-screen" />}>
               <Routes>
-                <Route path="/" element={<Navigate to="/lms" replace />} />
+                <Route path="/" element={<OverviewPage />} />
+                <Route path="/overview" element={<Navigate to="/" replace />} />
                 <Route path="/lms" element={<LmsPage />} />
                 <Route path="/hosting" element={<HostingPage />} />
                 <Route path="/chatbot" element={<ChatbotPage />} />
@@ -90,7 +91,7 @@ const App = () => (
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:postId" element={<BlogPostPage />} />
                 <Route path="/event" element={<EventPage />} />
-                <Route path="/overview" element={<OverviewPage />} />
+                {/* /overview is now redirected to / above */}
                 <Route path="/lms-development" element={<LmsDevelopmentPage />} />
                 <Route path="/corporate-lms" element={<CorporateLmsPage />} />
                 <Route path="/elearning-platform-development" element={<ElearningPlatformPage />} />
