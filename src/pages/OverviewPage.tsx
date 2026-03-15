@@ -321,44 +321,33 @@ function AddOnServicesSection() {
    Company Profile Section (from 회사소개서)
    ══════════════════════════════════════════ */
 function CompanyProfileSection() {
-  const companyInfo = [
-    { icon: Building2, label: "회사명", value: "주식회사 웹헤즈 (204-86-20072)" },
-    { icon: UserCheck, label: "대표자", value: "박진열" },
-    { icon: Clock, label: "설립연도", value: "2010년 4월 (16년차)" },
-    { icon: Monitor, label: "소재지", value: "서울시 마포구 월드컵로 114, 3층" },
-    { icon: Phone, label: "연락처", value: "02-540-4337" },
-  ];
+  const { t } = useTranslation();
 
-  const bizAreas = [
-    { icon: Layers, title: "LMS 개발 · 공급", desc: "기업, 공공기관, 대학 등 300+기관에 독립형(SI) 및 임대형(SaaS) LMS 구축" },
-    { icon: Server, title: "호스팅 · CDN", desc: "IDC 센터 운영, 웹호스팅, 미디어 CDN, AWS/NCP 클라우드 관리" },
-    { icon: Cpu, title: "AI 기술", desc: "AI 챗봇, AI 튜터, 콘텐츠 분석 · 추천 엔진 개발" },
-    { icon: ShieldCheck, title: "DRM · 보안", desc: "동영상 콘텐츠 보안 솔루션 공급 (존플레이어, 콜러스 등 연동)" },
-    { icon: Smartphone, title: "APP 개발", desc: "Flutter, React Native 기반 모바일 앱 개발 및 멀티플랫폼 학습환경 구현" },
-    { icon: Film, title: "콘텐츠 개발", desc: "교육용 동영상 콘텐츠 기획·촬영·편집, SCORM/xAPI 표준 콘텐츠 제작" },
-  ];
+  const iconMap = [Building2, UserCheck, Clock, Monitor, Phone];
+  const bizIcons = [Layers, Server, Cpu, ShieldCheck, Smartphone, Film];
 
-  const keyClients = [
-    { name: "야나두", desc: "기초영어 동영상 유료 서비스, 회원 60만+" },
-    { name: "월급쟁이부자들", desc: "국내 최대 부동산 온라인 교육, 회원 30만+" },
-    { name: "한국능률협회컨설팅", desc: "기업 컨설팅 · 교육 서비스, 회원 400만+" },
-    { name: "아이스크림에듀", desc: "초등 디지털 학습 플랫폼 구축 · 운영" },
-    { name: "한국에너지재단", desc: "에너지 분야 전문 인력 온라인 교육" },
-    { name: "한국생산성본부", desc: "기업 생산성 향상 교육 · 컨설팅" },
-    { name: "보건복지부", desc: "보건복지 분야 공공 온라인 교육" },
-    { name: "고려대학교", desc: "대학 이러닝 시스템 구축 · 운영" },
-  ];
+  const companyInfo = (t("overview.companyProfile.info", { returnObjects: true }) as { label: string; value: string }[]).map((item, i) => ({
+    ...item,
+    icon: iconMap[i] || Building2,
+  }));
+
+  const bizAreas = (t("overview.companyProfile.bizAreas", { returnObjects: true }) as { title: string; desc: string }[]).map((item, i) => ({
+    ...item,
+    icon: bizIcons[i] || Layers,
+  }));
+
+  const keyClients = t("overview.companyProfile.keyClients", { returnObjects: true }) as { name: string; desc: string }[];
 
   return (
     <section id="company-profile" data-pdf-section className="py-16" style={{ background: "hsl(250, 35%, 94%)" }}>
       <div className="container mx-auto px-6 max-w-5xl">
-        <SectionHead sub="COMPANY PROFILE" title="회사 소개" desc="16년간 이러닝 기술에만 집중해온 전문 기업" />
+        <SectionHead sub={t("overview.companyProfile.sub")} title={t("overview.companyProfile.title")} desc={t("overview.companyProfile.desc")} />
 
         {/* Company Info */}
         <div className="rounded-2xl bg-white border border-border shadow-sm p-6 mb-6">
           <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
             <Building2 className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
-            회사 개요
+            {t("overview.companyProfile.overviewTitle")}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {companyInfo.map((item, i) => {
@@ -400,7 +389,7 @@ function CompanyProfileSection() {
         <div className="rounded-2xl bg-white border border-border shadow-sm p-6">
           <h3 className="font-bold text-base text-foreground mb-4 flex items-center gap-2">
             <BriefcaseBusiness className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
-            주요 구축 사례
+            {t("overview.companyProfile.keyClientsTitle")}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {keyClients.map((client, i) => (
@@ -416,7 +405,7 @@ function CompanyProfileSection() {
             ))}
           </div>
           <p className="text-xs text-muted-foreground mt-4 text-center">
-            외 SK하이닉스, 풀무원, 인천국제공항공사, 삼양식품, 서울경찰청, 성균관대 등 300+ 기관
+            {t("overview.companyProfile.keyClientsMore")}
           </p>
         </div>
 
@@ -425,7 +414,7 @@ function CompanyProfileSection() {
           <div className="rounded-2xl bg-white border border-border shadow-sm p-5">
             <h4 className="font-bold text-sm text-foreground mb-3 flex items-center gap-2">
               <Code className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
-              기술 스택
+              {t("overview.companyProfile.techStackTitle")}
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-xs text-muted-foreground">
               <p>• <strong className="text-foreground">Backend:</strong> PHP, JAVA</p>
@@ -433,16 +422,17 @@ function CompanyProfileSection() {
               <p>• <strong className="text-foreground">App:</strong> Flutter, React Native</p>
               <p>• <strong className="text-foreground">UI / Style:</strong> Tailwind CSS 3.4 + shadcn/ui + Radix UI</p>
               <p>• <strong className="text-foreground">Infra:</strong> AWS, NCP, IDC (LG U+ 가산센터)</p>
-              
               <p>• <strong className="text-foreground">OS:</strong> Linux / Apache 2.0 / MySQL · MariaDB</p>
               <p>• <strong className="text-foreground">State / Data:</strong> TanStack React Query + React Hook Form + Zod</p>
               <p>• <strong className="text-foreground">DB (Cloud):</strong> Supabase Edge Functions (Deno) · PostgreSQL · RLS</p>
               <p>• <strong className="text-foreground">Routing:</strong> React Router 6 (SPA, Code Splitting)</p>
-              <p>• <strong className="text-foreground">AI 챗봇:</strong> Google Gemini 2.5 Flash (Edge Function)</p>
-              
+              <p>• <strong className="text-foreground">{t("overview.companyProfile.aiChatbot")}:</strong> Google Gemini 2.5 Flash (Edge Function)</p>
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
       </div>
     </section>
   );
