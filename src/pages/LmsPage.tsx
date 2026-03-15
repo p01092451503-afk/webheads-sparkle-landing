@@ -194,14 +194,16 @@ export default function LmsPage() {
             {useVariant ? t(`lms.industryVariants.${industryKey}.badge`) : t("lms.hero.badge")}
           </span>
           <h1 className="text-3xl md:text-5xl lg:text-[4.2rem] font-extrabold leading-[1.15] mb-5 md:mb-7 tracking-tight text-white whitespace-pre-line" style={{ wordBreak: "keep-all", textShadow: "0 4px 30px rgba(0,0,0,0.2)" }}>
-            {useVariant ? t(`lms.industryVariants.${industryKey}.title`) : t("lms.hero.title")}
-            <br />
-            <span className="bg-clip-text" style={{ opacity: 0.95 }}>
-              {useVariant ? t(`lms.industryVariants.${industryKey}.titleHighlight`) : t("lms.hero.titleHighlight")}
+            <span style={{ opacity: heroFade ? 1 : 0, transition: "opacity 0.4s ease-in-out" }}>
+              {useVariant ? t(`lms.industryVariants.${industryKey}.title`) : (heroSlides[heroSlideIndex]?.title ?? t("lms.hero.title"))}
+              <br />
+              <span className="bg-clip-text" style={{ opacity: 0.95 }}>
+                {useVariant ? t(`lms.industryVariants.${industryKey}.titleHighlight`) : (heroSlides[heroSlideIndex]?.titleHighlight ?? t("lms.hero.titleHighlight"))}
+              </span>
             </span>
           </h1>
-          <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)" }}>
-            {useVariant ? t(`lms.industryVariants.${industryKey}.desc`) : t("lms.hero.desc")}
+          <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)", opacity: heroFade ? 1 : 0, transition: "opacity 0.4s ease-in-out" }}>
+            {useVariant ? t(`lms.industryVariants.${industryKey}.desc`) : (heroSlides[heroSlideIndex]?.desc ?? t("lms.hero.desc"))}
           </p>
           <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
             <a href="#contact" className="group px-7 py-3.5 rounded-xl font-bold text-base transition-all duration-200 hover:scale-[1.03] flex items-center gap-2" style={{ background: "white", color: "hsl(var(--lms-primary))", boxShadow: "0 8px 30px rgba(0,0,0,0.15)" }}>
