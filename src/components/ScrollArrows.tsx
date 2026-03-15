@@ -21,7 +21,7 @@ export default function ScrollArrows() {
   const btn = "w-9 h-9 md:w-10 md:h-10 rounded-full backdrop-blur-xl bg-background/40 border border-white/20 text-foreground shadow-[0_4px_16px_rgba(0,0,0,0.12)] ring-1 ring-black/5 flex items-center justify-center hover:bg-background/90 transition-all duration-200";
 
   return (
-    <div className="fixed right-3 md:right-5 bottom-[90px] md:bottom-[76px] z-50 flex flex-col gap-1.5">
+    <div className="fixed right-3 md:right-5 bottom-5 z-50 flex flex-col gap-1.5">
       {showUp && (
         <button onClick={scrollUp} className={btn} aria-label="Scroll to top">
           <ChevronUp className="w-4 h-4 md:w-5 md:h-5" />
