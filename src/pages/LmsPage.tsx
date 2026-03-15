@@ -26,8 +26,18 @@ import {
   Calculator
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, type ComponentType } from "react";
 import { useSearchParams, useLocation, Link } from "react-router-dom";
+
+// ── i18n returnObjects type definitions ──
+interface LmsFeatureItem { title: string; desc: string; icon?: ComponentType<any> }
+interface LmsStatItem { value: string; label: string }
+interface LmsFaqItem { q: string; a: string }
+interface LmsTestimonialItem { name: string; role: string; text: string }
+interface LmsProcessStep { title: string; desc: string; icon?: ComponentType<any> }
+interface LmsPlanFeature { main: string; sub?: string }
+interface LmsPlan { name: string; price: string; unit?: string; priceNote?: string; specs?: string; badge?: string; highlight?: boolean; recommend: string; features: LmsPlanFeature[] }
+interface LmsCaseItem { title: string; result: string; desc: string }
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 import ClientMarquee from "@/components/ClientMarquee";
