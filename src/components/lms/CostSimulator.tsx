@@ -265,9 +265,9 @@ export default function CostSimulator() {
                         <TooltipTrigger>
                           <Info className="w-3.5 h-3.5 text-muted-foreground" />
                         </TooltipTrigger>
-                        <TooltipContent side="bottom" className="max-w-[240px] text-xs">
-                          <p>완강률이 높을수록 실제 영상 재생 횟수가 많아져 CDN 전송량이 증가합니다.</p>
-                          <p className="mt-1">예상 월 전송량 = 수강생 수 × 동영상 용량 × 완강률</p>
+                         <TooltipContent side="bottom" className="max-w-[240px] text-xs">
+                           <p>{t("costSim.completionHint1")}</p>
+                           <p className="mt-1">{t("costSim.completionHint2")}</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
