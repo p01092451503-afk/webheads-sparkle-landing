@@ -17,13 +17,13 @@ import CompetitorComparison from "@/components/lms/CompetitorComparison";
 import DeviceFriendlySection from "@/components/lms/DeviceFriendlySection";
 import CostSimulator from "@/components/lms/CostSimulator";
 import {
-  Monitor, Smartphone, Tablet, Cloud, Server, Shield, Zap, Globe, Palette,
+  Cloud, Server, Zap,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
-  DollarSign, Users, Bell, GraduationCap, UserCheck, ClipboardList, Wallet,
+  DollarSign, Users, Bell, GraduationCap,
   ShieldCheck, Plug, RefreshCw, LineChart, MonitorSmartphone, HardDrive, Paintbrush, KeyRound, Award,
-  Sparkles, ArrowRight, Rocket, CreditCard, Database, Layers, HardDriveDownload, Settings, PackageCheck,
-  BookOpen, Calculator
+  Sparkles, ArrowRight, CreditCard, PackageCheck,
+  Calculator
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useState, useMemo, useEffect } from "react";
