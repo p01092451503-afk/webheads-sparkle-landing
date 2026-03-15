@@ -84,14 +84,14 @@ export default function LmsPage() {
 
   const useVariant = industryKey !== "default";
 
-  const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
-  const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: proFeatureIcons[i] || Server }));
-  const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as any[];
-  const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as any[];
-  const stats = t("lms.stats", { returnObjects: true }) as any[];
-  const faqs = t("lms.faqs", { returnObjects: true }) as any[];
-  const testimonials = t("lms.testimonials", { returnObjects: true }) as any[];
-  const processSteps = (t("lms.processSteps", { returnObjects: true }) as any[]).map((item: any, i: number) => ({ ...item, icon: processIcons[i] || ClipboardCheck }));
+  const lightFeatures = (t("lms.lightFeatures", { returnObjects: true }) as LmsFeatureItem[]).map((item, i) => ({ ...item, icon: lightFeatureIcons[i] || Cloud }));
+  const proFeatures = (t("lms.proFeatures", { returnObjects: true }) as LmsFeatureItem[]).map((item, i) => ({ ...item, icon: proFeatureIcons[i] || Server }));
+  const aiFeatures = t("lms.aiFeatures", { returnObjects: true }) as LmsFeatureItem[];
+  const allInOneFeatures = t("lms.allInOne", { returnObjects: true }) as LmsFeatureItem[];
+  const stats = t("lms.stats", { returnObjects: true }) as LmsStatItem[];
+  const faqs = t("lms.faqs", { returnObjects: true }) as LmsFaqItem[];
+  const testimonials = t("lms.testimonials", { returnObjects: true }) as LmsTestimonialItem[];
+  const processSteps = (t("lms.processSteps", { returnObjects: true }) as LmsProcessStep[]).map((item, i) => ({ ...item, icon: processIcons[i] || ClipboardCheck }));
 
   return (
     <div className="min-h-screen" style={{ background: "var(--lms-page-bg)", fontFamily: "'Noto Sans KR', 'Pretendard Variable', 'Pretendard', sans-serif" }}>
