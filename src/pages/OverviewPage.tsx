@@ -434,13 +434,19 @@ function CompanyProfileSection() {
               <p>• <strong className="text-foreground">OS:</strong> Linux / Apache 2.0 / MySQL · MariaDB</p>
             </div>
             <div className="mt-3 pt-3 border-t border-border">
-              <p className="text-[10px] font-semibold text-primary/70 uppercase tracking-wider mb-2">This Website</p>
+              <p className="text-[10px] font-semibold text-primary/70 uppercase tracking-wider mb-2">This Website — Vibe Coding</p>
               <div className="space-y-2 text-xs text-muted-foreground">
-                <p>• <strong className="text-foreground">Frontend:</strong> React 18 + TypeScript + Vite</p>
-                <p>• <strong className="text-foreground">UI:</strong> Tailwind CSS + shadcn/ui + Framer Motion</p>
-                <p>• <strong className="text-foreground">Backend:</strong> Supabase (Edge Functions · PostgreSQL)</p>
-                <p>• <strong className="text-foreground">AI:</strong> Lovable 바이브코딩으로 설계·개발</p>
-                <p>• <strong className="text-foreground">Hosting:</strong> Lovable Cloud (CDN · Auto Deploy)</p>
+                <p>• <strong className="text-foreground">Framework:</strong> React 18.3 + TypeScript 5 + Vite 5</p>
+                <p>• <strong className="text-foreground">UI / Style:</strong> Tailwind CSS 3.4 + shadcn/ui + Radix UI</p>
+                <p>• <strong className="text-foreground">Animation:</strong> Framer Motion 11</p>
+                <p>• <strong className="text-foreground">State / Data:</strong> TanStack React Query + React Hook Form + Zod</p>
+                <p>• <strong className="text-foreground">Routing:</strong> React Router 6 (SPA, Code Splitting)</p>
+                <p>• <strong className="text-foreground">i18n:</strong> i18next (KO · EN · JA, 비동기 로딩)</p>
+                <p>• <strong className="text-foreground">SEO:</strong> react-helmet-async · JSON-LD · Sitemap 자동생성</p>
+                <p>• <strong className="text-foreground">Backend:</strong> Supabase Edge Functions (Deno) · PostgreSQL · RLS</p>
+                <p>• <strong className="text-foreground">AI 챗봇:</strong> Google Gemini 2.5 Flash (Supabase Edge Function)</p>
+                <p>• <strong className="text-foreground">AI 개발:</strong> Lovable 바이브코딩으로 전체 설계·구현</p>
+                <p>• <strong className="text-foreground">Hosting:</strong> Lovable Cloud — CDN · Auto Deploy · Preview</p>
               </div>
             </div>
           </div>
