@@ -474,7 +474,7 @@ export default function LmsPage() {
         subheading={t("lms.caseStudy.sub")}
         heading={t("lms.caseStudy.heading")}
         description={t("lms.caseStudy.desc")}
-        cases={t("lms.caseStudy.cases", { returnObjects: true }) as any[]}
+        cases={t("lms.caseStudy.cases", { returnObjects: true }) as LmsCaseItem[]}
       />
 
       {/* ═══ 11. Process ═══ */}
