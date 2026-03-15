@@ -384,13 +384,13 @@ export default function LmsPage() {
           {/* KDT Summary */}
           <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 rounded-2xl border border-border p-5 md:p-6 bg-background">
             <div className="flex items-center gap-3 shrink-0">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(145, 70%, 93%)" }}>
-                <GraduationCap className="w-5 h-5" style={{ color: "hsl(145, 60%, 38%)" }} />
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "hsl(var(--lms-kdt-accent-bg))" }}>
+                <GraduationCap className="w-5 h-5" style={{ color: "hsl(var(--lms-kdt-accent))" }} />
               </div>
               <h4 className="font-bold text-foreground text-base">{t("lms.kdt.name")}</h4>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed flex-1" style={{ wordBreak: "keep-all" }}>{t("lms.kdt.summary")}</p>
-            <a href="#contact" className="shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90" style={{ background: "hsl(145, 60%, 38%)" }}>
+            <a href="#contact" className="shrink-0 inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl font-bold text-sm text-white transition-all hover:opacity-90" style={{ background: "hsl(var(--lms-kdt-accent))" }}>
               {t("lms.kdt.ctaShort")}
               <ArrowRight className="w-4 h-4" />
             </a>
