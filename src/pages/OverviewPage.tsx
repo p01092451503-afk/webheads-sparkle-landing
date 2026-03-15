@@ -433,7 +433,7 @@ function CompanyProfileSection() {
               <p>• <strong className="text-foreground">App:</strong> Flutter, React Native</p>
               <p>• <strong className="text-foreground">UI / Style:</strong> Tailwind CSS 3.4 + shadcn/ui + Radix UI</p>
               <p>• <strong className="text-foreground">Infra:</strong> AWS, NCP, IDC (LG U+ 가산센터)</p>
-              <p>• <strong className="text-foreground">Animation:</strong> Framer Motion 11</p>
+              
               <p>• <strong className="text-foreground">OS:</strong> Linux / Apache 2.0 / MySQL · MariaDB</p>
               <p>• <strong className="text-foreground">State / Data:</strong> TanStack React Query + React Hook Form + Zod</p>
               <p>• <strong className="text-foreground">DB (Cloud):</strong> Supabase Edge Functions (Deno) · PostgreSQL · RLS</p>
