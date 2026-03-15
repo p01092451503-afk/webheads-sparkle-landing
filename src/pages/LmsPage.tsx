@@ -56,6 +56,23 @@ export default function LmsPage() {
   const location = useLocation();
   const [ecosystemOpen, setEcosystemOpen] = useState(false);
   const [whyOpen, setWhyOpen] = useState(false);
+  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
+  const [heroFade, setHeroFade] = useState(true);
+
+  const heroSlides = t("lms.heroSlides", { returnObjects: true }) as { title: string; titleHighlight: string; desc: string }[];
+  const slideCount = Array.isArray(heroSlides) ? heroSlides.length : 1;
+
+  useEffect(() => {
+    if (slideCount <= 1) return;
+    const interval = setInterval(() => {
+      setHeroFade(false);
+      setTimeout(() => {
+        setHeroSlideIndex(prev => (prev + 1) % slideCount);
+        setHeroFade(true);
+      }, 400);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [slideCount]);
 
   useEffect(() => {
     const state = location.state as { scrollTo?: string } | null;
