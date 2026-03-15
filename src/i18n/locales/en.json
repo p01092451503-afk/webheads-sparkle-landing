@@ -1610,6 +1610,41 @@
       "phone1": "New Inquiry: 02-336-4338",
       "phone2": "Support & Maintenance: 02-540-4337",
       "note": "Weekdays 10:00–18:00 · Lunch 12:00–13:00"
+    },
+    "companyProfile": {
+      "sub": "COMPANY PROFILE",
+      "title": "Company Profile",
+      "desc": "A specialized company focused solely on e-learning technology for 16 years",
+      "overviewTitle": "Company Overview",
+      "info": [
+        { "label": "Company", "value": "WEBHEADS Inc. (204-86-20072)" },
+        { "label": "CEO", "value": "Jinyeol Park" },
+        { "label": "Founded", "value": "April 2010 (16th Year)" },
+        { "label": "Location", "value": "3F, 114 World Cup-ro, Mapo-gu, Seoul" },
+        { "label": "Contact", "value": "02-540-4337" }
+      ],
+      "bizAreas": [
+        { "title": "LMS Development", "desc": "Custom-built (SI) and SaaS LMS solutions for 300+ corporations, government agencies, and universities" },
+        { "title": "Hosting · CDN", "desc": "IDC center operation, web hosting, media CDN, AWS/NCP cloud management" },
+        { "title": "AI Technology", "desc": "AI chatbot, AI tutor, content analysis and recommendation engine development" },
+        { "title": "DRM · Security", "desc": "Video content security solutions (ZonePlayer, Kollus integration)" },
+        { "title": "APP Development", "desc": "Flutter and React Native mobile app development with multi-platform learning environments" },
+        { "title": "Content Production", "desc": "Educational video content planning, filming, editing, SCORM/xAPI standard content creation" }
+      ],
+      "keyClientsTitle": "Key Client References",
+      "keyClients": [
+        { "name": "Yanadu", "desc": "Premium English video learning, 600K+ members" },
+        { "name": "Weolbuza", "desc": "Korea's largest real estate online education, 300K+ members" },
+        { "name": "KMAC", "desc": "Corporate consulting & training, 4M+ members" },
+        { "name": "i-Scream Edu", "desc": "Elementary digital learning platform development & operation" },
+        { "name": "Korea Energy Foundation", "desc": "Energy sector professional online training" },
+        { "name": "KPC", "desc": "Corporate productivity training & consulting" },
+        { "name": "Ministry of Health", "desc": "Public health & welfare online education" },
+        { "name": "Korea University", "desc": "University e-learning system development & operation" }
+      ],
+      "keyClientsMore": "Plus SK Hynix, Pulmuone, Incheon Int'l Airport, Samyang Foods, Seoul Police, Sungkyunkwan Univ., and 300+ more",
+      "techStackTitle": "Technology Stack",
+      "aiChatbot": "AI Chatbot"
     }
   },
   "floatingNav": {
