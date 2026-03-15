@@ -1,823 +1,1122 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://service.webheads.co.kr/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/hosting</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/hosting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/hosting" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/maintenance</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/maintenance" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/maintenance" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/chatbot</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/chatbot" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/chatbot" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/app</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/app" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/app" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/content</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/content" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/content" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/drm</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/drm" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/drm" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/channel</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/channel" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/channel" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/pg</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/pg" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/pg" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/sms-kakao</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/sms-kakao" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/sms-kakao" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/pricing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/pricing" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/event</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/event" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/event" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/service-request</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/service-request" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/service-request" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/support</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/support" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/support" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/lms-development</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/lms-development" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/lms-development" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/corporate-lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/corporate-lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/corporate-lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/elearning-platform-development</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/elearning-platform-development" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/elearning-platform-development" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/employee-training-system</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/employee-training-system" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/employee-training-system" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/online-education-site</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/online-education-site" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/online-education-site" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/live-class-solution</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/live-class-solution" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/live-class-solution" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/guides</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/guides" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/guides" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/channel-talk-lms-integration-cs-response-time-80-reduction</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/channel-talk-lms-integration-cs-response-time-80-reduction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/channel-talk-lms-integration-cs-response-time-80-reduction" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-learning-notification-automation-omnichannel-strategy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-learning-notification-automation-omnichannel-strategy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-learning-notification-automation-omnichannel-strategy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/retention-message-design-before-learner-dropout</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/retention-message-design-before-learner-dropout" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/retention-message-design-before-learner-dropout" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/community-feature-increases-completion-rate-education-platform</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/community-feature-increases-completion-rate-education-platform" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/community-feature-increases-completion-rate-education-platform" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/interactive-video-h5p-higher-learning-effectiveness</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/interactive-video-h5p-higher-learning-effectiveness" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/interactive-video-h5p-higher-learning-effectiveness" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-pdf-to-video-lecture-automation-pipeline</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-pdf-to-video-lecture-automation-pipeline" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-pdf-to-video-lecture-automation-pipeline" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-content-lifecycle-management-renewal-signals</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-content-lifecycle-management-renewal-signals" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-content-lifecycle-management-renewal-signals" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/subtitle-multilingual-content-automation-global-education</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/subtitle-multilingual-content-automation-global-education" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/subtitle-multilingual-content-automation-global-education" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/drm-technology-anatomy-prevent-content-leakage</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/drm-technology-anatomy-prevent-content-leakage" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/drm-technology-anatomy-prevent-content-leakage" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/screen-capture-prevention-video-lectures-technical-limits</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/screen-capture-prevention-video-lectures-technical-limits" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/screen-capture-prevention-video-lectures-technical-limits" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/korea-drm-solution-comparison-pallycon-markany-widevine</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/korea-drm-solution-comparison-pallycon-markany-widevine" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/korea-drm-solution-comparison-pallycon-markany-widevine" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-content-copyright-dispute-legal-protection-strategy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-content-copyright-dispute-legal-protection-strategy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-content-copyright-dispute-legal-protection-strategy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/drm-ux-friendly-design-without-hurting-learner-experience</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/drm-ux-friendly-design-without-hurting-learner-experience" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/drm-ux-friendly-design-without-hurting-learner-experience" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-cloud-migration-aws-azure-ncp-comparison</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-cloud-migration-aws-azure-ncp-comparison" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-cloud-migration-aws-azure-ncp-comparison" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-server-architecture-10k-concurrent-users</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-server-architecture-10k-concurrent-users" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-server-architecture-10k-concurrent-users" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/cdn-lms-video-loading-speed-optimization</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/cdn-lms-video-loading-speed-optimization" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/cdn-lms-video-loading-speed-optimization" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/on-premise-lms-cloud-native-transition-timing</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/on-premise-lms-cloud-native-transition-timing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/on-premise-lms-cloud-native-transition-timing" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/education-data-sovereignty-csap-public-lms-hosting</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/education-data-sovereignty-csap-public-lms-hosting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/education-data-sovereignty-csap-public-lms-hosting" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-maintenance-cost-reduction-strategies</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-maintenance-cost-reduction-strategies" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-maintenance-cost-reduction-strategies" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-incident-response-golden-time-protocol</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-incident-response-golden-time-protocol" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-incident-response-golden-time-protocol" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-version-upgrade-timing-guide</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-version-upgrade-timing-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-version-upgrade-timing-guide" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/education-platform-security-vulnerabilities-top5</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/education-platform-security-vulnerabilities-top5" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/education-platform-security-vulnerabilities-top5" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/legacy-lms-migration-checklist</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/legacy-lms-migration-checklist" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/legacy-lms-migration-checklist" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/sla-based-lms-maintenance-contract-negotiation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/sla-based-lms-maintenance-contract-negotiation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/sla-based-lms-maintenance-contract-negotiation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/generative-ai-lms-future-2025</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/generative-ai-lms-future-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/generative-ai-lms-future-2025" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-adoption-failure-reasons-solutions</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-adoption-failure-reasons-solutions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-adoption-failure-reasons-solutions" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/saas-vs-onpremise-lms-selection</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/saas-vs-onpremise-lms-selection" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/saas-vs-onpremise-lms-selection" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/global-lms-market-2030-outlook</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/global-lms-market-2030-outlook" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/global-lms-market-2030-outlook" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/scorm-to-xapi-transition-guide</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/scorm-to-xapi-transition-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/scorm-to-xapi-transition-guide" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/microlearning-lms-design-principles</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/microlearning-lms-design-principles" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/microlearning-lms-design-principles" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/employee-onboarding-lms-automation-cases</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/employee-onboarding-lms-automation-cases" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/employee-onboarding-lms-automation-cases" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-hr-system-api-integration-roi</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-hr-system-api-integration-roi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-hr-system-api-integration-roi" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/korea-elearning-standards-lms-certification-2025</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/korea-elearning-standards-lms-certification-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/korea-elearning-standards-lms-certification-2025" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-rfp-writing-guide-for-training-managers</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-rfp-writing-guide-for-training-managers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-rfp-writing-guide-for-training-managers" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-app-ux-trends-2025</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-app-ux-trends-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-app-ux-trends-2025" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/pwa-vs-native-lms-mobile-strategy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/pwa-vs-native-lms-mobile-strategy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/pwa-vs-native-lms-mobile-strategy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/offline-learning-lms-app-strategy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/offline-learning-lms-app-strategy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/offline-learning-lms-app-strategy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/react-native-lms-app-cost-reduction</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/react-native-lms-app-cost-reduction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/react-native-lms-app-cost-reduction" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/push-notification-lms-retention-analysis</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/push-notification-lms-retention-analysis" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/push-notification-lms-retention-analysis" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-subscription-vs-onetime-ltv</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-subscription-vs-onetime-ltv" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-subscription-vs-onetime-ltv" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/education-platform-pg-integration-guide</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/education-platform-pg-integration-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/education-platform-pg-integration-guide" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/refund-policy-platform-trust-automation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/refund-policy-platform-trust-automation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/refund-policy-platform-trust-automation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/b2b-education-billing-automation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/b2b-education-billing-automation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/b2b-education-billing-automation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-tutor-lms-case-study</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-tutor-lms-case-study" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-tutor-lms-case-study" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/rag-chatbot-education-guide</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/rag-chatbot-education-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/rag-chatbot-education-guide" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/gpt-auto-quiz-generation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/gpt-auto-quiz-generation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/gpt-auto-quiz-generation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-learning-recommendation-engine</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-learning-recommendation-engine" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-learning-recommendation-engine" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-cs-chatbot-cost-reduction</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-cs-chatbot-cost-reduction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-cs-chatbot-cost-reduction" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/generative-ai-training-scenario-automation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/generative-ai-training-scenario-automation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/generative-ai-training-scenario-automation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-learner-churn-prediction</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-learner-churn-prediction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-learner-churn-prediction" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-checklist-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-checklist-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-checklist-2026" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-lms-trend-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-lms-trend-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-lms-trend-2026" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-cost-guide</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-cost-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-cost-guide" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/hrd-education-system</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/hrd-education-system" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/hrd-education-system" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/b2b-education-platform</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/b2b-education-platform" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/b2b-education-platform" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-chatbot-education</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-chatbot-education" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-chatbot-education" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/online-exam-system</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/online-exam-system" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/online-exam-system" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/video-centric-elearning</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/video-centric-elearning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/video-centric-elearning" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/cloud-lms-migration</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/cloud-lms-migration" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/cloud-lms-migration" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/compliance-training-lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/compliance-training-lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/compliance-training-lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/global-lms-landscape-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/global-lms-landscape-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/global-lms-landscape-2026" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/microlearning-global-cases</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/microlearning-global-cases" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/microlearning-global-cases" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/immersive-learning-vr-ar</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/immersive-learning-vr-ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/immersive-learning-vr-ar" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/skills-based-learning</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/skills-based-learning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/skills-based-learning" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/edtech-unicorns-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/edtech-unicorns-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/edtech-unicorns-2026" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/learning-analytics-dashboard</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/learning-analytics-dashboard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/learning-analytics-dashboard" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/eu-digital-education-policy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/eu-digital-education-policy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/eu-digital-education-policy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/generative-ai-content-creation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/generative-ai-content-creation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/generative-ai-content-creation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/southeast-asia-lms-market</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/southeast-asia-lms-market" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/southeast-asia-lms-market" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/gamification-lms-strategy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/gamification-lms-strategy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/gamification-lms-strategy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/open-edx-enterprise</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/open-edx-enterprise" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/open-edx-enterprise" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/video-learning-analytics</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/video-learning-analytics" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/video-learning-analytics" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/mobile-learning-strategy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/mobile-learning-strategy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/mobile-learning-strategy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/compliance-training-automation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/compliance-training-automation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/compliance-training-automation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/video-drm-elearning</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/video-drm-elearning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/video-drm-elearning" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-data-analytics</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-data-analytics" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-data-analytics" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/zero-trust-elearning</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/zero-trust-elearning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/zero-trust-elearning" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/cloud-migration-lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/cloud-migration-lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/cloud-migration-lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-workflow-automation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-workflow-automation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-workflow-automation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/disaster-recovery-lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/disaster-recovery-lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/disaster-recovery-lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-governance-enterprise</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-governance-enterprise" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-governance-enterprise" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/aws-elearning-architecture</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/aws-elearning-architecture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/aws-elearning-architecture" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/aws-elearning-case-studies</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/aws-elearning-case-studies" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/aws-elearning-case-studies" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/aws-serverless-elearning</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/aws-serverless-elearning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/aws-serverless-elearning" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-adaptive-learning-lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-adaptive-learning-lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-adaptive-learning-lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/kubernetes-lms-autoscaling</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/kubernetes-lms-autoscaling" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/kubernetes-lms-autoscaling" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-proctoring-assessment</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-proctoring-assessment" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-proctoring-assessment" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/cdn-media-streaming-lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/cdn-media-streaming-lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/cdn-media-streaming-lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/ai-content-generation-lms</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/ai-content-generation-lms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/ai-content-generation-lms" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/global-ai-education-transformation-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/global-ai-education-transformation-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/global-ai-education-transformation-2026" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-zero-trust-security-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-zero-trust-security-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-zero-trust-security-2026" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-privacy-gdpr-compliance-2026</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-privacy-gdpr-compliance-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-privacy-gdpr-compliance-2026" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-sso-integration-guide</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-sso-integration-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-sso-integration-guide" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-rbac-access-control</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-rbac-access-control" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-rbac-access-control" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-api-security-owasp</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-api-security-owasp" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-api-security-owasp" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-encryption-data-protection</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-encryption-data-protection" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-encryption-data-protection" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-ddos-waf-protection</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-ddos-waf-protection" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-ddos-waf-protection" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-security-audit-checklist</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-security-audit-checklist" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-security-audit-checklist" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-xapi-learning-record</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-xapi-learning-record" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-xapi-learning-record" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-multi-tenant-architecture</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-multi-tenant-architecture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-multi-tenant-architecture" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-incident-response-plan</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-incident-response-plan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-incident-response-plan" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-video-drm-streaming-security</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-video-drm-streaming-security" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-video-drm-streaming-security" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-compliance-mandatory-training</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-compliance-mandatory-training" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-compliance-mandatory-training" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-kubernetes-container-security</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-kubernetes-container-security" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-kubernetes-container-security" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-cicd-devops-pipeline</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-cicd-devops-pipeline" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-cicd-devops-pipeline" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-websocket-realtime-learning</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-websocket-realtime-learning" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-websocket-realtime-learning" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-observability-monitoring-stack</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-observability-monitoring-stack" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-observability-monitoring-stack" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-database-performance-optimization</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-database-performance-optimization" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-database-performance-optimization" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-graphql-api-design</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-graphql-api-design" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-graphql-api-design" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/corporate-training-innovation</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/corporate-training-innovation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/corporate-training-innovation" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/generative-ai-hrd-workflow</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/generative-ai-hrd-workflow" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/generative-ai-hrd-workflow" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-rbac-abac-access-control</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-rbac-abac-access-control" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-rbac-abac-access-control" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-data-encryption-strategy</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-data-encryption-strategy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-data-encryption-strategy" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://service.webheads.co.kr/blog/lms-xapi-cmi5-lrs-architecture</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-xapi-cmi5-lrs-architecture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-xapi-cmi5-lrs-architecture" />
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://service.webheads.co.kr/blog/lms-adoption-failure-cases-and-solutions-2025</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-adoption-failure-cases-and-solutions-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-adoption-failure-cases-and-solutions-2025" />
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://service.webheads.co.kr/blog/in-house-lms-vs-solution-tco-comparison-2025</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/in-house-lms-vs-solution-tco-comparison-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/in-house-lms-vs-solution-tco-comparison-2025" />
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://service.webheads.co.kr/blog/lms-roi-analysis-cost-reduction-metrics-2025</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://service.webheads.co.kr/blog/lms-roi-analysis-cost-reduction-metrics-2025" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://service.webheads.co.kr/blog/lms-roi-analysis-cost-reduction-metrics-2025" />
     <lastmod>2026-03-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
