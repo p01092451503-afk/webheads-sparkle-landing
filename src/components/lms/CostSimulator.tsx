@@ -300,7 +300,7 @@ export default function CostSimulator() {
                   <span>10%</span>
                   <span>100%</span>
                 </div>
-                <p className="text-[10px] text-muted-foreground mt-0.5 italic">완강률 {completionRate}% 기준, 수강생 1인당 월 {(storageInput * (completionRate / 100)).toFixed(1)}GB 전송 예상</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5 italic">{t("costSim.completionPerLearner", { rate: completionRate, gb: (storageInput * (completionRate / 100)).toFixed(1) } as TOptions)}</p>
               </div>
 
               {/* CDN toggle */}
