@@ -37,7 +37,7 @@ interface LmsTestimonialItem { name: string; role: string; org: string; content:
 interface LmsProcessStep { title: string; desc: string; tag: string; icon?: ComponentType<any> }
 interface LmsPlanFeature { main: string; sub?: string }
 interface LmsPlan { name: string; price: string; unit?: string; priceNote?: string; specs?: string; badge?: string; highlight?: boolean; recommend: string; features: LmsPlanFeature[] }
-interface LmsCaseItem { title: string; result: string; desc: string }
+interface LmsCaseItem { org: string; industry: string; challenge: string; result: string; metrics: { label: string; value: string }[] }
 import LmsEcosystemDialog from "@/components/LmsEcosystemDialog";
 import WhyWebheadsDialog from "@/components/WhyWebheadsDialog";
 import ClientMarquee from "@/components/ClientMarquee";
