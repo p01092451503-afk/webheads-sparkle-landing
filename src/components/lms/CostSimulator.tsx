@@ -592,9 +592,9 @@ export default function CostSimulator() {
                         {isAnnual && (
                           <p className="text-xs text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
                         )}
-                        {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {currency(formatPrice(secureAddon))}</p>}
-                        {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {currency(formatPrice(dedicatedAddon))}</p>}
-                        {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {currency(formatPrice(overageOnly))}</p>}
+                         {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">{t("costSim.addonSecure")} {currency(formatPrice(secureAddon))}</p>}
+                         {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">{t("costSim.addonDedicated")} {currency(formatPrice(dedicatedAddon))}</p>}
+                         {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">{t("costSim.addonOverage")} {currency(formatPrice(overageOnly))}</p>}
                       </div>
                       <a
                         href="#contact"
