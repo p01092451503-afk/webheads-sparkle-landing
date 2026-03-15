@@ -401,7 +401,7 @@ export default function LmsPage() {
       {/* ═══ 9. Competitor Comparison ═══ */}
       <CompetitorComparison />
 
-      {/* ═══ 12. Plans — 요금제 ═══ */}
+      {/* ═══ 10. Plans ═══ */}
       <section id="plans" className="py-16 md:py-28" style={{ background: "linear-gradient(180deg, hsl(245, 30%, 96%) 0%, hsl(245, 20%, 93%) 100%)" }}>
         <div className="container mx-auto px-5 md:px-6 max-w-6xl">
           <div className="mb-10 md:mb-16">
