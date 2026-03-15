@@ -42,7 +42,7 @@ const LEGACY_REDIRECTS: Record<string, string> = {
   "/download/intro_250527.pdf": "/lms",
   "/apple-app-site-association": "/",
   "/app-dev": "/app",
-  "/company.php": "/overview",
+  "/company.php": "/",
   "/htmlpage.php": "/",
   "/%ed%9a%8c%ec%9b%90%ea%b0%80%ec%9e%85": "/",
   "/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85": "/",
