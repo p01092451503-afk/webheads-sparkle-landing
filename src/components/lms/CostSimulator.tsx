@@ -620,7 +620,7 @@ export default function CostSimulator() {
       {isMobile && bestPlan && (
         <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:hidden" style={{ height: 64, background: "#6C40FF" }}>
           <div className="text-white min-w-0">
-            <p className="text-[12px] font-bold truncate">추천: {bestPlan.name} · {formatPrice(displayMonthlyGlobal)}원/월</p>
+            <p className="text-[12px] font-bold truncate">{t("costSim.mobileRecommend", { plan: bestPlan.name, price: formatPrice(displayMonthlyGlobal) } as TOptions)}</p>
           </div>
           <button
             onClick={() => resultCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
