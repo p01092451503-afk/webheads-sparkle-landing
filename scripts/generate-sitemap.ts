@@ -8,7 +8,8 @@ import path from "path";
 const BASE_URL = "https://service.webheads.co.kr";
 
 const STATIC_PAGES = [
-  { loc: "/lms", changefreq: "weekly", priority: "1.0" },
+  { loc: "/", changefreq: "weekly", priority: "1.0" },
+  { loc: "/lms", changefreq: "weekly", priority: "0.9" },
   { loc: "/hosting", changefreq: "monthly", priority: "0.9" },
   { loc: "/maintenance", changefreq: "monthly", priority: "0.9" },
   { loc: "/chatbot", changefreq: "monthly", priority: "0.9" },
