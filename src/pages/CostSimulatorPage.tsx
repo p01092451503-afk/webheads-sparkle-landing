@@ -393,9 +393,8 @@ export default function CostSimulatorPage() {
                       </>
                     )}
 
-                    <div className="flex items-end gap-3 mb-1">
+                    <div className="mb-1">
                       <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
-                      <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
                     </div>
                     <p className="text-[11px] font-semibold text-white/50 mb-2 tracking-wide">
                       {bestPlan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: bestPlan.cdnIncluded.toLocaleString(), storage: bestPlan.storageIncluded }) : t("costSim.result.cdnNone")}
