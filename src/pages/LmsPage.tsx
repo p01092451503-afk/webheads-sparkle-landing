@@ -202,7 +202,7 @@ export default function LmsPage() {
               </span>
             </span>
           </h1>
-          <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl" style={{ color: "rgba(255,255,255,0.8)", opacity: heroFade ? 1 : 0, transition: "opacity 0.4s ease-in-out" }}>
+          <p className="text-sm md:text-lg leading-[1.8] mb-8 md:mb-10 max-w-2xl whitespace-pre-line" style={{ color: "rgba(255,255,255,0.8)", opacity: heroFade ? 1 : 0, transition: "opacity 0.4s ease-in-out" }}>
             {useVariant ? t(`lms.industryVariants.${industryKey}.desc`) : (heroSlides[heroSlideIndex]?.desc ?? t("lms.hero.desc"))}
           </p>
           <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
