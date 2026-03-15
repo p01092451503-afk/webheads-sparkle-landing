@@ -471,6 +471,7 @@ export default function CostSimulator() {
                         <div className="flex items-end gap-1 mb-1">
                           <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(displayMonthly)}</span>
                           <span className="text-white/70 text-base mb-1">{t("costSim.perMonth")}</span>
+                          <span className="text-[10px] text-white/40 mb-1.5 ml-1">(부가세 별도)</span>
                         </div>
                         {isAnnual && (
                           <div className="flex items-center gap-2 mb-2">
