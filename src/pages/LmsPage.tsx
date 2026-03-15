@@ -467,7 +467,7 @@ export default function LmsPage() {
         cases={t("lms.caseStudy.cases", { returnObjects: true }) as any[]}
       />
 
-      {/* ═══ 13. Process ═══ */}
+      {/* ═══ 11. Process ═══ */}
       <ServiceProcess
         steps={processSteps}
         heading={t("lms.processSection.heading")}
