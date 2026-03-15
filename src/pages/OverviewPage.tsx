@@ -486,7 +486,7 @@ export default function OverviewPage() {
           <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] tracking-tight whitespace-pre-line" style={{ fontWeight: 900, color: "hsl(220,40%,16%)", lineHeight: 1.2 }}>
             {t("overview.hero.title")}
           </h1>
-          <p className="mt-5 text-sm sm:text-base leading-[1.9] max-w-2xl mx-auto whitespace-pre-line" style={{ color: "hsl(220,20%,45%)" }}>
+          <p className="mt-5 text-sm sm:text-base leading-[1.9] max-w-2xl mx-auto" style={{ color: "hsl(220,20%,45%)", wordBreak: "keep-all" }}>
             {t("overview.hero.desc")}
           </p>
           <div className="flex flex-wrap gap-3 justify-center mt-8">
