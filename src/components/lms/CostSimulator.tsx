@@ -530,13 +530,13 @@ export default function CostSimulator() {
                 <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.12)" }}>
                   <TrendingUp className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-foreground mb-1">
-                    전송량 기준 Plus 플랜 추천
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    전송량 기준으로 보면 Plus 플랜이 월 {formatPrice(upgradeNudge.savings)}원 더 저렴합니다. Plus로 바꿔볼까요?
-                  </p>
+                 <div>
+                   <p className="text-sm font-bold text-foreground mb-1">
+                     {t("costSim.nudgeRecommendTitle")}
+                   </p>
+                   <p className="text-xs text-muted-foreground leading-relaxed">
+                     {t("costSim.nudgeRecommendDesc", { amount: formatPrice(upgradeNudge.savings) } as TOptions)}
+                   </p>
                 </div>
               </div>
             )}
