@@ -478,7 +478,7 @@ export default function LmsPage() {
       {/* ═══ 12. Testimonials ═══ */}
       <TestimonialSection testimonials={testimonials} />
 
-      {/* ═══ 15. FAQ ═══ */}
+      {/* ═══ 13. FAQ ═══ */}
       <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
 
       {/* ═══ 16. Contact ═══ */}
