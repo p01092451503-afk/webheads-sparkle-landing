@@ -325,12 +325,12 @@ export default function LmsPage() {
             {/* Webheads PRO */}
             <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1" style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}>
               <div className="flex items-center gap-3.5 mb-5">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(215, 70%, 94%)" }}>
-                  <Server className="w-6 h-6" style={{ color: "hsl(215, 65%, 48%)" }} />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(var(--lms-pro-accent-bg))" }}>
+                  <Server className="w-6 h-6" style={{ color: "hsl(var(--lms-pro-accent))" }} />
                 </div>
                 <div>
                   <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.pro.name")}</h3>
-                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(215, 65%, 48%)" }}>{t("lms.pro.subtitle")}</p>
+                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(var(--lms-pro-accent))" }}>{t("lms.pro.subtitle")}</p>
                 </div>
               </div>
               <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.pro.desc")}</p>
