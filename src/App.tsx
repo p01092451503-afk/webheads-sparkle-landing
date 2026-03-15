@@ -91,7 +91,7 @@ const App = () => (
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:postId" element={<BlogPostPage />} />
                 <Route path="/event" element={<EventPage />} />
-                <Route path="/overview" element={<OverviewPage />} />
+                {/* /overview is now redirected to / above */}
                 <Route path="/lms-development" element={<LmsDevelopmentPage />} />
                 <Route path="/corporate-lms" element={<CorporateLmsPage />} />
                 <Route path="/elearning-platform-development" element={<ElearningPlatformPage />} />

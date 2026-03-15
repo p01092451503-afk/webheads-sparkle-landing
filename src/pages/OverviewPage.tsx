@@ -490,7 +490,7 @@ export default function OverviewPage() {
         title={t("overview.seo.title")}
         description={t("overview.seo.description")}
         keywords={t("overview.seo.keywords")}
-        path="/overview"
+        path="/"
       />
 
       {/* ── HERO ── */}

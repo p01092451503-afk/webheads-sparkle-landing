@@ -22,7 +22,7 @@ const STATIC_PAGES = [
   { loc: "/pricing", changefreq: "monthly", priority: "0.8" },
   { loc: "/event", changefreq: "weekly", priority: "0.8" },
   { loc: "/service-request", changefreq: "monthly", priority: "0.6" },
-  { loc: "/overview", changefreq: "monthly", priority: "0.6" },
+  /* /overview is now redirected to / */
   { loc: "/blog", changefreq: "weekly", priority: "0.8" },
   { loc: "/support", changefreq: "monthly", priority: "0.5" },
   { loc: "/lms-development", changefreq: "monthly", priority: "0.9" },
