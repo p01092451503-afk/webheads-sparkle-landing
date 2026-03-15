@@ -475,7 +475,7 @@ export default function LmsPage() {
         description={t("lms.processSection.desc")}
       />
 
-      {/* ═══ 14. Testimonials ═══ */}
+      {/* ═══ 12. Testimonials ═══ */}
       <TestimonialSection testimonials={testimonials} />
 
       {/* ═══ 15. FAQ ═══ */}
