@@ -393,9 +393,8 @@ export default function CostSimulatorPage() {
                       </>
                     )}
 
-                    <div className="flex items-end gap-3 mb-1">
+                    <div className="mb-1">
                       <h3 className="font-extrabold text-white text-3xl tracking-tight">{bestPlan.name}</h3>
-                      <span className="text-white/60 text-sm mb-1">{bestPlan.solutionType}</span>
                     </div>
                     <p className="text-[11px] font-semibold text-white/50 mb-2 tracking-wide">
                       {bestPlan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: bestPlan.cdnIncluded.toLocaleString(), storage: bestPlan.storageIncluded }) : t("costSim.result.cdnNone")}
@@ -492,7 +491,7 @@ export default function CostSimulatorPage() {
                           {isBest && <span className="w-2.5 h-2.5 rounded-full shrink-0 mt-1.5" style={{ background: "#5D45FF" }} />}
                           <div className="min-w-0">
                             <p className="text-base font-bold" style={isBest ? { color: "#5D45FF" } : undefined}>{plan.name}</p>
-                            <p className="text-sm text-muted-foreground">{plan.solutionType}</p>
+                            
                             <p className="text-xs text-muted-foreground/60">{plan.cdnIncluded > 0 ? t("costSim.result.cdnInfo", { cdn: plan.cdnIncluded.toLocaleString(), storage: plan.storageIncluded }) : t("costSim.result.cdnNone")}</p>
                             {features.length > 0 && (
                               <div className="mt-2 space-y-0.5">
