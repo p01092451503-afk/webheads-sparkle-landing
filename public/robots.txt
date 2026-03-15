@@ -3,24 +3,27 @@
 # https://service.webheads.co.kr
 # ===============================
 
-# 주요 검색엔진 크롤러
-User-agent: Googlebot
+# ── Naver 크롤러 (우선 설정) ──
+User-agent: Yeti
 Allow: /
 Disallow: /admin/
-
-User-agent: Bingbot
-Allow: /
-Disallow: /admin/
+Crawl-delay: 0
 
 User-agent: Naverbot
 Allow: /
 Disallow: /admin/
 
-User-agent: Yeti
+# ── Google ──
+User-agent: Googlebot
 Allow: /
 Disallow: /admin/
 
-# SNS 미리보기 크롤러
+# ── Bing ──
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+
+# ── SNS 미리보기 크롤러 ──
 User-agent: Twitterbot
 Allow: /
 
@@ -33,7 +36,7 @@ Allow: /
 User-agent: KakaoTalk-LinkPreview
 Allow: /
 
-# AI 검색·학습 크롤러 (명시적 허용)
+# ── AI 검색·학습 크롤러 (명시적 허용) ──
 User-agent: GPTBot
 Allow: /
 Disallow: /admin/
@@ -56,7 +59,7 @@ User-agent: Bytespider
 Allow: /
 Disallow: /admin/
 
-# SEO 분석 도구 (허용)
+# ── SEO 분석 도구 (허용) ──
 User-agent: AhrefsBot
 Allow: /
 Disallow: /admin/
@@ -65,13 +68,15 @@ User-agent: SemrushBot
 Allow: /
 Disallow: /admin/
 
-# 기본: 모든 봇 허용, admin 차단
+# ── 기본: 모든 봇 허용, admin 차단 ──
 User-agent: *
 Allow: /
 Disallow: /admin/
-
-# 크롤 지연 (선택적)
 Crawl-delay: 1
 
+# ── 사이트맵 및 AI 정보 ──
 Sitemap: https://service.webheads.co.kr/sitemap.xml
 LLMs: https://service.webheads.co.kr/llms.txt
+
+# ── Host (Naver 크롤러 참고용) ──
+Host: https://service.webheads.co.kr
