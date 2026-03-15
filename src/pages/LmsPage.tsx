@@ -274,7 +274,7 @@ export default function LmsPage() {
         </div>
       </section>
 
-      {/* ═══ 8. Device Friendly ═══ */}
+      {/* ═══ 6. Device Friendly ═══ */}
       <DeviceFriendlySection />
 
       {/* ═══ 9. Learner Journey Map ═══ */}
