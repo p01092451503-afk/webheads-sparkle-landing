@@ -48,7 +48,7 @@ export default function LanguageSwitcher({ scrolled = true }: LanguageSwitcherPr
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1.5 w-40 rounded-xl border border-border bg-background shadow-lg overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+        <div className="absolute right-0 bottom-full mb-1.5 w-40 rounded-xl border border-border bg-background shadow-lg overflow-hidden z-50 animate-in fade-in slide-in-from-bottom-2 duration-150">
           {SUPPORTED_LOCALES.map((locale) => (
             <button
               key={locale.code}
