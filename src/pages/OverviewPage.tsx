@@ -439,7 +439,7 @@ function CompanyProfileSection() {
               <p>• <strong className="text-foreground">DB (Cloud):</strong> Supabase Edge Functions (Deno) · PostgreSQL · RLS</p>
               <p>• <strong className="text-foreground">Routing:</strong> React Router 6 (SPA, Code Splitting)</p>
               <p>• <strong className="text-foreground">AI 챗봇:</strong> Google Gemini 2.5 Flash (Edge Function)</p>
-              <p>• <strong className="text-foreground">i18n:</strong> i18next (KO · EN · JA, 비동기 로딩)</p>
+              
             </div>
           </div>
         </div>
