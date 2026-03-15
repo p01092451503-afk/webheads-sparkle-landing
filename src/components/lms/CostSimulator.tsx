@@ -433,9 +433,9 @@ export default function CostSimulator() {
                     const savingsAmount = competitorEstimate - displayMonthly;
                     return savingsAmount > 0 ? (
                       <>
-                        <div className="mb-1 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
-                          <TrendingUp className="w-4 h-4 shrink-0" />
-                          경쟁사 동일 사양 평균 대비 월 {formatPrice(savingsAmount)}원 절약
+                         <div className="mb-1 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
+                           <TrendingUp className="w-4 h-4 shrink-0" />
+                           {t("costSim.competitorSavings", { amount: formatPrice(savingsAmount) } as TOptions)}
                         </div>
                         <TooltipProvider>
                           <Tooltip>
