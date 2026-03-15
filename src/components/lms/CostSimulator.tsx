@@ -477,7 +477,6 @@ export default function CostSimulator() {
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-xs text-white/50 line-through tabular-nums">{formatPrice(bestPlan.totalMonthly)}{t("costSim.perMonth")}</span>
                             <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ background: "hsl(120, 60%, 40%)", color: "white" }}>{t("costSim.discount")}</span>
-                            <span className="text-xs text-white/60">{t("costSim.annualTotal", { amount: formatPrice(displayMonthly * 12) })}</span>
                           </div>
                         )}
 
