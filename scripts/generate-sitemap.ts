@@ -51,18 +51,27 @@ export function extractBlogIds(projectRoot: string): string[] {
 export function generateSitemapXml(blogIds: string[]): string {
   const today = new Date().toISOString().split("T")[0];
 
+  const hreflangs = (loc: string) =>
+    `    <xhtml:link rel="alternate" hreflang="ko" href="${loc}" />\n    <xhtml:link rel="alternate" hreflang="x-default" href="${loc}" />`;
+
   const urls = STATIC_PAGES.map(
-    (p) => `  <url>
-    <loc>${BASE_URL}${p.loc}</loc>
+    (p) => {
+      const loc = `${BASE_URL}${p.loc}`;
+      return `  <url>
+    <loc>${loc}</loc>
+${hreflangs(loc)}
     <lastmod>${today}</lastmod>
     <changefreq>${p.changefreq}</changefreq>
     <priority>${p.priority}</priority>
-  </url>`
+  </url>`;
+    }
   );
 
   for (const id of blogIds) {
+    const loc = `${BASE_URL}/blog/${id}`;
     urls.push(`  <url>
-    <loc>${BASE_URL}/blog/${id}</loc>
+    <loc>${loc}</loc>
+${hreflangs(loc)}
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
