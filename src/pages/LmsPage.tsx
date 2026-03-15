@@ -307,8 +307,8 @@ export default function LmsPage() {
               <div className="flex flex-col gap-4 flex-1">
                 {lightFeatures.map((f: any) => (
                   <div key={f.title} className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(245, 60%, 95%)" }}>
-                      <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(245, 58%, 55%)" }} />
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "hsl(var(--lms-light-accent-bg))" }}>
+                      <f.icon className="w-3.5 h-3.5" style={{ color: "hsl(var(--lms-light-accent))" }} />
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-foreground leading-snug">{f.title}</h4>
