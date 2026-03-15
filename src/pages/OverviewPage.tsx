@@ -433,9 +433,6 @@ function CompanyProfileSection() {
       </div>
     </section>
   );
-      </div>
-    </section>
-  );
 }
 
 /* ══════════════════════════════════════════
