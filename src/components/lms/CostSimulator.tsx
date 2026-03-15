@@ -588,7 +588,7 @@ export default function CostSimulator() {
                     </div>
                     <div className="text-right shrink-0 flex flex-col items-end gap-2">
                       <div>
-                        <p className="text-base font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
+                        <p className="text-base font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{t("costSim.perMonth")}</p>
                         {isAnnual && (
                           <p className="text-xs text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
                         )}
