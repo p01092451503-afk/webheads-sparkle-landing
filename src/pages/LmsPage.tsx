@@ -481,7 +481,7 @@ export default function LmsPage() {
       {/* ═══ 13. FAQ ═══ */}
       <ServiceFAQ faqs={faqs} serviceName={t("lms.seo.title")} />
 
-      {/* ═══ 16. Contact ═══ */}
+      {/* ═══ 14. Contact ═══ */}
       <ContactSection showDemo />
 
       
