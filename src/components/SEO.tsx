@@ -29,9 +29,6 @@ export default function SEO({ title, description, keywords, path = "", jsonLd, f
 
   const fullTitle = `${title} | ${locale.suffix}`;
   const canonicalUrl = `${BASE_URL}${path}`;
-  const koUrl = `${BASE_URL}${path}`;
-  const enUrl = `${BASE_URL}${path}?lang=en`;
-  const jaUrl = `${BASE_URL}${path}?lang=ja`;
   const ogImageUrl = ogImage ? `${BASE_URL}${ogImage}` : OG_IMAGE;
 
   const faqSchema = faqJsonLd && faqJsonLd.length > 0
