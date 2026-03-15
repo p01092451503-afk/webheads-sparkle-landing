@@ -110,6 +110,12 @@
     --lms-badge-bg: hsla(255, 70%, 55%, 0.1);
     --lms-badge-text: 255 70% 45%;
     --lms-page-bg: hsl(252, 30%, 97%);
+    --lms-light-accent: 245 58% 55%;
+    --lms-light-accent-bg: 245 60% 95%;
+    --lms-pro-accent: 215 65% 48%;
+    --lms-pro-accent-bg: 215 70% 94%;
+    --lms-kdt-accent: 145 60% 38%;
+    --lms-kdt-accent-bg: 145 70% 93%;
   }
 
 }

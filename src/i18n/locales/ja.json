@@ -945,6 +945,31 @@
   },
   "lms": {
     "seo": { "title": "WEBHEADS LMS | eラーニングソリューション・学習管理システム構築", "description": "LMS構築から運用まで、300+企業が信頼するWEBHEADSのeラーニングソリューション。クラウドLMS、AI基盤の学習管理、カスタマイズ可能なオンライン教育プラットフォームを提供します。", "keywords": "eラーニング, LMS, 学習管理システム, オンライン教育, 企業研修, クラウドLMS, AI LMS" },
+    "jsonLd": {
+      "softwareName": "WEBHEADS LMS - eラーニングソリューション・学習管理システム",
+      "alternateNames": ["Webheads LMS", "WEBHEADS学習管理システム", "AI LMS"],
+      "offerName": "クラウド型(AI) - Starter",
+      "offerDesc": "導入相談後にカスタム見積もりを提供",
+      "featureList": ["LMS構築・学習管理システム", "クラウドLMS・教育用SaaSソリューション", "AI基盤学習管理", "企業研修LMS", "マルチデバイス対応（PC・タブレット・モバイル）", "非対面教育プラットフォーム", "多言語対応（11言語）", "KDT政府支援訓練認証", "カスタムLMS開発", "B2B教育プラットフォーム", "24/7カスタマーサポート"],
+      "productName": "WEBHEADS LMSサブスクリプション",
+      "productDesc": "eラーニングソリューション・オンライン教育プラットフォームの構築と運用のための学習管理システム（LMS）。クラウドLMS、AI基盤学習管理、カスタムLMS開発。",
+      "brandName": "WEBHEADS",
+      "aggregateOfferDesc": "WEBHEADS Light、WEBHEADS PROの2つのソリューション",
+      "howToName": "LMS構築プロセス",
+      "howToDesc": "学習管理システム（LMS）を成功裏に構築するための段階的プロセスです。",
+      "howToSteps": [
+        { "name": "要件分析", "text": "教育目標、対象学習者、既存システムの現状を分析し、核心要件を定義します。" },
+        { "name": "LMS設計", "text": "システムアーキテクチャ、データベース、UI/UXを設計し、プロトタイプを制作します。" },
+        { "name": "開発・連携", "text": "フロントエンド・バックエンド開発、HR/ERP連携、コンテンツプレイヤー構築を進行します。" },
+        { "name": "テスト・QA", "text": "機能テスト、パフォーマンステスト、セキュリティ点検、ユーザー受入テスト（UAT）を実施します。" },
+        { "name": "ローンチ・運用サポート", "text": "無停止デプロイ後、初期運用期間の集中モニタリングとユーザー教育を提供します。" }
+      ]
+    },
+    "industryVariants": {
+      "university": { "badge": "大学・教育機関専用", "title": "大学オンライン教育の\n新しい基準", "titleHighlight": "生涯教育院LMS", "desc": "KDT政府支援訓練公式認証。受講生管理から修了証発行、PG決済までワンストップ。", "cta1": "大学導入相談", "highlightBadge": "KDT公式認証" },
+      "enterprise": { "badge": "企業HRD・社内教育", "title": "社内教育運営費\n40%削減", "titleHighlight": "企業教育LMS", "desc": "AI学習督促、自動修了処理、人事システム（ERP）連携。大企業からスタートアップまで。", "cta1": "企業導入相談", "highlightBadge": "平均40%コスト削減" },
+      "government": { "badge": "政府機関・公共機関", "title": "公共機関認証\neラーニングプラットフォーム", "titleHighlight": "HRD専門LMS", "desc": "調達庁登録企業。セキュリティインフラ、個人情報保護法完全準拠、HRD-Net自動連携。", "cta1": "公共機関導入相談", "highlightBadge": "調達庁登録" }
+    },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "ビジネス成功への第一歩、", "titleHighlight": "WEBHEADS LMS", "desc": "複雑なシステム構築と運用の負担を手放してください。長年磨き上げたWEBHEADSのオールインワンLMSソリューションが、最もスムーズで完璧なオンライン教育環境を提供します。", "cta1": "導入のお問い合わせ", "cta2": "ソリューション比較", "ctaEcosystem": "LMS以外の付加サービスも重要です", "ctaWhy": "なぜWEBHEADS LMS?" },
     "whyWebheads": {
       "title": "なぜWEBHEADS LMSを\n選ぶべきなのか？",
