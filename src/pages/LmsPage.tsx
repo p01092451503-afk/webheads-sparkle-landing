@@ -439,7 +439,7 @@ export default function LmsPage() {
                     {plan.priceNote && <p className="text-sm text-muted-foreground mt-1.5">{plan.priceNote}</p>}
                   </div>
                   <ul className="flex flex-col gap-3.5 flex-1">
-                    {plan.features.map((f: any) => (
+                    {plan.features.map((f: LmsPlanFeature) => (
                       <li key={f.main} className="flex items-start gap-2.5">
                         <span className="w-5 h-5 rounded-full shrink-0 flex items-center justify-center mt-0.5 text-sm" style={{ color: "hsl(var(--lms-primary))" }}>✓</span>
                         <div>
