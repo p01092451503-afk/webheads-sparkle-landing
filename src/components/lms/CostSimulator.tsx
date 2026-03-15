@@ -553,7 +553,7 @@ export default function CostSimulator() {
                   const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
                   const overageOnly = plan.overageCdn + plan.overageStorage;
                   const isBest = plan.name === bestPlan?.name;
-                  const features = PLAN_KEY_FEATURES[plan.name] || [];
+                  const features = (t("costSim.planKeyFeatures." + plan.name, { returnObjects: true, defaultValue: [] }) as string[]) || [];
                   return (
                   <div
                     key={plan.name}
