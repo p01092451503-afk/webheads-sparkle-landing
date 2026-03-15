@@ -100,7 +100,7 @@ export default function CostSimulatorPage() {
 
   const { cdnGB, storageGB } = useMemo(() => estimateUsage(learners, storageInput, completionRate), [learners, storageInput, completionRate]);
 
-  const solutionTypes = t("lms.solutionTypes", { returnObjects: true }) as Record<string, string>;
+  const solutionTypes = t("costSim.solutionTypes", { returnObjects: true }) as Record<string, string>;
 
   const recommendations = useMemo<PlanRecommendation[]>(() =>
     PLAN_DEFS.map((plan) => {
