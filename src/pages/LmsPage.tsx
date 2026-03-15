@@ -33,8 +33,8 @@ import { useSearchParams, useLocation, Link } from "react-router-dom";
 interface LmsFeatureItem { title: string; desc: string; icon?: ComponentType<any> }
 interface LmsStatItem { value: string; label: string }
 interface LmsFaqItem { q: string; a: string }
-interface LmsTestimonialItem { name: string; role: string; text: string }
-interface LmsProcessStep { title: string; desc: string; icon?: ComponentType<any> }
+interface LmsTestimonialItem { name: string; role: string; org: string; content: string; rating?: number; date?: string; period?: string }
+interface LmsProcessStep { title: string; desc: string; tag: string; icon?: ComponentType<any> }
 interface LmsPlanFeature { main: string; sub?: string }
 interface LmsPlan { name: string; price: string; unit?: string; priceNote?: string; specs?: string; badge?: string; highlight?: boolean; recommend: string; features: LmsPlanFeature[] }
 interface LmsCaseItem { title: string; result: string; desc: string }
