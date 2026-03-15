@@ -420,8 +420,8 @@ function CompanyProfileSection() {
           </p>
         </div>
 
-        {/* Tech & Maintenance */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        {/* Tech Stack */}
+        <div className="mt-6">
           <div className="rounded-2xl bg-white border border-border shadow-sm p-5">
             <h4 className="font-bold text-sm text-foreground mb-3 flex items-center gap-2">
               <Code className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
@@ -442,24 +442,9 @@ function CompanyProfileSection() {
                 <p>• <strong className="text-foreground">State / Data:</strong> TanStack React Query + React Hook Form + Zod</p>
                 <p>• <strong className="text-foreground">Routing:</strong> React Router 6 (SPA, Code Splitting)</p>
                 <p>• <strong className="text-foreground">i18n:</strong> i18next (KO · EN · JA, 비동기 로딩)</p>
-                <p>• <strong className="text-foreground">SEO:</strong> react-helmet-async · JSON-LD · Sitemap 자동생성</p>
                 <p>• <strong className="text-foreground">Backend:</strong> Supabase Edge Functions (Deno) · PostgreSQL · RLS</p>
                 <p>• <strong className="text-foreground">AI 챗봇:</strong> Google Gemini 2.5 Flash (Supabase Edge Function)</p>
-                <p>• <strong className="text-foreground">AI 개발:</strong> Lovable 바이브코딩으로 전체 설계·구현</p>
-                <p>• <strong className="text-foreground">Hosting:</strong> Lovable Cloud — CDN · Auto Deploy · Preview</p>
               </div>
-            </div>
-          </div>
-          <div className="rounded-2xl bg-white border border-border shadow-sm p-5">
-            <h4 className="font-bold text-sm text-foreground mb-3 flex items-center gap-2">
-              <Wrench className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
-              유지보수 정책
-            </h4>
-            <div className="space-y-2 text-xs text-muted-foreground">
-              <p>• <strong className="text-foreground">무상 유지보수:</strong> 구축 완료 후 12개월</p>
-              <p>• <strong className="text-foreground">장애 처리:</strong> 단순 오류 접수 후 3시간 이내</p>
-              <p>• <strong className="text-foreground">라이선스:</strong> 영구 사용권 + 소스 완전 오픈</p>
-              <p>• <strong className="text-foreground">품질 보증:</strong> 납품 솔루션 2년 보증</p>
             </div>
           </div>
         </div>
