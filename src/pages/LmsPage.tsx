@@ -97,32 +97,20 @@ export default function LmsPage() {
             {
               "@type": "SoftwareApplication",
               "@id": `${BASE_URL}/lms#software`,
-              "name": "웹헤즈 LMS - 이러닝 솔루션 · 학습관리시스템",
-              "alternateName": ["Webheads LMS", "웹헤즈 학습관리시스템", "AI LMS"],
+              "name": t("lms.jsonLd.softwareName"),
+              "alternateName": t("lms.jsonLd.alternateNames", { returnObjects: true }),
               "operatingSystem": "Web, iOS, Android",
               "offers": [
                 {
                   "@type": "Offer",
-                  "name": "클라우드형(AI) - Starter",
+                  "name": t("lms.jsonLd.offerName"),
                   "price": "0",
                   "priceCurrency": "KRW",
-                  "description": "도입 상담 후 맞춤 견적 제공",
+                  "description": t("lms.jsonLd.offerDesc"),
                   "url": `${BASE_URL}/lms`
                 }
               ],
-              "featureList": [
-                "LMS 구축 · 학습관리시스템",
-                "클라우드 LMS · 교육용 SaaS 솔루션",
-                "AI 기반 학습관리 · AI LMS",
-                "기업교육 LMS · 사내교육 시스템",
-                "멀티 디바이스 지원 (PC, 태블릿, 모바일)",
-                "비대면 교육 플랫폼",
-                "다국어 지원 (11개 언어)",
-                "KDT 정부지원훈련 인증 · HRD 교육시스템",
-                "맞춤형 LMS 개발 · 교육플랫폼 개발",
-                "B2B 교육 플랫폼",
-                "24/7 고객 지원"
-              ],
+              "featureList": t("lms.jsonLd.featureList", { returnObjects: true }),
               "additionalProperty": {
                 "@type": "PropertyValue",
                 "name": "clientCount",
@@ -134,18 +122,18 @@ export default function LmsPage() {
             },
             {
               "@type": "Product",
-              "name": "웹헤즈 LMS 구독",
-              "description": "이러닝 솔루션 · 온라인 교육 플랫폼 구축 및 운영을 위한 학습관리시스템 (LMS). 클라우드 LMS, AI 기반 학습관리, 맞춤형 LMS 개발.",
+              "name": t("lms.jsonLd.productName"),
+              "description": t("lms.jsonLd.productDesc"),
               "brand": {
                 "@type": "Brand",
-                "name": "웹헤즈 (Webheads)"
+                "name": t("lms.jsonLd.brandName")
               },
               "offers": {
                 "@type": "AggregateOffer",
                 "priceCurrency": "KRW",
                 "offerCount": "2",
                 "lowPrice": "0",
-                "description": "웹헤즈 Light, 웹헤즈 PRO 2가지 솔루션"
+                "description": t("lms.jsonLd.aggregateOfferDesc")
               },
               "additionalProperty": {
                 "@type": "PropertyValue",
@@ -157,15 +145,9 @@ export default function LmsPage() {
         }}
         faqJsonLd={faqs}
         howToJsonLd={{
-          name: "LMS 구축 절차",
-          description: "학습관리시스템(LMS)을 성공적으로 구축하는 단계별 프로세스입니다.",
-          steps: [
-            { name: "요구사항 분석", text: "교육 목표, 대상 학습자, 기존 시스템 현황을 분석하고 핵심 요구사항을 정의합니다." },
-            { name: "LMS 설계", text: "시스템 아키텍처, 데이터베이스, UI/UX를 설계하고 프로토타입을 제작합니다." },
-            { name: "개발 및 연동", text: "프론트엔드·백엔드 개발, HR/ERP 연동, 콘텐츠 플레이어 구축을 진행합니다." },
-            { name: "테스트 및 QA", text: "기능 테스트, 성능 테스트, 보안 점검, 사용자 수용 테스트(UAT)를 수행합니다." },
-            { name: "런칭 및 운영 지원", text: "무중단 배포 후 초기 운영 기간 집중 모니터링과 사용자 교육을 제공합니다." },
-          ],
+          name: t("lms.jsonLd.howToName"),
+          description: t("lms.jsonLd.howToDesc"),
+          steps: t("lms.jsonLd.howToSteps", { returnObjects: true }) as { name: string; text: string }[],
         }}
       />
 
