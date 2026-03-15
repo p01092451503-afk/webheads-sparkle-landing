@@ -24,8 +24,8 @@ export default function FloatingNav() {
       ? [{ to: "/sms-kakao", icon: Send, label: t("floatingNav.smsKakao"), className: glassBase }]
       : []),
     
-    ...(location.pathname !== "/overview"
-      ? [{ to: "/overview", icon: FileText, label: t("floatingNav.overview"), className: glassBase }]
+    ...(location.pathname !== "/"
+      ? [{ to: "/", icon: FileText, label: t("floatingNav.overview"), className: glassBase }]
       : []),
     ...(location.pathname !== "/blog"
       ? [{ to: "/blog", icon: BookOpen, label: t("floatingNav.insights"), className: glassBase }]
