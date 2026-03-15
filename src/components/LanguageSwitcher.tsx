@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { Globe } from "lucide-react";
 import { SUPPORTED_LOCALES } from "@/i18n/index";
@@ -10,9 +11,23 @@ interface LanguageSwitcherProps {
 export default function LanguageSwitcher({ scrolled = true }: LanguageSwitcherProps) {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
 
   const currentLocale = SUPPORTED_LOCALES.find((l) => l.code === i18n.language) || SUPPORTED_LOCALES[0];
+
+  const updatePos = useCallback(() => {
+    if (!btnRef.current) return;
+    const rect = btnRef.current.getBoundingClientRect();
+    const dropdownH = 3 * 44; // approx 3 items
+    const spaceBelow = window.innerHeight - rect.bottom;
+    if (spaceBelow > dropdownH + 8) {
+      setPos({ top: rect.bottom + 6, left: Math.max(8, rect.right - 160) });
+    } else {
+      setPos({ top: rect.top - dropdownH - 6, left: Math.max(8, rect.right - 160) });
+    }
+  }, []);
 
   const switchLanguage = async (code: string) => {
     setOpen(false);
@@ -23,18 +38,24 @@ export default function LanguageSwitcher({ scrolled = true }: LanguageSwitcherPr
     i18n.changeLanguage(code);
   };
 
-  // Close on outside click
   useEffect(() => {
+    if (!open) return;
+    updatePos();
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+      if (
+        btnRef.current?.contains(e.target as Node) ||
+        dropdownRef.current?.contains(e.target as Node)
+      ) return;
+      setOpen(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  }, []);
+  }, [open, updatePos]);
 
   return (
-    <div className="relative" ref={ref}>
+    <>
       <button
+        ref={btnRef}
         onClick={() => setOpen(!open)}
         className={`flex items-center gap-1.5 h-9 px-2.5 rounded-full transition-colors duration-200 ${
           scrolled
@@ -47,8 +68,12 @@ export default function LanguageSwitcher({ scrolled = true }: LanguageSwitcherPr
         <span className="text-xs font-bold tracking-wide">{currentLocale.short}</span>
       </button>
 
-      {open && (
-        <div className="absolute right-0 bottom-full mb-1.5 w-40 rounded-xl border border-border bg-background shadow-lg overflow-hidden z-50 animate-in fade-in slide-in-from-bottom-2 duration-150">
+      {open && pos && createPortal(
+        <div
+          ref={dropdownRef}
+          className="fixed w-40 rounded-xl border border-border bg-background shadow-lg overflow-hidden z-[9999] animate-in fade-in zoom-in-95 duration-150"
+          style={{ top: pos.top, left: pos.left }}
+        >
           {SUPPORTED_LOCALES.map((locale) => (
             <button
               key={locale.code}
@@ -63,8 +88,9 @@ export default function LanguageSwitcher({ scrolled = true }: LanguageSwitcherPr
               <span>{locale.label}</span>
             </button>
           ))}
-        </div>
+        </div>,
+        document.body
       )}
-    </div>
+    </>
   );
 }
