@@ -433,6 +433,16 @@ function CompanyProfileSection() {
               <p>• <strong className="text-foreground">Infra:</strong> AWS, NCP, IDC (LG U+ 가산센터)</p>
               <p>• <strong className="text-foreground">OS:</strong> Linux / Apache 2.0 / MySQL · MariaDB</p>
             </div>
+            <div className="mt-3 pt-3 border-t border-border">
+              <p className="text-[10px] font-semibold text-primary/70 uppercase tracking-wider mb-2">This Website</p>
+              <div className="space-y-2 text-xs text-muted-foreground">
+                <p>• <strong className="text-foreground">Frontend:</strong> React 18 + TypeScript + Vite</p>
+                <p>• <strong className="text-foreground">UI:</strong> Tailwind CSS + shadcn/ui + Framer Motion</p>
+                <p>• <strong className="text-foreground">Backend:</strong> Supabase (Edge Functions · PostgreSQL)</p>
+                <p>• <strong className="text-foreground">AI:</strong> Lovable 바이브코딩으로 설계·개발</p>
+                <p>• <strong className="text-foreground">Hosting:</strong> Lovable Cloud (CDN · Auto Deploy)</p>
+              </div>
+            </div>
           </div>
           <div className="rounded-2xl bg-white border border-border shadow-sm p-5">
             <h4 className="font-bold text-sm text-foreground mb-3 flex items-center gap-2">
