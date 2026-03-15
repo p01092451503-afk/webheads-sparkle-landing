@@ -17,7 +17,7 @@ import CompetitorComparison from "@/components/lms/CompetitorComparison";
 import DeviceFriendlySection from "@/components/lms/DeviceFriendlySection";
 import CostSimulator from "@/components/lms/CostSimulator";
 import {
-  Cloud, Server, Zap,
+  Monitor, Cloud, Server, Zap, Palette,
   Languages, Lock, Link2, Wrench, Brain, Subtitles, MessageSquare,
   ClipboardCheck, PenTool, Code, Search, FileCheck, Headphones,
   DollarSign, Users, Bell, GraduationCap,
