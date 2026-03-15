@@ -283,7 +283,7 @@ export default function LmsPage() {
       {/* ═══ Mid CTA #2 — 기능 확인 후 전환 유도 ═══ */}
       <ServiceMidCTA heading={t("lms.midCTA2.heading")} description={t("lms.midCTA2.description")} ctaText={t("lms.midCTA2.ctaText")} />
 
-      {/* ═══ 10. Solutions — Light vs PRO ═══ */}
+      {/* ═══ 8. Solutions — Light vs PRO ═══ */}
       <section id="solutions" className="py-16 md:py-28 bg-background">
         <div className="container mx-auto px-5 md:px-6 max-w-7xl">
           <div className="mb-10 md:mb-16">
