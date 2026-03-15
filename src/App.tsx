@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import ScrollToTop from "./components/ScrollToTop";
 import Footer from "./components/Footer";
 import FloatingNav from "./components/FloatingNav";
+import ScrollArrows from "./components/ScrollArrows";
 import ChatbotPanel from "./components/ChatbotPanel";
 import CookieConsent from "./components/CookieConsent";
 
@@ -54,6 +55,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <main>{children}</main>
       {!isAdmin && <Footer />}
       {!isAdmin && <FloatingNav />}
+      {!isAdmin && <ScrollArrows />}
       {!isAdmin && <ChatbotPanel />}
       {!isAdmin && <CookieConsent />}
     </>
