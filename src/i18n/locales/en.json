@@ -1064,6 +1064,10 @@
       "government": { "badge": "Government & Public Sector", "title": "Certified E-Learning\nPlatform for Government", "titleHighlight": "HRD-Specialized LMS", "desc": "Registered government procurement vendor. Full compliance with security infrastructure and privacy regulations, with HRD-Net auto-integration.", "cta1": "Government Consultation", "highlightBadge": "Gov. Procurement Registered" }
     },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "WEBHEADS LMS", "desc": "WEBHEADS LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Add-on services matter too", "ctaWhy": "Why WEBHEADS LMS?" },
+    "heroSlides": [
+      { "title": "Your First Step to Success,", "titleHighlight": "WEBHEADS LMS", "desc": "WEBHEADS LMS integrates all online education processes — creation, management, and operation — into a single platform." },
+      { "title": "A Peaceful Morning Without System Worries,", "titleHighlight": "Start with WEBHEADS LMS.", "desc": "Tired of learner complaints from frequent errors and slow loading? Our overwhelming stability handles massive traffic with ease, lifting the burden off operators." }
+    ],
     "whyWebheads": {
       "title": "Why Choose\nWEBHEADS LMS?",
       "desc": "Trusted by 300+ companies over 16 years — discover what makes WEBHEADS the proven leader in e-learning.",
