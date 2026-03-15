@@ -1038,6 +1038,31 @@
   },
   "lms": {
     "seo": { "title": "WEBHEADS LMS | E-Learning Solution & Learning Management System", "description": "Build and operate your LMS with WEBHEADS, trusted by 300+ companies. Cloud LMS, AI-powered learning management, custom online education platform. Free consultation.", "keywords": "LMS, e-learning solution, learning management system, online education platform, cloud LMS, AI LMS, corporate training LMS, custom LMS development, e-learning system, B2B education platform, WEBHEADS LMS, ai-lms, HRD education system, SaaS LMS, AI chatbot" },
+    "jsonLd": {
+      "softwareName": "WEBHEADS LMS - E-Learning Solution & Learning Management System",
+      "alternateNames": ["Webheads LMS", "WEBHEADS Learning Management System", "AI LMS"],
+      "offerName": "Cloud (AI) - Starter",
+      "offerDesc": "Custom quote after consultation",
+      "featureList": ["LMS Development & Learning Management System", "Cloud LMS & SaaS Education Solution", "AI-Powered Learning Management", "Corporate Training LMS", "Multi-device Support (PC, Tablet, Mobile)", "Remote Education Platform", "Multi-language Support (11 Languages)", "KDT Government-funded Training", "Custom LMS Development", "B2B Education Platform", "24/7 Customer Support"],
+      "productName": "WEBHEADS LMS Subscription",
+      "productDesc": "Learning Management System (LMS) for building and operating e-learning solutions and online education platforms. Cloud LMS, AI-powered learning management, custom LMS development.",
+      "brandName": "WEBHEADS",
+      "aggregateOfferDesc": "WEBHEADS Light and WEBHEADS PRO — 2 solutions",
+      "howToName": "LMS Implementation Process",
+      "howToDesc": "Step-by-step process for successfully building a Learning Management System (LMS).",
+      "howToSteps": [
+        { "name": "Requirements Analysis", "text": "Analyze education goals, target learners, and existing systems to define core requirements." },
+        { "name": "LMS Design", "text": "Design system architecture, database, and UI/UX, then create prototypes." },
+        { "name": "Development & Integration", "text": "Frontend/backend development, HR/ERP integration, and content player implementation." },
+        { "name": "Testing & QA", "text": "Perform functional testing, performance testing, security checks, and UAT." },
+        { "name": "Launch & Support", "text": "Zero-downtime deployment followed by intensive monitoring and user training." }
+      ]
+    },
+    "industryVariants": {
+      "university": { "badge": "Universities & Institutions", "title": "A New Standard for\nUniversity Online Education", "titleHighlight": "Continuing Education LMS", "desc": "Officially certified for KDT government-funded training. One-stop solution from student management to certificate issuance and PG payments.", "cta1": "University Consultation", "highlightBadge": "KDT Certified" },
+      "enterprise": { "badge": "Corporate HRD & Training", "title": "Cut Training Costs\nby 40%", "titleHighlight": "Corporate Training LMS", "desc": "AI learning nudges, auto-completion processing, and HR/ERP integration. From enterprises to startups.", "cta1": "Enterprise Consultation", "highlightBadge": "Avg. 40% Cost Savings" },
+      "government": { "badge": "Government & Public Sector", "title": "Certified E-Learning\nPlatform for Government", "titleHighlight": "HRD-Specialized LMS", "desc": "Registered government procurement vendor. Full compliance with security infrastructure and privacy regulations, with HRD-Net auto-integration.", "cta1": "Government Consultation", "highlightBadge": "Gov. Procurement Registered" }
+    },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "Your First Step to Success,", "titleHighlight": "WEBHEADS LMS", "desc": "WEBHEADS LMS integrates all online education processes — creation, management, and operation — into a single platform.", "cta1": "Get Started", "cta2": "Compare Solutions", "ctaEcosystem": "Add-on services matter too", "ctaWhy": "Why WEBHEADS LMS?" },
     "whyWebheads": {
       "title": "Why Choose\nWEBHEADS LMS?",

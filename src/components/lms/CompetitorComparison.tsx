@@ -5,14 +5,21 @@ function StatusText({ value, bold = true }: { value: string; bold?: boolean }) {
   const lang = i18n.language;
   const weight = bold ? "font-bold" : "font-normal";
 
+  const labels: Record<string, Record<string, string>> = {
+    ko: { O: "기본 제공", X: "불가", "△": "제한적" },
+    en: { O: "Included", X: "N/A", "△": "Limited" },
+    ja: { O: "標準提供", X: "不可", "△": "制限的" },
+  };
+  const l = lang?.startsWith("ja") ? "ja" : lang?.startsWith("ko") ? "ko" : "en";
+
   if (value === "O") {
-    return <span className={`text-sm ${weight} text-primary mx-auto block text-center`}>{lang === "ko" ? "기본 제공" : "Included"}</span>;
+    return <span className={`text-sm ${weight} text-primary mx-auto block text-center`}>{labels[l]["O"]}</span>;
   }
   if (value === "X") {
-    return <span className={`text-sm ${weight} text-destructive/50 mx-auto block text-center`}>{lang === "ko" ? "불가" : "N/A"}</span>;
+    return <span className={`text-sm ${weight} text-destructive/50 mx-auto block text-center`}>{labels[l]["X"]}</span>;
   }
   if (value === "△") {
-    return <span className={`text-sm ${weight} text-muted-foreground mx-auto block text-center`}>{lang === "ko" ? "제한적" : "Limited"}</span>;
+    return <span className={`text-sm ${weight} text-muted-foreground mx-auto block text-center`}>{labels[l]["△"]}</span>;
   }
   return <span className={`text-sm ${weight} text-foreground text-center block`}>{value}</span>;
 }

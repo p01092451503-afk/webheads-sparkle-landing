@@ -1049,6 +1049,31 @@
   },
   "lms": {
     "seo": { "title": "웹헤즈 LMS | 이러닝 솔루션 · 학습관리시스템 구축", "description": "LMS 구축부터 운영까지, 300+ 기업이 신뢰하는 웹헤즈 이러닝 솔루션. 클라우드 LMS, AI 기반 학습관리, 맞춤형 온라인 교육 플랫폼을 제공합니다. 무료 도입 상담.", "keywords": "LMS, LMS 구축, LMS 솔루션, LMS 플랫폼, LMS 시스템, LMS 개발, 이러닝 플랫폼, 교육 플랫폼, 온라인 강의 플랫폼, 교육 시스템, LMS 동영상 강의, LMS 시험 시스템, LMS 진도관리, LMS 출석관리, LMS 학습관리, LMS 평가 시스템, 교육 콘텐츠 관리, 교육 플랫폼 기능, 강의 플랫폼 기능, LMS 관리자 기능, 학습 분석 LMS, AI LMS, LMS 자동 채점, LMS 리포트 기능, LMS 통계 시스템, 이러닝 솔루션, 학습관리시스템, 온라인 교육 플랫폼, 기업교육 LMS, 사내교육 시스템, 클라우드 LMS, 교육관리 솔루션, 교육플랫폼 개발, LMS 솔루션 비교, 이러닝 플랫폼 추천, LMS 도입 비용, HRD 교육시스템 구축, 비대면 교육 플랫폼, AI 기반 학습관리, 직무교육 플랫폼, 맞춤형 LMS 개발, 국내 LMS, 한국 이러닝 솔루션, B2B 교육 플랫폼, LMS 프로그램" },
+    "jsonLd": {
+      "softwareName": "웹헤즈 LMS - 이러닝 솔루션 · 학습관리시스템",
+      "alternateNames": ["Webheads LMS", "웹헤즈 학습관리시스템", "AI LMS"],
+      "offerName": "클라우드형(AI) - Starter",
+      "offerDesc": "도입 상담 후 맞춤 견적 제공",
+      "featureList": ["LMS 구축 · 학습관리시스템", "클라우드 LMS · 교육용 SaaS 솔루션", "AI 기반 학습관리 · AI LMS", "기업교육 LMS · 사내교육 시스템", "멀티 디바이스 지원 (PC, 태블릿, 모바일)", "비대면 교육 플랫폼", "다국어 지원 (11개 언어)", "KDT 정부지원훈련 인증 · HRD 교육시스템", "맞춤형 LMS 개발 · 교육플랫폼 개발", "B2B 교육 플랫폼", "24/7 고객 지원"],
+      "productName": "웹헤즈 LMS 구독",
+      "productDesc": "이러닝 솔루션 · 온라인 교육 플랫폼 구축 및 운영을 위한 학습관리시스템 (LMS). 클라우드 LMS, AI 기반 학습관리, 맞춤형 LMS 개발.",
+      "brandName": "웹헤즈 (Webheads)",
+      "aggregateOfferDesc": "웹헤즈 Light, 웹헤즈 PRO 2가지 솔루션",
+      "howToName": "LMS 구축 절차",
+      "howToDesc": "학습관리시스템(LMS)을 성공적으로 구축하는 단계별 프로세스입니다.",
+      "howToSteps": [
+        { "name": "요구사항 분석", "text": "교육 목표, 대상 학습자, 기존 시스템 현황을 분석하고 핵심 요구사항을 정의합니다." },
+        { "name": "LMS 설계", "text": "시스템 아키텍처, 데이터베이스, UI/UX를 설계하고 프로토타입을 제작합니다." },
+        { "name": "개발 및 연동", "text": "프론트엔드·백엔드 개발, HR/ERP 연동, 콘텐츠 플레이어 구축을 진행합니다." },
+        { "name": "테스트 및 QA", "text": "기능 테스트, 성능 테스트, 보안 점검, 사용자 수용 테스트(UAT)를 수행합니다." },
+        { "name": "런칭 및 운영 지원", "text": "무중단 배포 후 초기 운영 기간 집중 모니터링과 사용자 교육을 제공합니다." }
+      ]
+    },
+    "industryVariants": {
+      "university": { "badge": "대학 · 교육기관 전용", "title": "대학 온라인 교육의\n새로운 기준", "titleHighlight": "평생교육원 LMS", "desc": "KDT 정부지원훈련 공식 인증. 수강생 관리부터 수료증 발급, PG 결제까지 원스톱.", "cta1": "대학 도입 상담", "highlightBadge": "KDT 공식 인증" },
+      "enterprise": { "badge": "기업 HRD · 사내교육", "title": "사내교육 운영비\n40% 절감", "titleHighlight": "기업교육 LMS", "desc": "AI 학습 독려, 자동 수료 처리, 인사시스템(ERP) 연동. 대기업부터 스타트업까지.", "cta1": "기업 도입 상담", "highlightBadge": "평균 40% 비용 절감" },
+      "government": { "badge": "정부기관 · 공공기관", "title": "공공기관 인증\n이러닝 플랫폼", "titleHighlight": "HRD 전문 LMS", "desc": "조달청 등록 업체. 보안 인프라, 개인정보보호법 완전 준수, HRD-Net 자동 연동.", "cta1": "공공기관 도입 상담", "highlightBadge": "조달청 등록" }
+    },
     "hero": { "badge": "WEBHEADS Intelligence LMS", "title": "사업 성공을 위한 첫걸음,", "titleHighlight": "웹헤즈 LMS", "desc": "복잡한 시스템 구축과 운영의 짐을 내려놓으세요. 오랜 시간 다듬어진 웹헤즈의 올인원 LMS 솔루션이 가장 매끄럽고 완벽한 온라인 교육 환경을 제공합니다.", "cta1": "도입 문의", "cta2": "솔루션 비교", "ctaEcosystem": "LMS 외 부가서비스도 중요합니다", "ctaWhy": "왜 웹헤즈 LMS?" },
     "whyWebheads": {
       "title": "왜 웹헤즈 LMS를\n선택해야 할까요?",
