@@ -626,7 +626,7 @@ export default function CostSimulator() {
             onClick={() => resultCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
             className="shrink-0 ml-3 flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-white border border-white/40 hover:bg-white/15 transition-colors"
           >
-            상세 보기 <ChevronUp className="w-3.5 h-3.5" />
+            {t("costSim.mobileDetail")} <ChevronUp className="w-3.5 h-3.5" />
           </button>
         </div>
       )}
