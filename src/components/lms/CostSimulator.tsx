@@ -488,19 +488,19 @@ export default function CostSimulator() {
                           if (!hasDetails) return null;
                           return (
                             <div className="mt-2 mb-4">
-                              <button onClick={() => setDetailOpen(!detailOpen)} className="flex items-center gap-1 text-xs font-semibold text-white/70 hover:text-white/90 transition-colors">
-                                금액 상세 보기
-                                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${detailOpen ? "rotate-180" : ""}`} />
-                              </button>
-                              {detailOpen && (
-                                <div className="mt-2 rounded-xl p-3 space-y-1.5 text-xs text-white/80" style={{ background: "rgba(255,255,255,0.1)" }}>
-                                  <div className="flex justify-between"><span>기본 플랜 요금</span><span className="tabular-nums font-semibold">{formatPrice(isAnnual ? Math.round(bestPlan.monthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.monthly)}원</span></div>
-                                  {bestPlan.overageCdn > 0 && <div className="flex justify-between"><span>CDN 초과 사용분</span><span className="tabular-nums font-semibold">+{formatPrice(bestPlan.overageCdn)}원</span></div>}
-                                  {bestPlan.overageStorage > 0 && <div className="flex justify-between"><span>저장공간 초과분</span><span className="tabular-nums font-semibold">+{formatPrice(bestPlan.overageStorage)}원</span></div>}
-                                  {secureAddon > 0 && <div className="flex justify-between"><span>보안 플레이어 (DRM)</span><span className="tabular-nums font-semibold">+{formatPrice(secureAddon)}원</span></div>}
-                                  {dedicatedAddon > 0 && <div className="flex justify-between"><span>단독 서버</span><span className="tabular-nums font-semibold">+{formatPrice(dedicatedAddon)}원</span></div>}
-                                  {isAnnual && <div className="flex justify-between text-green-300"><span>연간 계약 할인 (10%)</span><span className="tabular-nums font-semibold">-{formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT))}원</span></div>}
-                                  <div className="border-t border-white/20 pt-1.5 flex justify-between font-bold text-white"><span>월 납부 합계</span><span className="tabular-nums">{formatPrice(displayMonthly)}원</span></div>
+                               <button onClick={() => setDetailOpen(!detailOpen)} className="flex items-center gap-1 text-xs font-semibold text-white/70 hover:text-white/90 transition-colors">
+                                 {t("costSim.detailToggle")}
+                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${detailOpen ? "rotate-180" : ""}`} />
+                               </button>
+                               {detailOpen && (
+                                 <div className="mt-2 rounded-xl p-3 space-y-1.5 text-xs text-white/80" style={{ background: "rgba(255,255,255,0.1)" }}>
+                                   <div className="flex justify-between"><span>{t("costSim.detailBasePlan")}</span><span className="tabular-nums font-semibold">{currency(formatPrice(isAnnual ? Math.round(bestPlan.monthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.monthly))}</span></div>
+                                   {bestPlan.overageCdn > 0 && <div className="flex justify-between"><span>{t("costSim.detailCdnOverage")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(bestPlan.overageCdn))}</span></div>}
+                                   {bestPlan.overageStorage > 0 && <div className="flex justify-between"><span>{t("costSim.detailStorageOverage")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(bestPlan.overageStorage))}</span></div>}
+                                   {secureAddon > 0 && <div className="flex justify-between"><span>{t("costSim.detailSecurePlayer")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(secureAddon))}</span></div>}
+                                   {dedicatedAddon > 0 && <div className="flex justify-between"><span>{t("costSim.detailDedicatedServer")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(dedicatedAddon))}</span></div>}
+                                   {isAnnual && <div className="flex justify-between text-green-300"><span>{t("costSim.detailAnnualDiscount")}</span><span className="tabular-nums font-semibold">-{currency(formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT)))}</span></div>}
+                                   <div className="border-t border-white/20 pt-1.5 flex justify-between font-bold text-white"><span>{t("costSim.detailTotal")}</span><span className="tabular-nums">{currency(formatPrice(displayMonthly))}</span></div>
                                 </div>
                               )}
                             </div>
