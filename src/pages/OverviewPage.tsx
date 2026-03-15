@@ -427,24 +427,19 @@ function CompanyProfileSection() {
               <Code className="w-4 h-4" style={{ color: "hsl(255,75%,58%)" }} />
               기술 스택
             </h4>
-            <div className="space-y-2 text-xs text-muted-foreground">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-xs text-muted-foreground">
               <p>• <strong className="text-foreground">Backend:</strong> PHP, JAVA</p>
+              <p>• <strong className="text-foreground">Framework:</strong> React 18.3 + TypeScript 5 + Vite 5</p>
               <p>• <strong className="text-foreground">App:</strong> Flutter, React Native</p>
+              <p>• <strong className="text-foreground">UI / Style:</strong> Tailwind CSS 3.4 + shadcn/ui + Radix UI</p>
               <p>• <strong className="text-foreground">Infra:</strong> AWS, NCP, IDC (LG U+ 가산센터)</p>
+              <p>• <strong className="text-foreground">Animation:</strong> Framer Motion 11</p>
               <p>• <strong className="text-foreground">OS:</strong> Linux / Apache 2.0 / MySQL · MariaDB</p>
-            </div>
-            <div className="mt-3 pt-3 border-t border-border">
-              <p className="text-[10px] font-semibold text-primary/70 uppercase tracking-wider mb-2">This Website — Vibe Coding</p>
-              <div className="space-y-2 text-xs text-muted-foreground">
-                <p>• <strong className="text-foreground">Framework:</strong> React 18.3 + TypeScript 5 + Vite 5</p>
-                <p>• <strong className="text-foreground">UI / Style:</strong> Tailwind CSS 3.4 + shadcn/ui + Radix UI</p>
-                <p>• <strong className="text-foreground">Animation:</strong> Framer Motion 11</p>
-                <p>• <strong className="text-foreground">State / Data:</strong> TanStack React Query + React Hook Form + Zod</p>
-                <p>• <strong className="text-foreground">Routing:</strong> React Router 6 (SPA, Code Splitting)</p>
-                <p>• <strong className="text-foreground">i18n:</strong> i18next (KO · EN · JA, 비동기 로딩)</p>
-                <p>• <strong className="text-foreground">Backend:</strong> Supabase Edge Functions (Deno) · PostgreSQL · RLS</p>
-                <p>• <strong className="text-foreground">AI 챗봇:</strong> Google Gemini 2.5 Flash (Supabase Edge Function)</p>
-              </div>
+              <p>• <strong className="text-foreground">State / Data:</strong> TanStack React Query + React Hook Form + Zod</p>
+              <p>• <strong className="text-foreground">DB (Cloud):</strong> Supabase Edge Functions (Deno) · PostgreSQL · RLS</p>
+              <p>• <strong className="text-foreground">Routing:</strong> React Router 6 (SPA, Code Splitting)</p>
+              <p>• <strong className="text-foreground">AI 챗봇:</strong> Google Gemini 2.5 Flash (Edge Function)</p>
+              <p>• <strong className="text-foreground">i18n:</strong> i18next (KO · EN · JA, 비동기 로딩)</p>
             </div>
           </div>
         </div>
