@@ -26,7 +26,7 @@ import {
   Calculator
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useState, useMemo, useEffect, type ComponentType } from "react";
+import { useState, useMemo, useEffect, useCallback, type ComponentType } from "react";
 import { useSearchParams, useLocation, Link } from "react-router-dom";
 
 // ── i18n returnObjects type definitions ──
