@@ -261,6 +261,8 @@ export default function CostSimulator() {
                   <span>10{t("costSim.learnersUnit")}</span>
                   <span>2,000{t("costSim.learnersUnit")}</span>
                 </div>
+                <PlanZoneBar zones={LEARNER_ZONES} min={10} max={2000} />
+                <div className="h-3" />
               </div>
 
               {/* Storage GB slider */}
