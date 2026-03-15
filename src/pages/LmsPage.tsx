@@ -277,7 +277,7 @@ export default function LmsPage() {
       {/* ═══ 6. Device Friendly ═══ */}
       <DeviceFriendlySection />
 
-      {/* ═══ 9. Learner Journey Map ═══ */}
+      {/* ═══ 7. Learner Journey Map ═══ */}
       <LearnerJourneyMap />
 
       {/* ═══ Mid CTA #2 — 기능 확인 후 전환 유도 ═══ */}
