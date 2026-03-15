@@ -308,6 +308,8 @@ export default function CostSimulator() {
                   <span>1GB</span>
                   <span>500GB</span>
                 </div>
+                <PlanZoneBar zones={STORAGE_ZONES} min={1} max={500} />
+                <div className="h-3" />
                 <p className="text-[10px] text-muted-foreground mt-0.5">
                   {t("costSim.storageRef", { num: Math.round(storageInput / 0.3) } as TOptions)}
                 </p>
