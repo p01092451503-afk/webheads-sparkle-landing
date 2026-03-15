@@ -295,12 +295,12 @@ export default function LmsPage() {
             {/* Webheads Light */}
             <div className="rounded-3xl p-8 bg-background flex flex-col h-full transition-all duration-200 hover:-translate-y-1" style={{ border: "1px solid hsl(var(--border) / 0.5)", boxShadow: "0 4px 30px -8px hsl(var(--foreground) / 0.06)" }}>
               <div className="flex items-center gap-3.5 mb-5">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(245, 60%, 95%)" }}>
-                  <Cloud className="w-6 h-6" style={{ color: "hsl(245, 58%, 55%)" }} />
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: "hsl(var(--lms-light-accent-bg))" }}>
+                  <Cloud className="w-6 h-6" style={{ color: "hsl(var(--lms-light-accent))" }} />
                 </div>
                 <div>
                   <h3 className="font-bold text-foreground text-xl tracking-tight">{t("lms.light.name")}</h3>
-                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(245, 58%, 55%)" }}>{t("lms.light.subtitle")}</p>
+                  <p className="text-sm font-semibold mt-0.5" style={{ color: "hsl(var(--lms-light-accent))" }}>{t("lms.light.subtitle")}</p>
                 </div>
               </div>
               <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{t("lms.light.desc")}</p>
