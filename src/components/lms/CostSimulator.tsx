@@ -265,9 +265,9 @@ export default function CostSimulator() {
                         <TooltipTrigger>
                           <Info className="w-3.5 h-3.5 text-muted-foreground" />
                         </TooltipTrigger>
-                        <TooltipContent side="bottom" className="max-w-[240px] text-xs">
-                          <p>완강률이 높을수록 실제 영상 재생 횟수가 많아져 CDN 전송량이 증가합니다.</p>
-                          <p className="mt-1">예상 월 전송량 = 수강생 수 × 동영상 용량 × 완강률</p>
+                         <TooltipContent side="bottom" className="max-w-[240px] text-xs">
+                           <p>{t("costSim.completionHint1")}</p>
+                           <p className="mt-1">{t("costSim.completionHint2")}</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -300,7 +300,7 @@ export default function CostSimulator() {
                   <span>10%</span>
                   <span>100%</span>
                 </div>
-                <p className="text-[10px] text-muted-foreground mt-0.5 italic">완강률 {completionRate}% 기준, 수강생 1인당 월 {(storageInput * (completionRate / 100)).toFixed(1)}GB 전송 예상</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5 italic">{t("costSim.completionPerLearner", { rate: completionRate, gb: (storageInput * (completionRate / 100)).toFixed(1) } as TOptions)}</p>
               </div>
 
               {/* CDN toggle */}
@@ -395,12 +395,12 @@ export default function CostSimulator() {
                 const monthlySavings = bestPlan ? Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT) : 0;
                 return (
                   <>
-                    <p className={`text-[11px] font-semibold mt-1.5 pl-1 ${isAnnual ? 'text-green-600' : 'text-muted-foreground'}`}>
-                      연간 계약 시 월 {formatPrice(monthlySavings)}원 절약
-                    </p>
-                    <p className="text-[10px] text-muted-foreground mt-0.5 pl-1">
-                      연간 계약 시 12개월 기준 총 {formatPrice(monthlySavings * 12)}원을 절약할 수 있습니다.
-                    </p>
+                     <p className={`text-[11px] font-semibold mt-1.5 pl-1 ${isAnnual ? 'text-green-600' : 'text-muted-foreground'}`}>
+                       {t("costSim.annualSavingsMonthly", { amount: formatPrice(monthlySavings) } as TOptions)}
+                     </p>
+                     <p className="text-[10px] text-muted-foreground mt-0.5 pl-1">
+                       {t("costSim.annualSavingsTotal", { amount: formatPrice(monthlySavings * 12) } as TOptions)}
+                     </p>
                   </>
                 );
               })()}
@@ -433,19 +433,19 @@ export default function CostSimulator() {
                     const savingsAmount = competitorEstimate - displayMonthly;
                     return savingsAmount > 0 ? (
                       <>
-                        <div className="mb-1 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
-                          <TrendingUp className="w-4 h-4 shrink-0" />
-                          경쟁사 동일 사양 평균 대비 월 {formatPrice(savingsAmount)}원 절약
+                         <div className="mb-1 inline-flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm" style={{ background: "#FEE500", color: "#1a1a1a" }}>
+                           <TrendingUp className="w-4 h-4 shrink-0" />
+                           {t("costSim.competitorSavings", { amount: formatPrice(savingsAmount) } as TOptions)}
                         </div>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <p className="text-[11px] mb-4 pl-1 cursor-help" style={{ color: "rgba(255,255,255,0.6)" }}>
-                                {COMPETITOR_LABEL}
-                              </p>
-                            </TooltipTrigger>
-                            <TooltipContent side="bottom" className="max-w-[280px] text-xs">
-                              {COMPETITOR_NOTE}
+                         <TooltipProvider>
+                           <Tooltip>
+                             <TooltipTrigger asChild>
+                               <p className="text-[11px] mb-4 pl-1 cursor-help" style={{ color: "rgba(255,255,255,0.6)" }}>
+                                 {t("costSim.competitorLabel")}
+                               </p>
+                             </TooltipTrigger>
+                             <TooltipContent side="bottom" className="max-w-[280px] text-xs">
+                               {t("costSim.competitorNote")}
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -467,11 +467,11 @@ export default function CostSimulator() {
                     const displayMonthly = isAnnual ? Math.round(bestPlan.totalMonthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.totalMonthly;
                     return (
                       <>
-                        <div className="flex items-end gap-1 mb-1">
-                          <span className="text-[11px] text-white/50 font-medium mr-1 mb-1">예상</span>
-                          <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(displayMonthly)}</span>
-                          <span className="text-white/70 text-base mb-1">{t("costSim.perMonth")}</span>
-                          <span className="text-[10px] text-white/40 mb-1.5 ml-1">(부가세 별도)</span>
+                         <div className="flex items-end gap-1 mb-1">
+                           <span className="text-[11px] text-white/50 font-medium mr-1 mb-1">{t("costSim.estimated")}</span>
+                           <span className="font-extrabold text-white text-4xl tabular-nums">{formatPrice(displayMonthly)}</span>
+                           <span className="text-white/70 text-base mb-1">{t("costSim.perMonth")}</span>
+                           <span className="text-[10px] text-white/40 mb-1.5 ml-1">{t("costSim.vatExcluded")}</span>
                         </div>
                         {isAnnual && (
                           <div className="flex items-center gap-2 mb-2">
@@ -488,19 +488,19 @@ export default function CostSimulator() {
                           if (!hasDetails) return null;
                           return (
                             <div className="mt-2 mb-4">
-                              <button onClick={() => setDetailOpen(!detailOpen)} className="flex items-center gap-1 text-xs font-semibold text-white/70 hover:text-white/90 transition-colors">
-                                금액 상세 보기
-                                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${detailOpen ? "rotate-180" : ""}`} />
-                              </button>
-                              {detailOpen && (
-                                <div className="mt-2 rounded-xl p-3 space-y-1.5 text-xs text-white/80" style={{ background: "rgba(255,255,255,0.1)" }}>
-                                  <div className="flex justify-between"><span>기본 플랜 요금</span><span className="tabular-nums font-semibold">{formatPrice(isAnnual ? Math.round(bestPlan.monthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.monthly)}원</span></div>
-                                  {bestPlan.overageCdn > 0 && <div className="flex justify-between"><span>CDN 초과 사용분</span><span className="tabular-nums font-semibold">+{formatPrice(bestPlan.overageCdn)}원</span></div>}
-                                  {bestPlan.overageStorage > 0 && <div className="flex justify-between"><span>저장공간 초과분</span><span className="tabular-nums font-semibold">+{formatPrice(bestPlan.overageStorage)}원</span></div>}
-                                  {secureAddon > 0 && <div className="flex justify-between"><span>보안 플레이어 (DRM)</span><span className="tabular-nums font-semibold">+{formatPrice(secureAddon)}원</span></div>}
-                                  {dedicatedAddon > 0 && <div className="flex justify-between"><span>단독 서버</span><span className="tabular-nums font-semibold">+{formatPrice(dedicatedAddon)}원</span></div>}
-                                  {isAnnual && <div className="flex justify-between text-green-300"><span>연간 계약 할인 (10%)</span><span className="tabular-nums font-semibold">-{formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT))}원</span></div>}
-                                  <div className="border-t border-white/20 pt-1.5 flex justify-between font-bold text-white"><span>월 납부 합계</span><span className="tabular-nums">{formatPrice(displayMonthly)}원</span></div>
+                               <button onClick={() => setDetailOpen(!detailOpen)} className="flex items-center gap-1 text-xs font-semibold text-white/70 hover:text-white/90 transition-colors">
+                                 {t("costSim.detailToggle")}
+                                 <ChevronDown className={`w-3.5 h-3.5 transition-transform ${detailOpen ? "rotate-180" : ""}`} />
+                               </button>
+                               {detailOpen && (
+                                 <div className="mt-2 rounded-xl p-3 space-y-1.5 text-xs text-white/80" style={{ background: "rgba(255,255,255,0.1)" }}>
+                                   <div className="flex justify-between"><span>{t("costSim.detailBasePlan")}</span><span className="tabular-nums font-semibold">{currency(formatPrice(isAnnual ? Math.round(bestPlan.monthly * (1 - ANNUAL_DISCOUNT)) : bestPlan.monthly))}</span></div>
+                                   {bestPlan.overageCdn > 0 && <div className="flex justify-between"><span>{t("costSim.detailCdnOverage")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(bestPlan.overageCdn))}</span></div>}
+                                   {bestPlan.overageStorage > 0 && <div className="flex justify-between"><span>{t("costSim.detailStorageOverage")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(bestPlan.overageStorage))}</span></div>}
+                                   {secureAddon > 0 && <div className="flex justify-between"><span>{t("costSim.detailSecurePlayer")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(secureAddon))}</span></div>}
+                                   {dedicatedAddon > 0 && <div className="flex justify-between"><span>{t("costSim.detailDedicatedServer")}</span><span className="tabular-nums font-semibold">+{currency(formatPrice(dedicatedAddon))}</span></div>}
+                                   {isAnnual && <div className="flex justify-between text-green-300"><span>{t("costSim.detailAnnualDiscount")}</span><span className="tabular-nums font-semibold">-{currency(formatPrice(Math.round(bestPlan.totalMonthly * ANNUAL_DISCOUNT)))}</span></div>}
+                                   <div className="border-t border-white/20 pt-1.5 flex justify-between font-bold text-white"><span>{t("costSim.detailTotal")}</span><span className="tabular-nums">{currency(formatPrice(displayMonthly))}</span></div>
                                 </div>
                               )}
                             </div>
@@ -516,10 +516,10 @@ export default function CostSimulator() {
                   </a>
 
                   {/* Trust signal badge */}
-                  <div className="mt-3 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] text-white" style={{ background: "rgba(255,255,255,0.15)" }}>
-                    <CalendarCheck className="w-3.5 h-3.5 shrink-0 text-white/80" />
-                    <span>평균 응답 2시간 이내</span>
-                  </div>
+                   <div className="mt-3 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] text-white" style={{ background: "rgba(255,255,255,0.15)" }}>
+                     <CalendarCheck className="w-3.5 h-3.5 shrink-0 text-white/80" />
+                     <span>{t("costSim.trustBadge")}</span>
+                   </div>
                 </div>
               </div>
             )}
@@ -530,13 +530,13 @@ export default function CostSimulator() {
                 <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "hsl(var(--lms-primary) / 0.12)" }}>
                   <TrendingUp className="w-4 h-4" style={{ color: "hsl(var(--lms-primary))" }} />
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-foreground mb-1">
-                    전송량 기준 Plus 플랜 추천
-                  </p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    전송량 기준으로 보면 Plus 플랜이 월 {formatPrice(upgradeNudge.savings)}원 더 저렴합니다. Plus로 바꿔볼까요?
-                  </p>
+                 <div>
+                   <p className="text-sm font-bold text-foreground mb-1">
+                     {t("costSim.nudgeRecommendTitle")}
+                   </p>
+                   <p className="text-xs text-muted-foreground leading-relaxed">
+                     {t("costSim.nudgeRecommendDesc", { amount: formatPrice(upgradeNudge.savings) } as TOptions)}
+                   </p>
                 </div>
               </div>
             )}
@@ -553,7 +553,7 @@ export default function CostSimulator() {
                   const dedicatedAddon = (needsDedicatedServer && learners >= 500) ? DEDICATED_SERVER_COST : 0;
                   const overageOnly = plan.overageCdn + plan.overageStorage;
                   const isBest = plan.name === bestPlan?.name;
-                  const features = PLAN_KEY_FEATURES[plan.name] || [];
+                  const features = (t("costSim.planKeyFeatures." + plan.name, { returnObjects: true, defaultValue: [] }) as string[]) || [];
                   return (
                   <div
                     key={plan.name}
@@ -588,20 +588,20 @@ export default function CostSimulator() {
                     </div>
                     <div className="text-right shrink-0 flex flex-col items-end gap-2">
                       <div>
-                        <p className="text-base font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{lang === 'en' ? t("costSim.perMonth") : `/${lang === 'ja' ? '月' : '월'}`}</p>
+                        <p className="text-base font-bold text-foreground tabular-nums">{currency(formatPrice(isAnnual ? Math.round(plan.monthly * (1 - ANNUAL_DISCOUNT)) : plan.monthly))}{t("costSim.perMonth")}</p>
                         {isAnnual && (
                           <p className="text-xs text-muted-foreground line-through tabular-nums">{currency(formatPrice(plan.monthly))}</p>
                         )}
-                        {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">+ 보안플레이어 {currency(formatPrice(secureAddon))}</p>}
-                        {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">+ 단독서버 {currency(formatPrice(dedicatedAddon))}</p>}
-                        {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">+ 초과 {currency(formatPrice(overageOnly))}</p>}
+                         {secureAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums mt-0.5">{t("costSim.addonSecure")} {currency(formatPrice(secureAddon))}</p>}
+                         {dedicatedAddon > 0 && <p className="text-xs text-blue-500 font-medium tabular-nums">{t("costSim.addonDedicated")} {currency(formatPrice(dedicatedAddon))}</p>}
+                         {overageOnly > 0 && <p className="text-xs text-orange-500 font-medium tabular-nums">{t("costSim.addonOverage")} {currency(formatPrice(overageOnly))}</p>}
                       </div>
                       <a
                         href="#contact"
                         className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${isBest ? "text-white hover:opacity-90" : "border hover:bg-muted/50"}`}
                         style={isBest ? { background: "hsl(var(--lms-primary))" } : { borderColor: "hsl(var(--lms-primary))", color: "hsl(var(--lms-primary))" }}
                       >
-                        이 플랜으로 상담받기
+                        {t("costSim.consultPlan")}
                       </a>
                     </div>
                   </div>
@@ -620,13 +620,13 @@ export default function CostSimulator() {
       {isMobile && bestPlan && (
         <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:hidden" style={{ height: 64, background: "#6C40FF" }}>
           <div className="text-white min-w-0">
-            <p className="text-[12px] font-bold truncate">추천: {bestPlan.name} · {formatPrice(displayMonthlyGlobal)}원/월</p>
+            <p className="text-[12px] font-bold truncate">{t("costSim.mobileRecommend", { plan: bestPlan.name, price: formatPrice(displayMonthlyGlobal) } as TOptions)}</p>
           </div>
           <button
             onClick={() => resultCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
             className="shrink-0 ml-3 flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-white border border-white/40 hover:bg-white/15 transition-colors"
           >
-            상세 보기 <ChevronUp className="w-3.5 h-3.5" />
+            {t("costSim.mobileDetail")} <ChevronUp className="w-3.5 h-3.5" />
           </button>
         </div>
       )}
